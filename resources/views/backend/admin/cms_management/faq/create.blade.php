@@ -7,13 +7,13 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="cart-title">{{ __('Create Faq') }}</h4>
                     <x-backend.admin.button :datas="[
-                        'routeName' => 'setup.faq.index',
+                        'routeName' => 'cms.faq.index',
                         'label' => 'Back',
                         'permissions' => ['faq-list', 'faq-details', 'faq-delete', 'faq-status'],
                     ]" />
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('setup.faq.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('cms.faq.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="form-group">

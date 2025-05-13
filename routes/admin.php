@@ -1,45 +1,31 @@
 <?php
 
-use App\Http\Controllers\Backend\Admin\CMSManagement\OurConnectionController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Backend\Admin\AuditController;
 use App\Http\Controllers\Backend\Admin\TempFileController;
-use App\Http\Controllers\Backend\Admin\Setup\FaqController;
+use App\Http\Controllers\Backend\Admin\CMSManagement\FaqController;
 use App\Http\Controllers\Backend\Admin\Setup\CityController;
 use App\Http\Controllers\Backend\Admin\Setup\StateController;
 use App\Http\Controllers\Backend\Admin\SiteSettingController;
 use App\Http\Controllers\Backend\Admin\AxiosRequestController;
 use App\Http\Controllers\Backend\Admin\DocumentationController;
 use App\Http\Controllers\Backend\Admin\Setup\CountryController;
-use App\Http\Controllers\Backend\Admin\HubManagement\HubController;
-use App\Http\Controllers\Backend\Admin\Setup\LatestOfferController;
 use App\Http\Controllers\Backend\Admin\Setup\OperationAreaController;
 use App\Http\Controllers\Backend\Admin\UserManagement\UserController;
 use App\Http\Controllers\Backend\Admin\AdminManagement\RoleController;
 use App\Http\Controllers\Backend\Admin\CMSManagement\BannerController;
 use App\Http\Controllers\Backend\Admin\AdminManagement\AdminController;
 use App\Http\Controllers\Backend\Admin\Setup\OperationSubAreaController;
-use App\Http\Controllers\Backend\Admin\ProductManagement\BrandController;
-use App\Http\Controllers\Backend\Admin\SellerManagement\SellerController;
-use App\Http\Controllers\Backend\Admin\CMSManagement\OfferBannerController;
 use App\Http\Controllers\Backend\Admin\AdminManagement\PermissionController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\CategoryController;
-use App\Http\Controllers\Backend\Admin\ProductManagement\AttributeController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\SubCategoryController;
-use App\Http\Controllers\Backend\Admin\ProductManagement\AttributeValueController;
 use App\Http\Controllers\Backend\Admin\Auth\LoginController as AdminLoginController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\SubChildCategoryController;
 use App\Http\Controllers\Backend\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Backend\Admin\AdminProfileContoller;
-use App\Models\Admin;
-use App\Models\Faq;
-use App\Http\Controllers\Backend\Admin\ProductManagement\TaxClassController;
-use App\Http\Controllers\Backend\Admin\ProductManagement\TaxRateController;
 use App\Http\Controllers\Backend\Admin\Auth\ForgotPasswordController as AdminForgotPasswordController;
-use App\Http\Controllers\Backend\Admin\Auth\ConfirmPasswordController as AdminConfirmPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminResetPasswordController;
-use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerificationController;
 
 // Admin Auth Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -143,15 +129,6 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
         //     Route::get('get-sub-areas', 'getSubAreas')->name('get-sub-areas');
         // });
 
-
-
-        // FAQ Routes
-        Route::resource('faq', FaqController::class);
-        Route::get('faq/status/{faq}', [FaqController::class, 'status'])->name('faq.status');
-        Route::get('faq/recycle/bin', [FaqController::class, 'recycleBin'])->name('faq.recycle-bin');
-        Route::get('faq/restore/{faq}', [FaqController::class, 'restore'])->name('faq.restore');
-        Route::delete('faq/permanent-delete/{faq}', [FaqController::class, 'permanentDelete'])->name('faq.permanent-delete');
-
         // Country Routes
         Route::resource('country', CountryController::class);
         Route::get('country/status/{country}', [CountryController::class, 'status'])->name('country.status');
@@ -224,9 +201,16 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
         Route::get('banner/recycle/bin', [BannerController::class, 'recycleBin'])->name('banner.recycle-bin');
         Route::get('banner/restore/{banner}', [BannerController::class, 'restore'])->name('banner.restore');
         Route::delete('banner/permanent-delete/{banner}', [BannerController::class, 'permanentDelete'])->name('banner.permanent-delete');
+
+        // FAQ Routes
+        Route::resource('faq', FaqController::class);
+        Route::get('faq/status/{faq}', [FaqController::class, 'status'])->name('faq.status');
+        Route::get('faq/recycle/bin', [FaqController::class, 'recycleBin'])->name('faq.recycle-bin');
+        Route::get('faq/restore/{faq}', [FaqController::class, 'restore'])->name('faq.restore');
+        Route::delete('faq/permanent-delete/{faq}', [FaqController::class, 'permanentDelete'])->name('faq.permanent-delete');
     });
 
-        // Product Management
+    // Product Management
     Route::group(['as' => 'pm.', 'prefix' => 'product-management'], function () {
         // Category Routes
         Route::resource('category', CategoryController::class);

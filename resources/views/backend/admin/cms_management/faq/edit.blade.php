@@ -7,13 +7,13 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="cart-title">{{ __('Edit Faq') }}</h4>
                     <x-backend.admin.button :datas="[
-                        'routeName' => 'setup.faq.index',
+                        'routeName' => 'cms.faq.index',
                         'label' => 'Back',
                         'permissions' => ['faq-list'],
                     ]" />
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('setup.faq.update', encrypt($faq->id)) }}" method="POST"
+                    <form action="{{ route('cms.faq.update', encrypt($faq->id)) }}" method="POST"
                         enctype="multipart/form-data">
                         @method('PUT')
                         @csrf

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Admin\Setup;
+namespace App\Http\Controllers\Backend\Admin\CMSManagement;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Setup\FaqRequest;
+use App\Http\Requests\Admin\CMS\FaqRequest;
 use App\Models\Faq;
 use Illuminate\Http\Request;
 use App\Models\Role;
@@ -62,7 +62,7 @@ class FaqController extends Controller
                 ->rawColumns(['type', 'status', 'creater_id', 'created_at', 'action'])
                 ->make(true);
         }
-        return view('backend.admin.setup.faq.index');
+        return view('backend.admin.cms_management.faq.index');
     }
 
     protected function menuItems($model): array
@@ -76,20 +76,20 @@ class FaqController extends Controller
                 'permissions' => ['faq-details']
             ],
             [
-                'routeName' => 'setup.faq.status',
+                'routeName' => 'cms.faq.status',
                 'params' => [encrypt($model->id)],
                 'label' => $model->status_btn_label,
                 'permissions' => ['faq-status']
             ],
             [
-                'routeName' => 'setup.faq.edit',
+                'routeName' => 'cms.faq.edit',
                 'params' => [encrypt($model->id)],
                 'label' => 'Edit',
                 'permissions' => ['faq-edit']
             ],
 
             [
-                'routeName' => 'setup.faq.destroy',
+                'routeName' => 'cms.faq.destroy',
                 'params' => [encrypt($model->id)],
                 'label' => 'Delete',
                 'delete' => true,
@@ -132,7 +132,7 @@ class FaqController extends Controller
                 ->rawColumns(['type',  'status',  'deleter_id', 'deleted_at', 'action'])
                 ->make(true);
         }
-        return view('backend.admin.setup.faq.recycle-bin');
+        return view('backend.admin.cms_management.faq.recycle-bin');
     }
 
 
@@ -141,13 +141,13 @@ class FaqController extends Controller
     {
         return [
             [
-                'routeName' => 'setup.faq.restore',
+                'routeName' => 'cms.faq.restore',
                 'params' => [encrypt($model->id)],
                 'label' => 'Restore',
                 'permissions' => ['admin-restore']
             ],
             [
-                'routeName' => 'setup.faq.permanent-delete',
+                'routeName' => 'cms.faq.permanent-delete',
                 'params' => [encrypt($model->id)],
                 'label' => 'Permanent Delete',
                 'p-delete' => true,
@@ -162,7 +162,7 @@ class FaqController extends Controller
      */
     public function create()
     {
-        return view('backend.admin.setup.faq.create');
+        return view('backend.admin.cms_management.faq.create');
     }
 
     /**
@@ -176,7 +176,7 @@ class FaqController extends Controller
         $validated['creater_type'] = get_class(admin());
         Faq::create($validated);
         session()->flash('success', 'FAQ created successfully!');
-        return redirect()->route('setup.faq.index');
+        return redirect()->route('cms.faq.index');
     }
 
     /**
@@ -194,7 +194,7 @@ class FaqController extends Controller
     public function edit(string $id)
     {
         $data['faq'] = Faq::findOrFail(decrypt($id));
-        return view('backend.admin.setup.faq.edit', $data);
+        return view('backend.admin.cms_management.faq.edit', $data);
     }
 
     /**
@@ -208,7 +208,7 @@ class FaqController extends Controller
         $faq = Faq::findOrFail(decrypt($id));
         $faq->update($validated);
         session()->flash('success', 'Faq updated successfully!');
-        return redirect()->route('setup.faq.index');
+        return redirect()->route('cms.faq.index');
     }
 
     /**
@@ -220,7 +220,7 @@ class FaqController extends Controller
         $faq->update(['deleter_id' => admin()->id, 'deleter_type' => get_class(admin())]);
         $faq->delete();
         session()->flash('success', 'FAQ deleted successfully!');
-        return redirect()->route('setup.faq.index');
+        return redirect()->route('cms.faq.index');
     }
 
     public function restore(string $id)
@@ -228,20 +228,20 @@ class FaqController extends Controller
         $faq = Faq::withTrashed()->findOrFail(decrypt($id));
         $faq->restore(['updater_id'=> admin()->id,'updater_type'=> get_class(admin())]);
         session()->flash('success', 'FAQ restored successfully!');
-        return redirect()->route('setup.faq.recycle-bin');
+        return redirect()->route('cms.faq.recycle-bin');
     }
     public function permanentDelete(string $id)
     {
         $faq = Faq::withTrashed()->findOrFail(decrypt($id));
         $faq->forceDelete();
         session()->flash('success', 'FAQ permanently deleted successfully!');
-        return redirect()->route('setup.faq.recycle-bin');
+        return redirect()->route('cms.faq.recycle-bin');
     }
     public function status(string $id)
     {
         $faq = Faq::findOrFail(decrypt($id));
         $faq->update(['status' => !$faq->status,'updater_id'=> admin()->id,'updater_type'=> get_class(admin())]);
         session()->flash('success', 'FAQ status updated successfully!');
-        return redirect()->route('setup.faq.index');
+        return redirect()->route('cms.faq.index');
     }
 }

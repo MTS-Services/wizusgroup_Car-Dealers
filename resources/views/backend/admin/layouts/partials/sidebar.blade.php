@@ -84,16 +84,14 @@
                         $page_slug == 'state' ||
                         $page_slug == 'city' ||
                         $page_slug == 'operation_area' ||
-                        $page_slug == 'operation_sub_area' ||
-                        $page_slug == 'faq') active submenu @endif">
+                        $page_slug == 'operation_sub_area') active submenu @endif">
                     <a data-bs-toggle="collapse" href="#setup_management"
                         @if (
                             $page_slug == 'country' ||
                                 $page_slug == 'state' ||
                                 $page_slug == 'city' ||
                                 $page_slug == 'operation_area' ||
-                                $page_slug == 'operation_sub_area' ||
-                                $page_slug == 'faq') aria-expanded="true" @endif>
+                                $page_slug == 'operation_sub_area') aria-expanded="true" @endif>
                         <i class="icon-people"></i>
                         <p>{{ __('Setup') }}</p>
                         <span class="caret"></span>
@@ -103,8 +101,7 @@
                             $page_slug == 'state' ||
                             $page_slug == 'city' ||
                             $page_slug == 'operation_area' ||
-                            $page_slug == 'operation_sub_area' ||
-                            $page_slug == 'faq') show @endif" id="setup_management">
+                            $page_slug == 'operation_sub_area') show @endif" id="setup_management">
                         <ul class="nav nav-collapse">
                             <li class="@if ($page_slug == 'country') active @endif">
                                 <a href="{{ route('setup.country.index') }}">
@@ -129,12 +126,6 @@
                             <li class="@if ($page_slug == 'operation_sub_area') active @endif">
                                 <a href="{{ route('setup.operation-sub-area.index') }}">
                                     <span class="sub-item">{{ __('Operation Sub Area') }}</span>
-                                </a>
-                            </li>
-
-                            <li class="@if ($page_slug == 'faq') active @endif">
-                                <a href="{{ route('setup.faq.index') }}">
-                                    <span class="sub-item">{{ __('Faq') }}</span>
                                 </a>
                             </li>
                         </ul>
@@ -165,6 +156,30 @@
                             <li class="@if ($page_slug == 'subchildcategory') active @endif">
                                 <a href="{{ route('pm.sub-child-category.index') }}">
                                     <span class="sub-item">{{ __('Sub Child Category') }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                {{-- CMS Management  --}}
+                <li class="nav-item  @if ($page_slug == 'banner' || $page_slug == 'faq') active submenu @endif">
+                    <a data-bs-toggle="collapse" href="#cms_management"
+                        @if ($page_slug == 'banner' || $page_slug == 'faq') aria-expanded="true" @endif>
+                        <i class="icon-people"></i>
+                        <p>{{ __('CMS Management') }}</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse @if ($page_slug == 'banner' || $page_slug == 'faq') show @endif" id="cms_management">
+                        <ul class="nav nav-collapse">
+                            <li class="@if ($page_slug == 'banner') active @endif">
+                                <a href="{{ route('cms.banner.index') }}">
+                                    <span class="sub-item">{{ __('Banner') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'faq') active @endif">
+                                <a href="{{ route('cms.faq.index') }}">
+                                    <span class="sub-item">{{ __('Faq') }}</span>
                                 </a>
                             </li>
                         </ul>

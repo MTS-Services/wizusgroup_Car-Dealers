@@ -8,7 +8,7 @@
                     <h4 class="cart-title">{{ __('Faq Recycle Bin') }}</h4>
                     <div class="buttons">
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'setup.faq.index',
+                            'routeName' => 'cms.faq.index',
                             'label' => 'Back',
                             'permissions' => ['faq-list'],
                         ]" />
@@ -53,7 +53,7 @@
                 table_columns: table_columns,
                 main_class: '.datatable',
                 displayLength: 10,
-                main_route: "{{ route('setup.faq.recycle-bin') }}",
+                main_route: "{{ route('cms.faq.recycle-bin') }}",
                 order_route: "{{ route('update.sort.order') }}",
                 export_columns: [0, 1, 2, 3, 4, 5, 6, 7],
                 model: 'Admin',

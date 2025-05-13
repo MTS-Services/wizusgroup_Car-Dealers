@@ -11,13 +11,13 @@
                     <h4 class="cart-title">{{ __('Faq List') }}</h4>
                     <div class="buttons">
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'setup.faq.recycle-bin',
+                            'routeName' => 'cms.faq.recycle-bin',
                             'label' => 'Recycle Bin',
                             'className' => 'btn-danger',
                             'permissions' => ['admin-restore'],
                         ]" />
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'setup.faq.create',
+                            'routeName' => 'cms.faq.create',
                             'label' => 'Add New',
                             'permissions' => ['faq-create'],
                         ]" />
@@ -65,7 +65,7 @@
                 table_columns: table_columns,
                 main_class: '.datatable',
                 displayLength: 10,
-                main_route: "{{ route('setup.faq.index') }}",
+                main_route: "{{ route('cms.faq.index') }}",
                 order_route: "{{ route('update.sort.order') }}",
                 export_columns: [0, 1, 2, 3, 4, 5, 6, 7],
                 model: 'Faq',
@@ -83,7 +83,7 @@
         // Event listener for viewing details
         $(document).on("click", ".view", function() {
             let id = $(this).data("id");
-            let route = "{{ route('setup.faq.show', ['id']) }}";
+            let route = "{{ route('cms.faq.show', ['id']) }}";
             const detailsUrl = route.replace("id", id);
             const headers = [
                 {
