@@ -6,12 +6,16 @@
                         class="w-28"></a>
             </div>
             <div class="navbar-center hidden lg:flex">
-                <ul class="menu menu-horizontal px-1">
-                    <li><a href="#">{{ __('Home') }}</a></li>
-                    <li><a href="#">{{ __('About Us') }}</a></li>
-                    <li><a href="#">{{ __('Products') }}</a></li>
-                    <li><a href="#">{{ __('Auctions') }}</a></li>
-                </ul>
+                <div class="flex items-center justify-center gap-2">
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+                        href="{{ url('/') }}">{{ __('Home') }}</a>
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+                        href="">{{ __('About Us') }}</a>
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+                        href="">{{ __('Products') }}</a>
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+                        href="">{{ __('Auctions') }}</a>
+                </div>
             </div>
             <div class="navbar-end flex items-center justify-end gap-3">
                 <span class="hidden lg:flex">

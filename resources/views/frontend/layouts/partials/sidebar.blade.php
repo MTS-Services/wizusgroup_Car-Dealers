@@ -1,9 +1,9 @@
 <!-- Sidebar -->
 <div
-    class="sidebar fixed top-0 right-0 min-h-screen h-full w-2/3 translate-x-0 transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-dark-secondary shadow-lg z-[99999999999] overflow-y-auto">
+    class="sidebar fixed top-0 right-0 min-h-screen h-full w-2/3 translate-x-full transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-dark-secondary shadow-lg z-[99999999999] overflow-y-auto">
 
     <div class="h-full p-5">
-        <div class="flex justify-end items-center pb-5">
+        <div class="flex justify-end items-center pb-2">
             {{-- <a href="{{ url('/') }}" class="">
                 <span class="dark-mode-logo hidden">
                     <img src="{{ asset('frontend/images/logo-light.png') }}" alt="Logo">
@@ -19,8 +19,6 @@
             </button>
         </div>
 
-        <div class="divider"></div>
-
         {{-- <div class="flex justify-between items-center py-5">
             <span
                 class="text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50">{{ __('Search Product') }}</span>
@@ -28,27 +26,24 @@
         </div> --}}
 
         <div class="mt-5 flex flex-col items-start justify-start">
-            <a href="{{ url('/') }}"
-                class="capitalize text-text-primary dark:text-text-white relative py-1.5 px-5">
-                {{ __('Home') }}
-            </a>
-            <a href="" class="capitalize text-text-primary dark:text-text-white relative py-1.5 px-5">
-                {{ __('About Us') }}
-            </a>
-            <a href="" class="capitalize text-text-primary dark:text-text-white relative py-1.5 px-5">
-                {{ __('Products') }}
-            </a>
-            <a href="" class="capitalize text-text-primary dark:text-text-white relative py-1.5 px-5">
-                {{ __('Auctions') }}
-            </a>
+            <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+                href="{{ url('/') }}">{{ __('Home') }}</a>
+            <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+                href="">{{ __('About Us') }}</a>
+            <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+                href="">{{ __('Products') }}</a>
+            <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+                href="">{{ __('Auctions') }}</a>
         </div>
 
-        <div class="border-t border-t-border-light py-5 mt-5">
+        <div class="divider my-2"></div>
+
+        <div class="pb-5">
 
             {{-- General Settings --}}
 
             <span
-                class="block text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50 mb-2">{{ __('Settings') }}</span>
+                class="block text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50 pb-3">{{ __('Settings') }}</span>
             <div class="pl-5">
                 <div class="flex items-center justify-between gap-2">
                     <span
@@ -62,9 +57,11 @@
                 </div>
             </div>
 
+            <div class="divider my-2"></div>
+
             {{-- Account Settings  --}}
             <span
-                class="block text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50 my-3">{{ __('Account') }}</span>
+                class="block text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50 pb-3">{{ __('Account') }}</span>
             <div class="pl-5">
                 @auth('web')
                     <a href="" class="flex items-center justify-between gap-2">
@@ -88,12 +85,4 @@
         </div>
 
     </div>
-    {{-- <ul class="menu p-0 pt-6">
-        <li><a href=""
-                class="text-lg px-10 text-c-light font-semibold rounded-none border-b border-b-c-primary transition-colors duration-300 hover:bg-c-light/5 hover:text-c-primary @if (isset($page_slug) && $page_slug == 'home')  @endif">Home</a>
-        </li>
-        <li><a href=""
-                class="text-lg px-10 text-c-light font-semibold rounded-none border-b border-b-c-primary transition-colors duration-300 hover:bg-c-light/5 hover:text-c-primary @if (isset($page_slug) && $page_slug == 'shop')  @endif">Shop</a>
-        </li>
-    </ul> --}}
 </div>

@@ -34,13 +34,15 @@ module.exports = {
       colors: {
         // Utility Tokens (Semantic Usage)
         text: {
-          primary: '#181C14',       // Replacing #1F2937 with a deeper gray
+          primary: '#181C14',
           secondary: '#084B9A',
+          tertiary: '#422AD5',
 
           light: '#F2F9FF',
           'light-secondary': '#FBFBFB',
 
           'dark': '#030303',
+          'dark-secondary': '#181C14',
 
           white: '#ffffff',
           black: '#000000',
@@ -51,6 +53,7 @@ module.exports = {
         bg: {
           primary: '#084B9A',
           secondary: '#181C14',
+          tertiary: '#422AD5',
 
           light: '#F2F9FF',
           'light-secondary': '#FBFBFB',
@@ -67,6 +70,7 @@ module.exports = {
         border: {
           primary: '#084B9A',
           secondary: '#181C14',
+          tertiary: '#422AD5',
 
           light: '#F2F9FF',
           'light-secondary': '#FBFBFB',
@@ -82,6 +86,7 @@ module.exports = {
         outline: {
           primary: '#084B9A',
           secondary: '#181C14',
+          tertiary: '#422AD5',
 
           light: '#F2F9FF',
           'light-secondary': '#FBFBFB',
@@ -97,6 +102,7 @@ module.exports = {
         focus: {
           primary: '#084B9A',
           secondary: '#181C14',
+          tertiary: '#422AD5',
 
           light: '#F2F9FF',
           'light-secondary': '#FBFBFB',
@@ -112,6 +118,7 @@ module.exports = {
         shadow: {
           primary: '#084B9A',
           secondary: '#181C14',
+          tertiary: '#422AD5',
 
           light: '#F2F9FF',
           'light-secondary': '#FBFBFB',
@@ -182,6 +189,9 @@ module.exports = {
         'gradient-light': 'linear-gradient(45deg, #EFEFFE 0%, #FFEFF6 100%)',
         'gradient-dark': 'linear-gradient(45deg, #2E2E4D 0%, #4D2E3C 100%)',
         'star': 'radial-gradient(circle, rgba(255, 255, 255, 0.8), transparent)',
+        'nav-border': 'linear-gradient( to bottom,  red,  rgba(0, 0, 0, 0) ) 1 100%',
+
+        // linear-gradient( to bottom,  red,  rgba(0, 0, 0, 0) ) 1 100%;
       },
       animation: {
         'fade-in': 'fadeIn 0.3s ease-in-out',
@@ -210,7 +220,7 @@ module.exports = {
         },
         'scalePulse': {
           '0%': { transform: 'scale(1)' },
-          '50%': { transform: 'scale(1.2)' },
+          '50%': { transform: 'scale(.8)' },
           '100%': { transform: 'scale(1)' },
         },
         'dotRotate': {

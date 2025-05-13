@@ -2,6 +2,8 @@ $(document).ready(function () {
   const $cursorWrapper = $('.cursor-wrapper');
   const $cursor = $('.custom-cursor');
 
+  $cursorWrapper.css('transform', 'translate(-100%, -100%)');
+
   // Move the wrapper with the mouse
   $(document).on('mousemove', function (e) {
     const x = e.clientX;
