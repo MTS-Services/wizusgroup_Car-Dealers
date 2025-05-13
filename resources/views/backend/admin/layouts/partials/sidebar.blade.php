@@ -4,7 +4,7 @@
         <div class="logo-header" data-background-color="dark">
             <a href="{{ route('admin.dashboard') }}" class="logo">
                 <div class="title_" style="line-height: 1; color: #fff;">
-                    {{ config('app.short_name', 'KaiAdmin') }}
+                    {{ __('Wiz Global') }}
                 </div>
             </a>
             <div class="nav-toggle">

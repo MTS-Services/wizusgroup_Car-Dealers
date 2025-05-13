@@ -34,11 +34,14 @@ module.exports = {
       colors: {
         // Utility Tokens (Semantic Usage)
         text: {
-          primary: '#292929',       // Replacing #1F2937 with a deeper gray
-          secondary: '#0A192F',     // Very dark navy for contrast
-          tertiary: '#8752FA',         // Lighter text accent
-          accent: '#8A2BE2',
-          light: '#9CA3AF',
+          primary: '#181C14',       // Replacing #1F2937 with a deeper gray
+          secondary: '#084B9A',
+
+          light: '#F2F9FF',
+          'light-secondary': '#FBFBFB',
+
+          'dark': '#030303',
+
           white: '#ffffff',
           black: '#000000',
           danger: '#DC2626',
@@ -46,16 +49,15 @@ module.exports = {
         },
 
         bg: {
-          primary: '#000AEE',       // Vivid blue
-          secondary: '#8A2BE2',     // Purple background
-          accent: '#8752FA',        // Violet background
-          light: '#FFFDF6',
-          lightSecondary: '#FBFBFB',
-          dark: '#2d2d2d',
-          darkSecondary: '#021526',
-          darkTertiary: '#222831',
-          darkQuaternary: '#212121',
-          gray: '#F3F4F6',
+          primary: '#084B9A',
+          secondary: '#181C14',
+
+          light: '#F2F9FF',
+          'light-secondary': '#FBFBFB',
+
+          'dark': '#030303',
+          'dark-secondary': '#181C14',
+
           white: '#ffffff',
           black: '#000000',
           danger: '#DC2626',
@@ -63,50 +65,62 @@ module.exports = {
         },
 
         border: {
-          primary: '#8752FA',
-          accent: '#8A2BE2',
-          dark: '#292929',
-          light: '#E5E7EB',
-          danger: '#DC2626',
+          primary: '#084B9A',
+          secondary: '#181C14',
+
+          light: '#F2F9FF',
+          'light-secondary': '#FBFBFB',
+
+          'dark': '#030303',
+
           white: '#ffffff',
           black: '#000000',
+          danger: '#DC2626',
           orange: "#ff6b6b",
         },
 
         outline: {
-          primary: '#8752FA',
-          secondary: '#8A2BE2',
-          accent: '#000AEE',
-          dark: '#292929',
-          danger: '#DC2626',
+          primary: '#084B9A',
+          secondary: '#181C14',
+
+          light: '#F2F9FF',
+          'light-secondary': '#FBFBFB',
+
+          'dark': '#030303',
+
           white: '#ffffff',
           black: '#000000',
+          danger: '#DC2626',
           orange: "#ff6b6b",
         },
 
         focus: {
-          primary: '#8A2BE2',
-          accent: '#8752FA',
-          dark: '#0A192F',
-          danger: '#DC2626',
+          primary: '#084B9A',
+          secondary: '#181C14',
+
+          light: '#F2F9FF',
+          'light-secondary': '#FBFBFB',
+
+          'dark': '#030303',
+
           white: '#ffffff',
           black: '#000000',
+          danger: '#DC2626',
           orange: "#ff6b6b",
         },
 
         shadow: {
-          primary: '#8A2BE2',
-          accent: '#8752FA',
-          dark: '#0A192F',
-          danger: '#DC2626',
+          primary: '#084B9A',
+          secondary: '#181C14',
+
+          light: '#F2F9FF',
+          'light-secondary': '#FBFBFB',
+
+          'dark': '#030303',
+
           white: '#ffffff',
           black: '#000000',
-          light: '#E5E7EB',
-          darkSecondary: '#021526',
-          darkTertiary: '#222831',
-          gray: '#F3F4F6',
-          lightSecondary: '#F9FAFB',
-          lightTertiary: '#F3F4F6',
+          danger: '#DC2626',
           orange: "#ff6b6b",
         }
       },

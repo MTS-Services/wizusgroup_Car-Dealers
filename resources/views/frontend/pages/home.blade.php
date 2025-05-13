@@ -3,7 +3,7 @@
 @section('title', 'Home')
 
 @section('content')
-    <p>
-        {{ __('Frontend Home Page') }}
-    </p>
+    <div class="min-h-screen">
+        Hello World
+    </div>
 @endsection
