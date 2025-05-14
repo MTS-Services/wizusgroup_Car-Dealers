@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Admin\AdminManagement;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PermissionRequest;
 use App\Models\Permission;
+use App\Services\Admin\AdminManagement\PermissionService;
 use Illuminate\Http\Request;
 use App\Http\Traits\DetailsCommonDataTrait;
 use Illuminate\Http\JsonResponse;
@@ -15,8 +16,10 @@ use Yajra\DataTables\Facades\DataTables;
 class PermissionController extends Controller
 {
     use DetailsCommonDataTrait;
-    public function __construct()
+    protected PermissionService $permissionService;
+    public function __construct( PermissionService $permissionService)
     {
+        $this->permissionService = $permissionService;
         $this->middleware('auth:admin');
         $this->middleware('permission:permission-list', ['only' => ['index']]);
         $this->middleware('permission:permission-details', ['only' => ['show']]);
@@ -35,9 +38,7 @@ class PermissionController extends Controller
     {
 
         if ($request->ajax()) {
-            $query = Permission::with('creater_admin')
-            ->orderBy('sort_order', 'asc')
-            ->latest();
+            $query = $this->permissionService->getPermissions()->with(['creater_admin']);
             return DataTables::eloquent($query)
                 ->editColumn('created_by', function ($permission) {
                     return $permission->creater_name;
@@ -82,14 +83,11 @@ class PermissionController extends Controller
         ];
     }
 
-       public function recycleBin(Request $request)
+    public function recycleBin(Request $request)
     {
 
         if ($request->ajax()) {
-            $query = Permission::with(['deleter_admin'])
-                ->onlyTrashed()
-                ->orderBy('sort_order', 'asc')
-                ->latest();
+            $query = $this->getPermissons()->onlyTrashed()->with('deleter_admin');
             return DataTables::eloquent($query)
                 ->editColumn('deleted_by', function ($permission) {
                     return $permission->deleter_name;
@@ -141,9 +139,7 @@ class PermissionController extends Controller
     public function store(PermissionRequest $request): RedirectResponse
     {
         $validated = $request->validated();
-        $validated['created_by'] = admin()->id;
-        $validated['guard_name'] = 'admin';
-        $permission = Permission::create($validated);
+        $permission = $this->permissionService->createPermission($validated);
         session()->flash('success', "$permission->name permission created successfully");
         return redirect()->route('am.permission.index');
     }
@@ -153,7 +149,8 @@ class PermissionController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $data = Permission::with(['creater_admin', 'updater_admin'])->findOrFail(decrypt($id));
+        $data = $this->permissionService->getPermission($id);
+        $data->load(['creater_admin', 'updater_admin']);
         return response()->json($data);
     }
 
@@ -162,7 +159,7 @@ class PermissionController extends Controller
      */
     public function edit(string $id): View
     {
-        $data['permission'] = Permission::findOrFail(decrypt($id));
+        $data['permission'] = $this->permissionService->getPermission($id);
         return view('backend.admin.admin_management.permission.edit', $data);
     }
 
@@ -171,11 +168,9 @@ class PermissionController extends Controller
      */
     public function update(PermissionRequest $request, string $id): RedirectResponse
     {
-        $permission = Permission::findOrFail(decrypt($id));
+        $permission = $this->permissionService->getPermission($id);
         $validated = $request->validated();
-        $validated['updated_by'] = admin()->id;
-        $validated['guard_name'] = 'admin';
-        $permission->update($validated);
+        $this->permissionService->updatePermission($permission, $validated);
         session()->flash('success', "$permission->name permission updated successfully");
         return redirect()->route('am.permission.index');
     }
@@ -185,18 +180,14 @@ class PermissionController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
-        $permission = Permission::findOrFail(decrypt($id));
-        $permission->update(['deleted_by' => admin()->id]);
-        $permission->delete();
+        $permission = $this->permissionService->delete($id);
         session()->flash('success', "$permission->name permission deleted successfully");
         return redirect()->route('am.permission.index');
     }
     public function restore(string $id): RedirectResponse
     {
-        $permission = Permission::onlyTrashed()->findOrFail(decrypt($id));
-        $permission->update(['updated_by' => admin()->id]);
-        $permission->restore();
-        session()->flash('success', 'Permission restored successfully!');
+        $permission = $this->permissionService->restore($id);
+        session()->flash('success', $permission->name . ' permission restored successfully!');
         return redirect()->route('am.permission.recycle-bin');
     }
 
@@ -208,8 +199,7 @@ class PermissionController extends Controller
      */
     public function permanentDelete(string $id): RedirectResponse
     {
-        $permission = Permission::onlyTrashed()->findOrFail(decrypt($id));
-        $permission->forceDelete();
+        $this->permissionService->permanentDelete($id);
         session()->flash('success', 'Permission permanently deleted successfully!');
         return redirect()->route('am.permission.recycle-bin');
     }

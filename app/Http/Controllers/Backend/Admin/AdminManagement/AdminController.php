@@ -5,21 +5,27 @@ namespace App\Http\Controllers\Backend\Admin\AdminManagement;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminRequest;
 use App\Models\Admin;
-use App\Http\Traits\DetailsCommonDataTrait;
 use App\Models\Role;
+use App\Services\Admin\AdminManagement\AdminService;
+use App\Services\Admin\AdminManagement\RoleService;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Traits\FileManagementTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 
+
 class AdminController extends Controller
 {
-    use FileManagementTrait, DetailsCommonDataTrait;
-    public function __construct()
+    protected AdminService $adminService;
+    protected RoleService $roleService;
+    public function __construct(AdminService $adminService, RoleService $roleService)
     {
+
+        $this->adminService = $adminService;
+        $this->roleService = $roleService;
+
         $this->middleware('auth:admin');
         $this->middleware('permission:admin-list', ['only' => ['index']]);
         $this->middleware('permission:admin-details', ['only' => ['show']]);
@@ -38,11 +44,7 @@ class AdminController extends Controller
     {
 
         if ($request->ajax()) {
-
-
-            $query = Admin::with(['creater_admin', 'role'])
-                ->orderBy('sort_order', 'asc')
-                ->latest();
+            $query = $this->adminService->getAdmins()->with(['creater_admin', 'role']);
             return DataTables::eloquent($query)
 
                 ->editColumn('first_name', function ($admin) {
@@ -108,7 +110,6 @@ class AdminController extends Controller
     }
 
 
-
     /**
      * Shows the list of soft deleted admins and also handles the Datatable AJAX request.
      *
@@ -119,14 +120,8 @@ class AdminController extends Controller
     {
 
         if ($request->ajax()) {
-
-
-            $query = Admin::with(['deleter_admin', 'role'])
-                ->onlyTrashed()
-                ->orderBy('sort_order', 'asc')
-                ->latest();
+            $query = $this->adminService->getAdmins()->onlyTrashed()->with(['deleter_admin', 'role']);
             return DataTables::eloquent($query)
-
                 ->editColumn('first_name', function ($admin) {
                     return $admin->full_name . ($admin->username ? " (" . $admin->username . ")" : "");
                 })
@@ -184,7 +179,7 @@ class AdminController extends Controller
      */
     public function create(): View
     {
-        $data['roles'] = Role::select(['id', 'name'])->latest()->get();
+        $data['roles'] = $this->roleService->getRoles()->select(['id','name'])->get();
         return view('backend.admin.admin_management.admin.create', $data);
     }
 
@@ -193,24 +188,15 @@ class AdminController extends Controller
      */
     public function store(AdminRequest $request): RedirectResponse
     {
-
-        DB::transaction(function () use ($request) {
-            try{
-                $validated= $request->validated();
-                $validated['role_id'] = $request->role;
-                $validated['created_by'] = admin()->id;
-
-                if (isset($request->image)) {
-                    $validated['image'] = $this->handleFilepondFileUpload(Admin::class, $request->image, admin(), 'admins/');
-                }
-                $admin = Admin::create($validated);
-                $admin->assignRole($admin->role->name);
-                session()->flash('success', 'Admin created successfully!');
-            } catch (\Throwable $e) {
-                session()->flash('error', 'Admin create failed!');
-                throw $e;
-            }
-        });
+         try {
+            $validated = $request->validated();
+            $validated['role_id'] = $request->role;
+            $this->adminService->createAdmin($validated, $request->image ?? null);
+            session()->flash('success', 'Admin created successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Admin create failed!');
+            throw $e;
+        }
         return redirect()->route('am.admin.index');
     }
 
@@ -219,7 +205,8 @@ class AdminController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $data = Admin::with(['creater_admin', 'updater_admin', 'role'])->findOrFail(decrypt($id));
+        $data = $this->adminService->getAdmin($id);
+        $data->load(['creater_admin', 'updater_admin','role']);
         return response()->json($data);
     }
 
@@ -228,8 +215,8 @@ class AdminController extends Controller
      */
     public function edit(string $id): View
     {
-        $data['admin'] = Admin::findOrFail(decrypt($id));
-        $data['roles'] = Role::select(['id', 'name'])->latest()->get();
+        $data['admin'] = $this->adminService->getAdmin($id);
+        $data['roles'] = $this->roleService->getRoles()->select('id','name')->get();
         return view('backend.admin.admin_management.admin.edit', $data);
     }
 
@@ -238,29 +225,16 @@ class AdminController extends Controller
      */
     public function update(AdminRequest $request, string $id): RedirectResponse
     {
-        $admin = Admin::findOrFail(decrypt($id));
-        if ($admin->role_id == 1 && $request->role != 1) {
-            session()->flash('error', 'Can not update Super Admin role!');
-            return redirect()->route('am.admin.index');
+        try {
+            $admin = $this->adminService->getAdmin($id);
+            $validated = $request->validated();
+            $validated['role_id'] = $request->role;
+            $this->adminService->updateAdmin($admin,$validated,  $request->image ?? null);
+            session()->flash('success', 'Admin updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Admin update failed!');
+            throw $e;
         }
-
-        DB::transaction(function () use ($request, $id, $admin) {
-            try {
-                $validated = $request->validated();
-                $validated['password'] = ($request->password ? $request->password : $admin->password);
-                if (isset($request->image)) {
-                    $validated['image'] = $this->handleFilepondFileUpload($admin, $request->image, admin(), 'admins/');
-                }
-                $validated['role_id'] = $request->role;
-                $validated['updated_by'] = admin()->id;
-                $admin->update($validated);
-                $admin->syncRoles($admin->role->name);
-                session()->flash('success', 'Admin updated successfully!');
-            } catch (\Throwable $e) {
-                session()->flash('error', 'Admin update failed!');
-                throw $e;
-            }
-        });
         return redirect()->route('am.admin.index');
     }
 
@@ -269,13 +243,12 @@ class AdminController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
-        $admin = Admin::with('role')->findOrFail(decrypt($id));
+        $admin = $this->getAdmin($id);
         if ($admin->role_id == 1) {
             session()->flash('error', 'Can not delete Super Admin!');
             return redirect()->route('am.admin.index');
         }
-        $admin->update(['deleted_by' => admin()->id]);
-        $admin->delete();
+        $this->adminService->delete( $admin);
         session()->flash('success', 'Admin move to recycle bin successfully!');
         return redirect()->route('am.admin.index');
     }
@@ -288,12 +261,12 @@ class AdminController extends Controller
      */
     public function status(string $id): RedirectResponse
     {
-        $admin = Admin::findOrFail(decrypt($id));
+        $admin = $this->adminService->getAdmin($id);
         if ($admin->role_id == 1) {
             session()->flash('error', 'Can not change Super Admin status!');
             return redirect()->route('am.admin.index');
         }
-        $admin->update(['status' => !$admin->status, 'updated_by' => admin()->id]);
+        $this->adminService->toggleStatus($admin);
         session()->flash('success', 'Admin status updated successfully!');
         return redirect()->route('am.admin.index');
     }
@@ -306,9 +279,7 @@ class AdminController extends Controller
      */
     public function restore(string $id): RedirectResponse
     {
-        $admin = Admin::onlyTrashed()->findOrFail(decrypt($id));
-        $admin->update(['updated_by' => admin()->id]);
-        $admin->restore();
+        $this->adminService->restore( $id );
         session()->flash('success', 'Admin restored successfully!');
         return redirect()->route('am.admin.recycle-bin');
     }
@@ -321,11 +292,7 @@ class AdminController extends Controller
      */
     public function permanentDelete(string $id): RedirectResponse
     {
-        $admin = Admin::onlyTrashed()->findOrFail(decrypt($id));
-        if($admin->image){
-            $this->fileDelete($admin->image);
-        }
-        $admin->forceDelete();
+       $this->adminService->permanentDelete( $id );
         session()->flash('success', 'Admin permanently deleted successfully!');
         return redirect()->route('am.admin.recycle-bin');
     }
