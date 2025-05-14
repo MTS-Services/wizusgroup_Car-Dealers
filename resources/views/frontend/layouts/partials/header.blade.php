@@ -7,13 +7,13 @@
             </div>
             <div class="navbar-center hidden lg:flex">
                 <div class="flex items-center justify-center gap-2">
-                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
                         href="{{ url('/') }}">{{ __('Home') }}</a>
-                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
                         href="">{{ __('About Us') }}</a>
-                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
                         href="">{{ __('Products') }}</a>
-                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
                         href="">{{ __('Auctions') }}</a>
                 </div>
             </div>
@@ -21,11 +21,16 @@
                 <span class="hidden lg:flex">
                     <x-frontend.language />
                 </span>
-                <i data-lucide="user"></i>
-                <x-frontend.theme />
-                <button class="openSidebar text-2xl lg:hidden" title="Open Sidebar">
-                    <i data-lucide="menu"
-                        class="text-text-primary dark:text-text-white hover:text-text-accent dark:hover:text-text-accent transition-all duration-300 ease-linear"></i>
+                <a href="#" class="hover:text-text-secondary transition-all duration-300 ease-linear"><i
+                        data-lucide="shopping-basket"></i></a>
+                <a href="javaScript:void(0)" onclick="my_modal_1.showModal()"
+                    class="hover:text-text-secondary transition-all duration-300 ease-linear"><i
+                        data-lucide="user"></i></a>
+                <span class="hidden lg:flex"><x-frontend.theme /></span>
+                <button
+                    class="openSidebar text-2xl lg:hidden hover:text-text-secondary transition-all duration-300 ease-linear"
+                    title="Open Sidebar">
+                    <i data-lucide="menu"></i>
                 </button>
             </div>
         </div>
