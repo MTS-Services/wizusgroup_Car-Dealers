@@ -35,7 +35,7 @@ module.exports = {
         // Utility Tokens (Semantic Usage)
         text: {
           primary: '#181C14',
-          secondary: '#084B9A',
+          secondary: '#0972C1',
           tertiary: '#422AD5',
 
           light: '#F2F9FF',
@@ -51,7 +51,7 @@ module.exports = {
         },
 
         bg: {
-          primary: '#084B9A',
+          primary: '#0972C1',
           secondary: '#FBFBFB',
           tertiary: '#422AD5',
 
@@ -68,7 +68,7 @@ module.exports = {
         },
 
         border: {
-          primary: '#084B9A',
+          primary: '#0972C1',
           secondary: '#FBFBFB',
           tertiary: '#422AD5',
 
@@ -85,7 +85,7 @@ module.exports = {
         },
 
         outline: {
-          primary: '#084B9A',
+          primary: '#0972C1',
           secondary: '#FBFBFB',
           tertiary: '#422AD5',
 
@@ -102,7 +102,7 @@ module.exports = {
         },
 
         focus: {
-          primary: '#084B9A',
+          primary: '#0972C1',
           secondary: '#FBFBFB',
           tertiary: '#422AD5',
 
@@ -119,7 +119,7 @@ module.exports = {
         },
 
         shadow: {
-          primary: '#084B9A',
+          primary: '#0972C1',
           secondary: '#FBFBFB',
           tertiary: '#422AD5',
 

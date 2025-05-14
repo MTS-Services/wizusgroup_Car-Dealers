@@ -66,18 +66,18 @@
                 @auth('web')
                     <a href="" class="flex items-center justify-between gap-2">
                         <span
-                            class="text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50">{{ __('Profile') }}</span>
+                            class=" text-opacity-50 dark:text-opacity-50">{{ __('Profile') }}</span>
                         <i data-lucide="user"></i>
                     </a>
                     <a href="" class="flex items-center justify-between gap-2">
                         <span
-                            class="text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50">{{ __('Password') }}</span>
+                            class=" text-opacity-50 dark:text-opacity-50">{{ __('Password') }}</span>
                         <i data-lucide="key-round"></i>
                     </a>
                 @else
                     <a href="{{ route('login') }}" class="flex items-center justify-between gap-2">
                         <span
-                            class="text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50">{{ __('Profile') }}</span>
+                            class=" text-opacity-50 dark:text-opacity-50">{{ __('Profile') }}</span>
                         <i data-lucide="user"></i>
                     </a>
                 @endauth
