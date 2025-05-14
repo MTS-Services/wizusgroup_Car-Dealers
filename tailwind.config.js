@@ -42,7 +42,7 @@ module.exports = {
           'light-secondary': '#FBFBFB',
 
           'dark': '#030303',
-          'dark-secondary': '#181C14',
+          'dark-secondary': '#FBFBFB',
 
           white: '#ffffff',
           black: '#000000',
@@ -52,14 +52,14 @@ module.exports = {
 
         bg: {
           primary: '#084B9A',
-          secondary: '#181C14',
+          secondary: '#FBFBFB',
           tertiary: '#422AD5',
 
           light: '#F2F9FF',
           'light-secondary': '#FBFBFB',
 
           'dark': '#030303',
-          'dark-secondary': '#181C14',
+          'dark-secondary': '#0F0F0F',
 
           white: '#ffffff',
           black: '#000000',
@@ -69,13 +69,14 @@ module.exports = {
 
         border: {
           primary: '#084B9A',
-          secondary: '#181C14',
+          secondary: '#FBFBFB',
           tertiary: '#422AD5',
 
           light: '#F2F9FF',
           'light-secondary': '#FBFBFB',
 
           'dark': '#030303',
+          'dark-secondary': '#FBFBFB',
 
           white: '#ffffff',
           black: '#000000',
@@ -85,13 +86,14 @@ module.exports = {
 
         outline: {
           primary: '#084B9A',
-          secondary: '#181C14',
+          secondary: '#FBFBFB',
           tertiary: '#422AD5',
 
           light: '#F2F9FF',
           'light-secondary': '#FBFBFB',
 
           'dark': '#030303',
+          'dark-secondary': '#FBFBFB',
 
           white: '#ffffff',
           black: '#000000',
@@ -101,13 +103,14 @@ module.exports = {
 
         focus: {
           primary: '#084B9A',
-          secondary: '#181C14',
+          secondary: '#FBFBFB',
           tertiary: '#422AD5',
 
           light: '#F2F9FF',
           'light-secondary': '#FBFBFB',
 
           'dark': '#030303',
+          'dark-secondary': '#FBFBFB',
 
           white: '#ffffff',
           black: '#000000',
@@ -117,13 +120,14 @@ module.exports = {
 
         shadow: {
           primary: '#084B9A',
-          secondary: '#181C14',
+          secondary: '#FBFBFB',
           tertiary: '#422AD5',
 
           light: '#F2F9FF',
           'light-secondary': '#FBFBFB',
 
           'dark': '#030303',
+          'dark-secondary': '#FBFBFB',
 
           white: '#ffffff',
           black: '#000000',

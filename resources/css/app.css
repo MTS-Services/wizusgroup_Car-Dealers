@@ -9,6 +9,11 @@
         @apply font-poppins bg-bg-white text-text-primary dark:bg-bg-dark dark:text-text-white;
     }
 
+    ul,
+    li {
+        @apply list-none m-0 p-0;
+    }
+
     h1,
     h2,
     h3,
@@ -16,6 +21,30 @@
     h5,
     h6 {
         @apply font-inter font-bold;
+    }
+
+    h1 {
+        @apply text-3xl;
+    }
+
+    h2 {
+        @apply text-2xl;
+    }
+
+    h3 {
+        @apply text-xl;
+    }
+
+    h4 {
+        @apply text-lg;
+    }
+
+    h5 {
+        @apply text-base;
+    }
+
+    h6 {
+        @apply text-sm;
     }
 
     :root {
@@ -77,7 +106,8 @@
     @apply hover:bg-opacity-30;
 }
 
-.swiper-button svg {
+.swiper-button svg,
+.swiper-button i {
     @apply w-full;
 }
 
@@ -87,5 +117,5 @@
 
 .swiper-pagination-bullet.swiper-pagination-bullet-active {
     @apply relative !mx-3;
-    @apply after:content-[''] after:absolute after:!w-[250%] after:!h-[250%] after:bg-transparent after:border-2 after:border-t-transparent after:border-bg-primary after:rounded-full after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:z-[1] after:animate-dotRotate;
+    @apply after:content-[''] after:absolute after:w-[250%] after:h-[250%] after:bg-transparent after:border-2 after:border-t-transparent after:border-bg-primary after:rounded-full after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:z-[1] after:animate-dotRotate;
 }
