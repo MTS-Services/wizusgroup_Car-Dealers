@@ -3,6 +3,8 @@
 @section('title', 'Home')
 
 @push('css')
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         #countdown {
             max-width: 600px;
@@ -131,11 +133,11 @@
                     <p class="my-4 text-xl text-text-white">{{ __('Discover amazing content and features.') }}</p>
                     <div class="relative w-[700px] mx-auto">
                         <input type="search" id="machine-search"
-                            class="block w-full p-4 pl-10 pr-16 text-sm border-none rounded-lg bg-bg-light-secondary focus:ring-orange-500 focus:border-orange-500"
+                            class="block w-full p-4 pl-10 pr-16 text-sm border-none rounded-lg bg-bg-light-secondary focus:ring-blue-500 focus:border-blue-600"
                             placeholder="{{ __('Find your machine...') }}" required>
 
                         <button type="submit"
-                            class="text-text-white absolute right-0 top-0 bottom-0 bg-bg-orange hover:bg-bg-orange/90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-l-none rounded-r-lg text-sm px-4">
+                            class="text-text-white absolute right-0 top-0 bottom-0 bg-bg-primary hover:bg-bg-primary/90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-l-none rounded-r-lg text-sm px-4">
 
                             <svg class="w-5 h-5 text-text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 20 20">
@@ -195,26 +197,35 @@
             <div class="header text-center mb-10">
                 <h2 class="text-3xl font-bold uppercase">{{ __('Categories') }}</h2>
             </div>
-            <div class="swiper categories">
-                <div class="swiper-wrapper">
-                    @foreach ($categories as $category)
-                        <div class="swiper-slide py-8">
-                            <div class="text-center">
-                                <img class="w-auto rounded-xl object-cover mx-auto" src="{{ $category['image'] }}"
-                                    alt="{{ __('image') }}">
-                                <p class="py-2">{{ __('Machine description goes here.') }}</p>
+            <div class="relative">
+                <div class="swiper categories static">
+                    <div class="swiper-wrapper">
+                        @foreach ($categories as $category)
+                            <div class="swiper-slide py-8">
+                                <div class="text-center">
+                                    <img class="w-auto rounded-xl object-cover mx-auto" src="{{ $category['image'] }}"
+                                        alt="{{ __('image') }}">
+                                    <p class="py-2">{{ __('Machine description goes here.') }}</p>
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <!-- Navigation buttons -->
+                    <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
+                        <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
+                    </div>
+                    <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9 ">
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
+                    </div>
                 </div>
-                <div class="swiper-pagination"></div>
-                <!-- Navigation buttons -->
-                <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
-                    <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
-                </div>
-                <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9 ">
-                    <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
-                </div>
+            </div>
+            <div class="text-center mx-auto mt-18 ">
+                <button>
+                    <a href="#" class="btn-primary ">
+                        {{ __('Shop Now') }}
+                    </a>
+                </button>
             </div>
         </div>
     </section>
@@ -222,14 +233,14 @@
     {{-- ===================== Category Section End ===================== --}}
 
     {{-- ===================== countdown Group Container Section Start ===================== --}}
-    <section class="flex justify-center items-center py-20 m-0 bg-gray-100 dark:bg-bg-dark font-sans">
+    <section class="home_countdown flex justify-center items-center py-20 m-0 bg-gray-100 dark:bg-bg-dark font-sans">
         <div class="container">
-            <div class="bg-bg-secondary/60 mx-auto rounded-lg p-6 text-white text-center w-11/12 max-w-3xl shadow-md">
+            <div
+                class="bg-bg-tertiary/40 dark:bg-bg-secondary/20 text-text-white mx-auto rounded-lg p-6  text-center w-11/12 max-w-3xl shadow-md">
                 <h3 class="text-2xl font-bold mb-2">{{ __('Join Group Container – Save on Shipping') }}</h3>
                 <p class="text-xl mb-5">{{ __('Next Departure to Dakar, Senegal:') }}</p>
                 <div class="countdown-blocks py-2"></div>
-                <button
-                    class="bg-bg-orange hover:bg-bg-orange/60 text-white font-bold text-lg py-3 mt-2 px-10 rounded-full transition duration-300">
+                <button class="btn-primary mx-auto py-3 mt-2 px-10 ">
                     {{ __('JOIN NOW') }}
                 </button>
             </div>
@@ -238,15 +249,15 @@
                     <h2 class="text-3xl font-bold uppercase text-center">{{ __('How it Works') }}</h2>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-                    <div class="bg-bg-light-secondary py-9 p-2 shadow-lg text-center">
+                    <div class="bg-bg-light-secondary dark:bg-bg-primary/30 py-9 p-2 shadow-lg text-center">
                         <i data-lucide="shopping-cart" class="w-12 h-12 mx-auto"></i>
                         <p class="py-2">{{ __('Select Your Machine') }}</p>
                     </div>
-                    <div class="bg-bg-light-secondary py-9 p-2 shadow-lg text-center">
+                    <div class="bg-bg-light-secondary dark:bg-bg-primary/30  py-9 p-2 shadow-lg text-center">
                         <i data-lucide="ship" class="w-12 h-12 mx-auto"></i>
                         <p class="py-2">{{ __('Arrange for Export') }}</p>
                     </div>
-                    <div class="bg-bg-light-secondary py-9 p-2 shadow-lg text-center">
+                    <div class="bg-bg-light-secondary dark:bg-bg-primary/30  py-9 p-2 shadow-lg text-center">
                         <i data-lucide="shopping-cart" class="w-12 h-12 mx-auto"></i>
                         <p class="py-2">{{ __('Receive at Port') }}</p>
                     </div>
@@ -307,68 +318,73 @@
             ],
         ];
     @endphp
+
     {{-- ===================== Testimonial Section Start ===================== --}}
-    <section class="py-20 ">
+    <section class="py-20  relative">
         <div class="container mx-auto px-4">
             <div class="header text-center mb-10">
                 <h2 class="text-3xl font-bold uppercase">{{ __('Testimonials') }}</h2>
             </div>
             <!-- Testimonial Carousel -->
-            <div class="swiper testimonials">
-                <div class="swiper-wrapper">
-                    @foreach ($testimonials as $testimonial)
-                        <div class="swiper-slide">
-                            <div class="bg-gray-50 rounded-xl shadow-md border overflow-hidden">
-                                <!-- Top Gradient Bar -->
-                                <div class="h-1 w-full bg-gradient-to-r from-blue-600 to-blue-800"></div>
+            <div class="relative">
+                <div class="swiper testimonials static">
+                    <div class="swiper-wrapper ">
+                        @foreach ($testimonials as $testimonial)
+                            <div class="swiper-slide">
+                                <div class="bg-bg-light dark:bg-bg-dark rounded-xl shadow-md border overflow-hidden">
+                                    <!-- Top Gradient Bar -->
+                                    <div class="h-1 w-full bg-gradient-to-r from-blue-600 to-blue-800"></div>
 
-                                <!-- Testimonial Content -->
-                                <div class="p-6 md:p-8">
-                                    <!-- Quotation Mark -->
-                                    <div class="text-blue-600 text-6xl font-serif mb-4 leading-none">“</div>
+                                    <!-- Testimonial Content -->
+                                    <div class="p-6 md:p-8">
+                                        <!-- Quotation Mark -->
+                                        <div class="text-blue-600 text-6xl font-serif mb-4 leading-none">“</div>
 
-                                    <!-- Message -->
-                                    <p
-                                        class="text-gray-700 text-lg md:text-xl font-light leading-relaxed font-montserrat mb-6">
-                                        {{ $testimonial['description'] }}
-                                    </p>
+                                        <!-- Message -->
+                                        <p class=" text-lg md:text-xl font-light leading-relaxed font-montserrat mb-6">
+                                            {{ $testimonial['description'] }}
+                                        </p>
 
-                                    <!-- Author Info -->
-                                    <div class="border-t pt-6 flex items-center gap-4">
-                                        <img src="{{ $testimonial['image'] }}" alt="{{ $testimonial['name'] }}"
-                                            class="w-14 h-14 rounded-full object-cover">
+                                        <!-- Author Info -->
+                                        <div class="border-t pt-6 flex items-center gap-4">
+                                            <img src="{{ $testimonial['image'] }}" alt="{{ $testimonial['name'] }}"
+                                                class="w-14 h-14 rounded-full object-cover">
 
-                                        <div>
-                                            <p class="text-blue-800 font-bold text-lg uppercase font-playfair">
-                                                {{ $testimonial['name'] }}
-                                            </p>
-                                            <p class="text-sm text-gray-500 uppercase tracking-wide mt-1">
-                                                {{ __('Country') }}: {{ $testimonial['country'] }}
-                                            </p>
+                                            <div>
+                                                <p class="text-blue-800 font-bold text-lg uppercase font-playfair">
+                                                    {{ $testimonial['name'] }}
+                                                </p>
+                                                <p class="text-sm  uppercase tracking-wide mt-1">
+                                                    {{ __('Country') }}: {{ $testimonial['country'] }}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <!-- Bottom Gradient Bar -->
+                                    <div class="h-1 w-full bg-gradient-to-r from-blue-800 to-blue-600"></div>
                                 </div>
-
-                                <!-- Bottom Gradient Bar -->
-                                <div class="h-1 w-full bg-gradient-to-r from-blue-800 to-blue-600"></div>
                             </div>
-                        </div>
-                    @endforeach
-                </div>
+                        @endforeach
+                    </div>
 
-                <!-- Pagination -->
-                <div class="swiper-pagination mt-6"></div>
+                    <!-- Pagination -->
+                    <div class="swiper-pagination mt-6"></div>
 
-                <!-- Navigation Buttons -->
-              <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
-                    <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
-                </div>
-                <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9 ">
-                    <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
+                    <!-- Navigation Buttons -->
+                    <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
+                        <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
+                    </div>
+                    <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9 ">
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
+                    </div>
                 </div>
             </div>
         </div>
-        
+        <div class="absolute right-5 bottom-5 z-10 ">
+            <a href="#" >
+                <i class="fa-brands fa-whatsapp text-5xl text-green-600"></i>
+            </a>
     </section>
 
     {{-- ===================== Testimonial Section End ===================== --}}
