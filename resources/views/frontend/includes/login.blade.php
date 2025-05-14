@@ -7,7 +7,7 @@
             </form>
         </div>
 
-        <div class="grid gap-4 md:grid-cols-2 text-center">
+        <div class="grid gap-4 md:grid-cols-1 text-center">
             {{-- USER --}}
             <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
                 <h4 class="text-lg font-semibold text-indigo-700 mb-2">User Access</h4>
@@ -22,7 +22,7 @@
             </div>
 
             {{-- ADMIN --}}
-            <div class="bg-gray-50 p-4 rounded-lg shadow-sm md:col-span-2">
+            <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
                 <h4 class="text-lg font-semibold text-rose-600 mb-2">Admin Access</h4>
                 @auth('admin')
                     <a href="{{ route('admin.dashboard') }}"
