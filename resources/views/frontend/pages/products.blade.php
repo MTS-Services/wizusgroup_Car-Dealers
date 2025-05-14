@@ -165,7 +165,7 @@
                     <div class="flex justify-between items-center mb-6">
                         <div class="flex items-center gap-5">
                             <button
-                                class="openFilterSidebar btn px-2 py-0 rounded-md bg-transparent border border-bg-accent text-text-accent text-xs font-medium xs:text-sm xs:px-5 xs:py-2 lg:text-base w-fit text-nowrap">
+                                class="openFilterSidebar btn px-2 py-0 rounded-md bg-transparent border border-bg-accent text-text-accent text-xs font-medium xs:text-sm xs:px-5 xs:py-2 lg:text-base w-fit text-nowrap xl:hidden">
                                 <span><i data-lucide="sliders-horizontal" class="w-5 h-5"></i></span>
                                 <span class="ml-2 text-base">{{ __('Filter') }}</span>
                             </button>
