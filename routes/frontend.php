@@ -13,4 +13,6 @@ Route::group(['as' => 'frontend.'], function () {
   Route::get('/product', [FrontendController::class, 'product'])->name('product');
   // Contact Page
   Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
+  // Contact Page
+  Route::get('/auction', [FrontendController::class, 'auction'])->name('auction');
 });

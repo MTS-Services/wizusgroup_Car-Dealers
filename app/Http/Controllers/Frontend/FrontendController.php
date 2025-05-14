@@ -19,4 +19,8 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.contact');
     }
+    public function auction()
+    {
+        return view('frontend.pages.auctions');
+    }
 }
