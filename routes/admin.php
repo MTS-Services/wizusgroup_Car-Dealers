@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\Admin\ProductManagement\ModelController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Backend\Admin\AuditController;
@@ -33,7 +34,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
     Route::controller(AdminLoginController::class)->group(function () {
         Route::get('/login', 'showLoginForm')->name('login'); // Admin Login Form
         Route::post('/login', 'login')->name('login.submit'); // Admin Login Submit (Handled by AuthenticatesUsers)
-        Route::post('/logout', 'logout')->middleware('auth:admin')->name('logout'); // Admin Logout   
+        Route::post('/logout', 'logout')->middleware('auth:admin')->name('logout'); // Admin Logout
     });
 
     Route::group(['as' => 'password.', 'prefix' => 'password'], function () {
@@ -78,6 +79,8 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
         $filePath = createCSV($filename);
         return Response::download($filePath, $filename);
     })->name('permissions.export');
+
+
 
 
     // Admin Management
@@ -245,5 +248,14 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
         Route::get('brand/recycle/bin', [BrandController::class, 'recycleBin'])->name('brand.recycle-bin');
         Route::get('brand/restore/{brand}', [BrandController::class, 'restore'])->name('brand.restore');
         Route::delete('brand/permanent-delete/{brand}', [BrandController::class, 'permanentDelete'])->name('brand.permanent-delete');
+
+        // Model Routes
+        Route::resource('model', ModelController::class);
+        Route::get('model/status/{model}', [ModelController::class, 'status'])->name('model.status');
+        Route::get('model/feature/{model}', [ModelController::class, 'feature'])->name('model.feature');
+
+        Route::get('model/recycle/bin', [ModelController::class, 'recycleBin'])->name('model.recycle-bin');
+        Route::get('model/restore/{model}', [ModelController::class, 'restore'])->name('model.restore');
+        Route::delete('model/permanent-delete/{model}', [ModelController::class, 'permanentDelete'])->name('model.permanent-delete');
     });
 });
