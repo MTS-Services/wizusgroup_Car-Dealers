@@ -60,6 +60,7 @@ module.exports = {
 
           'dark': '#030303',
           'dark-secondary': '#0F0F0F',
+          'dark-tertiary': '#1F1F1F',
 
           white: '#ffffff',
           black: '#000000',
@@ -71,6 +72,7 @@ module.exports = {
           primary: '#0972C1',
           secondary: '#FBFBFB',
           tertiary: '#422AD5',
+          gray: '#F2F2F2',
 
           light: '#F2F9FF',
           'light-secondary': '#FBFBFB',

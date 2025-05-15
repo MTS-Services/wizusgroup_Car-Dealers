@@ -11,4 +11,16 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.home');
     }
+    public function product()
+    {
+        return view('frontend.pages.products');
+    }
+    public function contact()
+    {
+        return view('frontend.pages.contact');
+    }
+    public function auction()
+    {
+        return view('frontend.pages.auctions');
+    }
 }
