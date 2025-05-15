@@ -21,22 +21,22 @@
                     {{-- Name --}}
                     <div class="form-group">
                         <label>{{ __('Name') }} <span class="text-danger">*</span></label>
-                        <input type="text" value="{{ old('name', $brand->name) }}" name="name" class="form-control" placeholder="Enter name">
+                        <input type="text" value="{{ old('name', $brand->name) }}" id="title" name="name" class="form-control" placeholder="Enter name">
                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'name']" />
                     </div>
 
                     {{-- Slug --}}
                     <div class="form-group">
                         <label>{{ __('Slug') }}<span class="text-danger">*</span></label>
-                        <input type="text" value="{{ old('slug', $brand->slug) }}" name="slug" class="form-control" placeholder="Enter slug">
+                        <input type="text" value="{{ old('slug', $brand->slug) }}" id="slug" name="slug" class="form-control" placeholder="Enter slug">
                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'slug']" />
                     </div>
-                    {{-- Logo --}}
+                    {{-- Image --}}
                     <div class="form-group">
-                        <label>{{ __('Logo') }}<span class="text-danger">*</span></label>
-                        <input type="file" accept="image/*" name="uploadImage" data-actualName="logo"
-                            class="form-control filepond" id="logo">
-                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'logo']" />
+                        <label>{{ __('image') }}<span class="text-danger">*</span></label>
+                        <input type="file" accept="image/*" name="uploadImage" data-actualName="image"
+                            class="form-control filepond" id="image">
+                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'image']" />
                     </div>
 
                     {{-- Website --}}
@@ -81,9 +81,9 @@
 <script>
         $(document).ready(function() {
             const existingFiles = {
-                "#logo":"{{ $brand->modified_logo }}",
+                "#image":"{{ $brand->modified_image }}",
             };
-            file_upload(["#logo"], "uploadImage", "admin", existingFiles, false);
+            file_upload(["#image"], "uploadImage", "admin", existingFiles, false);
         });
     </script>
 {{-- FilePond  --}}

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Traits\FileManagementTrait;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\Admin\ProductManagement\BrandRequest;
+use App\Services\Admin\ProductManagement\BrandService;
 use Illuminate\Http\RedirectResponse;
 
 class BrandController extends Controller
@@ -15,8 +16,13 @@ class BrandController extends Controller
 
     use FileManagementTrait;
 
-    public function __construct()
+    protected BrandService $brandService;
+
+    public function __construct(BrandService $brandService)
     {
+
+        $this->brandService = $brandService;
+
         $this->middleware('auth:admin');
         $this->middleware('permission:brand-list', ['only' => ['index']]);
         $this->middleware('permission:brand-details', ['only' => ['show']]);
@@ -34,11 +40,8 @@ class BrandController extends Controller
      */
     public function index(Request $request)
     {
-
         if ($request->ajax()) {
-            $query = Brand::with(['creater'])
-                ->orderBy('sort_order', 'asc')
-                ->latest();
+            $query = $this->brandService->getBrands()->with(['creater_admin']);
             return DataTables::eloquent($query)
                 ->editColumn('status', function ($brand) {
                     return "<span class='badge " . $brand->status_color . "'>$brand->status_label</span>";
@@ -46,7 +49,7 @@ class BrandController extends Controller
                 ->editColumn('is_featured', function ($brand) {
                     return "<span class='badge " . $brand->featured_color . "'>$brand->featured_label</span>";
                 })
-                ->editColumn('creater_id', function ($brand) {
+                ->editColumn('created_by', function ($brand) {
                     return $brand->creater_name;
                 })
                 ->editColumn('created_at', function ($brand) {
@@ -56,7 +59,7 @@ class BrandController extends Controller
                     $menuItems = $this->menuItems($brand);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['status', 'is_featured', 'creater_id', 'created_at', 'action'])
+                ->rawColumns(['status', 'is_featured', 'created_by', 'created_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.product_management.brand.index');
@@ -104,22 +107,19 @@ class BrandController extends Controller
 
 
 
-       public function recycleBin(Request $request)
+    public function recycleBin(Request $request)
     {
 
         if ($request->ajax()) {
-            $query = Brand::with(['deleter'])
-                ->onlyTrashed()
-                ->orderBy('sort_order', 'asc')
-                ->latest();
+            $query = $this->brandService->getBrands()->onlyTrashed()->with(['deleter_admin']);
             return DataTables::eloquent($query)
-            ->editColumn('status', function ($brand) {
+                ->editColumn('status', function ($brand) {
                     return "<span class='badge " . $brand->status_color . "'>$brand->status_label</span>";
                 })
-                  ->editColumn('is_featured', function ($brand) {
+                ->editColumn('is_featured', function ($brand) {
                     return "<span class='badge " . $brand->featured_color . "'>$brand->featured_label</span>";
                 })
-               ->editColumn('deleter_id', function ($brand) {
+                ->editColumn('deleted_by', function ($brand) {
                     return $brand->deleter_name;
                 })
                 ->editColumn('deleted_at', function ($brand) {
@@ -129,7 +129,7 @@ class BrandController extends Controller
                     $menuItems = $this->trashedMenuItems($brand);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['status', 'is_featured', 'deleter_id', 'deleted_at', 'action'])
+                ->rawColumns(['status', 'is_featured', 'deleted_by', 'deleted_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.product_management.brand.recycle-bin');
@@ -168,14 +168,15 @@ class BrandController extends Controller
      */
     public function store(BrandRequest $request)
     {
-        $validated = $request->validated();
-        $validated['creater_id'] = admin()->id;
-        $validated['creater_type'] = get_class(admin());
-        if (isset($request->logo)) {
-            $validated['logo'] = $this->handleFilepondFileUpload(Brand::class, $request->logo, admin(), 'brands/');
+        try {
+            $validated = $request->validated();
+            $this->brandService->createBrand($validated, $request->image ?? null);
+            session()->flash('success', 'Brand created successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Brand create failed!');
+            throw $e;
         }
-        Brand::create($validated);
-        session()->flash('success', 'Brand created successfully!');
+
         return redirect()->route('pm.brand.index');
     }
 
@@ -184,7 +185,8 @@ class BrandController extends Controller
      */
     public function show(string $id)
     {
-        $brand = Brand::with(['creater_admin', 'updater_admin'])->findOrFail(decrypt($id));
+        $brand = $this->brandService->getBrand($id);
+        $brand->load(['creater_admin', 'updater_admin']);
         return response()->json($brand);
     }
 
@@ -193,7 +195,7 @@ class BrandController extends Controller
      */
     public function edit(string $id)
     {
-        $brand = Brand::findOrFail(decrypt($id));
+        $brand = $this->brandService->getBrand($id);;
         return view('backend.admin.product_management.brand.edit', compact('brand'));
     }
 
@@ -202,15 +204,15 @@ class BrandController extends Controller
      */
     public function update(BrandRequest $request, string $id)
     {
-        $brand = Brand::findOrFail(decrypt($id));
-        $validated = $request->validated();
-        $validated['updater_id'] = admin()->id;
-        $validated['updater_type'] = get_class(admin());
-        if (isset($request->logo)) {
-            $validated['logo'] = $this->handleFilepondFileUpload($brand, $request->logo, admin(), 'brands/');
+
+        try {           
+            $validated = $request->validated();
+            $this->brandService->updateBrand($id, $validated, $request->image ?? null);
+            session()->flash('success', 'Brand updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Brand update failed!');
+            throw $e;
         }
-        $brand->update($validated);
-        session()->flash('success', 'Brand updated successfully!');
         return redirect()->route('pm.brand.index');
     }
 
@@ -219,40 +221,49 @@ class BrandController extends Controller
      */
     public function destroy(string $id)
     {
-        $brand = Brand::findOrFail(decrypt($id));
-
-        // Optional: Delete old logo file from storage
-        if ($brand->logo && file_exists(public_path('uploads/brands/' . $brand->logo))) {
-            unlink(public_path('uploads/brands/' . $brand->logo));
+        try {
+            $this->brandService->deleteBrand($id);
+            session()->flash('success', 'Brand deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Brand delete failed!');
+            throw $e;
         }
-
-        $brand->delete();
-
-        return redirect()->route('pm.brand.index')->with('success', 'Brand deleted successfully!');
+        return redirect()->route('pm.brand.index');
     }
 
 
     public function status(string $id): RedirectResponse
     {
-        $brand = Brand::findOrFail(decrypt($id));
-        $brand->update(['status' => !$brand->status, 'updated_by' => admin()->id]);
-        session()->flash('success', 'Brand status updated successfully!');
+        try {
+            $this->brandService->toggleStatus($id);
+            session()->flash('success', 'Brand status updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Brand status update failed!');
+            throw $e;
+        }
         return redirect()->route('pm.brand.index');
     }
 
     public function feature($id): RedirectResponse
     {
-        $brand = Brand::findOrFail(decrypt($id));
-        $brand->update(['is_featured' => !$brand->is_featured, 'updated_by' => admin()->id]);
-        session()->flash('success', 'Brand featured updated successfully!');
+        try {
+            $this->brandService->toggleFeature($id);
+            session()->flash('success', 'Brand feature updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Brand feature update failed!');
+            throw $e;
+        }
         return redirect()->route('pm.brand.index');
     }
-        public function restore(string $id): RedirectResponse
+    public function restore(string $id): RedirectResponse
     {
-        $product_attribute = Brand::onlyTrashed()->findOrFail(decrypt($id));
-        $product_attribute->update(['updated_by' => admin()->id]);
-        $product_attribute->restore();
-        session()->flash('success', 'Brand restored successfully!');
+        try {
+            $this->brandService->restoreBrand($id);
+            session()->flash('success', 'Brand restored successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Brand restore failed!');
+            throw $e;
+        }
         return redirect()->route('pm.brand.recycle-bin');
     }
 
@@ -264,12 +275,13 @@ class BrandController extends Controller
      */
     public function permanentDelete(string $id): RedirectResponse
     {
-        $product_attribute = Brand::onlyTrashed()->findOrFail(decrypt($id));
-        if($product_attribute->logo){
-            $this->fileDelete($product_attribute->logo);
+        try {
+            $this->brandService->permanentDeleteBrand($id);
+            session()->flash('success', 'Brand permanently deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Brand permanent delete failed!');
+            throw $e;
         }
-        $product_attribute->forceDelete();
-        session()->flash('success', 'Brand permanently deleted successfully!');
         return redirect()->route('pm.brand.recycle-bin');
     }
 }
