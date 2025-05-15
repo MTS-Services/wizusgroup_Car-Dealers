@@ -19,6 +19,8 @@
                         href="{{ route('frontend.contact') }}">{{ __('Contact') }}</a>
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
                         href="{{ route('frontend.product_details') }}">{{ __('Product Details') }}</a>
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+                        href="{{ route('frontend.group_shipping') }}">{{ __('Group Shipping') }}</a>
                 </div>
             </div>
             <div class="navbar-end flex items-center justify-end gap-3">

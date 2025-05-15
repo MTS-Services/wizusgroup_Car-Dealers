@@ -135,67 +135,80 @@
                         <!-- Tab Content -->
                         <div
                             class="bg-bg-white dark:bg-bg-tertiary/25 shadow-card dark:shadow-none p-4 sm:p-6 rounded-b-lg border border-border-gray dark:border-bg-dark-secondary">
+
                             <!-- Basic Info -->
                             <div x-show="tab === 'basic'" x-cloak>
                                 <table class="w-full table-auto text-sm sm:text-base">
                                     <tbody>
                                         <tr class=" border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">Stock
-                                                No.</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">No.1287864</td>
+                                            <td class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                {{ __('Stock No.') }}</td>
+                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('No.1287864') }}</td>
                                         </tr>
                                         <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">Maker</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">TOYOTA</td>
-                                        </tr>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">Model</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">SOARER</td>
-                                        </tr>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">Grade</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">Unknown</td>
-                                        </tr>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">Body Type</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">Open</td>
-                                        </tr>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">First Registration
+                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">{{ __('Maker') }}
                                             </td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">03/1987</td>
+                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('TOYOTA') }}</td>
                                         </tr>
                                         <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">Displacement</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">2950 cc</td>
+                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">{{ __('Model') }}
+                                            </td>
+                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('SOARER') }}</td>
                                         </tr>
                                         <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">Engine Type</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">7M</td>
+                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">{{ __('Grade') }}
+                                            </td>
+                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('Unknown') }}</td>
                                         </tr>
                                         <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">Fuel</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">Gasoline</td>
+                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                {{ __('Body Type') }}</td>
+                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('Open') }}</td>
                                         </tr>
                                         <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">Mileage</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">79540 km</td>
+                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                {{ __('First Registration') }}</td>
+                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('03/1987') }}</td>
                                         </tr>
                                         <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">Color</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">White</td>
+                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                {{ __('Displacement') }}</td>
+                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('2950 cc') }}</td>
                                         </tr>
                                         <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">Drive System</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">2WD</td>
+                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                {{ __('Engine Type') }}</td>
+                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('7M') }}</td>
                                         </tr>
                                         <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">Transmission</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">AT</td>
+                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">{{ __('Fuel') }}
+                                            </td>
+                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('Gasoline') }}</td>
                                         </tr>
                                         <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">Capacity</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">5</td>
+                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">{{ __('Mileage') }}
+                                            </td>
+                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('79540 km') }}</td>
+                                        </tr>
+                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">{{ __('Color') }}
+                                            </td>
+                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('White') }}</td>
+                                        </tr>
+                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                {{ __('Drive System') }}</td>
+                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('2WD') }}</td>
+                                        </tr>
+                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                {{ __('Transmission') }}</td>
+                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('AT') }}</td>
+                                        </tr>
+                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                {{ __('Capacity') }}</td>
+                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('5') }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -203,27 +216,29 @@
 
                             <!-- Airbag Info -->
                             <div x-show="tab === 'airbag'" x-cloak>
-                                <p class="text-text-secondary dark:text-text-secondary text-lg">No airbag data available.
-                                </p>
+                                <p class="text-text-secondary dark:text-text-secondary text-lg">
+                                    {{ __('No airbag data available.') }}</p>
                             </div>
 
                             <!-- Other Info -->
                             <div x-show="tab === 'other'" x-cloak>
-                                <p class="text-text-secondary dark:text-text-secondary text-lg">No additional information
-                                    provided.</p>
+                                <p class="text-text-secondary dark:text-text-secondary text-lg">
+                                    {{ __('No additional information provided.') }}</p>
                             </div>
 
                             <!-- Development -->
                             <div x-show="tab === 'development'" x-cloak>
-                                <p class="text-text-secondary dark:text-text-secondary text-lg">Development info not
-                                    available.</p>
+                                <p class="text-text-secondary dark:text-text-secondary text-lg">
+                                    {{ __('Development info not available.') }}</p>
                             </div>
 
                             <!-- Attached Document -->
                             <div x-show="tab === 'docs'" x-cloak>
-                                <p class="text-text-secondary dark:text-text-secondary text-lg">No documents attached.</p>
+                                <p class="text-text-secondary dark:text-text-secondary text-lg">
+                                    {{ __('No documents attached.') }}</p>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -246,143 +261,185 @@
                             <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                                 data-product="1">
                                 <div class="max-h-80 w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
+                                        alt="{{ __('Kubota ZL1-215') }}"
                                         class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
                                 <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
                                     <h3
                                         class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        Kubota ZL1-215</h3>
-                                    <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                        {{ __('Kubota ZL1-215') }}
+                                    </h3>
+                                    <p class="text-xl font-bold text-text-danger">{{ __('$3,500') }}</p>
                                     <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>2001</span>
+                                        <span>{{ __('2001') }}</span>
                                         <span class="mx-2">|</span>
-                                        <span>Osaka</span>
+                                        <span>{{ __('Osaka') }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Slide 1 -->
                         <div class="swiper-slide">
                             <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                                 data-product="1">
                                 <div class="max-h-80 w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
+                                        alt="{{ __('Kubota ZL1-215') }}"
                                         class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
                                 <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
                                     <h3
                                         class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        Kubota ZL1-215</h3>
-                                    <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                        {{ __('Kubota ZL1-215') }}
+                                    </h3>
+                                    <p class="text-xl font-bold text-text-danger">{{ __('$3,500') }}</p>
                                     <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>2001</span>
+                                        <span>{{ __('2001') }}</span>
                                         <span class="mx-2">|</span>
-                                        <span>Osaka</span>
+                                        <span>{{ __('Osaka') }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Slide 1 -->
                         <div class="swiper-slide">
                             <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                                 data-product="1">
                                 <div class="max-h-80 w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
+                                        alt="{{ __('Kubota ZL1-215') }}"
                                         class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
                                 <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
                                     <h3
                                         class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        Kubota ZL1-215</h3>
-                                    <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                        {{ __('Kubota ZL1-215') }}
+                                    </h3>
+                                    <p class="text-xl font-bold text-text-danger">{{ __('$3,500') }}</p>
                                     <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>2001</span>
+                                        <span>{{ __('2001') }}</span>
                                         <span class="mx-2">|</span>
-                                        <span>Osaka</span>
+                                        <span>{{ __('Osaka') }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Slide 1 -->
                         <div class="swiper-slide">
                             <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                                 data-product="1">
                                 <div class="max-h-80 w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
+                                        alt="{{ __('Kubota ZL1-215') }}"
                                         class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
                                 <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
                                     <h3
                                         class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        Kubota ZL1-215</h3>
-                                    <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                        {{ __('Kubota ZL1-215') }}
+                                    </h3>
+                                    <p class="text-xl font-bold text-text-danger">{{ __('$3,500') }}</p>
                                     <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>2001</span>
+                                        <span>{{ __('2001') }}</span>
                                         <span class="mx-2">|</span>
-                                        <span>Osaka</span>
+                                        <span>{{ __('Osaka') }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Slide 1 -->
                         <div class="swiper-slide">
                             <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                                 data-product="1">
                                 <div class="max-h-80 w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
+                                        alt="{{ __('Kubota ZL1-215') }}"
                                         class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
                                 <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
                                     <h3
                                         class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        Kubota ZL1-215</h3>
-                                    <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                        {{ __('Kubota ZL1-215') }}
+                                    </h3>
+                                    <p class="text-xl font-bold text-text-danger">{{ __('$3,500') }}</p>
                                     <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>2001</span>
+                                        <span>{{ __('2001') }}</span>
                                         <span class="mx-2">|</span>
-                                        <span>Osaka</span>
+                                        <span>{{ __('Osaka') }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Slide 1 -->
                         <div class="swiper-slide">
                             <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                                 data-product="1">
                                 <div class="max-h-80 w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
+                                        alt="{{ __('Kubota ZL1-215') }}"
                                         class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
                                 <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
                                     <h3
                                         class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        Kubota ZL1-215</h3>
-                                    <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                        {{ __('Kubota ZL1-215') }}
+                                    </h3>
+                                    <p class="text-xl font-bold text-text-danger">{{ __('$3,500') }}</p>
                                     <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>2001</span>
+                                        <span>{{ __('2001') }}</span>
                                         <span class="mx-2">|</span>
-                                        <span>Osaka</span>
+                                        <span>{{ __('Osaka') }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Slide 1 -->
                         <div class="swiper-slide">
                             <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                                 data-product="1">
                                 <div class="max-h-80 w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
+                                        alt="{{ __('Kubota ZL1-215') }}"
                                         class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
                                 <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
                                     <h3
                                         class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        Kubota ZL1-215</h3>
-                                    <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                        {{ __('Kubota ZL1-215') }}
+                                    </h3>
+                                    <p class="text-xl font-bold text-text-danger">{{ __('$3,500') }}</p>
                                     <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>2001</span>
+                                        <span>{{ __('2001') }}</span>
                                         <span class="mx-2">|</span>
-                                        <span>Osaka</span>
+                                        <span>{{ __('Osaka') }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        <!-- Slide 1 -->
+                        <div class="swiper-slide">
+                            <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                                data-product="1">
+                                <div class="max-h-80 w-full overflow-hidden">
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
+                                        alt="{{ __('Kubota ZL1-215') }}"
+                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
+                                </div>
+                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                    <h3
+                                        class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                        {{ __('Kubota ZL1-215') }}
+                                    </h3>
+                                    <p class="text-xl font-bold text-text-danger">{{ __('$3,500') }}</p>
+                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                        <span>{{ __('2001') }}</span>
+                                        <span class="mx-2">|</span>
+                                        <span>{{ __('Osaka') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Repeat swiper-slide for other products -->
                     </div>
 

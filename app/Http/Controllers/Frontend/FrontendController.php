@@ -27,4 +27,8 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.product_details');
     }
+    public function group_shipping()
+    {
+        return view('frontend.pages.group_shipping');
+    }
 }
