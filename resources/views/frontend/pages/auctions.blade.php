@@ -159,7 +159,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M4 6h16M4 12h16M4 18h7" />
                                     </svg>
-                                    {{ __("All Categories") }}
+                                    {{ __('All Categories') }}
                                 </div>
                                 <div
                                     class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
@@ -170,13 +170,13 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    {{ __("Chiba") }}
+                                    {{ __('Chiba') }}
                                 </div>
 
                                 <!-- Bid Button -->
-                                <button
+                                <button onclick="openModal()"
                                     class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
-                                    {{ __("Place Bid") }}
+                                    {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
@@ -209,7 +209,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M4 6h16M4 12h16M4 18h7" />
                                     </svg>
-                                    {{ __("All Categories") }}
+                                    {{ __('All Categories') }}
                                 </div>
                                 <div
                                     class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
@@ -220,13 +220,13 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    {{ __("Chiba") }}
+                                    {{ __('Chiba') }}
                                 </div>
 
                                 <!-- Bid Button -->
-                                <button
+                                <button onclick="openModal()"
                                     class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
-                                    {{ __("Place Bid") }}
+                                    {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
@@ -259,7 +259,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M4 6h16M4 12h16M4 18h7" />
                                     </svg>
-                                    {{ __("All Categories") }}
+                                    {{ __('All Categories') }}
                                 </div>
                                 <div
                                     class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
@@ -270,13 +270,13 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    {{ __("Chiba") }}
+                                    {{ __('Chiba') }}
                                 </div>
 
                                 <!-- Bid Button -->
-                                <button
+                                <button onclick="openModal()"
                                     class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
-                                    {{ __("Place Bid") }}
+                                    {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
@@ -309,7 +309,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M4 6h16M4 12h16M4 18h7" />
                                     </svg>
-                                    {{ __("All Categories") }}
+                                    {{ __('All Categories') }}
                                 </div>
                                 <div
                                     class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
@@ -320,13 +320,13 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    {{ __("Chiba") }}
+                                    {{ __('Chiba') }}
                                 </div>
 
                                 <!-- Bid Button -->
-                                <button
+                                <button onclick="openModal()"
                                     class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
-                                    {{ __("Place Bid") }}
+                                    {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
@@ -359,7 +359,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M4 6h16M4 12h16M4 18h7" />
                                     </svg>
-                                    {{ __("All Categories") }}
+                                    {{ __('All Categories') }}
                                 </div>
                                 <div
                                     class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
@@ -370,13 +370,13 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    {{ __("Chiba") }}
+                                    {{ __('Chiba') }}
                                 </div>
 
                                 <!-- Bid Button -->
-                                <button
+                                <button onclick="openModal()"
                                     class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
-                                    {{ __("Place Bid") }}
+                                    {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
@@ -409,7 +409,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M4 6h16M4 12h16M4 18h7" />
                                     </svg>
-                                    {{ __("All Categories") }}
+                                    {{ __('All Categories') }}
                                 </div>
                                 <div
                                     class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
@@ -420,19 +420,52 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    {{ __("Chiba") }}
+                                    {{ __('Chiba') }}
                                 </div>
 
                                 <!-- Bid Button -->
-                                <button
+                                <button onclick="openModal()"
                                     class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
-                                    {{ __("Place Bid") }}
+                                    {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+    </section>
+    {{-- Modal --}}
+    <section>
+        <!-- Modal Background -->
+        <div id="bidModal"
+            class="fixed inset-0 bg-bg-dark bg-opacity-50 flex items-center justify-center hidden z-50 opacity-0 transition-all duration-300">
+            <!-- Modal Box -->
+            <div class="bg-bg-light dark:bg-bg-dark-tertiary p-6 rounded-lg w-full max-w-sm shadow-lg">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold">{{ __("Place Your Bid") }}</h2>
+                    <button onclick="closeModal()" class="text-text-primary hover:text-text-tertiary text-2xl">&times;</button>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-text-primary dark:text-text-light text-opacity-50">{{ __("Item") }}</label>
+                        <p class="font-bold">{{ __("Item Name") }}</p>
+                    </div>
+
+                    <div>
+                        <label for="bidAmount" class="block text-sm font-medium text-text-primary dark:text-text-light text-opacity-50">{{ __("Your Bid (USD)") }}</label>
+                        <input type="number" id="bidAmount"
+                            class="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-bg-primary"
+                            placeholder="Enter your bid" />
+                    </div>
+
+                    <button onclick="submitBid()"
+                        class="w-full bg-bg-primary text-text-white py-2 rounded-md hover:bg-bg-tertiary transition">
+                        Submit Bid
+                    </button>
+                </div>
+            </div>
+        </div>
     </section>
 @endsection
 @push('js')
@@ -503,5 +536,95 @@
                 });
             });
         });
+    </script>
+    <script>
+        const bidModal = document.getElementById('bidModal');
+
+        function openModal() {
+            bidModal.classList.remove('hidden');
+            setTimeout(() => {
+                bidModal.classList.add('opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            bidModal.classList.add('hidden');
+            bidModal.classList.remove('opacity-100');
+
+            setTimeout(() => {
+                bidModal.classList.add('hidden');
+            }, 300);
+
+        }
+
+        function submitBid() {
+            const bid = document.getElementById('bidAmount').value;
+            if (bid && bid > 0) {
+                alert('Your bid of $' + bid + ' has been submitted!');
+                closeModal();
+            } else {
+                alert('Please enter a valid bid amount.');
+            }
+        }
+
+        // const modal = document.getElementById('product-modal');
+        // const closeModal = document.getElementById('close-modal');
+
+        // function openModal(productId) {
+        //     const product = products.find(p => p.id === parseInt(productId));
+
+        //     if (product) {
+        //         document.getElementById('modal-title').textContent = product.name;
+        //         document.getElementById('modal-price').textContent = `$${product.price.toLocaleString()}`;
+        //         document.getElementById('modal-year').textContent = product.year;
+        //         document.getElementById('modal-location').textContent = product.location;
+        //         document.getElementById('modal-hours').textContent = product.hours || 'N/A';
+        //         document.getElementById('modal-condition').textContent = product.condition || 'Used';
+        //         document.getElementById('modal-description').textContent = product.description;
+        //         document.getElementById('modal-horsepower').textContent = product.horsepower || '15-25 HP';
+        //         document.getElementById('modal-main-image').src = product.image;
+        //         document.getElementById('modal-main-image').alt = product.name;
+
+        //         // Set gallery images
+        //         if (product.gallery && product.gallery.length > 0) {
+        //             const galleryThumbs = document.querySelector('.gallery-thumbs');
+        //             galleryThumbs.innerHTML = '';
+
+        //             product.gallery.forEach((img, index) => {
+        //                 const thumb = document.createElement('img');
+        //                 thumb.src = img;
+        //                 thumb.alt = `${product.name} view ${index + 1}`;
+        //                 thumb.className =
+        //                     `h-16 w-full object-cover rounded border-2 ${index === 0 ? 'border-blue-500' : 'border-transparent'} cursor-pointer`;
+        //                 if (index === 0) thumb.classList.add('active');
+
+        //                 thumb.addEventListener('click', function() {
+        //                     document.getElementById('modal-main-image').src = img;
+        //                     document.querySelectorAll('.gallery-thumbs img').forEach(t => t.classList
+        //                         .remove('active', 'border-blue-500'));
+        //                     this.classList.add('active', 'border-blue-500');
+        //                 });
+
+        //                 galleryThumbs.appendChild(thumb);
+        //             });
+        //         }
+        //     }
+
+        //     modal.classList.remove('hidden');
+        //     setTimeout(() => {
+        //         modal.classList.add('opacity-100');
+        //     }, 10);
+
+        //     document.body.style.overflow = 'hidden';
+        // }
+
+        // function closeModalFunc() {
+        //     modal.classList.remove('opacity-100');
+
+        //     setTimeout(() => {
+        //         modal.classList.add('hidden');
+        //         document.body.style.overflow = '';
+        //     }, 300);
+        // }
     </script>
 @endpush
