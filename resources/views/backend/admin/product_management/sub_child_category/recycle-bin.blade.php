@@ -19,8 +19,8 @@
                         <thead>
                             <tr>
                                 <th>{{ __('SL') }}</th>
-                                <th>{{ __('Main Category') }}</th>
                                 <th>{{ __('Name') }}</th>
+                                <th>{{ __('Main Category') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Featured') }}</th>
                                 <th>{{ __('Deleted By') }}</th>
@@ -43,11 +43,11 @@
         $(document).ready(function() {
             let table_columns = [
                 //name and data, orderable, searchable
-                ['parent_id', true, true],
                 ['name', true, true],
+                ['parent_id', true, true],
                 ['status', true, true],
                 ['is_featured', true, true],
-                ['deleter_id', true, true],
+                ['deleted_by', true, true],
                 ['deleted_at', true, true],
                 ['action', false, false],
             ];
@@ -57,7 +57,7 @@
                 displayLength: 10,
                 main_route: "{{ route('pm.sub-child-category.recycle-bin') }}",
                 order_route: "{{ route('update.sort.order') }}",
-                export_columns: [0, 1, 2, 3,4,5,6],
+                export_columns: [0, 1, 2, 3, 4, 5, 6],
                 model: 'Category',
             };
             // initializeDataTable(details);
@@ -66,4 +66,3 @@
         })
     </script>
 @endpush
-

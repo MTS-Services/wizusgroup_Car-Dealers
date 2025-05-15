@@ -29,7 +29,9 @@ return new class extends Migration
             $table->longText('meta_description')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $this->addMorphedAuditColumns($table);
+            $this->addAdminAuditColumns($table);
+
+            $table->unique(['parent_id', 'name']);
 
             // Foreign keys
             $table->foreign('parent_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
