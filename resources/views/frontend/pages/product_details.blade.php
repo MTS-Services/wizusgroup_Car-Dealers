@@ -10,6 +10,36 @@
         .product_carousel_section .product_slider_thumbs .swiper-slide-thumb-active {
             opacity: 1;
         }
+
+        .hover-wrapper:hover #zoomResult {
+            display: block;
+        }
+
+        #lens {
+            position: absolute;
+            border: 2px solid rgba(52, 158, 226, 0.8);
+            z-index: 100;
+            pointer-events: none;
+            display: none;
+            /* No fixed width/height here — JS will handle it */
+        }
+
+        #zoomResult {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            margin-left: 20px;
+            width: 300px;
+            height: 300px;
+            background-repeat: no-repeat;
+            background-size: 200%;
+            /* To ensure zooming effect */
+            z-index: 99;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            /* Optional: border to see the zoom area */
+        }
     </style>
 @endpush
 @section('content')
@@ -19,22 +49,27 @@
                 {{-- Left: Image Slider --}}
                 <div class="w-full">
                     {{-- Main Product Slider --}}
-                    <div
-                        class="swiper product_slider_image w-full h-64 sm:h-80 md:h-96 lg:h-[500px] mx-auto bg-bg-light dark:bg-bg-dark-tertiary rounded-lg overflow-hidden">
-                        <div class="swiper-wrapper">
-                            @for ($i = 1; $i <= 10; $i++)
-                                <div class="swiper-slide flex items-center justify-center">
-                                    <img src="https://swiperjs.com/demos/images/nature-{{ $i }}.jpg"
-                                        class="block w-full h-full object-cover" />
-                                </div>
-                            @endfor
-                        </div>
+                    <div class="relative hover-wrapper">
                         <div
-                            class="swiper-button-next text-white bg-bg-dark/30 hover:bg-bg-dark/50 dark:bg-white/30 dark:hover:bg-white/50 rounded-full w-10 h-10">
+                            class="swiper static product_slider_image w-full h-64 sm:h-80 md:h-96 lg:h-[500px] mx-auto bg-bg-light dark:bg-bg-dark-tertiary rounded-lg overflow-hidden">
+                            <div class="swiper-wrapper">
+                                @for ($i = 1; $i <= 10; $i++)
+                                    <div class="swiper-slide flex items-center justify-center">
+                                        <img src="https://swiperjs.com/demos/images/nature-{{ $i }}.jpg"
+                                            class="zoomable block w-full h-full object-cover" />
+                                    </div>
+                                @endfor
+                            </div>
+                            <div class="swiper-button swiper-button-prev ">
+                                <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
+                            </div>
+                            <div class="swiper-button swiper-button-next  ">
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
+                            </div>
+
                         </div>
-                        <div
-                            class="swiper-button-prev text-white bg-bg-dark/30 hover:bg-bg-dark/50 dark:bg-white/30 dark:hover:bg-white/50 rounded-full w-10 h-10">
-                        </div>
+                        <div id="zoomResult"></div>
+                        <div id="lens"></div>
                     </div>
 
                     {{-- Thumbnail Slider --}}
@@ -49,6 +84,7 @@
                                 </div>
                             @endfor
                         </div>
+
                     </div>
                 </div>
 
@@ -57,40 +93,40 @@
                     <div class="mx-auto" x-data="{ tab: 'basic' }">
                         <!-- Tabs - Responsive layout -->
                         <div
-                            class="flex flex-col xs:flex-row flex-wrap gap-1 sm:gap-2 border-b border-border-gray dark:border-bg-dark-secondary mb-4 sm:mb-6">
+                            class="flex flex-col xs:flex-row flex-wrap gap-1 2xl:justify-between sm:gap-2 border-b border-border-gray dark:border-bg-dark-secondary mb-4 sm:mb-6">
                             <button @click="tab = 'basic'"
                                 :class="tab === 'basic' ?
                                     'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
                                     'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
-                                class="px-3 xs:px-4 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
+                                class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
                                 Basic Info
                             </button>
                             <button @click="tab = 'airbag'"
                                 :class="tab === 'airbag' ?
                                     'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
                                     'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
-                                class="px-3 xs:px-4 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
+                                class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
                                 Air-bag
                             </button>
                             <button @click="tab = 'other'"
                                 :class="tab === 'other' ?
                                     'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
                                     'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
-                                class="px-3 xs:px-4 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
+                                class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
                                 Other Info
                             </button>
                             <button @click="tab = 'development'"
                                 :class="tab === 'development' ?
                                     'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
                                     'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
-                                class="px-3 xs:px-4 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
+                                class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
                                 Development
                             </button>
                             <button @click="tab = 'docs'"
                                 :class="tab === 'docs' ?
                                     'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
                                     'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
-                                class="px-3 xs:px-4 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
+                                class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
                                 Documents
                             </button>
                         </div>
@@ -102,7 +138,7 @@
                             <div x-show="tab === 'basic'" x-cloak>
                                 <table class="w-full table-auto text-sm sm:text-base">
                                     <tbody>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                        <tr class=" border-border-gray dark:border-bg-dark-secondary">
                                             <td class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">Stock
                                                 No.</td>
                                             <td class="py-2 sm:py-3 dark:text-text-secondary">No.1287864</td>
@@ -198,9 +234,10 @@
     <!-- Alpine.js for tab switching -->
     <script src="//unpkg.com/alpinejs" defer></script>
     <!-- SwiperJS CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <!-- Initialize Swiper JS -->
-    <script>
+    {{-- <script type="module">
+        import Swiper from '/frontend/js/swiper.min.js';
+
         document.addEventListener('DOMContentLoaded', function() {
             const galleryThumbs = new Swiper('.product_slider_thumbs', {
                 spaceBetween: 8,
@@ -229,7 +266,139 @@
                 }
             });
         });
+
+        const zoomResult = document.getElementById("zoomResult");
+        const lens = document.getElementById("lens");
+
+        document.querySelectorAll('.zoomable').forEach(img => {
+            img.addEventListener('mousemove', function(e) {
+                const rect = img.getBoundingClientRect();
+                const wrapperRect = img.closest('.hover-wrapper').getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const zoomFactor = 2; // 2x zoom
+                const resultWidth = zoomResult.offsetWidth;
+                const resultHeight = zoomResult.offsetHeight;
+
+                // Set background of zoom result
+                zoomResult.style.backgroundImage = `url('${img.src}')`;
+                zoomResult.style.backgroundSize =
+                    `${rect.width * zoomFactor}px ${rect.height * zoomFactor}px`;
+                zoomResult.style.backgroundPosition =
+                    `-${x * zoomFactor - resultWidth / 2}px -${y * zoomFactor - resultHeight / 2}px`;
+
+                // Fixed lens size
+                lens.style.display = 'block';
+                lens.style.width = `100px`;
+                lens.style.height = `100px`;
+                lens.style.left = `${e.clientX - wrapperRect.left - 50}px`; // 100/2 = 50
+                lens.style.top = `${e.clientY - wrapperRect.top - 50}px`;
+
+                // Show zoom result
+                zoomResult.style.display = 'block';
+            });
+
+            img.addEventListener('mouseenter', function() {
+                zoomResult.style.display = 'block';
+                lens.style.display = 'block';
+            });
+
+            img.addEventListener('mouseleave', function() {
+                zoomResult.style.display = 'none';
+                lens.style.display = 'none';
+                zoomResult.style.backgroundImage = '';
+            });
+        });
+    </script> --}}
+    <script type="module">
+        import Swiper from '/frontend/js/swiper.min.js';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize thumbnail Swiper
+            const galleryThumbs = new Swiper('.product_slider_thumbs', {
+                spaceBetween: 8,
+                slidesPerView: 5,
+                freeMode: true,
+                watchSlidesProgress: true,
+                watchSlidesVisibility: true,
+                breakpoints: {
+                    480: {
+                        slidesPerView: 6
+                    },
+                    768: {
+                        slidesPerView: 8
+                    }
+                }
+            });
+
+            // Initialize main image Swiper
+            const galleryTop = new Swiper('.product_slider_image', {
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                thumbs: {
+                    swiper: galleryThumbs
+                }
+            });
+
+            // Zoom functionality
+            const zoomResult = document.getElementById("zoomResult");
+            const lens = document.getElementById("lens");
+
+            // Re-attach zoom logic every time slide changes
+            function attachZoom() {
+                document.querySelectorAll('.zoomable').forEach(img => {
+                    img.addEventListener('mousemove', function(e) {
+                        const rect = img.getBoundingClientRect();
+                        const wrapperRect = img.closest('.hover-wrapper').getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+
+                        const zoomFactor = 2; // You can adjust this
+                        const resultWidth = zoomResult.offsetWidth;
+                        const resultHeight = zoomResult.offsetHeight;
+
+                        zoomResult.style.backgroundImage = `url('${img.src}')`;
+                        zoomResult.style.backgroundSize =
+                            `${rect.width * zoomFactor}px ${rect.height * zoomFactor}px`;
+                        zoomResult.style.backgroundPosition =
+                            `-${x * zoomFactor - resultWidth / 2}px -${y * zoomFactor - resultHeight / 2}px`;
+
+                        lens.style.display = 'block';
+                        lens.style.width = `100px`;
+                        lens.style.height = `100px`;
+                        lens.style.left = `${e.clientX - wrapperRect.left - 50}px`;
+                        lens.style.top = `${e.clientY - wrapperRect.top - 50}px`;
+
+                        zoomResult.style.display = 'block';
+                    });
+
+                    img.addEventListener('mouseenter', function() {
+                        zoomResult.style.display = 'block';
+                        lens.style.display = 'block';
+                    });
+
+                    img.addEventListener('mouseleave', function() {
+                        zoomResult.style.display = 'none';
+                        lens.style.display = 'none';
+                        zoomResult.style.backgroundImage = '';
+                    });
+                });
+            }
+
+            // Initial attach
+            attachZoom();
+
+            // Optional: Re-attach on slide change to ensure only current image responds
+            galleryTop.on('slideChangeTransitionEnd', () => {
+                attachZoom(); // Refresh listeners if needed
+            });
+        });
     </script>
+
 
     {{-- <script type="module">
         import Swiper from '/frontend/js/swiper.min.js';
