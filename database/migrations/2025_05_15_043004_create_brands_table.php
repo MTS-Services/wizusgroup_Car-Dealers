@@ -1,11 +1,11 @@
 <?php
 
+use App\Models\Brand;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Traits\AuditColumnsTrait;
-use App\Models\Country;
 
 return new class extends Migration
 {
@@ -15,13 +15,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('countries', function (Blueprint $table) {
+        Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
             $table->string("name")->unique();
             $table->string("slug")->unique();
+            $table->string("image")->nullable();
+            $table->string("website")->nullable();
+            $table->boolean('status')->default(Brand::STATUS_ACTIVE)->index();
+            $table->boolean('is_featured')->default(Brand::NOT_FEATURED)->index();
+            $table->string("meta_title")->nullable();
+            $table->longText("meta_description")->nullable();
             $table->longText("description")->nullable();
-            $table->boolean('status')->default(Country::STATUS_ACTIVE)->index();
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
@@ -38,6 +43,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('countries');
+        Schema::dropIfExists('brands');
     }
 };
