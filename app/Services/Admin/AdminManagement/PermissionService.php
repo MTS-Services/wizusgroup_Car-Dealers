@@ -3,6 +3,7 @@
 namespace App\Services\Admin\AdminManagement;
 
 use App\Models\Permission;
+use Illuminate\Database\Eloquent\Collection;
 
 class PermissionService
 {
@@ -11,11 +12,11 @@ class PermissionService
         return Permission::orderBy($orderBy , $order)->latest();
     }
 
-    public function getPermission($encryptedId): Permission
+    public function getPermission($encryptedId): Permission | Collection
     {
         return Permission::findOrFail(decrypt($encryptedId));
     }
-    public function getDeletedPermission($encryptedId): Permission
+    public function getDeletedPermission($encryptedId): Permission | Collection
     {
         return Permission::onlyTrashed()->findOrFail(decrypt($encryptedId));
     }

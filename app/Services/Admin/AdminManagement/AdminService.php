@@ -4,7 +4,7 @@ namespace App\Services\Admin\AdminManagement;
 
 use App\Http\Traits\FileManagementTrait;
 use App\Models\Admin;
-use App\Models\Permission;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
 
@@ -15,11 +15,11 @@ class AdminService
     {
         return Admin::orderBy($orderBy, $order)->latest();
     }
-    public function getAdmin(string $encryptedId): Admin
+    public function getAdmin(string $encryptedId): Admin | Collection
     {
         return Admin::findOrFail(decrypt($encryptedId));
     }
-    public function getDeletedAdmin(string $encryptedId): Admin
+    public function getDeletedAdmin(string $encryptedId): Admin | Collection
     {
         return Admin::onlyTrashed()->findOrFail(decrypt($encryptedId));
     }

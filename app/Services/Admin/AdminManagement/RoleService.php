@@ -3,6 +3,7 @@
 namespace App\Services\Admin\AdminManagement;
 
 use App\Models\Role;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
 class RoleService
@@ -17,12 +18,12 @@ class RoleService
         return Role::orderBy($orderBy, $order)->latest();
     }
 
-    public function getRole(string $encryptedId): Role
+    public function getRole(string $encryptedId): Role | Collection
     {
         return Role::findOrFail(decrypt($encryptedId));
     }
 
-    public function getDeletedRole(string $encryptedId): Role
+    public function getDeletedRole(string $encryptedId): Role | Collection
     {
         return Role::onlyTrashed()->findOrFail(decrypt($encryptedId));
     }

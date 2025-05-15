@@ -7,7 +7,6 @@ use App\Http\Requests\Admin\PermissionRequest;
 use App\Models\Permission;
 use App\Services\Admin\AdminManagement\PermissionService;
 use Illuminate\Http\Request;
-use App\Http\Traits\DetailsCommonDataTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
@@ -15,7 +14,6 @@ use Yajra\DataTables\Facades\DataTables;
 
 class PermissionController extends Controller
 {
-    use DetailsCommonDataTrait;
     protected PermissionService $permissionService;
     public function __construct( PermissionService $permissionService)
     {
@@ -87,7 +85,7 @@ class PermissionController extends Controller
     {
 
         if ($request->ajax()) {
-            $query = $this->getPermissons()->onlyTrashed()->with('deleter_admin');
+            $query = $this->permissionService->getPermissions()->onlyTrashed()->with('deleter_admin');
             return DataTables::eloquent($query)
                 ->editColumn('deleted_by', function ($permission) {
                     return $permission->deleter_name;

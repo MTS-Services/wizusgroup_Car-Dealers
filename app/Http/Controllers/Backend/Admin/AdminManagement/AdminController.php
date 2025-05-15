@@ -243,7 +243,7 @@ class AdminController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
-        $admin = $this->getAdmin($id);
+        $admin = $this->adminService->getAdmin($id);
         if ($admin->role_id == 1) {
             session()->flash('error', 'Can not delete Super Admin!');
             return redirect()->route('am.admin.index');

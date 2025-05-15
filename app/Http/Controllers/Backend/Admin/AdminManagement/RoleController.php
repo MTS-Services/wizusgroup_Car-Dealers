@@ -170,33 +170,38 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        $role = $this->roleService->getRole($id);
+
         $id = decrypt($id);
         if ($id == 1) {
             session()->flash('error', 'Cannot edit Super Admin!');
             return redirect()->route('am.role.index');
         }
-        $data['role'] = $role->load(['permissions:id,name,prefix']);
-        $data['permissions'] = Permission::orderBy('prefix')->get();
-        $data['groupedPermissions'] = $data['permissions']->groupBy(function ($permission) {
-            return $permission->prefix;
-        });
+       try{
+            $role = $this->roleService->getRole($id);
+            $data['role'] = $role->load(['permissions:id,name,prefix']);
+            $data['permissions'] = $this->permissionService->getPermissions('prefix')->select(['id', 'name', 'prefix'])->get();
+            $data['groupedPermissions'] = $data['permissions']->groupBy('prefix');
+       } catch (\Throwable $e) {
+            session()->flash('error', 'Something went wrong, please try again!');
+            throw $e;
+        }
         return view('backend.admin.admin_management.role.edit', $data);
     }
 
     /**
+     *
      * Update the specified resource in storage.
      */
     public function update(RoleRequest $request, string $id): RedirectResponse
     {
-        $id = decrypt($id);
-        if ($id == 1) {
+
+        if (decrypt($id) == 1) {
             session()->flash('error', 'Cannot update Super Admin!');
             return redirect()->route('am.role.index');
         }
         try{
             $role = $this->roleService->getRole($id);
-            $role = $this->roleService->updateRole($role, $request->validated());
+            $this->roleService->updateRole($role, $request->validated());
             session()->flash('success','Role updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Role update failed!');
@@ -209,8 +214,7 @@ class RoleController extends Controller
 
     public function destroy(string $id): RedirectResponse
     {
-        $id = decrypt($id);
-        if ($id == 1) {
+        if (decrypt($id) == 1) {
             session()->flash('error', 'Cannot delete Super Admin!');
             return redirect()->route('am.role.index');
         }
