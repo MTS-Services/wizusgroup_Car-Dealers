@@ -32,7 +32,7 @@ class User extends AuthBaseModel implements MustVerifyEmail
         'password',
         'status',
         'image',
-        'is_verify',
+        'email_verified_at',
 
         'creater_id',
         'updater_id',
@@ -61,7 +61,6 @@ class User extends AuthBaseModel implements MustVerifyEmail
         'updater_id' => 'integer',
         'deleter_id' => 'integer',
         'status' => 'integer',
-        'is_verify' => 'integer',
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];

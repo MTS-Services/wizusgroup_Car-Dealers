@@ -33,7 +33,7 @@ class Admin extends AuthBaseModel implements Auditable
         'image',
         'role_id',
         'status',
-        'is_verify',
+        'email_verified_at',
         'password',
         'created_by',
         'updated_by',
@@ -64,7 +64,6 @@ class Admin extends AuthBaseModel implements Auditable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'status' => 'integer',
-            'is_verify' => 'integer',
             'username' => 'string',
         ];
     }

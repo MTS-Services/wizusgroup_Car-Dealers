@@ -17,19 +17,14 @@ return new class extends Migration
     {
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sort_order')->default(0);
-            $table->string('question');
+            $table->unsignedBigInteger('sort_order')->default(0)->index();
+            $table->string('question')->index();
             $table->longText('answer');
-            $table->tinyInteger('type')->default(Faq::TYPE_GENERAL)->comment(Faq::TYPE_GENERAL . ': General, ' . Faq::TYPE_PRIVACY . ': Privacy, ' . Faq::TYPE_TERMS . ': Terms' . Faq::TYPE_CONTACT . ': Contact' . Faq::TYPE_ABOUT . ': About' . Faq::TYPE_PRODUCT . ': Product');
-            $table->boolean('status')->default(Faq::STATUS_ACTIVE)->comment(Faq::STATUS_ACTIVE . ': Active, ' . Faq::STATUS_DEACTIVE . ': Inactive');
+            $table->tinyInteger('type')->default(Faq::TYPE_GENERAL)->index()->comment(Faq::TYPE_GENERAL . ': General, ' . Faq::TYPE_PRIVACY . ': Privacy, ' . Faq::TYPE_TERMS . ': Terms' . Faq::TYPE_CONTACT . ': Contact' . Faq::TYPE_ABOUT . ': About' . Faq::TYPE_PRODUCT . ': Product');
+            $table->boolean('status')->default(Faq::STATUS_ACTIVE)->index();
             $table->timestamps();
             $table->softDeletes();
             $this->addMorphedAuditColumns($table);
-
-            $table->index('sort_order');
-            $table->index('question');
-            $table->index('status');
-            $table->index('type');
 
             $table->index('created_at'); // Index for soft deletes
             $table->index('updated_at'); // Index for soft deletes
