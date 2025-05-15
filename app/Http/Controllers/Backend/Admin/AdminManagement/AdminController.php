@@ -56,7 +56,7 @@ class AdminController extends Controller
                 ->editColumn('status', function ($admin) {
                     return "<span class='badge " . $admin->status_color . "'>$admin->status_label</span>";
                 })
-                ->editColumn('is_verify', function ($user) {
+                ->editColumn('email_verified_at', function ($user) {
                     return "<span class='badge " . $user->verify_color . "'>" . $user->verify_label . "</span>";
                 })
                 ->editColumn('created_by', function ($admin) {
@@ -69,7 +69,7 @@ class AdminController extends Controller
                     $menuItems = $this->menuItems($admin);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['first_name', 'role_id', 'status', 'is_verify', 'created_by', 'created_at', 'action'])
+                ->rawColumns(['first_name', 'role_id', 'status', 'email_verified_at', 'created_by', 'created_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.admin_management.admin.index');
@@ -131,7 +131,7 @@ class AdminController extends Controller
                 ->editColumn('status', function ($admin) {
                     return "<span class='badge " . $admin->status_color . "'>$admin->status_label</span>";
                 })
-                ->editColumn('is_verify', function ($user) {
+                ->editColumn('email_verified_at', function ($user) {
                     return "<span class='badge " . $user->verify_color . "'>" . $user->verify_label . "</span>";
                 })
                 ->editColumn('deleted_by', function ($admin) {
@@ -144,7 +144,7 @@ class AdminController extends Controller
                     $menuItems = $this->trashedMenuItems($admin);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['first_name', 'role_id', 'status', 'is_verify', 'deleted_by', 'deleted_at', 'action'])
+                ->rawColumns(['first_name', 'role_id', 'status', 'email_verified_at', 'deleted_by', 'deleted_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.admin_management.admin.recycle-bin');

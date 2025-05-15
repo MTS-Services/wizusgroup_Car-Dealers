@@ -46,7 +46,7 @@
                 ['first_name', true, true],
                 ['email', true, true],
                 ['status', true, true],
-                ['is_verify', true, true],
+                ['email_verified_at', true, true],
                 ['deleter_id', true, true],
                 ['deleted_at', true, true],
                 ['action', false, false],
