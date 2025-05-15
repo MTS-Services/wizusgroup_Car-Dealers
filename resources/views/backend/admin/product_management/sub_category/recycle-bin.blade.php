@@ -19,8 +19,8 @@
                         <thead>
                             <tr>
                                 <th>{{ __('SL') }}</th>
-                                <th>{{ __('Main Category') }}</th>
                                 <th>{{ __('Name') }}</th>
+                                <th>{{ __('Main Category') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Featured') }}</th>
                                 <th>{{ __('Deleted By') }}</th>
@@ -43,11 +43,11 @@
         $(document).ready(function() {
             let table_columns = [
                 //name and data, orderable, searchable
-                ['parent_id', true, true],
                 ['name', true, true],
+                ['parent_id', true, true],
                 ['status', true, true],
                 ['is_featured', true, true],
-                ['deleter_id', true, true],
+                ['deleted_by', true, true],
                 ['deleted_at', true, true],
                 ['action', false, false],
             ];

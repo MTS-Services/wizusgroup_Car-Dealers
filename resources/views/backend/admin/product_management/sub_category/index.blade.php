@@ -28,8 +28,8 @@
                         <thead>
                             <tr>
                                 <th>{{ __('SL') }}</th>
-                                <th>{{ __('Main Category') }}</th>
                                 <th>{{ __('Name') }}</th>
+                                <th>{{ __('Main Category') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Featured') }}</th>
                                 <th>{{ __('Created By') }}</th>
@@ -55,11 +55,11 @@
         $(document).ready(function() {
             let table_columns = [
                 //name and data, orderable, searchable
-                ['parent_id', true, true],
                 ['name', true, true],
+                ['parent_id', true, true],
                 ['status', true, true],
                 ['is_featured', true, true],
-                ['creater_id', true, true],
+                ['created_by', true, true],
                 ['created_at', false, false],
                 ['action', false, false],
             ];

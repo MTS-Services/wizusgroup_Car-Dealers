@@ -176,11 +176,12 @@ class CategoryController extends Controller
         try {
             $validated = $request->validated();
             $this->categoryService->createCategory($validated, $request->image ?? null);
+            session()->flash('success', 'Category created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Category create failed!');
             throw $e;
+            session()->flash('error', 'Category create failed!');
         }
-        session()->flash('success', 'Category created successfully!');
         return redirect()->route('pm.category.index');
     }
 
@@ -190,22 +191,23 @@ class CategoryController extends Controller
     public function show(string $id): JsonResponse
     {
 
-        $category = $this->categoryService->getCategory($id);
-        $category->load(['creater_admin', 'updater_admin'])->withCount(['activeChildrens']);
-        return response()->json($category);
+        $data = $this->categoryService->getCategory($id);
+        $data->load(['creater_admin', 'updater_admin'])->withCount(['activeChildrens']);
+        return response()->json($data);
     }
 
     public function edit(string $id)
     {
-        $category = $this->categoryService->getCategory($id);
-        return view('backend.admin.product_management.category.edit', compact('category'));
+        $data['category'] = $this->categoryService->getCategory($id);
+        return view('backend.admin.product_management.category.edit', $data);
     }
 
     public function update(CategoryRequest $request, string $id): RedirectResponse
     {
         try {
+            $category = $this->categoryService->getCategory($id);
             $validated = $request->validated();
-            $this->categoryService->updateCategory($id, $validated, $request->image ?? null);
+            $this->categoryService->updateCategory($category, $validated, $request->image ?? null);
             session()->flash('success', 'Category updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Category update failed!');
@@ -220,7 +222,8 @@ class CategoryController extends Controller
     public function destroy(string $id): RedirectResponse
     {
         try {
-            $this->categoryService->deleteCategory($id);
+            $category = $this->categoryService->getCategory($id);
+            $this->categoryService->deleteCategory($category);
             session()->flash('success', 'Category deleted successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Category delete failed!');
@@ -232,7 +235,8 @@ class CategoryController extends Controller
     public function status(string $id): RedirectResponse
     {
         try {
-            $this->categoryService->toggleStatus($id);
+            $category = $this->categoryService->getCategory($id);
+            $this->categoryService->toggleStatus($category);
             session()->flash('success', 'Category status updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Category status update failed!');
@@ -243,7 +247,8 @@ class CategoryController extends Controller
     public function feature(string $id): RedirectResponse
     {
         try {
-            $this->categoryService->toggleFeature($id);
+            $category = $this->categoryService->getCategory($id);
+            $this->categoryService->toggleFeature($category);
             session()->flash('success', 'Category feature updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Category feature update failed!');
@@ -255,7 +260,8 @@ class CategoryController extends Controller
     public function restore(string $id): RedirectResponse
     {
         try {
-            $this->categoryService->restoreCategory($id);
+            $category = $this->categoryService->getDeletedCategory($id);
+            $this->categoryService->restoreCategory($category);
             session()->flash('success', 'Category restored successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Category restore failed!');
@@ -273,12 +279,13 @@ class CategoryController extends Controller
     public function permanentDelete(string $id): RedirectResponse
     {
         try {
-            $this->categoryService->permanentDeleteCategory($id);
+            $category = $this->categoryService->getDeletedCategory($id);
+            $this->categoryService->permanentDeleteCategory($category);
+            session()->flash('success', 'Category permanently deleted successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Category permanent delete failed!');
             throw $e;
         }
-        session()->flash('success', 'Category permanently deleted successfully!');
         return redirect()->route('pm.category.recycle-bin');
     }
 }

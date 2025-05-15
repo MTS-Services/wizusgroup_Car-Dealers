@@ -10,19 +10,10 @@ class CategoryService
 {
     use FileManagementTrait;
 
+
     public function getCategories($orderBy = 'sort_order', $order = 'asc')
     {
         return Category::orderBy($orderBy, $order)->latest();
-    }
-
-    public function getCategory(string $encryptedId): Category | Collection
-    {
-        return Category::findOrFail(decrypt($encryptedId));
-    }
-
-    public function getDeletedCategory(string $encryptedId): Category | Collection
-    {
-        return Category::onlyTrashed()->findOrFail(decrypt($encryptedId));
     }
 
     public function createCategory(array $data, $file = null): Category
@@ -35,9 +26,8 @@ class CategoryService
         return $category;
     }
 
-    public function updateCategory(string $encryptedId, array $data, $file = null): Category
+    public function updateCategory(Category $category, array $data, $file = null): Category
     {
-        $category = $this->getCategory($encryptedId);
         $data['updated_by'] = admin()->id;
         if ($file) {
             $data['image'] = $this->handleFilepondFileUpload($category, $file, admin(), 'categories/');
@@ -46,44 +36,76 @@ class CategoryService
         return $category;
     }
 
-    public function deleteCategory(string $encryptedId): void
+    public function deleteCategory(Category $category): void
     {
-        $category = $this->getCategory($encryptedId);
         $category->update(['deleted_by' => admin()->id]);
         $category->delete();
     }
 
-    public function restoreCategory(string $encryptedId): void
+    public function restoreCategory(Category $category): void
     {
-        $category = $this->getDeletedCategory($encryptedId);
         $category->update(['updated_by' => admin()->id]);
         $category->restore();
     }
 
-    public function permanentDeleteCategory(string $encryptedId): void
+    public function permanentDeleteCategory(Category $category): void
     {
-        $category = $this->getDeletedCategory($encryptedId);
         if ($category->image) {
             $this->fileDelete($category->image);
         }
         $category->forceDelete();
     }
 
-    public function toggleStatus(string $encryptedId): void
+    public function toggleStatus(Category $category): void
     {
-        $category = $this->getCategory($encryptedId);
         $category->update([
             'updated_by' => admin()->id,
             'status' => !$category->status
         ]);
     }
 
-    public function toggleFeature(string $encryptedId): void
+    public function toggleFeature(Category $category): void
     {
-        $category = $this->getCategory($encryptedId);
         $category->update([
             'updated_by' => admin()->id,
             'is_featured' => !$category->is_featured
         ]);
+    }
+
+
+    // ================ Main Category Queries ================
+
+    public function getCategory(string $encryptedId): Category | Collection
+    {
+        return Category::isMainCategory()->findOrFail(decrypt($encryptedId));
+    }
+
+    public function getDeletedCategory(string $encryptedId): Category | Collection
+    {
+        return Category::onlyTrashed()->isMainCategory()->findOrFail(decrypt($encryptedId));
+    }
+
+    // ================ Sub Category Queries ===============
+
+    public function getSubCategory(string $encryptedId): Category | Collection
+    {
+        return Category::isSubCategory()->findOrFail(decrypt($encryptedId));
+    }
+
+    public function getDeletedSubCategory(string $encryptedId): Category | Collection
+    {
+        return Category::onlyTrashed()->isSubCategory()->findOrFail(decrypt($encryptedId));
+    }
+
+    // ================ Sub Child Category Queries ===============
+
+    public function getSubChildCategory(string $encryptedId): Category | Collection
+    {
+        return Category::isSubChildCategory()->findOrFail(decrypt($encryptedId));
+    }
+
+    public function getDeletedSubChildCategory(string $encryptedId): Category | Collection
+    {
+        return Category::onlyTrashed()->isSubChildCategory()->findOrFail(decrypt($encryptedId));
     }
 }

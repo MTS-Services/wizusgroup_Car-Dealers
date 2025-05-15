@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin\ProductManagement;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SubChildCategoryRequest extends FormRequest
@@ -19,7 +20,7 @@ class SubChildCategoryRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-      public function rules(): array
+    public function rules(): array
     {
         return [
 
@@ -28,7 +29,7 @@ class SubChildCategoryRequest extends FormRequest
             'description' => 'nullable|string',
             'image' => 'nullable',
             'parent_id' => 'required|exists:categories,id',
-            'category_id'=> 'required|exists:categories,id',
+            'category_id' => 'required|exists:categories,id',
 
         ]
             +
@@ -38,7 +39,10 @@ class SubChildCategoryRequest extends FormRequest
     protected function store(): array
     {
         return [
-            'name' => 'required|string|unique:categories,name',
+            Rule::unique('categories')->where(
+                fn($query) =>
+                $query->where('parent_id', $this->parent_id)
+            ),
             'slug' => 'required|string|unique:categories,slug',
         ];
     }
@@ -47,7 +51,15 @@ class SubChildCategoryRequest extends FormRequest
     protected function update(): array
     {
         return [
-            'name' => 'required|string|unique:categories,name,' . decrypt($this->route('sub_child_category')),
+            'name' => [
+                'required',
+                Rule::unique('categories')
+                    ->where(
+                        fn($query) =>
+                        $query->where('parent_id', $this->parent_id)
+                    )
+                    ->ignore($this->route('sub_child_category')),
+            ],
             'slug' => 'required|string|unique:categories,slug,' . decrypt($this->route('sub_child_category')),
 
         ];

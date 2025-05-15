@@ -31,6 +31,8 @@ return new class extends Migration
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
 
+            $table->unique(['parent_id', 'name']);
+
             // Foreign keys
             $table->foreign('parent_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
 
