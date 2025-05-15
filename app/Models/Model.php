@@ -3,15 +3,16 @@
 namespace App\Models;
 
 use App\Models\BaseModel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Brand extends BaseModel
+class Model extends BaseModel
 {
-    protected $fillable = [
+     protected $fillable = [
         'sort_order',
+        'brand_id',
         'name',
         'slug',
         'image',
-        'website',
         'status',
         'is_featured',
         'meta_title',
@@ -197,19 +198,23 @@ class Brand extends BaseModel
         return self::getFeaturedBtnColors()[$this->is_featured] ?? 'btn btn-secondary';
     }
 
+    public function scopeFeatured($query)
+    {
+        return $query->where('is_featured', self::FEATURED);
+    }
+    public function scopeNotFeatured($query)
+    {
+        return $query->where('is_featured', self::NOT_FEATURED);
+    }
+
     // Modify Image
     public function getModifiedImageAttribute()
     {
         return storage_url($this->image);
     }
 
-    public function models()
+    public function brand(): BelongsTo
     {
-        return $this->hasMany(Model::class);
-    }
-
-    public function activeModels()
-    {
-        return $this->models()->active();
+        return $this->belongsTo(Brand::class, 'brand_id');
     }
 }
