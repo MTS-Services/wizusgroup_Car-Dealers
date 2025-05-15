@@ -2,7 +2,9 @@
 
 @section('title', 'Group Shipping')
 @push('css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endpush
 
 @section('content')
@@ -143,7 +145,7 @@
                             {{ __('What Shipping Options Do You Offer?') }}
                         </h3>
                         <i
-                            class="fa-solid fa-plus text-text-secondary dark:text-text-black transition-transform duration-300"></i>
+                            class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
                     </div>
                     <div
                         class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base mt-4 text-opacity-80">
@@ -158,7 +160,7 @@
                         <h3 class="text-lg md:text-xl font-bold text-text-secondary dark:text-text-white">
                             {{ __('Do You Ship Internationally?') }}</h3>
                         <i
-                            class="fa-solid fa-plus text-text-secondary dark:text-text-black transition-transform duration-300"></i>
+                            class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
                     </div>
                     <div
                         class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base mt-4 text-opacity-80">
@@ -173,7 +175,7 @@
                         <h3 class="text-lg md:text-xl font-bold text-text-secondary dark:text-text-white">
                             {{ __('How Long Will My Order Take to Arrive?') }}</h3>
                         <i
-                            class="fa-solid fa-plus text-text-secondary dark:text-text-black transition-transform duration-300"></i>
+                            class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
                     </div>
                     <div
                         class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base mt-4 text-opacity-80">
@@ -189,7 +191,7 @@
                             {{ __('How Can I Track My Order?') }}
                         </h3>
                         <i
-                            class="fa-solid fa-plus text-text-secondary dark:text-text-black transition-transform duration-300"></i>
+                            class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
                     </div>
                     <div
                         class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base mt-4 text-opacity-80">
@@ -204,7 +206,7 @@
                         <h3 class="text-lg md:text-xl font-bold text-text-secondary dark:text-text-white">
                             {{ __('What Happens If My Package Is Lost or Delayed?') }}</h3>
                         <i
-                            class="fa-solid fa-plus text-text-secondary dark:text-text-black transition-transform duration-300"></i>
+                            class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
                     </div>
                     <div
                         class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base mt-4 text-opacity-80">
@@ -219,7 +221,7 @@
                         <h3 class="text-lg md:text-xl font-bold text-text-secondary dark:text-text-white">
                             {{ __('Do You Offer Free Shipping?') }}</h3>
                         <i
-                            class="fa-solid fa-plus text-text-secondary dark:text-text-black transition-transform duration-300"></i>
+                            class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
                     </div>
                     <div
                         class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base mt-4 text-opacity-80">
@@ -229,8 +231,322 @@
             </div>
         </div>
     </section>
-
     {{-- end faq --}}
+    {{-- eligibility criteria start --}}
+    <section class="py-15 bg-bg-light-secondary">
+        <div class="container mx-auto">
+            <div class=" p-6  ">
+                <h2 class="text-2xl md:text-3xl font-bold text-text-secondary dark:text-text-white mb-4">
+                    {{ __('Eligibility Criteria and documents required for loan approval') }}
+                </h2>
+                <p class="text-text-primary dark:text-text-white text-sm md:text-base mt-4">
+                    {{ __('To be eligible for free shipping, your order must meet the following criteria  your order must meet the following criteria  your order must meet the following criteria  your order must meet the following criteria:') }}
+                </p>
+            </div>
+            <div class="grid lg:grid-cols-2  gap-6">
+                {{-- Eligibility Criteria --}}
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-16 h-16 flex items-center justify-center rounded-full bg-text-secondary/10">
+                                <i class="fa-solid fa-clipboard-check text-4xl text-text-secondary"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-semibold text-text-primary bg-bg-primary/50 px-4 py-2 rounded-md w-full">
+                            {{ __('Eligibility Criteria') }}
+                        </h3>
+                    </div>
+                    <div class="flex items-center py-4">
+                        <!-- Numbered circle - responsive sizing -->
+                        <div class="flex items-center">
+                            <span
+                                class="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 z-10 rounded-full bg-bg-primary/80 text-text-light font-semibold text-sm sm:text-base md:text-lg">
+                                01
+                            </span>
+                            <span class="w-6 sm:w-7 md:w-8 h-2 sm:h-3 bg-bg-primary/60 -ml-1"></span>
+                        </div>
+
+                        <!-- List with custom bullet styling - responsive padding and text -->
+                        <ul
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span>
+                                    <strong>{{ __('Nationality') }}</strong>: {{ __('USA') }}
+                                </span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span class="text-text-primary/40 italic">
+                                   {{__(' Add text here')}}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center py-4">
+                        <!-- Numbered circle - responsive sizing -->
+                        <div class="flex items-center">
+                            <span
+                                class="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 z-10 rounded-full bg-bg-primary/80 text-text-light font-semibold text-sm sm:text-base md:text-lg">
+                                02
+                            </span>
+                            <span class="w-6 sm:w-7 md:w-8 h-2 sm:h-3 bg-bg-primary/60 -ml-1"></span>
+                        </div>
+
+                        <!-- List with custom bullet styling - responsive padding and text -->
+                        <ul
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span>
+                                    <strong>{{ __('Nationality') }}</strong>: {{ __('USA') }}
+                                </span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span class="text-text-primary/40 italic">
+                                   {{__(' Add text here')}}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center py-4">
+                        <!-- Numbered circle - responsive sizing -->
+                        <div class="flex items-center">
+                            <span
+                                class="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 z-10 rounded-full bg-bg-primary/80 text-text-light font-semibold text-sm sm:text-base md:text-lg">
+                                03
+                            </span>
+                            <span class="w-6 sm:w-7 md:w-8 h-2 sm:h-3 bg-bg-primary/60 -ml-1"></span>
+                        </div>
+
+                        <!-- List with custom bullet styling - responsive padding and text -->
+                        <ul
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span>
+                                    <strong>{{ __('Nationality') }}</strong>: {{ __('USA') }}
+                                </span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span class="text-text-primary/40 italic">
+                                   {{__(' Add text here')}}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center py-4">
+                        <!-- Numbered circle - responsive sizing -->
+                        <div class="flex items-center">
+                            <span
+                                class="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 z-10 rounded-full bg-bg-primary/80 text-text-light font-semibold text-sm sm:text-base md:text-lg">
+                                04
+                            </span>
+                            <span class="w-6 sm:w-7 md:w-8 h-2 sm:h-3 bg-bg-primary/60 -ml-1"></span>
+                        </div>
+
+                        <!-- List with custom bullet styling - responsive padding and text -->
+                        <ul
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span>
+                                    <strong>{{ __('Nationality') }}</strong>: {{ __('USA') }}
+                                </span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span class="text-text-primary/40 italic">
+                                   {{__(' Add text here')}}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center py-4">
+                        <!-- Numbered circle - responsive sizing -->
+                        <div class="flex items-center">
+                            <span
+                                class="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 z-10 rounded-full bg-bg-primary/80 text-text-light font-semibold text-sm sm:text-base md:text-lg">
+                                05
+                            </span>
+                            <span class="w-6 sm:w-7 md:w-8 h-2 sm:h-3 bg-bg-primary/60 -ml-1"></span>
+                        </div>
+
+                        <!-- List with custom bullet styling - responsive padding and text -->
+                        <ul
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span>
+                                    <strong:>{{ __('Nationality') }}</strong: {{ __('USA') }}
+                                </span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span class="text-text-primary/40 italic">
+                                   {{__(' Add text here')}}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                {{-- Documents required --}}
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-16 h-16 flex items-center justify-center rounded-full bg-text-tertiary/30">
+                                <i class="fa-solid fa-file-contract text-4xl text-text-secondary"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-semibold text-text-primary bg-bg-tertiary/50 px-4 py-2 rounded-md w-full">
+                            {{ __('Documents Required') }}
+                        </h3>
+                    </div>
+                    <div class="flex items-center py-4">
+                        <!-- Numbered circle - responsive sizing -->
+                        <div class="flex items-center">
+                            <span
+                                class="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 z-10 rounded-full bg-bg-tertiary/80 text-text-light font-semibold text-sm sm:text-base md:text-lg">
+                                01
+                            </span>
+                            <span class="w-6 sm:w-7 md:w-8 h-2 sm:h-3 bg-bg-tertiary/60 -ml-1"></span>
+                        </div>
+
+                        <!-- List with custom bullet styling - responsive padding and text -->
+                        <ul
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span>
+                                    {{ __('Proof of business ownership') }}
+                                </span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span class="text-text-primary/40 italic">
+                                   {{__(' Add text here')}}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center py-4">
+                        <!-- Numbered circle - responsive sizing -->
+                        <div class="flex items-center">
+                            <span
+                                class="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 z-10 rounded-full bg-bg-tertiary/80 text-text-light font-semibold text-sm sm:text-base md:text-lg">
+                                02
+                            </span>
+                            <span class="w-6 sm:w-7 md:w-8 h-2 sm:h-3 bg-bg-tertiary/60 -ml-1"></span>
+                        </div>
+
+                        <!-- List with custom bullet styling - responsive padding and text -->
+                        <ul
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span>
+                                    {{ __('Proof of business ownership') }}
+                                </span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span class="text-text-primary/40 italic">
+                                   {{__(' Add text here')}}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center py-4">
+                        <!-- Numbered circle - responsive sizing -->
+                        <div class="flex items-center">
+                            <span
+                                class="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 z-10 rounded-full bg-bg-tertiary/80 text-text-light font-semibold text-sm sm:text-base md:text-lg">
+                                03
+                            </span>
+                            <span class="w-6 sm:w-7 md:w-8 h-2 sm:h-3 bg-bg-tertiary/60 -ml-1"></span>
+                        </div>
+
+                        <!-- List with custom bullet styling - responsive padding and text -->
+                        <ul
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span>
+                                    {{ __('Proof of business ownership') }}
+                                </span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span class="text-text-primary/40 italic">
+                                   {{__(' Add text here')}}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center py-4">
+                        <!-- Numbered circle - responsive sizing -->
+                        <div class="flex items-center">
+                            <span
+                                class="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 z-10 rounded-full bg-bg-tertiary/80 text-text-light font-semibold text-sm sm:text-base md:text-lg">
+                                04
+                            </span>
+                            <span class="w-6 sm:w-7 md:w-8 h-2 sm:h-3 bg-bg-tertiary/60 -ml-1"></span>
+                        </div>
+
+                        <!-- List with custom bullet styling - responsive padding and text -->
+                        <ul
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span>
+                                    {{ __('Proof of business ownership') }}
+                                </span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span class="text-text-primary/40 italic">
+                                   {{__(' Add text here')}}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center py-4">
+                        <!-- Numbered circle - responsive sizing -->
+                        <div class="flex items-center">
+                            <span
+                                class="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 z-10 rounded-full bg-bg-tertiary/80 text-text-light font-semibold text-sm sm:text-base md:text-lg">
+                                05
+                            </span>
+                            <span class="w-6 sm:w-7 md:w-8 h-2 sm:h-3 bg-bg-tertiary/60 -ml-1"></span>
+                        </div>
+
+                        <!-- List with custom bullet styling - responsive padding and text -->
+                        <ul
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span>
+                                    {{ __('Proof of business ownership') }}
+                                </span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
+                                <span class="text-text-primary/40 italic">
+                                   {{__(' Add text here')}}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </section>
 @endsection
 @push('js')
     <script>
