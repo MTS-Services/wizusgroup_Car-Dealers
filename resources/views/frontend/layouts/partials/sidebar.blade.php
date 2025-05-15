@@ -13,8 +13,8 @@
                 </span>
             </a> --}}
             <button class="closeSidebar" title="Close Sidebar">
-                <span class="w-10 h-10 flex items-center justify-center bg-bg-primary rounded-full text-text-white">
-                    <i data-lucide="x" class="text-lg"></i>
+                <span class="btn-primary w-10 h-10 p-0 text-text-white">
+                    <i data-lucide="x"></i>
                 </span>
             </button>
         </div>
@@ -26,13 +26,13 @@
         </div> --}}
 
         <div class="mt-5 flex flex-col items-start justify-start">
-            <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+            <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
                 href="{{ url('/') }}">{{ __('Home') }}</a>
-            <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+            <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
                 href="">{{ __('About Us') }}</a>
-            <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+            <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
                 href="">{{ __('Products') }}</a>
-            <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+            <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
                 href="">{{ __('Auctions') }}</a>
         </div>
 
@@ -67,18 +67,18 @@
                     <a href="" class="flex items-center justify-between gap-2">
                         <span
                             class="text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50">{{ __('Profile') }}</span>
-                        <i data-lucide="user"></i>
+                        <i data-lucide="user" class="hover:text-text-secondary transition-all duration-300 ease-linear"></i>
                     </a>
                     <a href="" class="flex items-center justify-between gap-2">
                         <span
                             class="text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50">{{ __('Password') }}</span>
-                        <i data-lucide="key-round"></i>
+                        <i data-lucide="key-round" class="hover:text-text-secondary transition-all duration-300 ease-linear"></i>
                     </a>
                 @else
                     <a href="{{ route('login') }}" class="flex items-center justify-between gap-2">
                         <span
                             class="text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50">{{ __('Profile') }}</span>
-                        <i data-lucide="user"></i>
+                        <i data-lucide="user" class="hover:text-text-secondary transition-all duration-300 ease-linear"></i>
                     </a>
                 @endauth
             </div>

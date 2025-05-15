@@ -44,16 +44,22 @@
 
                         <div class="mt-5 flex justify-center sm:justify-between items-center gap-5 flex-wrap">
                             <button type="submit" class="btn-primary">{{ __('Login') }}</button>
-                            <p class="text-center text-sm mt-4">
-                                {{ __('Forgot password?') }} <a href="{{ route('password.request') }}"
-                                    class="text-text-tertiary font-medium">
-                                    {{ __('Reset password') }} </a>
-                            </p>
+                            <div class="flex items-end flex-col gap-2">
+                                <label class="flex items-center justify-end gap-2 text-xs cursor-pointer">
+                                    <input type="checkbox" class="checkbox checkbox-xs">
+                                    <span>{{ __('Remember me') }}</span>
+                                </label>
+                                <p class="text-center text-sm">
+                                    {{ __('Forgot password?') }} <a href="{{ route('password.request') }}"
+                                        class="text-text-tertiary font-medium">
+                                        {{ __('Reset password') }} </a>
+                                </p>
+                            </div>
                         </div>
                     </form>
                     <div>
                         <div class="divider">{{ __('Or sign up with') }}</div>
-                        <div class="flex flex-wrap gap-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <a href="#" class="btn-primary rounded-md w-full gap-3">
                                 <i class='bx bxl-google text-2xl'></i> {{ __('Google') }}
                             </a>
@@ -65,10 +71,6 @@
                             {{ __('Don\'t have an account?') }} <a href="{{ route('register') }}"
                                 class="text-text-tertiary font-medium">
                                 {{ __('Sign up') }} </a>
-                        </p>
-                        <p class="text-center text-sm mt-4">
-                            {{ __('Become a') }} <a href="{{ route('seller.login') }}"
-                                class="text-text-accent font-medium">{{ __('Seller') }}</a>
                         </p>
                     </div>
                 </div>
