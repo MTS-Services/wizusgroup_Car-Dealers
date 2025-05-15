@@ -57,7 +57,7 @@
                 ['name', true, true],
                 ['status', true, true],
                 ['is_featured', true, true],
-                ['creater_id', true, true],
+                ['created_by', true, true],
                 ['created_at', false, false],
                 ['action', false, false],
             ];

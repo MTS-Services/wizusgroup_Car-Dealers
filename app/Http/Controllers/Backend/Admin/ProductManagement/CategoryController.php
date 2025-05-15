@@ -4,19 +4,21 @@ namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\CategoryRequest;
-use App\Models\Category;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Traits\FileManagementTrait;
+use App\Services\Admin\ProductManagement\CategoryService;
 
 class CategoryController extends Controller
 {
-    use FileManagementTrait;
-    public function __construct()
+    protected CategoryService $categoryService;
+
+    public function __construct(CategoryService $categoryService)
     {
+        $this->categoryService = $categoryService;
+
         $this->middleware('auth:admin');
         $this->middleware('permission:category-list', ['only' => ['index']]);
         $this->middleware('permission:category-details', ['only' => ['show']]);
@@ -36,12 +38,12 @@ class CategoryController extends Controller
     public function index(Request $request): JsonResponse|View
     {
         if ($request->ajax()) {
-            $query = Category::isMainCategory()->with(['creater'])->withCount(['activeChildrens'])
-            ->orderBy('sort_order', 'asc')
-            ->latest();
+            $query = $this->categoryService->getCategories()
+                ->isMainCategory()->with(['creater_admin'])
+                ->withCount(['activeChildrens']);
             return DataTables::eloquent($query)
                 ->editColumn('name', function ($category) {
-                    return $category->name ."<sup class='badge bg-info'>$category->active_childrens_count</sup>";
+                    return $category->name . "<sup class='badge bg-info'>$category->active_childrens_count</sup>";
                 })
                 ->editColumn('status', function ($category) {
                     return "<span class='badge " . $category->status_color . "'>$category->status_label</span>";
@@ -49,7 +51,7 @@ class CategoryController extends Controller
                 ->editColumn('is_featured', function ($category) {
                     return "<span class='badge " . $category->featured_color . "'>" . $category->featured_label . "</span>";
                 })
-                ->editColumn('creater_id', function ($category) {
+                ->editColumn('created_by', function ($category) {
                     return $category->creater_name;
                 })
                 ->editColumn('created_at', function ($category) {
@@ -59,7 +61,7 @@ class CategoryController extends Controller
                     $menuItems = $this->menuItems($category);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['name','status', 'is_featured', 'creater_id', 'created_at', 'action'])
+                ->rawColumns(['name', 'status', 'is_featured', 'created_by', 'created_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.product_management.category.index');
@@ -104,27 +106,26 @@ class CategoryController extends Controller
         ];
     }
 
-          public function recycleBin(Request $request)
+    public function recycleBin(Request $request)
     {
 
         if ($request->ajax()) {
-            $query = Category::with(['deleter'])
+            $query = $this->categoryService->getCategories()
+                ->with(['deleter_admin'])
                 ->withCount(['activeChildrens'])
                 ->onlyTrashed()
-                ->isMainCategory()
-                ->orderBy('sort_order', 'asc')
-                ->latest();
+                ->isMainCategory();
             return DataTables::eloquent($query)
                 ->editColumn('name', function ($category) {
-                        return $category->name ."<sup class='badge bg-info'>$category->active_childrens_count</sup>";
+                    return $category->name . "<sup class='badge bg-info'>$category->active_childrens_count</sup>";
                 })
                 ->editColumn('status', function ($category) {
                     return "<span class='badge " . $category->status_color . "'>$category->status_label</span>";
                 })
-                  ->editColumn('is_featured', function ($category) {
+                ->editColumn('is_featured', function ($category) {
                     return "<span class='badge " . $category->featured_color . "'>$category->featured_label</span>";
                 })
-               ->editColumn('deleter_id', function ($category) {
+                ->editColumn('deleted_by', function ($category) {
                     return $category->deleter_name;
                 })
                 ->editColumn('deleted_at', function ($category) {
@@ -134,7 +135,7 @@ class CategoryController extends Controller
                     $menuItems = $this->trashedMenuItems($category);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['name','status', 'is_featured', 'deleter_id', 'deleted_at', 'action'])
+                ->rawColumns(['name', 'status', 'is_featured', 'deleted_by', 'deleted_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.product_management.category.recycle-bin');
@@ -164,7 +165,7 @@ class CategoryController extends Controller
      */
     public function create(): View
     {
-       return view('backend.admin.product_management.category.create');
+        return view('backend.admin.product_management.category.create');
     }
 
     /**
@@ -172,14 +173,14 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
-        $validated['creater_id'] = admin()->id;
-        $validated['creater_type'] = get_class(admin());
-        if(isset($request->image)) {
-            $validated['image'] = $this->handleFilepondFileUpload(Category::class, $request->image, admin(), 'categories/');
+        try {
+            $validated = $request->validated();
+            $this->categoryService->createCategory($validated, $request->image ?? null);
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Category create failed!');
+            throw $e;
         }
-        Category::create($validated);
-        session()->flash('success','Category created successfully!');
+        session()->flash('success', 'Category created successfully!');
         return redirect()->route('pm.category.index');
     }
 
@@ -188,27 +189,28 @@ class CategoryController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $data = Category::with(['creater', 'updater'])->withCount(['activeChildrens'])->findOrFail(decrypt($id));
-        return response()->json($data);
+
+        $category = $this->categoryService->getCategory($id);
+        $category->load(['creater_admin', 'updater_admin'])->withCount(['activeChildrens']);
+        return response()->json($category);
     }
 
     public function edit(string $id)
     {
-        $data['category'] = Category::findOrFail(decrypt($id));
-        return view('backend.admin.product_management.category.edit', $data);
+        $category = $this->categoryService->getCategory($id);
+        return view('backend.admin.product_management.category.edit', compact('category'));
     }
 
     public function update(CategoryRequest $request, string $id): RedirectResponse
     {
-        $category = Category::findOrFail(decrypt($id));
-        $validated = $request->validated();
-        $validated['updater_id'] = admin()->id;
-        $validated['updater_type'] = get_class(admin());
-        if(isset($request->image)) {
-            $validated['image'] = $this->handleFilepondFileUpload($category, $request->image, admin(), 'categories/');
+        try {
+            $validated = $request->validated();
+            $this->categoryService->updateCategory($id, $validated, $request->image ?? null);
+            session()->flash('success', 'Category updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Category update failed!');
+            throw $e;
         }
-        $category->update($validated);
-        session()->flash('success', 'Category updated successfully!');
         return redirect()->route('pm.category.index');
     }
 
@@ -217,34 +219,48 @@ class CategoryController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
-        $category = Category::findOrFail(decrypt($id));
-        $category->update(['deleter_id' => admin()->id, 'deleter_type' => get_class(admin())]);
-        $category->delete();
-        session()->flash('success', 'Category deleted successfully!');
+        try {
+            $this->categoryService->deleteCategory($id);
+            session()->flash('success', 'Category deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Category delete failed!');
+            throw $e;
+        }
         return redirect()->route('pm.category.index');
     }
 
     public function status(string $id): RedirectResponse
     {
-        $category = Category::findOrFail(decrypt($id));
-        $category->update(['status' => !$category->status, 'updated_by'=> admin()->id]);
-        session()->flash('success', 'Category status updated successfully!');
+        try {
+            $this->categoryService->toggleStatus($id);
+            session()->flash('success', 'Category status updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Category status update failed!');
+            throw $e;
+        }
         return redirect()->route('pm.category.index');
     }
     public function feature(string $id): RedirectResponse
     {
-        $category = Category::findOrFail(decrypt($id));
-        $category->update(['is_featured' => !$category->is_featured, 'updated_by'=> admin()->id]);
-        session()->flash('success', 'Category feature status updated successfully!');
+        try {
+            $this->categoryService->toggleFeature($id);
+            session()->flash('success', 'Category feature updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Category feature update failed!');
+            throw $e;
+        }
         return redirect()->route('pm.category.index');
     }
 
-          public function restore(string $id): RedirectResponse
+    public function restore(string $id): RedirectResponse
     {
-        $category = Category::onlyTrashed()->findOrFail(decrypt($id));
-        $category->update(['updated_by' => admin()->id]);
-        $category->restore();
-        session()->flash('success', 'Category restored successfully!');
+        try {
+            $this->categoryService->restoreCategory($id);
+            session()->flash('success', 'Category restored successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Category restore failed!');
+            throw $e;
+        }
         return redirect()->route('pm.category.recycle-bin');
     }
 
@@ -256,11 +272,12 @@ class CategoryController extends Controller
      */
     public function permanentDelete(string $id): RedirectResponse
     {
-        $category = Category::onlyTrashed()->findOrFail(decrypt($id));
-        if($category->image){
-            $this->fileDelete($category->image);
+        try {
+            $this->categoryService->permanentDeleteCategory($id);
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Category permanent delete failed!');
+            throw $e;
         }
-        $category->forceDelete();
         session()->flash('success', 'Category permanently deleted successfully!');
         return redirect()->route('pm.category.recycle-bin');
     }

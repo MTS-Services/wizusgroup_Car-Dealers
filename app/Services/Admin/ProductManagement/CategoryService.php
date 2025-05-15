@@ -12,7 +12,7 @@ class CategoryService
 
     public function getCategories($orderBy = 'sort_order', $order = 'asc')
     {
-        return Category::orderBy($orderBy, $order)->get();
+        return Category::orderBy($orderBy, $order)->latest();
     }
 
     public function getCategory(string $encryptedId): Category | Collection
