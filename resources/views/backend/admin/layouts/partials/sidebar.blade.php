@@ -134,15 +134,20 @@
                 </li>
 
                 {{-- Product Management --}}
-                <li class="nav-item  @if ($page_slug == 'category' || $page_slug == 'subcategory' || $page_slug == 'subchildcategory') active submenu @endif">
+                <li class="nav-item  @if ($page_slug == 'category' || $page_slug == 'subcategory' || $page_slug == 'subchildcategory' || $page_slug == 'brand') active submenu @endif">
                     <a data-bs-toggle="collapse" href="#product_management"
-                        @if ($page_slug == 'category' || $page_slug == 'subcategory' || $page_slug == 'subchildcategory') aria-expanded="true" @endif>
+                        @if ($page_slug == 'category' || $page_slug == 'subcategory' || $page_slug == 'subchildcategory' || $page_slug == 'brand') aria-expanded="true" @endif>
                         <i class="icon-people"></i>
                         <p>{{ __('Product Management') }}</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse @if ($page_slug == 'category' || $page_slug == 'subcategory' || $page_slug == 'subchildcategory') show @endif" id="product_management">
+                    <div class="collapse @if ($page_slug == 'category' || $page_slug == 'subcategory' || $page_slug == 'subchildcategory' || $page_slug == 'brand') show @endif" id="product_management">
                         <ul class="nav nav-collapse">
+                            <li class="@if ($page_slug == 'brand') active @endif">
+                                <a href="{{ route('pm.brand.index') }}">
+                                    <span class="sub-item">{{ __('Brand') }}</span>
+                                </a>
+                            </li>
                             <li class="@if ($page_slug == 'category') active @endif">
                                 <a href="{{ route('pm.category.index') }}">
                                     <span class="sub-item">{{ __('Category') }}</span>
