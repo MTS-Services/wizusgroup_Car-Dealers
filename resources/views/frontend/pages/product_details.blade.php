@@ -43,6 +43,7 @@
     </style>
 @endpush
 @section('content')
+    {{-- ===================== Product Carousel Section Start ===================== --}}
     <section class="product_carousel_section py-24">
         <div class="container mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 dark:bg-bg-dark dark:text-text-light">
@@ -228,89 +229,183 @@
             </div>
         </div>
     </section>
+    {{-- ===================== End Product Details Section ===================== --}}
+    {{-- ===================== Releted Product Section ===================== --}}
+
+    <section class="py-24">
+        <div class="container">
+            <div class="header bg-bg-primary mb-2 py-4 pl-4">
+                <h2 class="text-2xl font-bold text-text-white ">{{ __('Related Products') }}</h2>
+            </div>
+            <div class="relative">
+                {{-- Product 1 --}}
+                <div class="swiper related_product static">
+                    <div class="swiper-wrapper">
+                        <!-- Slide 1 -->
+                        <div class="swiper-slide">
+                            <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                                data-product="1">
+                                <div class="max-h-80 w-full overflow-hidden">
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
+                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
+                                </div>
+                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                    <h3
+                                        class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                        Kubota ZL1-215</h3>
+                                    <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                        <span>2001</span>
+                                        <span class="mx-2">|</span>
+                                        <span>Osaka</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                                data-product="1">
+                                <div class="max-h-80 w-full overflow-hidden">
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
+                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
+                                </div>
+                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                    <h3
+                                        class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                        Kubota ZL1-215</h3>
+                                    <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                        <span>2001</span>
+                                        <span class="mx-2">|</span>
+                                        <span>Osaka</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                                data-product="1">
+                                <div class="max-h-80 w-full overflow-hidden">
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
+                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
+                                </div>
+                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                    <h3
+                                        class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                        Kubota ZL1-215</h3>
+                                    <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                        <span>2001</span>
+                                        <span class="mx-2">|</span>
+                                        <span>Osaka</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                                data-product="1">
+                                <div class="max-h-80 w-full overflow-hidden">
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
+                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
+                                </div>
+                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                    <h3
+                                        class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                        Kubota ZL1-215</h3>
+                                    <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                        <span>2001</span>
+                                        <span class="mx-2">|</span>
+                                        <span>Osaka</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                                data-product="1">
+                                <div class="max-h-80 w-full overflow-hidden">
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
+                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
+                                </div>
+                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                    <h3
+                                        class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                        Kubota ZL1-215</h3>
+                                    <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                        <span>2001</span>
+                                        <span class="mx-2">|</span>
+                                        <span>Osaka</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                                data-product="1">
+                                <div class="max-h-80 w-full overflow-hidden">
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
+                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
+                                </div>
+                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                    <h3
+                                        class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                        Kubota ZL1-215</h3>
+                                    <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                        <span>2001</span>
+                                        <span class="mx-2">|</span>
+                                        <span>Osaka</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                                data-product="1">
+                                <div class="max-h-80 w-full overflow-hidden">
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
+                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
+                                </div>
+                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                    <h3
+                                        class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                        Kubota ZL1-215</h3>
+                                    <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                        <span>2001</span>
+                                        <span class="mx-2">|</span>
+                                        <span>Osaka</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Repeat swiper-slide for other products -->
+                    </div>
+
+                    <!-- Optional controls -->
+                    <div class="swiper-pagination !-bottom-10"></div>
+                    <!-- Navigation buttons -->
+                    <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
+                        <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
+                    </div>
+                    <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9 ">
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
 @endsection
 
 @push('js')
     <!-- Alpine.js for tab switching -->
     <script src="//unpkg.com/alpinejs" defer></script>
-    <!-- SwiperJS CDN -->
     <!-- Initialize Swiper JS -->
-    {{-- <script type="module">
-        import Swiper from '/frontend/js/swiper.min.js';
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const galleryThumbs = new Swiper('.product_slider_thumbs', {
-                spaceBetween: 8,
-                slidesPerView: 5,
-                freeMode: true,
-                watchSlidesVisibility: true,
-                watchSlidesProgress: true,
-                breakpoints: {
-                    480: {
-                        slidesPerView: 6
-                    },
-                    768: {
-                        slidesPerView: 8
-                    }
-                }
-            });
-
-            const galleryTop = new Swiper('.product_slider_image', {
-                spaceBetween: 10,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                thumbs: {
-                    swiper: galleryThumbs
-                }
-            });
-        });
-
-        const zoomResult = document.getElementById("zoomResult");
-        const lens = document.getElementById("lens");
-
-        document.querySelectorAll('.zoomable').forEach(img => {
-            img.addEventListener('mousemove', function(e) {
-                const rect = img.getBoundingClientRect();
-                const wrapperRect = img.closest('.hover-wrapper').getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const zoomFactor = 2; // 2x zoom
-                const resultWidth = zoomResult.offsetWidth;
-                const resultHeight = zoomResult.offsetHeight;
-
-                // Set background of zoom result
-                zoomResult.style.backgroundImage = `url('${img.src}')`;
-                zoomResult.style.backgroundSize =
-                    `${rect.width * zoomFactor}px ${rect.height * zoomFactor}px`;
-                zoomResult.style.backgroundPosition =
-                    `-${x * zoomFactor - resultWidth / 2}px -${y * zoomFactor - resultHeight / 2}px`;
-
-                // Fixed lens size
-                lens.style.display = 'block';
-                lens.style.width = `100px`;
-                lens.style.height = `100px`;
-                lens.style.left = `${e.clientX - wrapperRect.left - 50}px`; // 100/2 = 50
-                lens.style.top = `${e.clientY - wrapperRect.top - 50}px`;
-
-                // Show zoom result
-                zoomResult.style.display = 'block';
-            });
-
-            img.addEventListener('mouseenter', function() {
-                zoomResult.style.display = 'block';
-                lens.style.display = 'block';
-            });
-
-            img.addEventListener('mouseleave', function() {
-                zoomResult.style.display = 'none';
-                lens.style.display = 'none';
-                zoomResult.style.backgroundImage = '';
-            });
-        });
-    </script> --}}
     <script type="module">
         import Swiper from '/frontend/js/swiper.min.js';
 
@@ -397,8 +492,40 @@
                 attachZoom(); // Refresh listeners if needed
             });
         });
-    </script>
 
+
+
+        const swiper = new Swiper(".related_product", {
+            loop: true,
+            spaceBetween: 10,
+            slidesPerView: 6,
+            breakpoints: {
+                640: {
+                    slidesPerView: 1,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
+                1280: {
+                    slidesPerView: 4,
+                },
+                1536: {
+                    slidesPerView: 6,
+                },
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+    </script>
 
     {{-- <script type="module">
         import Swiper from '/frontend/js/swiper.min.js';

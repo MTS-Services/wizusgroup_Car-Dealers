@@ -3,8 +3,9 @@
 @section('title', 'Home')
 
 @push('css')
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         #countdown {
             max-width: 600px;
@@ -191,6 +192,11 @@
             ],
         ];
     @endphp
+
+    {{-- @foreach ($datas as $data)
+        <x-frontend.test :catagories="$data" />
+    @endforeach --}}
+
 
     <section class="py-24">
         <div class="container">
@@ -382,7 +388,7 @@
             </div>
         </div>
         <div class="absolute right-5 bottom-5 z-10 ">
-            <a href="#" >
+            <a href="#">
                 <i class="fa-brands fa-whatsapp text-5xl text-green-600"></i>
             </a>
     </section>
