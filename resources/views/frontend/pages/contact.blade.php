@@ -8,7 +8,7 @@
                     <h2 class="text-2xl lg:text-3xl font-semibold capitalize pb-3">{{ __('Contact us') }}</h2>
                     <div class="shadow-card bg-bg-light dark:bg-opacity-20 rounded-md p-6">
                         <h2 class="text-lg lg:text-xl font-bold pb-3">{{ __('Send Us and Iquery') }}</h2>
-                        <form action="#" method="POST">
+                        <form action="javaScript:void(0)" method="POST">
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                 <div class="w-full mb-3">
                                     <label for="name"
@@ -32,7 +32,7 @@
                             <div class="w-full mb-3">
                                 <label for="message"
                                     class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Message') }}</label>
-                                <textarea name="message" id="message" class="input h-20 rounded-md w-full"></textarea>
+                                <textarea name="message" id="message" class="input h-20 rounded-md w-full pt-2"></textarea>
                             </div>
                             <div class="flex justify-center">
                                 <button type="submit"
