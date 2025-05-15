@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Traits\FileManagementTrait;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\Admin\ProductManagement\BrandRequest;
 use App\Services\Admin\ProductManagement\BrandService;
@@ -13,9 +12,6 @@ use Illuminate\Http\RedirectResponse;
 
 class BrandController extends Controller
 {
-
-    use FileManagementTrait;
-
     protected BrandService $brandService;
 
     public function __construct(BrandService $brandService)
@@ -29,6 +25,7 @@ class BrandController extends Controller
         $this->middleware('permission:brand-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:brand-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:brand-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:brand-feature', ['only' => ['feature']]);
         $this->middleware('permission:brand-status', ['only' => ['status']]);
         $this->middleware('permission:brand-recycle-bin', ['only' => ['recycleBin']]);
         $this->middleware('permission:brand-restore', ['only' => ['restore']]);
@@ -205,7 +202,7 @@ class BrandController extends Controller
     public function update(BrandRequest $request, string $id)
     {
 
-        try {           
+        try {
             $validated = $request->validated();
             $this->brandService->updateBrand($id, $validated, $request->image ?? null);
             session()->flash('success', 'Brand updated successfully!');

@@ -14,24 +14,64 @@ class BrandSeeder extends Seeder
     public function run(): void
     {
         Brand::create([
-            'name' => 'Brand 1',
-            'slug' => 'brand-1',
+            'name' => 'John Deere',
+            'slug' => 'john-deere',
         ]);
         Brand::create([
-            'name' => 'Brand 2',
-            'slug' => 'brand-2',
+            'name' => 'Mahindra',
+            'slug' => 'mahindra',
         ]);
         Brand::create([
-            'name' => 'Brand 3',
-            'slug' => 'brand-3',
+            'name' => 'Massey Ferguson',
+            'slug' => 'massey-ferguson',
         ]);
         Brand::create([
-            'name' => 'Brand 4',
-            'slug' => 'brand-4',
+            'name' => 'New Holland',
+            'slug' => 'new-holland',
         ]);
         Brand::create([
-            'name' => 'Brand 5',
-            'slug' => 'brand-5',
+            'name' => 'Kubota',
+            'slug' => 'kubota',
+        ]);
+        Brand::create([
+            'name' => 'Sonalika',
+            'slug' => 'sonalika',
+        ]);
+        Brand::create([
+            'name' => 'Deutz-Fahr',
+            'slug' => 'deutz-fahr',
+        ]);
+        Brand::create([
+            'name' => 'Toyota',
+            'slug' => 'toyota',
+        ]);
+        Brand::create([
+            'name' => 'Honda',
+            'slug' => 'honda',
+        ]);
+        Brand::create([
+            'name' => 'Ford',
+            'slug' => 'ford',
+        ]);
+        Brand::create([
+            'name' => 'BMW',
+            'slug' => 'bmw',
+        ]);
+        Brand::create([
+            'name' => 'Mercedes-Benz',
+            'slug' => 'mercedes-benz',
+        ]);
+        Brand::create([
+            'name' => 'Hyundai',
+            'slug' => 'hyundai ',
+        ]);
+        Brand::create([
+            'name' => 'Nissan',
+            'slug' => 'nissan ',
+        ]);
+        Brand::create([
+            'name' => 'Volkswagen',
+            'slug' => 'volkswagen ',
         ]);
     }
 }
