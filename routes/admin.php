@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Backend\Admin\AuditController;
@@ -26,14 +27,23 @@ use App\Http\Controllers\Backend\Admin\DashboardController as AdminDashboardCont
 use App\Http\Controllers\Backend\Admin\AdminProfileContoller;
 use App\Http\Controllers\Backend\Admin\Auth\ForgotPasswordController as AdminForgotPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminResetPasswordController;
+use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerificationController;
 
+Auth::routes(['verify' => true]);
 // Admin Auth Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
     Route::controller(AdminLoginController::class)->group(function () {
         Route::get('/login', 'showLoginForm')->name('login'); // Admin Login Form
         Route::post('/login', 'login')->name('login.submit'); // Admin Login Submit (Handled by AuthenticatesUsers)
-        Route::post('/logout', 'logout')->middleware('auth:admin')->name('logout'); // Admin Logout   
+        Route::post('/logout', 'logout')->middleware('auth:admin')->name('logout'); // Admin Logout
     });
+
+     Route::controller(AdminVerificationController::class)->group(function () {
+            Route::get('email/verify',  'show')->name('verification.notice');
+            Route::get('email/verify/{id}/{hash}',  'verify')->middleware('signed')->name('verification.verify');
+            Route::post('email/resend',  'resend')->middleware('throttle:6,1')->name('verification.resend');
+        });
+
 
     Route::group(['as' => 'password.', 'prefix' => 'password'], function () {
         // Admin Forgot Password
@@ -59,7 +69,7 @@ Route::controller(AxiosRequestController::class)->name('axios.')->group(function
     Route::get('get-sub-categories', 'getSubCategories')->name('get-sub-categories');
 });
 
-Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
+Route::group(['middleware' => ['auth:admin','verified'], 'prefix' => 'admin'], function () {
 
     Route::get('/dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin.dashboard');
 
@@ -189,9 +199,6 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
         Route::put('email-template/edit/{id}', 'et_update')->name('email_template');
         Route::post('notification/update', 'notification')->name('notification');
     });
-});
-
-Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
     // CMS Management
     Route::group(['as' => 'cms.', 'prefix' => 'cms-management'], function () {
 
