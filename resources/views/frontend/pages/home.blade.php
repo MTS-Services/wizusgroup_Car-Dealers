@@ -2,67 +2,425 @@
 
 @section('title', 'Home')
 
+@push('css')
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        #countdown {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .countdown-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #022622;
+            font-weight: 700;
+        }
+
+        .countdown-description {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            color: #4b5563;
+        }
+
+        .countdown-blocks {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .time-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f3f4f6;
+            padding: 16px;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .time-block:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .time-value {
+            font-size: 2.25rem;
+            font-weight: bold;
+            color: #022622;
+            margin-bottom: 0.25rem;
+        }
+
+        .time-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 0;
+        }
+
+        /* Medium screens */
+        @media (min-width: 768px) {
+            .countdown-blocks {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 22px;
+            }
+        }
+
+        /* Large screens */
+        @media (min-width: 1024px) {
+            .countdown-blocks {
+                display: grid;
+                gap: 24px;
+            }
+
+            .time-block {
+                min-width: 120px;
+                padding: 20px 24px;
+            }
+
+            .time-value {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Add animation for seconds changing */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+@endpush
 @php
-    $banners = \App\Models\Banner::all();
+    $banners = [
+        [
+            'image' => asset('frontend/images/home_page_banner.jpg'),
+        ],
+        [
+            'image' => asset('frontend/images/home_page_banner.jpg'),
+        ],
+        [
+            'image' => asset('frontend/images/home_page_banner.jpg'),
+        ],
+    ];
 @endphp
 
 @section('content')
-    {{-- ===================== banner Section ===================== --}}
-    <section class="swiper banner bg-bg-gray dark:bg-bg-darkSecondary dark:bg-opacity-70 ">
-        <div class="swiper-wrapper relative">
-            @foreach ($banners as $banner)
-                <div class="swiper-slide group/banner">
-                    <div class="lg:container {{ $loop->iteration % 2 == 0 ? 'pl-0 pr-4 lg:p-4' : 'pr-0 pl-4 lg:p-4' }}">
-                        <div
-                            class="item flex {{ $loop->iteration % 2 == 0 ? 'flex-row-reverse' : 'flex-row' }} items-center justify-between relative overflow-hidden min-h-80 lg:min-h-96 2xl:min-h-[500px]">
-                            <div
-                                class="w-full md:basis-1/2 relative z-[2] {{ $loop->iteration % 2 == 0 ? 'flex flex-col items-end text-end' : '' }}">
-                                <p class="text-xs md:text-base">{{ $banner['title'] }}</p>
-                                <h2 class="sm:text-xl text-lg lg:text-2xl xl:text-6xl md:py-4 py-1 max-w-80">
-                                    {{ $banner['subtitle'] }}
-                                </h2>
-                                <a href="#" class="btn-primary">{{ __('Shop Now') }} <i
-                                        data-lucide="chevron-right"></i></i></a>
-                            </div>
-                            <div
-                                class="md:basis-1/2 md:relative absolute z-[1] w-64 top-1/2 md:top-0 -translate-y-1/2 md:translate-y-0 {{ $loop->iteration % 2 == 0 ? '-left-1/3 md:left-0' : '-right-1/3 sm:-right-1/4 md:right-0 flex items-center justify-end' }}">
-                                <img src="{{ $banner->modified_image }}" alt="{{ $banner->title }}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-        <div class="swiper-pagination z-10 hiddin lg:block"></div>
-        <!-- Navigation buttons -->
-        <div class="hidden lg:block">
-            <div class="swiper-button swiper-button-prev hidden lg:block">
-                <i data-lucide="chevron-left" class="w-5 h-5"></i>
-            </div>
+    {{-- ===================== banner Section Start ===================== --}}
+    <section class="!max-h-[700px] relative overflow-hidden">
+        <div class="absolute bg-transparent inset-0 z-10">
+            <div class="container flex items-center justify-center h-full">
+                <div class="text-center">
+                    <h1 class="text-6xl font-bold pb-3 text-text-white">
+                        {{ __('Affordable Machines,') }} <br> {{ __('Shipped Worldwide') }}
+                    </h1>
+                    <p class="my-4 text-xl text-text-white">{{ __('Discover amazing content and features.') }}</p>
+                    <div class="relative w-[700px] mx-auto">
+                        <input type="search" id="machine-search"
+                            class="block w-full p-4 pl-10 pr-16 text-sm border-none rounded-lg bg-bg-light-secondary focus:ring-blue-500 focus:border-blue-600"
+                            placeholder="{{ __('Find your machine...') }}" required>
 
-            <div class="swiper-button swiper-button-next hidden lg:block">
-                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        <button type="submit"
+                            class="text-text-white absolute right-0 top-0 bottom-0 bg-bg-primary hover:bg-bg-primary/90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-l-none rounded-r-lg text-sm px-4">
+
+                            <svg class="w-5 h-5 text-text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="swiper banner">
+            <div class="swiper-wrapper">
+                @foreach ($banners as $banner)
+                    <div class="swiper-slide">
+                        <img class="w-full object-cover bg-center h-full" src="{{ $banner['image'] }}" alt="image">
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
+
+    {{-- ===================== banner Section End ===================== --}}
+    {{-- ===================== Category Section Start ===================== --}}
+    @php
+        $categories = [
+            [
+                'image' => asset('frontend/images/tractar.jpg'),
+            ],
+            [
+                'image' => asset('frontend/images/tractar.jpg'),
+            ],
+            [
+                'image' => asset('frontend/images/tractar.jpg'),
+            ],
+            [
+                'image' => asset('frontend/images/tractar.jpg'),
+            ],
+            [
+                'image' => asset('frontend/images/tractar.jpg'),
+            ],
+            [
+                'image' => asset('frontend/images/tractar.jpg'),
+            ],
+            [
+                'image' => asset('frontend/images/tractar.jpg'),
+            ],
+            [
+                'image' => asset('frontend/images/tractar.jpg'),
+            ],
+        ];
+    @endphp
+
+    <section class="py-24">
+        <div class="container">
+            <div class="header text-center mb-10">
+                <h2 class="text-3xl font-bold uppercase">{{ __('Categories') }}</h2>
+            </div>
+            <div class="relative">
+                <div class="swiper categories static">
+                    <div class="swiper-wrapper">
+                        @foreach ($categories as $category)
+                            <div class="swiper-slide py-8">
+                                <div class="text-center">
+                                    <img class="w-auto rounded-xl object-cover mx-auto" src="{{ $category['image'] }}"
+                                        alt="{{ __('image') }}">
+                                    <p class="py-2">{{ __('Machine description goes here.') }}</p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <!-- Navigation buttons -->
+                    <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
+                        <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
+                    </div>
+                    <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9 ">
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mx-auto mt-18 ">
+                <button>
+                    <a href="#" class="btn-primary ">
+                        {{ __('Shop Now') }}
+                    </a>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    {{-- ===================== Category Section End ===================== --}}
+
+    {{-- ===================== countdown Group Container Section Start ===================== --}}
+    <section class="home_countdown flex justify-center items-center py-20 m-0 bg-gray-100 dark:bg-bg-dark font-sans">
+        <div class="container">
+            <div
+                class="bg-bg-tertiary/40 dark:bg-bg-secondary/20 text-text-white mx-auto rounded-lg p-6  text-center w-11/12 max-w-3xl shadow-md">
+                <h3 class="text-2xl font-bold mb-2">{{ __('Join Group Container – Save on Shipping') }}</h3>
+                <p class="text-xl mb-5">{{ __('Next Departure to Dakar, Senegal:') }}</p>
+                <div class="countdown-blocks py-2"></div>
+                <button class="btn-primary mx-auto py-3 mt-2 px-10 ">
+                    {{ __('JOIN NOW') }}
+                </button>
+            </div>
+            <div class="pt-10">
+                <div class="header">
+                    <h2 class="text-3xl font-bold uppercase text-center">{{ __('How it Works') }}</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+                    <div class="bg-bg-light-secondary dark:bg-bg-primary/30 py-9 p-2 shadow-lg text-center">
+                        <i data-lucide="shopping-cart" class="w-12 h-12 mx-auto"></i>
+                        <p class="py-2">{{ __('Select Your Machine') }}</p>
+                    </div>
+                    <div class="bg-bg-light-secondary dark:bg-bg-primary/30  py-9 p-2 shadow-lg text-center">
+                        <i data-lucide="ship" class="w-12 h-12 mx-auto"></i>
+                        <p class="py-2">{{ __('Arrange for Export') }}</p>
+                    </div>
+                    <div class="bg-bg-light-secondary dark:bg-bg-primary/30  py-9 p-2 shadow-lg text-center">
+                        <i data-lucide="shopping-cart" class="w-12 h-12 mx-auto"></i>
+                        <p class="py-2">{{ __('Receive at Port') }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- ===================== countdown Group Container Section End ===================== --}}
+    @php
+        $testimonials = [
+            [
+                'description' =>
+                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
+                'image' => asset('frontend/images/unnamed.jpg'),
+                'name' => 'wasif ahmed',
+                'country' => 'bangladesh',
+            ],
+
+            [
+                'description' =>
+                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
+                'image' => asset('frontend/images/unnamed.jpg'),
+                'name' => 'wasif ahmed',
+                'country' => 'bangladesh',
+            ],
+
+            [
+                'description' =>
+                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
+                'image' => asset('frontend/images/unnamed.jpg'),
+                'name' => 'wasif ahmed',
+                'country' => 'bangladesh',
+            ],
+
+            [
+                'description' =>
+                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
+                'image' => asset('frontend/images/unnamed.jpg'),
+                'name' => 'wasif ahmed',
+                'country' => 'bangladesh',
+            ],
+
+            [
+                'description' =>
+                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
+                'image' => asset('frontend/images/unnamed.jpg'),
+                'name' => 'wasif ahmed',
+                'country' => 'bangladesh',
+            ],
+
+            [
+                'description' =>
+                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
+                'image' => asset('frontend/images/unnamed.jpg'),
+                'name' => 'wasif ahmed',
+                'country' => 'bangladesh',
+            ],
+        ];
+    @endphp
+
+    {{-- ===================== Testimonial Section Start ===================== --}}
+    <section class="py-20  relative">
+        <div class="container mx-auto px-4">
+            <div class="header text-center mb-10">
+                <h2 class="text-3xl font-bold uppercase">{{ __('Testimonials') }}</h2>
+            </div>
+            <!-- Testimonial Carousel -->
+            <div class="relative">
+                <div class="swiper testimonials static">
+                    <div class="swiper-wrapper ">
+                        @foreach ($testimonials as $testimonial)
+                            <div class="swiper-slide">
+                                <div class="bg-bg-light dark:bg-bg-dark rounded-xl shadow-md border overflow-hidden">
+                                    <!-- Top Gradient Bar -->
+                                    <div class="h-1 w-full bg-gradient-to-r from-blue-600 to-blue-800"></div>
+
+                                    <!-- Testimonial Content -->
+                                    <div class="p-6 md:p-8">
+                                        <!-- Quotation Mark -->
+                                        <div class="text-blue-600 text-6xl font-serif mb-4 leading-none">“</div>
+
+                                        <!-- Message -->
+                                        <p class=" text-lg md:text-xl font-light leading-relaxed font-montserrat mb-6">
+                                            {{ $testimonial['description'] }}
+                                        </p>
+
+                                        <!-- Author Info -->
+                                        <div class="border-t pt-6 flex items-center gap-4">
+                                            <img src="{{ $testimonial['image'] }}" alt="{{ $testimonial['name'] }}"
+                                                class="w-14 h-14 rounded-full object-cover">
+
+                                            <div>
+                                                <p class="text-blue-800 font-bold text-lg uppercase font-playfair">
+                                                    {{ $testimonial['name'] }}
+                                                </p>
+                                                <p class="text-sm  uppercase tracking-wide mt-1">
+                                                    {{ __('Country') }}: {{ $testimonial['country'] }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Bottom Gradient Bar -->
+                                    <div class="h-1 w-full bg-gradient-to-r from-blue-800 to-blue-600"></div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="swiper-pagination mt-6"></div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
+                        <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
+                    </div>
+                    <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9 ">
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute right-5 bottom-5 z-10 ">
+            <a href="#" >
+                <i class="fa-brands fa-whatsapp text-5xl text-green-600"></i>
+            </a>
+    </section>
+
+    {{-- ===================== Testimonial Section End ===================== --}}
 
 @endsection
 
 
 @push('js')
-    <script>
+    <script type="module">
         import Swiper from '/frontend/js/swiper.min.js';
-
-        // Banner Slider
         const bannerEl = document.querySelector('.banner');
         new Swiper(bannerEl, {
             slidesPerView: 1,
             loop: true,
-            // autoplay: {
-            //     delay: 5000,
-            //     disableOnInteraction: false,
-            // },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: true,
+            },
             spaceBetween: 20,
+            on: {
+                init: function() {
+                    hideControlsIfNotEnoughSlides(bannerEl, this, 1);
+                }
+            }
+        });
+
+        // CATEGORY SWIPER
+        const categorySwiperEl = document.querySelector('.categories');
+        new Swiper(categorySwiperEl, {
+            loop: true,
+            slidesPerView: 6,
+            spaceBetween: 20,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
@@ -71,11 +429,117 @@
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
+            breakpoints: {
+                0: {
+                    slidesPerView: 1
+                },
+                450: {
+                    slidesPerView: 2
+                },
+                768: {
+                    slidesPerView: 3
+                },
+                1024: {
+                    slidesPerView: 4
+                },
+                1280: {
+                    slidesPerView: 5
+                },
+                1536: {
+                    slidesPerView: 6
+                },
+            },
             on: {
                 init: function() {
-                    hideControlsIfNotEnoughSlides(bannerEl, this, 1);
+                    hideControlsIfNotEnoughSlides(categorySwiperEl, this, () => this.params.slidesPerView);
                 }
             }
         });
+        const testimonialSwiperEl = document.querySelector('.testimonials');
+        new Swiper(testimonialSwiperEl, {
+            loop: true,
+            slidesPerView: 3,
+            spaceBetween: 20,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+    {{-- countdown --}}
+    <script>
+        const launchDate = new Date(2025, 12, 31, 0, 0, 0); // YYYY, MM (0-based), DD, HH, MM, SS
+        const countdownElement = document.querySelector(".countdown-blocks");
+
+        // Your existing createBlock function
+        const createBlock = (label, value) => {
+            const block = document.createElement("div");
+            block.className = "time-block";
+
+            const valueEl = document.createElement("span");
+            valueEl.className = "time-value";
+            // Add leading zeros for single-digit values
+            valueEl.textContent = value < 10 ? `0${value}` : value;
+
+            const labelEl = document.createElement("p");
+            labelEl.className = "time-label";
+            labelEl.textContent = label;
+
+            // Add pulsing animation to seconds block
+            if (label === "Seconds") {
+                valueEl.style.animation = "pulse 1s infinite";
+            }
+
+            block.appendChild(valueEl);
+            block.appendChild(labelEl);
+            return block;
+        };
+
+        // Modified updateCountdown function
+        const updateCountdown = () => {
+            const now = new Date();
+            const difference = launchDate - now;
+
+            if (difference > 0) {
+                const timeLeft = {
+                    Days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                    Hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                    Minutes: Math.floor((difference / 1000 / 60) % 60),
+                    Seconds: Math.floor((difference / 1000) % 60)
+                };
+
+                countdownElement.innerHTML = "";
+                for (const [label, value] of Object.entries(timeLeft)) {
+                    countdownElement.appendChild(createBlock(label, value));
+                }
+            } else {
+                // Handle countdown expiration
+                countdownElement.innerHTML = "";
+                document.querySelector(".countdown-title").textContent = "Launch Day!";
+                document.querySelector(".countdown-description").textContent =
+                    "The day has arrived!";
+
+                const messageBlock = document.createElement("div");
+                messageBlock.className = "time-block expired-message";
+                messageBlock.style.gridColumn = "1 / -1";
+                messageBlock.style.padding = "2rem";
+                messageBlock.textContent = "We're live now!";
+
+                countdownElement.appendChild(messageBlock);
+                clearInterval(timer);
+            }
+        };
+
+        // Initialize and set the interval
+        updateCountdown();
+        const timer = setInterval(updateCountdown, 1000);
     </script>
 @endpush
