@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
+    public function dashboard()
+    {
+        return view('frontend.layouts.dashboard');
+    }
     public function home()
     {
         return view('frontend.pages.home');
