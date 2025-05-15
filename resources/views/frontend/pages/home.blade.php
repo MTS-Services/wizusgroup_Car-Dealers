@@ -3,8 +3,9 @@
 @section('title', 'Home')
 
 @push('css')
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         #countdown {
             max-width: 600px;
@@ -378,13 +379,14 @@
                     <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9 ">
                         <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
                     </div>
+                    <div class=" right-10 bottom-10 z-10 fixed shadow-lg w-16 h-16 flex items-center justify-center bg-green-600 rounded-full">
+                        <a href="#">
+                            <i class="fa-brands fa-whatsapp text-5xl text-text-light"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="absolute right-5 bottom-5 z-10 ">
-            <a href="#" >
-                <i class="fa-brands fa-whatsapp text-5xl text-green-600"></i>
-            </a>
     </section>
 
     {{-- ===================== Testimonial Section End ===================== --}}
@@ -473,7 +475,7 @@
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
-              breakpoints: {
+            breakpoints: {
                 0: {
                     slidesPerView: 1,
                     spaceBetween: 20,
