@@ -123,7 +123,7 @@
 
 @section('content')
     {{-- ===================== banner Section Start ===================== --}}
-    <section class="!max-h-[700px] relative overflow-hidden">
+    <section class="lg:max-h-screen max-h-[70%] h-[calc(100vh-80px)] relative overflow-hidden">
         <div class="absolute bg-transparent inset-0 z-10">
             <div class="container flex items-center justify-center h-full">
                 <div class="text-center">
@@ -369,7 +369,7 @@
                     </div>
 
                     <!-- Pagination -->
-                    <div class="swiper-pagination mt-6"></div>
+                    <div class="swiper-pagination mt-6 !-bottom-10"></div>
 
                     <!-- Navigation Buttons -->
                     <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
@@ -455,6 +455,7 @@
                 }
             }
         });
+        // Testimonial SWIPER
         const testimonialSwiperEl = document.querySelector('.testimonials');
         new Swiper(testimonialSwiperEl, {
             loop: true,
@@ -471,6 +472,20 @@
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
+            },
+              breakpoints: {
+                0: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                1200: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                },
             },
         });
     </script>
