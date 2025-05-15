@@ -2,24 +2,23 @@
 
 namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 
-use App\Http\Traits\FileManagementTrait;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\SubCategoryRequest;
-use App\Models\Category;
-use App\Models\ProductAttribute;
-use App\Models\ProductAttributeValue;
+use App\Services\Admin\ProductManagement\CategoryService;
 use Yajra\DataTables\Facades\DataTables;
 
 
 class SubCategoryController extends Controller
 {
-    use FileManagementTrait;
-    public function __construct()
+    protected CategoryService $categoryService;
+    public function __construct(CategoryService $categoryService)
     {
+        $this->categoryService = $categoryService;
+
         $this->middleware('auth:admin');
         $this->middleware('permission:sub-category-list', ['only' => ['index']]);
         $this->middleware('permission:sub-category-details', ['only' => ['show']]);
@@ -40,16 +39,15 @@ class SubCategoryController extends Controller
     {
 
         if ($request->ajax()) {
-            $query = Category::isSubCategory()->with(['creater', 'parent'])
-                  ->withCount(['activeChildrens'])
-                ->orderBy('sort_order', 'asc')
-                ->latest();
+            $query = $this->categoryService->getCategories()
+                ->isSubCategory()->with(['creater_admin', 'parent'])
+                ->withCount(['activeChildrens']);
             return DataTables::eloquent($query)
                 ->editColumn('parent_id', function ($subcategory) {
                     return $subcategory?->parent?->name;
                 })
                 ->editColumn('name', function ($subcategory) {
-                        return $subcategory->name ."<sup class='badge bg-info'>$subcategory->active_childrens_count</sup>";
+                    return $subcategory->name . "<sup class='badge bg-info'>$subcategory->active_childrens_count</sup>";
                 })
                 ->editColumn('status', function ($subcategory) {
                     return "<span class='badge " . $subcategory->status_color . "'>$subcategory->status_label</span>";
@@ -57,7 +55,7 @@ class SubCategoryController extends Controller
                 ->editColumn('is_featured', function ($subcategory) {
                     return "<span class='badge " . $subcategory->featured_color . "'>" . $subcategory->featured_label . "</span>";
                 })
-                ->editColumn('creater_id', function ($subcategory) {
+                ->editColumn('created_by', function ($subcategory) {
                     return $subcategory->creater_name;
                 })
                 ->editColumn('created_at', function ($subcategory) {
@@ -67,7 +65,7 @@ class SubCategoryController extends Controller
                     $menuItems = $this->menuItems($subcategory);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['parent_id','name', 'status', 'is_featured', 'creater_id', 'created_at', 'action'])
+                ->rawColumns(['parent_id', 'name', 'status', 'is_featured', 'created_by', 'created_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.product_management.sub_category.index');
@@ -116,18 +114,17 @@ class SubCategoryController extends Controller
     {
 
         if ($request->ajax()) {
-            $query = Category::with(['deleter','parent'])
+            $query = $this->categoryService->getCategories()
+                ->with(['deleter_admin', 'parent'])
                 ->onlyTrashed()
                 ->isSubCategory()
-                ->withCount(['activeChildrens'])
-                ->orderBy('sort_order', 'asc')
-                ->latest();
+                ->withCount(['activeChildrens']);
             return DataTables::eloquent($query)
-               ->editColumn('parent_id', function ($subcategory) {
+                ->editColumn('parent_id', function ($subcategory) {
                     return $subcategory->parent?->name;
                 })
                 ->editColumn('name', function ($subcategory) {
-                        return $subcategory->name ."<sup class='badge bg-info'>$subcategory->active_childrens_count</sup>";
+                    return $subcategory->name . "<sup class='badge bg-info'>$subcategory->active_childrens_count</sup>";
                 })
                 ->editColumn('status', function ($subcategory) {
                     return "<span class='badge " . $subcategory->status_color . "'>$subcategory->status_label</span>";
@@ -135,7 +132,7 @@ class SubCategoryController extends Controller
                 ->editColumn('is_featured', function ($subcategory) {
                     return "<span class='badge " . $subcategory->featured_color . "'>$subcategory->featured_label</span>";
                 })
-                ->editColumn('deleter_id', function ($subcategory) {
+                ->editColumn('deleted_by', function ($subcategory) {
                     return $subcategory->deleter_name;
                 })
                 ->editColumn('deleted_at', function ($subcategory) {
@@ -145,7 +142,7 @@ class SubCategoryController extends Controller
                     $menuItems = $this->trashedMenuItems($subcategory);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['name','parent_id','status', 'is_featured', 'deleter_id', 'deleted_at', 'action'])
+                ->rawColumns(['name', 'parent_id', 'status', 'is_featured', 'deleted_by', 'deleted_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.product_management.sub_category.recycle-bin');
@@ -173,7 +170,7 @@ class SubCategoryController extends Controller
 
     public function create(): View
     {
-        $data['categories'] = Category::isMainCategory()->active()->latest()->get();
+        $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->active()->select(['id', 'name'])->get();
         return view('backend.admin.product_management.sub_category.create', $data);
     }
 
@@ -182,20 +179,21 @@ class SubCategoryController extends Controller
      */
     public function store(SubCategoryRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
-        $validated['creater_id'] = admin()->id;
-        $validated['creater_type'] = get_class(admin());
-        if (isset($request->image)) {
-            $validated['image'] = $this->handleFilepondFileUpload(Category::class, $request->image, admin(), 'subcategories/');
+        try {
+            $validated = $request->validated();
+            $this->categoryService->createCategory($validated, $request->image ?? null);
+            session()->flash('success', 'Sub category created successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Sub category create failed!');
+            throw $e;
         }
-        Category::create($validated);
-        session()->flash('success', 'Sub Category created successfully!');
         return redirect()->route('pm.sub-category.index');
     }
 
     public function show(string $id)
     {
-        $data = Category::with(['creater', 'updater', 'parent'])->withCount(['activeChildrens'])->findOrFail(decrypt($id));
+        $data = $this->categoryService->getSubCategory($id);
+        $data->load(['parent', 'creater_admin', 'updater_admin'])->withCount(['activeChildrens']);
         $data['parent_name'] = $data?->parent?->name;
         return response()->json($data);
     }
@@ -206,9 +204,9 @@ class SubCategoryController extends Controller
     public function edit(string $id)
     {
 
-    $data['categories'] = Category::isMainCategory()->active()->latest()->get();
-    $data['subcategory'] = Category::isSubCategory()->findOrFail(decrypt($id));
-    return view('backend.admin.product_management.sub_category.edit', $data);
+        $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->active()->select(['id', 'name'])->get();
+        $data['subcategory'] = $this->categoryService->getSubCategory($id);
+        return view('backend.admin.product_management.sub_category.edit', $data);
     }
 
     /**
@@ -217,15 +215,15 @@ class SubCategoryController extends Controller
     public function update(SubCategoryRequest $request, string $id)
     {
 
-        $subcategory = Category::findOrFail(decrypt($id));
-        $validated = $request->validated();
-        $validated['updater_id'] = admin()->id;
-        $validated['updater_type'] = get_class(admin());
-        if (isset($request->image)) {
-            $validated['image'] = $this->handleFilepondFileUpload($subcategory, $request->image, admin(), 'subcategories/');
+        try {
+            $subcategory = $this->categoryService->getSubCategory($id);
+            $validated = $request->validated();
+            $this->categoryService->updateCategory($subcategory, $validated, $request->image ?? null);
+            session()->flash('success', 'Sub category updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Sub category update failed!');
+            throw $e;
         }
-        $subcategory->update($validated);
-        session()->flash('success', 'Sub category updated successfully!');
         return redirect()->route('pm.sub-category.index');
     }
 
@@ -234,32 +232,52 @@ class SubCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $subcategory = Category::findOrFail(decrypt($id));
-        $subcategory->update(['deleter_id' => admin()->id, 'deleter_type' => get_class(admin())]);
-        $subcategory->delete();
-        session()->flash('success', 'Sub category deleted successfully!');
+        try {
+            $subcategory = $this->categoryService->getSubCategory($id);
+            $this->categoryService->deleteCategory($subcategory);
+            session()->flash('success', 'Sub category deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Sub category delete failed!');
+            throw $e;
+        }
         return redirect()->route('pm.sub-category.index');
     }
+
     public function status(string $id): RedirectResponse
     {
-        $subcategory = Category::findOrFail(decrypt($id));
-        $subcategory->update(['status' => !$subcategory->status, 'updated_by' => admin()->id]);
-        session()->flash('success', 'Sub category status updated successfully!');
+        try {
+            $subcategory = $this->categoryService->getSubCategory($id);
+            $this->categoryService->toggleStatus($subcategory);
+            session()->flash('success', 'Sub category status updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Sub category status update failed!');
+            throw $e;
+        }
         return redirect()->route('pm.sub-category.index');
     }
     public function feature(string $id): RedirectResponse
     {
-        $subcategory = Category::findOrFail(decrypt($id));
-        $subcategory->update(['is_featured' => !$subcategory->is_featured, 'updated_by' => admin()->id]);
-        session()->flash('success', 'Sub category feature status updated successfully!');
+        try {
+            $subcategory = $this->categoryService->getSubCategory($id);
+            $this->categoryService->toggleFeature($subcategory);
+            session()->flash('success', 'Sub category feature updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Sub category feature update failed!');
+            throw $e;
+        }
         return redirect()->route('pm.sub-category.index');
     }
-          public function restore(string $id): RedirectResponse
+
+    public function restore(string $id): RedirectResponse
     {
-        $subcategory = Category::onlyTrashed()->findOrFail(decrypt($id));
-        $subcategory->update(['updated_by' => admin()->id]);
-        $subcategory->restore();
-        session()->flash('success', 'Sub category restored successfully!');
+        try {
+            $subcategory = $this->categoryService->getDeletedSubCategory($id);
+            $this->categoryService->restoreCategory($subcategory);
+            session()->flash('success', 'Sub category restored successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Sub category restore failed!');
+            throw $e;
+        }
         return redirect()->route('pm.sub-category.recycle-bin');
     }
 
@@ -271,12 +289,14 @@ class SubCategoryController extends Controller
      */
     public function permanentDelete(string $id): RedirectResponse
     {
-        $subcategory = Category::onlyTrashed()->findOrFail(decrypt($id));
-        if($subcategory->image){
-            $this->fileDelete($subcategory->image);
+        try {
+            $subcategory = $this->categoryService->getDeletedSubCategory($id);
+            $this->categoryService->permanentDeleteCategory($subcategory);
+            session()->flash('success', 'Sub category permanently deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Sub category permanent delete failed!');
+            throw $e;
         }
-        $subcategory->forceDelete();
-        session()->flash('success', 'Sub category permanently deleted successfully!');
         return redirect()->route('pm.sub-category.recycle-bin');
     }
 }

@@ -19,7 +19,7 @@ return new class extends Migration
             $this->addAdminAuditColumns($table);
         });
         Schema::table('permissions', function (Blueprint $table) {
-            $table->string('prefix')->after('guard_name');
+            $table->string('prefix')->index()->after('guard_name');
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
         });
