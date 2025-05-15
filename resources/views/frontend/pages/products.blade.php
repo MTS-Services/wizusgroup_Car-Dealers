@@ -214,7 +214,6 @@
                         <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="2">
                             <div class="max-h-80 w-full  overflow-hidden">
-                                {{-- transition: transform 0.7s ease; --}}
                                 <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
                                     class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                             </div>
