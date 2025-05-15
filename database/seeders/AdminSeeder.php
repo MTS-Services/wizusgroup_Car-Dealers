@@ -19,7 +19,6 @@ class AdminSeeder extends Seeder
             'username' => 'superadmin',
             'email' => 'superadmin@dev.com',
             'email_verified_at' => now(),
-            'is_verify' => 1,
             'password' => 'superadmin@dev.com',
             'role_id' => 1
         ]);
@@ -30,7 +29,6 @@ class AdminSeeder extends Seeder
             'username' => 'admin',
             'email' => 'admin@dev.com',
             'email_verified_at' => now(),
-            'is_verify' => 1,
             'password' => 'admin@dev.com',
             'role_id' => 2
         ]);

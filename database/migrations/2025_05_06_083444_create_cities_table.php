@@ -16,13 +16,13 @@ return new class extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('sort_order')->default(0);
-            $table->unsignedBigInteger('country_id');
-            $table->unsignedBigInteger('state_id')->nullable();
+            $table->bigInteger('sort_order')->default(0)->index();
+            $table->unsignedBigInteger('country_id')->index();
+            $table->unsignedBigInteger('state_id')->nullable()->index();
             $table->string("name")->unique();
             $table->string("slug")->unique();
             $table->longText("description")->nullable();
-            $table->boolean('status')->default(City::STATUS_ACTIVE)->comment(City::STATUS_ACTIVE . ': Active, ' . City::STATUS_DEACTIVE . ': Inactive');
+            $table->boolean('status')->default(City::STATUS_ACTIVE)->index();
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
@@ -31,12 +31,6 @@ return new class extends Migration
             $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade')->onUpdate('cascade');
 
                // Indexes
-               $table->index('sort_order');
-               $table->index('country_id');
-               $table->index('state_id');
-               $table->index('name');
-               $table->index('slug');
-               $table->index('status');
                $table->index('created_at');
                $table->index('updated_at');
                $table->index('deleted_at');
