@@ -45,7 +45,7 @@
                 ['name', true, true],
                 ['status', true, true],
                 ['is_featured', true, true],
-                ['deleter_id', true, true],
+                ['deleted_by', true, true],
                 ['deleted_at', true, true],
                 ['action', false, false],
             ];

@@ -28,12 +28,12 @@
                             placeholder="Enter slug">
                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'slug']" />
                     </div>
-                    {{-- Logo --}}
+                    {{-- Image --}}
                     <div class="form-group">
-                        <label>{{ __('Logo') }}<span class="text-danger">*</span></label>
-                        <input type="file" name="uploadImage" data-actualName="logo" class="form-control filepond"
+                        <label>{{ __('Image') }}<span class="text-danger">*</span></label>
+                        <input type="file" name="uploadImage" data-actualName="image" class="form-control filepond"
                             id="image" accept="image/*">
-                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'logo']" />
+                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'image']" />
                     </div>
                     {{-- Website --}}
                     <div class="form-group">
