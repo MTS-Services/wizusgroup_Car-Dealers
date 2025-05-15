@@ -447,10 +447,6 @@
                 </div>
 
                 <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-text-primary dark:text-text-light text-opacity-50">{{ __("Item") }}</label>
-                        <p class="font-bold">{{ __("Item Name") }}</p>
-                    </div>
 
                     <div>
                         <label for="bidAmount" class="block text-sm font-medium text-text-primary dark:text-text-light text-opacity-50">{{ __("Your Bid (USD)") }}</label>
