@@ -212,11 +212,11 @@ class AuthBaseModel extends Authenticatable
     // Verified scope
     public function scopeVerified($query)
     {
-        return $query->where('verified', self::VERIFIED);
+        return $query->whereNotNull('email_verified_at');
     }
     public function scopeUnverified($query)
     {
-        return $query->where('verified', self::UNVERIFIED);
+        return $query->whereNull('email_verified_at');
     }
 
     // Gender scope
