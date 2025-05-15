@@ -205,10 +205,9 @@ class BrandController extends Controller
     public function update(BrandRequest $request, string $id)
     {
 
-        try {
-            $brand = $this->brandService->getBrand($id);
+        try {           
             $validated = $request->validated();
-            $this->brandService->updateBrand($brand, $validated, $request->image ?? null);
+            $this->brandService->updateBrand($id, $validated, $request->image ?? null);
             session()->flash('success', 'Brand updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Brand update failed!');
@@ -223,8 +222,7 @@ class BrandController extends Controller
     public function destroy(string $id)
     {
         try {
-            $brand = $this->brandService->getBrand($id);
-            $this->brandService->deleteBrand($brand);
+            $this->brandService->deleteBrand($id);
             session()->flash('success', 'Brand deleted successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Brand delete failed!');

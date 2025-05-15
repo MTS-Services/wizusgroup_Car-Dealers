@@ -36,9 +36,9 @@ class BrandService
         return $brand;
     }
 
-    public function updateBrand(Brand $brand, array $data, $file = null): Brand
+    public function updateBrand(string $encryptedId, array $data, $file = null): Brand
     {
-
+        $brand = $this->getBrand($encryptedId);
         $data['updated_by'] = admin()->id;
         if ($file) {
             $data['image'] = $this->handleFilepondFileUpload($brand, $file, admin(), 'brands/');
@@ -47,8 +47,9 @@ class BrandService
         return $brand;
     }
 
-    public function deleteBrand(Brand $brand): void
+    public function deleteBrand(string $encryptedId): void
     {
+        $brand = $this->getBrand($encryptedId);
         $brand->update(['deleted_by' => admin()->id]);
         $brand->delete();
     }
