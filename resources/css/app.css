@@ -101,6 +101,44 @@
     }
 }
 
+/* Buttons */
+@layer components {
+    .btn-search {
+        @apply py-2 pl-4 pr-8 text-text-white bg-bg-primary !rounded-r-full font-medium transition-all duration-300 relative overflow-hidden;
+
+        @apply after:content-[''] after:absolute after:w-5 after:h-[200%] after:bg-bg-light after:opacity-30 after:backdrop-blur-md after:left-[200%] after:z-[1] after:rounded-full after:transition-all after:duration-500 after:ease-linear after:-top-5 after:rotate-45;
+
+        @apply hover:after:-left-full;
+    }
+
+    .btn-primary {
+        @apply py-1 px-4 sm:py-2 sm:px-5 md:py-2 md:px-6 text-text-white bg-bg-primary rounded-full font-medium transition-all duration-300 relative overflow-hidden flex flex-row items-center justify-center w-fit;
+
+        @apply after:content-[''] after:absolute after:w-5 after:h-[200%] after:bg-bg-light after:opacity-30 after:backdrop-blur-md after:left-[200%] after:z-[1] after:rounded-full after:transition-all after:duration-500 after:ease-linear after:-top-5 after:rotate-45 after:overflow-hidden;
+
+        @apply hover:after:-left-full;
+    }
+
+    .btn-secondary {
+        @apply py-1 px-4 sm:py-2 sm:px-5 md:py-2 md:px-6 text-text-primary bg-transparent border border-bg-primary rounded-full font-medium transition-all duration-300 relative overflow-hidden flex flex-row items-center justify-center w-fit;
+
+        @apply after:content-[''] after:absolute after:w-5 after:h-[200%] after:bg-bg-light after:opacity-30 after:backdrop-blur-md after:left-[200%] after:z-[1] after:rounded-full after:transition-all after:duration-500 after:ease-linear after:-top-5 after:rotate-45 after:overflow-hidden;
+
+        @apply hover:after:-left-full hover:text-text-white hover:bg-bg-primary;
+    }
+}
+
+/* Input fieldset */
+@layer components {
+    input {
+        @apply p-4 bg-transparent transition-all duration-300 ease-linear focus:outline-0 focus-within:outline-0 focus:ring-0 focus:border-border-primary focus-within:border-border-primary w-full;
+    }
+
+    .input {
+        @apply focus:outline-0 focus-within:outline-0 focus:ring-0 focus:border-border-primary focus-within:border-border-primary w-full pr-0 shadow-shadowPrimary transition-all duration-300 ease-linear;
+    }
+}
+
 .swiper-button {
     @apply after:content-none text-text-primary w-10 h-10 bg-bg-dark bg-opacity-10 dark:bg-bg-light dark:bg-opacity-10 rounded-full flex items-center justify-center transition-all duration-300 ease-linear;
     @apply hover:bg-opacity-30;
