@@ -38,7 +38,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="text-3xl font-semibold text-text-primary dark:text-text-light text-center">
-                        {{ __('Agricultural Machinery') }}</h1>
+                        {{ __('Agricultural Machinery') }}
+                    </h1>
                 </div>
             </div>
         </div>
@@ -50,16 +51,17 @@
                 @include('frontend.layouts.includes.product_filter_sidebar')
                 <div class="w-1/4 hidden xl:block">
                     {{-- Sidebar Filter --}}
-                    <div class="space-y-6 shadow-card rounded-lg p-4 dark:bg-bg-dark-tertiary">
+                    <div class="space-y-6 shadow-card rounded-lg dark:bg-bg-dark-tertiary">
                         <!-- Category Filter -->
-                        <div>
+                        <div class="p-4 pb-0">
                             <div data-target="category-filter">
                                 <h3 class="text-xl font-medium">Category</h3>
                             </div>
 
                             <div class="filter-content" id="category-filter">
                                 <div class="mt-2">
-                                    <select class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
+                                    <select
+                                        class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
                                         <option>All Agricultural</option>
                                         <option>Tractors</option>
                                         <option>Harvesters</option>
@@ -71,14 +73,15 @@
                         </div>
 
                         <!-- Brand Filter -->
-                        <div>
+                        <div class="p-4 pb-0">
                             <div data-target="brand-filter">
                                 <h3 class="text-xl font-medium">Brand</h3>
                             </div>
 
                             <div class="filter-content" id="brand-filter">
                                 <div class="mt-2">
-                                    <select class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
+                                    <select
+                                        class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
                                         <option>All</option>
                                         <option>Kubota</option>
                                         <option>Iseki</option>
@@ -90,14 +93,15 @@
                         </div>
 
                         <!-- Model Filter -->
-                        <div>
+                        <div class="p-4 pb-0">
                             <div data-target="model-filter">
                                 <h3 class="text-xl font-medium">Model</h3>
                             </div>
 
                             <div class="filter-content" id="model-filter">
                                 <div class="mt-2">
-                                    <select class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
+                                    <select
+                                        class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
                                         <option>All</option>
                                         <option>ZL1-215</option>
                                         <option>TM15</option>
@@ -111,14 +115,15 @@
                         </div>
 
                         <!-- Year Filter -->
-                        <div>
+                        <div class="p-4 pb-0">
                             <div data-target="year-filter">
                                 <h3 class="text-xl font-medium">Year</h3>
                             </div>
 
                             <div class="filter-content" id="year-filter">
                                 <div class="mt-2">
-                                    <select class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
+                                    <select
+                                        class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
                                         <option>All</option>
                                         <option>2020 - Present</option>
                                         <option>2010 - 2019</option>
@@ -129,33 +134,37 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- Price Filter--}}
+                        <details class="collapse collapse-arrow" open>
+                            <summary class="collapse-title text-xl font-medium">{{ __('Price') }}</summary>
+                            <div class="collapse-content">
+                                <div class="mb-3">
+                                    <div class="relative w-full price-slider">
+                                        <div class="absolute w-full h-1 bg-bg-dark bg-opacity-40 z-[1] rounded-full"></div>
+                                        <div class="absolute h-1 z-[2] rounded-full bg-bg-primary slider-range"></div>
+                                        <input type="range" min="0" max="500" value="20"
+                                            class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none min-range">
+                                        <input type="range" min="0" max="500" value="300"
+                                            class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none max-range">
+                                    </div>
+                                </div>
 
-                        <!-- Price Filter -->
-                        <div>
-                            <div data-target="price-filter">
-                                <h3 class="text-xl font-medium">Price</h3>
-                            </div>
-
-                            <div class="filter-content" id="price-filter">
-                                <div class="mt-2">
-                                    <select class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
-                                        <option>All</option>
-                                        <option>Under $5,000</option>
-                                        <option>$5,000 - $10,000</option>
-                                        <option>$10,000 - $20,000</option>
-                                        <option>$20,000 - $50,000</option>
-                                        <option>Over $50,000</option>
-                                    </select>
+                                <!-- Price display -->
+                                <div class="pt-8">
+                                    <p class="text-sm lg:text-base">
+                                        {{ __('Price:') }} <span class="text-text-danger min-price">{{ __("$20") }}</span> -
+                                        <span class="text-text-danger max-price">{{ __("$300") }}</span>
+                                    </p>
                                 </div>
                             </div>
-                        </div>
+                        </details>
 
                         <button
                             class="w-full bg-bg-primary text-white py-2 rounded-md transition-colors duration-200 flex items-center justify-center group">
                             <span>Sherch</span>
                             <svg xmlns="http://www.w3.org/2000/svg"
-                                class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
-                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M14 5l7 7m0 0l-7 7m7-7H3" />
                             </svg>
@@ -377,18 +386,18 @@
 @endsection
 @push('js')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             const $openSidebar = $('.openFilterSidebar');
             const $closeSidebar = $('.closeFilterSidebar');
             const $sidebar = $('.filterSidebar'); // Select the sidebar element globally
 
             // Sidebar open functionality
-            $openSidebar.on('click', function() {
+            $openSidebar.on('click', function () {
                 $sidebar.css('transform', 'translateX(0)'); // Show the sidebar
                 // $(this).addClass('hidden'); // Hide the open button
             });
 
-            $closeSidebar.on('click', function() {
+            $closeSidebar.on('click', function () {
                 $sidebar.css('transform', 'translateX(-100%)'); // Hide the sidebar
                 setTimeout(() => {
                     // $openSidebar.removeClass('hidden'); // Show all openSidebar buttons
@@ -397,7 +406,7 @@
         });
         // Product card click functionality
         document.querySelectorAll('.product-card').forEach(card => {
-            card.addEventListener('click', function() {
+            card.addEventListener('click', function () {
                 const productId = this.getAttribute('data-product');
             });
         });
@@ -429,24 +438,69 @@
         }
 
         // Initialize animations
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             simulateLoading();
 
             // Add hover effect to nav links
             document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('mouseenter', function() {
+                link.addEventListener('mouseenter', function () {
                     this.querySelector('span').style.width = '100%';
                 });
 
-                link.addEventListener('mouseleave', function() {
+                link.addEventListener('mouseleave', function () {
                     this.querySelector('span').style.width = '0';
                 });
             });
         });
 
         // Sort functionality
-        document.getElementById('sort-select').addEventListener('change', function() {
+        document.getElementById('sort-select').addEventListener('change', function () {
             simulateLoading();
+        });
+    </script>
+    {{-- Price Range Slide --}}
+    <script>
+        $('.price-slider').each(function () {
+            const $slider = $(this);
+            const $minRange = $slider.find('.min-range');
+            const $maxRange = $slider.find('.max-range');
+            const $sliderRange = $slider.find('.slider-range');
+            const $minPrice = $slider.closest('.collapse-content').find('.min-price');
+            const $maxPrice = $slider.closest('.collapse-content').find('.max-price');
+
+            function updatePriceSlider() {
+                const minVal = parseInt($minRange.val());
+                const maxVal = parseInt($maxRange.val());
+                const maxAttr = parseInt($minRange.attr('max'));
+                const minPercent = (minVal / maxAttr) * 100;
+                const maxPercent = (maxVal / maxAttr) * 100;
+
+                $sliderRange.css({
+                    left: minPercent + '%',
+                    width: (maxPercent - minPercent) + '%'
+                });
+
+                $minPrice.text('$' + minVal);
+                $maxPrice.text('$' + maxVal);
+            }
+
+            // Initial setup
+            updatePriceSlider();
+
+            // Update on input
+            $minRange.on('input', function () {
+                if (parseInt($minRange.val()) > parseInt($maxRange.val()) - 10) {
+                    $minRange.val(parseInt($maxRange.val()) - 10);
+                }
+                updatePriceSlider();
+            });
+
+            $maxRange.on('input', function () {
+                if (parseInt($maxRange.val()) < parseInt($minRange.val()) + 10) {
+                    $maxRange.val(parseInt($minRange.val()) + 10);
+                }
+                updatePriceSlider();
+            });
         });
     </script>
 @endpush
