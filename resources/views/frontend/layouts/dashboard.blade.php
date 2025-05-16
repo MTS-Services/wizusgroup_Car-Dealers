@@ -116,8 +116,8 @@
                         </div>
                         <div id="my-orders" class="nav-pane hidden">
                             <div class="bg-bg-gray dark:bg-opacity-20 p-10">
+                                <h3 class="text-xl font-semibold">My Orders</h3>
                             </div>
-                            <h3 class="text-xl font-semibold">My Orders</h3>
                         </div>
                         <div id="my-containers" class="nav-pane hidden">
                             <div class="bg-bg-gray dark:bg-opacity-20 p-10">
