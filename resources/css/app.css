@@ -79,6 +79,21 @@
     *::-webkit-scrollbar-corner {
         background: transparent;
     }
+    .icon-hover-effect{
+        @apply transition-all duration-300 group-hover:bg-bg-primary
+    }
+    .text-hover-effect{
+        @apply transition-all duration-300 group-hover:text-text-tertiary
+    }
+    .active .icon-hover-effect{
+        @apply bg-bg-primary
+    }
+    .active span{
+        @apply text-text-tertiary
+    }
+    .btn_active{
+        @apply !bg-bg-tertiary
+    }
 
 }
 
