@@ -60,7 +60,7 @@
                 ['role_id', true, true],
                 ['email', true, true],
                 ['status', true, true],
-                ['is_verify', true, true],
+                ['email_verified_at', true, true],
                 ['created_by', true, true],
                 ['created_at', true, true],
                 ['action', false, false],

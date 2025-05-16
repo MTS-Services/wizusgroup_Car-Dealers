@@ -16,9 +16,9 @@ return new class extends Migration
     {
         Schema::create('content_images', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger("sort_order")->default(0);
             $table->text("path");
             $table->text("filename");
-            $table->bigInteger("sort_order")->default(0);
             $table->timestamps();
             $table->softDeletes();
             $this->addMorphedAuditColumns($table);

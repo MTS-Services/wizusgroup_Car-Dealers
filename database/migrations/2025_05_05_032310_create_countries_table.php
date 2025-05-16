@@ -17,20 +17,16 @@ return new class extends Migration
     {
         Schema::create('countries', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('sort_order')->default(0);
+            $table->bigInteger('sort_order')->default(0)->index();
             $table->string("name")->unique();
             $table->string("slug")->unique();
             $table->longText("description")->nullable();
-            $table->boolean('status')->default(Country::STATUS_ACTIVE)->comment(Country::STATUS_ACTIVE . ': Active, ' . Country::STATUS_DEACTIVE . ': Inactive');
+            $table->boolean('status')->default(Country::STATUS_ACTIVE)->index();
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
 
             // Indexes
-            $table->index('sort_order');
-            $table->index('name');
-            $table->index('slug');
-            $table->index('status');
             $table->index('created_at');
             $table->index('updated_at');
             $table->index('deleted_at');

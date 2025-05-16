@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\RoleRequest;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Services\Admin\AdminManagement\PermissionService;
+use App\Services\Admin\AdminManagement\RoleService;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Traits\DetailsCommonDataTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
@@ -16,9 +17,12 @@ use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
-    use DetailsCommonDataTrait;
-    public function __construct()
+    protected RoleService $roleService;
+    protected PermissionService $permissionService;
+    public function __construct( RoleService $roleService , PermissionService $permissionService)
     {
+        $this->roleService = $roleService;
+        $this->permissionService = $permissionService;
         $this->middleware('auth:admin');
         $this->middleware('permission:role-list', ['only' => ['index']]);
         $this->middleware('permission:role-details', ['only' => ['show']]);
@@ -37,9 +41,7 @@ class RoleController extends Controller
     {
 
         if ($request->ajax()) {
-            $query = Role::with(['permissions:id,name,prefix', 'creater_admin'])
-                ->orderBy('sort_order', 'asc')
-                ->latest();
+            $query = $this->roleService->getRoles()->with(['creater_admin']);
             return DataTables::eloquent($query)
                 ->editColumn('created_by', function ($role) {
                     return $role->creater_name;
@@ -87,10 +89,7 @@ class RoleController extends Controller
     {
 
         if ($request->ajax()) {
-            $query = Role::with(['deleter_admin'])
-                ->onlyTrashed()
-                ->orderBy('sort_order', 'asc')
-                ->latest();
+            $query = $this->roleService->getRoles()->onlyTrashed()->with(['deleter_admin']);
             return DataTables::eloquent($query)
                 ->editColumn('deleted_by', function ($role) {
                     return $role->deleter_name;
@@ -133,7 +132,7 @@ class RoleController extends Controller
      */
     public function create(): View
     {
-        $permissions = Permission::select(['id', 'name', 'prefix'])->orderBy('prefix')->get();
+        $permissions = $this->permissionService->getPermissions('prefix')->select(['id', 'name', 'prefix'])->get();
         $data['groupedPermissions'] = $permissions->groupBy(function ($permission) {
             return $permission->prefix;
         });
@@ -145,20 +144,13 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request): RedirectResponse
     {
-        DB::transaction(function () use ($request) {
-            try {
-                $validated = $request->validated();
-                $validated['created_by'] = admin()->id;
-                $validated['guard_name'] = 'admin';
-                $role = Role::create($validated);
-                $permissions = Permission::whereIn('id', $request->permissions)->pluck('name')->toArray();
-                $role->givePermissionTo($permissions);
-                session()->flash('success', "$role->name role created successfully");
-            } catch (\Throwable $e) {
-                session()->flash('error', "Role value: create failed!");
-                throw $e;
-            }
-        });
+        try{
+            $this->roleService->createRole($request->validated());
+            session()->flash('success', 'Role created successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Role create failed!');
+            throw $e;
+        }
         return redirect()->route('am.role.index');
     }
 
@@ -167,7 +159,8 @@ class RoleController extends Controller
     //  */
     public function show(string $id): JsonResponse
     {
-        $data = Role::with(['permissions:id,name,prefix', 'creater_admin', 'updater_admin'])->findOrFail(decrypt($id));
+        $data = $this->roleService->getRole($id);
+        $data->load(['permissions:id,name,prefix', 'creater_admin', 'updater_admin']);
         $data->permission_names = $data->permissions->pluck('name')->implode(' | ');
         return response()->json($data);
     }
@@ -177,59 +170,55 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
+
         $id = decrypt($id);
         if ($id == 1) {
             session()->flash('error', 'Cannot edit Super Admin!');
             return redirect()->route('am.role.index');
         }
-        $data['role'] = Role::with('permissions:id,name,prefix')->findOrFail($id);
-        $data['permissions'] = Permission::orderBy('prefix')->get();
-        $data['groupedPermissions'] = $data['permissions']->groupBy(function ($permission) {
-            return $permission->prefix;
-        });
+       try{
+            $role = $this->roleService->getRole($id);
+            $data['role'] = $role->load(['permissions:id,name,prefix']);
+            $data['permissions'] = $this->permissionService->getPermissions('prefix')->select(['id', 'name', 'prefix'])->get();
+            $data['groupedPermissions'] = $data['permissions']->groupBy('prefix');
+       } catch (\Throwable $e) {
+            session()->flash('error', 'Something went wrong, please try again!');
+            throw $e;
+        }
         return view('backend.admin.admin_management.role.edit', $data);
     }
 
     /**
+     *
      * Update the specified resource in storage.
      */
     public function update(RoleRequest $request, string $id): RedirectResponse
     {
-        $id = decrypt($id);
-        if ($id == 1) {
+
+        if (decrypt($id) == 1) {
             session()->flash('error', 'Cannot update Super Admin!');
             return redirect()->route('am.role.index');
         }
-        DB::transaction(function () use ($request, $id) {
-            try {
-                $role = Role::findOrFail($id);
-                $validated = $request->validated();
-                $validated['updated_by'] = admin()->id;
-                $validated['guard_name'] = 'admin';
-                $role->update($validated);
+        try{
+            $role = $this->roleService->getRole($id);
+            $this->roleService->updateRole($role, $request->validated());
+            session()->flash('success','Role updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Role update failed!');
+            throw $e;
 
-                $permissions = Permission::whereIn('id', $request->permissions ?? [])->pluck('name')->toArray();
-                $role->syncPermissions($permissions);
-                session()->flash('success', "$role->name role updated successfully");
-            } catch (\Throwable $e) {
-                session()->flash('error', "Role update failed!");
-                throw $e;
-            }
-        });
+        }
         return redirect()->route('am.role.index');
     }
 
 
     public function destroy(string $id): RedirectResponse
     {
-        $id = decrypt($id);
-        if ($id == 1) {
+        if (decrypt($id) == 1) {
             session()->flash('error', 'Cannot delete Super Admin!');
             return redirect()->route('am.role.index');
         }
-        $role = Role::findOrFail($id);
-        $role->update(['deleted_by' => admin()->id]);
-        $role->delete();
+        $this->roleService->delete($id);
         session()->flash('success', 'Role deleted successfully!');
         return redirect()->route('am.role.index');
     }
@@ -237,9 +226,7 @@ class RoleController extends Controller
 
     public function restore(string $id): RedirectResponse
     {
-        $role = Role::onlyTrashed()->findOrFail(decrypt($id));
-        $role->update(['updated_by' => admin()->id]);
-        $role->restore();
+        $this->roleService->restore($id);
         session()->flash('success', 'Role restored successfully!');
         return redirect()->route('am.role.recycle-bin');
     }
@@ -252,8 +239,7 @@ class RoleController extends Controller
      */
     public function permanentDelete(string $id): RedirectResponse
     {
-        $role = Role::onlyTrashed()->findOrFail(decrypt($id));
-        $role->forceDelete();
+        $this->roleService->permanentDelete($id);
         session()->flash('success', 'Role permanently deleted successfully!');
         return redirect()->route('am.role.recycle-bin');
     }
