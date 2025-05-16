@@ -15,10 +15,6 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.home');
     }
-    public function about()
-    {
-        return view('frontend.pages.about');
-    }
     public function product()
     {
         return view('frontend.pages.products');

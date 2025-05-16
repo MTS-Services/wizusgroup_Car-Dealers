@@ -11,8 +11,6 @@ Route::group(['as' => 'frontend.'], function () {
   Route::get('/dashboard', [FrontendController::class, 'dashboard'])->name('dashboard');
   // Home Page
   Route::get('/', [HomePageController::class, 'home'])->name('home');
-  // Home Page
-  Route::get('/about', [FrontendController::class, 'about'])->name('about');
   // Product Page
   Route::get('/product', [FrontendController::class, 'product'])->name('product');
   // Contact Page
