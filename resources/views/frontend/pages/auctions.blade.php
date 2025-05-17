@@ -129,7 +129,7 @@
                         <div class="loading-spinner"></div>
                         <span class="ml-3 text-text-dark dark:text-text-light text-opacity-50">Loading products...</span>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="products-grid">
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
                         {{-- Product 1 --}}
                         <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="1">
@@ -149,7 +149,7 @@
 
                             <!-- Card Content -->
                             <div class="p-4">
-                                <h2 class="text-base lg:text-base font-semibold text-text-primary dark:text-text-light">
+                                <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
                                     {{ __('Honda CR-V') }}</h2>
                                 <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}</p>
                                 <div

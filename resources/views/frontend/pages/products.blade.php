@@ -61,7 +61,7 @@
                             <div class="filter-content" id="category-filter">
                                 <div class="mt-2">
                                     <select
-                                        class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
+                                        class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
                                         <option>All Agricultural</option>
                                         <option>Tractors</option>
                                         <option>Harvesters</option>
@@ -81,7 +81,7 @@
                             <div class="filter-content" id="brand-filter">
                                 <div class="mt-2">
                                     <select
-                                        class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
+                                        class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
                                         <option>All</option>
                                         <option>Kubota</option>
                                         <option>Iseki</option>
@@ -101,7 +101,7 @@
                             <div class="filter-content" id="model-filter">
                                 <div class="mt-2">
                                     <select
-                                        class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
+                                        class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
                                         <option>All</option>
                                         <option>ZL1-215</option>
                                         <option>TM15</option>
@@ -123,7 +123,7 @@
                             <div class="filter-content" id="year-filter">
                                 <div class="mt-2">
                                     <select
-                                        class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
+                                        class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
                                         <option>All</option>
                                         <option>2020 - Present</option>
                                         <option>2010 - 2019</option>
@@ -160,7 +160,7 @@
                         </details>
 
                         <button
-                            class="w-full bg-bg-primary text-white py-2 rounded-md transition-colors duration-200 flex items-center justify-center group">
+                            class="w-full btn-primary hover:bg-bg-tertiary py-2 rounded-md transition-all duration-200 flex items-center justify-center group">
                             <span>Sherch</span>
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none"
@@ -183,7 +183,7 @@
                             <h2 class="text-sm xs:text-base md:text-lg  font-semibold">Sort <span>38,001</span></h2>
                         </div>
                         <div class="flex items-center">
-                            <select class="border shadow-card focus:outline-none rounded-md px-2 py-1 text-sm "
+                            <select class="border border-border-gray dark:border-opacity-20 shadow-card focus:outline-none rounded-md px-2 py-1 text-sm "
                                 id="sort-select">
                                 <option>Price: Low to High</option>
                                 <option>Price: High to Low</option>
@@ -198,7 +198,7 @@
                         <div class="loading-spinner"></div>
                         <span class="ml-3 text-gray-600">Loading products...</span>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="products-grid">
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
                         {{-- Product 1 --}}
                         <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="1">
@@ -209,9 +209,9 @@
                             </div>
                             <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
                                 <h3
-                                    class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                    class="text-base lg:text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
                                     Kubota ZL1-215</h3>
-                                <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
                                 <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
                                     <span>2001</span>
                                     <span class="mx-2">|</span>
@@ -228,9 +228,9 @@
                             </div>
                             <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
                                 <h3
-                                    class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                    class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
                                     Kubota ZL1-215</h3>
-                                <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
                                 <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
                                     <span>2001</span>
                                     <span class="mx-2">|</span>
@@ -248,9 +248,9 @@
                             </div>
                             <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
                                 <h3
-                                    class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                    class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
                                     Kubota ZL1-215</h3>
-                                <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
                                 <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
                                     <span>2001</span>
                                     <span class="mx-2">|</span>
@@ -268,9 +268,9 @@
                             </div>
                             <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
                                 <h3
-                                    class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                    class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
                                     Kubota ZL1-215</h3>
-                                <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
                                 <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
                                     <span>2001</span>
                                     <span class="mx-2">|</span>
@@ -288,9 +288,9 @@
                             </div>
                             <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
                                 <h3
-                                    class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                    class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
                                     Kubota ZL1-215</h3>
-                                <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
                                 <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
                                     <span>2001</span>
                                     <span class="mx-2">|</span>
@@ -308,9 +308,9 @@
                             </div>
                             <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
                                 <h3
-                                    class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                    class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
                                     Kubota ZL1-215</h3>
-                                <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
                                 <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
                                     <span>2001</span>
                                     <span class="mx-2">|</span>
@@ -328,9 +328,9 @@
                             </div>
                             <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
                                 <h3
-                                    class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                    class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
                                     Kubota ZL1-215</h3>
-                                <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
                                 <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
                                     <span>2001</span>
                                     <span class="mx-2">|</span>
@@ -348,9 +348,9 @@
                             </div>
                             <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
                                 <h3
-                                    class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                    class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
                                     Kubota ZL1-215</h3>
-                                <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
                                 <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
                                     <span>2001</span>
                                     <span class="mx-2">|</span>
@@ -368,9 +368,9 @@
                             </div>
                             <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
                                 <h3
-                                    class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                    class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
                                     Kubota ZL1-215</h3>
-                                <p class="text-xl font-bold text-text-danger">$3,500</p>
+                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
                                 <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
                                     <span>2001</span>
                                     <span class="mx-2">|</span>
