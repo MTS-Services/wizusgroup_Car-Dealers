@@ -1,6 +1,6 @@
 <!-- Sidebar -->
 <div
-    class="sidebar fixed top-0 right-0 min-h-screen h-full w-2/3 translate-x-full transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-darkTertiary shadow-lg z-[99999999999]">
+    class="sidebar fixed top-0 right-0 min-h-screen h-full w-2/3 translate-x-full transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-dark-tertiary shadow-lg z-[99999999999]">
 
     <div class="h-full p-5">
         <div class="flex justify-end items-center border-b border-b-border-light pb-5">

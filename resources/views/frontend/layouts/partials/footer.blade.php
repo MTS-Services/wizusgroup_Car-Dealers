@@ -119,7 +119,7 @@
                                         </span>
                                     </div>
                                     <a href="https://www.google.com/maps" target="_blank"
-                                        class="w-auto text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-100 ease-linear">
+                                        class="w-auto break-all text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-300 ease-linear">
                                         {{ __('Lorem ipsum dolor sit amet consectetur adipisicing elit.') }}
                                     </a>
                                 </div>
@@ -132,7 +132,7 @@
                                         </span>
                                     </div>
                                     <a href="mailto:example@example.com" target="_blank"
-                                        class="w-auto text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-100 ease-linear">
+                                        class="w-auto break-all !text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-300 ease-linear">
                                         {{ __('example@example.com') }}
                                     </a>
                                 </div>
@@ -144,7 +144,7 @@
                                         </span>
                                     </div>
                                     <a href="tel:000-000-000" target="_blank"
-                                        class="w-auto text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-100 ease-linear">
+                                        class="w-auto break-all text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-300 ease-linear">
                                         {{ __('000-000-000') }}
                                     </a>
                                 </div>
@@ -190,7 +190,7 @@
                 {{ config('app.name') }}. {{ __('All rights reserved.') }}</p>
             <p class="text-sm text-text-primary dark:text-text-light ml-2">{{ __('Developed by') }}
                 <a href="https://www.google.com/" target="_blank"
-                    class="text-text-tertiary hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-100 ease-linear">{{ __('MTS Solutions') }}</a>
+                    class="text-text-tertiary hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-300 ease-linear">{{ __('MTS Solutions') }}</a>
             </p>
         </div>
     </div>

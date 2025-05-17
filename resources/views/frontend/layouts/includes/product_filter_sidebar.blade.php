@@ -1,6 +1,6 @@
 <!-- Sidebar -->
 <div
-    class="filterSidebar fixed top-0 left-0 min-h-screen h-full w-4/5 lg:w-1/2 -translate-x-full transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-darkTertiary shadow-lg z-[99999999999]">
+    class="filterSidebar fixed top-0 left-0 min-h-screen h-full w-4/5 lg:w-1/2 -translate-x-full transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-dark-tertiary shadow-lg z-[99999999999]">
 
     <div class="h-screen overflow-auto p-2 xl:p-3">
         <div class="flex justify-between items-center border-b border-b-border-light pb-5">
