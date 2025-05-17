@@ -31,7 +31,6 @@ use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminRese
 use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerificationController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\BrandController;
 
-Auth::routes(['verify' => true]);
 // Admin Auth Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
     Route::controller(AdminLoginController::class)->group(function () {

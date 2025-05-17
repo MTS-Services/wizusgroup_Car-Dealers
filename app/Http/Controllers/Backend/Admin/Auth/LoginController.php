@@ -103,11 +103,6 @@ class LoginController extends Controller
 
         // Check if email is verified
         if (method_exists($admin, 'hasVerifiedEmail') && !$admin->hasVerifiedEmail()) {
-            // Logout admin
-            // $this->guard()->logout();
-            // $request->session()->invalidate();
-            // $request->session()->regenerateToken();  
-
             // Automatically send verification email
             $admin->sendEmailVerificationNotification();
 
