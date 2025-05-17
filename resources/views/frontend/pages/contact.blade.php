@@ -1,33 +1,59 @@
 @extends('frontend.layouts.app', ['page_slug' => 'contact'])
 @section('title', 'Contact')
 @section('content')
-    <section class="pt-10">
+    <section class="pb-15 pt-10">
         <div class="container">
             <div class="flex flex-col lg:flex-row gap-10">
                 <div class="w-full lg:w-1/2">
-                    <h2 class="text-2xl lg:text-3xl font-semibold capitalize pb-3">{{ __('Contact us') }}</h2>
+                    <h2 class="text-xl md:text-2xl xl:text-3xl font-semibold capitalize pb-3">{{ __('Contact us') }}</h2>
                     <div class="shadow-card bg-bg-light dark:bg-opacity-20 rounded-md p-6">
-                        <h2 class="text-lg lg:text-xl font-bold pb-3">{{ __('Send Us and Iquery') }}</h2>
+                        <h2 class="text-base md:text-lg xl:text-xl font-bold pb-3">{{ __('Send Us and Iquery') }}</h2>
                         <form action="javaScript:void(0)" method="POST">
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                 <div class="w-full mb-3">
-                                    <label for="name"
-                                        class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Name') }}</label>
-                                    <input class="input rounded-md w-full" type="text" name="name" id="name"
-                                        class="input h-12">
+                                    <label class="input">
+                                        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24">
+                                            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5"
+                                                fill="none" stroke="currentColor">
+                                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                                                <circle cx="12" cy="7" r="4"></circle>
+                                            </g>
+                                        </svg>
+                                        <input type="text" placeholder="name" name="name" />
+                                    </label>
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'name']" />
                                 </div>
                                 <div class="w-full mb-3">
-                                    <label for="email"
-                                        class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Email') }}</label>
-                                    <input class="input rounded-md w-full" type="email" name="email" id="email"
-                                        class="input h-12">
+                                    <label class="input">
+                                        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24">
+                                            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5"
+                                                fill="none" stroke="currentColor">
+                                                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                                            </g>
+                                        </svg>
+                                        <input type="email" placeholder="Email" name="email" />
+                                    </label>
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'email']" />
                                 </div>
                             </div>
                             <div class="w-full mb-3">
-                                <label for="subject"
-                                    class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Subject') }}</label>
-                                <input class="input rounded-md w-full" type="subject" name="subject" id="subject"
-                                    class="input h-12">
+                                <label class="input">
+                                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24">
+                                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                                            stroke="currentColor">
+                                            <path
+                                                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                            </path>
+                                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                                        </g>
+                                    </svg>
+                                    <input type="subject" name="subject" id="subject">
+                                </label>
                             </div>
                             <div class="w-full mb-3">
                                 <label for="message"
@@ -36,24 +62,22 @@
                             </div>
                             <div class="flex justify-center">
                                 <button type="submit"
-                                    class="py-2 border-none shadow-md bg-bg-primary hover:bg-bg-tertiary text-text-white mt-6 rounded-md w-full">{{ __('Send Message') }}</button>
+                                    class="btn-primary py-2 mt-6 rounded-md w-full hover:bg-bg-tertiary">{{ __('Send Message') }}</button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="w-full lg:w-1/2 overflow-hidden rounded-md">
-                    <h2 class="text-2xl lg:text-3xl font-semibold capitalize pb-3">{{ __('Our Offices') }}</h2>
+                    <h2 class="text-xl md:text-2xl xl:text-3xl font-semibold capitalize pb-3">{{ __('Our Offices') }}</h2>
                     <div class="h-full shadow-card bg-bg-light dark:bg-opacity-20 p-6">
-                        <div class="flex items-center gap-4 mb-10 text-sm lg:text-base text-center lg:text-left">
+                        <div class="flex items-center gap-4 mb-10 text-sm lg:text-base text-center lg:text-left mt-2">
                             <div class="w-1/2">
-                                <button
-                                    class="px-0 xs:px-3 py-3 bg-bg-primary hover:bg-bg-tertiary w-full  text-sm md:text-base text-text-light rounded-md">WhatsApp
-                                    Us</button>
+                                <a class="btn-primary rounded-md w-full py-2 px-0 hover:bg-bg-tertiary"
+                                    href="#">{{ __('WhatsApp Us') }}</a>
                             </div>
                             <div class="w-1/2">
-                                <button
-                                    class="px-0  py-3   bg-bg-primary hover:bg-bg-tertiary w-full  text-sm md:text-base text-text-light rounded-md">+1
-                                    (123) 456-789</button>
+                                <a class="btn-primary rounded-md w-full py-2 px-0 hover:bg-bg-tertiary"
+                                    href="#">{{ __('+1(123) 456-789') }}</a>
                             </div>
                         </div>
                         <p class="pb-2 text-base lg:me-40 text-text-primary dark:text-text-white font-semibold">
@@ -79,8 +103,8 @@
                 </div>
             </div>
 
-            <section>
-                <div class="rounded-sm overflow-hidden my-10">
+            <section class="pt-15">
+                <div class="rounded-sm overflow-hidden">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d51856.3358057422!2d139.60882750083385!3d35.67648520602899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x605d1b87f02e57e7%3A0x2e01618b22571b89!2sTokyo!3m2!1d35.6764225!2d139.650027!4m5!1s0x605d1b87f02e57e7%3A0x2e01618b22571b89!2sTokyo%2C%20Japan!3m2!1d35.6764225!2d139.650027!5e0!3m2!1sen!2sbd!4v1747217456466!5m2!1sen!2sbd"
                         width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"
