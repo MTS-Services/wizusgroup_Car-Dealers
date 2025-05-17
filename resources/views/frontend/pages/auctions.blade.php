@@ -131,7 +131,7 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="products-grid">
                         {{-- Product 1 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="1">
                             <!-- Car Image -->
                             <div class="relative">
@@ -181,7 +181,7 @@
                             </div>
                         </div>
                         {{-- Product 2 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="2">
                             <!-- Car Image -->
                             <div class="relative">
@@ -225,13 +225,13 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full btn-primary px-4 rounded-md mt-4">
+                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
                         {{-- Product 3 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="3">
                             <!-- Car Image -->
                             <div class="relative">
@@ -275,13 +275,13 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full btn-primary px-4 rounded-md mt-4">
+                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
                         {{-- Product 4 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="4">
                             <!-- Car Image -->
                             <div class="relative">
@@ -325,13 +325,13 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full btn-primary px-4 rounded-md mt-4">
+                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
                         {{-- Product 5 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group  shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group  shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="5">
                             <!-- Car Image -->
                             <div class="relative">
@@ -375,13 +375,13 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full btn-primary px-4 rounded-md mt-4">
+                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
                         {{-- Product 6 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="6">
                             <!-- Car Image -->
                             <div class="relative">
@@ -425,7 +425,7 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full btn-primary px-4 rounded-md mt-4">
+                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
