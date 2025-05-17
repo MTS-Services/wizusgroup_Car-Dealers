@@ -6,18 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserRequest;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Traits\DetailsCommonDataTrait;
-use App\Http\Traits\FileManagementTrait;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\JsonResponse;  
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Services\Admin\UserManagement\UserService;
 
 class UserController extends Controller
 {
-    use FileManagementTrait, DetailsCommonDataTrait;
-    public function __construct()
+    use DetailsCommonDataTrait;
+
+    protected UserService $userService;
+
+    public function __construct(UserService $userService)
     {
+        $this->userService = $userService;
+
         $this->middleware('auth:admin');
         $this->middleware('permission:user-list', ['only' => ['index']]);
         $this->middleware('permission:user-details', ['only' => ['show']]);
@@ -36,9 +41,8 @@ class UserController extends Controller
     {
 
         if ($request->ajax()) {
-            $query = User::with(['creater'])
-                ->orderBy('sort_order', 'asc')
-                ->latest();
+            $query = $this->userService->getUsers()
+            ->with(['creater']);
             return DataTables::eloquent($query)
                 ->editColumn('first_name', function ($user) {
                     return $user->full_name . ($user->username ? " (" . $user->username . ")" : "");
@@ -253,3 +257,4 @@ class UserController extends Controller
         return redirect()->route('um.user.recycle-bin');
     }
 }
+
