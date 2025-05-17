@@ -136,9 +136,8 @@
                     </p>
                     <div class="relative  2xl:max-w-[700px] xl:max-w-[600px] lg:max-w-[500px] max-w-96 mx-auto px-4 xs:px-2">
                         <input type="search" id="machine-search"
-                            class="block w-full py-4 px-3 xs:px-2 pl-10 pr-16 text-sm xs:text-xs border-none rounded-lg bg-bg-light-secondary focus:ring-blue-500 focus:border-blue-600"
-                            placeholder="{{ __('Find your machine...') }}" required>
-
+                            class="block w-full xl:py-4 md:py-3 py-2 px-1 xs:px-2 pl-4 pr-16 text-sm xs:text-xs border-none rounded-lg bg-bg-light-secondary focus:ring-blue-500 focus:border-blue-600"
+                            placeholder="{{ __('Find your machine...') }}">
                         <button type="submit"
                             class="text-text-white absolute right-0 top-0 bottom-0 bg-bg-primary hover:bg-bg-primary/90 font-medium rounded-l-none rounded-r-lg text-sm px-4">
                             <svg class="w-5 h-5 text-text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -220,7 +219,7 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center mx-auto mt-18 ">
+            <div class="text-center mx-auto xl:mt-10 lg:mt-8 md:mt-6 mt-4">
                 <button>
                     <a href="#" class="btn-primary ">
                         {{ __('Shop Now') }}
@@ -320,7 +319,7 @@
     @endphp
 
     {{-- ===================== Testimonial Section Start ===================== --}}
-    <section class="py-20  relative">
+    <section class=" 2xl:py-20 xl:py-16 lg:py-12 md:py-10 py-8  relative">
         <div class="container mx-auto px-4">
             <div class="header text-center mb-10">
                 <h2 class="text-3xl font-bold uppercase">{{ __('Testimonials') }}</h2>
