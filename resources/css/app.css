@@ -83,13 +83,16 @@
         @apply transition-all duration-300 group-hover:bg-bg-primary
     }
     .text-hover-effect{
-        @apply transition-all duration-300 group-hover:text-text-tertiary
+        @apply transition-all duration-300 group-hover:text-text-tertiary dark:group-hover:text-text-white
+    }
+    .active{
+        @apply bg-bg-tertiary
     }
     .active .icon-hover-effect{
         @apply bg-bg-primary
     }
     .active span{
-        @apply text-text-tertiary
+        @apply text-text-tertiary dark:text-text-white
     }
     .btn_active{
         @apply !bg-bg-tertiary

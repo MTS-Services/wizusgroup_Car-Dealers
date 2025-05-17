@@ -12,32 +12,37 @@
                         </a>
                     </div>
                     <div>
-                        <ul class="mt-2">
-                            <li class="group nav_item" data-target="my-orders">
+                        <ul class="">
+                            <li class="group nav_item dark:hover:bg-bg-tertiary transition-all duration-300"
+                                data-target="my-orders">
                                 <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="menu"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize group-hover:text-text-tertiary text-hover-effect">{{ __('My Orders') }}</span>
                                 </a>
                             </li>
-                            <li class="group nav_item" data-target="my-containers">
+                            <li class="group nav_item dark:hover:bg-bg-tertiary transition-all duration-300"
+                                data-target="my-containers">
                                 <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="container"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('My Containers') }}</span>
                                 </a>
                             </li>
-                            <li class="group nav_item" data-target="payments">
+                            <li class="group nav_item dark:hover:bg-bg-tertiary transition-all duration-300"
+                                data-target="payments">
                                 <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="dollar-sign"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('Payments') }}</span>
                                 </a>
                             </li>
-                            <li class="group nav_item" data-target="messages">
+                            <li class="group nav_item dark:hover:bg-bg-tertiary transition-all duration-300"
+                                data-target="messages">
                                 <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="mail"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('Messages') }}</span>
                                 </a>
                             </li>
-                            <li class="group nav_item" data-target="update-profile">
+                            <li class="group nav_item dark:hover:bg-bg-tertiary transition-all duration-300"
+                                data-target="update-profile">
                                 <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="user"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('Update Profile') }}</span>
@@ -48,11 +53,10 @@
                 </div>
                 <div class="w-full lg:w-3/4">
                     <div class=" min-h-[200px] border-none ">
-                        <div id="client-dashboard" class="nav-pane block">
+                        <div id="client-dashboard" class="nav-pane hidden">
                             {{-- Client Dashboard --}}
                             <div class="bg-bg-gray dark:bg-opacity-20">
-                                <h2
-                                    class="text-2xl  lg:text-4xl uppercase font-bold py-12{{-- bg-bg-light dark:bg-bg-dark-tertiary --}} ps-10">
+                                <h2 class="text-2xl  lg:text-4xl uppercase font-bold py-12{{-- bg-bg-light dark:bg-bg-dark-tertiary --}} ps-10">
                                     {{ __('Client Dashboard') }}
                                 </h2>
                                 <div class="flex flex-wrap gap-10 items-center p-10">
@@ -134,18 +138,18 @@
                                 <h3 class="text-xl font-semibold">Messages</h3>
                             </div>
                         </div>
-                        <div id="update-profile" class="nav-pane hidden">
-                            <div class="bg-bg-gray dark:bg-opacity-20 p-10 p-10">
+                        <div id="update-profile" class="nav-pane block">
+                            <div class="bg-bg-gray dark:bg-opacity-20 p-10">
                                 <div class="w-full">
                                     <div
                                         class="flex justify-around items-center gap-5 py-5 text-center flex-wrap md:flex-nowrap">
-                                        <p class="btn-item w-full py-2 bg-bg-primary rounded-md text-white hover:bg-bg-tertiary transition-all duration-300 btn_active"
+                                        <p class="btn-item btn-primary w-full py-2 rounded-md btn_active"
                                             data-target="profile">Profile</p>
-                                        <p class="btn-item w-full py-2 bg-bg-primary rounded-md text-white hover:bg-bg-tertiary transition-all duration-300"
-                                            data-target="shop-details">Shop Details</p>
-                                        <p class="btn-item w-full py-2 bg-bg-primary rounded-md text-white hover:bg-bg-tertiary transition-all duration-300"
-                                            data-target="address">Address</p>
-                                        <p class="btn-item w-full py-2 bg-bg-primary rounded-md text-white hover:bg-bg-tertiary transition-all duration-300"
+                                        <p class="btn-item btn-primary w-full py-2 rounded-md" data-target="shop-details">
+                                            Shop Details</p>
+                                        <p class="btn-item btn-primary w-full py-2 rounded-md" data-target="address">
+                                            Address</p>
+                                        <p class="btn-item btn-primary w-full py-2 rounded-md"
                                             data-target="change-password">Change Password</p>
                                     </div>
                                 </div>
@@ -153,7 +157,54 @@
                                 <div class="w-full">
                                     <div class="min-h-[200px] rounded-lg  mt-5 p-5">
                                         <div id="profile" class="tab-pane block">
-                                            <h3 class="text-xl font-semibold">Profile</h3>
+                                            {{-- Update Profile --}}
+                                            {{-- <h3 class="text-xl font-semibold mb-4 uppercase">Update Profile</h3> --}}
+                                            <div>
+                                                <form action="" method="post">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                                        <div>
+                                                            <label for="first_name"
+                                                                class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('First Name') }}</label>
+                                                            <input class="input rounded-md w-full" type="text"
+                                                                name="first_name" id="first_name">
+                                                        </div>
+                                                        <div>
+                                                            <label for="last_name"
+                                                                class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Last Name') }}</label>
+                                                            <input class="input rounded-md w-full" type="text"
+                                                                name="last_name" id="last_name">
+                                                        </div>
+                                                        <div>
+                                                            <label for="username"
+                                                                class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Username') }}</label>
+                                                            <input class="input rounded-md w-full" type="text"
+                                                                name="username" id="username">
+                                                        </div>
+                                                        <div>
+                                                            <label for="email"
+                                                                class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Email') }}</label>
+                                                            <input class="input rounded-md w-full" type="email"
+                                                                name="email" id="email">
+                                                        </div>
+                                                        {{-- image --}}
+                                                        <div>
+                                                            <label for="image"
+                                                                class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Image') }}</label>
+                                                            <input class="input rounded-md w-full p-2" type="file"
+                                                                name="image" id="image">
+                                                        </div>
+                                                        <div>
+                                                            <label for="phone"
+                                                                class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Phone') }}</label>
+                                                            <input class="input rounded-md w-full" type="text"
+                                                                name="phone" id="phone">
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary mt-5">Update</button>
+                                                </form>
+                                            </div>
                                         </div>
                                         <div id="shop-details" class="tab-pane hidden">
                                             <h3 class="text-xl font-semibold">Shop Details</h3>
@@ -164,7 +215,36 @@
                                             <h3 class="text-xl font-semibold">Address</h3>
                                         </div>
                                         <div id="change-password" class="tab-pane hidden">
-                                            <h3 class="text-xl font-semibold">Change Password</h3>
+                                            <div class="max-w-lg mx-auto">
+                                                <form action="" method="post">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="grid grid-cols-1 gap-5">
+                                                        <div>
+                                                            <label for="current_password"
+                                                                class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Current
+                                                                                                                            Password') }}</label>
+                                                            <input class="input rounded-md w-full" type="password"
+                                                                name="current_password" id="current_password">
+                                                        </div>
+                                                        <div>
+                                                            <label for="password"
+                                                                class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('New
+                                                                                                                            Password') }}</label>
+                                                            <input class="input rounded-md w-full" type="password"
+                                                                name="password" id="new_password">
+                                                        </div>
+                                                        <div>
+                                                            <label for="password_confirmation"
+                                                                class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Confirm New Password') }}</label>
+                                                            <input class="input rounded-md w-full" type="password"
+                                                                name="password_confirmation" id="password_confirmation">
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary mt-5">Change
+                                                        Password</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -178,9 +258,9 @@
 @endsection
 @push('js')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // ******** Sidebar Navigation Tabs (.nav_item) ********
-            $('.nav_item').on('click', function () {
+            $('.nav_item').on('click', function() {
                 $('.nav_item')
                     .removeClass('active')
                     .addClass('bg-greenyellow text-black');
@@ -194,7 +274,7 @@
             });
 
             // ******** Update Profile Button Tabs (.btn-item) ********
-            $('.btn-item').on('click', function () {
+            $('.btn-item').on('click', function() {
                 $('.btn-item').removeClass('btn_active');
                 $(this).addClass('btn_active');
 
@@ -205,5 +285,4 @@
             });
         });
     </script>
-
 @endpush
