@@ -199,25 +199,6 @@
                     {{ __('JOIN NOW') }}
                 </button>
             </div>
-            <div class="pt-10">
-                <div class="header">
-                    <h2 class="text-3xl font-bold uppercase text-center">{{ __('How it Works') }}</h2>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-                    <div class="bg-bg-light-secondary dark:bg-bg-primary/30 py-9 p-2 shadow-lg text-center">
-                        <i data-lucide="shopping-cart" class="w-12 h-12 mx-auto"></i>
-                        <p class="py-2">{{ __('Select Your Machine') }}</p>
-                    </div>
-                    <div class="bg-bg-light-secondary dark:bg-bg-primary/30  py-9 p-2 shadow-lg text-center">
-                        <i data-lucide="ship" class="w-12 h-12 mx-auto"></i>
-                        <p class="py-2">{{ __('Arrange for Export') }}</p>
-                    </div>
-                    <div class="bg-bg-light-secondary dark:bg-bg-primary/30  py-9 p-2 shadow-lg text-center">
-                        <i data-lucide="shopping-cart" class="w-12 h-12 mx-auto"></i>
-                        <p class="py-2">{{ __('Receive at Port') }}</p>
-                    </div>
-                </div>
-            </div>
         </div>
 </section>
 @endsection
