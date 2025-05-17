@@ -138,7 +138,7 @@
                             placeholder="{{ __('Find your machine...') }}" required>
 
                         <button type="submit"
-                            class="text-text-white absolute right-0 top-0 bottom-0 bg-bg-primary hover:bg-bg-primary/90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-l-none rounded-r-lg text-sm px-4">
+                            class="text-text-white absolute right-0 top-0 bottom-0 bg-bg-primary hover:bg-bg-primary/90 font-medium rounded-l-none rounded-r-lg text-sm px-4">
 
                             <svg class="w-5 h-5 text-text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 20 20">
@@ -379,7 +379,7 @@
                     <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9 ">
                         <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
                     </div>
-                    <div class=" right-10 bottom-10 z-10 fixed shadow-lg w-16 h-16 flex items-center justify-center bg-green-600 rounded-full">
+                    <div class=" right-10 bottom-10 z-10 fixed shadow-lg w-16 h-16 flex items-center justify-center bg-gradient-primary rounded-full">
                         <a href="#">
                             <i class="fa-brands fa-whatsapp text-5xl text-text-light"></i>
                         </a>
