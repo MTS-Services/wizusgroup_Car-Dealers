@@ -9,114 +9,111 @@
 
 @section('content')
     {{-- Group Shipping steps start --}}
-    <section class="py-24 bg-bg-primary/20 dark:bg-bg-dark">
+    <section class="py-8 md:py-12 lg:py-14 xl:py-16 2xl:py-20 bg-bg-primary/20 dark:bg-bg-dark">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="header text-center pb-8 md:pb-12">
+            <div class="header text-center mb-8 md:mb-12 lg:mb-16">
                 <h1
-                    class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold text-text-black/70 dark:text-text-light">
+                    class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold text-text-secondary dark:text-text-light">
                     {{ __('Simple, Fast, and Secure Process') }}
                 </h1>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 sm:gap-6">
+            <div class="grid grid-cols-1  lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
                 <!-- Step 1 -->
                 <div
-                    class="Step bg-white dark:bg-gray-800 p-2 sm:p-3 lg:p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div class="icons flex gap-3 items-center pb-3">
-                        <div class="icon-container flex-shrink-0">
-                            <i data-lucide="search"
-                                class="w-12 h-12 sm:w-16 sm:h-16 border-2 text-text-black/50 dark:text-text-light border-text-black/50 dark:border-text-light p-3 sm:p-2 lg:p-4 rounded-full"></i>
+                    class="bg-bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
+                    <div class="flex flex-col h-full">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="flex-shrink-0">
+                                <div
+                                    class="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border-2 border-blue-100 dark:border-blue-800">
+                                    <i data-lucide="package-search" class="w-6 h-6"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <span
+                                    class="block text-sm font-medium text-blue-600 dark:text-blue-400">{{ __('Step 1') }}</span>
+                                <h3
+                                    class="text-lg md:text-xl lg:text-2xl font-semibold text-text-secondary dark:text-white">
+                                    {{ __('Select Machine') }}</h3>
+                            </div>
                         </div>
-                        <div class="step xl:pr-4 pr-3">
-                            <h3
-                                class="text-lg sm:text-xl md:text-2xl font-semibold text-text-secondary dark:text-text-white/80">
-                                Step 1</h3>
-                            <h3
-                                class="text-lg sm:text-xl md:text-2xl font-semibold text-text-secondary dark:text-text-white/80">
-                                Browse and
-                                Reserve</h3>
-                        </div>
-                    </div>
-                    <div class="descriptions">
-                        <p class="text-sm sm:text-base text-text-black/50 leading-relaxed dark:text-text-light">
-                            Search our inventory or browse by category: Choose your machine and pay a reservation deposit to
-                            secure your order.
+                        <p class="text-text-primary/60 dark:text-gray-300 text-sm md:text-base mt-2 leading-relaxed">
+                            {{ __('Browse our inventory and choose the perfect machine for your needs from our quality selection.') }}
                         </p>
                     </div>
                 </div>
 
                 <!-- Step 2 -->
                 <div
-                    class="Step bg-white dark:bg-gray-800 p-2 sm:p-2 lg:p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div class="icons flex gap-3 items-center pb-3">
-                        <div class="icon-container flex-shrink-0">
-                            <i data-lucide="ship"
-                                class="w-12 h-12 sm:w-16 sm:h-16 border-2 text-text-black/50 dark:text-text-light border-text-black/50 dark:border-text-light p-3 sm:p-2 lg:p-4 rounded-full"></i>
+                    class="bg-bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
+                    <div class="flex flex-col h-full">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="flex-shrink-0">
+                                <div
+                                    class="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-bg-tertiary/10 dark:bg-green-900/30 text-text-tertiary dark:text-text-tertiary border-2 border-border-tertiary/10 dark:border-tertiary/10">
+                                    <i data-lucide="wallet" class="w-6 h-6"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <span
+                                    class="block text-sm font-medium text-bg-tertiary/90 dark:text-text-tertiary/30">{{ __('Step 2') }}</span>
+                                <h3
+                                    class="text-lg md:text-xl xl:text-2xl font-semibold text-text-secondary dark:text-white">
+                                    {{ __('Pay Deposit') }}</h3>
+                            </div>
                         </div>
-                        <div class="step xl:pr-4 pr-3">
-                            <h3
-                                class="text-lg sm:text-xl md:text-2xl font-semibold text-text-secondary dark:text-text-white/80">
-                                Step 2</h3>
-                            <h3
-                                class="text-lg sm:text-xl md:text-2xl font-semibold text-text-secondary dark:text-text-white/80">
-                                Group Container
-                                or Direct Shipping</h3>
-                        </div>
-                    </div>
-                    <div class="descriptions">
-                        <p class="text-sm sm:text-base text-text-black/50 leading-relaxed dark:text-text-light">
-                            Join a group container for lower shipping costs, or request immediate shipping for a full
-                            container.
+                        <p class="text-text-primary/60 dark:text-gray-300 text-sm md:text-base mt-2 leading-relaxed">
+                            {{ __('Secure your selected machine with a small deposit to reserve it while we prepare for shipping.') }}
                         </p>
                     </div>
                 </div>
 
                 <!-- Step 3 -->
                 <div
-                    class="Step bg-white dark:bg-gray-800 p-2 sm:p-2 lg:p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div class="icons flex gap-3 items-center pb-3">
-                        <div class="icon-container flex-shrink-0">
-                            <i data-lucide="credit-card"
-                                class="w-12 h-12 sm:w-16 sm:h-16 border-2 text-text-black/50 dark:text-text-light border-text-black/50 dark:border-text-light p-3 sm:p-2 lg:p-4 rounded-full"></i>
+                    class="bg-bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
+                    <div class="flex flex-col h-full">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="flex-shrink-0">
+                                <div
+                                    class="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 border-2 border-purple-100 dark:border-purple-800">
+                                    <i data-lucide="clock" class="w-6 h-6"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <span
+                                    class="block text-sm font-medium text-purple-600 dark:text-purple-400">{{ __('Step 3') }}</span>
+                                <h3
+                                    class="text-lg md:text-xl lg:text-2xl font-semibold text-text-secondary dark:text-white">
+                                    {{ __('Wait for Container') }}</h3>
+                            </div>
                         </div>
-                        <div class="step xl:pr-4 pr-3">
-                            <h3
-                                class="text-lg sm:text-xl md:text-2xl font-semibold text-text-secondary dark:text-text-white/80">
-                                Step 3</h3>
-                            <h3
-                                class="text-lg sm:text-xl md:text-2xl font-semibold text-text-secondary dark:text-text-white/80">
-                                Payment and
-                                Shipping</h3>
-                        </div>
-                    </div>
-                    <div class="descriptions">
-                        <p class="text-sm sm:text-base text-text-black/50 leading-relaxed dark:text-text-light">
-                            Pay your final invoice, confirming the shipment. Your machine is shipped to the port, and
-                            tracking information is provided.
+                        <p class="text-text-primary/60 dark:text-gray-300 text-sm md:text-base mt-2 leading-relaxed">
+                            {{ __('We efficiently group shipments to fill containers, saving you money on transportation costs.') }}
                         </p>
                     </div>
                 </div>
 
                 <!-- Step 4 -->
                 <div
-                    class="Step bg-white dark:bg-gray-800 p-2 sm:p-2 lg:p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div class="icons flex gap-3 items-center pb-3">
-                        <div class="icon-container flex-shrink-0">
-                            <i data-lucide="map-pin"
-                                class="w-12 h-12 sm:w-16 sm:h-16 border-2 text-text-black/50 dark:text-text-light border-text-black/50 dark:border-text-light p-3 sm:p-2 lg:p-4 rounded-full"></i>
+                    class="bg-bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
+                    <div class="flex flex-col h-full">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="flex-shrink-0">
+                                <div
+                                    class="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-bg-primary/10 dark:bg-bg-primary text-text-secondary/70 dark:text-text-secondary/70 border-2 border-border-primary/20 dark:border-border-primary/20">
+                                    <i data-lucide="truck" class="w-6 h-6"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <span
+                                    class="block text-sm font-medium text-text-secondary/70 dark:text-orange-400">{{ __('Step 4') }}</span>
+                                <h3
+                                    class="text-lg md:text-xl lg:text-2xl font-semibold text-text-secondary dark:text-white">
+                                    {{ __('Complete & Deliver') }}</h3>
+                            </div>
                         </div>
-                        <div class="step xl:pr-4 pr-3">
-                            <h3
-                                class="text-lg sm:text-xl md:text-2xl font-semibold text-text-secondary dark:text-text-white/80">
-                                Step 4</h3>
-                            <h3
-                                class="text-lg sm:text-xl md:text-2xl font-semibold text-text-secondary dark:text-text-white/80">
-                                Receive at
-                                African Port</h3>
-                        </div>
-                    </div>
-                    <div class="descriptions">
-                        <p class="text-sm sm:text-base text-text-black/50 leading-relaxed dark:text-text-light">
-                            Pick up your machine at the port with all necessary customs documents prepared.
+                        <p class="text-text-primary/60 dark:text-gray-300 text-sm md:text-base mt-2 leading-relaxed">
+                            {{ __('Pay the remaining balance and receive your machine with all necessary documentation at your chosen port.') }}
                         </p>
                     </div>
                 </div>
@@ -131,7 +128,7 @@
                 <h4 class="text-text-secondary dark:text-text-white text-xl mb-4 uppercase tracking-wider">
                     {{ __('Navigate Your Queries') }}</h4>
                 <h2
-                    class="text-text-secondary dark:text-text-white font-black font-Jakarta text-3xl md:text-4xl xl:text-5xl">
+                    class="text-text-secondary dark:text-text-white font-black font-Jakarta 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg text-lg">
                     {{ __('Explore Answers to Common Questions') }}
                 </h2>
             </div>
@@ -141,14 +138,14 @@
                 <div
                     class="faq-item bg-bg-light dark:bg-bg-tertiary/30 p-6 rounded-xl shadow-md transition-all duration-300 border border-border-gray">
                     <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFaq(this)">
-                        <h3 class="text-lg md:text-xl font-bold text-text-secondary dark:text-text-white">
+                        <h3 class="text-base lg:text-lg xl:text-xl font-bold text-text-secondary dark:text-text-white">
                             {{ __('What Shipping Options Do You Offer?') }}
                         </h3>
                         <i
                             class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
                     </div>
                     <div
-                        class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base mt-4 text-opacity-80">
+                        class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base  text-opacity-80">
                         {{ __('We offer standard, expedited, and next-day shipping through trusted carriers like FedEx, UPS, and USPS. During checkout, you\'ll be able to choose the option that best fits your timeline and budget.') }}
                     </div>
                 </div>
@@ -157,13 +154,13 @@
                 <div
                     class="faq-item bg-bg-light dark:bg-bg-tertiary/30 p-6 rounded-xl shadow-md transition-all duration-300 border border-border-gray">
                     <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFaq(this)">
-                        <h3 class="text-lg md:text-xl font-bold text-text-secondary dark:text-text-white">
+                        <h3 class="text-base lg:text-lg xl:text-xl font-bold text-text-secondary dark:text-text-white">
                             {{ __('Do You Ship Internationally?') }}</h3>
                         <i
                             class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
                     </div>
                     <div
-                        class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base mt-4 text-opacity-80">
+                        class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base  text-opacity-80">
                         {{ __('Yes, we ship to most countries worldwide. International shipping rates and delivery times vary depending on your location and the shipping method selected at checkout.') }}
                     </div>
                 </div>
@@ -172,13 +169,13 @@
                 <div
                     class="faq-item bg-bg-light dark:bg-bg-tertiary/30 p-6 rounded-xl shadow-md transition-all duration-300 border border-border-gray">
                     <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFaq(this)">
-                        <h3 class="text-lg md:text-xl font-bold text-text-secondary dark:text-text-white">
+                        <h3 class="text-base lg:text-lg xl:text-xl font-bold text-text-secondary dark:text-text-white">
                             {{ __('How Long Will My Order Take to Arrive?') }}</h3>
                         <i
                             class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
                     </div>
                     <div
-                        class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base mt-4 text-opacity-80">
+                        class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base  text-opacity-80">
                         {{ __('Domestic orders typically arrive within 3–7 business days, while international deliveries can take 7–21 business days depending on customs and local postal services. We’ll provide a tracking number once your order ships.') }}
                     </div>
                 </div>
@@ -187,14 +184,14 @@
                 <div
                     class="faq-item bg-bg-light dark:bg-bg-tertiary/30 p-6 rounded-xl shadow-md transition-all duration-300 border border-border-gray">
                     <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFaq(this)">
-                        <h3 class="text-lg md:text-xl font-bold text-text-secondary dark:text-text-white">
+                        <h3 class="text-base lg:text-lg xl:text-xl font-bold text-text-secondary dark:text-text-white">
                             {{ __('How Can I Track My Order?') }}
                         </h3>
                         <i
                             class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
                     </div>
                     <div
-                        class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base mt-4 text-opacity-80">
+                        class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base  text-opacity-80">
                         {{ __('Once your order ships, you\'ll receive an email with a tracking link. You can also log in to your account on our website and view your tracking details in the Order History section.') }}
                     </div>
                 </div>
@@ -203,13 +200,13 @@
                 <div
                     class="faq-item bg-bg-light dark:bg-bg-tertiary/30 p-6 rounded-xl shadow-md transition-all duration-300 border border-border-gray">
                     <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFaq(this)">
-                        <h3 class="text-lg md:text-xl font-bold text-text-secondary dark:text-text-white">
+                        <h3 class="text-base lg:text-lg xl:text-xl font-bold text-text-secondary dark:text-text-white">
                             {{ __('What Happens If My Package Is Lost or Delayed?') }}</h3>
                         <i
                             class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
                     </div>
                     <div
-                        class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base mt-4 text-opacity-80">
+                        class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base  text-opacity-80">
                         {{ __('If your package is delayed or appears lost, please contact our support team. We’ll work with the shipping carrier to locate your package or arrange a replacement or refund, depending on the situation.') }}
                     </div>
                 </div>
@@ -218,13 +215,13 @@
                 <div
                     class="faq-item bg-bg-light dark:bg-bg-tertiary/30 p-6 rounded-xl shadow-md transition-all duration-300 border border-border-gray">
                     <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFaq(this)">
-                        <h3 class="text-lg md:text-xl font-bold text-text-secondary dark:text-text-white">
+                        <h3 class="text-base lg:text-lg xl:text-xl font-bold text-text-secondary dark:text-text-white">
                             {{ __('Do You Offer Free Shipping?') }}</h3>
                         <i
                             class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
                     </div>
                     <div
-                        class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base mt-4 text-opacity-80">
+                        class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base  text-opacity-80">
                         {{ __('Yes, we offer free standard shipping on all domestic orders over $100. Promotions and free shipping thresholds may vary during special sales events.') }}
                     </div>
                 </div>
@@ -233,19 +230,19 @@
     </section>
     {{-- end faq --}}
     {{-- eligibility criteria start --}}
-    <section class="py-15 bg-bg-light-secondary">
+    <section class="2xl:py-15 xl:py-12 lg:py-10 md:py-7 py-5 bg-bg-light-secondary">
         <div class="container mx-auto">
             <div class=" p-6  ">
-                <h2 class="text-2xl md:text-3xl font-bold text-text-secondary dark:text-text-white mb-4">
+                <h2 class="text-2xl md:text-3xl font-semibold text-text-secondary dark:text-text-white mb-4">
                     {{ __('Eligibility Criteria and documents required for loan approval') }}
                 </h2>
                 <p class="text-text-primary dark:text-text-white text-sm md:text-base mt-4">
                     {{ __('To be eligible for free shipping, your order must meet the following criteria  your order must meet the following criteria  your order must meet the following criteria  your order must meet the following criteria:') }}
                 </p>
             </div>
-            <div class="grid lg:grid-cols-2  gap-6">
+            <div class="grid xl:grid-cols-2  gap-6">
                 {{-- Eligibility Criteria --}}
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="bg-bg-white rounded-lg shadow-md p-6">
                     <div class="flex items-center space-x-4">
                         <div class="flex-shrink-0">
                             <div class="w-16 h-16 flex items-center justify-center rounded-full bg-text-secondary/10">
@@ -278,7 +275,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                   {{__(' Add text here')}}
+                                    {{ __(' Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -305,7 +302,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                   {{__(' Add text here')}}
+                                    {{ __(' Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -332,7 +329,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                   {{__(' Add text here')}}
+                                    {{ __(' Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -359,7 +356,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                   {{__(' Add text here')}}
+                                    {{ __(' Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -380,13 +377,12 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span>
-                                    <strong:>{{ __('Nationality') }}</strong: {{ __('USA') }}
-                                </span>
+                                    <strong:>{{ __('Nationality') }}</strong: {{ __('USA') }} </span>
                             </li>
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                   {{__(' Add text here')}}
+                                    {{ __(' Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -394,7 +390,7 @@
 
                 </div>
                 {{-- Documents required --}}
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="bg-bg-white rounded-lg shadow-md p-6">
                     <div class="flex items-center space-x-4">
                         <div class="flex-shrink-0">
                             <div class="w-16 h-16 flex items-center justify-center rounded-full bg-text-tertiary/30">
@@ -427,7 +423,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                   {{__(' Add text here')}}
+                                    {{ __(' Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -454,7 +450,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                   {{__(' Add text here')}}
+                                    {{ __(' Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -481,7 +477,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                   {{__(' Add text here')}}
+                                    {{ __(' Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -508,7 +504,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                   {{__(' Add text here')}}
+                                    {{ __(' Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -535,7 +531,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                   {{__(' Add text here')}}
+                                    {{ __(' Add text here') }}
                                 </span>
                             </li>
                         </ul>
