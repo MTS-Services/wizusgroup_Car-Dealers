@@ -1,16 +1,16 @@
-@extends('backend.admin.layouts.master', ['page_slug' => 'subcategory'])
-@section('title', 'Sub Category Recycle Bin')
+@extends('backend.admin.layouts.master', ['page_slug' => 'brand'])
+@section('title', 'Brand Recycle Bin')
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Sub Category Recycle Bin') }}</h4>
+                    <h4 class="cart-title">{{ __('Brand Recycle Bin') }}</h4>
                     <div class="buttons">
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'pm.sub-category.index',
+                            'routeName' => 'pm.brand.index',
                             'label' => 'Back',
-                            'permissions' => ['sub-category-list'],
+                            'permissions' => ['brand-list'],
                         ]" />
                     </div>
                 </div>
@@ -20,7 +20,6 @@
                             <tr>
                                 <th>{{ __('SL') }}</th>
                                 <th>{{ __('Name') }}</th>
-                                <th>{{ __('Main Category') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Featured') }}</th>
                                 <th>{{ __('Deleted By') }}</th>
@@ -44,7 +43,6 @@
             let table_columns = [
                 //name and data, orderable, searchable
                 ['name', true, true],
-                ['parent_id', true, true],
                 ['status', true, true],
                 ['is_featured', true, true],
                 ['deleted_by', true, true],
@@ -55,10 +53,10 @@
                 table_columns: table_columns,
                 main_class: '.datatable',
                 displayLength: 10,
-                main_route: "{{ route('pm.sub-category.recycle-bin') }}",
+                main_route: "{{ route('pm.brand.recycle-bin') }}",
                 order_route: "{{ route('update.sort.order') }}",
-                export_columns: [0, 1, 2, 3,4,5,6],
-                model: 'Category',
+                export_columns: [0, 1, 2, 3,4,5],
+                model: 'Brand',
             };
             // initializeDataTable(details);
 
@@ -66,4 +64,3 @@
         })
     </script>
 @endpush
-

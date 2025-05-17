@@ -1,5 +1,5 @@
-@extends('backend.admin.layouts.master', ['page_slug' => 'subchildcategory'])
-@section('title', 'Sub Child Category List')
+@extends('backend.admin.layouts.master', ['page_slug' => 'model'])
+@section('title', 'Model List')
 @push('css')
     <link rel="stylesheet" href="{{ asset('custom_litebox/litebox.css') }}">
 @endpush
@@ -8,18 +8,18 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Sub Child Category List') }}</h4>
+                    <h4 class="cart-title">{{ __('Model List') }}</h4>
                     <div class="buttons">
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'pm.sub-child-category.recycle-bin',
+                            'routeName' => 'pm.model.recycle-bin',
                             'label' => 'Recycle Bin',
                             'className' => 'btn-danger',
-                            'permissions' => ['sub-child-category-restore'],
+                            'permissions' => ['model-restore'],
                         ]" />
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'pm.sub-child-category.create',
+                            'routeName' => 'pm.model.create',
                             'label' => 'Add New',
-                            'permissions' => ['sub-child-category-create'],
+                            'permissions' => ['model-create'],
                         ]" />
                     </div>
                 </div>
@@ -28,8 +28,8 @@
                         <thead>
                             <tr>
                                 <th>{{ __('SL') }}</th>
+                                <th>{{ __('Brand') }}</th>
                                 <th>{{ __('Name') }}</th>
-                                <th>{{ __('Main Category') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Featured') }}</th>
                                 <th>{{ __('Created By') }}</th>
@@ -38,25 +38,25 @@
                             </tr>
                         </thead>
                         <tbody>
+
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    {{-- Details Modal  --}}
-    <x-backend.admin.details-modal :datas="['modal_title' => 'Sub Child Category Details']" />
+    {{-- Admin Details Modal  --}}
+    <x-backend.admin.details-modal :datas="['modal_title' => 'Model Details']" />
 @endsection
 @push('js')
     <script src="{{ asset('custom_litebox/litebox.js') }}"></script>
-    {{-- Datatable Scripts --}}
     <script src="{{ asset('datatable/main.js') }}"></script>
     <script>
         $(document).ready(function() {
             let table_columns = [
-                //name and data, orderable, searchable
+
+                ['brand_id', true, true],
                 ['name', true, true],
-                ['parent_id', true, true],
                 ['status', true, true],
                 ['is_featured', true, true],
                 ['created_by', true, true],
@@ -67,10 +67,10 @@
                 table_columns: table_columns,
                 main_class: '.datatable',
                 displayLength: 10,
-                main_route: "{{ route('pm.sub-child-category.index') }}",
+                main_route: "{{ route('pm.model.index') }}",
                 order_route: "{{ route('update.sort.order') }}",
                 export_columns: [0, 1, 2, 3, 4, 5, 6],
-                model: 'subcategory',
+                model: 'Model',
             };
             initializeDataTable(details);
         })
@@ -80,33 +80,22 @@
     {{-- Show details scripts --}}
     <script src="{{ asset('modal/details_modal.js') }}"></script>
     <script>
-        // Event listener for viewing details
         $(document).on("click", ".view", function() {
             let id = $(this).data("id");
-            let route = "{{ route('pm.sub-child-category.show', ['id']) }}";
+            let route = "{{ route('pm.model.show', ['id']) }}";
             const detailsUrl = route.replace("id", id);
             const headers = [
                 {
-                    label: "Main Category",
-                    key: "parent_name"
-                },
-                {
-                    label: "Sub Category",
-                    key: "sub_parent_name"
+                    label: "Brand",
+                    key: "brand_name",
                 },
                 {
                     label: "Name",
                     key: "name"
                 },
-
                 {
                     label: "Slug",
                     key: "slug"
-                },
-                {
-                    label: "Image",
-                    key: "modified_image",
-                    type: "image"
                 },
                 {
                     label: "Status",
@@ -117,19 +106,27 @@
                     label: "Featured",
                     key: "featured_label",
                     color: "featured_color",
+
+                },
+                {
+                    label: "Image",
+                    key: "modified_image",
+                    type: "image"
                 },
                 {
                     label: "Meta Title",
-                    key: "meta_title"
+                    key: "meta_title",
                 },
                 {
                     label: "Meta Description",
-                    key: "meta_description"
+                    key: "meta_description",
                 },
                 {
                     label: "Description",
-                    key: "description"
+                    key: "description",
                 },
+
+
             ];
             fetchAndShowModal(detailsUrl, headers, "#modal_data", "myModal");
         });
