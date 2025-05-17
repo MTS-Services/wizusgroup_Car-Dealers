@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app', ['page_slug' => 'contact'])
 @section('title', 'Contact')
 @section('content')
-    <section class="pb-15 pt-10">
+    <section class="pb-15 pt-10 dark:bg-bg-dark-tertiary">
         <div class="container">
             <div class="flex flex-col lg:flex-row gap-10">
                 <div class="w-full lg:w-1/2">
@@ -104,7 +104,7 @@
             </div>
 
             <section class="pt-15">
-                <div class="rounded-sm overflow-hidden">
+                <div class="rounded-md overflow-hidden">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d51856.3358057422!2d139.60882750083385!3d35.67648520602899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x605d1b87f02e57e7%3A0x2e01618b22571b89!2sTokyo!3m2!1d35.6764225!2d139.650027!4m5!1s0x605d1b87f02e57e7%3A0x2e01618b22571b89!2sTokyo%2C%20Japan!3m2!1d35.6764225!2d139.650027!5e0!3m2!1sen!2sbd!4v1747217456466!5m2!1sen!2sbd"
                         width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"
