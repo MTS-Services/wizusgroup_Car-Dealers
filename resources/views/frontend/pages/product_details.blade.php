@@ -46,7 +46,7 @@
     {{-- ===================== Product Carousel Section Start ===================== --}}
     <!-- Top-level wrapper -->
     <section class="overflow-x-hidden">
-        <div class="product_carousel_section 2xl:py-16 xl:py-12 lg:py-10  py-8  overflow-hidden">
+        <div class="product_carousel_section 2xl:py-16 xl:py-12 lg:py-10  py-6  overflow-hidden">
             <div class="container mx-auto overflow-hidden">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 dark:bg-bg-dark dark:text-text-light">
                     <!-- Left: Image Slider -->
@@ -94,97 +94,135 @@
                         <div class="mx-auto" x-data="{ tab: 'basic' }">
                             <!-- Tabs -->
                             <div
-                                class="flex flex-col xs:flex-row flex-wrap gap-1 2xl:justify-between sm:gap-2 border-b border-border-gray dark:border-bg-dark-secondary mb-4 sm:mb-6">
-                                @foreach (['basic' => 'Basic Info', 'airbag' => 'Air-bag', 'other' => 'Other Info', 'development' => 'Development', 'docs' => 'Documents'] as $key => $label)
-                                    <button @click="tab = '{{ $key }}'"
-                                        :class="tab === '{{ $key }}' ?
-                                            'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
-                                            'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
-                                        class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
-                                        {{ __($label) }}
-                                    </button>
-                                @endforeach
-                            </div>
+                                class="flex flex-col xs:flex-row flex-wrap items-start sm:items-center gap-1 sm:gap-2 2xl:justify-between border-b border-border-gray dark:border-bg-dark-secondary mb-4 sm:mb-6">
 
+
+                                <button @click="tab = 'basic'"
+                                    :class="tab === 'basic' ?
+                                        'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
+                                        'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
+                                    class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
+                                    {{ __('Basic Info') }}
+                                </button>
+
+                                <button @click="tab = 'airbag'"
+                                    :class="tab === 'airbag' ?
+                                        'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
+                                        'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
+                                    class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
+                                    {{ __('Air-bag') }}
+                                </button>
+
+                                <button @click="tab = 'other'"
+                                    :class="tab === 'other' ?
+                                        'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
+                                        'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
+                                    class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
+                                    {{ __('Other Info') }}
+                                </button>
+
+                                <button @click="tab = 'development'"
+                                    :class="tab === 'development' ?
+                                        'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
+                                        'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
+                                    class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
+                                    {{ __('Development') }}
+                                </button>
+
+                                <button @click="tab = 'docs'"
+                                    :class="tab === 'docs' ?
+                                        'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
+                                        'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
+                                    class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
+                                    {{ __('Documents') }}
+                                </button>
+                            </div>
                             <!-- Tab Content -->
                             <div
-                                class="bg-bg-white dark:bg-bg-tertiary/25 shadow-card dark:shadow-none p-4 sm:p-6 rounded-b-lg border border-border-gray dark:border-bg-dark-secondary overflow-auto max-h-[550px] lg:mx-h-[600px] xl:max-h-[720px]">
+                                class="bg-bg-white dark:bg-bg-tertiary/25 shadow-card dark:shadow-none p-4 sm:p-6 rounded-b-lg border border-border-gray dark:border-bg-dark-secondary overflow-auto max-h-[400px] lg:max-h-[570px] xl:max-h-[720px]">
 
                                 <!-- Basic Info -->
                                 <div x-show="tab === 'basic'" x-cloak>
                                     <table class="w-full table-auto text-sm sm:text-base">
-                                         <tbody>
-                                        <tr class=" border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
-                                                {{ __('Stock No.') }}</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('No.1287864') }}</td>
-                                        </tr>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">{{ __('Maker') }}
-                                            </td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('TOYOTA') }}</td>
-                                        </tr>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">{{ __('Model') }}
-                                            </td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('SOARER') }}</td>
-                                        </tr>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">{{ __('Grade') }}
-                                            </td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('Unknown') }}</td>
-                                        </tr>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                {{ __('Body Type') }}</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('Open') }}</td>
-                                        </tr>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                {{ __('First Registration') }}</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('03/1987') }}</td>
-                                        </tr>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                {{ __('Displacement') }}</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('2950 cc') }}</td>
-                                        </tr>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                {{ __('Engine Type') }}</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('7M') }}</td>
-                                        </tr>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">{{ __('Fuel') }}
-                                            </td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('Gasoline') }}</td>
-                                        </tr>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">{{ __('Mileage') }}
-                                            </td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('79540 km') }}</td>
-                                        </tr>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">{{ __('Color') }}
-                                            </td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('White') }}</td>
-                                        </tr>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                {{ __('Drive System') }}</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('2WD') }}</td>
-                                        </tr>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                {{ __('Transmission') }}</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('AT') }}</td>
-                                        </tr>
-                                        <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                            <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                {{ __('Capacity') }}</td>
-                                            <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('5') }}</td>
-                                        </tr>
-                                    </tbody>
+                                        <tbody>
+                                            <tr class=" border-border-gray dark:border-bg-dark-secondary">
+                                                <td class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                    {{ __('Stock No.') }}</td>
+                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('No.1287864') }}
+                                                </td>
+                                            </tr>
+                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                    {{ __('Maker') }}
+                                                </td>
+                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('TOYOTA') }}</td>
+                                            </tr>
+                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                    {{ __('Model') }}
+                                                </td>
+                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('SOARER') }}</td>
+                                            </tr>
+                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                    {{ __('Grade') }}
+                                                </td>
+                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('Unknown') }}</td>
+                                            </tr>
+                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                    {{ __('Body Type') }}</td>
+                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('Open') }}</td>
+                                            </tr>
+                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                    {{ __('First Registration') }}</td>
+                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('03/1987') }}</td>
+                                            </tr>
+                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                    {{ __('Displacement') }}</td>
+                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('2950 cc') }}</td>
+                                            </tr>
+                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                    {{ __('Engine Type') }}</td>
+                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('7M') }}</td>
+                                            </tr>
+                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                    {{ __('Fuel') }}
+                                                </td>
+                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('Gasoline') }}</td>
+                                            </tr>
+                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                    {{ __('Mileage') }}
+                                                </td>
+                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('79540 km') }}</td>
+                                            </tr>
+                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                    {{ __('Color') }}
+                                                </td>
+                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('White') }}</td>
+                                            </tr>
+                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                    {{ __('Drive System') }}</td>
+                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('2WD') }}</td>
+                                            </tr>
+                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                    {{ __('Transmission') }}</td>
+                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('AT') }}</td>
+                                            </tr>
+                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                    {{ __('Capacity') }}</td>
+                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('5') }}</td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
 
@@ -222,7 +260,7 @@
     {{-- ===================== End Product Details Section ===================== --}}
     {{-- ===================== Releted Product Section ===================== --}}
 
-    <section class="xl:py-16 lg:py-12 py-8 xl:mb-12 md:mb-10 mb-8">
+    <section class="xl:pt-2 lg:py-12 py-6 xl:mb-12 md:mb-10 mb-8">
         <div class="container">
             <div class="header bg-bg-primary mb-2 py-4 pl-4">
                 <h2 class="text-2xl font-bold text-text-white ">{{ __('Related Products') }}</h2>
@@ -451,11 +489,18 @@
                 watchSlidesVisibility: true,
                 breakpoints: {
                     480: {
-                        slidesPerView: 6
+                        slidesPerView: 4
                     },
                     768: {
+                        slidesPerView: 6
+                    },
+                    1024: {
+                        slidesPerView: 7
+                    },
+                    1280: {
                         slidesPerView: 8
-                    }
+                    },
+
                 }
             });
 
@@ -523,39 +568,39 @@
             galleryTop.on('slideChangeTransitionEnd', () => {
                 attachZoom(); // Refresh listeners if needed
             });
-        });
 
 
 
-        const swiper = new Swiper(".related_product", {
-            loop: true,
-            spaceBetween: 10,
-            slidesPerView: 6,
-            breakpoints: {
-                640: {
-                    slidesPerView: 1,
+            const swiper = new Swiper(".related_product", {
+                loop: true,
+                spaceBetween: 10,
+                slidesPerView: 1,
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                    },
+                    1280: {
+                        slidesPerView: 5,
+                    },
+                    1536: {
+                        slidesPerView: 6,
+                    },
                 },
-                768: {
-                    slidesPerView: 2,
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
                 },
-                1024: {
-                    slidesPerView: 3,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
                 },
-                1280: {
-                    slidesPerView: 4,
-                },
-                1536: {
-                    slidesPerView: 6,
-                },
-            },
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
+            });
         });
     </script>
 
