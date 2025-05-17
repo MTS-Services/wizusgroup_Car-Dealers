@@ -44,102 +44,76 @@
 @endpush
 @section('content')
     {{-- ===================== Product Carousel Section Start ===================== --}}
-    <section class="product_carousel_section py-24">
-        <div class="container mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 dark:bg-bg-dark dark:text-text-light">
-                {{-- Left: Image Slider --}}
-                <div class="w-full">
-                    {{-- Main Product Slider --}}
-                    <div class="relative hover-wrapper">
+    <!-- Top-level wrapper -->
+    <section class="overflow-x-hidden">
+        <div class="product_carousel_section 2xl:py-16 xl:py-12 lg:py-10  py-8  overflow-hidden">
+            <div class="container mx-auto overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 dark:bg-bg-dark dark:text-text-light">
+                    <!-- Left: Image Slider -->
+                    <div class="w-full overflow-hidden">
+                        <!-- Main Product Slider -->
+                        <div class="relative hover-wrapper">
+                            <div
+                                class="swiper static product_slider_image w-full max-w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px] mx-auto bg-bg-light dark:bg-bg-dark-tertiary rounded-lg overflow-hidden">
+                                <div class="swiper-wrapper">
+                                    @for ($i = 1; $i <= 10; $i++)
+                                        <div class="swiper-slide flex items-center justify-center">
+                                            <img src="https://swiperjs.com/demos/images/nature-{{ $i }}.jpg"
+                                                class="zoomable block w-full h-full object-cover" />
+                                        </div>
+                                    @endfor
+                                </div>
+                                <div class="swiper-button swiper-button-prev">
+                                    <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
+                                </div>
+                                <div class="swiper-button swiper-button-next">
+                                    <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
+                                </div>
+                            </div>
+                            <div id="zoomResult"></div>
+                            <div id="lens"></div>
+                        </div>
+
+                        <!-- Thumbnail Slider -->
                         <div
-                            class="swiper static product_slider_image w-full h-64 sm:h-80 md:h-96 lg:h-[500px] mx-auto bg-bg-light dark:bg-bg-dark-tertiary rounded-lg overflow-hidden">
+                            class="swiper product_slider_thumbs h-16 sm:h-20 mt-2 box-border py-1 px-2 bg-bg-light dark:bg-bg-dark-tertiary rounded-lg overflow-hidden">
                             <div class="swiper-wrapper">
                                 @for ($i = 1; $i <= 10; $i++)
-                                    <div class="swiper-slide flex items-center justify-center">
+                                    <div
+                                        class="swiper-slide w-1/5 sm:w-1/6 md:w-1/8 h-full opacity-40 transition-opacity duration-300 cursor-pointer hover:opacity-70 swiper-slide-thumb-active:opacity-100 dark:swiper-slide-thumb-active:opacity-100">
                                         <img src="https://swiperjs.com/demos/images/nature-{{ $i }}.jpg"
-                                            class="zoomable block w-full h-full object-cover" />
+                                            class="block w-full h-full object-cover rounded" />
                                     </div>
                                 @endfor
                             </div>
-                            <div class="swiper-button swiper-button-prev ">
-                                <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
-                            </div>
-                            <div class="swiper-button swiper-button-next  ">
-                                <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
-                            </div>
-
                         </div>
-                        <div id="zoomResult"></div>
-                        <div id="lens"></div>
                     </div>
 
-                    {{-- Thumbnail Slider --}}
-                    <div
-                        class="swiper product_slider_thumbs h-16 sm:h-20 mt-2 box-border py-1 px-2 bg-bg-light dark:bg-bg-dark-tertiary rounded-lg">
-                        <div class="swiper-wrapper">
-                            @for ($i = 1; $i <= 10; $i++)
-                                <div
-                                    class="swiper-slide w-1/5 sm:w-1/6 md:w-1/8 h-full opacity-40 transition-opacity duration-300 cursor-pointer hover:opacity-70 swiper-slide-thumb-active:opacity-100 dark:swiper-slide-thumb-active:opacity-100">
-                                    <img src="https://swiperjs.com/demos/images/nature-{{ $i }}.jpg"
-                                        class="block w-full h-full object-cover rounded" />
-                                </div>
-                            @endfor
-                        </div>
+                    <!-- Right: Product Info -->
+                    <div class="w-full">
+                        <div class="mx-auto" x-data="{ tab: 'basic' }">
+                            <!-- Tabs -->
+                            <div
+                                class="flex flex-col xs:flex-row flex-wrap gap-1 2xl:justify-between sm:gap-2 border-b border-border-gray dark:border-bg-dark-secondary mb-4 sm:mb-6">
+                                @foreach (['basic' => 'Basic Info', 'airbag' => 'Air-bag', 'other' => 'Other Info', 'development' => 'Development', 'docs' => 'Documents'] as $key => $label)
+                                    <button @click="tab = '{{ $key }}'"
+                                        :class="tab === '{{ $key }}' ?
+                                            'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
+                                            'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
+                                        class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
+                                        {{ __($label) }}
+                                    </button>
+                                @endforeach
+                            </div>
 
-                    </div>
-                </div>
+                            <!-- Tab Content -->
+                            <div
+                                class="bg-bg-white dark:bg-bg-tertiary/25 shadow-card dark:shadow-none p-4 sm:p-6 rounded-b-lg border border-border-gray dark:border-bg-dark-secondary overflow-auto max-h-[550px] lg:mx-h-[600px] xl:max-h-[720px]">
 
-                {{-- Right: Product Info --}}
-                <div class="w-full">
-                    <div class="mx-auto" x-data="{ tab: 'basic' }">
-                        <!-- Tabs - Responsive layout -->
-                        <div
-                            class="flex flex-col xs:flex-row flex-wrap gap-1 2xl:justify-between sm:gap-2 border-b border-border-gray dark:border-bg-dark-secondary mb-4 sm:mb-6">
-                            <button @click="tab = 'basic'"
-                                :class="tab === 'basic' ?
-                                    'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
-                                    'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
-                                class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
-                                Basic Info
-                            </button>
-                            <button @click="tab = 'airbag'"
-                                :class="tab === 'airbag' ?
-                                    'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
-                                    'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
-                                class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
-                                Air-bag
-                            </button>
-                            <button @click="tab = 'other'"
-                                :class="tab === 'other' ?
-                                    'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
-                                    'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
-                                class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
-                                Other Info
-                            </button>
-                            <button @click="tab = 'development'"
-                                :class="tab === 'development' ?
-                                    'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
-                                    'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
-                                class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
-                                Development
-                            </button>
-                            <button @click="tab = 'docs'"
-                                :class="tab === 'docs' ?
-                                    'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
-                                    'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
-                                class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
-                                Documents
-                            </button>
-                        </div>
-
-                        <!-- Tab Content -->
-                        <div
-                            class="bg-bg-white dark:bg-bg-tertiary/25 shadow-card dark:shadow-none p-4 sm:p-6 rounded-b-lg border border-border-gray dark:border-bg-dark-secondary">
-
-                            <!-- Basic Info -->
-                            <div x-show="tab === 'basic'" x-cloak>
-                                <table class="w-full table-auto text-sm sm:text-base">
-                                    <tbody>
+                                <!-- Basic Info -->
+                                <div x-show="tab === 'basic'" x-cloak>
+                                    <table class="w-full table-auto text-sm sm:text-base">
+                                         <tbody>
                                         <tr class=" border-border-gray dark:border-bg-dark-secondary">
                                             <td class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
                                                 {{ __('Stock No.') }}</td>
@@ -211,43 +185,44 @@
                                             <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('5') }}</td>
                                         </tr>
                                     </tbody>
-                                </table>
-                            </div>
+                                    </table>
+                                </div>
 
-                            <!-- Airbag Info -->
-                            <div x-show="tab === 'airbag'" x-cloak>
-                                <p class="text-text-secondary dark:text-text-secondary text-lg">
-                                    {{ __('No airbag data available.') }}</p>
-                            </div>
+                                <!-- Airbag Info -->
+                                <div x-show="tab === 'airbag'" x-cloak>
+                                    <p class="text-text-secondary dark:text-text-secondary text-lg">
+                                        {{ __('No airbag data available.') }}</p>
+                                </div>
 
-                            <!-- Other Info -->
-                            <div x-show="tab === 'other'" x-cloak>
-                                <p class="text-text-secondary dark:text-text-secondary text-lg">
-                                    {{ __('No additional information provided.') }}</p>
-                            </div>
+                                <!-- Other Info -->
+                                <div x-show="tab === 'other'" x-cloak>
+                                    <p class="text-text-secondary dark:text-text-secondary text-lg">
+                                        {{ __('No additional information provided.') }}</p>
+                                </div>
 
-                            <!-- Development -->
-                            <div x-show="tab === 'development'" x-cloak>
-                                <p class="text-text-secondary dark:text-text-secondary text-lg">
-                                    {{ __('Development info not available.') }}</p>
-                            </div>
+                                <!-- Development -->
+                                <div x-show="tab === 'development'" x-cloak>
+                                    <p class="text-text-secondary dark:text-text-secondary text-lg">
+                                        {{ __('Development info not available.') }}</p>
+                                </div>
 
-                            <!-- Attached Document -->
-                            <div x-show="tab === 'docs'" x-cloak>
-                                <p class="text-text-secondary dark:text-text-secondary text-lg">
-                                    {{ __('No documents attached.') }}</p>
+                                <!-- Documents -->
+                                <div x-show="tab === 'docs'" x-cloak>
+                                    <p class="text-text-secondary dark:text-text-secondary text-lg">
+                                        {{ __('No documents attached.') }}</p>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
     {{-- ===================== End Product Details Section ===================== --}}
     {{-- ===================== Releted Product Section ===================== --}}
 
-    <section class="py-24">
+    <section class="xl:py-16 lg:py-12 py-8 xl:mb-12 md:mb-10 mb-8">
         <div class="container">
             <div class="header bg-bg-primary mb-2 py-4 pl-4">
                 <h2 class="text-2xl font-bold text-text-white ">{{ __('Related Products') }}</h2>
