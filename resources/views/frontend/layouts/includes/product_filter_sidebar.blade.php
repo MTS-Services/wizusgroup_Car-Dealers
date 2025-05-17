@@ -113,7 +113,7 @@
             </div>
 
             <button
-                class="w-full bg-bg-primary dark:bg-bg-dark text-white py-2 rounded-md transition-colors duration-200 flex items-center justify-center group">
+                class="w-full btn-primary hover:bg-bg-tertiary py-2 rounded-md transition-all duration-300 flex items-center justify-center group">
                 <span>Sherch</span>
                 <svg xmlns="http://www.w3.org/2000/svg"
                     class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none"

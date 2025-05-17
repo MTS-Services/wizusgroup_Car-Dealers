@@ -35,7 +35,7 @@
     </section>
     {{-- Mid Content --}}
     @include('frontend.layouts.includes.auction_side_filter')
-    <section class="py-15 bg-bg-secondary dark:bg-bg-light dark:bg-opacity-20">
+    <section class="pb-15">
         <div class="container">
             <div class="flex justify-start gap-10">
                 <div class="w-1/4 hidden xl:block">
@@ -102,7 +102,7 @@
                         </div>
                         <div class="px-4 pb-4">
                             <button
-                                class="w-full bg-bg-primary hover:bg-bg-tertiary text-white py-2 rounded-md transition-colors duration-200 flex items-center justify-center group">
+                                class="w-full btn-primary hover:bg-bg-tertiary py-2 rounded-md transition-all duration-300 flex items-center justify-center group">
                                 <span>Sherch</span>
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
