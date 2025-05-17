@@ -51,7 +51,7 @@
                 @include('frontend.layouts.includes.product_filter_sidebar')
                 <div class="w-1/4 hidden xl:block">
                     {{-- Sidebar Filter --}}
-                    <div class="space-y-6 shadow-card rounded-lg dark:bg-bg-dark-tertiary">
+                    <div class="shadow-card rounded-lg dark:bg-bg-dark-tertiary">
                         <!-- Category Filter -->
                         <div class="p-4 pb-0">
                             <div data-target="category-filter">

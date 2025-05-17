@@ -20,7 +20,7 @@
 
                 <div class="filter-content" id="category-filter">
                     <div class="mt-2">
-                        <select class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
+                        <select class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
                             <option>{{ __("All Agricultural") }}</option>
                             <option>{{ __("Tractors") }}</option>
                             <option>{{ __("Harvesters") }}</option>
@@ -37,7 +37,7 @@
 
                 <div class="filter-content" id="brand-filter">
                     <div class="mt-2">
-                        <select class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
+                        <select class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
                             <option>{{ __("All") }}</option>
                             <option>{{ __("Kubota") }}</option>
                             <option>{{ __("Iseki") }}</option>
@@ -54,7 +54,7 @@
 
                 <div class="filter-content" id="model-filter">
                     <div class="mt-2">
-                        <select class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
+                        <select class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
                             <option>{{ __("All") }}</option>
                             <option>{{ __("ZL1-215") }}</option>
                             <option>{{ __("TM15") }}</option>
