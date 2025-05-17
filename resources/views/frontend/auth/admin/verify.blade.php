@@ -10,6 +10,7 @@
                 <div class="flex items-center justify-center gap-5 mt-8">
                     <p>{{ __('If you did not receive the email') }}</p>
                     <form action="{{ route('admin.verification.resend') }}" method="POST">
+                        @csrf
                         <button type="submit" class="btn-primary">
                             {{ __('Resend Verification Link') }}
                         </button>
