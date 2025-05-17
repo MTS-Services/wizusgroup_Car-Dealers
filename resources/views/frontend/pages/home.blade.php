@@ -3,8 +3,9 @@
 @section('title', 'Home')
 
 @push('css')
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         #countdown {
             max-width: 600px;
@@ -123,7 +124,7 @@
 
 @section('content')
     {{-- ===================== banner Section Start ===================== --}}
-    <section class="!max-h-[700px] relative overflow-hidden">
+    <section class="lg:max-h-screen max-h-[70%] h-[calc(100vh-80px)] relative overflow-hidden">
         <div class="absolute bg-transparent inset-0 z-10">
             <div class="container flex items-center justify-center h-full">
                 <div class="text-center">
@@ -369,7 +370,7 @@
                     </div>
 
                     <!-- Pagination -->
-                    <div class="swiper-pagination mt-6"></div>
+                    <div class="swiper-pagination mt-6 !-bottom-10"></div>
 
                     <!-- Navigation Buttons -->
                     <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
@@ -378,13 +379,14 @@
                     <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9 ">
                         <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
                     </div>
+                    <div class=" right-10 bottom-10 z-10 fixed shadow-lg w-16 h-16 flex items-center justify-center bg-green-600 rounded-full">
+                        <a href="#">
+                            <i class="fa-brands fa-whatsapp text-5xl text-text-light"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="absolute right-5 bottom-5 z-10 ">
-            <a href="#" >
-                <i class="fa-brands fa-whatsapp text-5xl text-green-600"></i>
-            </a>
     </section>
 
     {{-- ===================== Testimonial Section End ===================== --}}
@@ -455,6 +457,7 @@
                 }
             }
         });
+        // Testimonial SWIPER
         const testimonialSwiperEl = document.querySelector('.testimonials');
         new Swiper(testimonialSwiperEl, {
             loop: true,
@@ -471,6 +474,20 @@
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                0: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                1200: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                },
             },
         });
     </script>
