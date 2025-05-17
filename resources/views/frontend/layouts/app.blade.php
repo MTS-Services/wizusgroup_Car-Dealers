@@ -11,6 +11,9 @@
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" /> --}}
     <link rel="shortcut icon" href="{{ asset('frontend/images/favicon.png') }}" type="image/x-icon">
 
+    {{-- fontAwesome Icon --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>
@@ -211,7 +214,6 @@
             });
         });
     </script>
-
 
     {{-- Custom JS --}}
     @stack('js')

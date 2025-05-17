@@ -1,10 +1,12 @@
-
 $('.showpassword').on('click', function () {
-  if ($(this).parent().find('input').attr('type') == 'password') {
-    $(this).parent().find('input').attr('type', 'text');
-    // $(this).find('i').attr('data-lucide', 'eye');
+  const $input = $(this).parent().find('input');
+  const $icon = $(this).find('i');
+
+  if ($input.attr('type') === 'password') {
+    $input.attr('type', 'text');
+    $icon.removeClass('fa-eye-slash').addClass('fa-eye');
   } else {
-    $(this).parent().find('input').attr('type', 'password');
-    // $(this).find('i').attr('data-lucide', 'eye-off');
+    $input.attr('type', 'password');
+    $icon.removeClass('fa-eye').addClass('fa-eye-slash');
   }
 });
