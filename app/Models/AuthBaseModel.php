@@ -40,9 +40,6 @@ class AuthBaseModel extends Authenticatable
     public const STATUS_ACTIVE = 1;
     public const STATUS_DEACTIVE = 0;
 
-    public const VERIFIED = 1;
-    public const UNVERIFIED = 0;
-
     // Gender constants
     public const GENDER_MALE = 1;
     public const GENDER_FEMALE = 2;
@@ -149,32 +146,15 @@ class AuthBaseModel extends Authenticatable
 
     //======================================================================
 
-    // Varify labels
-    public static function getVerifyLabels(): array
-    {
-        return [
-            self::VERIFIED => 'Verified',
-            self::UNVERIFIED => 'Unverified',
-        ];
-    }
-
-    // Varify colors
-    public static function getVerifyColors(): array
-    {
-        return [
-            self::VERIFIED => 'bg-success', // Green for verified
-            self::UNVERIFIED => 'bg-danger', // Red for unverified
-        ];
-    }
     // Accessor for Varify label
     public function getVerifyLabelAttribute(): string
     {
-        return self::getVerifyLabels()[$this->is_verify] ?? 'Unknown';
+        return $this->email_verified_at ? 'Verified' : 'Unverified';
     }
     // Accessor for Varify color
     public function getVerifyColorAttribute(): string
     {
-        return self::getVerifyColors()[$this->is_verify] ?? 'bg-secondary';
+        return $this->email_verified_at ? 'bg-success' : 'bg-danger';
     }
     // =======================================================================
 
@@ -232,11 +212,11 @@ class AuthBaseModel extends Authenticatable
     // Verified scope
     public function scopeVerified($query)
     {
-        return $query->where('verified', self::VERIFIED);
+        return $query->whereNotNull('email_verified_at');
     }
     public function scopeUnverified($query)
     {
-        return $query->where('verified', self::UNVERIFIED);
+        return $query->whereNull('email_verified_at');
     }
 
     // Gender scope

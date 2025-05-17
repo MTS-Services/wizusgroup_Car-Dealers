@@ -46,7 +46,7 @@ class UserController extends Controller
                 ->editColumn('status', function ($user) {
                     return "<span class='badge " . $user->status_color . "'>" . $user->status_label . "</span>";
                 })
-                ->editColumn('is_verify', function ($user) {
+                ->editColumn('email_verified_at', function ($user) {
                     return "<span class='badge " . $user->verify_color . "'>" . $user->verify_label . "</span>";
                 })
                 ->editColumn('created_at', function ($user) {
@@ -59,7 +59,7 @@ class UserController extends Controller
                     $menuItems = $this->menuItems($user);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['first_name', 'status', 'is_verify', 'created_at', 'creater_id', 'action'])
+                ->rawColumns(['first_name', 'status', 'email_verified_at', 'created_at', 'creater_id', 'action'])
                 ->make(true);
         }
         return view('backend.admin.user_management.user.index');
@@ -115,7 +115,7 @@ class UserController extends Controller
                 ->editColumn('status', function ($user) {
                     return "<span class='badge " . $user->status_color . "'>$user->status_label</span>";
                 })
-                ->editColumn('is_verify', function ($user) {
+                ->editColumn('email_verified_at', function ($user) {
                     return "<span class='badge " . $user->verify_color . "'>" . $user->verify_label . "</span>";
                 })
                 ->editColumn('deleter_id', function ($user) {
@@ -128,7 +128,7 @@ class UserController extends Controller
                     $menuItems = $this->trashedMenuItems($user);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['first_name', 'status', 'is_verify', 'deleter_id', 'deleted_at', 'action'])
+                ->rawColumns(['first_name', 'status', 'email_verified_at', 'deleter_id', 'deleted_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.user_management.user.recycle-bin');

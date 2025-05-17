@@ -124,17 +124,19 @@
 
 @section('content')
     {{-- ===================== banner Section Start ===================== --}}
-    <section class="lg:max-h-screen max-h-[70%] h-[calc(100vh-80px)] relative overflow-hidden">
+    <section class="lg:max-h-screen max-h-[70vh] md:max-h-[80vh] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative overflow-hidden">
         <div class="absolute bg-transparent inset-0 z-10">
-            <div class="container flex items-center justify-center h-full">
-                <div class="text-center">
-                    <h1 class="text-6xl font-bold pb-3 text-text-white">
-                        {{ __('Affordable Machines,') }} <br> {{ __('Shipped Worldwide') }}
+            <div class="container flex items-center justify-center h-full px-4 xs:px-2">
+                <div class="text-center w-full">
+                    <h1 class="text-4xl xs:text-3xl sm:text-5xl md:text-5xl lg:text-6xl font-bold pb-3 text-text-white">
+                        {{ __('Affordable Machines,') }} <br class="hidden xs:block"> {{ __('Shipped Worldwide') }}
                     </h1>
-                    <p class="my-4 text-xl text-text-white">{{ __('Discover amazing content and features.') }}</p>
-                    <div class="relative w-[700px] mx-auto">
+                    <p class="my-4 text-base xs:text-sm sm:text-lg md:text-xl text-text-white px-4 xs:px-0">
+                        {{ __('Discover amazing content and features.') }}
+                    </p>
+                    <div class="relative  2xl:max-w-[700px] xl:max-w-[600px] lg:max-w-[500px] max-w-96 mx-auto px-4 xs:px-2">
                         <input type="search" id="machine-search"
-                            class="block w-full p-4 pl-10 pr-16 text-sm border-none rounded-lg bg-bg-light-secondary focus:ring-blue-500 focus:border-blue-600"
+                            class="block w-full py-4 px-3 xs:px-2 pl-10 pr-16 text-sm xs:text-xs border-none rounded-lg bg-bg-light-secondary focus:ring-blue-500 focus:border-blue-600"
                             placeholder="{{ __('Find your machine...') }}" required>
 
                         <button type="submit"
@@ -147,21 +149,19 @@
                             </svg>
                         </button>
                     </div>
-
                 </div>
             </div>
         </div>
-        <div class="swiper banner">
-            <div class="swiper-wrapper">
+        <div class="swiper banner h-full">
+            <div class="swiper-wrapper h-full">
                 @foreach ($banners as $banner)
-                    <div class="swiper-slide">
-                        <img class="w-full object-cover bg-center h-full" src="{{ $banner['image'] }}" alt="image">
+                    <div class="swiper-slide h-full">
+                        <img class="w-full h-full object-cover bg-center" src="{{ $banner['image'] }}" alt="image">
                     </div>
                 @endforeach
             </div>
         </div>
     </section>
-
     {{-- ===================== banner Section End ===================== --}}
     {{-- ===================== Category Section Start ===================== --}}
     @php
@@ -193,7 +193,7 @@
         ];
     @endphp
 
-    <section class="py-24">
+    <section class="2xl:py-24 xl:py-20 lg:py-16 md:py-12 py-9">
         <div class="container">
             <div class="header text-center mb-10">
                 <h2 class="text-3xl font-bold uppercase">{{ __('Categories') }}</h2>
