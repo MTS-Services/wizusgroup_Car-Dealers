@@ -124,7 +124,7 @@
 
 @section('content')
     {{-- ===================== banner Section Start ===================== --}}
-    <section class="lg:max-h-screen max-h-[450px] md:max-h-[600px] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative overflow-hidden">
+    <section class="lg:max-h-screen max-h-[70vh] md:max-h-[80vh] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative overflow-hidden">
         <div class="absolute bg-transparent inset-0 z-10">
             <div class="container flex items-center justify-center h-full px-4 xs:px-2">
                 <div class="text-center w-full">

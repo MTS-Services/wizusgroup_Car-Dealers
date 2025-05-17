@@ -23,4 +23,8 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.auctions');
     }
+    public function dropshipping()
+    {
+        return view('frontend.pages.dropshipping');
+    }
 }
