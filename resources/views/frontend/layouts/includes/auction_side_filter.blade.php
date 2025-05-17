@@ -2,8 +2,8 @@
 <div
     class="auctionfilterSidebar fixed top-0 left-0 min-h-screen h-full w-4/5 lg:w-1/2 -translate-x-full transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-dark-tertiary shadow-lg z-[99999999999]">
 
-    <div class="h-screen overflow-auto p-2 xl:p-3">
-        <div class="flex justify-between items-center border-b border-b-border-light pb-5">
+    <div class="h-screen overflow-auto p-3 xl:p-3">
+        <div class="flex justify-between items-center border-b border-b-border-light dark:border-opacity-50 pb-5">
             <h4>{{ __('Auction fillters') }}</h4>
             <button class="closeAuctionFilterSidebar" title="Close Sidebar">
                 <span class="w-10 h-10 flex items-center justify-center bg-bg-primary hover:bg-bg-tertiary rounded-full text-text-white">

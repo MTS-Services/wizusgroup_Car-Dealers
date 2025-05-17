@@ -27,7 +27,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="text-3xl lg:text-4xl font-semibold text-text-primary dark:text-text-light text-center">
+                    <h1 class="text-2xl lg:text-4xl font-semibold text-text-primary dark:text-text-light text-center">
                         {{ __('Auctions') }}</h1>
                 </div>
             </div>
@@ -35,12 +35,12 @@
     </section>
     {{-- Mid Content --}}
     @include('frontend.layouts.includes.auction_side_filter')
-    <section class="py-15">
+    <section class="py-15 bg-bg-secondary dark:bg-bg-light dark:bg-opacity-20">
         <div class="container">
             <div class="flex justify-start gap-10">
                 <div class="w-1/4 hidden xl:block">
                     {{-- Sidebar Filter --}}
-                    <div class="space-y-6 shadow-card rounded-lg dark:bg-bg-dark-tertiary overflow-hidden mt-3">
+                    <div class="space-y-6 shadow-card dark:shadow-dark-card rounded-lg dark:bg-bg-dark-tertiary overflow-hidden mt-3">
                         <h2
                             class="text-lg md:text-xl font-semibold capitalize border-b bg-bg-light dark:bg-bg-light dark:bg-opacity-20 border-border-gray dark:border-opacity-50 p-4">
                             {{ __(' Auction fillters') }}</h2>
@@ -118,9 +118,9 @@
                     {{-- Products Grid --}}
                     <div class="flex items-center gap-2 md:gap-3 mb-4">
                         <button
-                            class="openAuctionFilterSidebar btn px-2 py-0 rounded-md bg-transparent border border-bg-accent text-text-accent text-xs font-medium xs:text-sm xs:px-5 xs:py-2 lg:text-base w-fit text-nowrap xl:hidden">
-                            <span><i data-lucide="sliders-horizontal" class="w-5 h-5"></i></span>
-                            <span class="ml-2 text-base">{{ __('Filter') }}</span>
+                            class="openAuctionFilterSidebar btn px-2 py-0 rounded-md bg-transparent border-bg-accent dark:border-bg-light dark:border-opacity-50 text-text-accent text-sm font-medium  xs:px-5 xs:py-2 lg:text-base w-fit text-nowrap xl:hidden">
+                            <span><i data-lucide="sliders-horizontal" class="w-4 h-4 md:w-5 md:h-5"></i></span>
+                            <span class="">{{ __('Filter') }}</span>
                         </button>
                     </div>
 
@@ -129,9 +129,9 @@
                         <div class="loading-spinner"></div>
                         <span class="ml-3 text-text-dark dark:text-text-light text-opacity-50">Loading products...</span>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="products-grid">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="products-grid">
                         {{-- Product 1 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="1">
                             <!-- Car Image -->
                             <div class="relative">
@@ -149,9 +149,9 @@
 
                             <!-- Card Content -->
                             <div class="p-4">
-                                <h2 class="text-lg font-semibold text-text-primary dark:text-text-light">
+                                <h2 class="text-base lg:text-base font-semibold text-text-primary dark:text-text-light">
                                     {{ __('Honda CR-V') }}</h2>
-                                <p class="text-text-danger font-bold text-lg mt-1">{{ __("US$ 4,500") }}</p>
+                                <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}</p>
                                 <div
                                     class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
@@ -175,13 +175,13 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
+                                    class="w-full btn-primary px-4 rounded-md mt-4">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
                         {{-- Product 2 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="2">
                             <!-- Car Image -->
                             <div class="relative">
@@ -199,9 +199,9 @@
 
                             <!-- Card Content -->
                             <div class="p-4">
-                                <h2 class="text-lg font-semibold text-text-primary dark:text-text-light">
+                                <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
                                     {{ __('Honda CR-V') }}</h2>
-                                <p class="text-text-danger font-bold text-lg mt-1">{{ __("US$ 4,500") }}</p>
+                                <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}</p>
                                 <div
                                     class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
@@ -225,13 +225,13 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
+                                    class="w-full btn-primary px-4 rounded-md mt-4">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
                         {{-- Product 3 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="3">
                             <!-- Car Image -->
                             <div class="relative">
@@ -249,9 +249,9 @@
 
                             <!-- Card Content -->
                             <div class="p-4">
-                                <h2 class="text-lg font-semibold text-text-primary dark:text-text-light">
+                                <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
                                     {{ __('Honda CR-V') }}</h2>
-                                <p class="text-text-danger font-bold text-lg mt-1">{{ __("US$ 4,500") }}</p>
+                                <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}</p>
                                 <div
                                     class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
@@ -275,13 +275,13 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
+                                    class="w-full btn-primary px-4 rounded-md mt-4">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
                         {{-- Product 4 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="4">
                             <!-- Car Image -->
                             <div class="relative">
@@ -299,9 +299,9 @@
 
                             <!-- Card Content -->
                             <div class="p-4">
-                                <h2 class="text-lg font-semibold text-text-primary dark:text-text-light">
+                                <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
                                     {{ __('Honda CR-V') }}</h2>
-                                <p class="text-text-danger font-bold text-lg mt-1">{{ __("US$ 4,500") }}</p>
+                                <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}</p>
                                 <div
                                     class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
@@ -325,13 +325,13 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
+                                    class="w-full btn-primary px-4 rounded-md mt-4">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
                         {{-- Product 5 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group  shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="5">
                             <!-- Car Image -->
                             <div class="relative">
@@ -349,9 +349,9 @@
 
                             <!-- Card Content -->
                             <div class="p-4">
-                                <h2 class="text-lg font-semibold text-text-primary dark:text-text-light">
+                                <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
                                     {{ __('Honda CR-V') }}</h2>
-                                <p class="text-text-danger font-bold text-lg mt-1">{{ __("US$ 4,500") }}</p>
+                                <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}</p>
                                 <div
                                     class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
@@ -375,13 +375,13 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
+                                    class="w-full btn-primary px-4 rounded-md mt-4">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
                         {{-- Product 6 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  max-w-md w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="6">
                             <!-- Car Image -->
                             <div class="relative">
@@ -399,9 +399,9 @@
 
                             <!-- Card Content -->
                             <div class="p-4">
-                                <h2 class="text-lg font-semibold text-text-primary dark:text-text-light">
+                                <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
                                     {{ __('Honda CR-V') }}</h2>
-                                <p class="text-text-danger font-bold text-lg mt-1">{{ __("US$ 4,500") }}</p>
+                                <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}</p>
                                 <div
                                     class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
@@ -425,7 +425,7 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
+                                    class="w-full btn-primary px-4 rounded-md mt-4">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
