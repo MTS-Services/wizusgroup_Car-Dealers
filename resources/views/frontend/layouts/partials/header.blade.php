@@ -16,6 +16,8 @@
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
                         href="{{ route('frontend.auction') }}">{{ __('Auctions') }}</a>
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+                        href="{{ route('frontend.parts-accessories') }}">{{ __('Parts') }}</a>
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
                         href="{{ route('frontend.contact') }}">{{ __('Contact') }}</a>
                 </div>
             </div>
