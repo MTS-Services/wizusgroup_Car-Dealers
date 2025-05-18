@@ -98,6 +98,9 @@
     {{-- Toggle theme --}}
     <script src="{{ asset('frontend/js/themeToggle.js') }}"></script>
 
+    {{-- Custom Functions --}}
+    <script src="{{ asset('backend/admin/js/functions.js') }}"></script>
+
     {{-- Custom Cursor --}}
     {{-- <script src="{{ asset('frontend/js/customCursor.js') }}" type="module"></script> --}}
     <script>
