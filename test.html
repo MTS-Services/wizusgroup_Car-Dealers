@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Tabs</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'greenyellow': '#ADFF2F',
+                        'purple-custom': '#8A2BE2',
+                        'purple-light': '#9370DB',
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .active-tab {
+            background: linear-gradient(135deg, #9370DB, #8A2BE2);
+            box-shadow: 0 4px 8px rgba(138, 43, 226, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto mt-5 px-4">
+        <div class="w-full">
+            <div class="flex justify-around items-center gap-5 py-5 text-center flex-wrap md:flex-nowrap">
+                <p class="nav-item w-full py-2 bg-greenyellow text-black rounded-lg text-lg font-medium transition-all duration-300 ease-in-out cursor-pointer active-tab text-white border border-gray-400" data-target="profile">Profile</p>
+                <p class="nav-item w-full py-2 bg-greenyellow text-black rounded-lg text-lg font-medium transition-all duration-300 ease-in-out cursor-pointer hover:bg-purple-custom hover:text-white hover:border hover:border-gray-400" data-target="shop-details">Shop Details</p>
+                <p class="nav-item w-full py-2 bg-greenyellow text-black rounded-lg text-lg font-medium transition-all duration-300 ease-in-out cursor-pointer hover:bg-purple-custom hover:text-white hover:border hover:border-gray-400" data-target="address">Address</p>
+                <p class="nav-item w-full py-2 bg-greenyellow text-black rounded-lg text-lg font-medium transition-all duration-300 ease-in-out cursor-pointer hover:bg-purple-custom hover:text-white hover:border hover:border-gray-400" data-target="change-password">Change Password</p>
+            </div>
+        </div>
+        
+        <div class="w-full">
+            <div class="tab-content min-h-[200px] rounded-lg bg-gray-100 mt-5 p-5">
+                <div id="profile" class="tab-pane hidden">
+                    <h3 class="text-xl font-semibold">Profile</h3>
+                    <p>This is the profile content section. You can add your profile information here.</p>
+                </div>
+                <div id="shop-details" class="tab-pane hidden">
+                    <h3 class="text-xl font-semibold">Shop Details</h3>
+                    <p>This is the shop details content section. You can add your shop information here.</p>
+                </div>
+                <div id="address" class="tab-pane hidden">
+                    <h3 class="text-xl font-semibold">Address</h3>
+                    <p>This is the address content section. You can add your address information here.</p>
+                </div>
+                <div id="change-password" class="tab-pane hidden">
+                    <h3 class="text-xl font-semibold">Change Password</h3>
+                    <p>This is the change password content section. You can update your password here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all nav items
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            // Add click event listener to each nav item
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Remove active class from all nav items
+                    navItems.forEach(nav => {
+                        nav.classList.remove('active-tab', 'text-white', 'border', 'border-gray-400');
+                        nav.classList.add('bg-greenyellow', 'text-black');
+                    });
+                    
+                    // Add active class to clicked nav item
+                    this.classList.add('active-tab', 'text-white', 'border', 'border-gray-400');
+                    this.classList.remove('bg-greenyellow', 'text-black');
+                    
+                    // Get the target tab
+                    const target = this.getAttribute('data-target');
+                    
+                    // Hide all tab panes
+                    document.querySelectorAll('.tab-pane').forEach(pane => {
+                        pane.classList.add('hidden');
+                        pane.classList.remove('block');
+                    });
+                    
+                    // Show the target tab pane
+                    document.getElementById(target).classList.remove('hidden');
+                    document.getElementById(target).classList.add('block');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

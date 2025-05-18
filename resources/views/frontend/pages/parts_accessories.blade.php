@@ -1,6 +1,6 @@
-@extends('frontend.layouts.app', ['page_slug' => 'auctions'])
+@extends('frontend.layouts.app', ['page_slug' => 'parts-accessories'])
 
-@section('title', 'Auctions')
+@section('title', 'Parts & Accessories')
 @push('css')
     <style>
         /* General Animations */
@@ -28,19 +28,20 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="text-2xl lg:text-4xl font-semibold text-text-primary dark:text-text-light text-center">
-                        {{ __('Auctions') }}</h1>
+                        {{ __('Parts & Accessories') }}</h1>
                 </div>
             </div>
         </div>
     </section>
     {{-- Mid Content --}}
-    @include('frontend.layouts.includes.auction_side_filter')
+    @include('frontend.layouts.includes.parts_filter_sidebar')
     <section class="pb-15">
         <div class="container">
             <div class="flex justify-start gap-10">
                 <div class="w-1/4 hidden xl:block">
                     {{-- Sidebar Filter --}}
-                    <div class="space-y-6 shadow-card dark:shadow-dark-card rounded-lg dark:bg-bg-dark-tertiary overflow-hidden mt-3">
+                    <div
+                        class="space-y-6 shadow-card dark:shadow-dark-card rounded-lg dark:bg-bg-dark-tertiary overflow-hidden mt-3">
                         <h2
                             class="text-lg md:text-xl font-semibold capitalize border-b bg-bg-light dark:bg-bg-light dark:bg-opacity-20 border-border-gray dark:border-opacity-50 p-4">
                             {{ __(' Auction fillters') }}</h2>
@@ -80,25 +81,32 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="px-4">
-                            <div data-target="model-filter">
-                                <h3 class="text-sm md:text-base font-medium">{{ __('End Time') }}</h3>
-                            </div>
-
-                            <div class="filter-content" id="model-filter">
-                                <div class="mt-2">
-                                    <select
-                                        class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
-                                        <option>{{ __('All') }}</option>
-                                        <option>{{ __('ZL1-215') }}</option>
-                                        <option>{{ __('TM15') }}</option>
-                                        <option>{{ __('GL-29') }}</option>
-                                        <option>{{ __('1070') }}</option>
-                                        <option>{{ __('MT200') }}</option>
-                                        <option>{{ __('TU1500F') }}</option>
-                                    </select>
+                        <div>
+                            {{-- Price Filter --}}
+                            <details class="collapse collapse-arrow" open>
+                                <summary class="collapse-title text-base font-medium">{{ __('Price') }}</summary>
+                                <div class="collapse-content">
+                                    <div class="mb-3">
+                                        <div class="relative w-full price-slider">
+                                            <div class="absolute w-full h-1 bg-bg-dark bg-opacity-40 z-[1] rounded-full">
+                                            </div>
+                                            <div class="absolute h-1 z-[2] rounded-full bg-bg-primary slider-range"></div>
+                                            <input type="range" min="0" max="500" value="20"
+                                                class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none min-range">
+                                            <input type="range" min="0" max="500" value="300"
+                                                class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none max-range">
+                                        </div>
+                                    </div>
+                                    <!-- Price display -->
+                                    <div class="pt-8">
+                                        <p class="text-sm lg:text-base">
+                                            {{ __('Price:') }} <span
+                                                class="text-text-danger min-price">{{ __("$20") }}</span> -
+                                            <span class="text-text-danger max-price">{{ __("$300") }}</span>
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
+                            </details>
                         </div>
                         <div class="px-4 pb-4">
                             <button
@@ -118,7 +126,7 @@
                     {{-- Products Grid --}}
                     <div class="flex items-center gap-2 md:gap-3 mb-4">
                         <button
-                            class="openAuctionFilterSidebar btn px-2 py-0 rounded-md bg-transparent border-bg-accent dark:border-bg-light dark:border-opacity-50 text-text-accent text-sm font-medium  xs:px-5 xs:py-2 lg:text-base w-fit text-nowrap xl:hidden">
+                            class="openPartsFilterSidebar btn px-2 py-0 rounded-md bg-transparent border-bg-accent dark:border-bg-light dark:border-opacity-50 text-text-accent text-sm font-medium  xs:px-5 xs:py-2 lg:text-base w-fit text-nowrap xl:hidden">
                             <span><i data-lucide="sliders-horizontal" class="w-4 h-4 md:w-5 md:h-5"></i></span>
                             <span class="">{{ __('Filter') }}</span>
                         </button>
@@ -131,14 +139,13 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
                         {{-- Product 1 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer flex flex-col"
                             data-product="1">
                             <!-- Car Image -->
                             <div class="relative">
-                                <div class="w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                        alt="Kubota ZL1-215"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
+                                <div class="w-full min-h-60 overflow-hidden">
+                                    <img src="{{ asset('frontend/images/parts/parts-1.jpg') }}" alt="Kubota ZL1-215"
+                                        class="w-full min-h-60 h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
                                 <!-- Timer Badge -->
                                 <div
@@ -148,10 +155,10 @@
                             </div>
 
                             <!-- Card Content -->
-                            <div class="p-4">
+                            <div class="flex flex-col flex-grow p-4">
                                 <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                    {{ __('Honda CR-V') }}</h2>
-                                <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}</p>
+                                    {{ __('Fuel filter or fuel water separator') }}</h2>
+                                <p class="text-text-danger text-base lg:text-md font-bold mt-1">{{ __("US$ 4,800") }}</p>
                                 <div
                                     class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
@@ -162,7 +169,7 @@
                                     {{ __('All Categories') }}
                                 </div>
                                 <div
-                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
+                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm mb-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -172,23 +179,21 @@
                                     </svg>
                                     {{ __('Chiba') }}
                                 </div>
-
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full btn-primary px-4 rounded-md mt-4">
+                                    class="mt-auto w-full btn-primary hover:bg-bg-tertiary rounded-md py-2 px-4">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
                         {{-- Product 2 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer flex flex-col"
                             data-product="2">
                             <!-- Car Image -->
                             <div class="relative">
-                                <div class="w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                        alt="Kubota ZL1-215"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
+                                <div class="w-full min-h-60 overflow-hidden">
+                                    <img src="{{ asset('frontend/images/parts/parts-2.jpg') }}" alt="Kubota ZL1-215"
+                                        class="w-full min-h-60 h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
                                 <!-- Timer Badge -->
                                 <div
@@ -198,10 +203,10 @@
                             </div>
 
                             <!-- Card Content -->
-                            <div class="p-4">
+                            <div class="flex flex-col flex-grow p-4">
                                 <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                    {{ __('Honda CR-V') }}</h2>
-                                <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}</p>
+                                    {{ __('Timing belt or engine drive system ') }}</h2>
+                                <p class="text-text-danger text-base lg:text-md font-bold mt-1">{{ __("US$ 4,200") }}</p>
                                 <div
                                     class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
@@ -212,7 +217,7 @@
                                     {{ __('All Categories') }}
                                 </div>
                                 <div
-                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
+                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm mb-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -225,20 +230,19 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
+                                    class="mt-auto w-full btn-primary hover:bg-bg-tertiary rounded-md py-2 px-4">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
                         {{-- Product 3 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer flex flex-col"
                             data-product="3">
                             <!-- Car Image -->
                             <div class="relative">
-                                <div class="w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                        alt="Kubota ZL1-215"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
+                                <div class="w-full min-h-60 overflow-hidden">
+                                    <img src="{{ asset('frontend/images/parts/parts-3.jpg') }}" alt="Kubota ZL1-215"
+                                        class="w-full min-h-60 h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
                                 <!-- Timer Badge -->
                                 <div
@@ -248,10 +252,10 @@
                             </div>
 
                             <!-- Card Content -->
-                            <div class="p-4">
+                            <div class="flex flex-col flex-grow p-4">
                                 <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                    {{ __('Honda CR-V') }}</h2>
-                                <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}</p>
+                                    {{ __('Tractor or heavy vehicle engine assembly') }}</h2>
+                                <p class="text-text-danger text-base lg:text-md font-bold mt-1">{{ __("US$ 4,500") }}</p>
                                 <div
                                     class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
@@ -262,7 +266,7 @@
                                     {{ __('All Categories') }}
                                 </div>
                                 <div
-                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
+                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm mb-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -275,20 +279,19 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
+                                    class="mt-auto w-full btn-primary hover:bg-bg-tertiary rounded-md py-2 px-4">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
                         {{-- Product 4 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full h-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer flex flex-col"
                             data-product="4">
                             <!-- Car Image -->
                             <div class="relative">
-                                <div class="w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                        alt="Kubota ZL1-215"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
+                                <div class="w-full min-h-60 overflow-hidden">
+                                    <img src="{{ asset('frontend/images/parts/parts-4.jpg') }}" alt="Kubota ZL1-215"
+                                        class="w-full min-h-60 h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
                                 <!-- Timer Badge -->
                                 <div
@@ -298,10 +301,10 @@
                             </div>
 
                             <!-- Card Content -->
-                            <div class="p-4">
+                            <div class="flex flex-col flex-grow p-4">
                                 <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                    {{ __('Honda CR-V') }}</h2>
-                                <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}</p>
+                                    {{ __('Pistons and connecting rods') }}</h2>
+                                <p class="text-text-danger text-base lg:text-md font-bold mt-1">{{ __("US$ 3,500") }}</p>
                                 <div
                                     class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
@@ -312,7 +315,7 @@
                                     {{ __('All Categories') }}
                                 </div>
                                 <div
-                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
+                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm mb-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -323,22 +326,23 @@
                                     {{ __('Chiba') }}
                                 </div>
 
-                                <!-- Bid Button -->
-                                <button onclick="openModal()"
-                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
-                                    {{ __('Place Bid') }}
-                                </button>
+                                <div class="mt-auto">
+                                    <!-- Bid Button -->
+                                    <button onclick="openModal()"
+                                        class="mt-auto w-full btn-primary hover:bg-bg-tertiary rounded-md py-2 px-4">
+                                        {{ __('Place Bid') }}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         {{-- Product 5 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group  shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group  shadow-card rounded-lg overflow-hidden cursor-pointer flex flex-col"
                             data-product="5">
                             <!-- Car Image -->
                             <div class="relative">
-                                <div class="w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                        alt="Kubota ZL1-215"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
+                                <div class="w-full min-h-60 overflow-hidden">
+                                    <img src="{{ asset('frontend/images/parts/parts5.jpg') }}" alt="Kubota ZL1-215"
+                                        class="w-full min-h-60 h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
                                 <!-- Timer Badge -->
                                 <div
@@ -348,10 +352,10 @@
                             </div>
 
                             <!-- Card Content -->
-                            <div class="p-4">
+                            <div class="flex flex-col flex-grow p-4">
                                 <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                    {{ __('Honda CR-V') }}</h2>
-                                <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}</p>
+                                    {{ __('Fuel injection system or hydraulic control system') }}</h2>
+                                <p class="text-text-danger text-base lg:text-md font-bold mt-1">{{ __("US$ 4,400") }}</p>
                                 <div
                                     class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
@@ -362,7 +366,7 @@
                                     {{ __('All Categories') }}
                                 </div>
                                 <div
-                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
+                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm mb-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -375,20 +379,19 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
+                                    class="mt-auto w-full btn-primary hover:bg-bg-tertiary rounded-md py-2 px-4">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
                         </div>
                         {{-- Product 6 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer flex flex-col"
                             data-product="6">
                             <!-- Car Image -->
                             <div class="relative">
-                                <div class="w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                        alt="Kubota ZL1-215"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
+                                <div class="w-full min-h-60 overflow-hidden">
+                                    <img src="{{ asset('frontend/images/parts/parts-6.jpg') }}" alt="Kubota ZL1-215"
+                                        class="w-full min-h-60 h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
                                 <!-- Timer Badge -->
                                 <div
@@ -398,10 +401,10 @@
                             </div>
 
                             <!-- Card Content -->
-                            <div class="p-4">
+                            <div class="flex flex-col flex-grow p-4">
                                 <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                    {{ __('Honda CR-V') }}</h2>
-                                <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}</p>
+                                    {{ __('Sales or negotiation scene') }}</h2>
+                                <p class="text-text-danger text-base lg:text-md font-bold mt-1">{{ __("US$ 4,100") }}</p>
                                 <div
                                     class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
@@ -412,7 +415,7 @@
                                     {{ __('All Categories') }}
                                 </div>
                                 <div
-                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
+                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm mb-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -425,7 +428,7 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
+                                    class="mt-auto w-full btn-primary hover:bg-bg-tertiary rounded-md py-2 px-4">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
@@ -442,14 +445,16 @@
             <!-- Modal Box -->
             <div class="bg-bg-light dark:bg-bg-dark-tertiary p-6 rounded-lg w-full max-w-sm shadow-lg">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-semibold">{{ __("Place Your Bid") }}</h2>
-                    <button onclick="closeModal()" class="text-text-primary hover:text-text-tertiary text-2xl">&times;</button>
+                    <h2 class="text-xl font-semibold">{{ __('Place Your Bid') }}</h2>
+                    <button onclick="closeModal()"
+                        class="text-text-primary hover:text-text-tertiary text-2xl">&times;</button>
                 </div>
 
                 <div class="space-y-4">
 
                     <div>
-                        <label for="bidAmount" class="block text-sm font-medium text-text-primary dark:text-text-light text-opacity-50">{{ __("Your Bid (USD)") }}</label>
+                        <label for="bidAmount"
+                            class="block text-sm font-medium text-text-primary dark:text-text-light text-opacity-50">{{ __('Your Bid (USD)') }}</label>
                         <input type="number" id="bidAmount"
                             class="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-bg-primary"
                             placeholder="Enter your bid" />
@@ -467,9 +472,9 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            const $openSidebar = $('.openAuctionFilterSidebar');
-            const $closeSidebar = $('.closeAuctionFilterSidebar');
-            const $sidebar = $('.auctionfilterSidebar'); // Select the sidebar element globally
+            const $openSidebar = $('.openPartsFilterSidebar');
+            const $closeSidebar = $('.closePartsFilterSidebar');
+            const $sidebar = $('.partsFilterSidebar'); // Select the sidebar element globally
 
             // Sidebar open functionality
             $openSidebar.on('click', function() {
@@ -562,65 +567,50 @@
                 alert('Please enter a valid bid amount.');
             }
         }
+    </script>
+    {{-- Price Range Slide --}}
+    <script>
+        $('.price-slider').each(function() {
+            const $slider = $(this);
+            const $minRange = $slider.find('.min-range');
+            const $maxRange = $slider.find('.max-range');
+            const $sliderRange = $slider.find('.slider-range');
+            const $minPrice = $slider.closest('.collapse-content').find('.min-price');
+            const $maxPrice = $slider.closest('.collapse-content').find('.max-price');
 
-        // const modal = document.getElementById('product-modal');
-        // const closeModal = document.getElementById('close-modal');
+            function updatePriceSlider() {
+                const minVal = parseInt($minRange.val());
+                const maxVal = parseInt($maxRange.val());
+                const maxAttr = parseInt($minRange.attr('max'));
+                const minPercent = (minVal / maxAttr) * 100;
+                const maxPercent = (maxVal / maxAttr) * 100;
 
-        // function openModal(productId) {
-        //     const product = products.find(p => p.id === parseInt(productId));
+                $sliderRange.css({
+                    left: minPercent + '%',
+                    width: (maxPercent - minPercent) + '%'
+                });
 
-        //     if (product) {
-        //         document.getElementById('modal-title').textContent = product.name;
-        //         document.getElementById('modal-price').textContent = `$${product.price.toLocaleString()}`;
-        //         document.getElementById('modal-year').textContent = product.year;
-        //         document.getElementById('modal-location').textContent = product.location;
-        //         document.getElementById('modal-hours').textContent = product.hours || 'N/A';
-        //         document.getElementById('modal-condition').textContent = product.condition || 'Used';
-        //         document.getElementById('modal-description').textContent = product.description;
-        //         document.getElementById('modal-horsepower').textContent = product.horsepower || '15-25 HP';
-        //         document.getElementById('modal-main-image').src = product.image;
-        //         document.getElementById('modal-main-image').alt = product.name;
+                $minPrice.text('$' + minVal);
+                $maxPrice.text('$' + maxVal);
+            }
 
-        //         // Set gallery images
-        //         if (product.gallery && product.gallery.length > 0) {
-        //             const galleryThumbs = document.querySelector('.gallery-thumbs');
-        //             galleryThumbs.innerHTML = '';
+            // Initial setup
+            updatePriceSlider();
 
-        //             product.gallery.forEach((img, index) => {
-        //                 const thumb = document.createElement('img');
-        //                 thumb.src = img;
-        //                 thumb.alt = `${product.name} view ${index + 1}`;
-        //                 thumb.className =
-        //                     `h-16 w-full object-cover rounded border-2 ${index === 0 ? 'border-blue-500' : 'border-transparent'} cursor-pointer`;
-        //                 if (index === 0) thumb.classList.add('active');
+            // Update on input
+            $minRange.on('input', function() {
+                if (parseInt($minRange.val()) > parseInt($maxRange.val()) - 10) {
+                    $minRange.val(parseInt($maxRange.val()) - 10);
+                }
+                updatePriceSlider();
+            });
 
-        //                 thumb.addEventListener('click', function() {
-        //                     document.getElementById('modal-main-image').src = img;
-        //                     document.querySelectorAll('.gallery-thumbs img').forEach(t => t.classList
-        //                         .remove('active', 'border-blue-500'));
-        //                     this.classList.add('active', 'border-blue-500');
-        //                 });
-
-        //                 galleryThumbs.appendChild(thumb);
-        //             });
-        //         }
-        //     }
-
-        //     modal.classList.remove('hidden');
-        //     setTimeout(() => {
-        //         modal.classList.add('opacity-100');
-        //     }, 10);
-
-        //     document.body.style.overflow = 'hidden';
-        // }
-
-        // function closeModalFunc() {
-        //     modal.classList.remove('opacity-100');
-
-        //     setTimeout(() => {
-        //         modal.classList.add('hidden');
-        //         document.body.style.overflow = '';
-        //     }, 300);
-        // }
+            $maxRange.on('input', function() {
+                if (parseInt($maxRange.val()) < parseInt($minRange.val()) + 10) {
+                    $maxRange.val(parseInt($minRange.val()) + 10);
+                }
+                updatePriceSlider();
+            });
+        });
     </script>
 @endpush
