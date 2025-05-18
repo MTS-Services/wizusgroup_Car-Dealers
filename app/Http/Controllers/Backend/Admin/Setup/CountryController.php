@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend\Admin\Setup;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Setup\CountryRequest;
 use App\Models\Country;
+use App\Services\Admin\Setup\CountryService;
+
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -12,8 +14,11 @@ use Yajra\DataTables\Facades\DataTables;
 
 class CountryController extends Controller
 {
-    public function __construct()
+    protected CountryService $countryService;
+    public function __construct(CountryService $countryService)
     {
+        $this->countryService = $countryService;
+
         $this->middleware('auth:admin');
         $this->middleware('permission:country-list', ['only' => ['index']]);
         $this->middleware('permission:country-details', ['only' => ['details']]);
@@ -32,27 +37,27 @@ class CountryController extends Controller
     public function index(Request $request)
     {
 
-    if ($request->ajax()) {
-        $query = Country::with(['creater_admin'])
-        ->orderBy('sort_order', 'asc')
-        ->latest();
-        return DataTables::eloquent($query)
-            ->editColumn('status', function ($country) {
-                return "<span class='badge " . $country->status_color . "'>$country->status_label</span>";
-            })
-            ->editColumn('created_by', function ($country) {
-                return $country->creater_name;
-            })
-            ->editColumn('created_at', function ($country) {
-                return $country->created_at_formatted;
-            })
-            ->editColumn('action', function ($country) {
-                $menuItems = $this->menuItems($country);
-                return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
-            })
-            ->rawColumns([ 'status', 'created_by', 'created_at', 'action'])
-            ->make(true);
-    }
+        if ($request->ajax()) {
+            $query = Country::with(['creater_admin'])
+                ->orderBy('sort_order', 'asc')
+                ->latest();
+            return DataTables::eloquent($query)
+                ->editColumn('status', function ($country) {
+                    return "<span class='badge " . $country->status_color . "'>$country->status_label</span>";
+                })
+                ->editColumn('created_by', function ($country) {
+                    return $country->creater_name;
+                })
+                ->editColumn('created_at', function ($country) {
+                    return $country->created_at_formatted;
+                })
+                ->editColumn('action', function ($country) {
+                    $menuItems = $this->menuItems($country);
+                    return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
+                })
+                ->rawColumns(['status', 'created_by', 'created_at', 'action'])
+                ->make(true);
+        }
         return view('backend.admin.setup.country.index');
     }
 
@@ -88,7 +93,7 @@ class CountryController extends Controller
 
         ];
     }
-       public function recycleBin(Request $request)
+    public function recycleBin(Request $request)
     {
 
         if ($request->ajax()) {
@@ -97,11 +102,11 @@ class CountryController extends Controller
                 ->orderBy('sort_order', 'asc')
                 ->latest();
             return DataTables::eloquent($query)
-            ->editColumn('status', function ($country) {
+                ->editColumn('status', function ($country) {
                     return "<span class='badge " . $country->status_color . "'>$country->status_label</span>";
                 })
 
-               ->editColumn('deleted_by', function ($country) {
+                ->editColumn('deleted_by', function ($country) {
                     return $country->deleter_name;
                 })
                 ->editColumn('deleted_at', function ($country) {
@@ -148,22 +153,29 @@ class CountryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CountryRequest $request)
+    public function store(CountryRequest $request): RedirectResponse
     {
-        $validated= $request->validated();
-        $validated['created_by'] = admin()->id;
-        Country::create($validated);
-        session()->flash('success','Country created successfully!');
+
+        try {
+            $validated = $request->validated();
+            $this->countryService->createCountry($validated, $request->image ?? null);
+            session()->flash('success', 'Country created successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Country create failed!');
+            throw $e;
+        }
+
         return redirect()->route('setup.country.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id): JsonResponse
+    public function show(string $id)
     {
-        $data = Country::with(['creater_admin', 'updater_admin'])->findOrFail(decrypt($id));
-        return response()->json($data);
+        $country = $this->countryService->getCountry($id);
+        $country->load(['creater_admin', 'updater_admin']);
+        return response()->json(data: $country);
     }
 
     /**
@@ -180,11 +192,14 @@ class CountryController extends Controller
      */
     public function update(CountryRequest $request, string $id)
     {
-        $country= Country::findOrFail(decrypt($id));
-        $validated = $request->validated();
-        $validated['updated_by'] = admin()->id;
-        $country->update($validated);
-        session()->flash('success','Country updated successfully!');
+        try {
+            $validated = $request->validated();
+            $this->countryService->updateCountry($id, $validated, $request->image ?? null);
+            session()->flash('success', 'Country updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Country update failed!');
+            throw $e;
+        }
         return redirect()->route('setup.country.index');
     }
 
@@ -193,40 +208,48 @@ class CountryController extends Controller
      */
     public function destroy(string $id)
     {
-        $country = Country::findOrFail(decrypt($id));
-        $country->update(['deleted_by'=> admin()->id]);
-        $country->delete();
-        session()->flash('success', 'Country deleted successfully!');
+        try {
+            $this->countryService->deleteCountry($id);
+            session()->flash('success', 'Country deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Country delete failed!');
+            throw $e;
+        }
         return redirect()->route('setup.country.index');
+    }
+
+    public function restore(string $id): RedirectResponse
+    {
+        try {
+            $this->countryService->restoreCountry($id);
+            session()->flash('success', 'country restored successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', value: 'Country restore failed!');
+            throw $e;
+        }
+        return redirect()->route('setup.country.recycle-bin');
+    }
+    public function permanentDelete(string $id): RedirectResponse
+    {
+        try {
+            $this->countryService->permanentDeleteCountry($id);
+            session()->flash('success', 'Country permanently deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Country permanent delete failed!');
+            throw $e;
+        }
+        return redirect()->route('setuo.country.recycle-bin');
     }
 
     public function status(string $id): RedirectResponse
     {
-        $country = Country::findOrFail(decrypt($id));
-        $country->update(['status' => !$country->status, 'updated_by'=> admin()->id]);
-        session()->flash('success', 'Country status updated successfully!');
+        try {
+            $this->countryService->toggleStatus($id);
+            session()->flash('success', 'Country status updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Country status update failed!');
+            throw $e;
+        }
         return redirect()->route('setup.country.index');
-    }
-          public function restore(string $id): RedirectResponse
-    {
-        $country = Country::onlyTrashed()->findOrFail(decrypt($id));
-        $country->update(['updated_by' => admin()->id]);
-        $country->restore();
-        session()->flash('success', 'country restored successfully!');
-        return redirect()->route('setup.country.recycle-bin');
-    }
-
-    /**
-     * Remove the specified resource from storage permanently.
-     *
-     * @param string $id
-     * @return RedirectResponse
-     */
-    public function permanentDelete(string $id): RedirectResponse
-    {
-        $country = Country::onlyTrashed()->findOrFail(decrypt($id));
-        $country->forceDelete();
-        session()->flash('success', 'Country permanently deleted successfully!');
-        return redirect()->route('setup.country.recycle-bin');
     }
 }
