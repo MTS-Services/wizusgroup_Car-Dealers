@@ -23,9 +23,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique(); // Slugs should be unique for SEO & URL routing
             $table->string('sku')->unique(); // SKU should be unique across products
-            $table->string('stock_no')->unique();
+
 
             // Basic Information
+            $table->string('stock_no')->unique();
             $table->string('grade')->nullable();
             $table->string('body')->nullable();
             $table->string('first_registration')->nullable();

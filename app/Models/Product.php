@@ -15,6 +15,20 @@ class Product extends BaseModel
         'name',
         'slug',
         'sku',
+
+        'stock_no',
+        'grade',
+        'body',
+        'first_registration',
+        'type',
+        'displacement',
+        'specification_no',
+        'classification_no',
+        'chassis_no',
+        'serial_no',
+        'capacity',
+        'remarks',
+
         'short_description',
         'description',
         'price',
@@ -59,6 +73,16 @@ class Product extends BaseModel
             'dropshipping_btn_color',
             'dropshipping_labels',
         ]);
+    }
+
+    public function productInformations(): HasMany
+    {
+        return $this->hasMany(ProductInformation::class);
+    }
+
+    public function attributes(): HasMany
+    {
+        return $this->hasMany(ProductAttributeValue::class,'product_id','id');
     }
 
     public function relation()
@@ -288,4 +312,9 @@ class Product extends BaseModel
     {
         return $query->where('is_dropshipping', self::NOTALLOW_DROPSHIPPING);
     }
+
+
+
+
+
 }
