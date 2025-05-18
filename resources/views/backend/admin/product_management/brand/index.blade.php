@@ -28,6 +28,7 @@
                         <thead>
                             <tr>
                                 <th>{{ __('SL') }}</th>
+                                <th>{{ __('Company') }}</th>
                                 <th>{{ __('Name') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Featured') }}</th>
@@ -54,6 +55,7 @@
         $(document).ready(function() {
             let table_columns = [
 
+                ['company_id', true, true],
                 ['name', true, true],
                 ['status', true, true],
                 ['is_featured', true, true],
@@ -82,7 +84,12 @@
             let id = $(this).data("id");
             let route = "{{ route('pm.brand.show', ['id']) }}";
             const detailsUrl = route.replace("id", id);
-            const headers = [{
+            const headers = [
+                {
+                    label: "Company",
+                    key: "company_name",
+                },
+                {
                     label: "Name",
                     key: "name"
                 },
