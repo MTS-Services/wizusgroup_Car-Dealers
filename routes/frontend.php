@@ -17,4 +17,12 @@ Route::group(['as' => 'frontend.'], function () {
   Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
   // Contact Page
   Route::get('/auction', [FrontendController::class, 'auction'])->name('auction');
+//  Product Details Page
+  Route::get('/product_details', [FrontendController::class, 'product_details'])->name('product_details');
+// group Shipping page
+Route::get('/group_shipping', [FrontendController::class, 'group_shipping'])->name('group_shipping');
+// droopshipping
+Route::get('/dropshipping', [FrontendController::class, 'dropshipping'])->name('dropshipping');
+// Regions
+Route::get('/regions', [FrontendController::class, 'regions'])->name('regions');
 });
