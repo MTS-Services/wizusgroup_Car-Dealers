@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Backend\Admin\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Support\Facades\Auth;
 
 class VerificationController extends Controller
 {
@@ -21,11 +23,43 @@ class VerificationController extends Controller
 
     use VerifiesEmails;
 
+
+    public function verify(Request $request)
+    {
+        $admin = $this->guard()->user();
+
+        if (!hash_equals((string) $request->route('id'), (string) $admin->getKey())) {
+            abort(403, 'This action is unauthorized.');
+        }
+
+        if (!hash_equals((string) $request->route('hash'), sha1($admin->getEmailForVerification()))) {
+            abort(403, 'This action is unauthorized.');
+        }
+
+        if ($admin->hasVerifiedEmail()) {
+            return redirect($this->redirectPath());
+        }
+
+        if ($admin->markEmailAsVerified()) {
+            event(new Verified($admin));
+        }
+
+        return redirect($this->redirectPath())->with('verified', true);
+    }
+
     public function show(Request $request)
     {
         return $request->user()->hasVerifiedEmail()
                         ? redirect($this->redirectPath())
-                        : view('frontend.auth.user.verify');
+                        : view('frontend.auth.admin.verify');
+    }
+
+    /**
+     * Use the admin guard.
+     */
+    protected function guard()
+    {
+        return Auth::guard('admin');
     }
 
     /**
@@ -35,7 +69,7 @@ class VerificationController extends Controller
      */
     protected function redirectTo()
     {
-        return route('user.profile');
+        return route('admin.dashboard');
     }
 
     /**
@@ -45,7 +79,7 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
