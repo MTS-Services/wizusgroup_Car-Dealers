@@ -39,6 +39,9 @@ class DatabaseSeeder extends Seeder
             FaqSeeder::class,
             BrandSeeder::class,
             ModelSeeder::class,
+
+            TaxClassSeeder::class,
+            TaxRateSeeder::class,
         ]);
     }
 }
