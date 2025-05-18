@@ -27,6 +27,10 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.auctions');
     }
+    public function parts_accessories()
+    {
+        return view('frontend.pages.parts_accessories');
+    }
     public function product_details()
     {
         return view('frontend.pages.product_details');
