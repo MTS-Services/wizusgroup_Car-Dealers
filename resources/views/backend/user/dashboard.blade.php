@@ -56,9 +56,11 @@
                         <div id="client-dashboard" class="nav-pane block">
                             {{-- Client Dashboard --}}
                             <div class="bg-bg-gray dark:bg-opacity-20">
-                                <h2 class="text-2xl  lg:text-4xl uppercase font-bold py-12{{-- bg-bg-light dark:bg-bg-dark-tertiary --}} ps-10">
-                                    {{ __('Client Dashboard') }}
-                                </h2>
+                                <div class="flex items-center gap-4 ps-10 py-10">
+                                    <span><i data-lucide="menu" class="xl:hidden w-6 h-6 md:w-8 md:h-8 bg-bg-primary text-text-white hover:bg-bg-tertiary transition-all duration-300 rounded-md p-1 "></i></span>
+                                    <h2 class="text-2xl  lg:text-4xl uppercase font-bold{{-- bg-bg-light dark:bg-bg-dark-tertiary --}}">
+                                    {{ __('Client Dashboard') }}</h2>
+                                </div>
                                 <div class="flex flex-wrap gap-10 items-center p-10">
                                     <div
                                         class="w-96 lg:max-w-md shadow-card p-5 lg:p-10 bg-bg-white dark:bg-opacity-30 rounded-lg">
@@ -172,38 +174,38 @@
                                                             <label for="first_name"
                                                                 class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('First Name') }}</label>
                                                             <input class="input rounded-md w-full" type="text"
-                                                                name="first_name" id="first_name">
+                                                                name="first_name" value="{{ Auth::guard('web')->user()->first_name }}" id="first_name">
                                                         </div>
                                                         <div>
                                                             <label for="last_name"
                                                                 class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Last Name') }}</label>
                                                             <input class="input rounded-md w-full" type="text"
-                                                                name="last_name" id="last_name">
+                                                                name="last_name" value="{{ Auth::guard('web')->user()->last_name }}" id="last_name">
                                                         </div>
                                                         <div>
                                                             <label for="username"
                                                                 class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Username') }}</label>
                                                             <input class="input rounded-md w-full" type="text"
-                                                                name="username" id="username">
+                                                                name="username" value="{{ Auth::guard('web')->user()->username }}" id="username">
                                                         </div>
                                                         <div>
                                                             <label for="email"
                                                                 class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Email') }}</label>
                                                             <input class="input rounded-md w-full" type="email"
-                                                                name="email" id="email">
+                                                                name="email" value="{{ Auth::guard('web')->user()->email }}" id="email">
                                                         </div>
                                                         {{-- image --}}
                                                         <div>
                                                             <label for="image"
                                                                 class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Image') }}</label>
                                                             <input class="input rounded-md w-full p-2" type="file"
-                                                                name="image" id="image">
+                                                                name="image" value="{{ Auth::guard('web')->user()->image }}" id="image">
                                                         </div>
                                                         <div>
                                                             <label for="phone"
                                                                 class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Phone') }}</label>
                                                             <input class="input rounded-md w-full" type="text"
-                                                                name="phone" id="phone">
+                                                                name="phone" value="{{ Auth::guard('web')->user()->phone }}" id="phone">
                                                         </div>
                                                     </div>
                                                     <button type="submit" class="btn btn-primary mt-5">Update</button>
