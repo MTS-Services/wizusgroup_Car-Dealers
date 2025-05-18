@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\ModelRequest;
 use App\Services\Admin\ProductManagement\BrandService;
+use App\Services\Admin\ProductManagement\CompanyService;
 use App\Services\Admin\ProductManagement\ModelService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,13 +14,14 @@ use Yajra\DataTables\Facades\DataTables;
 class ModelController extends Controller
 {
  protected ModelService $modelService;
- protected BrandService $brandService;
+ protected CompanyService $companyService;
 
-    public function __construct(ModelService $modelService, BrandService $brandService)
+
+    public function __construct(ModelService $modelService, CompanyService $companyService)
     {
 
         $this->modelService = $modelService;
-        $this->brandService = $brandService;
+        $this->companyService = $companyService;
 
         $this->middleware('auth:admin');
         $this->middleware('permission:model-list', ['only' => ['index']]);
@@ -40,8 +42,11 @@ class ModelController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = $this->modelService->getModels()->with(['creater_admin','brand']);
+            $query = $this->modelService->getModels()->with(['creater_admin','brand','company']);
             return DataTables::eloquent($query)
+                ->addColumn('company_id', function ($model) {
+                    return $model?->company?->name;
+                })
                 ->editColumn('brand_id', function ($model) {
                     return $model?->brand?->name;
                 })
@@ -61,7 +66,7 @@ class ModelController extends Controller
                     $menuItems = $this->menuItems($model);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['brand_id','status', 'is_featured', 'created_by', 'created_at', 'action'])
+                ->rawColumns(['company_id','brand_id','status', 'is_featured', 'created_by', 'created_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.product_management.model.index');
@@ -113,8 +118,11 @@ class ModelController extends Controller
     {
 
         if ($request->ajax()) {
-            $query = $this->modelService->getModels()->onlyTrashed()->with(['deleter_admin','brand']);
+            $query = $this->modelService->getModels()->onlyTrashed()->with(['deleter_admin','brand','company']);
             return DataTables::eloquent($query)
+                ->editColumn('company_id', function ($model) {
+                    return $model?->company?->name;
+                })
                 ->editColumn('brand_id', function ($model) {
                     return $model?->brand?->name;
                 })
@@ -134,7 +142,7 @@ class ModelController extends Controller
                     $menuItems = $this->trashedMenuItems($model);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['brand_id','status', 'is_featured', 'deleted_by', 'deleted_at', 'action'])
+                ->rawColumns(['company_name','brand_id','status', 'is_featured', 'deleted_by', 'deleted_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.product_management.model.recycle-bin');
@@ -165,7 +173,7 @@ class ModelController extends Controller
      */
     public function create()
     {
-        $data['brands'] = $this->brandService->getBrands()->active()->select(['id','name'])->get();
+        $data['companies'] = $this->companyService->getCompanies()->active()->select(['id','name'])->get();
         return view('backend.admin.product_management.model.create', $data);
     }
 
@@ -192,8 +200,9 @@ class ModelController extends Controller
     public function show(string $id)
     {
         $data = $this->modelService->getModel($id);
-        $data->load(['creater_admin', 'updater_admin', 'brand']);
+        $data->load(['creater_admin', 'updater_admin', 'brand','company']);
         $data['brand_name'] = $data?->brand?->name;
+        $data['company_name'] = $data?->company?->name;
         return response()->json($data);
     }
 
@@ -203,7 +212,7 @@ class ModelController extends Controller
     public function edit(string $id)
     {
         $data['model'] = $this->modelService->getModel($id);
-        $data['brands'] = $this->brandService->getBrands()->active()->select(['id','name'])->get();
+        $data['companies'] = $this->companyService->getCompanies()->active()->select(['id','name'])->get();
         return view('backend.admin.product_management.model.edit', $data);
     }
 

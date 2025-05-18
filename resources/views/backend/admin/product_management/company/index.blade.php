@@ -1,5 +1,5 @@
-@extends('backend.admin.layouts.master', ['page_slug' => 'model'])
-@section('title', 'Model List')
+@extends('backend.admin.layouts.master', ['page_slug' => 'company'])
+@section('title', 'Company List')
 @push('css')
     <link rel="stylesheet" href="{{ asset('custom_litebox/litebox.css') }}">
 @endpush
@@ -8,18 +8,18 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Model List') }}</h4>
+                    <h4 class="cart-title">{{ __('Company List') }}</h4>
                     <div class="buttons">
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'pm.model.recycle-bin',
+                            'routeName' => 'pm.company.recycle-bin',
                             'label' => 'Recycle Bin',
                             'className' => 'btn-danger',
-                            'permissions' => ['model-restore'],
+                            'permissions' => ['company-restore'],
                         ]" />
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'pm.model.create',
+                            'routeName' => 'pm.company.create',
                             'label' => 'Add New',
-                            'permissions' => ['model-create'],
+                            'permissions' => ['company-create'],
                         ]" />
                     </div>
                 </div>
@@ -28,8 +28,6 @@
                         <thead>
                             <tr>
                                 <th>{{ __('SL') }}</th>
-                                <th>{{ __('Company') }}</th>
-                                <th>{{ __('Brand') }}</th>
                                 <th>{{ __('Name') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Featured') }}</th>
@@ -47,7 +45,7 @@
         </div>
     </div>
     {{-- Admin Details Modal  --}}
-    <x-backend.admin.details-modal :datas="['modal_title' => 'Model Details']" />
+    <x-backend.admin.details-modal :datas="['modal_title' => 'Company Details']" />
 @endsection
 @push('js')
     <script src="{{ asset('custom_litebox/litebox.js') }}"></script>
@@ -56,8 +54,6 @@
         $(document).ready(function() {
             let table_columns = [
 
-                ['company_id', true, true],
-                ['brand_id', true, true],
                 ['name', true, true],
                 ['status', true, true],
                 ['is_featured', true, true],
@@ -69,10 +65,10 @@
                 table_columns: table_columns,
                 main_class: '.datatable',
                 displayLength: 10,
-                main_route: "{{ route('pm.model.index') }}",
+                main_route: "{{ route('pm.company.index') }}",
                 order_route: "{{ route('update.sort.order') }}",
-                export_columns: [0, 1, 2, 3, 4, 5, 6],
-                model: 'Model',
+                export_columns: [0, 1, 2, 3, 4, 5],
+                model: 'Company',
             };
             initializeDataTable(details);
         })
@@ -84,18 +80,9 @@
     <script>
         $(document).on("click", ".view", function() {
             let id = $(this).data("id");
-            let route = "{{ route('pm.model.show', ['id']) }}";
+            let route = "{{ route('pm.company.show', ['id']) }}";
             const detailsUrl = route.replace("id", id);
-            const headers = [
-                {
-                    label: "Company",
-                    key: "company_name",
-                },
-                {
-                    label: "Brand",
-                    key: "brand_name",
-                },
-                {
+            const headers = [{
                     label: "Name",
                     key: "name"
                 },
@@ -120,16 +107,16 @@
                     type: "image"
                 },
                 {
+                    label: "Description",
+                    key: "description",
+                },
+                {
                     label: "Meta Title",
                     key: "meta_title",
                 },
                 {
                     label: "Meta Description",
                     key: "meta_description",
-                },
-                {
-                    label: "Description",
-                    key: "description",
                 },
 
 

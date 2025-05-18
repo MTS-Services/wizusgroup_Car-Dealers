@@ -22,11 +22,11 @@ class BrandRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'company_id' => 'required|exists:companies,id',
             'description' => 'nullable|string',
             'meta_description' => 'nullable|string',
             'meta_title' => 'nullable|string',
             'image'=> 'nullable',
-            'website'=> 'nullable|url',
 
         ]
             +

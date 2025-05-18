@@ -17,14 +17,21 @@
                     @csrf
 
                     <div class="form-group">
-                        <label>{{ __('Brand') }} <span class="text-danger">*</span></label>
-                        <select name="brand_id" class="form-control" id="brand_id">
-                            <option value="" selected hidden>{{__('Select Brand')}}</option>
-                            @foreach ($brands as $brand)
-                                <option value="{{$brand->id}}" {{ old('brand_id') == $brand->id ? 'selected' : ''}}>{{ $brand->name }}</option>
+                        <label>{{ __('Company') }} <span class="text-danger">*</span></label>
+                        <select name="company_id" class="form-control" id="company_id">
+                            <option value="" selected hidden>{{__('Select Company')}}</option>
+                            @foreach ($companies as $company)
+                                <option value="{{$company->id}}" {{ old('company_id') == $company->id ? 'selected' : ''}}>{{ $company->name }}</option>
                             @endforeach
                         </select>
-                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'name']" />
+                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'company_id']" />
+                    </div>
+                    <div class="form-group">
+                        <label>{{ __('Brand') }} <span class="text-danger">*</span></label>
+                        <select name="brand_id" class="form-control" id="brand_id" disabled>
+                            <option value="" selected hidden>{{__('Select Brand')}}</option>
+                        </select>
+                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'brand_id']" />
                     </div>
                     <div class="form-group">
                         <label>{{ __('Name') }} <span class="text-danger">*</span></label>
@@ -74,6 +81,13 @@
 <script>
     $(document).ready(function() {
         file_upload(["#image"], "uploadImage", "admin", [], false);
+
+
+
+        $('#company_id').on('change', function() {
+            let route = "{{ route('axios.get-brands') }}";
+            getBrands($(this).val(), route);
+        });
     });
 </script>
 {{-- FilePond  --}}

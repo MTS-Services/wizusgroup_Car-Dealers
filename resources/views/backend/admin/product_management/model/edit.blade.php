@@ -17,15 +17,22 @@
                 <form action="{{ route('pm.model.update', encrypt($model->id)) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <div class="form-group">
-                        <label>{{ __('Brand') }} <span class="text-danger">*</span></label>
-                        <select name="brand_id" class="form-control" id="brand_id">
-                            <option value="" selected hidden>{{__('Select Brand')}}</option>
-                            @foreach ($brands as $brand)
-                                <option value="{{$brand->id}}" {{ $model->brand_id == $brand->id ? 'selected' : ''}}>{{ $brand->name }}</option>
+                     <div class="form-group">
+                        <label>{{ __('Company') }} <span class="text-danger">*</span></label>
+                        <select name="company_id" class="form-control" id="company_id">
+                            <option value="" selected hidden>{{__('Select Company')}}</option>
+                            @foreach ($companies as $company)
+                                <option value="{{$company->id}}" {{ $model->company_id == $company->id ? 'selected' : ''}}>{{ $company->name }}</option>
                             @endforeach
                         </select>
-                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'name']" />
+                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'company_id']" />
+                    </div>
+                    <div class="form-group">
+                        <label>{{ __('Brand') }} <span class="text-danger">*</span></label>
+                        <select name="brand_id" class="form-control" id="brand_id" disabled>
+                            <option value="" selected hidden>{{__('Select Brand')}}</option>
+                        </select>
+                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'brand_id']" />
                     </div>
                     <div class="form-group">
                         <label>{{ __('Name') }} <span class="text-danger">*</span></label>
@@ -75,6 +82,12 @@
                 "#image":"{{ $model->modified_image }}",
             };
             file_upload(["#image"], "uploadImage", "admin", existingFiles, false);
+
+            let route = "{{ route('axios.get-brands') }}";
+             $('#company_id').on('change', function() {
+                getBrands($(this).val(), route);
+            });
+            getBrands(`{{$model->company_id}}`, route, `{{$model->brand_id}}`);
         });
     </script>
 {{-- FilePond  --}}
