@@ -4,7 +4,7 @@
     <section class="py-15 ">
         <div class="container">
             <div class="flex shadow-card dark:shadow-darkCard rounded-xl overflow-hidden">
-                <div class="w-1/4 bg-bg-light dark:bg-opacity-30 hidden xl:block">
+                <div class="w-0 bg-bg-light dark:bg-opacity-30 xl:w-1/4 transition-all duration-300 ease-in-out">
                     <div class="bg-bg-tertiary bg-opacity-50">
                         <a href="#" class="nav_item  @if (isset($page_slug) && $page_slug == '') active @endif"
                             data-target="client-dashboard">
@@ -55,16 +55,26 @@
                 </div>
                 <div class="w-full xl:w-3/4">
                     <div class=" min-h-[200px] border-none ">
-                        <div id="client-dashboard" class="nav-pane hidden">
-                            {{-- Client Dashboard --}}
+                        {{-- Mobile Sidebar --}}
+                        @include('frontend.includes.user_dashboard_mobile')
+                        <div>
                             <div class="bg-bg-gray dark:bg-opacity-20">
-                                <div class="flex items-center gap-4 ps-10 py-10">
-                                    <span><i data-lucide="menu"
+                                <div class="flex items-center gap-4 ps-10 py-12">
+                                    <span class="openUsreDashboardSidebar"><i data-lucide="menu"
                                             class="xl:hidden w-6 h-6 md:w-8 md:h-8 bg-bg-primary text-text-white hover:bg-bg-tertiary transition-all duration-300 rounded-md p-1 "></i></span>
                                     <h2 class="text-2xl  lg:text-4xl uppercase font-bold{{-- bg-bg-light dark:bg-bg-dark-tertiary --}}">
                                         {{ __('Client Dashboard') }}</h2>
                                 </div>
-                                <div class="flex flex-wrap gap-10 items-center p-10">
+                            </div>
+                        </div>
+                        <div id="client-dashboard" class="nav-pane hidden">
+                            {{-- Client Dashboard --}}
+                            <div class="bg-bg-gray dark:bg-opacity-20">
+                                {{-- <div class="flex items-center gap-4 ps-10 py-10">
+                                    <h2 class="text-2xl  lg:text-4xl uppercase font-bold">
+                                        {{ __('Client Dashboard') }}</h2>
+                                </div> --}}
+                                <div class="flex flex-wrap gap-10 items-center p-10 pt-0">
                                     <div
                                         class="w-96 lg:max-w-md shadow-card p-5 lg:p-10 bg-bg-white dark:bg-opacity-30 rounded-lg">
                                         <div class="flex items-center gap-3">
@@ -124,30 +134,30 @@
                             </div>
                         </div>
                         <div id="my-orders" class="nav-pane hidden">
-                            <div class="bg-bg-gray dark:bg-opacity-20 p-10">
+                            <div class="bg-bg-gray dark:bg-opacity-20 p-10 pt-0">
                                 <h3 class="text-xl font-semibold">My Orders</h3>
                             </div>
                         </div>
                         <div id="my-containers" class="nav-pane hidden">
-                            <div class="bg-bg-gray dark:bg-opacity-20 p-10">
+                            <div class="bg-bg-gray dark:bg-opacity-20 p-10 pt-0">
                                 <h3 class="text-xl font-semibold">My Containers</h3>
                             </div>
                         </div>
                         <div id="payments" class="nav-pane hidden">
-                            <div class="bg-bg-gray dark:bg-opacity-20 p-10">
+                            <div class="bg-bg-gray dark:bg-opacity-20 p-10 pt-0">
                                 <h3 class="text-xl font-semibold">Payments</h3>
                             </div>
                         </div>
                         <div id="messages" class="nav-pane hidden">
-                            <div class="bg-bg-gray dark:bg-opacity-20 p-10">
+                            <div class="bg-bg-gray dark:bg-opacity-20 p-10 pt-0">
                                 <h3 class="text-xl font-semibold">Messages</h3>
                             </div>
                         </div>
                         <div id="update-profile" class="nav-pane @if (isset($page_slug) && $page_slug == 'dashboard') active @endif">
-                            <div class="bg-bg-gray dark:bg-opacity-20 p-10">
+                            <div class="bg-bg-gray dark:bg-opacity-20 p-10 pt-0">
                                 <div class="w-full">
                                     <div
-                                        class="flex justify-around items-center gap-5 py-5 text-center flex-wrap md:flex-nowrap">
+                                        class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 items-center gap-5 py-5 text-center">
                                         <p class="btn-item btn-primary w-full py-2 rounded-md"
                                             data-target="profile">Profile</p>
                                         <p class="btn-item btn-primary w-full py-2 rounded-md" data-target="shop-details">
@@ -479,7 +489,7 @@
         $(document).ready(function() {
             const $openSidebar = $('.openUsreDashboardSidebar');
             const $closeSidebar = $('.closeUsreDashboardSidebar');
-            const $sidebar = $('.usreDashboardSidebar'); // Select the sidebar element globally
+            const $sidebar = $('.userDashboardSidebar'); // Select the sidebar element globally
 
             // Sidebar open functionality
             $openSidebar.on('click', function() {
