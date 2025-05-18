@@ -20,7 +20,6 @@ class UserSeeder extends Seeder
             'email' => 'user@dev.com',
             'password' => 'user@dev.com',
             'email_verified_at' => now(),
-            'is_verify' => 1
         ]);
     }
 }

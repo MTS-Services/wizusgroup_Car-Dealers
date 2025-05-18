@@ -124,22 +124,22 @@
 
 @section('content')
     {{-- ===================== banner Section Start ===================== --}}
-    <section class="!max-h-[700px] relative overflow-hidden">
+    <section class="lg:max-h-screen max-h-[70vh] md:max-h-[80vh] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative overflow-hidden">
         <div class="absolute bg-transparent inset-0 z-10">
-            <div class="container flex items-center justify-center h-full">
-                <div class="text-center">
-                    <h1 class="text-6xl font-bold pb-3 text-text-white">
-                        {{ __('Affordable Machines,') }} <br> {{ __('Shipped Worldwide') }}
+            <div class="container flex items-center justify-center h-full px-4 xs:px-2">
+                <div class="text-center w-full">
+                    <h1 class="text-4xl xs:text-3xl sm:text-5xl md:text-5xl lg:text-6xl font-bold pb-3 text-text-white">
+                        {{ __('Affordable Machines,') }} <br class="hidden xs:block"> {{ __('Shipped Worldwide') }}
                     </h1>
-                    <p class="my-4 text-xl text-text-white">{{ __('Discover amazing content and features.') }}</p>
-                    <div class="relative w-[700px] mx-auto">
+                    <p class="my-4 text-base xs:text-sm sm:text-lg md:text-xl text-text-white px-4 xs:px-0">
+                        {{ __('Discover amazing content and features.') }}
+                    </p>
+                    <div class="relative  2xl:max-w-[700px] xl:max-w-[600px] lg:max-w-[500px] max-w-96 mx-auto px-4 xs:px-2">
                         <input type="search" id="machine-search"
-                            class="block w-full p-4 pl-10 pr-16 text-sm border-none rounded-lg bg-bg-light-secondary focus:ring-blue-500 focus:border-blue-600"
-                            placeholder="{{ __('Find your machine...') }}" required>
-
+                            class="block w-full xl:py-4 md:py-3 py-2 px-1 xs:px-2 pl-4 pr-16 text-sm xs:text-xs border-none rounded-lg bg-bg-light-secondary focus:ring-blue-500 focus:border-blue-600"
+                            placeholder="{{ __('Find your machine...') }}">
                         <button type="submit"
-                            class="text-text-white absolute right-0 top-0 bottom-0 bg-bg-primary hover:bg-bg-primary/90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-l-none rounded-r-lg text-sm px-4">
-
+                            class="text-text-white absolute right-0 top-0 bottom-0 bg-bg-primary hover:bg-bg-primary/90 font-medium rounded-l-none rounded-r-lg text-sm px-4">
                             <svg class="w-5 h-5 text-text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -147,21 +147,19 @@
                             </svg>
                         </button>
                     </div>
-
                 </div>
             </div>
         </div>
-        <div class="swiper banner">
-            <div class="swiper-wrapper">
+        <div class="swiper banner h-full">
+            <div class="swiper-wrapper h-full">
                 @foreach ($banners as $banner)
-                    <div class="swiper-slide">
-                        <img class="w-full object-cover bg-center h-full" src="{{ $banner['image'] }}" alt="image">
+                    <div class="swiper-slide h-full">
+                        <img class="w-full h-full object-cover bg-center" src="{{ $banner['image'] }}" alt="image">
                     </div>
                 @endforeach
             </div>
         </div>
     </section>
-
     {{-- ===================== banner Section End ===================== --}}
     {{-- ===================== Category Section Start ===================== --}}
     @php
@@ -202,12 +200,7 @@
         ];
     @endphp
 
-    {{-- @foreach ($categories as $data)
-
-    @endforeach --}}
-
-
-    <section class="py-24">
+    <section class="2xl:py-20 xl:py-16 lg:py-12 md:py-10 py-8">
         <div class="container">
             <div class="header text-center mb-10">
                 <h2 class="text-3xl font-bold uppercase">{{ __('Categories') }}</h2>
@@ -223,15 +216,15 @@
                     </div>
                     <div class="swiper-pagination"></div>
                     <!-- Navigation buttons -->
-                    <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
+                    <div class="swiper-button swiper-button-prev hidden xl:block 3xl:-left-13 2xl:-left-9">
                         <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
                     </div>
-                    <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9 ">
+                    <div class="swiper-button swiper-button-next hidden xl:block 3xl:-right-13 2xl:-right-9 ">
                         <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
                     </div>
                 </div>
             </div>
-            <div class="text-center mx-auto mt-18 ">
+            <div class="text-center mx-auto xl:mt-10 lg:mt-8 md:mt-6 mt-4">
                 <button>
                     <a href="#" class="btn-primary ">
                         {{ __('Shop Now') }}
@@ -331,7 +324,7 @@
     @endphp
 
     {{-- ===================== Testimonial Section Start ===================== --}}
-    <section class="py-20  relative">
+    <section class=" 2xl:py-20 xl:py-16 lg:py-12 md:py-10 py-8  relative">
         <div class="container mx-auto px-4">
             <div class="header text-center mb-10">
                 <h2 class="text-3xl font-bold uppercase">{{ __('Testimonials') }}</h2>
@@ -380,7 +373,7 @@
                     </div>
 
                     <!-- Pagination -->
-                    <div class="swiper-pagination mt-6"></div>
+                    <div class="swiper-pagination mt-6 !-bottom-10"></div>
 
                     <!-- Navigation Buttons -->
                     <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
@@ -389,13 +382,14 @@
                     <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9 ">
                         <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
                     </div>
+                    <div class=" right-10 bottom-10 z-10 fixed shadow-lg w-16 h-16 flex items-center justify-center bg-gradient-primary rounded-full">
+                        <a href="#">
+                            <i class="fa-brands fa-whatsapp text-5xl text-text-light"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="absolute right-5 bottom-5 z-10 ">
-            <a href="#">
-                <i class="fa-brands fa-whatsapp text-5xl text-green-600"></i>
-            </a>
     </section>
 
     {{-- ===================== Testimonial Section End ===================== --}}
@@ -465,7 +459,11 @@
                     hideControlsIfNotEnoughSlides(categorySwiperEl, this, () => this.params.slidesPerView);
                 }
             }
+
         });
+
+
+        // Testimonial SWIPER
         const testimonialSwiperEl = document.querySelector('.testimonials');
         new Swiper(testimonialSwiperEl, {
             loop: true,
@@ -482,6 +480,20 @@
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                0: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                1200: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                },
             },
         });
     </script>

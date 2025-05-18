@@ -20,4 +20,8 @@ Route::group(['as' => 'frontend.'], function () {
   Route::get('/product_details', [FrontendController::class, 'product_details'])->name('product_details');
 // group Shipping page
 Route::get('/group_shipping', [FrontendController::class, 'group_shipping'])->name('group_shipping');
+// droopshipping
+Route::get('/dropshipping', [FrontendController::class, 'dropshipping'])->name('dropshipping');
+// Regions
+Route::get('/regions', [FrontendController::class, 'regions'])->name('regions');
 });

@@ -20,9 +20,10 @@ class ConfirmPasswordController extends Controller
 
     use ConfirmsPasswords;
 
+
     public function showConfirmForm()
     {
-        return view('frontend.auth.user.confirm-password');
+        return view('frontend.auth.admin.confirm-password');
     }
 
     /**
@@ -32,7 +33,7 @@ class ConfirmPasswordController extends Controller
      */
     protected function redirectTo()
     {
-        return route('user.profile');
+        return route('admin.dashboard');
     }
     /**
      * Create a new controller instance.
@@ -41,6 +42,6 @@ class ConfirmPasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:web');
+        $this->middleware('auth:admin');
     }
 }

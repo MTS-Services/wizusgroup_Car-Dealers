@@ -21,14 +21,9 @@ class Category extends BaseModel
         'meta_title',
         'meta_description',
 
-        'creater_id',
-        'updater_id',
-        'deleter_id',
-
-        'creater_type',
-        'updater_type',
-        'deleter_type',
-
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
     public function __construct(array $attributes = [])
     {
@@ -300,7 +295,7 @@ class Category extends BaseModel
     }
 
     // Check if this is a sub-sub category
-    public function subSubCategory()
+    public function subChildCategory()
     {
         return $this->parent_id !== null && $this->parent->parent_id !== null;
     }

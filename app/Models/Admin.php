@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Notifications\AdminPasswordResetNotification;
+use App\Notifications\AdminVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class Admin extends AuthBaseModel implements Auditable
+class Admin extends AuthBaseModel implements Auditable, MustVerifyEmail
 {
     use HasFactory, HasRoles, \OwenIt\Auditing\Auditable, Notifiable;
     protected $guard_name = 'admin';
@@ -17,6 +19,11 @@ class Admin extends AuthBaseModel implements Auditable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new AdminPasswordResetNotification($token));
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new AdminVerifyEmail);
     }
 
     /**
@@ -33,7 +40,7 @@ class Admin extends AuthBaseModel implements Auditable
         'image',
         'role_id',
         'status',
-        'is_verify',
+        'email_verified_at',
         'password',
         'created_by',
         'updated_by',
@@ -64,7 +71,6 @@ class Admin extends AuthBaseModel implements Auditable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'status' => 'integer',
-            'is_verify' => 'integer',
             'username' => 'string',
         ];
     }
