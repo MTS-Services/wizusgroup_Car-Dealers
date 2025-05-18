@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ConfirmsPasswords;
+use Illuminate\Support\Facades\Auth;
 
 class ConfirmPasswordController extends Controller
 {
@@ -23,6 +24,16 @@ class ConfirmPasswordController extends Controller
     public function showConfirmForm()
     {
         return view('frontend.auth.user.confirm-password');
+    }
+
+     /**
+     * Get the guard to be used during confirmation.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard('admin');
     }
 
     /**
