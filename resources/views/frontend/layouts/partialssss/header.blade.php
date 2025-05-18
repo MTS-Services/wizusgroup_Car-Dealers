@@ -1,4 +1,4 @@
-<header class="bg-bg-white dark:bg-bg-darkTertiary">
+<header class="bg-bg-white dark:bg-bg-dark-tertiary">
     <div class="container">
         <div class="navbar">
             <div class="navbar-start hidden lg:flex">

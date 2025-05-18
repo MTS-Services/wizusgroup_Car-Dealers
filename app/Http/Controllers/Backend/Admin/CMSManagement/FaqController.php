@@ -8,6 +8,7 @@ use App\Models\Faq;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use Yajra\DataTables\Facades\DataTables;
+use App\Services\Admin\CMSManagement\FaqService;
 use App\Http\Traits\FileManagementTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -16,8 +17,11 @@ use Illuminate\Support\Facades\DB;
 
 class FaqController extends Controller
 {
-    public function __construct()
+    private  $faqService;
+
+    public function __construct(FaqService $faqService)
     {
+        $this->faqService = $faqService;
         $this->middleware('auth:admin');
         $this->middleware('permission:faq-list', ['only' => ['index']]);
         $this->middleware('permission:faq-details', ['only' => ['show']]);
@@ -35,6 +39,7 @@ class FaqController extends Controller
      */
     public function index(Request $request)
     {
+
 
         if ($request->ajax()) {
 
@@ -171,11 +176,15 @@ class FaqController extends Controller
     public function store(FaqRequest $request): RedirectResponse
     {
 
-        $validated = $request->validated();
-        $validated['creater_id'] = admin()->id;
-        $validated['creater_type'] = get_class(admin());
-        Faq::create($validated);
-        session()->flash('success', 'FAQ created successfully!');
+        try {
+            $validated = $request->validated();
+            $this->faqService->createFaq($validated, $request->image ?? null);
+            session()->flash('success', 'Faq created successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Faq create failed!');
+            throw $e;
+        }
+
         return redirect()->route('cms.faq.index');
     }
 
@@ -184,8 +193,9 @@ class FaqController extends Controller
      */
     public function show(string $id)
     {
-        $data = Faq::with(['creater','updater'])->findOrFail(decrypt($id));
-        return response()->json($data);
+        $faq = $this->faqService->getFaq($id);
+        $faq->load(['creater_admin', 'updater_admin']);
+        return response()->json($faq);
     }
 
     /**
@@ -202,12 +212,14 @@ class FaqController extends Controller
      */
     public function update(FaqRequest $request, string $id)
     {
-        $validated = $request->validated();
-        $validated['updater_id'] = admin()->id;
-        $validated['updater_type'] = get_class(admin());
-        $faq = Faq::findOrFail(decrypt($id));
-        $faq->update($validated);
-        session()->flash('success', 'Faq updated successfully!');
+        try {
+            $validated = $request->validated();
+            $this->faqService->updateFaq($id, $validated, $request->image ?? null);
+            session()->flash('success', 'Faq updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Faq update failed!');
+            throw $e;
+        }
         return redirect()->route('cms.faq.index');
     }
 
@@ -216,32 +228,48 @@ class FaqController extends Controller
      */
     public function destroy(string $id)
     {
-        $faq = Faq::findOrFail(decrypt($id));
-        $faq->update(['deleter_id' => admin()->id, 'deleter_type' => get_class(admin())]);
-        $faq->delete();
-        session()->flash('success', 'FAQ deleted successfully!');
+        try {
+            $this->faqService->deleteFaq($id);
+            session()->flash('success', 'Faq deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Faq delete failed!');
+            throw $e;
+        }
         return redirect()->route('cms.faq.index');
     }
 
-    public function restore(string $id)
+    public function restore(string $id): RedirectResponse
     {
-        $faq = Faq::withTrashed()->findOrFail(decrypt($id));
-        $faq->restore(['updater_id'=> admin()->id,'updater_type'=> get_class(admin())]);
-        session()->flash('success', 'FAQ restored successfully!');
+        try {
+            $this->faqService->restoreFaq($id);
+            session()->flash('success', 'Faq restored successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', value: 'Faq restore failed!');
+            throw $e;
+        }
         return redirect()->route('cms.faq.recycle-bin');
     }
-    public function permanentDelete(string $id)
+    public function permanentDelete(string $id): RedirectResponse
     {
-        $faq = Faq::withTrashed()->findOrFail(decrypt($id));
-        $faq->forceDelete();
-        session()->flash('success', 'FAQ permanently deleted successfully!');
+        try {
+            $this->faqService->permanentDeleteFaq($id);
+            session()->flash('success', 'Faq permanently deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Faq permanent delete failed!');
+            throw $e;
+        }
         return redirect()->route('cms.faq.recycle-bin');
     }
-    public function status(string $id)
+
+    public function status(string $id): RedirectResponse
     {
-        $faq = Faq::findOrFail(decrypt($id));
-        $faq->update(['status' => !$faq->status,'updater_id'=> admin()->id,'updater_type'=> get_class(admin())]);
-        session()->flash('success', 'FAQ status updated successfully!');
+        try {
+            $this->faqService->toggleStatus($id);
+            session()->flash('success', 'Faq status updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Faq status update failed!');
+            throw $e;
+        }
         return redirect()->route('cms.faq.index');
     }
 }
