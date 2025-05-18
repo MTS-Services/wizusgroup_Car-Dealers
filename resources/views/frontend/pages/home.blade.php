@@ -166,28 +166,37 @@
         $categories = [
             [
                 'image' => asset('frontend/images/tractar.jpg'),
+                'name' => 'Machine description goes here.',
             ],
             [
                 'image' => asset('frontend/images/tractar.jpg'),
+                'name' => 'Machine description goes here',
             ],
             [
                 'image' => asset('frontend/images/tractar.jpg'),
+                'name' => 'Machine description goes here',
             ],
             [
                 'image' => asset('frontend/images/tractar.jpg'),
+                'name' => 'Machine description goes here',
             ],
             [
                 'image' => asset('frontend/images/tractar.jpg'),
+                'name' => 'Machine description goes here',
             ],
             [
                 'image' => asset('frontend/images/tractar.jpg'),
+                'name' => 'Machine description goes here',
             ],
             [
                 'image' => asset('frontend/images/tractar.jpg'),
+                'name' => 'Machine description goes here',
             ],
             [
                 'image' => asset('frontend/images/tractar.jpg'),
+                'name' => 'Machine description goes here',
             ],
+
         ];
     @endphp
 
@@ -201,11 +210,7 @@
                     <div class="swiper-wrapper">
                         @foreach ($categories as $category)
                             <div class="swiper-slide py-8">
-                                <div class="text-center">
-                                    <img class="w-auto rounded-xl object-cover mx-auto" src="{{ $category['image'] }}"
-                                        alt="{{ __('image') }}">
-                                    <p class="py-2">{{ __('Machine description goes here.') }}</p>
-                                </div>
+                                <x-frontend.categories :categories="$category" />
                             </div>
                         @endforeach
                     </div>
