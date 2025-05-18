@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Backend\Admin\ProductManagement\CompanyController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\ModelController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
@@ -68,6 +69,12 @@ Route::controller(AxiosRequestController::class)->name('axios.')->group(function
     Route::get('get-sub-areas', 'getSubAreas')->name('get-sub-areas');
 
     Route::get('get-sub-categories', 'getSubCategories')->name('get-sub-categories');
+
+
+    Route::post('get-brands', 'getBrands')->name('get-brands');
+    Route::post('get-models', 'getModels')->name('get-models');
+
+
 });
 
 Route::group(['middleware' => ['auth:admin','verified'], 'prefix' => 'admin'], function () {
@@ -245,6 +252,15 @@ Route::group(['middleware' => ['auth:admin','verified'], 'prefix' => 'admin'], f
         Route::get('sub-child-category/recycle/bin', [SubChildCategoryController::class, 'recycleBin'])->name('sub-child-category.recycle-bin');
         Route::get('sub-child-category/restore/{sub_child_category}', [SubChildCategoryController::class, 'restore'])->name('sub-child-category.restore');
         Route::delete('sub-child-category/permanent-delete/{sub_child_category}', [SubChildCategoryController::class, 'permanentDelete'])->name('sub-child-category.permanent-delete');
+
+        // Company Routes
+        Route::resource('company', CompanyController::class);
+        Route::get('company/status/{company}', [CompanyController::class, 'status'])->name('company.status');
+        Route::get('company/feature/{company}', [CompanyController::class, 'feature'])->name('company.feature');
+
+        Route::get('company/recycle/bin', [CompanyController::class, 'recycleBin'])->name('company.recycle-bin');
+        Route::get('company/restore/{company}', [CompanyController::class, 'restore'])->name('company.restore');
+        Route::delete('company/permanent-delete/{company}', [CompanyController::class, 'permanentDelete'])->name('company.permanent-delete');
 
         // Brand Routes
         Route::resource('brand', BrandController::class);

@@ -1,30 +1,20 @@
-@extends('backend.admin.layouts.master', ['page_slug' => 'brand'])
-@section('title', 'Create Brand')
+@extends('backend.admin.layouts.master', ['page_slug' => 'company'])
+@section('title', 'Create Company')
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h4 class="cart-title">{{ __('Create Brand') }}</h4>
+                <h4 class="cart-title">{{ __('Create Company') }}</h4>
                 <x-backend.admin.button :datas="[
-                        'routeName' => 'pm.brand.index',
+                        'routeName' => 'pm.company.index',
                         'label' => 'Back',
-                        'permissions' => ['brand-list'],
+                        'permissions' => ['company-list'],
                     ]" />
             </div>
             <div class="card-body">
-                <form action="{{ route('pm.brand.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('pm.company.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="form-group">
-                        <label>{{ __('Company') }} <span class="text-danger">*</span></label>
-                        <select name="company_id" class="form-control" id="company_id">
-                            <option value="" selected hidden>{{__('--Select Company--')}}</option>
-                            @foreach ($companies as $company)
-                                <option value="{{$company->id}}" {{ old('company_id') == $company->id ? 'selected' : ''}}>{{ $company->name }}</option>
-                            @endforeach
-                        </select>
-                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'company_id']" />
-                    </div>
                     <div class="form-group">
                         <label>{{ __('Name') }} <span class="text-danger">*</span></label>
                         <input type="text" value="{{ old('name') }}" id="title" name="name" class="form-control"
