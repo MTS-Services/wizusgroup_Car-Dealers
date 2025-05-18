@@ -2,29 +2,39 @@
     <div class="container">
         <div class="navbar">
             <div class="navbar-start">
-                <a href="" class=""><img src="{{ asset('frontend/images/logo.png') }}" alt="Logo" class="w-28"></a>
+                <a href="" class=""><img src="{{ asset('frontend/images/logo.png') }}" alt="Logo"
+                        class="w-28"></a>
             </div>
             <div class="navbar-center hidden lg:flex">
                 <div class="flex items-center justify-center gap-2">
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear
-                    @if (isset($page_slug) && ($page_slug == 'home')) text-text-secondary @endif
-                    " href="{{ url('/') }}">{{ __('Home') }}</a>
+                    @if (isset($page_slug) && $page_slug == 'home') text-text-secondary @endif
+                    "
+                        href="{{ url('/') }}">{{ __('Home') }}</a>
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear
-                     @if (isset($page_slug) && ($page_slug == 'about')) text-text-secondary @endif
-                    " href="">{{ __('About Us') }}</a>
+                     @if (isset($page_slug) && $page_slug == 'about') text-text-secondary @endif
+                    "
+                        href="{{ route('frontend.about') }}">{{ __('About Us') }}</a>
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
-                     @if (isset($page_slug) && ($page_slug == 'products')) text-text-secondary @endif
-                    " href="{{ route('frontend.product') }}">{{ __('Products') }}</a>
+                     @if (isset($page_slug) && $page_slug == 'products') text-text-secondary @endif
+                    "
+                        href="{{ route('frontend.product') }}">{{ __('Products') }}</a>
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
-                     @if (isset($page_slug) && ($page_slug == 'auctions')) text-text-secondary @endif
-                    " href="{{ route('frontend.auction') }}">{{ __('Auctions') }}</a>
+                     @if (isset($page_slug) && $page_slug == 'auctions') text-text-secondary @endif
+                    "
+                        href="{{ route('frontend.auction') }}">{{ __('Auctions') }}</a>
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
-                    @if (isset($page_slug) && ($page_slug == 'contact')) text-text-secondary @endif
-                    " href="{{ route('frontend.contact') }}">{{ __('Contact') }}</a>
-                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear  @if (isset($page_slug) && ($page_slug == 'dropshipping')) text-text-secondary @endif"
+                     @if (isset($page_slug) && $page_slug == 'auctions') text-text-secondary @endif
+                    "
+                        href="{{ route('frontend.parts-accessories') }}">{{ __('Parts') }}</a>
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear  @if (isset($page_slug) && $page_slug == 'dropshipping') text-text-secondary @endif"
                         href="{{ route('frontend.dropshipping') }}">{{ __('Dropshipping') }}</a>
-                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear  @if (isset($page_slug) && ($page_slug == 'regions')) text-text-secondary @endif"
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear  @if (isset($page_slug) && $page_slug == 'regions') text-text-secondary @endif"
                         href="{{ route('frontend.regions') }}">{{ __('Regions') }}</a>
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
+                    @if (isset($page_slug) && $page_slug == 'contact') text-text-secondary @endif
+                    "
+                        href="{{ route('frontend.contact') }}">{{ __('Contact') }}</a>
                 </div>
             </div>
             <div class="navbar-end flex items-center justify-end gap-3">
