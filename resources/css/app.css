@@ -4,6 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
+input[type="range"]::-moz-range-thumb {
+    @apply w-5 h-5 mt-1 rounded-full bg-bg-white border-2 border-border-primary cursor-pointer pointer-events-auto;
+}
+input[type="range"]::-webkit-slider-thumb {
+    @apply w-5 h-5 mt-1 rounded-full bg-bg-white !border-2 border-solid !border-border-primary cursor-pointer pointer-events-auto appearance-none;
+}
+
 @layer base {
     body {
         @apply font-poppins bg-bg-white text-text-primary dark:bg-bg-dark dark:text-text-white;
@@ -79,7 +86,6 @@
     *::-webkit-scrollbar-corner {
         background: transparent;
     }
-
 }
 
 /* Custom Cursor  */
@@ -157,16 +163,6 @@
     @apply relative !mx-3;
     @apply after:content-[''] after:absolute after:w-[250%] after:h-[250%] after:bg-transparent after:border-2 after:border-t-transparent after:border-bg-primary after:rounded-full after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:z-[1] after:animate-dotRotate;
 }
-
-/* Loading Spinner */
-/* .loading-spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid rgba(59, 130, 246, 0.3);
-    border-radius: 50%;
-    border-top-color: #3B82F6;
-    animation: spin 1s linear infinite;
-} */
- .loading-spinner{
+.loading-spinner {
     @apply w-10 h-10 border-2 border-solid border-primary rounded-full animate-spin;
- }
+}
