@@ -17,6 +17,10 @@
                         href="{{ route('frontend.auction') }}">{{ __('Auctions') }}</a>
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
                         href="{{ route('frontend.contact') }}">{{ __('Contact') }}</a>
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+                        href="{{ route('frontend.dropshipping') }}">{{ __('Dropshipping') }}</a>
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear"
+                        href="{{ route('frontend.regions') }}">{{ __('Regions') }}</a>
                 </div>
             </div>
             <div class="navbar-end flex items-center justify-end gap-3">
