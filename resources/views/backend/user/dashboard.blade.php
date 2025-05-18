@@ -6,7 +6,7 @@
             <div class="flex shadow-card dark:shadow-darkCard rounded-xl overflow-hidden">
                 <div class="w-1/4 bg-bg-light dark:bg-opacity-30 hidden xl:block">
                     <div class="bg-bg-tertiary bg-opacity-50">
-                        <a href="#" class="nav_item active" data-target="client-dashboard">
+                        <a href="#" class="nav_item  @if (isset($page_slug) && ($page_slug == '')) active @endif" data-target="client-dashboard">
                             <img src="{{ asset('frontend/images/logo.png') }}" alt="{{ __('Logo') }}"
                                 class="w-48 p-3 mx-auto ">
                         </a>
@@ -41,9 +41,9 @@
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('Messages') }}</span>
                                 </a>
                             </li>
-                            <li class="group nav_item dark:hover:bg-bg-tertiary transition-all duration-300"
+                            <li class="group nav_item dark:hover:bg-bg-tertiary transition-all duration-300 active"
                                 data-target="update-profile">
-                                <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="user"
+                                <a href="{{ route('user.profile') }}" class="flex items-center gap-2 p-3"><i data-lucide="user"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('Update Profile') }}</span>
                                 </a>
@@ -53,13 +53,14 @@
                 </div>
                 <div class="w-full xl:w-3/4">
                     <div class=" min-h-[200px] border-none ">
-                        <div id="client-dashboard" class="nav-pane block">
+                        <div id="client-dashboard" class="nav-pane hidden">
                             {{-- Client Dashboard --}}
                             <div class="bg-bg-gray dark:bg-opacity-20">
                                 <div class="flex items-center gap-4 ps-10 py-10">
-                                    <span><i data-lucide="menu" class="xl:hidden w-6 h-6 md:w-8 md:h-8 bg-bg-primary text-text-white hover:bg-bg-tertiary transition-all duration-300 rounded-md p-1 "></i></span>
+                                    <span><i data-lucide="menu"
+                                            class="xl:hidden w-6 h-6 md:w-8 md:h-8 bg-bg-primary text-text-white hover:bg-bg-tertiary transition-all duration-300 rounded-md p-1 "></i></span>
                                     <h2 class="text-2xl  lg:text-4xl uppercase font-bold{{-- bg-bg-light dark:bg-bg-dark-tertiary --}}">
-                                    {{ __('Client Dashboard') }}</h2>
+                                        {{ __('Client Dashboard') }}</h2>
                                 </div>
                                 <div class="flex flex-wrap gap-10 items-center p-10">
                                     <div
@@ -70,8 +71,7 @@
                                             <span
                                                 class="text-2xl font-semibold uppercase text-text-primary dark:text-text-white">{{ __('My Orders') }}</span>
                                         </div>
-                                        <h3
-                                            class="text-4xl font-semibold text-text-primary dark:text-text-white mt-3 ms-2">
+                                        <h3 class="text-4xl font-semibold text-text-primary dark:text-text-white mt-3 ms-2">
                                             {{ __('3') }}
                                         </h3>
                                     </div>
@@ -83,8 +83,7 @@
                                             <span
                                                 class="text-2xl font-semibold uppercase text-text-primary dark:text-text-white">{{ __('My Containers') }}</span>
                                         </div>
-                                        <h3
-                                            class="text-4xl font-semibold text-text-primary dark:text-text-white mt-3 ms-2">
+                                        <h3 class="text-4xl font-semibold text-text-primary dark:text-text-white mt-3 ms-2">
                                             {{ __('1') }}
                                         </h3>
                                     </div>
@@ -96,8 +95,7 @@
                                             <span
                                                 class="text-2xl font-semibold uppercase text-text-primary dark:text-text-white">{{ __('Payments') }}</span>
                                         </div>
-                                        <h3
-                                            class="text-4xl font-semibold text-text-primary dark:text-text-white mt-3 ms-2">
+                                        <h3 class="text-4xl font-semibold text-text-primary dark:text-text-white mt-3 ms-2">
                                             {{ __('$8,200') }}
                                         </h3>
                                     </div>
@@ -109,8 +107,7 @@
                                             <span
                                                 class="text-2xl font-semibold uppercase text-text-primary dark:text-text-white">{{ __('Messages') }}</span>
                                         </div>
-                                        <h3
-                                            class="text-4xl font-semibold text-text-primary dark:text-text-white mt-3 ms-2">
+                                        <h3 class="text-4xl font-semibold text-text-primary dark:text-text-white mt-3 ms-2">
                                             {{ __('2') }}
                                         </h3>
                                     </div>
@@ -144,7 +141,7 @@
                                 <h3 class="text-xl font-semibold">Messages</h3>
                             </div>
                         </div>
-                        <div id="update-profile" class="nav-pane hidden">
+                        <div id="update-profile" class="nav-pane @if (isset($page_slug) && ($page_slug == 'dashboard')) active @endif">
                             <div class="bg-bg-gray dark:bg-opacity-20 p-10">
                                 <div class="w-full">
                                     <div
@@ -166,48 +163,143 @@
                                             {{-- Update Profile --}}
                                             {{-- <h3 class="text-xl font-semibold mb-4 uppercase">Update Profile</h3> --}}
                                             <div>
-                                                <form action="" method="post">
+                                                <form action="{{ route('user.profile.update'), encrypt($user->id) }}" method="post">
                                                     @csrf
                                                     @method('PUT')
-                                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                         <div>
-                                                            <label for="first_name"
-                                                                class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('First Name') }}</label>
-                                                            <input class="input rounded-md w-full" type="text"
-                                                                name="first_name" value="{{ Auth::guard('web')->user()->first_name }}" id="first_name">
+                                                            <label class="block pb-2">{{ __('First Name') }} <span
+                                                                    class="text-text-danger">*</span></label>
+                                                            <input type="text" name="first_name"
+                                                                value="{{ $user?->first_name }}"
+                                                                class="input "
+                                                                placeholder="Enter your first name">
+                                                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'first_name']" />
                                                         </div>
+
                                                         <div>
-                                                            <label for="last_name"
-                                                                class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Last Name') }}</label>
-                                                            <input class="input rounded-md w-full" type="text"
-                                                                name="last_name" value="{{ Auth::guard('web')->user()->last_name }}" id="last_name">
+                                                            <label class="block pb-2">{{ __('Last Name') }} <span
+                                                                    class="text-text-danger">*</span></label>
+                                                            <input type="text" name="last_name"
+                                                                value="{{ $user?->last_name }}"
+                                                                class="input "
+                                                                placeholder="Enter your last name">
+                                                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'last_name']" />
                                                         </div>
+
                                                         <div>
-                                                            <label for="username"
-                                                                class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Username') }}</label>
-                                                            <input class="input rounded-md w-full" type="text"
-                                                                name="username" value="{{ Auth::guard('web')->user()->username }}" id="username">
+                                                            <label class="block pb-2">{{ __('Username') }} <span
+                                                                    class="text-text-danger">*</span></label>
+                                                            <input type="text" name="username"
+                                                                value="{{ $user?->username }}"
+                                                                class="input"
+                                                                placeholder="Enter your username">
+                                                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'username']" />
                                                         </div>
+
                                                         <div>
-                                                            <label for="email"
-                                                                class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Email') }}</label>
-                                                            <input class="input rounded-md w-full" type="email"
-                                                                name="email" value="{{ Auth::guard('web')->user()->email }}" id="email">
+                                                            <label class="block pb-2">{{ __('Email') }} <span
+                                                                    class="text-text-danger">*</span></label>
+                                                            <input type="email" name="email"
+                                                                value="{{ $user?->email }}"
+                                                                class="input"
+                                                                placeholder="Enter your email">
+                                                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'email']" />
                                                         </div>
-                                                        {{-- image --}}
+
                                                         <div>
-                                                            <label for="image"
-                                                                class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Image') }}</label>
-                                                            <input class="input rounded-md w-full p-2" type="file"
-                                                                name="image" value="{{ Auth::guard('web')->user()->image }}" id="image">
+                                                            <label class="block pb-2">{{ __('Image') }}</label>
+                                                            <input type="file" name="uploadImage"
+                                                                data-actualName="image"
+                                                                class="input h-12 p-2pt-3 w-full filepond"
+                                                                id="image" accept="image/*">
+                                                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'image']" />
                                                         </div>
+
                                                         <div>
-                                                            <label for="phone"
-                                                                class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Phone') }}</label>
-                                                            <input class="input rounded-md w-full" type="text"
-                                                                name="phone" value="{{ Auth::guard('web')->user()->phone }}" id="phone">
+                                                            <label class="block pb-2">{{ __('Phone') }}</label>
+                                                            <input type="text" name="phone"
+                                                                value="{{ $user?->phone }}"
+                                                                class="input"
+                                                                placeholder="Enter your phone">
+                                                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'phone']" />
+                                                        </div>
+                                                        
+                                                        <div>
+                                                            <label
+                                                                class="block pb-2">{{ __('Date of Birth') }}</label>
+                                                            <input type="date" name="dob"
+                                                                value="{{ $user?->dob }}"
+                                                                class="input">
+                                                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'dob']" />
+                                                        </div>
+
+                                                        <div>
+                                                            <label class="block pb-2">{{ __('Gender') }}</label>
+                                                            <select name="gender"
+                                                                class="input">
+                                                                @foreach (App\Models\PersonalInformation::getGenderLabels() as $key => $gender)
+                                                                dd($key);
+                                                                    <option value="{{ $key }}"
+                                                                        {{ $user?->personalInformation?->gender == $key ? 'selected' : '' }}>
+                                                                        {{ $gender }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'gender']" />
+                                                        </div>
+
+                                                        <div>
+                                                            <label
+                                                                class="block pb-2">{{ __('Fathers Name') }}</label>
+                                                            <input type="text" name="father_name"
+                                                                value="{{ $user?->personalInformation?->father_name }}"
+                                                                class="input"
+                                                                placeholder="Enter your father's name">
+                                                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'father_name']" />
+                                                        </div>
+
+                                                        <div>
+                                                            <label
+                                                                class="block pb-2">{{ __('Mothers Name') }}</label>
+                                                            <input type="text" name="mother_name"
+                                                                value="{{ $user?->personalInformation?->mother_name }}"
+                                                                class="input"
+                                                                placeholder="Enter your mother's name">
+                                                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'mother_name']" />
+                                                        </div>
+
+                                                        <div>
+                                                            <label
+                                                                class="block pb-2">{{ __('Emergency Phone') }}</label>
+                                                            <input type="text" name="emergency_phone"
+                                                                value="{{ $user?->personalInformation?->emergency_phone }}"
+                                                                class="input"
+                                                                placeholder="Enter your emergency phone">
+                                                            <x-frontend.input-error :datas="[
+                                                                'errors' => $errors,
+                                                                'field' => 'emergency_phone',
+                                                            ]" />
+                                                        </div>
+
+                                                        <div>
+                                                            <label
+                                                                class="block pb-2">{{ __('Nationality') }}</label>
+                                                            <input type="text" name="nationality"
+                                                                value="{{ $user?->personalInformation?->nationality }}"
+                                                                class="input"
+                                                                placeholder="Enter nationality">
+                                                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'nationality']" />
+                                                        </div>
+
+                                                        <div class="col-span-1 md:col-span-2">
+                                                            <label class="block pb-2">{{ __('Bio') }}</label>
+                                                            <textarea name="bio" class="input h-20 p-3" rows="5"
+                                                                placeholder="Enter your bio">{{ $user?->personalInformation?->bio }}</textarea>
+                                                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'bio']" />
                                                         </div>
                                                     </div>
+
                                                     <button type="submit" class="btn btn-primary mt-5">Update</button>
                                                 </form>
                                             </div>
@@ -229,14 +321,14 @@
                                                         <div>
                                                             <label for="current_password"
                                                                 class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Current
-                                                                                                                                                                                            Password') }}</label>
+                                                                                                                                                                                                                                                            Password') }}</label>
                                                             <input class="input rounded-md w-full" type="password"
                                                                 name="current_password" id="current_password">
                                                         </div>
                                                         <div>
                                                             <label for="password"
                                                                 class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('New
-                                                                                                                                                                                            Password') }}</label>
+                                                                                                                                                                                                                                                            Password') }}</label>
                                                             <input class="input rounded-md w-full" type="password"
                                                                 name="password" id="new_password">
                                                         </div>
@@ -292,7 +384,7 @@
         });
     </script>
     <script>
-         $(document).ready(function() {
+        $(document).ready(function() {
             const $openSidebar = $('.openUsreDashboardSidebar');
             const $closeSidebar = $('.closeUsreDashboardSidebar');
             const $sidebar = $('.usreDashboardSidebar'); // Select the sidebar element globally
