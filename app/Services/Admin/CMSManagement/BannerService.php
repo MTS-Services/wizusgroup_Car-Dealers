@@ -30,61 +30,61 @@ class BannerService
     {
         $data['created_by'] = admin()->id;
         if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload(Banner::class, $file, admin(), 'Banners/');
+            $data['image'] = $this->handleFilepondFileUpload(Banner::class, $file, admin(), 'banners/');
         }
-        $Banner = Banner::create($data);
-        return $Banner;
+        $banner = Banner::create($data);
+        return $banner;
     }
 
     public function updateBanner(string $encryptedId, array $data, $file = null): Banner
     {
-        $Banner = $this->getBanner($encryptedId);
+        $banner = $this->getBanner($encryptedId);
         $data['updated_by'] = admin()->id;
         if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload($Banner, $file, admin(), 'Banner/');
+            $data['image'] = $this->handleFilepondFileUpload($banner, $file, admin(), 'banner/');
         }
-        $Banner->update($data);
-        return $Banner;
+        $banner->update($data);
+        return $banner;
     }
 
     public function deleteBanner(string $encryptedId): void
     {
-        $Banner = $this->getBanner($encryptedId);
-        $Banner->update(['deleted_by' => admin()->id]);
-        $Banner->delete();
+        $banner = $this->getBanner($encryptedId);
+        $banner->update(['deleted_by' => admin()->id]);
+        $banner->delete();
     }
 
     public function restoreBanner(string $encryptedId): void
     {
-        $Banner = $this->getDeletedBanner($encryptedId);
-        $Banner->update(['updated_by' => admin()->id]);
-        $Banner->restore();
+        $banner = $this->getDeletedBanner($encryptedId);
+        $banner->update(['updated_by' => admin()->id]);
+        $banner->restore();
     }
 
     public function permanentDeleteBanner(string $encryptedId): void
     {
-        $Banner = $this->getDeletedBanner($encryptedId);
-        if ($Banner->image) {
-            $this->fileDelete($Banner->image);
+        $banner = $this->getDeletedBanner($encryptedId);
+        if ($banner->image) {
+            $this->fileDelete($banner->image);
         }
-        $Banner->forceDelete();
+        $banner->forceDelete();
     }
 
     public function toggleStatus(string $encryptedId): void
     {
-        $Banner = $this->getBanner($encryptedId);
-        $Banner->update([
+        $banner = $this->getBanner($encryptedId);
+        $banner->update([
             'updated_by' => admin()->id,
-            'status' => !$Banner->status
+            'status' => !$banner->status
         ]);
     }
 
     public function toggleFeature(string $encryptedId): void
     {
-        $Banner = $this->getBanner($encryptedId);
-        $Banner->update([
+        $banner = $this->getBanner($encryptedId);
+        $banner->update([
             'updated_by' => admin()->id,
-            'is_featured' => !$Banner->is_featured
+            'is_featured' => !$banner->is_featured
         ]);
     }
 }

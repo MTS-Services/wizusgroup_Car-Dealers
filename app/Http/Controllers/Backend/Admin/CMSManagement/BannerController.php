@@ -195,7 +195,7 @@
          */
         public function edit(string $id)
         {
-            $Banner = $this->bannerService->getBanner($id);;
+            $banner = $this->bannerService->getBanner($id);;
             return view('backend.admin.product_management.Banner.edit', compact('Banner'));
         }
 
