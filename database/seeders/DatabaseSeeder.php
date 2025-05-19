@@ -50,6 +50,7 @@ class DatabaseSeeder extends Seeder
             ProductInfoCategoryTypeFeatureSeeder::class,
             ProductAttributeSeeder::class,
             ProductSeeder::class,
+            ProductCategorySeeder::class,
         ]);
     }
 }

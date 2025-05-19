@@ -13,35 +13,9 @@ class SubChildCategorySeeder extends Seeder
      */
     public function run(): void
     {
-          Category::create([
-            'name' => 'Sub Child Category 1',
-            'slug' => 'sub-child-category-1',
-            'parent_id' => 4,
-        ]);
-        Category::create([
-            'name' => 'Sub Child Category 2',
-            'slug' => 'sub-child-category-2',
-            'parent_id' => 4,
-        ]);
-        Category::create([
-            'name' => 'Sub Child Category 3',
-            'slug' => 'sub-child-category-3',
-            'parent_id' => 5,
-        ]);
-        Category::create([
-            'name' => 'Sub Child Category 4',
-            'slug' => 'sub-child-category-4',
-            'parent_id' => 5,
-        ]);
-        Category::create([
-            'name' => 'Sub Child Category 5',
-            'slug' => 'sub-child-category-5',
-            'parent_id' => 6,
-        ]);
-        Category::create([
-            'name' => 'Sub Child Category 6',
-            'slug' => 'sub-child-category-6',
-            'parent_id' => 6,
-        ]);
+        Category::create(['parent_id' => 5, 'name' => 'Hybrid Sedans', 'slug' => 'hybrid-sedans']);     // Sedans
+        Category::create(['parent_id' => 6, 'name' => 'Classic Cruisers', 'slug' => 'classic-cruisers']); // Cruisers
+        Category::create(['parent_id' => 7, 'name' => 'All-Season Tires', 'slug' => 'all-season-tires']); // Car Tires
+        Category::create(['parent_id' => 8, 'name' => 'Full-face Helmets', 'slug' => 'full-face-helmets']); // Helmets
     }
 }

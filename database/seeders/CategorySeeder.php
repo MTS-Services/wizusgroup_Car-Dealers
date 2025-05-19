@@ -13,34 +13,9 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::create([
-            'name' => 'Category 1',
-            'slug' => 'category-1',
-        ]);
-        Category::create([
-            'name' => 'Category 2',
-            'slug' => 'category-2',
-        ]);
-        Category::create([
-            'name' => 'Category 3',
-            'slug' => 'category-3',
-        ]);
-        Category::create([
-            'name' => 'Category 5',
-            'slug' => 'category-5',
-            'is_featured' => 1,
-        ]);
-        Category::create([
-            'name' => 'Category 6',
-            'slug' => 'category-6',
-            'is_featured' => 1,
-        ]);
-        Category::create([
-            'name' => 'Category 7',
-            'slug' => 'category-7',
-            'is_featured' => 1,
-        ]);
-
-        // Category::factory(50)->create();
+         Category::create(['name' => 'Cars', 'slug' => 'cars']);
+        Category::create(['name' => 'Motorcycles', 'slug' => 'motorcycles']);
+        Category::create(['name' => 'Car Accessories', 'slug' => 'car-accessories']);
+        Category::create(['name' => 'Bike Gear', 'slug' => 'bike-gear']);
     }
 }

@@ -13,7 +13,7 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-       Product::create([
+        Product::create([
             'name' => 'Toyota Corolla 2020',
             'slug' => 'toyota-corolla-2020',
             'sku' => 'TC-2020-001',
@@ -89,6 +89,31 @@ class ProductSeeder extends Seeder
             'quantity' => 5,
             'allow_backorder' => false,
             'supplier_id' => 3, // Assuming supplier with ID 3 exists
+        ]);
+        Product::create([
+            'name' => 'Yamaha R15 V4 2022',
+            'slug' => 'yamaha-r15-v4-2022',
+            'sku' => 'YR15V4-2022-004',
+            'stock_no' => 'STK004',
+            'grade' => 'A',
+            'body' => 'Sport Bike',
+            'first_registration' => '2022-03-12',
+            'type' => 'Petrol',
+            'displacement' => '155cc',
+            'specification_no' => 'YR15-SPEC-V4',
+            'classification_no' => 'BIKE-CLASS',
+            'chassis_no' => 'BIKE-CHS-445522',
+            'serial_no' => 'BIKE-SRL-778899',
+            'capacity' => '2 Seater',
+            'remarks' => 'Latest model with quick-shifter',
+            'short_description' => 'Sleek, powerful and perfect for city rides.',
+            'description' => 'The Yamaha R15 V4 2022 combines cutting-edge tech and sporty design for performance lovers.',
+            'price' => 4500.00,
+            'cost_price' => 3800.00,
+            'sale_price' => 4300.00,
+            'quantity' => 10,
+            'allow_backorder' => true,
+            'supplier_id' => 4, // Make sure supplier with ID 4 exists
         ]);
     }
 }
