@@ -14,38 +14,22 @@ class ProductInfoCategoryTypeFeatureSeeder extends Seeder
     public function run(): void
     {
          ProductInfoCategoryTypeFeature::create([
-            'product_info_cat_id' => 1, // Specifications
-            'product_info_cat_type_id' => 1, // Dimensions
-            'name' => 'Height',
-            'slug' => 'height',
+            'product_info_cat_id' => 2,
+            'product_info_cat_type_id' => 1,
+            'name' => 'Front Bumper',
+            'slug' => 'front-bumper',
         ]);
-
         ProductInfoCategoryTypeFeature::create([
-            'product_info_cat_id' => 1, // Specifications
-            'product_info_cat_type_id' => 1, // Dimensions
-            'name' => 'Width',
-            'slug' => 'width',
+            'product_info_cat_id' => 2,
+            'product_info_cat_type_id' => 1,
+            'name' => 'Bonnet',
+            'slug' => 'bonnet',
         ]);
-
         ProductInfoCategoryTypeFeature::create([
-            'product_info_cat_id' => 1, // Specifications
-            'product_info_cat_type_id' => 2, // Weight
-            'name' => 'Net Weight',
-            'slug' => 'net-weight',
-        ]);
-
-        ProductInfoCategoryTypeFeature::create([
-            'product_info_cat_id' => 2, // Warranty Information
-            'product_info_cat_type_id' => 3, // Warranty Period
-            'name' => 'Years of Warranty',
-            'slug' => 'years-of-warranty',
-        ]);
-
-        ProductInfoCategoryTypeFeature::create([
-            'product_info_cat_id' => 4, // Technical Details
-            'product_info_cat_type_id' => 5, // Processor Type
-            'name' => 'Processor Brand',
-            'slug' => 'processor-brand',
+            'product_info_cat_id' => 2,
+            'product_info_cat_type_id' => 1,
+            'name' => 'Left Front Fender',
+            'slug' => 'left-front-fender',
         ]);
     }
 }

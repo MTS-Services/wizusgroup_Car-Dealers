@@ -14,28 +14,28 @@ class ProductInfoCategorySeeder extends Seeder
     public function run(): void
     {
         ProductInfoCategory::create([
-            'name' => 'Specifications',
-            'slug' => 'specifications',
+            'name' => 'Main Damage',
+            'slug' => 'main-damage',
         ]);
 
         ProductInfoCategory::create([
-            'name' => 'Warranty Information',
-            'slug' => 'warranty-information',
+            'name' => 'Exterior Damage',
+            'slug' => 'exterior-damage',
         ]);
 
         ProductInfoCategory::create([
-            'name' => 'User Guide',
-            'slug' => 'user-guide',
+            'name' => 'Air Bag Equipment',
+            'slug' => 'air-bag-equipment',
         ]);
 
         ProductInfoCategory::create([
-            'name' => 'Technical Details',
-            'slug' => 'technical-details',
+            'name' => 'Other Info',
+            'slug' => 'other-info',
         ]);
 
         ProductInfoCategory::create([
-            'name' => 'Care Instructions',
-            'slug' => 'care-instructions',
+            'name' => 'Attached Documents',
+            'slug' => 'attached-documents',
         ]);
     }
 }

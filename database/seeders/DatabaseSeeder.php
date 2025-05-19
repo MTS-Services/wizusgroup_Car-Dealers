@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
-use App\Models\ProductInfoCategoryType;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -50,6 +48,10 @@ class DatabaseSeeder extends Seeder
             ProductInfoCategoryTypeFeatureSeeder::class,
             ProductAttributeSeeder::class,
             ProductSeeder::class,
+            ProductRelationSeeder::class,
+            ProductImageSeeder::class,
+            ProductInformationSeeder::class,
+            ProductAttributeValueSeeder::class,
         ]);
     }
 }

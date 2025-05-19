@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_info_cat_id');
             $table->unsignedBigInteger('product_info_cat_type_id')->nullable();
             $table->unsignedBigInteger('product_info_cat_type_feature_id')->nullable();
+            $table->longText('description')->nullable();
             $table->longText('remarks')->nullable();
             $table->timestamps();
             $table->softDeletes();

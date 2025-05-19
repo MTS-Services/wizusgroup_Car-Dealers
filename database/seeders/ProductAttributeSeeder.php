@@ -14,23 +14,19 @@ class ProductAttributeSeeder extends Seeder
     public function run(): void
     {
         ProductAttribute::create([
-            'name' => 'Color',
+            'name' => 'Engine Type',
         ]);
 
         ProductAttribute::create([
-            'name' => 'Size',
+            'name' => 'Transmission',
         ]);
 
         ProductAttribute::create([
-            'name' => 'Material',
+            'name' => 'Fuel Type',
         ]);
 
         ProductAttribute::create([
-            'name' => 'Brand',
-        ]);
-
-        ProductAttribute::create([
-            'name' => 'Model Number',
+            'name' => 'Year of Manufacture',
         ]);
     }
 }
