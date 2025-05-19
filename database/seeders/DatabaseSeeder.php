@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Supplier;
 use App\Models\TaxClass;
 use Illuminate\Database\Seeder;
 
@@ -43,6 +44,8 @@ class DatabaseSeeder extends Seeder
 
             TaxClassSeeder::class,
             TaxRateSeeder::class,
+
+            SupplierSeeder::class,
         ]);
     }
 }
