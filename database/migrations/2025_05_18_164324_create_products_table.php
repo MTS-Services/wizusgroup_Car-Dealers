@@ -38,7 +38,14 @@ return new class extends Migration
             $table->string('serial_no')->nullable();
             $table->string('capacity')->nullable();
             $table->longText('remarks')->nullable();
-
+            $table->string('engine_type')->nullable();
+            $table->string('fuel_type')->nullable();
+            $table->string('color')->nullable();
+            $table->string('mileage')->nullable();
+            $table->string('odometer_replacement')->nullable();
+            $table->string('steering_wheel')->nullable();
+            $table->string('transmission')->nullable();
+            $table->string('drive_system')->nullable();
 
             // Descriptions
             $table->text('short_description')->nullable();

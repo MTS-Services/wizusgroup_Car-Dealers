@@ -11,15 +11,15 @@
                     <h4 class="cart-title">{{ __('Product List') }}</h4>
                     <div class="buttons">
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'pm.category.recycle-bin',
+                            'routeName' => 'pm.product.recycle-bin',
                             'label' => 'Recycle Bin',
                             'className' => 'btn-danger',
-                            'permissions' => ['category-restore'],
+                            'permissions' => ['product-restore'],
                         ]" />
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'pm.category.create',
+                            'routeName' => 'pm.product.create',
                             'label' => 'Add New',
-                            'permissions' => ['category-create'],
+                            'permissions' => ['product-create'],
                         ]" />
                     </div>
                 </div>
@@ -46,7 +46,7 @@
         </div>
     </div>
     {{-- Details Modal  --}}
-    <x-backend.admin.details-modal :datas="['modal_title' => 'Category Details']" />
+    <x-backend.admin.details-modal :datas="['modal_title' => 'Product Details']" />
 @endsection
 @push('js')
     <script src="{{ asset('custom_litebox/litebox.js') }}"></script>
@@ -71,63 +71,10 @@
                 displayLength: 10,
                 main_route: "{{ route('pm.product.index') }}",
                 order_route: "{{ route('update.sort.order') }}",
-                export_columns: [0, 1, 2, 3, 4, 5],
+                export_columns: [0, 1, 2, 3, 4, 5, 6, 7],
                 model: 'Product',
             };
             initializeDataTable(details);
         })
-    </script>
-@endpush
-@push('js')
-    {{-- Show details scripts --}}
-    <script src="{{ asset('modal/details_modal.js') }}"></script>
-    <script>
-        // Event listener for viewing details
-        $(document).on("click", ".view", function() {
-            let id = $(this).data("id");
-            let route = "{{ route('pm.category.show', ['id']) }}";
-            const detailsUrl = route.replace("id", id);
-            const headers = [{
-                    label: "Name",
-                    key: "name"
-                },
-                {
-                    label: "Slug",
-                    key: "slug"
-                },
-                {
-                    label: "Total Sub Category",
-                    key: "active_childrens_count"
-                },
-                {
-                    label: "Image",
-                    key: "modified_image",
-                    type: "image"
-                },
-                {
-                    label: "Featured",
-                    key: "featured_label",
-                    color: "featured_color",
-                },
-                {
-                    label: "Status",
-                    key: "status_label",
-                    color: "status_color",
-                },
-                {
-                    label: "Meta Title",
-                    key: "meta_title"
-                },
-                {
-                    label: "Meta Description",
-                    key: "meta_description"
-                },
-                {
-                    label: "Description",
-                    key: "description"
-                },
-            ];
-            fetchAndShowModal(detailsUrl, headers, "#modal_data", "myModal");
-        });
     </script>
 @endpush
