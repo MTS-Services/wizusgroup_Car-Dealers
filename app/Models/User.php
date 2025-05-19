@@ -31,6 +31,7 @@ class User extends AuthBaseModel implements MustVerifyEmail
         'username',
         'email',
         'password',
+        'phone',
         'status',
         'image',
         'email_verified_at',

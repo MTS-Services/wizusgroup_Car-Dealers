@@ -240,7 +240,7 @@
                                                         <div>
                                                             <label class="block pb-2">{{ __('Date of Birth') }}</label>
                                                             <input type="date" name="dob"
-                                                                value="{{ $user?->dob }}" class="input">
+                                                                value="{{ $user?->personalInformation?->dob }}" class="input">
                                                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'dob']" />
                                                         </div>
 

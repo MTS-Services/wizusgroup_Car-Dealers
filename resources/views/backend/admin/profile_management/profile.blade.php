@@ -165,7 +165,7 @@
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group mb-3">
                                                     <label>{{ __('Date of Birth') }}</label>
-                                                    <input type="date" name="dob" value="{{ $admin?->dob }}"
+                                                    <input type="date" name="dob" value="{{ $admin?->personalInformation?->dob }}"
                                                         class="form-control">
                                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'dob']" />
                                                 </div>
