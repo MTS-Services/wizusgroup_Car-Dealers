@@ -19,15 +19,11 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
 
-            $table->foreignId('company_id')
-                ->constrained('companies')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->foreignId('brand_id')
-                ->constrained('brands')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            $table->unsignedBigInteger('brand_id');
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade')->onUpdate('cascade');
 
             $table->string('name')->index();
             $table->string('slug')->unique();
