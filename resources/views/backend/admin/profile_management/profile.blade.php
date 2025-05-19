@@ -74,7 +74,7 @@
                                     <h4 class="mb-0 py-2 text-white">Profile</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form action="{{ route('seller.profile.update') }}" method="POST"
+                                    <form action="{{ route('admin.profile.update') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
