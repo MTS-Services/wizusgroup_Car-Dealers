@@ -11,7 +11,7 @@ class TaxClassRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,25 @@ class TaxClassRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'description' => 'nullable|string',
+
+        ]
+            +
+            ($this->isMethod('POST') ? $this->store() : $this->update());
+    }
+
+    protected function store(): array
+    {
+        return [
+            'name' => 'required|unique:brands,name',
+        ];
+    }
+
+
+    protected function update(): array
+    {
+        return [
+            'name' => 'required|unique:brands,name,' . decrypt($this->route('tax_class')),
         ];
     }
 }

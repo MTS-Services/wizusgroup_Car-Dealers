@@ -31,6 +31,7 @@ use App\Http\Controllers\Backend\Admin\Auth\ForgotPasswordController as AdminFor
 use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminResetPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerificationController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\BrandController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\TaxClassController;
 
 // Admin Auth Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -279,5 +280,14 @@ Route::group(['middleware' => ['auth:admin','verified'], 'prefix' => 'admin'], f
         Route::get('model/recycle/bin', [ModelController::class, 'recycleBin'])->name('model.recycle-bin');
         Route::get('model/restore/{model}', [ModelController::class, 'restore'])->name('model.restore');
         Route::delete('model/permanent-delete/{model}', [ModelController::class, 'permanentDelete'])->name('model.permanent-delete');
+
+        // TaxClass Routes
+        Route::resource('tax-class', TaxClassController::class);
+        Route::get('tax-class/status/{tax_class}', [TaxClassController::class, 'status'])->name('tax-class.status');
+        Route::get('tax-class/feature/{tax_class}', [TaxClassController::class, 'feature'])->name('tax-class.feature');
+
+        Route::get('tax-class/recycle/bin', [TaxClassController::class, 'recycleBin'])->name('tax-class.recycle-bin');
+        Route::get('tax-class/restore/{tax_class}', [TaxClassController::class, 'restore'])->name('tax-class.restore');
+        Route::delete('tax-class/permanent-delete/{tax_class}', [TaxClassController::class, 'permanentDelete'])->name('tax-class.permanent-delete');
     });
 });
