@@ -47,6 +47,7 @@ class DatabaseSeeder extends Seeder
             SupplierSeeder::class,
             ProductInfoCategorySeeder::class,
             ProductInfoCategoryTypeSeeder::class,
+            ProductInfoCategoryTypeFeatureSeeder::class,
         ]);
     }
 }
