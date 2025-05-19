@@ -32,6 +32,7 @@ use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminRese
 use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerificationController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\BrandController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\ProductInfoCatController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\ProInfoCatTypeController;
 
 // Admin Auth Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -286,5 +287,13 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         Route::get('product-info-category/recycle/bin', [ProductInfoCatController::class, 'recycleBin'])->name('product-info-category.recycle-bin');
         Route::get('product-info-category/restore/{product_info_category}', [ProductInfoCatController::class, 'restore'])->name('product-info-category.restore');
         Route::delete('product-info-category/permanent-delete/{product_info_category}', [ProductInfoCatController::class, 'permanentDelete'])->name('product-info-category.permanent-delete');
+
+        // Product Info Cat Type Routes
+        Route::resource('product-info-category-type', ProInfoCatTypeController::class);
+         Route::get('product-info-category-type/status/{product_info_category_type}', [ProInfoCatTypeController::class, 'status'])->name('product-info-category-type.status');
+
+        Route::get('product-info-category-type/recycle/bin', [ProInfoCatTypeController::class, 'recycleBin'])->name('product-info-category-type.recycle-bin');
+        Route::get('product-info-category-type/restore/{product_info_category_type}', [ProInfoCatTypeController::class, 'restore'])->name('product-info-category-type.restore');
+        Route::delete('product-info-category-type/permanent-delete/{product_info_category_type}', [ProInfoCatTypeController::class, 'permanentDelete'])->name('product-info-category-type.permanent-delete');
     });
 });

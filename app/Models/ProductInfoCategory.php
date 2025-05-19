@@ -9,6 +9,7 @@ class ProductInfoCategory extends BaseModel
 {
     protected $fillable = [
         'sort_order',
+        
         'name',
         'slug',
         'status',
