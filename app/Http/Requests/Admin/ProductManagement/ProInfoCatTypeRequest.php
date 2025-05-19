@@ -36,7 +36,7 @@ class ProInfoCatTypeRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                Rule::unique('product_info_categories')->where(
+                Rule::unique('product_info_category_types')->where(
                     fn($query) =>
                     $query->where('product_info_cat_id', $this->product_info_cat_id)
                 ),
@@ -51,12 +51,12 @@ class ProInfoCatTypeRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                Rule::unique('product_info_categories')
+                Rule::unique('product_info_category_types')
                     ->where(
                         fn($query) =>
                         $query->where('product_info_cat_id', $this->product_info_cat_id)
                     )
-                    ->ignore($this->route('product_info_category_type')),
+                    ->ignore(decrypt($this->route('product_info_category_type'))),
             ],
             'slug' => 'required|unique:product_info_category_types,slug,' . decrypt($this->route('product_info_category_type')),
         ];
