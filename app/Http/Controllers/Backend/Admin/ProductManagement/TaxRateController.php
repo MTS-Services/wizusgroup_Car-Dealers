@@ -197,6 +197,10 @@ class TaxRateController extends Controller
     {
         $data = $this->taxRateService->getTaxRate($id);
         $data->load(['creater_admin', 'updater_admin', 'taxClass', 'country', 'state', 'city']);
+        $data['tax_class_name'] = $data?->taxClass?->name;
+        $data['country_name'] = $data?->country?->name . ($data?->state ? "(" . $data?->state?->name . ")" : "");
+        $data['city_name'] = $data?->city?->name;
+        $data['state_name'] = $data?->state?->name;
 
         return response()->json($data);
     }

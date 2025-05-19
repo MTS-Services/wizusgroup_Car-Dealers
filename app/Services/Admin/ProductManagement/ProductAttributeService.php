@@ -30,61 +30,61 @@ class ProductAttributeService
         $data['creater_type'] = get_class(admin());
         $data['created_by'] = admin()->id;
         if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload(ProductAttribute::class, $file, admin(), 'companies/');
+            $data['image'] = $this->handleFilepondFileUpload(ProductAttribute::class, $file, admin(), 'Product Attribute/');
         }
-       $tax_class = ProductAttribute::create($data);
-        return$tax_class;
+       $product_attribute = ProductAttribute::create($data);
+        return $product_attribute;
     }
 
     public function updateProductAttribute(string $encryptedId, array $data, $file = null): ProductAttribute
     {
-       $tax_class = $this->getProductAttribute($encryptedId);
+       $product_attribute = $this->getProductAttribute($encryptedId);
         $data['updated_by'] = admin()->id;
         if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload($tax_class, $file, admin(), 'companies/');
+            $data['image'] = $this->handleFilepondFileUpload($product_attribute, $file, admin(), 'Product Attribute/');
         }
-       $tax_class->update($data);
-        return$tax_class;
+       $product_attribute->update($data);
+        return $product_attribute;
     }
 
     public function deleteProductAttribute(string $encryptedId): void
     {
-       $tax_class = $this->getProductAttribute($encryptedId);
-       $tax_class->update(['deleted_by' => admin()->id]);
-       $tax_class->delete();
+       $product_attribute = $this->getProductAttribute($encryptedId);
+       $product_attribute->update(['deleted_by' => admin()->id]);
+       $product_attribute->delete();
     }
 
     public function restoreProductAttribute(string $encryptedId): void
     {
-       $tax_class = $this->getDeletedProductAttribute($encryptedId);
-       $tax_class->update(['updated_by' => admin()->id]);
-       $tax_class->restore();
+       $product_attribute = $this->getDeletedProductAttribute($encryptedId);
+       $product_attribute->update(['updated_by' => admin()->id]);
+       $product_attribute->restore();
     }
 
     public function permanentDeleteProductAttribute(string $encryptedId): void
     {
-       $tax_class = $this->getDeletedProductAttribute($encryptedId);
-        if ($tax_class->image) {
-            $this->fileDelete($tax_class->image);
+       $product_attribute = $this->getDeletedProductAttribute($encryptedId);
+        if ($product_attribute->image) {
+            $this->fileDelete($product_attribute->image);
         }
-       $tax_class->forceDelete();
+       $product_attribute->forceDelete();
     }
 
     public function toggleStatus(string $encryptedId): void
     {
-       $tax_class = $this->getProductAttribute($encryptedId);
-       $tax_class->update([
+       $product_attribute = $this->getProductAttribute($encryptedId);
+       $product_attribute->update([
             'updated_by' => admin()->id,
-            'status' => !$tax_class->status
+            'status' => !$product_attribute->status
         ]);
     }
 
     public function toggleFeature(string $encryptedId): void
     {
-       $tax_class = $this->getProductAttribute($encryptedId);
-       $tax_class->update([
+       $product_attribute = $this->getProductAttribute($encryptedId);
+       $product_attribute->update([
             'updated_by' => admin()->id,
-            'is_featured' => !$tax_class->is_featured
+            'is_featured' => !$product_attribute->is_featured
         ]);
     }
 }
