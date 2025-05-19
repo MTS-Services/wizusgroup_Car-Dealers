@@ -25,6 +25,14 @@ return new class extends Migration
             $table->unsignedBigInteger('tax_class_id')->nullable();
             $table->unsignedBigInteger('tax_rate_id')->nullable();
 
+            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('sub_category_id')->nullable();
+            $table->unsignedBigInteger('sub_child_category_id')->nullable();
+
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('sub_category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('sub_child_category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade')->onUpdate('cascade');
@@ -37,7 +45,7 @@ return new class extends Migration
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
 
-            $table->unique(['product_id','brand_id', 'model_id'], 'uq_product_relation_composite');
+            $table->unique(['product_id','company_id','brand_id', 'model_id','category_id','sub_category_id','sub_child_category_id'], 'uq_product_relation_composite');
 
 
             // Indexes
