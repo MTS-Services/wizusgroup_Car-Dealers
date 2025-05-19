@@ -37,8 +37,12 @@ class DatabaseSeeder extends Seeder
 
             AddressSeeder::class,
             FaqSeeder::class,
+            CompanySeeder::class,
             BrandSeeder::class,
             ModelSeeder::class,
+
+            TaxClassSeeder::class,
+            TaxRateSeeder::class,
         ]);
     }
 }

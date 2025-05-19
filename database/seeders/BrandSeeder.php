@@ -13,65 +13,26 @@ class BrandSeeder extends Seeder
      */
     public function run(): void
     {
-        Brand::create([
-            'name' => 'John Deere',
-            'slug' => 'john-deere',
-        ]);
-        Brand::create([
-            'name' => 'Mahindra',
-            'slug' => 'mahindra',
-        ]);
-        Brand::create([
-            'name' => 'Massey Ferguson',
-            'slug' => 'massey-ferguson',
-        ]);
-        Brand::create([
-            'name' => 'New Holland',
-            'slug' => 'new-holland',
-        ]);
-        Brand::create([
-            'name' => 'Kubota',
-            'slug' => 'kubota',
-        ]);
-        Brand::create([
-            'name' => 'Sonalika',
-            'slug' => 'sonalika',
-        ]);
-        Brand::create([
-            'name' => 'Deutz-Fahr',
-            'slug' => 'deutz-fahr',
-        ]);
-        Brand::create([
-            'name' => 'Toyota',
-            'slug' => 'toyota',
-        ]);
-        Brand::create([
-            'name' => 'Honda',
-            'slug' => 'honda',
-        ]);
-        Brand::create([
-            'name' => 'Ford',
-            'slug' => 'ford',
-        ]);
-        Brand::create([
-            'name' => 'BMW',
-            'slug' => 'bmw',
-        ]);
-        Brand::create([
-            'name' => 'Mercedes-Benz',
-            'slug' => 'mercedes-benz',
-        ]);
-        Brand::create([
-            'name' => 'Hyundai',
-            'slug' => 'hyundai ',
-        ]);
-        Brand::create([
-            'name' => 'Nissan',
-            'slug' => 'nissan ',
-        ]);
-        Brand::create([
-            'name' => 'Volkswagen',
-            'slug' => 'volkswagen ',
-        ]);
+        $brands = [
+            ['name' => 'John Deere',       'slug' => 'john-deere',       'company_id' => 1],
+            ['name' => 'Mahindra',         'slug' => 'mahindra',         'company_id' => 2],
+            ['name' => 'Massey Ferguson',  'slug' => 'massey-ferguson',  'company_id' => 3],
+            ['name' => 'New Holland',      'slug' => 'new-holland',      'company_id' => 4],
+            ['name' => 'Kubota',           'slug' => 'kubota',           'company_id' => 5],
+            ['name' => 'Sonalika',         'slug' => 'sonalika',         'company_id' => 6],
+            ['name' => 'Deutz-Fahr',       'slug' => 'deutz-fahr',       'company_id' => 7],
+            ['name' => 'Toyota',           'slug' => 'toyota',           'company_id' => 8],
+            ['name' => 'Honda',            'slug' => 'honda',            'company_id' => 9],
+            ['name' => 'Ford',             'slug' => 'ford',             'company_id' => 10],
+            ['name' => 'BMW',              'slug' => 'bmw',              'company_id' => 11],
+            ['name' => 'Mercedes-Benz',    'slug' => 'mercedes-benz',    'company_id' => 12],
+            ['name' => 'Hyundai',          'slug' => 'hyundai',          'company_id' => 13],
+            ['name' => 'Nissan',           'slug' => 'nissan',           'company_id' => 14],
+            ['name' => 'Volkswagen',       'slug' => 'volkswagen',       'company_id' => 15],
+        ];
+
+        foreach ($brands as $brand) {
+            Brand::create($brand);
+        }
     }
 }
