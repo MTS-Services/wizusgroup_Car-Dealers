@@ -24,7 +24,7 @@ return new class extends Migration
             $table->boolean('status')->default(Faq::STATUS_ACTIVE)->index();
             $table->timestamps();
             $table->softDeletes();
-            $this->addMorphedAuditColumns($table);
+            $this->addAdminAuditColumns($table);
 
             $table->index('created_at'); // Index for soft deletes
             $table->index('updated_at'); // Index for soft deletes

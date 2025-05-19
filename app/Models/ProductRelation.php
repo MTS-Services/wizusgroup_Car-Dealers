@@ -15,6 +15,9 @@ class ProductRelation extends BaseModel
         'model_id',
         'tax_class_id',
         'tax_rate_id',
+        'category_id',
+        'sub_category_id',
+        'sub_child_category_id',
 
         'created_by',
         'updated_by',
@@ -48,5 +51,17 @@ class ProductRelation extends BaseModel
     public function taxRate()
     {
         return $this->belongsTo(TaxRate::class,'tax_rate_id');
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class,'category_id');
+    }
+    public function subCategory()
+    {
+        return $this->belongsTo(Category::class,'sub_category_id');
+    }
+    public function subChildCategory()
+    {
+        return $this->belongsTo(Category::class,'sub_child_category_id');
     }
 }

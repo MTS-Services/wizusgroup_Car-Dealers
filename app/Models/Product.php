@@ -6,6 +6,7 @@ use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 
 class Product extends BaseModel
@@ -85,36 +86,53 @@ class Product extends BaseModel
         return $this->hasMany(ProductAttributeValue::class,'product_id','id');
     }
 
-    public function relation()
+    public function relation(): HasOne
     {
         return $this->hasOne(ProductRelation::class);
     }
     // Brand, Company, Model
-    public function company()
+    public function company(): HasOneThrough
     {
         return $this->hasOneThrough(Company::class, ProductRelation::class, 'product_id', 'id', 'id', 'company_id');
     }
 
-    public function brand()
+    public function brand(): HasOneThrough
     {
         return $this->hasOneThrough(Brand::class, ProductRelation::class, 'product_id', 'id', 'id', 'brand_id');
     }
 
-    public function model()
+    public function model(): HasOneThrough
     {
         return $this->hasOneThrough(Brand::class, ProductRelation::class, 'product_id', 'id', 'id', 'model_id');
     }
 
     // Tax Class & Rate
-    public function taxClass()
+    public function taxClass(): HasOneThrough
     {
         return $this->hasOneThrough(TaxClass::class, ProductRelation::class, 'product_id', 'id', 'id', 'tax_class_id');
     }
 
-    public function taxRate()
+    public function taxRate(): HasOneThrough
     {
         return $this->hasOneThrough(TaxRate::class, ProductRelation::class, 'product_id', 'id', 'id', 'tax_rate_id');
     }
+
+    public function category(): HasOneThrough
+    {
+        return $this->hasOneThrough(Category::class, ProductRelation::class, 'product_id', 'id', 'id', 'category_id');
+    }
+
+
+    public function subCategory(): HasOneThrough
+    {
+        return $this->hasOneThrough(Category::class, ProductRelation::class, 'product_id', 'id', 'id', 'sub_category_id');
+    }
+
+    public function subChildCategory(): HasOneThrough
+    {
+        return $this->hasOneThrough(Category::class, ProductRelation::class, 'product_id', 'id', 'id', 'sub_child_category_id');
+    }
+
 
     public function supplier(): BelongsTo
     {
