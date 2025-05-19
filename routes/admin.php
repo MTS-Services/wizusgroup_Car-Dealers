@@ -33,6 +33,7 @@ use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerif
 use App\Http\Controllers\Backend\Admin\ProductManagement\BrandController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\ProductInfoCatController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\ProInfoCatTypeController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\ProInfoCatTypeFeatureController;
 
 // Admin Auth Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -295,5 +296,13 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         Route::get('product-info-category-type/recycle/bin', [ProInfoCatTypeController::class, 'recycleBin'])->name('product-info-category-type.recycle-bin');
         Route::get('product-info-category-type/restore/{product_info_category_type}', [ProInfoCatTypeController::class, 'restore'])->name('product-info-category-type.restore');
         Route::delete('product-info-category-type/permanent-delete/{product_info_category_type}', [ProInfoCatTypeController::class, 'permanentDelete'])->name('product-info-category-type.permanent-delete');
+
+        // Product Info Cat Type Feature Routes
+        Route::resource('product-info-category-type-feature', ProInfoCatTypeFeatureController::class);
+         Route::get('product-info-category-type-feature/status/{product_info_category_type_feature}', [ProInfoCatTypeController::class, 'status'])->name('product-info-category-type-feature.status');
+
+        Route::get('product-info-category-type-feature/recycle/bin', [ProInfoCatTypeController::class, 'recycleBin'])->name('product-info-category-type-feature.recycle-bin');
+        Route::get('product-info-category-type-feature/restore/{product_info_category_type_feature}', [ProInfoCatTypeController::class, 'restore'])->name('product-info-category-type-feature.restore');
+        Route::delete('product-info-category-type-feature/permanent-delete/{product_info_category_type_feature}', [ProInfoCatTypeController::class, 'permanentDelete'])->name('product-info-category-type-feature.permanent-delete');
     });
 });

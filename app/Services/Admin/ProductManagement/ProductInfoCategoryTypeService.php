@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ProductInfoCategoryTypeService
 {
+    
     /**
      * Create a new class instance.
      */
