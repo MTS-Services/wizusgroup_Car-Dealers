@@ -13,34 +13,25 @@ class ProductInfoCategoryTypeSeeder extends Seeder
      */
     public function run(): void
     {
-         ProductInfoCategoryType::create([
-            'product_info_cat_id' => 1, // Specifications
-            'name' => 'Dimensions',
-            'slug' => 'dimensions',
-        ]);
-
         ProductInfoCategoryType::create([
-            'product_info_cat_id' => 1, // Specifications
-            'name' => 'Weight',
-            'slug' => 'weight',
+            'product_info_cat_id' => 2, // Specifications
+            'name' => 'Front',
+            'slug' => 'front',
         ]);
-
         ProductInfoCategoryType::create([
-            'product_info_cat_id' => 2, // Warranty Information
-            'name' => 'Warranty Period',
-            'slug' => 'warranty-period',
+            'product_info_cat_id' => 2,
+            'name' => 'Side',
+            'slug' => 'side',
         ]);
-
         ProductInfoCategoryType::create([
-            'product_info_cat_id' => 3, // User Guide
-            'name' => 'Setup Instructions',
-            'slug' => 'setup-instructions',
+            'product_info_cat_id' => 2,
+            'name' => 'Rear',
+            'slug' => 'rear',
         ]);
-
         ProductInfoCategoryType::create([
-            'product_info_cat_id' => 4, // Technical Details
-            'name' => 'Processor Type',
-            'slug' => 'processor-type',
+            'product_info_cat_id' => 2,
+            'name' => 'Suspension',
+            'slug' => 'suspension',
         ]);
     }
 }
