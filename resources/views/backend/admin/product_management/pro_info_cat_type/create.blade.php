@@ -17,7 +17,7 @@
                     @csrf
                     <div class="form-group">
                         <label>{{ __('Product Info Category') }} <span class="text-danger">*</span></label>
-                        <select name="product_info_cat_id" class="form-control" id="company_id">
+                        <select name="product_info_cat_id" class="form-control" id="product_info_cat_id">
                             <option value="" selected hidden>{{__('--Select Product Info Category--')}}</option>
                             @foreach ($product_info_cats as $product_info_cat)
                                 <option value="{{$product_info_cat->id}}" {{ old('product_info_cat_id') == $product_info_cat->id ? 'selected' : ''}}>{{ $product_info_cat->name }}</option>

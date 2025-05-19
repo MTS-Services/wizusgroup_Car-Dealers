@@ -236,12 +236,12 @@ class ProInfoCatTypeController extends Controller
     {
         try {
             $this->proInfoCatTypeService->restoreProInfoCatType($id);
-            session()->flash('success', 'Brand restored successfully!');
+            session()->flash('success', 'Product Info Category Type restored successfully!');
         } catch (\Throwable $e) {
-            session()->flash('error', 'Brand restore failed!');
+            session()->flash('error', 'Product Info Category Type restore failed!');
             throw $e;
         }
-        return redirect()->route('pm.brand.recycle-bin');
+        return redirect()->route('pm.product-info-category-type.recycle-bin');
     }
 
     /**
@@ -254,11 +254,11 @@ class ProInfoCatTypeController extends Controller
     {
         try {
             $this->proInfoCatTypeService->permanentDeleteProInfoCatType($id);
-            session()->flash('success', 'Brand permanently deleted successfully!');
+            session()->flash('success', 'Product Info Category Type permanently deleted successfully!');
         } catch (\Throwable $e) {
-            session()->flash('error', 'Brand permanent delete failed!');
+            session()->flash('error', 'Product Info Category Type permanent delete failed!');
             throw $e;
         }
-        return redirect()->route('pm.brand.recycle-bin');
+        return redirect()->route('pm.product-info-category-type.recycle-bin');
     }
 }

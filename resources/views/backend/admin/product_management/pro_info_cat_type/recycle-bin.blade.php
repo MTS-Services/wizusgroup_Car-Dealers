@@ -1,4 +1,4 @@
-{{-- @extends('backend.admin.layouts.master', ['page_slug' => 'product_info_cat_type']) --}}
+@extends('backend.admin.layouts.master', ['page_slug' => 'product_info_cat_type'])
 @section('title', 'Product Information Category Type Recycle Bin')
 @section('content')
     <div class="row">
@@ -42,8 +42,7 @@
         $(document).ready(function() {
             let table_columns = [
                 //name and data, orderable, searchable
-
-                ['product_info_cat_id', true,true]
+                ['product_info_cat_id', true, true],
                 ['name', true, true],
                 ['status', true, true],
                 ['deleted_by', true, true],
@@ -56,7 +55,7 @@
                 displayLength: 10,
                 main_route: "{{ route('pm.product-info-category-type.recycle-bin') }}",
                 order_route: "{{ route('update.sort.order') }}",
-                export_columns: [0, 1, 2, 3,4],
+                export_columns: [0, 1, 2, 3,4,5],
                 model: 'ProductInfoCategoryType',
             };
             // initializeDataTable(details);
