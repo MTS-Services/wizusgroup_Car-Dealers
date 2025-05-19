@@ -1,8 +1,5 @@
-@extends('backend.admin.layouts.master', ['page_slug' => 'product_info_category_type_feature'])
+@extends('backend.admin.layouts.master', ['page_slug' => 'pro_info_cat_tf'])
 @section('title', 'Product Information Category Type Feature List')
-@push('css')
-    <link rel="stylesheet" href="{{ asset('custom_litebox/litebox.css') }}">
-@endpush
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -11,15 +8,15 @@
                     <h4 class="cart-title">{{ __('Product Information Category Type Feature List') }}</h4>
                     <div class="buttons">
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'pm.product-info-category-type-feature.recycle-bin',
+                            'routeName' => 'pm.pro-info-cat-tf.recycle-bin',
                             'label' => 'Recycle Bin',
                             'className' => 'btn-danger',
-                            'permissions' => ['product-info-category-type-feature-restore'],
+                            'permissions' => ['pro-info-cat-tf-restore'],
                         ]" />
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'pm.product-info-category-type-feature.create',
+                            'routeName' => 'pm.pro-info-cat-tf.create',
                             'label' => 'Add New',
-                            'permissions' => ['product-info-category-type-feature-create'],
+                            'permissions' => ['pro-info-cat-tf-create'],
                         ]" />
                     </div>
                 </div>
@@ -28,11 +25,10 @@
                         <thead>
                             <tr>
                                 <th>{{ __('SL') }}</th>
-                                <th>{{ __('Product Info Category ') }}</th>
+                                <th>{{ __('Product Info Category') }}</th>
                                 <th>{{ __('Product Info Category Type') }}</th>
                                 <th>{{ __('Name') }}</th>
                                 <th>{{ __('Status') }}</th>
-                                <th>{{ __('Featured') }}</th>
                                 <th>{{ __('Created By') }}</th>
                                 <th>{{ __('Created Date') }}</th>
                                 <th>{{ __('Action') }}</th>
@@ -47,7 +43,7 @@
         </div>
     </div>
     {{-- Admin Details Modal  --}}
-    <x-backend.admin.details-modal :datas="['modal_title' => 'Model Details']" />
+    <x-backend.admin.details-modal :datas="['modal_title' => 'Product Info Category Type Feature Details']" />
 @endsection
 @push('js')
     <script src="{{ asset('custom_litebox/litebox.js') }}"></script>
@@ -56,8 +52,8 @@
         $(document).ready(function() {
             let table_columns = [
 
-                ['product_info_category_id', true, true],
-                ['product_info_category_type_id', true, true],
+                ['product_info_cat_id', true, true],
+                ['product_info_cat_type_id', true, true],
                 ['name', true, true],
                 ['status', true, true],
                 ['created_by', true, true],
@@ -68,9 +64,9 @@
                 table_columns: table_columns,
                 main_class: '.datatable',
                 displayLength: 10,
-                main_route: "{{ route('pm.model.index') }}",
+                main_route: "{{ route('pm.pro-info-cat-tf.index') }}",
                 order_route: "{{ route('update.sort.order') }}",
-                export_columns: [0, 1, 2, 3, 4, 5, 6,7],
+                export_columns: [0, 1, 2, 3, 4, 5],
                 model: 'ProductInfoCategoryTypeFeature',
             };
             initializeDataTable(details);
@@ -83,18 +79,18 @@
     <script>
         $(document).on("click", ".view", function() {
             let id = $(this).data("id");
-            let route = "{{ route('pm.model.show', ['id']) }}";
+            let route = "{{ route('pm.pro-info-cat-tf.show', ['id']) }}";
             const detailsUrl = route.replace("id", id);
             const headers = [
+
                 {
                     label: "Product Info Category",
-                    key: "product_info_category_name",
+                    key: "product_info_cat_name",
                 },
                 {
-                    label: "Product Info Category Type",
-                    key: "product_info_category_type_name",
+                    label: "Product Info Category Type Feature",
+                    key: "product_info_cat_type_feature_name",
                 },
-
                 {
                     label: "Name",
                     key: "name"
@@ -108,7 +104,6 @@
                     key: "status_label",
                     color: "status_color",
                 },
-
 
 
             ];

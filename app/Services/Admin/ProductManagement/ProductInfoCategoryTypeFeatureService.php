@@ -22,17 +22,14 @@ class ProductInfoCategoryTypeFeatureService
     //     return ProductInfoCategoryTypeFeature::onlyTrashed()->findOrFail(decrypt($encryptedId));
     // }
 
-    // public function createModel(array $data, $file = null): Model
-    // {
-    //     $data['created_by'] = admin()->id;
-    //     if ($file) {
-    //         $data['image'] = $this->handleFilepondFileUpload(ProductInfoCategoryTypeFeature::class, $file, admin(), 'models/');
-    //     }
-    //     $model = ProductInfoCategoryTypeFeature::create($data);
-    //     return $model;
-    // }
+    public function createProInfoCatTypeFeature(array $data): ProductInfoCategoryTypeFeature
+    {
+        $data['created_by'] = admin()->id;
+        $feature = ProductInfoCategoryTypeFeature::create($data);
+        return $feature;
+    }
 
-    // public function updateModel(string $encryptedId, array $data, $file = null): Model
+    // public function updateModel(string $encryptedId, array $data, $file = null): ProductInfoCategoryTypeFeature
     // {
     //     $model = $this->getModel($encryptedId);
     //     $data['updated_by'] = admin()->id;

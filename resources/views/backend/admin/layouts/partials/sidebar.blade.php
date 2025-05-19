@@ -184,7 +184,7 @@
                                 </a>
                             </li>
                             <li class="@if ($page_slug == 'product_info_cat_type_feature') active @endif">
-                                <a href="{{ route('pm.product-info-category-type-feature.index') }}">
+                                <a href="{{ route('pm.pro-info-cat-tf.index') }}">
                                     <span class="sub-item">{{ __('Pro Info Cat Type Feature') }}</span>
                                 </a>
                             </li>

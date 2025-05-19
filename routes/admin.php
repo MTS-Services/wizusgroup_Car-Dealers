@@ -76,6 +76,8 @@ Route::controller(AxiosRequestController::class)->name('axios.')->group(function
 
     Route::post('get-brands', 'getBrands')->name('get-brands');
     Route::post('get-models', 'getModels')->name('get-models');
+
+    Route::post('get-info-category-types', 'getInfoCatTypes')->name('get-info-cat-types');
 });
 
 Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], function () {
@@ -291,18 +293,21 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
 
         // Product Info Cat Type Routes
         Route::resource('product-info-category-type', ProInfoCatTypeController::class);
-         Route::get('product-info-category-type/status/{product_info_category_type}', [ProInfoCatTypeController::class, 'status'])->name('product-info-category-type.status');
+        Route::get('product-info-category-type/status/{product_info_category_type}', [ProInfoCatTypeController::class, 'status'])->name('product-info-category-type.status');
 
         Route::get('product-info-category-type/recycle/bin', [ProInfoCatTypeController::class, 'recycleBin'])->name('product-info-category-type.recycle-bin');
         Route::get('product-info-category-type/restore/{product_info_category_type}', [ProInfoCatTypeController::class, 'restore'])->name('product-info-category-type.restore');
         Route::delete('product-info-category-type/permanent-delete/{product_info_category_type}', [ProInfoCatTypeController::class, 'permanentDelete'])->name('product-info-category-type.permanent-delete');
 
         // Product Info Cat Type Feature Routes
-        Route::resource('product-info-category-type-feature', ProInfoCatTypeFeatureController::class);
-         Route::get('product-info-category-type-feature/status/{product_info_category_type_feature}', [ProInfoCatTypeController::class, 'status'])->name('product-info-category-type-feature.status');
+        Route::resource('product-info-category-type-feature', ProInfoCatTypeFeatureController::class)
+            ->parameters([
+                'product-info-category-type-feature' => 'pro_info_cat_tf', // use shorter name
+            ])->names('pro-info-cat-tf');
+        Route::get('product-info-category-type-feature/status/{pro_info_cat_tf}', [ProInfoCatTypeFeatureController::class, 'status'])->name('pro-info-cat-tf.status');
 
-        Route::get('product-info-category-type-feature/recycle/bin', [ProInfoCatTypeController::class, 'recycleBin'])->name('product-info-category-type-feature.recycle-bin');
-        Route::get('product-info-category-type-feature/restore/{product_info_category_type_feature}', [ProInfoCatTypeController::class, 'restore'])->name('product-info-category-type-feature.restore');
-        Route::delete('product-info-category-type-feature/permanent-delete/{product_info_category_type_feature}', [ProInfoCatTypeController::class, 'permanentDelete'])->name('product-info-category-type-feature.permanent-delete');
+        Route::get('product-info-category-type-feature/recycle/bin', [ProInfoCatTypeFeatureController::class, 'recycleBin'])->name('pro-info-cat-tf.recycle-bin');
+        Route::get('product-info-category-type-feature/restore/{pro_info_cat_tf}', [ProInfoCatTypeFeatureController::class, 'restore'])->name('pro-info-cat-tf.restore');
+        Route::delete('product-info-category-type-feature/permanent-delete/{pro_info_cat_tf}', [ProInfoCatTypeFeatureController::class, 'permanentDelete'])->name('pro-info-cat-tf.permanent-delete');
     });
 });
