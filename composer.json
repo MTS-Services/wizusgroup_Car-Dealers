@@ -9,6 +9,7 @@
         "barryvdh/laravel-debugbar": "^3.13",
         "binafy/laravel-stub": "^1.0",
         "laravel/framework": "^11.9",
+        "laravel/socialite": "^5.20",
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.5",
         "league/csv": "^9.16",
