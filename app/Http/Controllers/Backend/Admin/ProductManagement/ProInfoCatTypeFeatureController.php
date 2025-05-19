@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\ProInfoCatTypeFeatureRequest;
 use App\Services\Admin\ProductManagement\ProductInfoCategoryTypeFeatureService;
 use App\Services\Admin\ProductManagement\ProductInfoCategoryTypeService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -178,23 +179,38 @@ class ProInfoCatTypeFeatureController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = $this->proInfoCatTypeFeatureService->getProInfoCatTypeFeature($id);
+        $data->load(['creater_admin', 'updater_admin', 'infoCategory','infoCategoryType']);
+        $data['product_info_cat_name'] = $data?->brand?->name;
+        $data['product_info_cat_type_name'] = $data?->company?->name;
+        return response()->json($data);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+     public function edit(string $id)
     {
-        //
+        $data['feature'] = $this->proInfoCatTypeFeatureService->getProInfoCatTypeFeature($id);
+        $data['pro_info_cat_types'] = $this->proInfoCatTypeService->getProInfoCatTypes()->active()->select(['id','name'])->get();
+        return view('backend.admin.product_management.product_info_category_type_feature.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+     public function update(ProInfoCatTypeFeatureRequest $request, string $id)
     {
-        //
+
+        try {
+            $validated = $request->validated();
+            $this->proInfoCatTypeFeatureService->updateProInfoCatTypeFeature($id, $validated);
+            session()->flash('success', 'Product Info Category Type Feature updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product Info Category Type Feature update failed!');
+            throw $e;
+        }
+        return redirect()->route('pm.pro-info-cat-tf.index');
     }
 
     /**
@@ -202,6 +218,53 @@ class ProInfoCatTypeFeatureController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $this->proInfoCatTypeFeatureService->deleteProInfoCatTypeFeature($id);
+            session()->flash('success', 'Product Info Category Type Feature deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product Info Category Type Feature delete failed!');
+            throw $e;
+        }
+        return redirect()->route('pm.pro-info-cat-tf.index');
+    }
+      public function status(string $id): RedirectResponse
+    {
+        try {
+            $this->proInfoCatTypeFeatureService->toggleStatus($id);
+            session()->flash('success', 'Product Info Category Type Feature status updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product Info Category Type Feature status update failed!');
+            throw $e;
+        }
+        return redirect()->route('pm.pro-info-cat-tf.index');
+    }
+      public function restore(string $id): RedirectResponse
+    {
+        try {
+            $this->proInfoCatTypeFeatureService->restoreModel($id);
+            session()->flash('success', 'Product Info Category Type Feature restored successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product Info Category Type Feature restore failed!');
+            throw $e;
+        }
+        return redirect()->route('pm.pro-info-cat-tf.recycle-bin');
+    }
+
+    /**
+     * Remove the specified resource from storage permanently.
+     *
+     * @param string $id
+     * @return RedirectResponse
+     */
+    public function permanentDelete(string $id): RedirectResponse
+    {
+        try {
+            $this->proInfoCatTypeFeatureService->permanentDeleteModel($id);
+            session()->flash('success', 'Product Info Category Type Feature permanently deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product Info Category Type Feature permanent delete failed!');
+            throw $e;
+        }
+        return redirect()->route('pm.pro-info-cat-tf.recycle-bin');
     }
 }

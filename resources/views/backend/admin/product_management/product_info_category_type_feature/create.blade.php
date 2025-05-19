@@ -1,19 +1,19 @@
-@extends('backend.admin.layouts.master', ['page_slug' => 'model'])
-@section('title', 'Create Model')
+@extends('backend.admin.layouts.master', ['page_slug' => 'pro_info_cat_tf'])
+@section('title', 'Create Product Information Category Type Feature')
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Create Model') }}</h4>
+                    <h4 class="cart-title">{{ __('Create Product Information Category Type Feature') }}</h4>
                     <x-backend.admin.button :datas="[
-                        'routeName' => 'pm.model.index',
+                        'routeName' => 'pm.pro-info-cat-tf.index',
                         'label' => 'Back',
-                        'permissions' => ['model-list'],
+                        'permissions' => ['product-info-category-type-feature-list'],
                     ]" />
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('pm.model.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('pm.pro-info-cat-tf.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group">
