@@ -20,7 +20,7 @@ return new class extends Migration
             $table->bigInteger('sort_order')->default(0)->index();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->boolean('status')->default(ProductInfoCategory::STATUS_ACTIVE)->comment(ProductInfoCategory::STATUS_ACTIVE . ': Active, ' . ProductInfoCategory::STATUS_DEACTIVE . ': Deactive');
+            $table->boolean('status')->default(ProductInfoCategory::STATUS_ACTIVE)->index()->comment(ProductInfoCategory::STATUS_ACTIVE . ': Active, ' . ProductInfoCategory::STATUS_DEACTIVE . ': Deactive');
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);

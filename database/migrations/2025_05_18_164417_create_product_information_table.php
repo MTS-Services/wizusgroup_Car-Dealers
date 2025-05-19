@@ -17,14 +17,39 @@ return new class extends Migration
         Schema::create('product_information', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade')->onUpdate('cascade')->index();
-            $table->foreignId('product_info_cat_id')->constrained('product_info_categories')->onDelete('cascade')->onUpdate('cascade')->index();
-            $table->foreignId('product_info_cat_type_id')->constrained('product_info_cat_types')->onDelete('cascade')->onUpdate('cascade')->index()->nullable();
-            $table->foreignId('product_info_cat_type_feature_id')->constrained('product_info_cat_type_features')->onDelete('cascade')->onUpdate('cascade')->index()->nullable();
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('product_info_cat_id');
+            $table->unsignedBigInteger('product_info_cat_type_id')->nullable();
+            $table->unsignedBigInteger('product_info_cat_type_feature_id')->nullable();
             $table->longText('remarks');
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+
+             $table->foreign('product_info_cat_id', 'fki_cat_id')
+                ->references('id')
+                ->on('product_info_categories')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+             $table->foreign('product_info_cat_type_id', 'fki_cat_t_id')
+                ->references('id')
+                ->on('product_info_category_types')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+             $table->foreign('product_info_cat_type_feature_id', 'fki_cat_t_f_id')
+                ->references('id')
+                ->on('product_info_category_type_features')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+
+
+
+
+
 
 
             // Indexes

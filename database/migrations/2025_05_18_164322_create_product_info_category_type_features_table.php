@@ -19,9 +19,9 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
 
-            $table->foreignId('product_info_cat_id')->constrained('product_info_categories')->onDelete('cascade')->onUpdate('cascade')->index();
+            $table->unsignedBigInteger('product_info_cat_id');
+            $table->unsignedBigInteger('product_info_cat_type_id');
 
-            $table->foreignId('product_info_cat_type_id')->constrained('product_info_cat_types')->onDelete('cascade')->onUpdate('cascade')->index();
             $table->string('name');
             $table->string('slug')->unique();
             $table->boolean('status')->default(ProductInfoCategoryTypeFeature::STATUS_ACTIVE)->index();
@@ -29,7 +29,23 @@ return new class extends Migration
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
 
-            $table->unique(['product_info_cat_type_id','name'],'product_info_cat_type_feature_unique');
+            $table->foreign('product_info_cat_type_id', 'fk_cat_type_id')
+                ->references('id')
+                ->on('product_info_category_types')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('product_info_cat_id', 'fk_cat_id')
+                ->references('id')
+                ->on('product_info_categories')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->unique(['product_info_cat_type_id','name'],'type_feature_unique');
+            $table->index('product_info_cat_id', 'idx_cat_id');
+            $table->index('product_info_cat_type_id', 'idx_cat_type_id');
+
+
 
 
             // Indexes
@@ -44,6 +60,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_info_cat_type_features');
+        Schema::dropIfExists('product_info_category_type_features');
     }
 };

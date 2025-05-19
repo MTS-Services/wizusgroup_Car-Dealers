@@ -18,7 +18,7 @@ return new class extends Migration
         Schema::create('product_info_category_types', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
-            $table->foreignId('product_info_cat_id')->constrained('product_info_categories')->onDelete('cascade')->onUpdate('cascade')->index();
+            $table->foreignId('product_info_cat_id')->constrained('product_info_categories')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name');
             $table->string('slug')->unique();
             $table->boolean('status')->default(ProductInfoCategoryType::STATUS_ACTIVE)->index()->comment(ProductInfoCategoryType::STATUS_ACTIVE . ': Active, ' . ProductInfoCategoryType::STATUS_DEACTIVE . ': Deactive');
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_info_cat_types');
+        Schema::dropIfExists('product_info_category_types');
     }
 };
