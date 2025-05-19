@@ -11,31 +11,43 @@ class ProductService
         return Product::orderBy($orderby, $order)->latest();
     }
 
-    public function getProduct(string $encryptedId)
+    public function getProduct(string $encryptedId): Product
     {
         return Product::findOrFail(decrypt($encryptedId));
     }
-    public function getDeletedProduct(string $encryptedId)
+    public function getDeletedProduct(string $encryptedId): Product
     {
         return Product::onlyTrashed()->findOrFail(decrypt($encryptedId));
     }
 
-    public function store() {}
-    public function update() {}
-    public function delete(string $encryptedId)
+    public function create(array $data): Product
+    {
+        $data['created_by'] = admin()->id;
+        $data['status'] = Product::STATUS_DEACTIVE;
+        $data['meta_keywords'] = json_encode($data['meta_keywords']);
+        return Product::create($data);
+    }
+    public function update(string $encryptedId, array $data): Product
+    {
+        $product = $this->getProduct($encryptedId);
+        $data['updated_by'] = admin()->id;
+        $product->update($data);
+        return $product;
+    }
+    public function delete(string $encryptedId): void
     {
         $product =  $this->getProduct($encryptedId);
         $product->update(['deleted_by' => admin()->id]);
         $product->delete();
     }
 
-    public function restore(Product $product)
+    public function restore(Product $product): void
     {
         $product->update(['deleted_by' => null]);
         $product->restore();
     }
 
-    public function permanentDelete(Product $product)
+    public function permanentDelete(Product $product): void
     {
         $product->forceDelete();
     }
