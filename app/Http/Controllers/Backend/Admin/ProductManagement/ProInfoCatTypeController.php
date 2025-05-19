@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\ProInfoCatTypeRequest;
 use App\Services\Admin\ProductManagement\ProductInfoCategoryService;
 use App\Services\Admin\ProductManagement\ProductInfoCategoryTypeService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -94,7 +95,7 @@ class ProInfoCatTypeController extends Controller
     {
 
         if ($request->ajax()) {
-            $query = $this->proInfoCatTypeService->getProInfoCatTypes()->onlyTrashed()->with(['deleter_admin', 'company']);
+            $query = $this->proInfoCatTypeService->getProInfoCatTypes()->onlyTrashed()->with(['deleter_admin', 'infoCategory']);
             return DataTables::eloquent($query)
                 ->editColumn('product_info_cat_id', function ($product_info_category_type) {
                     return $product_info_category_type?->infoCategory?->name;
@@ -112,7 +113,7 @@ class ProInfoCatTypeController extends Controller
                     $menuItems = $this->trashedMenuItems($product_info_category_type);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['company_id', 'status', 'deleted_by', 'deleted_at', 'action'])
+                ->rawColumns(['product_info_cat_id', 'status', 'deleted_by', 'deleted_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.product_management.pro_info_cat_type.recycle-bin');
@@ -167,32 +168,97 @@ class ProInfoCatTypeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+      public function show(string $id)
     {
-        //
+        $product_info_category_type = $this->proInfoCatTypeService->getProInfoCatType($id);
+        $product_info_category_type->load(['creater_admin', 'updater_admin','infoCategory']);
+        $product_info_category_type['product_info_cat_name'] = $product_info_category_type?->infoCategory?->name;
+        return response()->json($product_info_category_type);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+
+     public function edit(string $id)
     {
-        //
+        $data['product_info_category_type'] = $this->proInfoCatTypeService->getProInfoCatType($id);
+        $data['product_info_cats'] = $this->ProductInfoCatService->getProductInfoCats()->active()->select(['id', 'name'])->get();
+        return view('backend.admin.product_management.pro_info_cat_type.edit', $data);
     }
+
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProInfoCatTypeRequest $request, string $id)
     {
-        //
+
+        try {
+            $validated = $request->validated();
+            $this->proInfoCatTypeService->updateProInfoCatType($id, $validated, $request);
+            session()->flash('success', 'Product Info Category Type updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product Info Category Type update failed!');
+            throw $e;
+        }
+        return redirect()->route('pm.product-info-category-type.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
+
     public function destroy(string $id)
     {
-        //
+        try {
+            $this->proInfoCatTypeService->deleteProInfoCatType($id);
+            session()->flash('success', 'Product Info Category Type deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product Info Category Type delete failed!');
+            throw $e;
+        }
+        return redirect()->route('pm.product-info-category-type.index');
+    }
+     public function status(string $id): RedirectResponse
+    {
+        try {
+            $this->proInfoCatTypeService->toggleStatus($id);
+            session()->flash('success', 'Product Info Category Type status updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'product Info Category Type status update failed!');
+            throw $e;
+        }
+        return redirect()->route('pm.product-info-category-type.index');
+    }
+    public function restore(string $id): RedirectResponse
+    {
+        try {
+            $this->proInfoCatTypeService->restoreProInfoCatType($id);
+            session()->flash('success', 'Brand restored successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Brand restore failed!');
+            throw $e;
+        }
+        return redirect()->route('pm.brand.recycle-bin');
+    }
+
+    /**
+     * Remove the specified resource from storage permanently.
+     *
+     * @param string $id
+     * @return RedirectResponse
+     */
+    public function permanentDelete(string $id): RedirectResponse
+    {
+        try {
+            $this->proInfoCatTypeService->permanentDeleteProInfoCatType($id);
+            session()->flash('success', 'Brand permanently deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Brand permanent delete failed!');
+            throw $e;
+        }
+        return redirect()->route('pm.brand.recycle-bin');
     }
 }

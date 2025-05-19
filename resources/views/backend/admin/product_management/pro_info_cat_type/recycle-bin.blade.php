@@ -1,16 +1,16 @@
-@extends('backend.admin.layouts.master', ['page_slug' => 'product_info_cat'])
-@section('title', 'Product Information Category Recycle Bin')
+{{-- @extends('backend.admin.layouts.master', ['page_slug' => 'product_info_cat_type']) --}}
+@section('title', 'Product Information Category Type Recycle Bin')
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Product Information Category Recycle Bin') }}</h4>
+                    <h4 class="cart-title">{{ __('Product Information Category Type Recycle Bin') }}</h4>
                     <div class="buttons">
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'pm.product-info-category.index',
+                            'routeName' => 'pm.product-info-category-type.index',
                             'label' => 'Back',
-                            'permissions' => ['product-info-category-list'],
+                            'permissions' => ['product-info-category-type-list'],
                         ]" />
                     </div>
                 </div>
@@ -19,6 +19,7 @@
                         <thead>
                             <tr>
                                 <th>{{ __('SL') }}</th>
+                                <th>{{ __('Product Info Category') }}</th>
                                 <th>{{ __('Name') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Deleted By') }}</th>
@@ -41,6 +42,8 @@
         $(document).ready(function() {
             let table_columns = [
                 //name and data, orderable, searchable
+
+                ['product_info_cat_id', true,true]
                 ['name', true, true],
                 ['status', true, true],
                 ['deleted_by', true, true],
@@ -51,10 +54,10 @@
                 table_columns: table_columns,
                 main_class: '.datatable',
                 displayLength: 10,
-                main_route: "{{ route('pm.product-info-category.recycle-bin') }}",
+                main_route: "{{ route('pm.product-info-category-type.recycle-bin') }}",
                 order_route: "{{ route('update.sort.order') }}",
                 export_columns: [0, 1, 2, 3,4],
-                model: 'ProductInfoCategory',
+                model: 'ProductInfoCategoryType',
             };
             // initializeDataTable(details);
 

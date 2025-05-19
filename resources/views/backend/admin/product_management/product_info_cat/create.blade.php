@@ -1,11 +1,11 @@
 @extends('backend.admin.layouts.master', ['page_slug' => 'product_info_cat'])
-@section('title', 'Product Info Category Create')
+@section('title', 'Product Information Category Create')
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h4 class="cart-title">{{ __('Create Product Info Category') }}</h4>
+                <h4 class="cart-title">{{ __('Create Product Information Category') }}</h4>
                 <x-backend.admin.button :datas="[
                         'routeName' => 'pm.product-info-category.index',
                         'label' => 'Back',

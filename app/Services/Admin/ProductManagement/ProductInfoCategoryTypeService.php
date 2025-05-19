@@ -3,6 +3,7 @@
 namespace App\Services\Admin\ProductManagement;
 
 use App\Models\ProductInfoCategoryType;
+use Illuminate\Database\Eloquent\Collection;
 
 class ProductInfoCategoryTypeService
 {
@@ -14,72 +15,59 @@ class ProductInfoCategoryTypeService
         return ProductInfoCategoryType::orderBy($orderby, $order)->latest();
     }
 
-    // public function getBrand(string $encryptedId): ProductInfoCategoryType | Collection
-    // {
-    //     return ProductInfoCategoryType::findOrFail(decrypt($encryptedId));
-    // }
+    public function getProInfoCatType(string $encryptedId): ProductInfoCategoryType | Collection
+    {
+        return ProductInfoCategoryType::findOrFail(decrypt($encryptedId));
+    }
 
-    // public function getDeletedBrand(string $encryptedId): ProductInfoCategoryType | Collection
-    // {
-    //     return ProductInfoCategoryType::onlyTrashed()->findOrFail(decrypt($encryptedId));
-    // }
+    public function getDeletedProInfoCatType(string $encryptedId): ProductInfoCategoryType | Collection
+    {
+        return ProductInfoCategoryType::onlyTrashed()->findOrFail(decrypt($encryptedId));
+    }
 
     public function createProInfoCatType(array $data): ProductInfoCategoryType
     {
         $data['created_by'] = admin()->id;
-        $brand = ProductInfoCategoryType::create($data);
-        return $brand;
+        $product_info_category_type = ProductInfoCategoryType::create($data);
+        return $product_info_category_type;
     }
 
-    // public function updateBrand(string $encryptedId, array $data, $file = null): ProductInfoCategoryType
-    // {
-    //     $brand = $this->getBrand($encryptedId);
-    //     $data['updated_by'] = admin()->id;
-    //     if ($file) {
-    //         $data['image'] = $this->handleFilepondFileUpload($brand, $file, admin(), 'brands/');
-    //     }
-    //     $brand->update($data);
-    //     return $brand;
-    // }
+    public function updateProInfoCatType(string $encryptedId, array $data): ProductInfoCategoryType
+    {
+        $product_info_category_type = $this->getProInfoCatType($encryptedId);
+        $data['updated_by'] = admin()->id;
+        $product_info_category_type->update($data);
+        return $product_info_category_type;
+    }
 
-    // public function deleteBrand(string $encryptedId): void
-    // {
-    //     $brand = $this->getBrand($encryptedId);
-    //     $brand->update(['deleted_by' => admin()->id]);
-    //     $brand->delete();
-    // }
+    public function deleteProInfoCatType(string $encryptedId): void
+    {
+        $product_info_category_type = $this->getProInfoCatType($encryptedId);
+        $product_info_category_type->update(['deleted_by' => admin()->id]);
+        $product_info_category_type->delete();
+    }
 
-    // public function restoreBrand(string $encryptedId): void
-    // {
-    //     $brand = $this->getDeletedBrand($encryptedId);
-    //     $brand->update(['updated_by' => admin()->id]);
-    //     $brand->restore();
-    // }
+    public function restoreProInfoCatType(string $encryptedId): void
+    {
+        $product_info_category_type = $this->getDeletedProInfoCatType($encryptedId);
+        $product_info_category_type->update(['updated_by' => admin()->id]);
+        $product_info_category_type->restore();
+    }
 
-    // public function permanentDeleteBrand(string $encryptedId): void
-    // {
-    //     $brand = $this->getDeletedBrand($encryptedId);
-    //     if ($brand->image) {
-    //         $this->fileDelete($brand->image);
-    //     }
-    //     $brand->forceDelete();
-    // }
+    public function permanentDeleteProInfoCatType(string $encryptedId): void
+    {
+        $product_info_category_type = $this->getDeletedProInfoCatType($encryptedId);
+        $product_info_category_type->forceDelete();
+    }
 
-    // public function toggleStatus(string $encryptedId): void
-    // {
-    //     $brand = $this->getBrand($encryptedId);
-    //     $brand->update([
-    //         'updated_by' => admin()->id,
-    //         'status' => !$brand->status
-    //     ]);
-    // }
+    public function toggleStatus(string $encryptedId): void
+    {
+        $product_info_category_type = $this->getProInfoCatType($encryptedId);
+        $product_info_category_type->update([
+            'updated_by' => admin()->id,
+            'status' => !$product_info_category_type->status
+        ]);
+    }
 
-    // public function toggleFeature(string $encryptedId): void
-    // {
-    //     $brand = $this->getBrand($encryptedId);
-    //     $brand->update([
-    //         'updated_by' => admin()->id,
-    //         'is_featured' => !$brand->is_featured
-    //     ]);
-    // }
+
 }
