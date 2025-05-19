@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\TaxClass;
+use App\Models\ProductInfoCategoryType;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -29,12 +29,12 @@ class DatabaseSeeder extends Seeder
             SubChildCategorySeeder::class,
 
             CountrySeeder::class,
-            BannerSeeder::class,
             StateSeeder::class,
             CitySeeder::class,
             OperationAreaSeeder::class,
             OperationSubAreaSeeder::class,
-
+            
+            BannerSeeder::class,
             AddressSeeder::class,
             FaqSeeder::class,
             CompanySeeder::class,
@@ -43,6 +43,14 @@ class DatabaseSeeder extends Seeder
 
             TaxClassSeeder::class,
             TaxRateSeeder::class,
+
+            SupplierSeeder::class,
+            ProductInfoCategorySeeder::class,
+            ProductInfoCategoryTypeSeeder::class,
+            ProductInfoCategoryTypeFeatureSeeder::class,
+            ProductAttributeSeeder::class,
+            ProductSeeder::class,
+            ProductCategorySeeder::class,
         ]);
     }
 }

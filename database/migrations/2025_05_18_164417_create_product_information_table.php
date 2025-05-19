@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_info_cat_id');
             $table->unsignedBigInteger('product_info_cat_type_id')->nullable();
             $table->unsignedBigInteger('product_info_cat_type_feature_id')->nullable();
-            $table->longText('remarks');
+            $table->longText('remarks')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
@@ -44,13 +44,6 @@ return new class extends Migration
                 ->on('product_info_category_type_features')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-
-
-
-
-
-
-
 
             // Indexes
             $table->index('created_at'); // Index for soft deletes

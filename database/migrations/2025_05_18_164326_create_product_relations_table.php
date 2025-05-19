@@ -18,24 +18,34 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
 
-            $table->foreignId('product_id')->constrained('products')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('brand_id')->nullable();
+            $table->unsignedBigInteger('model_id')->nullable();
+            $table->unsignedBigInteger('tax_class_id')->nullable();
+            $table->unsignedBigInteger('tax_rate_id')->nullable();
 
-            $table->foreignId('company_id')->constrained('companies')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('sub_category_id')->nullable();
+            $table->unsignedBigInteger('sub_child_category_id')->nullable();
 
-            $table->foreignId('brand_id')->constrained('brands')->onUpdate('cascade')->onDelete('cascade')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('sub_category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('sub_child_category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->foreignId('model_id')->constrained('brands')->onUpdate('cascade')->onDelete('cascade')->nullable();
-
-            $table->foreignId('tax_class_id')->constrained('tax_classes')->onUpdate('cascade')->onDelete('cascade')->nullable();
-
-            $table->foreignId('tax_rate_id')->constrained('tax_rates')->onUpdate('cascade')->onDelete('cascade')->nullable();
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('model_id')->references('id')->on('models')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('tax_class_id')->references('id')->on('tax_classes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('tax_rate_id')->references('id')->on('tax_rates')->onDelete('cascade')->onUpdate('cascade');
 
 
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
 
-            $table->unique(['product_id','brand_id', 'model_id'], 'uq_product_relation_composite');
+            $table->unique(['product_id','company_id','brand_id', 'model_id','category_id','sub_category_id','sub_child_category_id'], 'uq_product_relation_composite');
 
 
             // Indexes
