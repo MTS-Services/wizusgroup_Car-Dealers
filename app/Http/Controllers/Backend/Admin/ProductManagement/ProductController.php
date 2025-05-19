@@ -1,11 +1,11 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 
-use {{ rootNamespace }}Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class {{ class }} extends Controller
+class ProductController extends Controller
 {
     public function __construct()
     {
@@ -16,6 +16,7 @@ class {{ class }} extends Controller
         $this->middleware('permission:product-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:product-delete', ['only' => ['destroy']]);
         $this->middleware('permission:product-status', ['only' => ['status']]);
+        $this->middleware('permission:product-feature', ['only' => ['feature']]);
         $this->middleware('permission:product-recycle-bin', ['only' => ['recycleBin']]);
         $this->middleware('permission:product-restore', ['only' => ['restore']]);
         $this->middleware('permission:product-permanent-delete', ['only' => ['permanentDelete']]);

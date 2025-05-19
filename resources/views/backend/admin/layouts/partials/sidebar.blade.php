@@ -118,7 +118,7 @@
                                     <span class="sub-item">{{ __('City') }}</span>
                                 </a>
                             </li>
-                            <li class="@if ($page_slug == 'operation_area') active @endif">
+                            {{-- <li class="@if ($page_slug == 'operation_area') active @endif">
                                 <a href="{{ route('setup.operation-area.index') }}">
                                     <span class="sub-item">{{ __('Operation Area') }}</span>
                                 </a>
@@ -127,7 +127,7 @@
                                 <a href="{{ route('setup.operation-sub-area.index') }}">
                                     <span class="sub-item">{{ __('Operation Sub Area') }}</span>
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
 
@@ -168,9 +168,14 @@
                                     <span class="sub-item">{{ __('Sub Category') }}</span>
                                 </a>
                             </li>
-                            <li class="@if ($page_slug == 'subchildcategory') active @endif">
+                            {{-- <li class="@if ($page_slug == 'subchildcategory') active @endif">
                                 <a href="{{ route('pm.sub-child-category.index') }}">
                                     <span class="sub-item">{{ __('Sub Child Category') }}</span>
+                                </a>
+                            </li> --}}
+                            <li class="@if ($page_slug == 'product') active @endif">
+                                <a href="{{ route('pm.product.index') }}">
+                                    <span class="sub-item">{{ __('Product') }}</span>
                                 </a>
                             </li>
                         </ul>

@@ -31,6 +31,7 @@ use App\Http\Controllers\Backend\Admin\Auth\ForgotPasswordController as AdminFor
 use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminResetPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerificationController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\BrandController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\ProductController;
 
 // Admin Auth Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -40,11 +41,11 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
         Route::post('/logout', 'logout')->middleware('auth:admin')->name('logout'); // Admin Logout
     });
 
-     Route::controller(AdminVerificationController::class)->group(function () {
-            Route::get('email/verify',  'show')->name('verification.notice');
-            Route::get('email/verify/{id}/{hash}',  'verify')->middleware('signed')->name('verification.verify');
-            Route::post('email/resend',  'resend')->middleware('throttle:6,1')->name('verification.resend');
-        });
+    Route::controller(AdminVerificationController::class)->group(function () {
+        Route::get('email/verify',  'show')->name('verification.notice');
+        Route::get('email/verify/{id}/{hash}',  'verify')->middleware('signed')->name('verification.verify');
+        Route::post('email/resend',  'resend')->middleware('throttle:6,1')->name('verification.resend');
+    });
 
 
     Route::group(['as' => 'password.', 'prefix' => 'password'], function () {
@@ -73,11 +74,9 @@ Route::controller(AxiosRequestController::class)->name('axios.')->group(function
 
     Route::post('get-brands', 'getBrands')->name('get-brands');
     Route::post('get-models', 'getModels')->name('get-models');
-
-
 });
 
-Route::group(['middleware' => ['auth:admin','verified'], 'prefix' => 'admin'], function () {
+Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], function () {
 
     Route::get('/dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin.dashboard');
 
@@ -252,6 +251,14 @@ Route::group(['middleware' => ['auth:admin','verified'], 'prefix' => 'admin'], f
         Route::get('sub-child-category/recycle/bin', [SubChildCategoryController::class, 'recycleBin'])->name('sub-child-category.recycle-bin');
         Route::get('sub-child-category/restore/{sub_child_category}', [SubChildCategoryController::class, 'restore'])->name('sub-child-category.restore');
         Route::delete('sub-child-category/permanent-delete/{sub_child_category}', [SubChildCategoryController::class, 'permanentDelete'])->name('sub-child-category.permanent-delete');
+
+        // Product Routes
+        Route::resource('product', ProductController::class);
+        Route::get('product/status/{product}', [ProductController::class, 'status'])->name('product.status');
+        Route::get('product/feature/{product}', [ProductController::class, 'feature'])->name('product.feature');
+        Route::get('product/recycle/bin', [ProductController::class, 'recycleBin'])->name('product.recycle-bin');
+        Route::get('product/restore/{product}', [ProductController::class, 'restore'])->name('product.restore');
+        Route::delete('product/permanent-delete/{product}', [ProductController::class, 'permanentDelete'])->name('product.permanent-delete');
 
         // Company Routes
         Route::resource('company', CompanyController::class);

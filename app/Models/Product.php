@@ -331,8 +331,66 @@ class Product extends BaseModel
         return $query->where('is_dropshipping', self::NOTALLOW_DROPSHIPPING);
     }
 
+    // ========================================Backorder labels
 
+     public const ALLOW_BACKORDER = 1;
+    public const NOTALLOW_BACKORDER = 0;
 
+    // Dropshipping labels
+    public static function getBackorderLabels(): array
+    {
+        return [
+            self::ALLOW_BACKORDER => 'Allow',
+            self::NOTALLOW_BACKORDER => 'Not Allow',
+        ];
+    }
 
+    // Dropshipping btn labels
+    public static function getBackorderBtnLabels(): array
+    {
+        return [
+            self::ALLOW_BACKORDER => 'Remove From Backorder',
+            self::NOTALLOW_BACKORDER => 'Make Backorder',
+        ];
+    }
+
+    // Accessor for Dropshipping labels
+    public function getBackorderLabelsAttribute(): array
+    {
+        return self::getBackorderLabels();
+    }
+
+    // Accessor for Dropshipping label
+    public function getBackorderLabelAttribute(): string
+    {
+        return self::getBackorderLabels()[$this->allow_backorder] ?? 'Unknown';
+    }
+    // Accessor for Dropshipping color
+    public function getBackorderColorAttribute(): string
+    {
+        return $this->allow_backorder == self::ALLOW_BACKORDER ? 'bg-primary' : 'bg-info';
+    }
+
+    // Accessor for Dropshipping label
+    public function getBackorderBtnLabelAttribute(): string
+    {
+        return self::getBackorderBtnLabels()[$this->allow_backorder] ?? 'Unknown';
+    }
+
+    // Accessor for Dropshipping btn color
+    public function getBackorderBtnColorAttribute(): string
+    {
+        return $this->allow_backorder == self::ALLOW_BACKORDER ? 'btn btn-info': 'btn btn-primary';
+    }
+
+    public function scopeBackorder($query): mixed
+    {
+        return $query->where('allow_backorder', self::ALLOW_BACKORDER);
+    }
+
+    public function scopeNotBackorder($query): mixed
+    {
+        return $query->where('allow_backorder', self::NOTALLOW_BACKORDER);
+    }
 
 }
