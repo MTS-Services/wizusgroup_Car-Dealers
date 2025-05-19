@@ -2,13 +2,12 @@
 
 namespace App\Services\Admin\ProductManagement;
 
+use App\Models\Product;
+
 class ProductService
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
+    public function getProducts($orderby = 'sort_order', $order = 'asc')
     {
-        //
+        return Product::orderBy($orderby, $order)->latest();
     }
 }

@@ -1,5 +1,5 @@
-@extends('backend.admin.layouts.master', ['page_slug' => 'category'])
-@section('title', 'Category List')
+@extends('backend.admin.layouts.master', ['page_slug' => 'product'])
+@section('title', 'Product List')
 @push('css')
     <link rel="stylesheet" href="{{ asset('custom_litebox/litebox.css') }}">
 @endpush
@@ -8,7 +8,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Category List') }}</h4>
+                    <h4 class="cart-title">{{ __('Product List') }}</h4>
                     <div class="buttons">
                         <x-backend.admin.button :datas="[
                             'routeName' => 'pm.category.recycle-bin',
@@ -31,6 +31,8 @@
                                 <th>{{ __('Name') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Featured') }}</th>
+                                <th>{{ __('Backorder') }}</th>
+                                <th>{{ __('Dropshipping') }}</th>
                                 <th>{{ __('Created By') }}</th>
                                 <th>{{ __('Created Date') }}</th>
                                 <th>{{ __('Action') }}</th>
@@ -57,6 +59,8 @@
                 ['name', true, true],
                 ['status', true, true],
                 ['is_featured', true, true],
+                ['allow_backorder', true, true],
+                ['is_dropshipping', true, true],
                 ['created_by', true, true],
                 ['created_at', false, false],
                 ['action', false, false],
@@ -65,10 +69,10 @@
                 table_columns: table_columns,
                 main_class: '.datatable',
                 displayLength: 10,
-                main_route: "{{ route('pm.category.index') }}",
+                main_route: "{{ route('pm.product.index') }}",
                 order_route: "{{ route('update.sort.order') }}",
                 export_columns: [0, 1, 2, 3, 4, 5],
-                model: 'Category',
+                model: 'Product',
             };
             initializeDataTable(details);
         })

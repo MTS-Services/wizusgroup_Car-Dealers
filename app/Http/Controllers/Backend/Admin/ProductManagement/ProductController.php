@@ -3,12 +3,23 @@
 namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 
 use App\Http\Controllers\Controller;
+use App\Services\Admin\ProductManagement\ProductService;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Contracts\View\View;
 
 class ProductController extends Controller
 {
-    public function __construct()
+
+    protected ProductService $productService;
+
+    public function __construct(ProductService $productService)
     {
+
+        $this->productService = $productService;
+
         $this->middleware('auth:admin');
         $this->middleware('permission:product-list', ['only' => ['index']]);
         $this->middleware('permission:product-details', ['only' => ['show']]);
@@ -17,6 +28,8 @@ class ProductController extends Controller
         $this->middleware('permission:product-delete', ['only' => ['destroy']]);
         $this->middleware('permission:product-status', ['only' => ['status']]);
         $this->middleware('permission:product-feature', ['only' => ['feature']]);
+        $this->middleware('permission:product-backorder', ['only' => ['backorder']]);
+        $this->middleware('permission:product-dropshipping', ['only' => ['dropshipping']]);
         $this->middleware('permission:product-recycle-bin', ['only' => ['recycleBin']]);
         $this->middleware('permission:product-restore', ['only' => ['restore']]);
         $this->middleware('permission:product-permanent-delete', ['only' => ['permanentDelete']]);
@@ -25,9 +38,94 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request): JsonResponse|View
     {
-        //
+
+        if ($request->ajax()) {
+            $query = $this->productService->getProducts()
+                ->with(['creater_admin']);
+            return DataTables::eloquent($query)
+
+                ->editColumn('status', function ($product) {
+                    return "<span class='badge " . $product->status_color . "'>$product->status_label</span>";
+                })
+                ->editColumn('is_featured', function ($product) {
+                    return "<span class='badge " . $product->featured_color . "'>" . $product->featured_label . "</span>";
+                })
+                ->editColumn('allow_backorder', function ($product) {
+                    return "<span class='badge " . $product->backorder_color . "'>" . $product->backorder_label . "</span>";
+                })
+                ->editColumn('is_dropshipping', function ($product) {
+                    return "<span class='badge " . $product->dropshipping_color . "'>" . $product->dropshipping_label . "</span>";
+                })
+                ->editColumn('created_by', function ($product) {
+                    return $product->creater_name;
+                })
+                ->editColumn('created_at', function ($product) {
+                    return $product->created_at_formatted;
+                })
+                ->editColumn('action', function ($product) {
+                    $menuItems = $this->menuItems($product);
+                    return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
+                })
+                ->rawColumns(['status', 'is_featured', 'allow_backorder', 'is_dropshipping', 'created_by', 'created_at', 'action'])
+                ->make(true);
+        }
+        return view('backend.admin.product_management.product.index');
+    }
+
+
+    protected function menuItems($model): array
+    {
+        return [
+            [
+                'routeName' => 'javascript:void(0)',
+                'data-id' => encrypt($model->id),
+                'className' => 'view',
+                'label' => 'Details',
+                'permissions' => ['product-list']
+            ],
+            [
+                'routeName' => 'pm.product.edit',
+                'params' => [encrypt($model->id)],
+                'label' => 'Edit',
+                'permissions' => ['product-edit']
+            ],
+            [
+                'routeName' => 'pm.product.status',
+                'params' => [encrypt($model->id)],
+                'label' => $model->status_btn_label,
+                'permissions' => ['product-status']
+            ],
+            [
+                'routeName' => 'pm.product.feature',
+                'params' => [encrypt($model->id)],
+                'label' => $model->featured_btn_label,
+                'permissions' => ['product-feature']
+            ],
+            [
+                'routeName' => 'pm.product.backorder',
+                'params' => [encrypt($model->id)],
+                'label' => $model->backorder_btn_label,
+                'restore' => true,
+                'permissions' => ['product-backorder']
+            ],
+            [
+                'routeName' => 'pm.product.dropshipping',
+                'params' => [encrypt($model->id)],
+                'label' => $model->dropshipping_btn_label,
+                'restore' => true,
+                'permissions' => ['product-dropshipping']
+            ],
+            [
+                'routeName' => 'pm.product.destroy',
+                'params' => [encrypt($model->id)],
+                'label' => 'Delete',
+                'delete' => true,
+                'permissions' => ['product-delete']
+            ]
+
+        ];
     }
 
     /**

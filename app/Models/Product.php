@@ -73,6 +73,12 @@ class Product extends BaseModel
             'dropshipping_btn_label',
             'dropshipping_btn_color',
             'dropshipping_labels',
+
+            'backorder_label',
+            'backorder_color',
+            'backorder_btn_label',
+            'backorder_btn_color',
+            'backorder_labels',
         ]);
     }
 
@@ -287,8 +293,8 @@ class Product extends BaseModel
     public static function getDropshippingBtnLabels(): array
     {
         return [
-            self::ALLOW_DROPSHIPPING => 'Remove From Dropshipping',
-            self::NOTALLOW_DROPSHIPPING => 'Make Dropshipping',
+            self::ALLOW_DROPSHIPPING => 'Not Allow Dropshipping',
+            self::NOTALLOW_DROPSHIPPING => 'Allow Dropshipping',
         ];
     }
 
@@ -349,8 +355,8 @@ class Product extends BaseModel
     public static function getBackorderBtnLabels(): array
     {
         return [
-            self::ALLOW_BACKORDER => 'Remove From Backorder',
-            self::NOTALLOW_BACKORDER => 'Make Backorder',
+            self::ALLOW_BACKORDER => 'Not Allow Backorder',
+            self::NOTALLOW_BACKORDER => 'ALlow Backorder',
         ];
     }
 
