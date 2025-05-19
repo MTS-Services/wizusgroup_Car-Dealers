@@ -1,16 +1,16 @@
-@extends('backend.admin.layouts.master', ['page_slug' => 'brand'])
-@section('title', 'Brand Recycle Bin')
+@extends('backend.admin.layouts.master', ['page_slug' => 'company'])
+@section('title', 'Company Recycle Bin')
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Brand Recycle Bin') }}</h4>
+                    <h4 class="cart-title">{{ __('Company Recycle Bin') }}</h4>
                     <div class="buttons">
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'pm.brand.index',
+                            'routeName' => 'pm.company.index',
                             'label' => 'Back',
-                            'permissions' => ['brand-list'],
+                            'permissions' => ['company-list'],
                         ]" />
                     </div>
                 </div>
@@ -19,7 +19,6 @@
                         <thead>
                             <tr>
                                 <th>{{ __('SL') }}</th>
-                                <th>{{ __('Company') }}</th>
                                 <th>{{ __('Name') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Featured') }}</th>
@@ -43,7 +42,6 @@
         $(document).ready(function() {
             let table_columns = [
                 //name and data, orderable, searchable
-                ['company_id', true, true],
                 ['name', true, true],
                 ['status', true, true],
                 ['is_featured', true, true],
@@ -55,10 +53,10 @@
                 table_columns: table_columns,
                 main_class: '.datatable',
                 displayLength: 10,
-                main_route: "{{ route('pm.brand.recycle-bin') }}",
+                main_route: "{{ route('pm.company.recycle-bin') }}",
                 order_route: "{{ route('update.sort.order') }}",
                 export_columns: [0, 1, 2, 3,4,5],
-                model: 'Brand',
+                model: 'Company',
             };
             // initializeDataTable(details);
 

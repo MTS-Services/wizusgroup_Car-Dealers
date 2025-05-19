@@ -18,6 +18,7 @@ return new class extends Migration
         Schema::create('models', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
+            $table->unsignedBigInteger('company_id')->index();
             $table->unsignedBigInteger('brand_id')->index();
             $table->string('name')->index();
             $table->string('slug')->unique()->index();
@@ -30,6 +31,9 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
+
+            $table->foreign("company_id")->references("id")->on("companies")->onDelete("cascade")->onUpdate("cascade");
+            $table->foreign("brand_id")->references("id")->on("brands")->onDelete("cascade")->onUpdate("cascade");
 
 
             // Indexes

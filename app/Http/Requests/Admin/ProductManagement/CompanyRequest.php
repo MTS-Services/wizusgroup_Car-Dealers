@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\ProductManagement;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ModelRequest extends FormRequest
+class CompanyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,21 +14,19 @@ class ModelRequest extends FormRequest
         return true;
     }
 
-     /**
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+       public function rules(): array
     {
         return [
             'description' => 'nullable|string',
             'meta_description' => 'nullable|string',
             'meta_title' => 'nullable|string',
             'image'=> 'nullable',
-            'company_id' => 'required|exists:companies,id',
-            'brand_id'=> 'required|exists:brands,id',
-            'name'=> 'required|string',
+            'website'=> 'nullable|url',
 
         ]
             +
@@ -38,7 +36,8 @@ class ModelRequest extends FormRequest
     protected function store(): array
     {
         return [
-            'slug' => 'required|unique:models,slug',
+            'name' => 'required|unique:companies,name',
+            'slug' => 'required|unique:companies,slug',
         ];
     }
 
@@ -46,7 +45,8 @@ class ModelRequest extends FormRequest
     protected function update(): array
     {
         return [
-            'slug' => 'required|unique:models,slug,' . decrypt($this->route('model')),
+            'name' => 'required|unique:companies,name,' . decrypt($this->route('company')),
+            'slug' => 'required|unique:companies,slug,' . decrypt($this->route('company')),
         ];
     }
 }
