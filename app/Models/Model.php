@@ -9,6 +9,7 @@ class Model extends BaseModel
 {
      protected $fillable = [
         'sort_order',
+        'company_id',
         'brand_id',
         'name',
         'slug',
@@ -213,6 +214,9 @@ class Model extends BaseModel
         return storage_url($this->image);
     }
 
+    public function company(){
+        return $this->belongsTo(Company::class, 'company_id','id');
+    }
     public function brand(): BelongsTo
     {
         return $this->belongsTo(Brand::class, 'brand_id');

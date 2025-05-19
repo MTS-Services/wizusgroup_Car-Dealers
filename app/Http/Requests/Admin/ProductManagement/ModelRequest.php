@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\ProductManagement;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ModelRequest extends FormRequest
 {
@@ -26,9 +27,8 @@ class ModelRequest extends FormRequest
             'meta_description' => 'nullable|string',
             'meta_title' => 'nullable|string',
             'image'=> 'nullable',
-            'website'=> 'nullable|url',
+            'company_id' => 'required|exists:companies,id',
             'brand_id'=> 'required|exists:brands,id',
-            'name'=> 'required|string',
 
         ]
             +
@@ -38,6 +38,13 @@ class ModelRequest extends FormRequest
     protected function store(): array
     {
         return [
+            'name' => [
+                'required',
+                Rule::unique('brands')->where(
+                    fn($query) =>
+                    $query->where('brand_id', $this->brand_id)
+                ),
+            ],
             'slug' => 'required|unique:models,slug',
         ];
     }
@@ -46,6 +53,15 @@ class ModelRequest extends FormRequest
     protected function update(): array
     {
         return [
+            'name' => [
+                'required',
+                Rule::unique('brands')
+                    ->where(
+                        fn($query) =>
+                        $query->where('brand_id', $this->brand_id)
+                    )
+                    ->ignore($this->route('model')),
+            ],
             'slug' => 'required|unique:models,slug,' . decrypt($this->route('model')),
         ];
     }

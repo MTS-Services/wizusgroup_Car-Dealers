@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AxiosRequests\GetBrandRequest;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\Company;
 use App\Models\Country;
 use App\Models\State;
 use Illuminate\Http\JsonResponse;
@@ -95,5 +98,36 @@ class AxiosRequestController extends Controller
                     'childrens' => [],
                     'message'=> "Childrens not found!",
                 ]);
+        }
+
+
+        public function getBrands(GetBrandRequest $request): JsonResponse{
+            $company_id = $request->validated()["company_id"];
+            if($company_id){
+                    $company = Company::with('activeBrands')->findOrFail($company_id);
+                    return response()->json([
+                        'brands' => $company->activeBrands,
+                        'message'=> "Brands fetched successfully!",
+                    ]);
+            }
+            return response()->json([
+                    'brands' => [],
+                    'message'=> "Brands not found!",
+            ]);
+        }
+
+        public function getModels(Request $request): JsonResponse{
+            $brand_id = $request->validated()["brand_id"];
+            if($brand_id){
+                    $brand = Brand::with('activeModels')->findOrFail($brand_id);
+                    return response()->json([
+                        'models' => $brand->activeModels,
+                        'message'=> "Models fetched successfully!",
+                    ]);
+            }
+            return response()->json([
+                    'models' => [],
+                    'message'=> "Models not found!",
+            ]);
         }
     }

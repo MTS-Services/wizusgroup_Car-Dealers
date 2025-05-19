@@ -18,6 +18,16 @@
                     @csrf
                     @method('PUT')
 
+                    <div class="form-group">
+                        <label>{{ __('Company') }} <span class="text-danger">*</span></label>
+                        <select name="company_id" class="form-control" id="company_id">
+                            <option value="" selected hidden>{{__('--Select Company--')}}</option>
+                            @foreach ($companies as $company)
+                                <option value="{{$company->id}}" {{ $brand->company_id == $company->id ? 'selected' : ''}}>{{ $company->name }}</option>
+                            @endforeach
+                        </select>
+                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'company_id']" />
+                    </div>
                     {{-- Name --}}
                     <div class="form-group">
                         <label>{{ __('Name') }} <span class="text-danger">*</span></label>

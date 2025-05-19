@@ -16,25 +16,33 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('brands', function (Blueprint $table) {
-            $table->id();
+             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
-            $table->string("name")->unique();
-            $table->string("slug")->unique();
-            $table->string("image")->nullable();
-            $table->string("website")->nullable();
+
+            $table->foreignId('company_id')
+                ->constrained('companies')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->string('name');
+            $table->string('slug')->unique();
+
+            $table->string('image')->nullable();
+
             $table->boolean('status')->default(Brand::STATUS_ACTIVE)->index();
             $table->boolean('is_featured')->default(Brand::NOT_FEATURED)->index();
-            $table->string("meta_title")->nullable();
-            $table->longText("meta_description")->nullable();
-            $table->longText("description")->nullable();
+
+            $table->string('meta_title')->nullable();
+            $table->longText('meta_description')->nullable();
+            $table->longText('description')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
 
-            // Indexes
-            $table->index('created_at');
-            $table->index('updated_at');
-            $table->index('deleted_at');
+            $table->unique(['company_id', 'name']); // Prevent same brand name under same company
+
+            $table->index(['created_at', 'updated_at', 'deleted_at']);
         });
     }
 
