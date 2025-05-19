@@ -59,7 +59,8 @@ return new class extends Migration
             $table->boolean('is_dropshipping')->default(Product::NOTALLOW_DROPSHIPPING)->index();
 
             // Dropshipping supplier relation
-            $table->foreignId('supplier_id')->nullable()->constrained('suppliers')->nullOnDelete()->cascadeOnUpdate();
+            $table->unsignedBigInteger('supplier_id')->nullable();
+            $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('set null')->onUpdate('cascade');
 
             // SEO
             $table->string('meta_title')->nullable();
