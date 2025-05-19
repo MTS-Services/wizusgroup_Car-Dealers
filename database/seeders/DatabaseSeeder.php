@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\ProductInfoCategoryType;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -44,6 +46,7 @@ class DatabaseSeeder extends Seeder
 
             SupplierSeeder::class,
             ProductInfoCategorySeeder::class,
+            ProductInfoCategoryTypeSeeder::class,
         ]);
     }
 }
