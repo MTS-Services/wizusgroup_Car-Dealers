@@ -105,7 +105,8 @@ class UserController extends Controller
     public function recycleBin(Request $request)
     {
         if ($request->ajax()) {
-            $query = $this->userService->getUsers()->onlyTrashed()->with(['deleter']);
+            $query = $this->userService->getUsers()->onlyTrashed()
+            ->with(['deleter']);
             return DataTables::eloquent($query)
                 ->editColumn('first_name', function ($user) {
                     return $user->full_name . ($user->username ? " (" . $user->username . ")" : "");

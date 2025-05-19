@@ -50,7 +50,7 @@ class UserService
     {
         $user->update([
             'deleter_id' => admin()->id,
-            'deleter_type' => admin()->id
+            'deleter_type' => get_class(admin()),
         ]);
         $user->delete();
     }
