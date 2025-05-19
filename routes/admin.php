@@ -31,8 +31,10 @@ use App\Http\Controllers\Backend\Admin\Auth\ForgotPasswordController as AdminFor
 use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminResetPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerificationController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\BrandController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\ProductAttributeController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\TaxClassController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\TaxRateController;
+use App\Models\Product;
 
 // Admin Auth Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -231,6 +233,14 @@ Route::group(['middleware' => ['auth:admin','verified'], 'prefix' => 'admin'], f
 
     // Product Management
     Route::group(['as' => 'pm.', 'prefix' => 'product-management'], function () {
+        // Product Attribute Routes
+        Route::resource('product-attribute', ProductAttributeController::class);
+        Route::get('product-attribute/status/{product_attribute}', [ProductAttributeController::class, 'status'])->name('product-attribute.status');
+        Route::get('product-attribute/feature/{product_attribute}', [ProductAttributeController::class, 'feature'])->name('product-attribute.feature');
+        Route::get('product-attribute/recycle/bin', [ProductAttributeController::class, 'recycleBin'])->name('product-attribute.recycle-bin');
+        Route::get('product-attribute/restore/{product_attribute}', [ProductAttributeController::class, 'restore'])->name('product-attribute.restore');
+        Route::delete('product-attribute/permanent-delete/{product_attribute}', [ProductAttributeController::class, 'permanentDelete'])->name('product-attribute.permanent-delete');
+
         // Category Routes
         Route::resource('category', CategoryController::class);
         Route::get('category/status/{category}', [CategoryController::class, 'status'])->name('category.status');
