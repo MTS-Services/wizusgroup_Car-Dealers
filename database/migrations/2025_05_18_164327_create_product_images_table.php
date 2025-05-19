@@ -18,7 +18,10 @@ return new class extends Migration
         Schema::create('product_images', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
-            $table->foreignId('product_id')->constrained('products')->onUpdate('cascade')->onDelete('cascade')->index(); // Index for faster lookups->default(0)->index();
+
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+            
             $table->string('image');
             $table->boolean('status')->default(ProductImage::STATUS_ACTIVE)->comment(ProductImage::STATUS_ACTIVE . ': Active, ' . ProductImage::STATUS_DEACTIVE . ': Deactive');
             $table->string('alt')->nullable();

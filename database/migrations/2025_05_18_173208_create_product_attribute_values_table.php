@@ -18,8 +18,13 @@ return new class extends Migration
         Schema::create('product_attribute_values', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('product_attribute_id')->constrained('product_attributes')->onDelete('cascade')->onUpdate('cascade');
+            
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+            
+            $table->unsignedBigInteger('product_attribute_id');
+            $table->foreign('product_attribute_id')->references('id')->on('product_attributes')->onDelete('cascade')->onUpdate('cascade');
+
             $table->string('value')->unique();
             $table->boolean('status')->default(ProductAttributeValue::STATUS_ACTIVE)->index();
             $table->timestamps();

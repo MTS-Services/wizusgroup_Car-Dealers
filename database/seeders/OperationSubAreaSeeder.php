@@ -8,26 +8,21 @@ use Illuminate\Database\Seeder;
 
 class OperationSubAreaSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        OperationSubArea::create([
-            'country_id' => 1,
-            'city_id' => 2,
-            'operation_area_id' => 1,
-            'name' => 'Operation Area 1',
-            'slug' => 'operation-area-1',
-        ]);
+        // Downtown LA
+        OperationSubArea::create(['country_id' => 1, 'state_id' => 1, 'city_id' => 1, 'operation_area_id' => 1, 'name' => 'Financial District', 'slug' => 'financial-district']);
+        OperationSubArea::create(['country_id' => 1, 'state_id' => 1, 'city_id' => 1, 'operation_area_id' => 1, 'name' => 'Arts District', 'slug' => 'arts-district']);
+        OperationSubArea::create(['country_id' => 1, 'state_id' => 1, 'city_id' => 1, 'operation_area_id' => 1, 'name' => 'Fashion District', 'slug' => 'fashion-district']);
 
-        OperationSubArea::create([
-            'country_id'=> 4,
-            'state_id'=> 1,
-            'city_id' => 1,
-            'operation_area_id' => 2,
-            'name' => 'Operation Area 2',
-            'slug' => 'operation-area-2',
-        ]);
+        // Centro, La Plata
+        OperationSubArea::create(['country_id' => 2, 'state_id' => 4, 'city_id' => 4, 'operation_area_id' => 4, 'name' => 'Plaza Moreno', 'slug' => 'plaza-moreno']);
+        OperationSubArea::create(['country_id' => 2, 'state_id' => 4, 'city_id' => 4, 'operation_area_id' => 4, 'name' => 'Catedral', 'slug' => 'catedral']);
+        OperationSubArea::create(['country_id' => 2, 'state_id' => 4, 'city_id' => 4, 'operation_area_id' => 4, 'name' => 'Diagonal 80', 'slug' => 'diagonal-80']);
+
+        // Montmartre, Paris
+        OperationSubArea::create(['country_id' => 3, 'state_id' => 7, 'city_id' => 7, 'operation_area_id' => 7, 'name' => 'Place du Tertre', 'slug' => 'place-du-tertre']);
+        OperationSubArea::create(['country_id' => 3, 'state_id' => 7, 'city_id' => 7, 'operation_area_id' => 7, 'name' => 'Rue Lepic', 'slug' => 'rue-lepic']);
+        OperationSubArea::create(['country_id' => 3, 'state_id' => 7, 'city_id' => 7, 'operation_area_id' => 7, 'name' => 'Abbesses', 'slug' => 'abbesses']);
     }
 }
