@@ -39,11 +39,20 @@ class SubChildCategoryRequest extends FormRequest
     protected function store(): array
     {
         return [
-            Rule::unique('categories')->where(
-                fn($query) =>
-                $query->where('parent_id', $this->parent_id)
-            ),
-            'slug' => 'required|string|unique:categories,slug',
+            'name' => [
+                'required',
+                Rule::unique('categories')->where(
+                    fn($query) =>
+                    $query->where('parent_id', $this->parent_id)
+                ),
+            ],
+             'slug' => [
+                'required',
+                Rule::unique('categories')->where(
+                    fn($query) =>
+                    $query->where('parent_id', $this->parent_id)
+                ),
+            ],
         ];
     }
 
@@ -58,9 +67,17 @@ class SubChildCategoryRequest extends FormRequest
                         fn($query) =>
                         $query->where('parent_id', $this->parent_id)
                     )
-                    ->ignore($this->route('sub_child_category')),
+                    ->ignore(decrypt($this->route('sub_child_category'))),
             ],
-            'slug' => 'required|string|unique:categories,slug,' . decrypt($this->route('sub_child_category')),
+             'slug' => [
+                'required',
+                Rule::unique('categories')
+                    ->where(
+                        fn($query) =>
+                        $query->where('parent_id', $this->parent_id)
+                    )
+                    ->ignore(decrypt($this->route('sub_child_category'))),
+            ],
 
         ];
     }
