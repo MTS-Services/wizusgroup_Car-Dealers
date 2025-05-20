@@ -103,6 +103,16 @@
                                         </div>
                                         {{ __('Auctions') }}
                                     </a>
+                                    <a href="{{route('frontend.auction-details')}}"
+                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
+                                        <div>
+                                            <span
+                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/link:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
+                                                <i data-lucide="earth" class="w-[14px] text-text-white"></i>
+                                            </span>
+                                        </div>
+                                        {{ __('Auction Details') }}
+                                    </a>
                                     <a href="{{route('frontend.contact')}}"
                                          class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
                                         <div>
