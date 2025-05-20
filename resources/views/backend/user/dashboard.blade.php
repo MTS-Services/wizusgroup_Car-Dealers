@@ -160,15 +160,15 @@
                                             class="p-4 border-b dark:border-b-border-gray dark:border-opacity-50 flex flex-wrap justify-between items-center">
                                             <div class="flex space-x-2 mb-2 sm:mb-0">
                                                 <a href="#"
-                                                    class="btn-primary py-2 rounded-md hover:bg-bg-tertiary">
+                                                    class="btn-item bg-bg-tertiary btn-primary py-2 rounded-md hover:bg-bg-tertiary">
                                                     All Orders
                                                 </a>
                                                 <a href="#"
-                                                    class="btn-primary py-2 rounded-md hover:bg-bg-tertiary">
+                                                    class="btn-item btn-primary py-2 rounded-md hover:bg-bg-tertiary">
                                                     Pending
                                                 </a>
                                                 <a href="#"
-                                                    class="btn-primary py-2 rounded-md hover:bg-bg-tertiary">
+                                                    class="btn-item btn-primary py-2 rounded-md hover:bg-bg-tertiary">
                                                     Completed
                                                 </a>
                                             </div>
@@ -333,9 +333,241 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="my-containers" class="nav-pane hidden">
+                        <div id="my-containers" class="nav-pane block">
                             <div class="bg-bg-gray dark:bg-opacity-20 p-10 pt-0">
-                                <h3 class="text-xl font-semibold">My Containers</h3>
+                                <div class="max-w-6xl mx-auto">
+                                    <!-- My Containers Panel Header -->
+                                    <div class="mb-6">
+                                        <h2 class="text-2xl font-bold text-gray-800">My Containers</h2>
+                                        <p class="text-text-gray">Track and manage your container shipments</p>
+                                    </div>
+                                    <!-- Filters -->
+                                    <div class="mb-6 flex flex-wrap gap-2">
+                                        <a href="#"
+                                            class="btn-item bg-bg-tertiary btn-primary hover:bg-bg-tertiary py-2 rounded-md">
+                                            All Containers
+                                        </a>
+                                        <a href="#"
+                                            class="btn-item btn-primary hover:bg-bg-tertiary py-2 rounded-md">
+                                            Active
+                                        </a>
+                                        <a href="#"
+                                            class="btn-item btn-primary hover:bg-bg-tertiary py-2 rounded-md">
+                                            Completed
+                                        </a>
+                                        <div class="ml-auto">
+                                            <a href="#"
+                                                class="btn-primary py-2 bg-bg-wiz_green rounded-md hover:bg-bg-tertiary">
+                                                <i class="fas fa-plus mr-2"></i> Join a Shipment
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Containers Grid -->
+                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                        <!-- Container Card 1 -->
+                                        <div class="bg-bg-white rounded-lg shadow-md overflow-hidden">
+                                            <div class="p-4 border-b">
+                                                <div class="flex justify-between items-center">
+                                                    <h3 class="text-lg font-semibold">Container #18</h3>
+                                                    <span
+                                                        class="px-2 py-1 bg-bg-wiz_green text-text-white rounded-full text-xs font-medium">
+                                                        Active
+                                                    </span>
+                                                </div>
+                                                <p class="text-text-gray">Destination: Ghana</p>
+                                            </div>
+                                            <div class="p-4">
+                                                <div class="flex items-center mb-2">
+                                                    <i class="far fa-calendar-alt text-text-gray mr-2"></i>
+                                                    <span class="text-sm text-text-gray">Departure: May 8, 2025</span>
+                                                </div>
+                                                <div class="flex items-center mb-4">
+                                                    <i class="fas fa-ship text-text-gray text-opacity-80 mr-2"></i>
+                                                    <span class="text-sm text-text-gray">Carrier: Maersk Line</span>
+                                                </div>
+
+                                                <div class="mb-2 flex justify-between items-center">
+                                                    <span class="text-sm font-medium text-text-gray">Capacity</span>
+                                                    <span class="text-sm font-medium text-text-gray">75% filled</span>
+                                                </div>
+                                                <div class="w-full bg-bg-gray rounded-full h-2.5">
+                                                    <div class="bg-bg-wiz_orange h-2.5 rounded-full" style="width: 75%">
+                                                    </div>
+                                                </div>
+
+                                                <div class="mt-4 flex justify-between items-center">
+                                                    <span class="text-sm text-text-gray">Your Items: 3</span>
+                                                    <a href="#"
+                                                        class="text-text-wiz_green hover:underline text-sm font-medium">
+                                                        View Details
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Container Card 2 -->
+                                        <div class="bg-bg-white rounded-lg shadow-md overflow-hidden">
+                                            <div class="p-4 border-b">
+                                                <div class="flex justify-between items-center">
+                                                    <h3 class="text-lg font-semibold">Container #19</h3>
+                                                    <span
+                                                        class="px-2 py-1 bg-yellow-500 text-text-white rounded-full text-xs font-medium">
+                                                        Filling
+                                                    </span>
+                                                </div>
+                                                <p class="text-text-gray">Destination: Kenya</p>
+                                            </div>
+                                            <div class="p-4">
+                                                <div class="flex items-center mb-2">
+                                                    <i class="far fa-calendar-alt text-text-gray text-opacity-80 mr-2"></i>
+                                                    <span class="text-sm text-text-gray">Departure: May 12, 2025</span>
+                                                </div>
+                                                <div class="flex items-center mb-4">
+                                                    <i class="fas fa-ship text-text-gray text-opacity-80 mr-2"></i>
+                                                    <span class="text-sm text-text-gray">Carrier: MSC</span>
+                                                </div>
+
+                                                <div class="mb-2 flex justify-between items-center">
+                                                    <span class="text-sm font-medium text-text-gray">Capacity</span>
+                                                    <span class="text-sm font-medium text-text-gray">55% filled</span>
+                                                </div>
+                                                <div class="w-full bg-bg-gray rounded-full h-2.5">
+                                                    <div class="bg-bg-wiz_orange h-2.5 rounded-full" style="width: 55%">
+                                                    </div>
+                                                </div>
+
+                                                <div class="mt-4 flex justify-between items-center">
+                                                    <span class="text-sm text-text-gray">Your Items: 2</span>
+                                                    <a href="#"
+                                                        class="text-text-wiz_green hover:underline text-sm font-medium">
+                                                        View Details
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Container Card 3 -->
+                                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                                            <div class="p-4 border-b">
+                                                <div class="flex justify-between items-center">
+                                                    <h3 class="text-lg font-semibold">Container #20</h3>
+                                                    <span
+                                                        class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
+                                                        Loading
+                                                    </span>
+                                                </div>
+                                                <p class="text-text-gray">Destination: Nigeria</p>
+                                            </div>
+                                            <div class="p-4">
+                                                <div class="flex items-center mb-2">
+                                                    <i class="far fa-calendar-alt text-text-gray text-opacity-80 mr-2"></i>
+                                                    <span class="text-sm text-text-gray">Departure: May 20, 2025</span>
+                                                </div>
+                                                <div class="flex items-center mb-4">
+                                                    <i class="fas fa-ship text-text-gray text-opacity-80 mr-2"></i>
+                                                    <span class="text-sm text-text-gray">Carrier: CMA CGM</span>
+                                                </div>
+
+                                                <div class="mb-2 flex justify-between items-center">
+                                                    <span class="text-sm font-medium text-text-gray">Capacity</span>
+                                                    <span class="text-sm font-medium text-text-gray">80% filled</span>
+                                                </div>
+                                                <div class="w-full bg-bg-gray rounded-full h-2.5">
+                                                    <div class="bg-bg-wiz_orange h-2.5 rounded-full" style="width: 80%">
+                                                    </div>
+                                                </div>
+
+                                                <div class="mt-4 flex justify-between items-center">
+                                                    <span class="text-sm text-text-gray">Your Items: 5</span>
+                                                    <a href="#"
+                                                        class="text-text-wiz_green hover:underline text-sm font-medium">
+                                                        View Details
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Container Card 4 (Past Shipment) -->
+                                        <div class="bg-white rounded-lg shadow-md overflow-hidden opacity-75">
+                                            <div class="p-4 border-b">
+                                                <div class="flex justify-between items-center">
+                                                    <h3 class="text-lg font-semibold">Container #17</h3>
+                                                    <span
+                                                        class="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs font-medium">
+                                                        Delivered
+                                                    </span>
+                                                </div>
+                                                <p class="text-text-gray">Destination: South Africa</p>
+                                            </div>
+                                            <div class="p-4">
+                                                <div class="flex items-center mb-2">
+                                                    <i class="far fa-calendar-alt text-text-gray text-opacity-80 mr-2"></i>
+                                                    <span class="text-sm text-text-gray">Delivered: April 25,
+                                                        2025</span>
+                                                </div>
+                                                <div class="flex items-center mb-4">
+                                                    <i class="fas fa-ship text-text-gray text-opacity-80 mr-2"></i>
+                                                    <span class="text-sm text-text-gray">Carrier: Hapag-Lloyd</span>
+                                                </div>
+
+                                                <div class="mb-2 flex justify-between items-center">
+                                                    <span class="text-sm font-medium text-text-gray">Capacity</span>
+                                                    <span class="text-sm font-medium text-text-gray">100% filled</span>
+                                                </div>
+                                                <div class="w-full bg-bg-gray rounded-full h-2.5">
+                                                    <div class="bg-bg-gray bg-opacity-50 h-2.5 rounded-full" style="width: 100%">
+                                                    </div>
+                                                </div>
+
+                                                <div class="mt-4 flex justify-between items-center">
+                                                    <span class="text-sm text-text-gray">Your Items: 4</span>
+                                                    <a href="#"
+                                                        class="text-text-wiz_green hover:underline text-sm font-medium">
+                                                        View Details
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pagination -->
+                                    <div
+                                        class="px-6 py-4 mt-5 border-t dark:border-border-gray dark:border-opacity-50 flex items-center justify-between">
+                                        <div class="text-sm text-text-gray dark:text-text-light">
+                                            Showing <span class="font-medium">1</span> to <span
+                                                class="font-medium">6</span> of <span class="font-medium">12</span>
+                                            Containers
+                                        </div>
+                                        <div class="flex space-x-2">
+                                            <a href="#"
+                                                class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm disabled:opacity-50"
+                                                disabled>
+                                                Previous
+                                            </a>
+                                            <a href="#"
+                                                class="btn-primary py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary">
+                                                1
+                                            </a>
+                                            <a href="#"
+                                                class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary hover:text-text-white">
+                                                2
+                                            </a>
+                                            <a href="#"
+                                                class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary hover:text-text-white">
+                                                3
+                                            </a>
+                                            <a href="#"
+                                                class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary hover:text-text-white">
+                                                4
+                                            </a>
+                                            <a href="#"
+                                                class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary hover:text-text-white">
+                                                Next
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div id="payments" class="nav-pane hidden">
@@ -354,15 +586,15 @@
                                             class="p-4 border-b dark:border-b-border-gray dark:border-opacity-50 flex flex-wrap justify-between items-center">
                                             <div class="flex space-x-2 mb-2 sm:mb-0">
                                                 <a href="#"
-                                                    class="btn-primary py-2 rounded-md hover:bg-bg-tertiary">
+                                                    class="btn-item bg-bg-tertiary btn-primary py-2 rounded-md hover:bg-bg-tertiary">
                                                     All Payments
                                                 </a>
                                                 <a href="#"
-                                                    class="btn-primary py-2 rounded-md hover:bg-bg-tertiary">
+                                                    class="btn-item btn-primary py-2 rounded-md hover:bg-bg-tertiary">
                                                     Pending
                                                 </a>
                                                 <a href="#"
-                                                    class="btn-primary py-2 rounded-md hover:bg-bg-tertiary">
+                                                    class="btn-item btn-primary py-2 rounded-md hover:bg-bg-tertiary">
                                                     Completed
                                                 </a>
                                             </div>
@@ -927,19 +1159,19 @@
     {{-- My orders --}}
     <script>
         // Filter buttons functionality
-        const filterButtons = document.querySelectorAll('.px-4.py-2');
+        const filterButtons = document.querySelectorAll('.btn-item');
 
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
                 // Remove active class from all buttons
                 filterButtons.forEach(btn => {
-                    btn.classList.remove('bg-bg-bg-primary', 'text-white');
-                    btn.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-300');
+                    btn.classList.remove('bg-bg-tertiary');
+                    btn.classList.add('bg-bg-primary');
                 });
 
                 // Add active class to clicked button
-                button.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-300');
-                button.classList.add('bg-bg-bg-primary', 'text-white');
+                button.classList.remove('bg-bg-primary');
+                button.classList.add('bg-bg-tertiary');
             });
         });
     </script>
