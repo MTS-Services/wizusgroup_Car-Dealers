@@ -11,7 +11,7 @@ class TaxRateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class TaxRateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'rate' => 'required|numeric|min:0',
+            'tax_class' => 'required|exists:tax_classes,id',
+           'country' => 'required|exists:countries,id',
+            'state' => 'nullable|exists:states,id',
+            'city' => 'required|exists:cities,id',
         ];
     }
 }
