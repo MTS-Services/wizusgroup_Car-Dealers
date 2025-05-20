@@ -31,6 +31,7 @@ use App\Http\Controllers\Backend\Admin\Auth\ForgotPasswordController as AdminFor
 use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminResetPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerificationController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\BrandController;
+use App\Http\Controllers\Backend\Admin\SupplierManagement\SuppliersController;
 
 // Admin Auth Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -280,4 +281,14 @@ Route::group(['middleware' => ['auth:admin','verified'], 'prefix' => 'admin'], f
         Route::get('model/restore/{model}', [ModelController::class, 'restore'])->name('model.restore');
         Route::delete('model/permanent-delete/{model}', [ModelController::class, 'permanentDelete'])->name('model.permanent-delete');
     });
+
+    // Supplier Management
+    Route::group(['as' => 'sm.', 'prefix' => 'supplier-management'], function () {
+        Route::resource('supplier', SuppliersController::class);
+        Route::get('supplier/status/{supplier}', [SuppliersController::class, 'status'])->name('supplier.status');
+        Route::get('supplier/recycle/bin', [SuppliersController::class, 'recycleBin'])->name('supplier.recycle-bin');
+        Route::get('supplier/restore/{supplier}', [SuppliersController::class, 'restore'])->name('supplier.restore');
+        Route::delete('supplier/permanent-delete/{supplier}', [SuppliersController::class, 'permanentDelete'])->name('supplier.permanent-delete');
+    });
+
 });
