@@ -137,10 +137,7 @@ function validateUsername(usernameInput, errorField, errorMsg = 'Username may on
 }
 
 function getSubCategories(parentId, route, childId = null) {
-
-    axios.get(route, {
-        params: { parent_id: parentId }
-    })
+    axios.post(route, { category_id: parentId })
         .then(function (response) {
             if (response.data.childrens.length > 0) {
                 $('#childrens').html(`<option value="" selected hidden>Select Sub Category</option>`);
@@ -153,16 +150,13 @@ function getSubCategories(parentId, route, childId = null) {
             }
         })
         .catch(function (error) {
-            console.error(error);
             $('#childrens').html(`<option value="" selected hidden>Select Sub Category</option>`).prop('disabled', true);
             toastr.error('Failed to load sub categories.');
         });
 }
 
 function getSubChildCategories(parentId, route, subChildId = null) {
-    axios.get(route, {
-        params: { parent_id: parentId }
-    })
+    axios.post(route, { category_id: parentId })
         .then(function (response) {
             if (response.data.sub_childrens.length > 0) {
                 $('#sub_childrens').html(`<option value="" selected hidden>Select Sub Child Category</option>`);
@@ -173,8 +167,7 @@ function getSubChildCategories(parentId, route, subChildId = null) {
             } else {
                 $('#sub_childrens').html(`<option value="" selected hidden>Select Sub Child Category</option>`).prop('disabled', true);
             }
-        }
-        )
+        })
         .catch(function (error) {
             console.error(error);
             $('#sub_childrens').html(`<option value="" selected hidden>Select Sub Child Category</option>`).prop('disabled', true);
@@ -201,7 +194,6 @@ function getTaxRates(TaxClassId, route) {
             toastr.error('Failed to load tax rates.');
         });
 }
-
 
 function getBrands(companyId, route, brandId = null) {
 

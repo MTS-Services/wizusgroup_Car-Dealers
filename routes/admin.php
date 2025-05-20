@@ -68,8 +68,8 @@ Route::controller(AxiosRequestController::class)->name('axios.')->group(function
     Route::get('get-cities', 'getCities')->name('get-cities');
     Route::get('get-operation-areas', 'getOperationAreas')->name('get-operation-areas');
     Route::get('get-sub-areas', 'getSubAreas')->name('get-sub-areas');
-    Route::get('get-sub-categories', 'getSubCategories')->name('get-sub-categories');
-    Route::get('get-sub-child-categories', 'getSubChildCategories')->name('get-sub-child-categories');
+    Route::post('get-sub-categories', 'getSubCategories')->name('get-sub-categories');
+    Route::post('get-sub-child-categories', 'getSubChildCategories')->name('get-sub-child-categories');
     Route::post('get-brands', 'getBrands')->name('get-brands');
     Route::post('get-models', 'getModels')->name('get-models');
     Route::post('get-tax-rates', 'getTaxRates')->name('get-tax-rates');

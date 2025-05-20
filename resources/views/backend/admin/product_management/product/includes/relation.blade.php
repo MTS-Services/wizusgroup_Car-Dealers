@@ -2,7 +2,7 @@
     @csrf
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="form-group">
                 <label>{{ __('Company') }}</label>
                 <select name="company_id" id="company_id" class="form-control">
@@ -64,23 +64,17 @@
                 <label>{{ __('Sub Category') }}</label>
                 <select name="sub_category_id" id="childrens" class="form-control" disabled>
                     <option value="" selected>{{ __('Select Sub Category') }}</option>
-                    {{-- @foreach ($sub_categories as $sub_category)
-                        <option value="{{ $sub_category->id }}">{{ $sub_category->name }}</option>
-                    @endforeach --}}
                 </select>
             </div>
         </div>
-        <div class="col-md-6">
+        {{-- <div class="col-md-6">
             <div class="form-group">
                 <label>{{ __('Sub Child Category') }}</label>
                 <select name="sub_child_category_id" class="form-control" disabled id="sub_childrens">
-                    <option value="" selected>{{ __('Select Sub Child Category') }}</option>
-                    {{-- @foreach ($sub_child_categories as $sub_child_category)
-                        <option value="{{ $sub_child_category->id }}">{{ $sub_child_category->name }}</option>
-                    @endforeach --}}
+                    <option value="" selected>{{ __('Select Sub Child Category') }}</option>                    
                 </select>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <div class="form-group float-end">
@@ -93,16 +87,14 @@
         $(document).ready(function() {
             $('#category_id').on('change', function() {
                 let route = "{{ route('axios.get-sub-categories') }}";
-                console.log(route);
                 getSubCategories($(this).val(), route);
             })
 
-            $('#childrens').on('change', function() {
-                let route = "{{ route('axios.get-sub-child-categories') }}";
-
-
-                getSubChildCategories($(this).val(), route);
-            })
+            // Sub Child Category
+            // $('#childrens').on('change', function() {
+            //     let route = "{{ route('axios.get-sub-child-categories') }}";
+            //     getSubChildCategories($(this).val(), route);
+            // })
 
             $('#company_id').on('change', function() {
                 let route = "{{ route('axios.get-brands') }}";

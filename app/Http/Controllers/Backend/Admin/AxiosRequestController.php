@@ -92,9 +92,9 @@ class AxiosRequestController extends Controller
         ]);
     }
 
-    public function getSubCategories(Request $request): JsonResponse
+    public function getSubCategories(GetSubCategoryRequest $request): JsonResponse
     {
-        $parent_id = $request->parent_id;
+        $parent_id = $request->category_id;
         if ($parent_id) {
             $parent = Category::with('activeChildrens')->findOrFail($parent_id);
             return response()->json([
@@ -108,9 +108,9 @@ class AxiosRequestController extends Controller
         ]);
     }
 
-    public function getSubChildCategories(Request $request): JsonResponse
+    public function getSubChildCategories(GetSubCategoryRequest $request): JsonResponse
     {
-        $parent_id = $request->parent_id;
+        $parent_id = $request->category_id;
         if ($parent_id) {
             $parent = Category::with('activeChildrens')->findOrFail($parent_id);
             return response()->json([
