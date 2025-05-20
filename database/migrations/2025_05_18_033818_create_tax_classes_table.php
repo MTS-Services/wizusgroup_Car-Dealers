@@ -19,17 +19,13 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
             $table->string('name')->unique();
-            $table->boolean('status')->default(TaxClass::STATUS_ACTIVE)->index()->comment(TaxClass::STATUS_ACTIVE . ': Active, ' . TaxClass::STATUS_DEACTIVE . ': Inactive');
+            $table->boolean('status')->default(TaxClass::STATUS_ACTIVE)->index();
             $table->longText('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
 
-
-            // Indexes
-            $table->index('created_at'); // Index for soft deletes
-            $table->index('updated_at'); // Index for soft deletes
-            $table->index('deleted_at'); // Index for soft deletes
+            $table->index(['created_at', 'updated_at', 'deleted_at']);
         });
     }
 

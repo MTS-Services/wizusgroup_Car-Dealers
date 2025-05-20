@@ -45,7 +45,13 @@ class SubCategoryRequest extends FormRequest
                     $query->where('parent_id', $this->parent_id)
                 ),
             ],
-            'slug' => 'required|string|unique:categories,slug',
+            'slug' => [
+                'required',
+                Rule::unique('categories')->where(
+                    fn($query) =>
+                    $query->where('parent_id', $this->parent_id)
+                ),
+            ],
         ];
     }
 
@@ -60,9 +66,17 @@ class SubCategoryRequest extends FormRequest
                         fn($query) =>
                         $query->where('parent_id', $this->parent_id)
                     )
-                    ->ignore($this->route('sub_category')), // assumes route model binding
+                    ->ignore(decrypt($this->route('sub_category'))), // assumes route model binding
             ],
-            'slug' => 'required|string|unique:categories,slug,' . decrypt($this->route('sub_category')),
+            'slug' => [
+                'required',
+                Rule::unique('categories')
+                    ->where(
+                        fn($query) =>
+                        $query->where('parent_id', $this->parent_id)
+                    )
+                    ->ignore(decrypt($this->route('sub_category'))), // assumes route model binding
+            ],
 
         ];
     }
