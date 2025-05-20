@@ -213,7 +213,8 @@
     <section class="2xl:py-20 xl:py-16 lg:py-12 md:py-10 py-8">
         <div class="container">
             <div class="header text-center mb-10">
-                <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase">{{ __('Categories') }}</h2>
+                <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase">
+                    {{ __('Categories') }}</h2>
             </div>
             <div class="relative">
                 <div class="swiper categories static">
@@ -222,8 +223,8 @@
                             <div class="swiper-slide py-8">
                                 <div>
                                     <div class="text-center">
-                                        <img class="w-auto rounded-xl object-cover mx-auto" src="{{ $category->modified_image }}"
-                                            alt="{{$category?->name }}">
+                                        <img class="w-auto rounded-xl object-cover mx-auto"
+                                            src="{{ $category->modified_image }}" alt="{{ $category?->name }}">
                                         <p class="py-2">{{ __($category?->name) }} </p>
                                     </div>
                                 </div>
@@ -262,12 +263,13 @@
                 <p class="text-xl mb-5">{{ __('Next Departure to Dakar, Senegal:') }}</p>
                 <div class="countdown-blocks py-2"></div>
                 <button class="btn-primary mx-auto py-3 mt-2 px-10 ">
-                    {{ __('JOIN NOW') }}
+                    {{ __('Join Now') }}
                 </button>
             </div>
             <div class="pt-10">
                 <div class="header">
-                    <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase text-center">{{ __('How it Works') }}</h2>
+                    <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase text-center">
+                        {{ __('How it Works') }}</h2>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
                     <div class="bg-bg-light-secondary dark:bg-bg-dark-tertiary py-9 p-2 shadow-lg text-center">
@@ -288,7 +290,7 @@
     </section>
 
     {{-- ===================== countdown Group Container Section End ===================== --}}
-    @php
+    {{-- @php
         $testimonials = [
             [
                 'description' =>
@@ -338,13 +340,14 @@
                 'country' => 'bangladesh',
             ],
         ];
-    @endphp
+    @endphp --}}
 
     {{-- ===================== Testimonial Section Start ===================== --}}
-   <section class="py-8 md:py-10 xl:mb-8 mb-4 lg:py-12 xl:py-16 2xl:py-20 relative">
+    <section class="py-8 md:py-10 xl:mb-8 mb-4 lg:py-12 xl:py-16 2xl:py-20 relative">
         <div class="container mx-auto px-4">
             <div class="header text-center mb-10">
-                <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase">{{ __('Testimonials') }}</h2>
+                <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase">
+                    {{ __('Testimonials') }}</h2>
             </div>
             <!-- Testimonial Carousel -->
             <div class="relative">
@@ -369,23 +372,24 @@
                                         <!-- Message -->
                                         <p
                                             class="text-lg md:text-xl font-light leading-relaxed font-montserrat mb-6 text-text-primary dark:text-text-dark-secondary">
-                                            {{ $testimonial['description'] }}
+                                            {{ \Illuminate\Support\Str::limit($testimonial->quote, 200) }}
                                         </p>
+
 
                                         <!-- Author Info -->
                                         <div
                                             class="border-t border-border-gray dark:border-border-dark-secondary pt-6 flex items-center gap-4">
-                                            <img src="{{ $testimonial['image'] }}" alt="{{ $testimonial['name'] }}"
-                                                class="w-14 h-14 rounded-full object-cover">
+                                            <img src="{{ $testimonial->modified_image }}" alt="{{ $testimonial->author_name }}"
+                                                class="w-18 h-18 rounded-full object-cover">
 
                                             <div>
                                                 <p
                                                     class="text-text-secondary dark:text-text-light font-bold text-lg uppercase font-playfair">
-                                                    {{ $testimonial['name'] }}
+                                                    {{ $testimonial->author_name }}
                                                 </p>
                                                 <p
                                                     class="text-sm uppercase tracking-wide mt-1 text-text-gray dark:text-text-light">
-                                                    {{ __('Country') }}: {{ $testimonial['country'] }}
+                                                    {{ __('Country') }}: {{ $testimonial->author_country }}
                                                 </p>
                                             </div>
                                         </div>
