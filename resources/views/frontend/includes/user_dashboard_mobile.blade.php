@@ -5,7 +5,7 @@
     <div class="h-screen overflow-auto p-2 xl:p-3">
         <div class="flex justify-between items-center border-b border-b-border-light pb-5">
             <h4>{{ __('Client Dashboard') }}</h4>
-            <button class="closeUserDashboardSidebar" title="Close Sidebar">
+            <button class="closeUsreDashboardSidebar" title="Close Sidebar">
                 <span
                     class="w-10 h-10 flex items-center justify-center bg-bg-primary hover:bg-bg-tertiary rounded-full text-text-white">
                     <i data-lucide="x" class="text-lg"></i>

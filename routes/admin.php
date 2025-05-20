@@ -2,7 +2,6 @@
 
 
 use App\Http\Controllers\Backend\Admin\ProductManagement\CompanyController;
-use App\Http\Controllers\Backend\Admin\ProductManagement\ModelController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Backend\Admin\AuditController;
@@ -35,7 +34,7 @@ use App\Http\Controllers\Backend\Admin\ProductManagement\ProductAttributeControl
 use App\Http\Controllers\Backend\Admin\ProductManagement\ProductAttributeValueController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\TaxClassController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\TaxRateController;
-use App\Models\ProductAttribute;
+use App\Http\Controllers\Backend\Admin\ProductManagement\ModelController;
 
 // Admin Auth Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -241,7 +240,7 @@ Route::group(['middleware' => ['auth:admin','verified'], 'prefix' => 'admin'], f
         Route::get('product-attribute/recycle/bin', [ProductAttributeController::class, 'recycleBin'])->name('product-attribute.recycle-bin');
         Route::get('product-attribute/restore/{product_attribute}', [ProductAttributeController::class, 'restore'])->name('product-attribute.restore');
         Route::delete('product-attribute/permanent-delete/{product_attribute}', [ProductAttributeController::class, 'permanentDelete'])->name('product-attribute.permanent-delete');
-       
+
         // Product Attribute Value Routes
         Route::resource('product-attr-value', ProductAttributeValueController::class);
         Route::get('product-attr-value/status/{product_attr_value}', [ProductAttributeValueController::class, 'status'])->name('product-attr-value.status');
