@@ -47,7 +47,7 @@ return new class extends Migration
             $table->string('transmission')->nullable();
             $table->string('drive_system')->nullable();
 
-            $table->tinyInteger('entry_status')->default(Product::ENTRY_STATUS_DRAFT)->index();
+            $table->tinyInteger('entry_status')->default(Product::ENTRY_STATUS_BASIC)->index();
 
             // Descriptions
             $table->text('short_description')->nullable();

@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\ProductManagement\ProductRequest;
+use App\Models\Brand;
+use App\Models\Company;
+use App\Models\Category;
 use App\Models\Supplier;
-use App\Services\Admin\ProductManagement\ProductService;
+use App\Models\TaxClass;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\View\View;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Contracts\View\View;
+use App\Services\Admin\ProductManagement\ProductService;
+use App\Http\Requests\Admin\ProductManagement\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -189,24 +193,32 @@ class ProductController extends Controller
      */
     public function create(): View
     {
-        $data['suppliers'] = Supplier::select('id', 'first_name')->get();
+        // $data['suppliers'] = Supplier::select('id', 'first_name')->get();
+        $data['companies'] = Company::select('id', 'name')->get();
+        $data['categories'] = Category::select('id', 'name')->get();
+        $data['tax_classes'] = TaxClass::select('id', 'name')->get();
         return view('backend.admin.product_management.product.create', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProductRequest $request): RedirectResponse
+    public function store(ProductRequest $request): RedirectResponse|View
     {
         try {
             $validated = $request->validated();
-            $this->productService->create($validated);
+            $product = $this->productService->basicInfoCreate($validated);
+            $data['product'] = $product->only('id', 'entry_status');
+            $data['companies'] = Company::select('id', 'name')->get();
+            $data['categories'] = Category::select('id', 'name')->get();
+            $data['tax_classes'] = TaxClass::select('id', 'name')->get();
             session()->flash('success', 'Product created successfully!');
+            return view('backend.admin.product_management.product.create', $data);
         } catch (\Throwable $e) {
             session()->flash('error', 'Product create failed!');
+            return redirect()->back()->withInput();
             throw $e;
         }
-        return redirect()->route('pm.product.index');
     }
 
     /**

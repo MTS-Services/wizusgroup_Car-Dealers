@@ -119,7 +119,6 @@ function getOperationAreas(cityId, route, operationAreaId = null) {
         });
 }
 
-
 // Username validation
 function validateUsername(usernameInput, errorField, errorMsg = 'Username may only contain letters, numbers, and hyphens.', regex = /^[a-zA-Z0-9\-]+$/) {
     // Attach event listeners for input, change, and blur events
@@ -160,6 +159,49 @@ function getSubCategories(parentId, route, childId = null) {
         });
 }
 
+function getSubChildCategories(parentId, route, subChildId = null) {
+    axios.get(route, {
+        params: { parent_id: parentId }
+    })
+        .then(function (response) {
+            if (response.data.sub_childrens.length > 0) {
+                $('#sub_childrens').html(`<option value="" selected hidden>Select Sub Child Category</option>`);
+                response.data.sub_childrens.forEach(function (sub_children) {
+                    $('#sub_childrens').append(`<option value="${sub_children.id}" ${sub_children.id == subChildId ? 'selected' : ''}>${sub_children.name}</option>`);
+                });
+                $('#sub_childrens').prop('disabled', false);
+            } else {
+                $('#sub_childrens').html(`<option value="" selected hidden>Select Sub Child Category</option>`).prop('disabled', true);
+            }
+        }
+        )
+        .catch(function (error) {
+            console.error(error);
+            $('#sub_childrens').html(`<option value="" selected hidden>Select Sub Child Category</option>`).prop('disabled', true);
+            toastr.error('Failed to load sub child categories.');
+        });
+}
+
+function getTaxRates(TaxClassId, route) {
+    axios.post(route, { tax_class_id: TaxClassId })
+        .then(function (response) {
+            if (response.data.tax_rates.length > 0) {
+                $('#tax_rate_id').html(`<option value="" selected hidden>Select Tax Rate</option>`);
+                response.data.tax_rates.forEach(function (tax_rate) {
+                    $('#tax_rate_id').append(`<option value="${tax_rate.id}">${tax_rate.name}</option>`);
+                });
+                $('#tax_rate_id').prop('disabled', false);
+            } else {
+                $('#tax_rate_id').html(`<option value="" selected hidden>Select Tax Rate</option>`).prop('disabled', true);
+            }
+        })
+        .catch(function (error) {
+            console.error(error);
+            $('#tax_rate_id').html(`<option value="" selected hidden>Select Tax Rate</option>`).prop('disabled', true);
+            toastr.error('Failed to load tax rates.');
+        });
+}
+
 
 function getBrands(companyId, route, brandId = null) {
 
@@ -189,29 +231,28 @@ function getModels({
     modelId = null
 }) {
     let axiosCall;
-    if(companyId){
-        axiosCall =axios.post(route, {company_id: companyId});
-    }else if(brandId){
-        axiosCall =axios.post(route, {brand_id: brandId});
-    }else{
+    if (companyId) {
+        axiosCall = axios.post(route, { company_id: companyId });
+    } else if (brandId) {
+        axiosCall = axios.post(route, { brand_id: brandId });
+    } else {
         toastr.error('Failed to load models.', 'Please select company or brand.');
         return;
     }
-        axiosCall.then(function (response) {
-            if (response.data.models.length > 0) {
-                $('#brand_id').html(`<option value="" selected hidden>Select Model</option>`);
-                response.data.models.forEach(function (model) {
-                    $('#model_id').append(`<option value="${model.id}" ${model.id == modelId ? 'selected' : ''}>${model.name}</option>`);
-                });
-                $('#model_id').prop('disabled', false);
-            } else {
-                $('#model_id').html(`<option value="" selected hidden>Select Model</option>`).prop('disabled', true);
-            }
-        })
+    axiosCall.then(function (response) {
+        if (response.data.models.length > 0) {
+            $('#brand_id').html(`<option value="" selected hidden>Select Model</option>`);
+            response.data.models.forEach(function (model) {
+                $('#model_id').append(`<option value="${model.id}" ${model.id == modelId ? 'selected' : ''}>${model.name}</option>`);
+            });
+            $('#model_id').prop('disabled', false);
+        } else {
+            $('#model_id').html(`<option value="" selected hidden>Select Model</option>`).prop('disabled', true);
+        }
+    })
         .catch(function (error) {
             console.error(error);
             $('#model_id').html(`<option value="" selected hidden>Select Model</option>`).prop('disabled', true);
             toastr.error('Failed to load models.', error);
         });
 }
-

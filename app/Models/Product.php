@@ -29,9 +29,19 @@ class Product extends BaseModel
         'serial_no',
         'capacity',
         'remarks',
+        'engine_type',
+        'fuel_type',
+        'color',
+        'mileage',
+        'odometer_replacement',
+        'steering_wheel',
+        'transmission',
+        'drive_system',
+        'entry_status',
 
         'short_description',
         'description',
+
         'price',
         'cost_price',
         'sale_price',
@@ -79,6 +89,7 @@ class Product extends BaseModel
             'backorder_btn_label',
             'backorder_btn_color',
             'backorder_labels',
+
         ]);
     }
 
@@ -89,7 +100,7 @@ class Product extends BaseModel
 
     public function attributes(): HasMany
     {
-        return $this->hasMany(ProductAttributeValue::class,'product_id','id');
+        return $this->hasMany(ProductAttributeValue::class, 'product_id', 'id');
     }
 
     public function relation(): HasOne
@@ -148,7 +159,7 @@ class Product extends BaseModel
 
     public function productImages(): HasMany
     {
-        return $this->hasMany(ProductImage::class,'product_id','id');
+        return $this->hasMany(ProductImage::class, 'product_id', 'id');
     }
     public function productActiveImages(): HasMany
     {
@@ -324,7 +335,7 @@ class Product extends BaseModel
     // Accessor for Dropshipping btn color
     public function getDropshippingBtnColorAttribute(): string
     {
-        return $this->is_dropshipping == self::ALLOW_DROPSHIPPING ? 'btn btn-info': 'btn btn-primary';
+        return $this->is_dropshipping == self::ALLOW_DROPSHIPPING ? 'btn btn-info' : 'btn btn-primary';
     }
 
     public function scopeDropshipping($query): mixed
@@ -339,7 +350,7 @@ class Product extends BaseModel
 
     // ========================================Backorder labels
 
-     public const ALLOW_BACKORDER = 1;
+    public const ALLOW_BACKORDER = 1;
     public const NOTALLOW_BACKORDER = 0;
 
     // Dropshipping labels
@@ -386,7 +397,7 @@ class Product extends BaseModel
     // Accessor for Dropshipping btn color
     public function getBackorderBtnColorAttribute(): string
     {
-        return $this->allow_backorder == self::ALLOW_BACKORDER ? 'btn btn-info': 'btn btn-primary';
+        return $this->allow_backorder == self::ALLOW_BACKORDER ? 'btn btn-info' : 'btn btn-primary';
     }
 
     public function scopeBackorder($query): mixed
@@ -399,4 +410,31 @@ class Product extends BaseModel
         return $query->where('allow_backorder', self::NOTALLOW_BACKORDER);
     }
 
+    // Entry Status labels
+    public const ENTRY_STATUS_BASIC = 0;
+    public const ENTRY_STATUS_RELATION = 1;
+    public const ENTRY_STATUS_IMAGE = 2;
+    public const ENTRY_STATUS_INFORMATION = 3;
+    public const ENTRY_STATUS_COMPLETE = 4;
+
+    public function scopeBasic($query): mixed
+    {
+        return $query->where('entry_status', self::ENTRY_STATUS_BASIC);
+    }
+    public function scopeRelation($query): mixed
+    {
+        return $query->where('entry_status', self::ENTRY_STATUS_RELATION);
+    }
+    public function scopeImage($query): mixed
+    {
+        return $query->where('entry_status', self::ENTRY_STATUS_IMAGE);
+    }
+    public function scopeInformation($query): mixed
+    {
+        return $query->where('entry_status', self::ENTRY_STATUS_INFORMATION);
+    }
+    public function scopeComplete($query): mixed
+    {
+        return $query->where('entry_status', self::ENTRY_STATUS_COMPLETE);
+    }
 }

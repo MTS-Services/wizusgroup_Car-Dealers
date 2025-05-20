@@ -20,10 +20,12 @@ class ProductService
         return Product::onlyTrashed()->findOrFail(decrypt($encryptedId));
     }
 
-    public function create(array $data): Product
+
+    public function basicInfoCreate(array $data): Product
     {
         $data['created_by'] = admin()->id;
         $data['status'] = Product::STATUS_DEACTIVE;
+        $data['entry_status'] = Product::ENTRY_STATUS_RELATION;
         $data['meta_keywords'] = json_encode($data['meta_keywords']);
         return Product::create($data);
     }

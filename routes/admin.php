@@ -68,12 +68,11 @@ Route::controller(AxiosRequestController::class)->name('axios.')->group(function
     Route::get('get-cities', 'getCities')->name('get-cities');
     Route::get('get-operation-areas', 'getOperationAreas')->name('get-operation-areas');
     Route::get('get-sub-areas', 'getSubAreas')->name('get-sub-areas');
-
     Route::get('get-sub-categories', 'getSubCategories')->name('get-sub-categories');
-
-
+    Route::get('get-sub-child-categories', 'getSubChildCategories')->name('get-sub-child-categories');
     Route::post('get-brands', 'getBrands')->name('get-brands');
     Route::post('get-models', 'getModels')->name('get-models');
+    Route::post('get-tax-rates', 'getTaxRates')->name('get-tax-rates');
 });
 
 Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], function () {
@@ -261,6 +260,7 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         Route::get('product/recycle/bin', [ProductController::class, 'recycleBin'])->name('product.recycle-bin');
         Route::get('product/restore/{product}', [ProductController::class, 'restore'])->name('product.restore');
         Route::delete('product/permanent-delete/{product}', [ProductController::class, 'permanentDelete'])->name('product.permanent-delete');
+        Route::post('product/relation/{product}', [ProductController::class, 'relationStore'])->name('product.relation.store');
 
         // Company Routes
         Route::resource('company', CompanyController::class);
