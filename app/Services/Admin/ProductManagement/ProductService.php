@@ -3,6 +3,7 @@
 namespace App\Services\Admin\ProductManagement;
 
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\ProductRelation;
 use Illuminate\Support\Facades\DB;
 
@@ -32,14 +33,33 @@ class ProductService
         return Product::create($data);
     }
 
-    public function relationCreate(string $encryptedId, array $data)
+    public function relationCreate(Product $product, array $data): ProductRelation
     {
-        return DB::transaction(function () use ($data, $encryptedId) {
-            $product = $this->getProduct($encryptedId);
+        return DB::transaction(function () use ($data, $product) {
             $product->update(['entry_status' => Product::ENTRY_STATUS_IMAGE]);
             $data['product_id'] = $product->id;
             $data['created_by'] = admin()->id;
             return ProductRelation::create($data);
+        });
+    }
+
+    public function imageCreate(Product $product, array $data): ProductImage
+    {
+        return DB::transaction(function () use ($data, $product) {
+            $product->update(['entry_status' => Product::ENTRY_STATUS_INFORMATION]);
+            if (isset($data['primary_image'])) {
+                $data['product_id'] = $product->id;
+                $data['created_by'] = admin()->id;
+                ProductImage::create($data);
+            }
+            if (isset($data['images'])) {
+                foreach ($data['images'] as $image) {
+                    $image['product_id'] = $product->id;
+                    $image['created_by'] = admin()->id;
+                    ProductImage::create($image);
+                }
+            }
+            return ProductImage::first();
         });
     }
 

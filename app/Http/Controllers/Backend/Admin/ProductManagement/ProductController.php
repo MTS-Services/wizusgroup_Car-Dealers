@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ProductManagement\ProductImageRequest;
 use App\Http\Requests\Admin\ProductManagement\ProductRelationRequest;
 use Illuminate\Http\RedirectResponse;
 use Yajra\DataTables\Facades\DataTables;
@@ -213,23 +214,42 @@ class ProductController extends Controller
             session()->flash('success', 'Product basic information added successfully!');
             return view('backend.admin.product_management.product.create', $data);
         } catch (\Throwable $e) {
-            session()->flash('error', 'Product basic information added failed!');
+            session()->flash('error', 'Product basic information  faddedailed!');
             return redirect()->back()->withInput();
             throw $e;
         }
     }
 
-    public function relationStore(ProductRelationRequest $request, string $id): RedirectResponse
+    public function relationStore(ProductRelationRequest $request, string $id): RedirectResponse|View
     {
         try {
+            $product = $this->productService->getProduct($id);
             $validated = $request->validated();
-            $this->productService->relationCreate($id, $validated);
+            $this->productService->relationCreate($product, $validated);
+            $product->only('id', 'entry_status');
             session()->flash('success', 'Product relations added successfully!');
+            return view('backend.admin.product_management.product.create', compact('product'));
         } catch (\Throwable $e) {
             session()->flash('error', 'Product relations added failed!');
             throw $e;
+            return redirect()->back()->withInput();
         }
-        return redirect()->route('pm.product.index');
+    }
+
+    public function imageStore(ProductImageRequest $request, string $id): RedirectResponse|View
+    {
+        try {
+            $product = $this->productService->getProduct($id);
+            $validated = $request->validated();
+            $this->productService->imageCreate($product->id, $validated);
+            $product->only('id', 'entry_status');
+            session()->flash('success', 'Product images added successfully!');
+            return view('backend.admin.product_management.product.index', compact('product'));
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product images added failed!');
+            throw $e;
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
