@@ -30,6 +30,7 @@ use App\Http\Controllers\Backend\Admin\AdminProfileContoller;
 use App\Http\Controllers\Backend\Admin\Auth\ForgotPasswordController as AdminForgotPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminResetPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerificationController;
+use App\Http\Controllers\Backend\Admin\CMSManagement\TestimonialController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\BrandController;
 use App\Http\Controllers\Backend\Admin\SupplierManagement\SuppliersController;
 
@@ -226,6 +227,14 @@ Route::group(['middleware' => ['auth:admin','verified'], 'prefix' => 'admin'], f
         Route::get('faq/recycle/bin', [FaqController::class, 'recycleBin'])->name('faq.recycle-bin');
         Route::get('faq/restore/{faq}', [FaqController::class, 'restore'])->name('faq.restore');
         Route::delete('faq/permanent-delete/{faq}', [FaqController::class, 'permanentDelete'])->name('faq.permanent-delete');
+
+        // Testimonial Routes
+        Route::resource('testimonial', TestimonialController::class);
+        
+        Route::get('testimonial/status/{testimonial}', [TestimonialController::class, 'status'])->name('testimonial.status');
+        Route::get('testimonial/recycle/bin', [TestimonialController::class, 'recycleBin'])->name('testimonial.recycle-bin');
+        Route::get('testimonial/restore/{testimonial}', [TestimonialController::class, 'restore'])->name('testimonial.restore');
+        Route::delete('testimonial/permanent-delete/{testimonial}', [TestimonialController::class, 'permanentDelete'])->name('testimonial.permanent-delete');
     });
 
     // Product Management
