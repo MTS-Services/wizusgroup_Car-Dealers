@@ -17,6 +17,7 @@ class SuppliersController extends Controller
     public function __construct(SupplierService $supplierService)
     {
         $this->supplierService = $supplierService;
+        
         $this->middleware('auth:admin');
         $this->middleware('permission:supplier-list', ['only' => ['index']]);
         $this->middleware('permission:supplier-details', ['only' => ['show']]);
