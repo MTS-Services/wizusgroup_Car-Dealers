@@ -9,11 +9,13 @@ use Illuminate\Contracts\View\View;
 
 class Category extends Component
 {
-    public object $category;
-
-    public function __construct(object $category)
+    public array|Collection $categories;
+    /**
+     * Create a new component instance.
+     */
+    public function __construct(array|Collection $categories)
     {
-        $this->category = $category;
+        $this->categories = $categories;
     }
 
     /**

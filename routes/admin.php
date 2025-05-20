@@ -2,7 +2,6 @@
 
 
 use App\Http\Controllers\Backend\Admin\ProductManagement\CompanyController;
-use App\Http\Controllers\Backend\Admin\ProductManagement\ModelController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Backend\Admin\AuditController;
@@ -34,6 +33,11 @@ use App\Http\Controllers\Backend\Admin\ProductManagement\BrandController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\ProductInfoCatController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\ProInfoCatTypeController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\ProInfoCatTypeFeatureController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\ProductAttributeController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\ProductAttributeValueController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\TaxClassController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\TaxRateController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\ModelController;
 
 // Admin Auth Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -232,6 +236,22 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
 
     // Product Management
     Route::group(['as' => 'pm.', 'prefix' => 'product-management'], function () {
+        // Product Attribute Routes
+        Route::resource('product-attribute', ProductAttributeController::class);
+        Route::get('product-attribute/status/{product_attribute}', [ProductAttributeController::class, 'status'])->name('product-attribute.status');
+        Route::get('product-attribute/feature/{product_attribute}', [ProductAttributeController::class, 'feature'])->name('product-attribute.feature');
+        Route::get('product-attribute/recycle/bin', [ProductAttributeController::class, 'recycleBin'])->name('product-attribute.recycle-bin');
+        Route::get('product-attribute/restore/{product_attribute}', [ProductAttributeController::class, 'restore'])->name('product-attribute.restore');
+        Route::delete('product-attribute/permanent-delete/{product_attribute}', [ProductAttributeController::class, 'permanentDelete'])->name('product-attribute.permanent-delete');
+
+        // Product Attribute Value Routes
+        Route::resource('product-attr-value', ProductAttributeValueController::class);
+        Route::get('product-attr-value/status/{product_attr_value}', [ProductAttributeValueController::class, 'status'])->name('product-attr-value.status');
+        Route::get('product-attr-value/feature/{product_attr_value}', [ProductAttributeValueController::class, 'feature'])->name('product-attr-value.feature');
+        Route::get('product-attr-value/recycle/bin', [ProductAttributeValueController::class, 'recycleBin'])->name('product-attr-value.recycle-bin');
+        Route::get('product-attr-value/restore/{product_attr_value}', [ProductAttributeValueController::class, 'restore'])->name('product-attr-value.restore');
+        Route::delete('product-attr-value/permanent-delete/{product_attr_value}', [ProductAttributeValueController::class, 'permanentDelete'])->name('product-attr-value.permanent-delete');
+
         // Category Routes
         Route::resource('category', CategoryController::class);
         Route::get('category/status/{category}', [CategoryController::class, 'status'])->name('category.status');
@@ -309,5 +329,22 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         Route::get('product-info-category-type-feature/recycle/bin', [ProInfoCatTypeFeatureController::class, 'recycleBin'])->name('pro-info-cat-tf.recycle-bin');
         Route::get('product-info-category-type-feature/restore/{pro_info_cat_tf}', [ProInfoCatTypeFeatureController::class, 'restore'])->name('pro-info-cat-tf.restore');
         Route::delete('product-info-category-type-feature/permanent-delete/{pro_info_cat_tf}', [ProInfoCatTypeFeatureController::class, 'permanentDelete'])->name('pro-info-cat-tf.permanent-delete');
+        // Tax Class Routes
+        Route::resource('tax-class', TaxClassController::class);
+        Route::get('tax-class/status/{tax_class}', [TaxClassController::class, 'status'])->name('tax-class.status');
+        Route::get('tax-class/feature/{tax_class}', [TaxClassController::class, 'feature'])->name('tax-class.feature');
+
+        Route::get('tax-class/recycle/bin', [TaxClassController::class, 'recycleBin'])->name('tax-class.recycle-bin');
+        Route::get('tax-class/restore/{tax_class}', [TaxClassController::class, 'restore'])->name('tax-class.restore');
+        Route::delete('tax-class/permanent-delete/{tax_class}', [TaxClassController::class, 'permanentDelete'])->name('tax-class.permanent-delete');
+
+        // Tax Rate Routes
+        Route::resource('tax-rate', TaxRateController::class);
+        Route::get('tax-rate/status/{tax_rate}', [TaxRateController::class, 'status'])->name('tax-rate.status');
+        Route::get('tax-rate/feature/{tax_rate}', [TaxRateController::class, 'feature'])->name('tax-rate.feature');
+
+        Route::get('tax-rate/recycle/bin', [TaxRateController::class, 'recycleBin'])->name('tax-rate.recycle-bin');
+        Route::get('tax-rate/restore/{tax_rate}', [TaxRateController::class, 'restore'])->name('tax-rate.restore');
+        Route::delete('tax-rate/permanent-delete/{tax_rate}', [TaxRateController::class, 'permanentDelete'])->name('tax-rate.permanent-delete');
     });
 });

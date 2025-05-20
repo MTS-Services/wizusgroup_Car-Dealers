@@ -143,9 +143,29 @@
                     </a>
                     <div class="collapse @if ($page_slug == 'category' || $page_slug == 'subcategory' || $page_slug == 'subchildcategory' || $page_slug == 'company' || $page_slug == 'brand' || $page_slug == 'model'|| $page_slug == 'product_info_cat'|| $page_slug == 'product_info_cat_type' || $page_slug == 'product-info-category-type-feature') show @endif" id="product_management">
                         <ul class="nav nav-collapse">
+                            <li class="@if ($page_slug == 'product_attribute') active @endif">
+                                <a href="{{ route('pm.product-attribute.index') }}">
+                                    <span class="sub-item">{{ __('Product Attribute') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'product_attribute_value') active @endif">
+                                <a href="{{ route('pm.product-attr-value.index') }}">
+                                    <span class="sub-item">{{ __('Product Attribute Value') }}</span>
+                                </a>
+                            </li>
                             <li class="@if ($page_slug == 'company') active @endif">
                                 <a href="{{ route('pm.company.index') }}">
                                     <span class="sub-item">{{ __('Company') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'tax_class') active @endif">
+                                <a href="{{ route('pm.tax-class.index') }}">
+                                    <span class="sub-item">{{ __('Tax Class') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'tax_rate') active @endif">
+                                <a href="{{ route('pm.tax-rate.index') }}">
+                                    <span class="sub-item">{{ __('Tax Rate') }}</span>
                                 </a>
                             </li>
                             <li class="@if ($page_slug == 'brand') active @endif">
