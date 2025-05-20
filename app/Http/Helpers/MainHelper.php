@@ -143,7 +143,7 @@ function storage_url($urlOrArray)
         }
         return $result;
     } else {
-        return $urlOrArray ? asset('storage/' . $urlOrArray) : $image;
+        return $urlOrArray ? (Str::startsWith($urlOrArray, 'https://') ? $urlOrArray : asset('storage/' . $urlOrArray)  ) : $image;
     }
 }
 
