@@ -131,7 +131,8 @@ function storage_url($urlOrArray)
         $itemCount = count($urlOrArray);
         foreach ($urlOrArray as $index => $url) {
 
-            $result .= $url ? asset('storage/' . $url) : $image;
+            $result .= $url ? (Str::startsWith($url, 'https://') ? $url : asset('storage/' . $url)  ) : $image;
+
 
             if ($count === $itemCount - 1) {
                 $result .= '';
