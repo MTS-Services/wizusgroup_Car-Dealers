@@ -77,6 +77,24 @@
                         </ul>
                     </div>
                 </li>
+                {{-- User Management  --}}
+                <li class="nav-item  @if ($page_slug == 'supplier') active submenu @endif">
+                    <a data-bs-toggle="collapse" href="#supplier_management"
+                        @if ($page_slug == 'supplier') aria-expanded="true" @endif>
+                        <i class="icon-people"></i>
+                        <p>{{ __('Supplier Management') }}</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse @if ($page_slug == 'supplier') show @endif" id="supplier_management">
+                        <ul class="nav nav-collapse">
+                            <li class="@if ($page_slug == 'supplier') active @endif">
+                                <a href="{{ route('sm.supplier.index') }}">
+                                    <span class="sub-item">{{ __('Supplier') }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
                 {{-- Setup Management  --}}
                 <li class="nav-item  @if (

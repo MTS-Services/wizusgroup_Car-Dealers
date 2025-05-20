@@ -29,7 +29,9 @@ use App\Http\Controllers\Backend\Admin\AdminProfileContoller;
 use App\Http\Controllers\Backend\Admin\Auth\ForgotPasswordController as AdminForgotPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminResetPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerificationController;
+use App\Http\Controllers\Backend\Admin\CMSManagement\TestimonialController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\BrandController;
+use App\Http\Controllers\Backend\Admin\SupplierManagement\SuppliersController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\ProductInfoCatController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\ProInfoCatTypeController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\ProInfoCatTypeFeatureController;
@@ -232,6 +234,14 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         Route::get('faq/recycle/bin', [FaqController::class, 'recycleBin'])->name('faq.recycle-bin');
         Route::get('faq/restore/{faq}', [FaqController::class, 'restore'])->name('faq.restore');
         Route::delete('faq/permanent-delete/{faq}', [FaqController::class, 'permanentDelete'])->name('faq.permanent-delete');
+
+        // Testimonial Routes
+        Route::resource('testimonial', TestimonialController::class);
+
+        Route::get('testimonial/status/{testimonial}', [TestimonialController::class, 'status'])->name('testimonial.status');
+        Route::get('testimonial/recycle/bin', [TestimonialController::class, 'recycleBin'])->name('testimonial.recycle-bin');
+        Route::get('testimonial/restore/{testimonial}', [TestimonialController::class, 'restore'])->name('testimonial.restore');
+        Route::delete('testimonial/permanent-delete/{testimonial}', [TestimonialController::class, 'permanentDelete'])->name('testimonial.permanent-delete');
     });
 
     // Product Management
@@ -347,4 +357,14 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         Route::get('tax-rate/restore/{tax_rate}', [TaxRateController::class, 'restore'])->name('tax-rate.restore');
         Route::delete('tax-rate/permanent-delete/{tax_rate}', [TaxRateController::class, 'permanentDelete'])->name('tax-rate.permanent-delete');
     });
+
+    // Supplier Management
+    Route::group(['as' => 'sm.', 'prefix' => 'supplier-management'], function () {
+        Route::resource('supplier', SuppliersController::class);
+        Route::get('supplier/status/{supplier}', [SuppliersController::class, 'status'])->name('supplier.status');
+        Route::get('supplier/recycle/bin', [SuppliersController::class, 'recycleBin'])->name('supplier.recycle-bin');
+        Route::get('supplier/restore/{supplier}', [SuppliersController::class, 'restore'])->name('supplier.restore');
+        Route::delete('supplier/permanent-delete/{supplier}', [SuppliersController::class, 'permanentDelete'])->name('supplier.permanent-delete');
+    });
+
 });
