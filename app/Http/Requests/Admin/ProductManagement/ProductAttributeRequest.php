@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\ProductManagement;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TaxClassRequest extends FormRequest
+class ProductAttributeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,25 +22,7 @@ class TaxClassRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'nullable|string',
-
-        ]
-            +
-            ($this->isMethod('POST') ? $this->store() : $this->update());
-    }
-
-    protected function store(): array
-    {
-        return [
-            'name' => 'required|unique:brands,name',
-        ];
-    }
-
-
-    protected function update(): array
-    {
-        return [
-            'name' => 'required|unique:brands,name,' . decrypt($this->route('tax_class')),
+            'name' => 'required|min:3|max:255',
         ];
     }
 }
