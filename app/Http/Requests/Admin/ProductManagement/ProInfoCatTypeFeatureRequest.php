@@ -5,7 +5,7 @@ namespace App\Http\Requests\Admin\ProductManagement;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class BrandRequest extends FormRequest
+class ProInfoCatTypeFeatureRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,14 +20,11 @@ class BrandRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+   public function rules(): array
     {
         return [
-            'company_id' => 'required|exists:companies,id',
-            'description' => 'nullable|string',
-            'meta_description' => 'nullable|string',
-            'meta_title' => 'nullable|string',
-            'image'=> 'nullable',
+            'product_info_cat_id' => 'required|exists:product_info_categories,id',
+            'product_info_cat_type_id' => 'required|exists:product_info_category_types,id',
 
         ]
             +
@@ -39,12 +36,12 @@ class BrandRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                Rule::unique('brands')->where(
+                Rule::unique('product_info_category_type_features')->where(
                     fn($query) =>
-                    $query->where('company_id', $this->company_id)
+                    $query->where('product_info_cat_type_id', $this->product_info_cat_type_id)
                 ),
             ],
-            'slug' => 'required|unique:brands,slug',
+            'slug' => 'required|unique:product_info_category_type_features,slug',
         ];
     }
 
@@ -54,14 +51,14 @@ class BrandRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                Rule::unique('brands')
+                Rule::unique('product_info_category_type_features')
                     ->where(
                         fn($query) =>
-                        $query->where('company_id', $this->company_id)
+                        $query->where('product_info_cat_type_id', $this->product_info_cat_type_id)
                     )
-                    ->ignore(decrypt($this->route('brand'))),
+                    ->ignore($this->route('pro_info_cat_tf')),
             ],
-            'slug' => 'required|unique:brands,slug,' . decrypt($this->route('brand')),
+            'slug' => 'required|unique:product_info_category_type_features,slug,' . decrypt($this->route('pro_info_cat_tf')),
         ];
     }
 }
