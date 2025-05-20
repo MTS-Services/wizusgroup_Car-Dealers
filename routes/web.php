@@ -17,6 +17,8 @@ Route::controller(FileManagementController::class)->prefix('file-management')->n
     // Route::post('/cleanup-temp-files', 'cleanupTempFiles')->name('cleanup_tf');
     Route::post('/delete-unsaved-temp-files', 'deleteUnsavedTempFiles')->name('du_tf');
     Route::post('/content-image/upload', 'content_image_upload')->name('ci_upload');
+     
+
 });
 
 require __DIR__ . '/admin.php';
