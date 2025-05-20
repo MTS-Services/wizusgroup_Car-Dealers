@@ -4,7 +4,7 @@
 use App\Http\Controllers\Frontend\HomePageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\FrontendController;
-
+use App\Http\Controllers\Frontend\GroupShippingPageController;
 
 Route::group(['as' => 'frontend.'], function () {
   // Home Page
@@ -22,7 +22,7 @@ Route::group(['as' => 'frontend.'], function () {
 //  Product Details Page
   Route::get('/product_details', [FrontendController::class, 'product_details'])->name('product_details');
 // group Shipping page
-Route::get('/group_shipping', [FrontendController::class, 'group_shipping'])->name('group_shipping');
+Route::get('/group-shipping', [GroupShippingPageController::class, 'group_shipping'])->name('group_shipping');
 // droopshipping
 Route::get('/dropshipping', [FrontendController::class, 'dropshipping'])->name('dropshipping');
 // Regions
