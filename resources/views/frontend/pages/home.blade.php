@@ -290,57 +290,7 @@
     </section>
 
     {{-- ===================== countdown Group Container Section End ===================== --}}
-    {{-- @php
-        $testimonials = [
-            [
-                'description' =>
-                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
-                'image' => asset('frontend/images/unnamed.jpg'),
-                'name' => 'wasif ahmed',
-                'country' => 'bangladesh',
-            ],
-
-            [
-                'description' =>
-                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
-                'image' => asset('frontend/images/unnamed.jpg'),
-                'name' => 'wasif ahmed',
-                'country' => 'bangladesh',
-            ],
-
-            [
-                'description' =>
-                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
-                'image' => asset('frontend/images/unnamed.jpg'),
-                'name' => 'wasif ahmed',
-                'country' => 'bangladesh',
-            ],
-
-            [
-                'description' =>
-                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
-                'image' => asset('frontend/images/unnamed.jpg'),
-                'name' => 'wasif ahmed',
-                'country' => 'bangladesh',
-            ],
-
-            [
-                'description' =>
-                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
-                'image' => asset('frontend/images/unnamed.jpg'),
-                'name' => 'wasif ahmed',
-                'country' => 'bangladesh',
-            ],
-
-            [
-                'description' =>
-                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
-                'image' => asset('frontend/images/unnamed.jpg'),
-                'name' => 'wasif ahmed',
-                'country' => 'bangladesh',
-            ],
-        ];
-    @endphp --}}
+   
 
     {{-- ===================== Testimonial Section Start ===================== --}}
     <section class="py-8 md:py-10 xl:mb-8 mb-4 lg:py-12 xl:py-16 2xl:py-20 relative">
