@@ -77,7 +77,7 @@
                         </ul>
                     </div>
                 </li>
-                {{-- User Management  --}}
+                {{-- Supplier Management  --}}
                 <li class="nav-item  @if ($page_slug == 'supplier') active submenu @endif">
                     <a data-bs-toggle="collapse" href="#supplier_management"
                         @if ($page_slug == 'supplier') aria-expanded="true" @endif>
@@ -231,14 +231,14 @@
                 </li>
 
                 {{-- CMS Management  --}}
-                <li class="nav-item  @if ($page_slug == 'banner' || $page_slug == 'faq') active submenu @endif">
+                <li class="nav-item  @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial') active submenu @endif">
                     <a data-bs-toggle="collapse" href="#cms_management"
-                        @if ($page_slug == 'banner' || $page_slug == 'faq') aria-expanded="true" @endif>
+                        @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial') aria-expanded="true" @endif>
                         <i class="icon-people"></i>
                         <p>{{ __('CMS Management') }}</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse @if ($page_slug == 'banner' || $page_slug == 'faq') show @endif" id="cms_management">
+                    <div class="collapse @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial') show @endif" id="cms_management">
                         <ul class="nav nav-collapse">
                             <li class="@if ($page_slug == 'banner') active @endif">
                                 <a href="{{ route('cms.banner.index') }}">
@@ -248,6 +248,11 @@
                             <li class="@if ($page_slug == 'faq') active @endif">
                                 <a href="{{ route('cms.faq.index') }}">
                                     <span class="sub-item">{{ __('Faq') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'testimonial') active @endif">
+                                <a href="{{ route('cms.testimonial.index') }}">
+                                    <span class="sub-item">{{ __('Testimonial') }}</span>
                                 </a>
                             </li>
                         </ul>

@@ -14,7 +14,7 @@ class Testimonial extends BaseModel
         'author_image',
         'author_designation',
         'author_country',
-        'quate',
+        'quote',
         'status',
 
         'creater_id',

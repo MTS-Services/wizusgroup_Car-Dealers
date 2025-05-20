@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Backend\Admin\CMSManagement;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CMS\TestimonialRequest;
 use App\Services\Admin\CMSManagement\TestimonialService;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class TestimonialController extends Controller
 {
@@ -12,7 +16,7 @@ class TestimonialController extends Controller
     public function __construct(TestimonialService $testimonialService)
     {
         $this->testimonialService = $testimonialService;
-    
+
         $this->middleware('auth:admin');
         $this->middleware('permission:testimonial-list', ['only' => ['index']]);
         $this->middleware('permission:testimonial-details', ['only' => ['show']]);
@@ -23,31 +27,136 @@ class TestimonialController extends Controller
         $this->middleware('permission:testimonial-recycle-bin', ['only' => ['recycleBin']]);
         $this->middleware('permission:testimonial-restore', ['only' => ['restore']]);
         $this->middleware('permission:testimonial-permanent-delete', ['only' => ['permanentDelete']]);
-
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        if ($request->ajax()) {
+            $query = $this->testimonialService->getTestimonials()
+                ->with(['creater']);
+            return DataTables::eloquent($query)
+                ->editColumn('status', function ($testimonial) {
+                    return "<span class='badge " . $testimonial->status_color . "'>" . $testimonial->status_label . "</span>";
+                })
+                ->editColumn('creater_id', function ($testimonial) {
+                    return $testimonial->creater_name;
+                })
+                ->editColumn('created_at', function ($testimonial) {
+                    return $testimonial->created_at_formatted;
+                })
+                ->editColumn('action', function ($testimonial) {
+                    $menuItems = $this->menuItems($testimonial);
+                    return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
+                })
+                ->rawColumns(['status', 'created_at', 'creater_id', 'action'])
+                ->make(true);
+        }
+        return view('backend.admin.cms_management.testimonial.index');
     }
 
+    protected function menuItems($model): array
+    {
+        return [
+            [
+                'routeName' => 'javascript:void(0)',
+                'data-id' => encrypt($model->id),
+                'className' => 'view',
+                'label' => 'Details',
+                'permissions' => ['testimonial-details']
+            ],
+            [
+                'routeName' => 'cms.testimonial.edit',
+                'params' => [encrypt($model->id)],
+                'label' => 'Edit',
+                'permissions' => ['testimonial-edit']
+            ],
+            [
+                'routeName' => 'cms.testimonial.status',
+                'params' => [encrypt($model->id)],
+                'label' => $model->status_btn_label,
+                'permissions' => ['testimonial-status']
+            ],
+            [
+                'routeName' => 'cms.testimonial.destroy',
+                'params' => [encrypt($model->id)],
+                'label' => 'Delete',
+                'delete' => true,
+                'permissions' => ['testimonial-delete']
+            ]
+
+        ];
+    }
+    public function recycleBin(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = $this->testimonialService->getTestimonials()->onlyTrashed()
+                ->with(['deleter']);
+            return DataTables::eloquent($query)
+                ->editColumn('status', function ($testimonial) {
+                    return "<span class='badge " . $testimonial->status_color . "'>$testimonial->status_label</span>";
+                })
+                ->editColumn('deleter_id', function ($testimonial) {
+                    return $testimonial->deleter_name;
+                })
+                ->editColumn('deleted_at', function ($testimonial) {
+                    return $testimonial->deleted_at_formatted;
+                })
+                ->editColumn('action', function ($testimonial) {
+                    $menuItems = $this->trashedMenuItems($testimonial);
+                    return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
+                })
+                ->rawColumns(['status', 'deleter_id', 'deleted_at', 'action'])
+                ->make(true);
+        }
+        return view('backend.admin.cms_management.testimonial.recycle-bin');
+    }
+
+    protected function trashedMenuItems($model): array
+    {
+        return [
+            [
+                'routeName' => 'cms.testimonial.restore',
+                'params' => [encrypt($model->id)],
+                'label' => 'Restore',
+                'permissions' => ['testimonial-restore']
+            ],
+            [
+                'routeName' => 'cms.testimonial.permanent-delete',
+                'params' => [encrypt($model->id)],
+                'label' => 'Permanent Delete',
+                'p-delete' => true,
+                'permissions' => ['testimonial-permanent-delete']
+            ]
+
+        ];
+    }
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('backend.admin.cms_management.testimonial.create');
     }
+
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TestimonialRequest $request): RedirectResponse
     {
-        //
+        try {
+            $validated = $request->validated();
+            $this->testimonialService->createTestimonial($validated, $request->author_image);
+            session()->flash('success', 'Testimonial created successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Testimonial create failed!');
+            throw $e;
+        }
+        return redirect()->route('cms.testimonial.index');
     }
 
     /**

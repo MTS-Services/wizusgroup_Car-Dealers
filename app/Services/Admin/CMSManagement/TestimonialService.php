@@ -4,6 +4,7 @@ namespace App\Services\Admin\CMSManagement;
 
 use App\Http\Traits\FileManagementTrait;
 use App\Models\Testimonial;
+use App\View\Components\Frontend\Test;
 
 class TestimonialService
 {
@@ -17,74 +18,68 @@ class TestimonialService
         return Testimonial::orderBy($orderby, $order)->latest();
     }
 
-    // public function getFaq(string $encryptedId): Faq | Collection
+    // public function getUser(string $encryptedId): User | Collection
     // {
-    //     return Testimonial::findOrFail(decrypt($encryptedId));
+    //     return User::findOrFail(decrypt($encryptedId));
     // }
 
-    // public function getDeletedFaq(string $encryptedId): Faq | Collection
+    // public function getDeletedUser(string $encryptedId): User | Collection
     // {
-    //     return Testimonial::onlyTrashed()->findOrFail(decrypt($encryptedId));
+    //     return User::onlyTrashed()->findOrFail(decrypt($encryptedId));
     // }
 
-    // public function createFaq(array $data, $file = null): Faq
+    public function createTestimonial(array $data, $file = null): Testimonial
+    {
+        $data['creater_id'] = admin()->id;
+        $data['creater_type'] = get_class(admin());
+        if ($file) {
+            $data['author_image'] = $this->handleFilepondFileUpload(Testimonial::class, $file, admin(), 'testimonials/');
+        }
+        return Testimonial::create($data);
+    }
+    // public function updateUser(User $user, array $data, $file = null): User
     // {
-    //     $data['created_by'] = admin()->id;
-
-    //     $faq = Testimonial::create($data);
-    //     return $faq;
-    // }
-
-    // public function updateFaq(string $encryptedId, array $data, $file = null): Faq
-    // {
-    //     $faq = $this->getFaq($encryptedId);
-    //     $data['updated_by'] = admin()->id;
+    //     $data['password'] = $data['password'] ?? $user->password;
+    //     $data['updater_id'] = admin()->id;
+    //     $data['updater_type'] = get_class(admin());
     //     if ($file) {
-    //         $data['image'] = $this->handleFilepondFileUpload($faq, $file, admin(), 'faqs/');
+    //         $data['image'] = $this->handleFilepondFileUpload($user, $file, user(), 'users/');
     //     }
-    //     $faq->update($data);
-    //     return $faq;
+    //     $user->update($data);
+    //     return $user;
+    // }
+    // public function delete(User $user): void
+    // {
+    //     $user->update([
+    //         'deleter_id' => admin()->id,
+    //         'deleter_type' => get_class(admin()),
+    //     ]);
+    //     $user->delete();
     // }
 
-    // public function deleteFaq(string $encryptedId): void
+    // public function restore(string $encryptedId): void
     // {
-    //     $faq = $this->getFaq($encryptedId);
-    //     $faq->update(['deleted_by' => admin()->id]);
-    //     $faq->delete();
+    //     $user = $this->getDeletedUser($encryptedId);
+    //     $user->update([
+    //         'updater_id' => admin()->id,
+    //         'updater_type' => get_class(admin())
+    //     ]);
+    //     $user->restore();
     // }
-
-    // public function restoreFaq(string $encryptedId): void
+    // public function permanentDelete(string $encryptedId): void
     // {
-    //     $faq = $this->getDeletedFaq($encryptedId);
-    //     $faq->update(['updated_by' => admin()->id]);
-    //     $faq->restore();
-    // }
-
-    // public function permanentDeleteFaq(string $encryptedId): void
-    // {
-    //     $faq = $this->getDeletedFaq($encryptedId);
-    //     if ($faq->image) {
-    //         $this->fileDelete(file: $faq->image);
+    //     $user = $this->getDeletedUser($encryptedId);
+    //     if ($user->image) {
+    //         $this->fileDelete($user->image);
     //     }
-    //     $faq->forceDelete();
+    //     $user->forceDelete();
     // }
-
-    // public function toggleStatus(string $encryptedId): void
+    // public function toggleStatus(User $user): void
     // {
-    //     $faq = $this->getFaq($encryptedId);
-    //     $faq->update([
-    //         'updated_by' => admin()->id,
-    //         'status' => !$faq->status
+    //     $user->update([
+    //         'status' => !$user->status,
+    //         'updater_id' => admin()->id,
+    //         'updater_type' => get_class(admin())
     //     ]);
     // }
-
-    // public function toggleFeature(string $encryptedId): void
-    // {
-    //     $faq = $this->getFaq($encryptedId);
-    //     $faq->update([
-    //         'updated_by' => admin()->id,
-    //         'is_featured' => !$faq->is_featured
-    //     ]);
-    // }
-
 }
