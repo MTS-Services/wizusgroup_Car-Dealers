@@ -51,6 +51,7 @@ class Product extends BaseModel
         'is_featured',
         'is_dropshipping',
         'supplier_id',
+        'product_type',
 
         'meta_title',
         'meta_description',
@@ -89,7 +90,7 @@ class Product extends BaseModel
             'backorder_btn_label',
             'backorder_btn_color',
             'backorder_labels',
-
+            'product_type_label',
         ]);
     }
 
@@ -465,7 +466,7 @@ class Product extends BaseModel
         ];
     }
 
-    public function getProductTypesLabelAttribute(): string
+    public function getProductTypeLabelAttribute(): string
     {
         return self::getProductTypes()[$this->product_type] ?? 'Unknown';
     }

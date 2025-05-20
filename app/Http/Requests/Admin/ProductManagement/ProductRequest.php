@@ -52,6 +52,7 @@ class ProductRequest extends FormRequest
             'meta_keywords.*' => 'nullable|string',
             'remarks' => 'nullable|string',
             'description' => 'nullable|string',
+            'product_type' => 'required|integer',
         ] + ($this->isMethod('POST') ? $this->store() : $this->update());
     }
 
