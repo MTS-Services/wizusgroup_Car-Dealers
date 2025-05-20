@@ -16,7 +16,6 @@ class HomePageController extends Controller
     public function home()
     {
         $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->active()->get();
-        // dd($data);
         return view('frontend.pages.home',$data);
     }
     
