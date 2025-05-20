@@ -25,7 +25,7 @@ class AdminRequest extends FormRequest
             'first_name' => 'required|string|min:4',
             'last_name' => 'required|string|min:4',
             'role' => 'required|exists:roles,id',
-            'image' => 'nullable',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
         ]
             +

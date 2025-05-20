@@ -213,12 +213,12 @@
                         <p>{{ __('Documentation') }}</p>
                     </a>
                 </li>
-                <li class="nav-item  @if ($page_slug == 'temp_file') active @endif">
+                {{-- <li class="nav-item  @if ($page_slug == 'temp_file') active @endif">
                     <a href="{{ route('temp.index') }}">
                         <i class="icon-trash"></i>
                         <p>{{ __('Temporary Files') }}</p>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item  @if ($page_slug == 'site_setting') active @endif">
                     <a href="{{ route('site_setting.index') }}">
                         <i class="icon-settings"></i>
