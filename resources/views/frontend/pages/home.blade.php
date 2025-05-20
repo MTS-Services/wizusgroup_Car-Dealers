@@ -347,13 +347,20 @@
         <div class="container mx-auto px-4">
             <div class="header text-center mb-10">
                 <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase">
-                    {{ __('Testimonials') }}</h2>
+                    {{ __('Testimonials') }}
+                </h2>
             </div>
+
             <!-- Testimonial Carousel -->
             <div class="relative">
                 <div class="swiper testimonials static">
-                    <div class="swiper-wrapper ">
+                    <div class="swiper-wrapper">
                         @foreach ($testimonials as $testimonial)
+                            @php
+                                $isLong = strlen($testimonial->quote) > 200;
+                                $shortQuote = \Illuminate\Support\Str::limit($testimonial->quote, 200, '');
+                            @endphp
+
                             <div class="swiper-slide">
                                 <div
                                     class="bg-bg-light dark:bg-bg-dark rounded-xl shadow-card dark:shadow-dark-card overflow-hidden">
@@ -372,14 +379,19 @@
                                         <!-- Message -->
                                         <p
                                             class="text-lg md:text-xl font-light leading-relaxed font-montserrat mb-6 text-text-primary dark:text-text-dark-secondary">
-                                            {{ \Illuminate\Support\Str::limit($testimonial->quote, 200) }}
+                                            <span
+                                                class="quote-preview">{{ $isLong ? $shortQuote : $testimonial->quote }}</span>
+                                            @if ($isLong)
+                                                <span class="quote-full hidden">{{ $testimonial->quote }}</span>
+                                                <span class="text-blue-600 cursor-pointer read-toggle">Read more</span>
+                                            @endif
                                         </p>
-
 
                                         <!-- Author Info -->
                                         <div
                                             class="border-t border-border-gray dark:border-border-dark-secondary pt-6 flex items-center gap-4">
-                                            <img src="{{ $testimonial->modified_image }}" alt="{{ $testimonial->author_name }}"
+                                            <img src="{{ $testimonial->modified_image }}"
+                                                alt="{{ $testimonial->author_name }}"
                                                 class="w-18 h-18 rounded-full object-cover">
 
                                             <div>
@@ -414,8 +426,10 @@
                     <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9 ">
                         <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
                     </div>
+
+                    <!-- WhatsApp Floating Icon -->
                     <div
-                        class=" right-10 bottom-10 z-10 fixed shadow-lg w-16 h-16 flex items-center justify-center bg-gradient-primary rounded-full">
+                        class="right-10 bottom-10 z-10 fixed shadow-lg w-16 h-16 flex items-center justify-center bg-gradient-primary rounded-full">
                         <a href="#">
                             <i class="fa-brands fa-whatsapp text-5xl text-text-light"></i>
                         </a>
@@ -597,5 +611,29 @@
         // Initialize and set the interval
         updateCountdown();
         const timer = setInterval(updateCountdown, 1000);
+    </script>
+    {{-- quote Read more functionality --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll(".read-toggle").forEach(function(toggleBtn) {
+                toggleBtn.addEventListener("click", function() {
+                    const container = this.closest("p");
+                    const preview = container.querySelector(".quote-preview");
+                    const full = container.querySelector(".quote-full");
+
+                    if (preview.classList.contains("hidden")) {
+                        // Show short version
+                        preview.classList.remove("hidden");
+                        full.classList.add("hidden");
+                        this.innerText = "Read more";
+                    } else {
+                        // Show full version
+                        preview.classList.add("hidden");
+                        full.classList.remove("hidden");
+                        this.innerText = "Show less";
+                    }
+                });
+            });
+        });
     </script>
 @endpush
