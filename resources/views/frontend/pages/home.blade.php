@@ -6,32 +6,38 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
+    {{-- <style>
         #countdown {
-            max-width: 600px;
-            margin: 0 auto 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
             text-align: center;
-            padding: 20px;
         }
 
         .countdown-title {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 0.75rem;
             color: #022622;
             font-weight: 700;
+            line-height: 1.2;
         }
 
         .countdown-description {
-            font-size: 1rem;
-            margin-bottom: 2rem;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            margin-bottom: 2.5rem;
             color: #4b5563;
+            line-height: 1.5;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .countdown-blocks {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
             justify-content: center;
+            padding: 0 1rem;
         }
 
         .time-block {
@@ -40,26 +46,29 @@
             justify-content: center;
             align-items: center;
             background-color: #f3f4f6;
-            padding: 16px;
-            border-radius: 0.5rem;
+            padding: 1.25rem 0.5rem;
+            border-radius: 0.75rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
+            min-height: 90px;
         }
 
         .time-block:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            background-color: #e5e7eb;
         }
 
         .time-value {
-            font-size: 2.25rem;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             font-weight: bold;
             color: #022622;
             margin-bottom: 0.25rem;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
 
         .time-label {
-            font-size: 0.875rem;
+            font-size: clamp(0.75rem, 2vw, 0.875rem);
             font-weight: 500;
             color: #6b7280;
             text-transform: uppercase;
@@ -67,46 +76,83 @@
             margin: 0;
         }
 
-        /* Medium screens */
-        @media (min-width: 768px) {
-            .countdown-blocks {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 22px;
-            }
+        /* Animation for seconds changing */
+        .seconds .time-value {
+            animation: pulse 1s ease;
         }
 
-        /* Large screens */
-        @media (min-width: 1024px) {
-            .countdown-blocks {
-                display: grid;
-                gap: 24px;
-            }
-
-            .time-block {
-                min-width: 120px;
-                padding: 20px 24px;
-            }
-
-            .time-value {
-                font-size: 2.5rem;
-            }
-        }
-
-        /* Add animation for seconds changing */
         @keyframes pulse {
             0% {
                 transform: scale(1);
             }
 
             50% {
-                transform: scale(1.05);
+                transform: scale(1.1);
             }
 
             100% {
                 transform: scale(1);
             }
         }
-    </style>
+
+        /* Small screens (mobile) */
+        @media (max-width: 640px) {
+            .countdown-blocks {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .time-block {
+                padding: 1rem 0.5rem;
+                min-height: 80px;
+            }
+
+            #countdown {
+                padding: 1.5rem 0.5rem;
+            }
+        }
+
+        /* Medium screens (tablets) */
+        @media (min-width: 641px) and (max-width: 1023px) {
+            .countdown-blocks {
+                gap: 1.25rem;
+            }
+
+            .time-block {
+                padding: 1.5rem 0.75rem;
+            }
+        }
+
+        /* Large screens (desktops) */
+        @media (min-width: 1024px) {
+            .countdown-blocks {
+                gap: 1.5rem;
+            }
+
+            .time-block {
+                padding: 1.75rem 1rem;
+                min-height: 110px;
+            }
+
+            #countdown {
+                padding: 3rem 1rem;
+            }
+        }
+
+        /* Extra large screens */
+        @media (min-width: 1280px) {
+            #countdown {
+                max-width: 900px;
+            }
+        }
+
+        /* Accessibility focus states */
+        .time-block:focus {
+            outline: 2px solid #022622;
+            outline-offset: 2px;
+        }
+    </style> --}}
+   
 @endpush
 @php
     $banners = [
@@ -124,7 +170,8 @@
 
 @section('content')
     {{-- ===================== banner Section Start ===================== --}}
-    <section class="lg:max-h-screen max-h-[70vh] md:max-h-[80vh] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative overflow-hidden">
+    <section
+        class="lg:max-h-screen max-h-[70vh] md:max-h-[80vh] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative overflow-hidden">
         <div class="absolute bg-transparent inset-0 z-10">
             <div class="container flex items-center justify-center h-full px-4 xs:px-2">
                 <div class="text-center w-full">
@@ -134,7 +181,8 @@
                     <p class="my-4 text-base xs:text-sm sm:text-lg md:text-xl text-text-white px-4 xs:px-0">
                         {{ __('Discover amazing content and features.') }}
                     </p>
-                    <div class="relative  2xl:max-w-[700px] xl:max-w-[600px] lg:max-w-[500px] max-w-96 mx-auto px-4 xs:px-2">
+                    <div
+                        class="relative  2xl:max-w-[700px] xl:max-w-[600px] lg:max-w-[500px] max-w-96 mx-auto px-4 xs:px-2">
                         <input type="search" id="machine-search"
                             class="block w-full xl:py-4 md:py-3 py-2 px-1 xs:px-2 pl-4 pr-16 text-sm xs:text-xs border-none rounded-lg bg-bg-light-secondary focus:ring-blue-500 focus:border-blue-600"
                             placeholder="{{ __('Find your machine...') }}">
@@ -196,7 +244,6 @@
                 'image' => asset('frontend/images/tractar.jpg'),
                 'name' => 'Machine description goes here',
             ],
-
         ];
     @endphp
 
@@ -237,7 +284,7 @@
     {{-- ===================== Category Section End ===================== --}}
 
     {{-- ===================== countdown Group Container Section Start ===================== --}}
-    <section class="home_countdown flex justify-center items-center py-20 m-0 bg-gray-100 dark:bg-bg-dark font-sans">
+    <section class="countdown_section flex justify-center items-center py-20 m-0 bg-gray-100 dark:bg-bg-dark font-sans">
         <div class="container">
             <div
                 class="bg-bg-tertiary/40 dark:bg-bg-secondary/20 text-text-white mx-auto rounded-lg p-6  text-center w-11/12 max-w-3xl shadow-md">
@@ -382,7 +429,8 @@
                     <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9 ">
                         <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
                     </div>
-                    <div class=" right-10 bottom-10 z-10 fixed shadow-lg w-16 h-16 flex items-center justify-center bg-gradient-primary rounded-full">
+                    <div
+                        class=" right-10 bottom-10 z-10 fixed shadow-lg w-16 h-16 flex items-center justify-center bg-gradient-primary rounded-full">
                         <a href="#">
                             <i class="fa-brands fa-whatsapp text-5xl text-text-light"></i>
                         </a>
