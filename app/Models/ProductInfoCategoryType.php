@@ -106,4 +106,5 @@ class ProductInfoCategoryType extends BaseModel
     {
         return $query->where('status', self::STATUS_DEACTIVE);
     }
+     
 }

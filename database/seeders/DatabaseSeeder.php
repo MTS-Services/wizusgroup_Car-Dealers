@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -31,13 +32,14 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             OperationAreaSeeder::class,
             OperationSubAreaSeeder::class,
-            
+
             BannerSeeder::class,
             AddressSeeder::class,
             FaqSeeder::class,
             CompanySeeder::class,
             BrandSeeder::class,
             ModelSeeder::class,
+            PersonalInformationSeeder::class,
 
             TaxClassSeeder::class,
             TaxRateSeeder::class,
