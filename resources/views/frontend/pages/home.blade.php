@@ -210,7 +210,7 @@
                     <div class="swiper-wrapper">
                         @foreach ($categories as $category)
                             <div class="swiper-slide py-8">
-                                <x-frontend.categories :categories="$category" />
+                                <x-frontend.category :categories="$category" />
                             </div>
                         @endforeach
                     </div>

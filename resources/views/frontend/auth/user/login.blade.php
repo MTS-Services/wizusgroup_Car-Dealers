@@ -60,10 +60,10 @@
                     <div>
                         <div class="divider">{{ __('Or sign up with') }}</div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <a href="#" class="btn-primary rounded-md w-full gap-3">
+                            <a href="{{route('auth.social.redirect', 'google')}}" class="btn-primary rounded-md w-full gap-3">
                                 <i class='bx bxl-google text-2xl'></i> {{ __('Google') }}
                             </a>
-                            <a href="#" class="btn-secondary rounded-md w-full gap-3">
+                            <a href="{{route('auth.social.redirect', 'facebook')}}" class="btn-secondary rounded-md w-full gap-3">
                                 <i class='bx bxl-facebook text-2xl'></i> {{ __('Facebook') }}
                             </a>
                         </div>
