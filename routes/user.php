@@ -20,7 +20,7 @@ Route::get('auth/callback/{provider}', [SocialAuthController::class, 'callback']
     ->name('auth.social.callback');
 
 Route::middleware(['auth:web', 'verified'])->group(function () {
-  Route::get('/profile', [UserDashboardController::class, 'profile'])->name('user.profile');
+  Route::get('/profile', [UserDashboardController::class, 'profile'])->name('profile');
 });
 
  // User Profile

@@ -14,35 +14,35 @@
                     </div>
                     <div>
                         <ul class="">
-                            <li class="group nav_item dark:hover:bg-bg-tertiary transition-all duration-300"
+                            <li class="group nav_item dark:hover:bg-bg-dark-tertiary transition-all duration-300"
                                 data-target="my-orders">
                                 <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="menu"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
-                                        class="text-lg text-text-primary dark:text-text-white font-semibold capitalize group-hover:text-text-tertiary text-hover-effect">{{ __('My Orders') }}</span>
+                                        class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('My Orders') }}</span>
                                 </a>
                             </li>
-                            <li class="group nav_item dark:hover:bg-bg-tertiary transition-all duration-300"
+                            <li class="group nav_item dark:hover:bg-bg-dark-tertiary  transition-all duration-300"
                                 data-target="my-containers">
                                 <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="container"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('My Containers') }}</span>
                                 </a>
                             </li>
-                            <li class="group nav_item dark:hover:bg-bg-tertiary transition-all duration-300"
+                            <li class="group nav_item dark:hover:bg-bg-dark-tertiary  transition-all duration-300"
                                 data-target="payments">
                                 <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="dollar-sign"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('Payments') }}</span>
                                 </a>
                             </li>
-                            <li class="group nav_item dark:hover:bg-bg-tertiary transition-all duration-300"
+                            <li class="group nav_item dark:hover:bg-bg-dark-tertiary  transition-all duration-300"
                                 data-target="messages">
                                 <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="mail"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('Messages') }}</span>
                                 </a>
                             </li>
-                            <li class="group nav_item dark:hover:bg-bg-tertiary transition-all duration-300 active"
+                            <li class="group nav_item dark:hover:bg-bg-dark-tertiary  transition-all duration-300 active"
                                 data-target="update-profile">
                                 <a href="{{ route('user.profile') }}" class="flex items-center gap-2 p-3"><i
                                         data-lucide="user"
@@ -50,9 +50,10 @@
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('Update Profile') }}</span>
                                 </a>
                             </li>
-                            <li class="group nav_item dark:hover:bg-bg-tertiary transition-all duration-300"
+                            <li class="group nav_item dark:hover:bg-bg-dark-tertiary  transition-all duration-300"
                                 data-target="update-profile">
-                                <a href="javascript:void(0)" onclick="document.getElementById('logout-form').submit()" class="flex items-center gap-2 p-3"><i data-lucide="log-out"
+                                <a href="javascript:void(0)" onclick="document.getElementById('logout-form').submit()"
+                                    class="flex items-center gap-2 p-3"><i data-lucide="log-out"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('Logout') }}</span>
                                 </a>
@@ -70,8 +71,8 @@
                         <div>
                             <div class="bg-bg-gray dark:bg-opacity-20">
                                 <div class="flex items-center gap-4 ps-10 py-12">
-                                    <span class="openUsreDashboardSidebar"><i data-lucide="menu"
-                                            class="xl:hidden w-6 h-6 md:w-8 md:h-8 bg-bg-primary text-text-white hover:bg-bg-tertiary transition-all duration-300 rounded-md p-1 "></i></span>
+                                    <span class="openUsreDashboardSidebar xl:hidden"><i data-lucide="menu"
+                                            class="w-6 h-6 md:w-8 md:h-8 bg-bg-primary text-text-white hover:bg-bg-tertiary transition-all duration-300 rounded-md p-1 "></i></span>
                                     <h2 class="text-2xl  lg:text-4xl uppercase font-bold{{-- bg-bg-light dark:bg-bg-dark-tertiary --}}">
                                         {{ __('Client Dashboard') }}</h2>
                                 </div>
@@ -145,7 +146,173 @@
                         </div>
                         <div id="my-orders" class="nav-pane hidden">
                             <div class="bg-bg-gray dark:bg-opacity-20 p-10 pt-0">
-                                <h3 class="text-xl font-semibold">My Orders</h3>
+                                <div class="max-w-6xl mx-auto">
+                                    <!-- Orders Panel Header -->
+                                    <div class="pb-4">
+                                        <h2 class="text-xl lg:text-2xl font-medium text-text-primary dark:text-text-white">{{ __('My Orders') }}</h2>
+                                    </div>
+
+                                    <!-- Orders Panel -->
+                                    <div class="bg-bg-white dark:bg-bg-dark-tertiary rounded-lg shadow-md overflow-hidden">
+                                        <!-- Filters and Search -->
+                                        <div class="p-4 border-b dark:border-b-border-gray dark:border-opacity-50 flex flex-wrap justify-between items-center">
+                                            <div class="flex space-x-2 mb-2 sm:mb-0">
+                                                <a href="#"
+                                                    class="btn-primary py-2 rounded-md hover:bg-bg-tertiary">
+                                                    All Orders
+                                                </a>
+                                                <a href="#"
+                                                    class="btn-primary py-2 rounded-md hover:bg-bg-tertiary">
+                                                    Pending
+                                                </a>
+                                                <a href="#"
+                                                    class="btn-primary py-2 rounded-md hover:bg-bg-tertiary">
+                                                    Completed
+                                                </a>
+                                            </div>
+                                            <div class="relative">
+                                                <input type="text" placeholder="Search orders..."
+                                                    class="pl-10 pr-4 py-2 border border-border-gray dark:border-opacity-50 rounded-md focus:outline-none focus:ring-1 focus:ring-bg-tertiary">
+                                                <div
+                                                    class="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-gray">
+                                                    <i class="w-5 h-5" data-lucide="search"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Orders Table -->
+                                        <div class="overflow-x-auto">
+                                            <table class="w-full">
+                                                <thead class="bg-bg-gray bg-opacity-50 dark:bg-opacity-20 text-left">
+                                                    <tr>
+                                                        <th
+                                                            class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
+                                                            Order ID</th>
+                                                        <th
+                                                            class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
+                                                            Product</th>
+                                                        <th
+                                                            class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
+                                                            Date</th>
+                                                        <th
+                                                            class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
+                                                            Amount</th>
+                                                        <th
+                                                            class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
+                                                            Status</th>
+                                                        <th
+                                                            class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
+                                                            Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="divide-y divide-border-gray dark:divide-opacity-50">
+                                                    <tr class="hover:bg-bg-gray dark:bg-opacity-20 hover:bg-opacity-50">
+                                                        <td
+                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-gray dark:text-text-light">
+                                                            #WG-10234</td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
+                                                            Industrial Machinery</td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">May
+                                                            15, 2025</td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
+                                                            $12,500.00</td>
+                                                        <td class="px-6 py-4 whitespace-nowrap">
+                                                            <span
+                                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-800 text-text-white">
+                                                                Delivered
+                                                            </span>
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                                                            <a href="#" class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
+                                                                <i data-lucide="eye" class="w-5 h-5"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="hover:bg-bg-gray dark:bg-opacity-20 hover:bg-opacity-50">
+                                                        <td
+                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-gray dark:text-text-light">
+                                                            #WG-10233</td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
+                                                            Conveyor System</td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">May
+                                                            10, 2025</td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
+                                                            $8,750.00</td>
+                                                        <td class="px-6 py-4 whitespace-nowrap">
+                                                            <span
+                                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-800 text-text-white">
+                                                                In Transit
+                                                            </span>
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                                                            <a href="#" class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
+                                                                <i data-lucide="eye" class="w-5 h-5"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="hover:bg-bg-gray dark:bg-opacity-20 hover:bg-opacity-50">
+                                                        <td
+                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-gray dark:text-text-light">
+                                                            #WG-10232</td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
+                                                            Packaging Equipment</td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">May
+                                                            5, 2025</td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
+                                                            $5,200.00</td>
+                                                        <td class="px-6 py-4 whitespace-nowrap">
+                                                            <span
+                                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-bg-tertiary text-text-white">
+                                                                Processing
+                                                            </span>
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                                                           <a href="#" class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
+                                                                <i data-lucide="eye" class="w-5 h-5"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <!-- Pagination -->
+                                        <div class="px-6 py-4 border-t dark:border-border-gray dark:border-opacity-50 flex items-center justify-between">
+                                            <div class="text-sm text-text-gray dark:text-text-light">
+                                                Showing <span class="font-medium">1</span> to <span
+                                                    class="font-medium">3</span> of <span class="font-medium">12</span>
+                                                orders
+                                            </div>
+                                            <div class="flex space-x-2">
+                                                <a href="#"
+                                                    class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm disabled:opacity-50"
+                                                    disabled>
+                                                    Previous
+                                                </a>
+                                                <a href="#"
+                                                    class="btn-primary py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary">
+                                                    1
+                                                </a>
+                                                <a href="#"
+                                                    class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary hover:text-text-white">
+                                                    2
+                                                </a>
+                                                <a href="#"
+                                                    class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary hover:text-text-white">
+                                                    3
+                                                </a>
+                                                <a href="#"
+                                                    class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary hover:text-text-white">
+                                                    4
+                                                </a>
+                                                <a href="#"
+                                                    class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary hover:text-text-white">
+                                                    Next
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div id="my-containers" class="nav-pane hidden">
@@ -163,13 +330,13 @@
                                 <h3 class="text-xl font-semibold">Messages</h3>
                             </div>
                         </div>
-                        <div id="update-profile" class="nav-pane @if (isset($page_slug) && $page_slug == 'dashboard') active @endif">
+                        <div id="update-profile" class="nav-pane block @if (isset($page_slug) && $page_slug == 'dashboard') active @endif">
                             <div class="bg-bg-gray dark:bg-opacity-20 p-10 pt-0">
                                 <div class="w-full">
                                     <div
                                         class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 items-center gap-5 py-5 text-center">
-                                        <p class="btn-item btn-primary w-full py-2 rounded-md"
-                                            data-target="profile">Profile</p>
+                                        <p class="btn-item btn-primary w-full py-2 rounded-md" data-target="profile">
+                                            Profile</p>
                                         <p class="btn-item btn-primary w-full py-2 rounded-md" data-target="shop-details">
                                             Shop Details</p>
                                         <p class="btn-item btn-primary w-full py-2 rounded-md" data-target="address">
@@ -181,7 +348,7 @@
 
                                 <div class="w-full">
                                     <div class="min-h-[200px] rounded-lg  mt-5 p-5">
-                                        <div id="profile" class="tab-pane hidden">
+                                        <div id="profile" class="tab-pane block">
                                             {{-- Update Profile --}}
                                             {{-- <h3 class="text-xl font-semibold mb-4 uppercase">Update Profile</h3> --}}
                                             <div>
@@ -192,9 +359,8 @@
                                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                         <div>
                                                             <input type="file" name="uploadImage"
-                                                                data-actualName="image"
-                                                                class=" w-full  filepond" id="image"
-                                                                accept="image/*">
+                                                                data-actualName="image" class=" w-full  filepond"
+                                                                id="image" accept="image/*">
                                                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'image']" />
                                                         </div>
                                                         <div class="flex flex-col gap-4">
@@ -250,7 +416,8 @@
                                                         <div>
                                                             <label class="block pb-2">{{ __('Date of Birth') }}</label>
                                                             <input type="date" name="dob"
-                                                                value="{{ $user?->personalInformation?->dob }}" class="input">
+                                                                value="{{ $user?->personalInformation?->dob }}"
+                                                                class="input">
                                                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'dob']" />
                                                         </div>
 
@@ -424,7 +591,7 @@
                                             </div>
 
                                         </div>
-                                        <div id="change-password" class="tab-pane block">
+                                        <div id="change-password" class="tab-pane hidden">
                                             <div class="max-w-lg mx-auto">
                                                 <form action="{{ route('user.password.update') }}" method="post">
                                                     @csrf
@@ -435,14 +602,14 @@
                                                                 class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('Current Password') }}</label>
                                                             <input class="input rounded-md w-full" type="password"
                                                                 name="old_password" id="old_password">
-                                                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'old_password']" />
+                                                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'old_password']" />
                                                         </div>
                                                         <div>
                                                             <label for="password"
                                                                 class="block text-sm font-medium text-text-primary dark:text-text-white mb-2">{{ __('New Password') }}</label>
                                                             <input class="input rounded-md w-full" type="password"
                                                                 name="password" id="new_password">
-                                                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'password']" />
+                                                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'password']" />
                                                         </div>
                                                         <div>
                                                             <label for="password_confirmation"
@@ -549,4 +716,23 @@
         });
     </script>
     {{-- FilePond  --}}
+    {{-- My orders --}}
+    <script>
+        // Filter buttons functionality
+        const filterButtons = document.querySelectorAll('.px-4.py-2');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('bg-bg-bg-primary', 'text-white');
+                    btn.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-300');
+                });
+
+                // Add active class to clicked button
+                button.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-300');
+                button.classList.add('bg-bg-bg-primary', 'text-white');
+            });
+        });
+    </script>
 @endpush

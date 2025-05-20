@@ -93,7 +93,7 @@ input[type="range"]::-webkit-slider-thumb {
         @apply transition-all duration-300 group-hover:text-text-tertiary dark:group-hover:text-text-white
     }
     .active{
-        @apply dark:bg-bg-tertiary
+        @apply dark:bg-bg-dark-tertiary
     }
     .active .icon-hover-effect{
         @apply bg-bg-primary
