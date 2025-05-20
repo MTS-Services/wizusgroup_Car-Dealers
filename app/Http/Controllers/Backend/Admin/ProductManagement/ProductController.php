@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ProductManagement\ProductRelationRequest;
 use Illuminate\Http\RedirectResponse;
 use Yajra\DataTables\Facades\DataTables;
 use App\Services\Admin\ProductManagement\ProductService;
@@ -193,10 +194,7 @@ class ProductController extends Controller
      */
     public function create(): View
     {
-        // $data['suppliers'] = Supplier::select('id', 'first_name')->get();
-        $data['companies'] = Company::select('id', 'name')->get();
-        $data['categories'] = Category::select('id', 'name')->get();
-        $data['tax_classes'] = TaxClass::select('id', 'name')->get();
+        $data['suppliers'] = Supplier::select('id', 'first_name')->get();
         return view('backend.admin.product_management.product.create', $data);
     }
 
@@ -212,13 +210,26 @@ class ProductController extends Controller
             $data['companies'] = Company::select('id', 'name')->get();
             $data['categories'] = Category::select('id', 'name')->get();
             $data['tax_classes'] = TaxClass::select('id', 'name')->get();
-            session()->flash('success', 'Product created successfully!');
+            session()->flash('success', 'Product basic information added successfully!');
             return view('backend.admin.product_management.product.create', $data);
         } catch (\Throwable $e) {
-            session()->flash('error', 'Product create failed!');
+            session()->flash('error', 'Product basic information added failed!');
             return redirect()->back()->withInput();
             throw $e;
         }
+    }
+
+    public function relationStore(ProductRelationRequest $request, string $id): RedirectResponse
+    {
+        try {
+            $validated = $request->validated();
+            $this->productService->relationCreate($id, $validated);
+            session()->flash('success', 'Product relations added successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product relations added failed!');
+            throw $e;
+        }
+        return redirect()->route('pm.product.index');
     }
 
     /**

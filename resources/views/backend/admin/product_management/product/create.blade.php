@@ -5,7 +5,18 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Create Product') }}</h4>
+                    <h4 class="cart-title">
+                        @if (isset($product) && $product['entry_status'] == App\Models\Product::ENTRY_STATUS_INFORMATION)
+                            {{ __('Set Product Information') }}
+                        @elseif (isset($product) && $product['entry_status'] == App\Models\Product::ENTRY_STATUS_IMAGE)
+                            {{ __('Set Product Images') }}
+                        @elseif (isset($product) && $product['entry_status'] == App\Models\Product::ENTRY_STATUS_RELATION)
+                            {{ __('Set Product Relations') }}
+                        @else
+                            {{ __('Create Product') }}
+                        @endif
+
+                    </h4>
                     <x-backend.admin.button :datas="[
                         'routeName' => 'pm.product.index',
                         'label' => 'Back',
@@ -19,9 +30,8 @@
                         @include('backend.admin.product_management.product.includes.image')
                     @elseif (isset($product) && $product['entry_status'] == App\Models\Product::ENTRY_STATUS_RELATION)
                         @include('backend.admin.product_management.product.includes.relation')
-                        @else
-                        @include('backend.admin.product_management.product.includes.relation')
-                        {{-- @include('backend.admin.product_management.product.includes.basic_info') --}}
+                    @else
+                        @include('backend.admin.product_management.product.includes.basic_info')
                     @endif
                 </div>
             </div>

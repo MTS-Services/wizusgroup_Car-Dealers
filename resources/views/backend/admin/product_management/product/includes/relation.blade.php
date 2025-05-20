@@ -1,4 +1,4 @@
-<form action="{{ route('pm.product.relation.store', encrypt(1)) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('pm.product.relation.store', encrypt($product['id'])) }}" method="POST" enctype="multipart/form-data">
     @csrf
 
     <div class="row">
@@ -11,6 +11,7 @@
                         <option value="{{ $company->id }}">{{ $company->name }}</option>
                     @endforeach
                 </select>
+                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'company_id']" />
             </div>
         </div>
         <div class="col-md-6">
@@ -19,6 +20,7 @@
                 <select name="brand_id" id="brand_id" class="form-control" disabled>
                     <option value="" selected disabled>{{ __('Select Brand') }}</option>
                 </select>
+                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'brand_id']" />
             </div>
         </div>
         <div class="col-md-6">
@@ -27,6 +29,7 @@
                 <select name="model_id" class="form-control" id="model_id" disabled>
                     <option value="" selected disabled>{{ __('Select Model') }}</option>
                 </select>
+                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'model_id']" />
             </div>
         </div>
         <div class="col-md-6">
@@ -38,6 +41,7 @@
                         <option value="{{ $tax_class->id }}">{{ $tax_class->name }}</option>
                     @endforeach
                 </select>
+                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'tax_class_id']" />
             </div>
         </div>
         <div class="col-md-6">
@@ -46,6 +50,7 @@
                 <select name="tax_rate_id" class="form-control" id="tax_rate_id" disabled>
                     <option value="" selected disabled>{{ __('Select Tax Rate') }}</option>
                 </select>
+                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'tax_rate_id']" />
             </div>
         </div>
         <div class="col-md-6">
@@ -57,6 +62,7 @@
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
                 </select>
+                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'category_id']" />
             </div>
         </div>
         <div class="col-md-6">
@@ -65,6 +71,7 @@
                 <select name="sub_category_id" id="childrens" class="form-control" disabled>
                     <option value="" selected>{{ __('Select Sub Category') }}</option>
                 </select>
+                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'sub_category_id']" />
             </div>
         </div>
         {{-- <div class="col-md-6">
@@ -73,6 +80,7 @@
                 <select name="sub_child_category_id" class="form-control" disabled id="sub_childrens">
                     <option value="" selected>{{ __('Select Sub Child Category') }}</option>                    
                 </select>
+                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'sub_child_category_id']" />
             </div>
         </div> --}}
     </div>

@@ -62,6 +62,8 @@ return new class extends Migration
             $table->unsignedInteger('quantity')->default(0); // non-negative
             $table->boolean('allow_backorder')->default(Product::NOTALLOW_BACKORDER)->index(); // indexed for faster backorder queries
 
+            $table->tinyInteger('product_type')->default(Product::PRODUCT_TYPE_USED)->index();
+
             // Flags
             $table->tinyInteger('status')->default(Product::STATUS_ACTIVE)->index();
             $table->boolean('is_featured')->default(Product::NOT_FEATURED)->index();

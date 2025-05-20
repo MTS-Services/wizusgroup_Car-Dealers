@@ -253,14 +253,16 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
 
         // Product Routes
         Route::resource('product', ProductController::class);
-        Route::get('product/status/{product}', [ProductController::class, 'status'])->name('product.status');
-        Route::get('product/feature/{product}', [ProductController::class, 'feature'])->name('product.feature');
-        Route::get('product/backorder/{product}', [ProductController::class, 'backorder'])->name('product.backorder');
-        Route::get('product/dropshipping/{product}', [ProductController::class, 'dropshipping'])->name('product.dropshipping');
-        Route::get('product/recycle/bin', [ProductController::class, 'recycleBin'])->name('product.recycle-bin');
-        Route::get('product/restore/{product}', [ProductController::class, 'restore'])->name('product.restore');
-        Route::delete('product/permanent-delete/{product}', [ProductController::class, 'permanentDelete'])->name('product.permanent-delete');
-        Route::post('product/relation/{product}', [ProductController::class, 'relationStore'])->name('product.relation.store');
+        Route::controller(ProductController::class)->name('product.')->prefix('product')->group(function () {
+            Route::get('status/{product}', 'status')->name('status');
+            Route::get('feature/{product}', 'feature')->name('feature');
+            Route::get('backorder/{product}',  'backorder')->name('backorder');
+            Route::get('dropshipping/{product}', 'dropshipping')->name('dropshipping');
+            Route::get('recycle/bin', 'recycleBin')->name('recycle-bin');
+            Route::get('restore/{product}', 'restore')->name('restore');
+            Route::delete('permanent-delete/{product}', 'permanentDelete')->name('permanent-delete');
+            Route::post('relation/{product}', 'relationStore')->name('relation.store');
+        });
 
         // Company Routes
         Route::resource('company', CompanyController::class);

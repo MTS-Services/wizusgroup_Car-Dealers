@@ -219,12 +219,12 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label>{{ __('Meta Keywords') }}</label>
-                <select name="meta_keywords[]" class="form-control" multiple>
-                    <option value="" selected>Select Keywords</option>
-                    <option value="keywords 1">Keywords 1</option>
-                    <option value="keywords 2">Keywords 2</option>
-                    <option value="keywords 3">Keywords 3</option>
+                <label>{{ __('Product Type') }}</label>
+                <select name="product_type" class="form-control">
+                    <option value="" selected disabled>Select Product Type</option>
+                    @foreach (App\Models\Product::getProductTypes() as $key => $value)
+                        <option value="{{ $key }}">{{ $value }}</option>
+                    @endforeach
                 </select>
                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'drive_system']" />
             </div>
@@ -264,6 +264,18 @@
                 <textarea name="meta_description" class="form-control no-ckeditor5" rows="6"
                     placeholder="Enter meta description">{{ old('meta_description') }}</textarea>
                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'meta_description']" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>{{ __('Meta Keywords') }}</label>
+                <select name="meta_keywords[]" class="form-control" multiple>
+                    <option value="" selected>Select Keywords</option>
+                    <option value="keywords 1">Keywords 1</option>
+                    <option value="keywords 2">Keywords 2</option>
+                    <option value="keywords 3">Keywords 3</option>
+                </select>
+                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'drive_system']" />
             </div>
         </div>
     </div>

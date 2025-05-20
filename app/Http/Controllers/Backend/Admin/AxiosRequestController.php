@@ -38,7 +38,6 @@ class AxiosRequestController extends Controller
         ]);
     }
 
-
     public function getStatesOrCities(Request $request): JsonResponse
     {
 
@@ -139,7 +138,6 @@ class AxiosRequestController extends Controller
             'message' => "Tax Rates not found!",
         ]);
     }
-
 
     public function getBrands(GetBrandRequest $request): JsonResponse
     {

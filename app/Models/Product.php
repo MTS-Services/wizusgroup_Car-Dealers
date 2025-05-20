@@ -437,4 +437,36 @@ class Product extends BaseModel
     {
         return $query->where('entry_status', self::ENTRY_STATUS_COMPLETE);
     }
+
+    // Product Types
+    public const PRODUCT_TYPE_PARTS = 0;
+    public const PRODUCT_TYPE_USED = 1;
+    public const PRODUCT_TYPE_NEW = 2;
+
+    public function scopeParts($query): mixed
+    {
+        return $query->where('product_type', self::PRODUCT_TYPE_PARTS);
+    }
+    public function scopeUsed($query): mixed
+    {
+        return $query->where('product_type', self::PRODUCT_TYPE_USED);
+    }
+    public function scopeNew($query): mixed
+    {
+        return $query->where('product_type', self::PRODUCT_TYPE_NEW);
+    }
+
+    public static function getProductTypes(): array
+    {
+        return [
+            self::PRODUCT_TYPE_PARTS => 'Parts & Accessories',
+            self::PRODUCT_TYPE_USED => 'Used/Damaged',
+            self::PRODUCT_TYPE_NEW => 'Brand New',
+        ];
+    }
+
+    public function getProductTypesLabelAttribute(): string
+    {
+        return self::getProductTypes()[$this->product_type] ?? 'Unknown';
+    }
 }

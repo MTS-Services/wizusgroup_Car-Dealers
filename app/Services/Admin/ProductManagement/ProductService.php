@@ -3,6 +3,8 @@
 namespace App\Services\Admin\ProductManagement;
 
 use App\Models\Product;
+use App\Models\ProductRelation;
+use Illuminate\Support\Facades\DB;
 
 class ProductService
 {
@@ -29,6 +31,18 @@ class ProductService
         $data['meta_keywords'] = json_encode($data['meta_keywords']);
         return Product::create($data);
     }
+
+    public function relationCreate(string $encryptedId, array $data)
+    {
+        return DB::transaction(function () use ($data, $encryptedId) {
+            $product = $this->getProduct($encryptedId);
+            $product->update(['entry_status' => Product::ENTRY_STATUS_IMAGE]);
+            $data['product_id'] = $product->id;
+            $data['created_by'] = admin()->id;
+            return ProductRelation::create($data);
+        });
+    }
+
     public function update(string $encryptedId, array $data): Product
     {
         $product = $this->getProduct($encryptedId);
