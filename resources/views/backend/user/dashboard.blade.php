@@ -50,6 +50,16 @@
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('Update Profile') }}</span>
                                 </a>
                             </li>
+                            <li class="group nav_item dark:hover:bg-bg-tertiary transition-all duration-300"
+                                data-target="update-profile">
+                                <a href="javascript:void(0)" onclick="document.getElementById('logout-form').submit()" class="flex items-center gap-2 p-3"><i data-lucide="log-out"
+                                        class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
+                                        class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('Logout') }}</span>
+                                </a>
+                                <form action="{{ route('logout') }}" id="logout-form" method="POST">
+                                    @csrf
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\ProductManagement;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class BrandRequest extends FormRequest
 {
@@ -36,7 +37,13 @@ class BrandRequest extends FormRequest
     protected function store(): array
     {
         return [
-            'name' => 'required|unique:brands,name',
+            'name' => [
+                'required',
+                Rule::unique('companies')->where(
+                    fn($query) =>
+                    $query->where('company_id', $this->company_id)
+                ),
+            ],
             'slug' => 'required|unique:brands,slug',
         ];
     }
@@ -45,7 +52,15 @@ class BrandRequest extends FormRequest
     protected function update(): array
     {
         return [
-            'name' => 'required|unique:brands,name,' . decrypt($this->route('brand')),
+            'name' => [
+                'required',
+                Rule::unique('companies')
+                    ->where(
+                        fn($query) =>
+                        $query->where('company_id', $this->company_id)
+                    )
+                    ->ignore($this->route('brand')),
+            ],
             'slug' => 'required|unique:brands,slug,' . decrypt($this->route('brand')),
         ];
     }
