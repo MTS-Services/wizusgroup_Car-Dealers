@@ -22,11 +22,10 @@ class BannerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'nullable|string',
-            'meta_description' => 'nullable|string',
-            'meta_title' => 'nullable|string',
+            'start_date'=> 'nullable|date',
+            'end_date'=> 'nullable|date|after:start_date',
+            'url'=> 'nullable|url',
             'image'=> 'nullable',
-            'website'=> 'nullable|url',
 
         ]
             +
@@ -36,8 +35,8 @@ class BannerRequest extends FormRequest
     protected function store(): array
     {
         return [
-            'name' => 'required|unique:banners,name',
-            'slug' => 'required|unique:banners,slug',
+            'title' => 'required|unique:banners,title',
+            'subtitle' => 'required|unique:banners,subtitle',
         ];
     }
 
@@ -45,8 +44,8 @@ class BannerRequest extends FormRequest
     protected function update(): array
     {
         return [
-            'name' => 'required|unique:banners,name,' . decrypt($this->route('banners')),
-            'slug' => 'required|unique:banners,slug,' . decrypt($this->route('banners')),
+            'title' => 'required|unique:banners,title,' . decrypt($this->route('banner')),
+            'subtitle' => 'required|unique:banners,subtitle,' . decrypt($this->route('banner')),
         ];
     }
 }

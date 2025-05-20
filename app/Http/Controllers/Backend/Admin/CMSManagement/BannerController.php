@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 
-    namespace App\Http\Controllers\Backend\Admin\CMSManagement;                 
+    namespace App\Http\Controllers\Backend\Admin\CMSManagement;
 
-    use App\Models\Banner; 
+    use App\Models\Banner;
     use Illuminate\Http\Request;
     use App\Http\Controllers\Controller;
     use App\Http\Traits\FileManagementTrait;
@@ -11,11 +11,11 @@
     use App\Http\Requests\Admin\ProductManagement\BannerRequest;
     use App\Services\Admin\CMSManagement\BannerService;
     use Illuminate\Http\RedirectResponse;
-     
+
 
     class BannerController extends Controller
-    
-    {  
+
+    {
 
         use FileManagementTrait;
 
@@ -37,23 +37,23 @@
             $this->middleware('permission:banner-restore', ['only' => ['restore']]);
             $this->middleware('permission:banner-permanent-delete', ['only' => ['permanentDelete']]);
         }
-         
+
         /**
          * Display a listing of the resource.
          */
         public function index(Request $request)
         {
-            if ($request->ajax()) { 
+            if ($request->ajax()) {
                 $query = $this->bannerService->getBanners()->with(['creater_admin']);
                 return DataTables::eloquent($query)
-                    ->editColumn('status', function ($banner) {  
+                    ->editColumn('status', function ($banner) {
                         return "<span class='badge " . $banner->status_color . "'>$banner->status_label</span>";
                     })
                     ->editColumn('is_featured', function ($banner) {
                         return "<span class='badge " . $banner->featured_color . "'>$banner->featured_label</span>";
                     })
                     ->editColumn('created_by', function ($banner) {
-                        return $banner->creater_name; 
+                        return $banner->creater_name;
                     })
                     ->editColumn('created_at', function ($banner) {
                         return $banner->created_at_formatted;
@@ -64,12 +64,12 @@
                     })
                     ->rawColumns(['status', 'is_featured', 'created_by', 'created_at', 'action'])
                     ->make(true);
-            }   
+            }
             return view('backend.admin.cms_management.banner.index');
-        }       
+        }
 
         protected function menuItems($model): array
-        { 
+        {
             return [
                 [
                     'routeName' => 'javascript:void(0)',
@@ -132,20 +132,20 @@
                     ->rawColumns(['status', 'is_featured', 'deleted_by', 'deleted_at', 'action'])
                     ->make(true);
             }
-            return view('backend.admin.product_management.banner.recycle-bin');
+            return view('backend.admin.cms_management.banner.recycle-bin');
         }
 
         protected function trashedMenuItems($model): array
         {
             return [
                 [
-                    'routeName' => 'pm.banner.restore',
+                    'routeName' => 'cms.banner.restore',
                     'params' => [encrypt($model->id)],
                     'label' => 'Restore',
                     'permissions' => ['banner-restore']
                 ],
                 [
-                    'routeName' => 'pm.banner.permanent-delete',
+                    'routeName' => 'cms.banner.permanent-delete',
                     'params' => [encrypt($model->id)],
                     'label' => 'Permanent Delete',
                     'p-delete' => true,
@@ -160,7 +160,7 @@
          */
         public function create()
         {
-            return view('backend.admin.product_management.banner.create');
+            return view('backend.admin.cms_management.banner.create');
         }
 
         /**
@@ -168,6 +168,7 @@
          */
         public function store(BannerRequest $request)
         {
+
             try {
                 $validated = $request->validated();
                 $this->bannerService->createBanner($validated, $request->image ?? null);
@@ -176,8 +177,8 @@
                 session()->flash('error', 'Banner create failed!');
                 throw $e;
             }
-        
-            return redirect()->route('pm.banner.index');
+
+            return redirect()->route('cms.banner.index');
         }
 
         /**
@@ -186,6 +187,7 @@
         public function show(string $id)
         {
             $banner = $this->bannerService->getBanner($id);
+
             $banner->load(['creater_admin', 'updater_admin']);
             return response()->json($banner);
         }
@@ -195,8 +197,8 @@
          */
         public function edit(string $id)
         {
-            $banner = $this->bannerService->getBanner($id);;
-            return view('backend.admin.product_management.Banner.edit', compact('Banner'));
+            $data['banner'] = $this->bannerService->getBanner($id);;
+            return view('backend.admin.cms_management.Banner.edit', $data);
         }
 
         /**
@@ -205,7 +207,7 @@
         public function update(BannerRequest $request, string $id)
         {
 
-            try {           
+            try {
                 $validated = $request->validated();
                 $this->bannerService->updateBanner($id, $validated, $request->image ?? null);
                 session()->flash('success', 'Banner updated successfully!');
@@ -213,7 +215,7 @@
                 session()->flash('error', 'Banner update failed!');
                 throw $e;
             }
-            return redirect()->route('pm.banner.index');
+            return redirect()->route('cms.banner.index');
         }
 
         /**
@@ -228,7 +230,7 @@
                 session()->flash('error', 'Banner delete failed!');
                 throw $e;
             }
-            return redirect()->route('pm.banner.index');
+            return redirect()->route('cms.banner.index');
         }
 
 
@@ -241,7 +243,7 @@
                 session()->flash('error', 'Banner status update failed!');
                 throw $e;
             }
-            return redirect()->route('pm.banner.index');
+            return redirect()->route('cms.banner.index');
         }
 
         public function feature($id): RedirectResponse
@@ -253,7 +255,7 @@
                 session()->flash('error', 'Banner feature update failed!');
                 throw $e;
             }
-            return redirect()->route('pm.banner.index');
+            return redirect()->route('cms.banner.index');
         }
         public function restore(string $id): RedirectResponse
         {
@@ -264,7 +266,7 @@
                 session()->flash('error', 'Banner restore failed!');
                 throw $e;
             }
-            return redirect()->route('pm.banner.recycle-bin');
+            return redirect()->route('cms.banner.recycle-bin');
         }
 
         /**
@@ -282,6 +284,6 @@
                 session()->flash('error', 'Banner permanent delete failed!');
                 throw $e;
             }
-            return redirect()->route('pm.Banner.recycle-bin');
+            return redirect()->route('cms.banner.recycle-bin');
         }
     }
