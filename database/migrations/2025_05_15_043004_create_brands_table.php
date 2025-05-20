@@ -19,10 +19,8 @@ return new class extends Migration
              $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
 
-            $table->foreignId('company_id')
-                ->constrained('companies')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade')->onUpdate('cascade');
 
             $table->string('name');
             $table->string('slug')->unique();

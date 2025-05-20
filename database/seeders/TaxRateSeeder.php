@@ -14,43 +14,35 @@ class TaxRateSeeder extends Seeder
     public function run(): void
     {
         TaxRate::create([
-            'tax_class_id' => 1,
-            'country_id' => 1,
-            'state_id' => NULL,
-            'city_id'=> 2,
-            'rate'=>15.00,
-            'name' => 'National Standard',
+            'tax_class_id' => 1, // Standard Rate
+            'country_id' => 1,   // United States
+            'state_id' => 1,     // California
+            'city_id' => 1,      // Los Angeles
+            'rate' => 7.25,
+            'name' => 'CA Standard Tax',
             'priority' => TaxRate::PRIORITY_HIGH,
             'compound' => TaxRate::COMPOUND_FALSE,
         ]);
+
         TaxRate::create([
-            'tax_class_id' => 1,
-            'country_id' => 4,
-            'state_id' => 1,
-            'city_id'=> 1,
-            'rate'=>15.00,
-            'name' => 'City Surcharge',
-            'priority' => TaxRate::PRIORITY_LOW,
-            'compound' => TaxRate::COMPOUND_TRUE,
-        ]);
-        TaxRate::create([
-            'tax_class_id' => 2,
-            'country_id' => 4,
-            'state_id' => 2,
-            'city_id'=> NULL,
-            'rate'=>25.00,
-            'name' => 'State Add-on',
-            'priority' => TaxRate::PRIORITY_URGENT,
+            'tax_class_id' => 2, // Reduced Rate
+            'country_id' => 2,   // Argentina
+            'state_id' => 4,     // Buenos Aires Province
+            'city_id' => 4,      // La Plata
+            'rate' => 5.00,
+            'name' => 'AR Reduced Tax',
+            'priority' => TaxRate::PRIORITY_NORMAL,
             'compound' => TaxRate::COMPOUND_FALSE,
         ]);
+
         TaxRate::create([
-            'tax_class_id' => 1,
-            'country_id' => 4,
-            'state_id' => 3,
-            'city_id'=> NULL,
-            'rate'=>5.00,
-            'name' => 'State Add-on',
-            'priority' => TaxRate::PRIORITY_NORMAL,
+            'tax_class_id' => 3, // Zero Rate
+            'country_id' => 3,   // France
+            'state_id' => 7,     // Île-de-France
+            'city_id' => 7,      // Paris
+            'rate' => 0.00,
+            'name' => 'FR Zero Tax',
+            'priority' => TaxRate::PRIORITY_LOW,
             'compound' => TaxRate::COMPOUND_FALSE,
         ]);
     }

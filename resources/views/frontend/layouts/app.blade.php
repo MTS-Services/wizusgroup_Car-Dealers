@@ -33,7 +33,7 @@
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" /> --}}
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    @vite(['resources/css/app.css', 'resources/js/frontend/frontend.js'])
+    @vite(['resources/css/frontend.css', 'resources/js/frontend/frontend.js'])
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             @if (session('success'))
