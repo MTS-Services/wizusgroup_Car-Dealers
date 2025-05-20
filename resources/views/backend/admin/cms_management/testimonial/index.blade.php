@@ -86,9 +86,9 @@
             let route = "{{ route('cms.testimonial.show', ['id']) }}";
             const detailsUrl = route.replace("id", id);
             const headers = [{
-                label: "Name",
-                key: "author_name"
-               },
+                    label: "Name",
+                    key: "author_name"
+                },
                 {
                     label: "Designation",
                     key: "author_designation"
@@ -98,18 +98,20 @@
                     key: "quote"
                 },
                 {
-                    label:'Country',
-                    key:'author_country'
+                    label: 'Country',
+                    key: 'author_country'
                 },
                 {
                     label: "Image",
-                    key: "author_image",
+                    key: "modified_image",
+                    type: "image"
+
                 },
                 {
                     label: "Status",
                     key: "status_label",
-                    color: "status_color",
-                },
+                    color: "status_color"
+                }
             ];
             fetchAndShowModal(detailsUrl, headers, "#modal_data", "myModal");
         });

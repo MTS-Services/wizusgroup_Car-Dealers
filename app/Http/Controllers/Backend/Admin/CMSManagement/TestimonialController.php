@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CMS\TestimonialRequest;
 use App\Services\Admin\CMSManagement\TestimonialService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -42,6 +43,9 @@ class TestimonialController extends Controller
                 ->editColumn('status', function ($testimonial) {
                     return "<span class='badge " . $testimonial->status_color . "'>" . $testimonial->status_label . "</span>";
                 })
+                ->editColumn('quote', function ($testimonial) {
+                    return \Illuminate\Support\Str::limit($testimonial->quote, 30);
+                })
                 ->editColumn('creater_id', function ($testimonial) {
                     return $testimonial->creater_name;
                 })
@@ -52,7 +56,7 @@ class TestimonialController extends Controller
                     $menuItems = $this->menuItems($testimonial);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['status', 'created_at', 'creater_id', 'action'])
+                ->rawColumns(['status', 'created_at', 'quote', 'creater_id', 'action'])
                 ->make(true);
         }
         return view('backend.admin.cms_management.testimonial.index');
@@ -162,9 +166,12 @@ class TestimonialController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+
+    public function show(string $id): JsonResponse
     {
-        //
+        $data = $this->testimonialService->getTestimonial($id);
+        $data->load(['creater', 'updater']);
+        return response()->json($data);
     }
 
     /**
@@ -172,22 +179,81 @@ class TestimonialController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data['testimonial'] = $this->testimonialService->getTestimonial($id);
+        return view('backend.admin.cms_management.testimonial.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TestimonialRequest $request, string $id): RedirectResponse
     {
-        //
+        try {
+            $testimonial = $this->testimonialService->getTestimonial($id);
+            $validated = $request->validated();
+            $this->testimonialService->updateTestimonial($testimonial, $validated, $request->author_image);
+            session()->flash('success', 'Testimonial updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Testimonial update failed!');
+            throw $e;
+        }
+        return redirect()->route('cms.testimonial.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
-        //
+        try {
+            $testimonial = $this->testimonialService->getTestimonial($id);
+            $this->testimonialService->delete($testimonial);
+            session()->flash('success', 'Testimonial deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Testimonial delete failed!');
+            throw $e;
+        }
+        return redirect()->route('cms.testimonial.index');
+    }
+    public function status(string $id): RedirectResponse
+    {
+        try {
+            $testimonial = $this->testimonialService->getTestimonial($id);
+            $this->testimonialService->toggleStatus($testimonial);
+            session()->flash('success', 'Testimonial status updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Testimonial status update failed!');
+            throw $e;
+        }
+        return redirect()->route('cms.testimonial.index');
+    }
+    public function restore(string $id): RedirectResponse
+    {
+        try {
+            $this->testimonialService->restore($id);
+            session()->flash('success', 'Testimonial restored successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Testimonial restore failed!');
+            throw $e;
+        }
+        return redirect()->route('cms.testimonial.recycle-bin');
+    }
+
+    /**
+     * Remove the specified resource from storage permanently.
+     *
+     * @param string $id
+     * @return RedirectResponse
+     */
+    public function permanentDelete(string $id): RedirectResponse
+    {
+        try {
+            $this->testimonialService->permanentDelete($id);
+            session()->flash('success', 'Testimonial permanently deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Testimonial permanent delete failed!');
+            throw $e;
+        }
+        return redirect()->route('cms.testimonial.recycle-bin');
     }
 }

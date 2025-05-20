@@ -26,7 +26,20 @@ class TestimonialRequest extends FormRequest
             'author_designation' => 'required|string|min:4',
             'author_country' => 'required|string|min:4',
             'quote' => 'required|string|min:10',
+        ] + ($this->isMethod('POST') ? $this->store() : $this->update());
+    }
+
+    protected function store(): array
+    {
+        return [
             'author_image' => 'required',
+        ];
+    }
+
+    protected function update(): array
+    {
+        return [
+            'author_image' => 'nullable',
         ];
     }
 }
