@@ -153,19 +153,6 @@
         }
     </style> --}}
 @endpush
-@php
-    $banners = [
-        [
-            'image' => asset('frontend/images/home_page_banner.jpg'),
-        ],
-        [
-            'image' => asset('frontend/images/home_page_banner.jpg'),
-        ],
-        [
-            'image' => asset('frontend/images/home_page_banner.jpg'),
-        ],
-    ];
-@endphp
 
 @section('content')
     {{-- ===================== banner Section Start ===================== --}}
@@ -201,7 +188,7 @@
             <div class="swiper-wrapper h-full">
                 @foreach ($banners as $banner)
                     <div class="swiper-slide h-full">
-                        <img class="w-full h-full object-cover bg-center" src="{{ $banner['image'] }}" alt="image">
+                        <img class="w-full h-full object-cover bg-center" src="{{ storage_url($banner->image) }}" alt="{{ $banner->name }}">
                     </div>
                 @endforeach
             </div>
