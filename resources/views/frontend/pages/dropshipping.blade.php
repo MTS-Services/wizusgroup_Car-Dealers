@@ -10,7 +10,7 @@
             <!-- Header -->
             <div class="text-center mb-10">
 
-                <h2 class="text-3xl font-bold text-text-primary dark:text-text-white">{{ __('SPECIAL ORDER DEALS') }}</h2>
+                <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-5xl font-bold text-text-primary dark:text-text-white">{{ __('SPECIAL ORDER DEALS') }}</h2>
                 <p class="text-lg text-text-secondary mt-2">{{ __('Imported from our global warehouse') }}</p>
             </div>
 

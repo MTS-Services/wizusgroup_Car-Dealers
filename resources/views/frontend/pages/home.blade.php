@@ -152,7 +152,6 @@
             outline-offset: 2px;
         }
     </style> --}}
-   
 @endpush
 @php
     $banners = [
@@ -175,7 +174,7 @@
         <div class="absolute bg-transparent inset-0 z-10">
             <div class="container flex items-center justify-center h-full px-4 xs:px-2">
                 <div class="text-center w-full">
-                    <h1 class="text-4xl xs:text-3xl sm:text-5xl md:text-5xl lg:text-6xl font-bold pb-3 text-text-white">
+                    <h1 class="text-3xl xs:text-3xl sm:text-5xl md:text-5xl lg:text-6xl font-bold pb-3 text-text-white">
                         {{ __('Affordable Machines,') }} <br class="hidden xs:block"> {{ __('Shipped Worldwide') }}
                     </h1>
                     <p class="my-4 text-base xs:text-sm sm:text-lg md:text-xl text-text-white px-4 xs:px-0">
@@ -250,7 +249,7 @@
     <section class="2xl:py-20 xl:py-16 lg:py-12 md:py-10 py-8">
         <div class="container">
             <div class="header text-center mb-10">
-                <h2 class="text-3xl font-bold uppercase">{{ __('Categories') }}</h2>
+                <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase">{{ __('Categories') }}</h2>
             </div>
             <div class="relative">
                 <div class="swiper categories static">
@@ -284,10 +283,11 @@
     {{-- ===================== Category Section End ===================== --}}
 
     {{-- ===================== countdown Group Container Section Start ===================== --}}
-    <section class="countdown_section flex justify-center items-center py-20 m-0 bg-gray-100 dark:bg-bg-dark font-sans">
+    <section
+        class="countdown_section flex justify-center items-center xl:py-20 lg:py-16 md:py-12 py-8  m-0 bg-gray-100 dark:bg-bg-dark-secondary ">
         <div class="container">
             <div
-                class="bg-bg-tertiary/40 dark:bg-bg-secondary/20 text-text-white mx-auto rounded-lg p-6  text-center w-11/12 max-w-3xl shadow-md">
+                class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-6  text-center w-11/12 max-w-3xl shadow-md">
                 <h3 class="text-2xl font-bold mb-2">{{ __('Join Group Container – Save on Shipping') }}</h3>
                 <p class="text-xl mb-5">{{ __('Next Departure to Dakar, Senegal:') }}</p>
                 <div class="countdown-blocks py-2"></div>
@@ -297,18 +297,18 @@
             </div>
             <div class="pt-10">
                 <div class="header">
-                    <h2 class="text-3xl font-bold uppercase text-center">{{ __('How it Works') }}</h2>
+                    <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase text-center">{{ __('How it Works') }}</h2>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-                    <div class="bg-bg-light-secondary dark:bg-bg-primary/30 py-9 p-2 shadow-lg text-center">
+                    <div class="bg-bg-light-secondary dark:bg-bg-dark-tertiary py-9 p-2 shadow-lg text-center">
                         <i data-lucide="shopping-cart" class="w-12 h-12 mx-auto"></i>
                         <p class="py-2">{{ __('Select Your Machine') }}</p>
                     </div>
-                    <div class="bg-bg-light-secondary dark:bg-bg-primary/30  py-9 p-2 shadow-lg text-center">
+                    <div class="bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9 p-2 shadow-lg text-center">
                         <i data-lucide="ship" class="w-12 h-12 mx-auto"></i>
                         <p class="py-2">{{ __('Arrange for Export') }}</p>
                     </div>
-                    <div class="bg-bg-light-secondary dark:bg-bg-primary/30  py-9 p-2 shadow-lg text-center">
+                    <div class="bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9 p-2 shadow-lg text-center">
                         <i data-lucide="shopping-cart" class="w-12 h-12 mx-auto"></i>
                         <p class="py-2">{{ __('Receive at Port') }}</p>
                     </div>
@@ -371,10 +371,10 @@
     @endphp
 
     {{-- ===================== Testimonial Section Start ===================== --}}
-    <section class=" 2xl:py-20 xl:py-16 lg:py-12 md:py-10 py-8  relative">
+   <section class="py-8 md:py-10 xl:mb-8 mb-4 lg:py-12 xl:py-16 2xl:py-20 relative">
         <div class="container mx-auto px-4">
             <div class="header text-center mb-10">
-                <h2 class="text-3xl font-bold uppercase">{{ __('Testimonials') }}</h2>
+                <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase">{{ __('Testimonials') }}</h2>
             </div>
             <!-- Testimonial Carousel -->
             <div class="relative">
@@ -382,30 +382,39 @@
                     <div class="swiper-wrapper ">
                         @foreach ($testimonials as $testimonial)
                             <div class="swiper-slide">
-                                <div class="bg-bg-light dark:bg-bg-dark rounded-xl shadow-md border overflow-hidden">
+                                <div
+                                    class="bg-bg-light dark:bg-bg-dark rounded-xl shadow-card dark:shadow-dark-card overflow-hidden">
                                     <!-- Top Gradient Bar -->
-                                    <div class="h-1 w-full bg-gradient-to-r from-blue-600 to-blue-800"></div>
+                                    <div
+                                        class="h-1 w-full bg-gradient-to-r from-text-secondary to-text-tertiary dark:from-text-light dark:to-text-light">
+                                    </div>
 
                                     <!-- Testimonial Content -->
                                     <div class="p-6 md:p-8">
                                         <!-- Quotation Mark -->
-                                        <div class="text-blue-600 text-6xl font-serif mb-4 leading-none">“</div>
+                                        <div
+                                            class="text-text-secondary dark:text-text-light text-6xl font-serif mb-4 leading-none">
+                                            “</div>
 
                                         <!-- Message -->
-                                        <p class=" text-lg md:text-xl font-light leading-relaxed font-montserrat mb-6">
+                                        <p
+                                            class="text-lg md:text-xl font-light leading-relaxed font-montserrat mb-6 text-text-primary dark:text-text-dark-secondary">
                                             {{ $testimonial['description'] }}
                                         </p>
 
                                         <!-- Author Info -->
-                                        <div class="border-t pt-6 flex items-center gap-4">
+                                        <div
+                                            class="border-t border-border-gray dark:border-border-dark-secondary pt-6 flex items-center gap-4">
                                             <img src="{{ $testimonial['image'] }}" alt="{{ $testimonial['name'] }}"
                                                 class="w-14 h-14 rounded-full object-cover">
 
                                             <div>
-                                                <p class="text-blue-800 font-bold text-lg uppercase font-playfair">
+                                                <p
+                                                    class="text-text-secondary dark:text-text-light font-bold text-lg uppercase font-playfair">
                                                     {{ $testimonial['name'] }}
                                                 </p>
-                                                <p class="text-sm  uppercase tracking-wide mt-1">
+                                                <p
+                                                    class="text-sm uppercase tracking-wide mt-1 text-text-gray dark:text-text-light">
                                                     {{ __('Country') }}: {{ $testimonial['country'] }}
                                                 </p>
                                             </div>
@@ -413,7 +422,9 @@
                                     </div>
 
                                     <!-- Bottom Gradient Bar -->
-                                    <div class="h-1 w-full bg-gradient-to-r from-blue-800 to-blue-600"></div>
+                                    <div
+                                        class="h-1 w-full bg-gradient-to-r from-text-tertiary to-text-secondary dark:from-text-light dark:to-text-light">
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
