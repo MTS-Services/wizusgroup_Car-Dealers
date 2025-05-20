@@ -209,42 +209,6 @@
     </section>
     {{-- ===================== banner Section End ===================== --}}
     {{-- ===================== Category Section Start ===================== --}}
-    @php
-        $categories = [
-            [
-                'image' => asset('frontend/images/tractar.jpg'),
-                'name' => 'Machine description goes here.',
-            ],
-            [
-                'image' => asset('frontend/images/tractar.jpg'),
-                'name' => 'Machine description goes here',
-            ],
-            [
-                'image' => asset('frontend/images/tractar.jpg'),
-                'name' => 'Machine description goes here',
-            ],
-            [
-                'image' => asset('frontend/images/tractar.jpg'),
-                'name' => 'Machine description goes here',
-            ],
-            [
-                'image' => asset('frontend/images/tractar.jpg'),
-                'name' => 'Machine description goes here',
-            ],
-            [
-                'image' => asset('frontend/images/tractar.jpg'),
-                'name' => 'Machine description goes here',
-            ],
-            [
-                'image' => asset('frontend/images/tractar.jpg'),
-                'name' => 'Machine description goes here',
-            ],
-            [
-                'image' => asset('frontend/images/tractar.jpg'),
-                'name' => 'Machine description goes here',
-            ],
-        ];
-    @endphp
 
     <section class="2xl:py-20 xl:py-16 lg:py-12 md:py-10 py-8">
         <div class="container">
@@ -256,7 +220,13 @@
                     <div class="swiper-wrapper">
                         @foreach ($categories as $category)
                             <div class="swiper-slide py-8">
-                                <x-frontend.category :categories="$category" />
+                                <div>
+                                    <div class="text-center">
+                                        <img class="w-auto rounded-xl object-cover mx-auto" src="{{ $category->modified_image }}"
+                                            alt="{{$category?->name }}">
+                                        <p class="py-2">{{ __($category?->name) }} </p>
+                                    </div>
+                                </div>
                             </div>
                         @endforeach
                     </div>
