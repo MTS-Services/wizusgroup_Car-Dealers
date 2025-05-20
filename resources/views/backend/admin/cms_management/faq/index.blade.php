@@ -57,7 +57,7 @@
                 ['question', true, true],
                 ['type', true, true],
                 ['status', true, true],
-                ['creater_id', true, true],
+                ['creater_by', true, true],
                 ['created_at', true, true],
                 ['action', false, false],
             ];

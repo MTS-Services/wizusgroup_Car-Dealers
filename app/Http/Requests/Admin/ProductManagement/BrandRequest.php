@@ -39,7 +39,7 @@ class BrandRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                Rule::unique('companies')->where(
+                Rule::unique('brands')->where(
                     fn($query) =>
                     $query->where('company_id', $this->company_id)
                 ),
@@ -54,12 +54,12 @@ class BrandRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                Rule::unique('companies')
+                Rule::unique('brands')
                     ->where(
                         fn($query) =>
                         $query->where('company_id', $this->company_id)
                     )
-                    ->ignore($this->route('brand')),
+                    ->ignore(decrypt($this->route('brand'))),
             ],
             'slug' => 'required|unique:brands,slug,' . decrypt($this->route('brand')),
         ];

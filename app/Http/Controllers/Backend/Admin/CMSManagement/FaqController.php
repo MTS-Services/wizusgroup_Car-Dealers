@@ -42,11 +42,7 @@ class FaqController extends Controller
 
 
         if ($request->ajax()) {
-
-
-            $query = Faq::with(['creater'])
-                ->orderBy('sort_order', 'asc')
-                ->latest();
+            $query = $this->faqService->getFaqs()->with(['creater_admin']);
             return DataTables::eloquent($query)
                 ->editColumn('type', function ($faq) {
                     return $faq->type_label;
@@ -54,7 +50,7 @@ class FaqController extends Controller
                 ->editColumn('status', function ($faq) {
                     return "<span class='badge " . $faq->status_color . "'>$faq->status_label</span>";
                 })
-                ->editColumn('creater_id', function ($faq) {
+                ->editColumn('creater_by', function ($faq) {
                     return $faq->creater_name;
                 })
                 ->editColumn('created_at', function ($faq) {
@@ -64,7 +60,7 @@ class FaqController extends Controller
                     $menuItems = $this->menuItems($faq);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['type', 'status', 'creater_id', 'created_at', 'action'])
+                ->rawColumns(['type', 'status', 'creater_by', 'created_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.cms_management.faq.index');
@@ -110,12 +106,7 @@ class FaqController extends Controller
     {
 
         if ($request->ajax()) {
-
-
-            $query = Faq::with(['deleter'])
-                ->onlyTrashed()
-                ->orderBy('sort_order', 'asc')
-                ->latest();
+            $query = $this->faqService->getFaqs()->onlyTrashed()->with(['deleter_admin']);
             return DataTables::eloquent($query)
 
                 ->editColumn('type', function ($faq) {
@@ -124,7 +115,7 @@ class FaqController extends Controller
                 ->editColumn('status', function ($faq) {
                     return "<span class='badge " . $faq->status_color . "'>$faq->status_label</span>";
                 })
-                ->editColumn('deleter_id', function ($faq) {
+                ->editColumn('deleter_by', function ($faq) {
                     return $faq->deleter_name;
                 })
                 ->editColumn('deleted_at', function ($faq) {
@@ -134,7 +125,7 @@ class FaqController extends Controller
                     $menuItems = $this->trashedMenuItems($faq);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['type',  'status',  'deleter_id', 'deleted_at', 'action'])
+                ->rawColumns(['type',  'status',  'deleter_by', 'deleted_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.cms_management.faq.recycle-bin');
@@ -203,7 +194,7 @@ class FaqController extends Controller
      */
     public function edit(string $id)
     {
-        $data['faq'] = Faq::findOrFail(decrypt($id));
+        $data['faq'] = $this->faqService->getFaq($id);
         return view('backend.admin.cms_management.faq.edit', $data);
     }
 

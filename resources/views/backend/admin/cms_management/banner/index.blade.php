@@ -90,12 +90,16 @@
             },
             {
                 label: "Sub Title",
-                key: "sub_title"
+                key: "subtitle"
             },
             {
                 label: "Image",
                 key: "modified_image",
                 type: "image"
+            },
+            {
+                label: "Url",
+                key: "url"
             },
             {
                 label: "Start Date",
