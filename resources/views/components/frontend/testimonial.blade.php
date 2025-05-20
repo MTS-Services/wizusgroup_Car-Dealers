@@ -1,4 +1,4 @@
-<div class="bg-bg-white shadow-card rounded-md dark:bg-bg-darkTertiary dark:shadow-shadow-dark">
+<div class="bg-bg-white shadow-card rounded-md dark:bg-bg-dark-tertiary dark:shadow-shadow-dark">
     <div class="md:px-6 px-3 md:py-4 py-2">
         <div class="flex items-center space-x-1 pt-2">
             <h4>{{ __('Jessica M.') }}</h4>

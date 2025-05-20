@@ -24,7 +24,7 @@ function getStates(countryId, route, stateId = null) {
         .catch(function (error) {
             console.error(error);
             $('#state').html(`<option value="" selected hidden>Select State</option>`).prop('disabled', true);
-            alert('Failed to load states.');
+            toastr.error('Failed to load states.');
         });
 }
 function getStatesOrCity(countryId, route, stateOrCityId = null) {
@@ -69,7 +69,7 @@ function getStatesOrCity(countryId, route, stateOrCityId = null) {
             console.error(error);
             $('#state').html(`<option value="" selected hidden>Select State</option>`).prop('disabled', true);
             $('#city').html(`<option value="" selected hidden>Select City</option>`).prop('disabled', true);
-            alert('Failed to load states or cities.');
+            toastr.error('Failed to load states or cities.');
         });
 }
 
@@ -93,7 +93,7 @@ function getCities(stateId, route, cityId = null) {
         .catch(function (error) {
             console.error(error);
             $('#city').html(`<option value="" selected hidden>Select City</option>`).prop('disabled', true);
-            alert('Failed to load states.');
+            toastr.error('Failed to load states.');
         });
 }
 function getOperationAreas(cityId, route, operationAreaId = null) {
@@ -115,7 +115,7 @@ function getOperationAreas(cityId, route, operationAreaId = null) {
         .catch(function (error) {
             console.error(error);
             $('#operation_area').html(`<option value="" selected hidden>Select Operation Area</option>`).prop('disabled', true);
-            alert('Failed to load operation areas.');
+            toastr.error('Failed to load operation areas.');
         });
 }
 
@@ -156,6 +156,62 @@ function getSubCategories(parentId, route, childId = null) {
         .catch(function (error) {
             console.error(error);
             $('#childrens').html(`<option value="" selected hidden>Select Sub Category</option>`).prop('disabled', true);
-            alert('Failed to load sub categories.');
+            toastr.error('Failed to load sub categories.');
         });
 }
+
+
+function getBrands(companyId, route, brandId = null) {
+
+    axios.post(route, { company_id: companyId })
+        .then(function (response) {
+            if (response.data.brands.length > 0) {
+                $('#brand_id').html(`<option value="" selected hidden>Select Brand</option>`);
+                response.data.brands.forEach(function (brand) {
+                    $('#brand_id').append(`<option value="${brand.id}" ${brand.id == brandId ? 'selected' : ''}>${brand.name}</option>`);
+                });
+                $('#brand_id').prop('disabled', false);
+            } else {
+                $('#brand_id').html(`<option value="" selected hidden>Select Brand</option>`).prop('disabled', true);
+            }
+        })
+        .catch(function (error) {
+            console.error(error);
+            $('#brand_id').html(`<option value="" selected hidden>Select Brand</option>`).prop('disabled', true);
+            toastr.error('Failed to load brands.', error);
+        });
+}
+
+function getModels({
+    companyId = null,
+    brandId = null,
+    route,
+    modelId = null
+}) {
+    let axiosCall;
+    if(companyId){
+        axiosCall =axios.post(route, {company_id: companyId});
+    }else if(brandId){
+        axiosCall =axios.post(route, {brand_id: brandId});
+    }else{
+        toastr.error('Failed to load models.', 'Please select company or brand.');
+        return;
+    }
+        axiosCall.then(function (response) {
+            if (response.data.models.length > 0) {
+                $('#brand_id').html(`<option value="" selected hidden>Select Model</option>`);
+                response.data.models.forEach(function (model) {
+                    $('#model_id').append(`<option value="${model.id}" ${model.id == modelId ? 'selected' : ''}>${model.name}</option>`);
+                });
+                $('#model_id').prop('disabled', false);
+            } else {
+                $('#model_id').html(`<option value="" selected hidden>Select Model</option>`).prop('disabled', true);
+            }
+        })
+        .catch(function (error) {
+            console.error(error);
+            $('#model_id').html(`<option value="" selected hidden>Select Model</option>`).prop('disabled', true);
+            toastr.error('Failed to load models.', error);
+        });
+}
+

@@ -1,5 +1,8 @@
 <?php
 
+
+use App\Http\Controllers\Backend\Admin\ProductManagement\CompanyController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\ModelController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Backend\Admin\AuditController;
@@ -26,6 +29,7 @@ use App\Http\Controllers\Backend\Admin\DashboardController as AdminDashboardCont
 use App\Http\Controllers\Backend\Admin\AdminProfileContoller;
 use App\Http\Controllers\Backend\Admin\Auth\ForgotPasswordController as AdminForgotPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminResetPasswordController;
+use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerificationController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\BrandController;
 
 // Admin Auth Routes
@@ -33,8 +37,15 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
     Route::controller(AdminLoginController::class)->group(function () {
         Route::get('/login', 'showLoginForm')->name('login'); // Admin Login Form
         Route::post('/login', 'login')->name('login.submit'); // Admin Login Submit (Handled by AuthenticatesUsers)
-        Route::post('/logout', 'logout')->middleware('auth:admin')->name('logout'); // Admin Logout   
+        Route::post('/logout', 'logout')->middleware('auth:admin')->name('logout'); // Admin Logout
     });
+
+     Route::controller(AdminVerificationController::class)->group(function () {
+            Route::get('email/verify',  'show')->name('verification.notice');
+            Route::get('email/verify/{id}/{hash}',  'verify')->middleware('signed')->name('verification.verify');
+            Route::post('email/resend',  'resend')->middleware('throttle:6,1')->name('verification.resend');
+        });
+
 
     Route::group(['as' => 'password.', 'prefix' => 'password'], function () {
         // Admin Forgot Password
@@ -58,9 +69,15 @@ Route::controller(AxiosRequestController::class)->name('axios.')->group(function
     Route::get('get-sub-areas', 'getSubAreas')->name('get-sub-areas');
 
     Route::get('get-sub-categories', 'getSubCategories')->name('get-sub-categories');
+
+
+    Route::post('get-brands', 'getBrands')->name('get-brands');
+    Route::post('get-models', 'getModels')->name('get-models');
+
+
 });
 
-Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
+Route::group(['middleware' => ['auth:admin','verified'], 'prefix' => 'admin'], function () {
 
     Route::get('/dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin.dashboard');
 
@@ -78,6 +95,8 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
         $filePath = createCSV($filename);
         return Response::download($filePath, $filename);
     })->name('permissions.export');
+
+
 
 
     // Admin Management
@@ -190,9 +209,6 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
         Route::put('email-template/edit/{id}', 'et_update')->name('email_template');
         Route::post('notification/update', 'notification')->name('notification');
     });
-});
-
-Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
     // CMS Management
     Route::group(['as' => 'cms.', 'prefix' => 'cms-management'], function () {
 
@@ -237,6 +253,15 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
         Route::get('sub-child-category/restore/{sub_child_category}', [SubChildCategoryController::class, 'restore'])->name('sub-child-category.restore');
         Route::delete('sub-child-category/permanent-delete/{sub_child_category}', [SubChildCategoryController::class, 'permanentDelete'])->name('sub-child-category.permanent-delete');
 
+        // Company Routes
+        Route::resource('company', CompanyController::class);
+        Route::get('company/status/{company}', [CompanyController::class, 'status'])->name('company.status');
+        Route::get('company/feature/{company}', [CompanyController::class, 'feature'])->name('company.feature');
+
+        Route::get('company/recycle/bin', [CompanyController::class, 'recycleBin'])->name('company.recycle-bin');
+        Route::get('company/restore/{company}', [CompanyController::class, 'restore'])->name('company.restore');
+        Route::delete('company/permanent-delete/{company}', [CompanyController::class, 'permanentDelete'])->name('company.permanent-delete');
+
         // Brand Routes
         Route::resource('brand', BrandController::class);
         Route::get('brand/status/{brand}', [BrandController::class, 'status'])->name('brand.status');
@@ -245,6 +270,14 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
         Route::get('brand/recycle/bin', [BrandController::class, 'recycleBin'])->name('brand.recycle-bin');
         Route::get('brand/restore/{brand}', [BrandController::class, 'restore'])->name('brand.restore');
         Route::delete('brand/permanent-delete/{brand}', [BrandController::class, 'permanentDelete'])->name('brand.permanent-delete');
-        
+
+        // Model Routes
+        Route::resource('model', ModelController::class);
+        Route::get('model/status/{model}', [ModelController::class, 'status'])->name('model.status');
+        Route::get('model/feature/{model}', [ModelController::class, 'feature'])->name('model.feature');
+
+        Route::get('model/recycle/bin', [ModelController::class, 'recycleBin'])->name('model.recycle-bin');
+        Route::get('model/restore/{model}', [ModelController::class, 'restore'])->name('model.restore');
+        Route::delete('model/permanent-delete/{model}', [ModelController::class, 'permanentDelete'])->name('model.permanent-delete');
     });
 });

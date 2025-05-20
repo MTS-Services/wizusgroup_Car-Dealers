@@ -3,7 +3,7 @@
     <section class="py-20">
         <div class="container">
             <div
-                class="flex flex-col xl:flex-row-reverse shadow-shadowPrimary shadow-shadow-dark/10 dark:shadow-shadow-light/10 rounded-2xl w-full overflow-hidden bg-bg-white dark:bg-bg-darkTertiary">
+                class="flex flex-col xl:flex-row-reverse shadow-shadowPrimary shadow-shadow-dark/10 dark:shadow-shadow-light/10 rounded-2xl w-full overflow-hidden bg-bg-white dark:bg-bg-dark-tertiary">
                 <!-- Left Side: Form -->
                 <div class="w-full xl:w-1/2 p-10 md:p-12 flex flex-col justify-center">
                     <h2 class="text-3xl font-semibold text-center mb-6">{{ __('Start Your Journey with Us') }}</h2>
@@ -68,8 +68,8 @@
                                         </svg>
                                         <input type="password" placeholder="Password" name="password" />
                                         <button type="button"
-                                            class="showpassword absolute top-1/2 right-1 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full text-text-white bg-bg-accent bg-opacity-70 hover:bg-opacity-100 hover:text-text-white transition-all duration-300 ease-linear">
-                                            <i data-lucide="eye-off" class="w-4 h-4"></i>
+                                            class="showpassword absolute top-1/2 right-1 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full text-text-primary dark:text-text-light hover:text-text-secondary transition-all duration-300 ease-linear">
+                                            <i class="fa-regular fa-eye-slash w-4 h-4"></i>
                                         </button>
                                     </label>
                                 </div>
@@ -88,8 +88,8 @@
                                         <input type="password" placeholder="Confirm Password"
                                             name="password_confirmation" />
                                         <button type="button"
-                                            class="showpassword absolute top-1/2 right-1 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full text-text-white bg-bg-accent bg-opacity-70 hover:bg-opacity-100 hover:text-text-white transition-all duration-300 ease-linear">
-                                            <i data-lucide="eye-off" class="w-4 h-4"></i>
+                                            class="showpassword absolute top-1/2 right-1 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full text-text-primary dark:text-text-light hover:text-text-secondary transition-all duration-300 ease-linear">
+                                            <i class="fa-regular fa-eye-slash w-4 h-4"></i>
                                         </button>
                                     </label>
                                 </div>

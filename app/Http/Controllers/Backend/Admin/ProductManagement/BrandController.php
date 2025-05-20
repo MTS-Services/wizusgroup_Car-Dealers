@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 
 use App\Models\Brand;
+use App\Services\Admin\ProductManagement\CompanyService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Traits\FileManagementTrait;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\Admin\ProductManagement\BrandRequest;
 use App\Services\Admin\ProductManagement\BrandService;
@@ -13,15 +13,14 @@ use Illuminate\Http\RedirectResponse;
 
 class BrandController extends Controller
 {
-
-    use FileManagementTrait;
-
     protected BrandService $brandService;
+    protected CompanyService $companyService;
 
-    public function __construct(BrandService $brandService)
+    public function __construct(BrandService $brandService, CompanyService $companyService)
     {
 
         $this->brandService = $brandService;
+        $this->companyService = $companyService;
 
         $this->middleware('auth:admin');
         $this->middleware('permission:brand-list', ['only' => ['index']]);
@@ -29,6 +28,7 @@ class BrandController extends Controller
         $this->middleware('permission:brand-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:brand-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:brand-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:brand-feature', ['only' => ['feature']]);
         $this->middleware('permission:brand-status', ['only' => ['status']]);
         $this->middleware('permission:brand-recycle-bin', ['only' => ['recycleBin']]);
         $this->middleware('permission:brand-restore', ['only' => ['restore']]);
@@ -41,8 +41,11 @@ class BrandController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = $this->brandService->getBrands()->with(['creater_admin']);
+            $query = $this->brandService->getBrands()->with(['creater_admin','company']);
             return DataTables::eloquent($query)
+                ->editColumn('company_id', function ($brand) {
+                    return $brand?->company?->name;
+                })
                 ->editColumn('status', function ($brand) {
                     return "<span class='badge " . $brand->status_color . "'>$brand->status_label</span>";
                 })
@@ -59,7 +62,7 @@ class BrandController extends Controller
                     $menuItems = $this->menuItems($brand);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['status', 'is_featured', 'created_by', 'created_at', 'action'])
+                ->rawColumns(['company_id','status', 'is_featured', 'created_by', 'created_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.product_management.brand.index');
@@ -111,8 +114,11 @@ class BrandController extends Controller
     {
 
         if ($request->ajax()) {
-            $query = $this->brandService->getBrands()->onlyTrashed()->with(['deleter_admin']);
+            $query = $this->brandService->getBrands()->onlyTrashed()->with(['deleter_admin','company']);
             return DataTables::eloquent($query)
+                ->editColumn('company_id', function ($brand) {
+                    return $brand?->company?->name;
+                })
                 ->editColumn('status', function ($brand) {
                     return "<span class='badge " . $brand->status_color . "'>$brand->status_label</span>";
                 })
@@ -129,7 +135,7 @@ class BrandController extends Controller
                     $menuItems = $this->trashedMenuItems($brand);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['status', 'is_featured', 'deleted_by', 'deleted_at', 'action'])
+                ->rawColumns(['company_id','status', 'is_featured', 'deleted_by', 'deleted_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.product_management.brand.recycle-bin');
@@ -160,7 +166,8 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('backend.admin.product_management.brand.create');
+        $data['companies'] = $this->companyService->getCompanies()->active()->select(['id', 'name'])->get();
+        return view('backend.admin.product_management.brand.create', $data);
     }
 
     /**
@@ -186,7 +193,8 @@ class BrandController extends Controller
     public function show(string $id)
     {
         $brand = $this->brandService->getBrand($id);
-        $brand->load(['creater_admin', 'updater_admin']);
+        $brand->load(['creater_admin', 'updater_admin','company']);
+        $brand['company_name'] = $brand?->company?->name;
         return response()->json($brand);
     }
 
@@ -195,8 +203,9 @@ class BrandController extends Controller
      */
     public function edit(string $id)
     {
-        $brand = $this->brandService->getBrand($id);;
-        return view('backend.admin.product_management.brand.edit', compact('brand'));
+        $data['brand'] = $this->brandService->getBrand($id);
+        $data['companies'] = $this->companyService->getCompanies()->active()->select(['id', 'name'])->get();
+        return view('backend.admin.product_management.brand.edit', $data);
     }
 
     /**
@@ -205,7 +214,7 @@ class BrandController extends Controller
     public function update(BrandRequest $request, string $id)
     {
 
-        try {           
+        try {
             $validated = $request->validated();
             $this->brandService->updateBrand($id, $validated, $request->image ?? null);
             session()->flash('success', 'Brand updated successfully!');

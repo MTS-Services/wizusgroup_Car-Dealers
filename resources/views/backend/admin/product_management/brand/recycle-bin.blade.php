@@ -19,6 +19,7 @@
                         <thead>
                             <tr>
                                 <th>{{ __('SL') }}</th>
+                                <th>{{ __('Company') }}</th>
                                 <th>{{ __('Name') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Featured') }}</th>
@@ -42,6 +43,7 @@
         $(document).ready(function() {
             let table_columns = [
                 //name and data, orderable, searchable
+                ['company_id', true, true],
                 ['name', true, true],
                 ['status', true, true],
                 ['is_featured', true, true],

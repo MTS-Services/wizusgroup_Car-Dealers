@@ -8,10 +8,10 @@ class Brand extends BaseModel
 {
     protected $fillable = [
         'sort_order',
+        'company_id',
         'name',
         'slug',
         'image',
-        'website',
         'status',
         'is_featured',
         'meta_title',
@@ -201,5 +201,19 @@ class Brand extends BaseModel
     public function getModifiedImageAttribute()
     {
         return storage_url($this->image);
+    }
+
+    public function company(){
+        return $this->belongsTo(Company::class, 'company_id','id');
+    }
+
+    public function models()
+    {
+        return $this->hasMany(Model::class, 'brand_id','id');
+    }
+
+    public function activeModels()
+    {
+        return $this->models()->active();
     }
 }

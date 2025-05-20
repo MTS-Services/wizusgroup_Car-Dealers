@@ -63,7 +63,7 @@
                             <div class="basis-1/2">
                                 <h4>{{ __('Quick Links') }}</h4>
                                 <div class="flex flex-col pt-3 pl-3 gap-1">
-                                    <a href="#"
+                                    <a href="{{ url('/') }}"
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
                                         <div>
                                             <span
@@ -73,7 +73,7 @@
                                         </div>
                                         {{ __('Home') }}
                                     </a>
-                                    <a href="#"
+                                    <a href="{{route('frontend.about')}}"
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
                                         <div>
                                             <span
@@ -83,7 +83,7 @@
                                         </div>
                                         {{ __('About Us') }}
                                     </a>
-                                  <a href="#"
+                                  <a href="{{route('frontend.product')}}"
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
                                         <div>
                                             <span
@@ -93,7 +93,7 @@
                                         </div>
                                         {{ __('Products') }}
                                     </a>
-                                    <a href="#"
+                                    <a href="{{route('frontend.auction')}}"
                                          class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
                                         <div>
                                             <span
@@ -102,6 +102,36 @@
                                             </span>
                                         </div>
                                         {{ __('Auctions') }}
+                                    </a>
+                                    <a href="{{route('frontend.contact')}}"
+                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
+                                        <div>
+                                            <span
+                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/link:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
+                                                <i data-lucide="square-user-round" class="w-[14px] text-text-white"></i>
+                                            </span>
+                                        </div>
+                                        {{ __('Contact') }}
+                                    </a>
+                                    <a href="{{route('frontend.dropshipping')}}"
+                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
+                                        <div>
+                                            <span
+                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/link:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
+                                                <i data-lucide="truck" class="w-[14px] text-text-white"></i>
+                                            </span>
+                                        </div>
+                                        {{ __('Dropshipping') }}
+                                    </a>
+                                    <a href="{{route('frontend.regions')}}"
+                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
+                                        <div>
+                                            <span
+                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/link:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
+                                                <i data-lucide="earth" class="w-[14px] text-text-white"></i>
+                                            </span>
+                                        </div>
+                                        {{ __('Regions') }}
                                     </a>
                                 </div>
                             </div>
@@ -119,7 +149,7 @@
                                         </span>
                                     </div>
                                     <a href="https://www.google.com/maps" target="_blank"
-                                        class="w-auto text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-100 ease-linear">
+                                        class="w-auto break-all text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-300 ease-linear">
                                         {{ __('Lorem ipsum dolor sit amet consectetur adipisicing elit.') }}
                                     </a>
                                 </div>
@@ -132,7 +162,7 @@
                                         </span>
                                     </div>
                                     <a href="mailto:example@example.com" target="_blank"
-                                        class="w-auto text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-100 ease-linear">
+                                        class="w-auto break-all !text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-300 ease-linear">
                                         {{ __('example@example.com') }}
                                     </a>
                                 </div>
@@ -144,7 +174,7 @@
                                         </span>
                                     </div>
                                     <a href="tel:000-000-000" target="_blank"
-                                        class="w-auto text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-100 ease-linear">
+                                        class="w-auto break-all text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-300 ease-linear">
                                         {{ __('000-000-000') }}
                                     </a>
                                 </div>
@@ -190,7 +220,7 @@
                 {{ config('app.name') }}. {{ __('All rights reserved.') }}</p>
             <p class="text-sm text-text-primary dark:text-text-light ml-2">{{ __('Developed by') }}
                 <a href="https://www.google.com/" target="_blank"
-                    class="text-text-tertiary hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-100 ease-linear">{{ __('MTS Solutions') }}</a>
+                    class="text-text-tertiary hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-300 ease-linear">{{ __('MTS Solutions') }}</a>
             </p>
         </div>
     </div>

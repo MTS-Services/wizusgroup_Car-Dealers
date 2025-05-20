@@ -3,7 +3,7 @@
     <section class="py-20">
         <div class="container">
             <div
-                class="flex flex-col md:flex-row shadow-shadowPrimary shadow-shadow-dark/10 dark:shadow-shadow-light/10 rounded-2xl w-full overflow-hidden bg-bg-white dark:bg-bg-darkTertiary">
+                class="flex flex-col md:flex-row shadow-shadowPrimary shadow-shadow-dark/10 dark:shadow-shadow-light/10 rounded-2xl w-full overflow-hidden bg-bg-white dark:bg-bg-dark-tertiary">
                 <!-- Left Side: Form -->
                 <div class="w-full xl:w-1/2 p-10 md:p-12 flex flex-col justify-center">
                     <h2 class="text-3xl font-semibold text-center mb-6">{{ __('Login to Your Account') }}</h2>
@@ -35,8 +35,8 @@
                                 </svg>
                                 <input type="password" placeholder="Password" name="password" />
                                 <button type="button"
-                                    class="showpassword absolute top-1/2 right-1 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full text-text-white bg-bg-accent bg-opacity-70 hover:bg-opacity-100 hover:text-text-white transition-all duration-300 ease-linear">
-                                    <i data-lucide="eye-off" class="w-4 h-4"></i>
+                                    class="showpassword absolute top-1/2 right-1 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full text-text-primary dark:text-text-light hover:text-text-secondary transition-all duration-300 ease-linear">
+                                    <i class="fa-regular fa-eye-slash w-4 h-4"></i>
                                 </button>
                             </label>
                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'password']" />
@@ -60,10 +60,10 @@
                     <div>
                         <div class="divider">{{ __('Or sign up with') }}</div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <a href="#" class="btn-primary rounded-md w-full gap-3">
+                            <a href="{{route('auth.social.redirect', 'google')}}" class="btn-primary rounded-md w-full gap-3">
                                 <i class='bx bxl-google text-2xl'></i> {{ __('Google') }}
                             </a>
-                            <a href="#" class="btn-secondary rounded-md w-full gap-3">
+                            <a href="{{route('auth.social.redirect', 'facebook')}}" class="btn-secondary rounded-md w-full gap-3">
                                 <i class='bx bxl-facebook text-2xl'></i> {{ __('Facebook') }}
                             </a>
                         </div>

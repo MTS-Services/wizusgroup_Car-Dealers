@@ -16,6 +16,16 @@
                 <form action="{{ route('pm.brand.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
+                        <label>{{ __('Company') }} <span class="text-danger">*</span></label>
+                        <select name="company_id" class="form-control" id="company_id">
+                            <option value="" selected hidden>{{__('--Select Company--')}}</option>
+                            @foreach ($companies as $company)
+                                <option value="{{$company->id}}" {{ old('company_id') == $company->id ? 'selected' : ''}}>{{ $company->name }}</option>
+                            @endforeach
+                        </select>
+                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'company_id']" />
+                    </div>
+                    <div class="form-group">
                         <label>{{ __('Name') }} <span class="text-danger">*</span></label>
                         <input type="text" value="{{ old('name') }}" id="title" name="name" class="form-control"
                             placeholder="Enter name">
@@ -35,18 +45,16 @@
                             id="image" accept="image/*">
                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'image']" />
                     </div>
-                    {{-- Website --}}
                     <div class="form-group">
                         <label>{{__('Website')}}</label>
                         <input type="url" value="{{ old('website') }}" id="website" name="website" class="form-control"
                             placeholder="Enter website">
                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'website']" />
                     </div>
-                    {{-- Meta_title --}}
                     <div class="form-group">
-                        <label>{{__('Meta_title')}}</label>
+                        <label>{{__('Meta Title')}}</label>
                         <input type="text" value="{{ old('meta_title') }}" id="meta_title" name="meta_title" class="form-control"
-                            placeholder="Enter meta_title">
+                            placeholder="Enter meta title">
                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'meta_title']" />
                     </div>
                     {{-- Meta_description --}}
