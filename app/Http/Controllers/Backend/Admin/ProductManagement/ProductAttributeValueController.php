@@ -162,7 +162,7 @@ class ProductAttributeValueController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->productAttributeValueService->createProductAttributeValue($validated, $request->image ?? null);
+            $this->productAttributeValueService->createProductAttributeValue($validated);
             session()->flash('success', 'Product Attribute Value created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Product Attribute Value create failed!');
@@ -202,7 +202,7 @@ class ProductAttributeValueController extends Controller
     {
          try {
             $validated = $request->validated();
-            $this->productAttributeValueService->updateProductAttributeValue($id, $validated, $request->image ?? null);
+            $this->productAttributeValueService->updateProductAttributeValue($id, $validated);
             session()->flash('success', 'Product attribute value updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Product attribute value update failed!');
