@@ -166,7 +166,8 @@ class CompanyController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->companyService->createCompany($validated, $request->image ?? null);
+            $fill = $request->$validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->companyService->createCompany($validated, $fill);
             session()->flash('success', 'Company created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Company create failed!');
@@ -203,7 +204,8 @@ class CompanyController extends Controller
 
         try {
             $validated = $request->validated();
-            $this->companyService->updateCompany($id, $validated, $request->image ?? null);
+            $fill = $request->$validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->companyService->updateCompany($id, $validated, $fill);
             session()->flash('success', 'Company updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Company update failed!');

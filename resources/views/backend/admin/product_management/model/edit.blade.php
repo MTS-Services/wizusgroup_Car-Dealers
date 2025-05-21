@@ -46,7 +46,7 @@
                     </div>
                     <div class="form-group">
                         <label>{{ __('image') }}<span class="text-danger">*</span></label>
-                        <input type="file" accept="image/*" name="uploadImage" data-actualName="image"
+                        <input type="file" accept="image/jpg, image/jpeg, image/png, image/webp" name="image"
                             class="form-control filepond" id="image">
                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'image']" />
                     </div>
@@ -78,10 +78,8 @@
 <script src="{{ asset('filepond/filepond.js') }}"></script>
 <script>
         $(document).ready(function() {
-            const existingFiles = {
-                "#image":"{{ $model->modified_image }}",
-            };
-            file_upload(["#image"], "uploadImage", "admin", existingFiles, false);
+            const existingFiles = {"#image":"{{ $model->modified_image }}"};
+            file_upload(["#image"], ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/svg"], existingFiles);
 
             let route = "{{ route('axios.get-brands') }}";
              $('#company_id').on('change', function() {
