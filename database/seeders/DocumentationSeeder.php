@@ -14,34 +14,17 @@ class DocumentationSeeder extends Seeder
     public function run(): void
     {
        Documentation::create([
-        'title' => 'Documentation Title 1',
-        'module_key' => 'Module Key 1',
+        'title' => 'Admin Create Documentation',
+        'module_key' => 'admin',
         'type' => 'create',
-        'documentation' => 'Documentation Content',
+        'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
-        'title' => 'Documentation Title',
-        'module_key' => 'Module Key ',
-        'type' => 'create',
-        'documentation' => 'Documentation Content',
+        'title' => 'Admin Update Documentation',
+        'module_key' => 'admin',
+        'type' => 'update',
+        'documentation' => 'Documentation Contents',
        ]);
-       Documentation::create([
-        'title' => 'Documentation Title 2',
-        'module_key' => 'Module Key 2',
-        'type' => 'create',
-        'documentation' => 'Documentation Content',
-       ]);
-       Documentation::create([
-        'title' => 'Documentation Title 3',
-        'module_key' => 'Module Key 3',
-        'type' => 'create',
-        'documentation' => 'Documentation Content',
-       ]);
-       Documentation::create([
-        'title' => 'Documentation Title 4',
-        'module_key' => 'Module Key 4',
-        'type' => 'create',
-        'documentation' => 'Documentation Content',
-       ]);
+
     }
 }
