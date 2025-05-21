@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Admin\AdminManagement;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminRequest;
 use App\Models\Admin;
+use App\Models\Documentation;
 use App\Models\Role;
 use App\Services\Admin\AdminManagement\AdminService;
 use App\Services\Admin\AdminManagement\RoleService;
@@ -180,6 +181,7 @@ class AdminController extends Controller
     public function create(): View
     {
         $data['roles'] = $this->roleService->getRoles()->select(['id','name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'admin'], ['type', 'create']])->first();
         return view('backend.admin.admin_management.admin.create', $data);
     }
 
@@ -218,6 +220,7 @@ class AdminController extends Controller
     {
         $data['admin'] = $this->adminService->getAdmin($id);
         $data['roles'] = $this->roleService->getRoles()->select('id','name')->get();
+        $data['document'] = Documentation::where([['module_key', 'admin'], ['type', 'update']])->first();
         return view('backend.admin.admin_management.admin.edit', $data);
     }
 

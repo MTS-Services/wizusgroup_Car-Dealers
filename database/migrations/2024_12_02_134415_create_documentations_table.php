@@ -18,8 +18,8 @@ return new class extends Migration
             $table->id();
             $table->bigInteger("sort_order")->default(0)->index();
             $table->string('title')->unique();
-            $table->string('key')->index();
-            $table->enum('type', ['create', 'update'])->nullable()->index();
+            $table->string('module_key')->unique();
+            $table->enum('type', ['create', 'update'])->nullable();
             $table->longText('documentation')->nullable();
             $table->timestamps();
             $table->softDeletes();
