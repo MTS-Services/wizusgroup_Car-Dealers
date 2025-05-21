@@ -28,11 +28,10 @@
                         @include('backend.admin.product_management.product.includes.information')
                     @elseif (isset($product) && $product['entry_status'] == App\Models\Product::ENTRY_STATUS_IMAGE)
                         @include('backend.admin.product_management.product.includes.image')
-                        @elseif (isset($product) && $product['entry_status'] == App\Models\Product::ENTRY_STATUS_RELATION)
+                    @elseif (isset($product) && $product['entry_status'] == App\Models\Product::ENTRY_STATUS_RELATION)
                         @include('backend.admin.product_management.product.includes.relation')
-                        @else
-                        @include('backend.admin.product_management.product.includes.image')
-                        {{-- @include('backend.admin.product_management.product.includes.basic_info') --}}
+                    @else
+                        @include('backend.admin.product_management.product.includes.basic_info')
                     @endif
                 </div>
             </div>

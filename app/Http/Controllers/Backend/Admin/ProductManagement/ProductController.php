@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 
+use App\Http\Requests\Admin\ProductManagement\ProductInfoRemarkRequest;
+use App\Http\Requests\Admin\ProductManagement\ProductInfoRequest;
 use App\Models\Brand;
 use App\Models\Company;
 use App\Models\Category;
 use App\Models\Supplier;
 use App\Models\TaxClass;
+use App\Services\Admin\ProductManagement\CategoryService;
+use App\Services\Admin\ProductManagement\CompanyService;
+use App\Services\Admin\ProductManagement\ProductInfoCategoryService;
+use App\Services\Admin\SupllierManagement\SupplierService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
@@ -22,11 +28,19 @@ class ProductController extends Controller
 {
 
     protected ProductService $productService;
+    protected SupplierService $supplierService;
+    protected CompanyService $companyService;
+    protected CategoryService $categoryService;
+    protected ProductInfoCategoryService $productInfoCategoryService;
 
-    public function __construct(ProductService $productService)
+    public function __construct(ProductService $productService, SupplierService $supplierService, CompanyService $companyService, CategoryService $categoryService, ProductInfoCategoryService $productInfoCategoryService)
     {
 
         $this->productService = $productService;
+        $this->supplierService = $supplierService;
+        $this->companyService = $companyService;
+        $this->categoryService = $categoryService;
+        $this->productInfoCategoryService = $productInfoCategoryService;
 
         $this->middleware('auth:admin');
         $this->middleware('permission:product-list', ['only' => ['index']]);
@@ -196,61 +210,102 @@ class ProductController extends Controller
     public function create(): View
     {
         $data['suppliers'] = Supplier::select('id', 'first_name')->get();
-        return view('backend.admin.product_management.product.create', $data);
+        return view('backend.admin.product_management.product.create.basic_info', $data);
     }
+
+
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProductRequest $request): RedirectResponse|View
+    public function store(ProductRequest $request): RedirectResponse
     {
         try {
             $validated = $request->validated();
             $product = $this->productService->basicInfoCreate($validated);
-            $data['product'] = $product->only('id', 'entry_status');
-            $data['companies'] = Company::select('id', 'name')->get();
-            $data['categories'] = Category::select('id', 'name')->get();
-            $data['tax_classes'] = TaxClass::select('id', 'name')->get();
             session()->flash('success', 'Product basic information added successfully!');
-            return view('backend.admin.product_management.product.create', $data);
+            return redirect()->route('pm.product.relation', encrypt($product->id));
         } catch (\Throwable $e) {
-            session()->flash('error', 'Product basic information  faddedailed!');
-            return redirect()->back()->withInput();
+            session()->flash('error', 'Product basic information create failed!');
             throw $e;
         }
     }
 
-    public function relationStore(ProductRelationRequest $request, string $id): RedirectResponse|View
+    public function relation(string $pid): View
+    {
+        $data['product_id'] = $pid;
+        $data['companies'] = $this->companyService->getCompanies()->active()->select(['id', 'name'])->get();
+        $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->active()->select(['id', 'name'])->get();
+        return view('backend.admin.product_management.product.create.relation', $data);
+    }
+
+    public function relationStore(ProductRelationRequest $request, string $pid): RedirectResponse
     {
         try {
-            $product = $this->productService->getProduct($id);
+            $product = $this->productService->getProduct($pid);
             $validated = $request->validated();
             $this->productService->relationCreate($product, $validated);
-            $product->only('id', 'entry_status');
             session()->flash('success', 'Product relations added successfully!');
-            return view('backend.admin.product_management.product.create', compact('product'));
+            return redirect()->route('pm.product.image', $pid);
         } catch (\Throwable $e) {
             session()->flash('error', 'Product relations added failed!');
             throw $e;
-            return redirect()->back()->withInput();
         }
     }
 
-    public function imageStore(ProductImageRequest $request, string $id): RedirectResponse|View
+    public function images(string $pid): View
+    {
+        $data['product_id'] = $pid;
+        return view('backend.admin.product_management.product.create.image', $data);
+    }
+
+    public function imageStore(ProductImageRequest $request, string $pid): RedirectResponse
     {
         try {
-            $product = $this->productService->getProduct($id);
+            $product = $this->productService->getProduct($pid);
             $validated = $request->validated();
-            $this->productService->imageCreate($product->id, $validated);
-            $product->only('id', 'entry_status');
+            $this->productService->imageCreate($product, $validated);
             session()->flash('success', 'Product images added successfully!');
-            return view('backend.admin.product_management.product.index', compact('product'));
+            return redirect()->route('pm.product.info', $pid);
         } catch (\Throwable $e) {
             session()->flash('error', 'Product images added failed!');
             throw $e;
-            return redirect()->back()->withInput();
         }
     }
+
+    public function info(string $pid): View
+    {
+        $data['product_id'] = $pid;
+        $data['info_categories'] = $this->productInfoCategoryService->getProductInfoCats()->active()->select(['id', 'name'])->get();
+        return view('backend.admin.product_management.product.create.information', $data);
+    }
+    public function infoStore(ProductInfoRequest $request, string $pid): RedirectResponse
+    {
+        try {
+            $product = $this->productService->getProduct($pid);
+            $validated = $request->validated();
+            $this->productService->infoCreate($product, $validated);
+            session()->flash('success', 'Product information added successfully!');
+            return redirect()->route('pm.product.info', $pid);
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product information added failed!');
+            throw $e;
+        }
+    }
+    public function infoRemarkStore(ProductInfoRemarkRequest $request, string $pid): RedirectResponse
+    {
+        try {
+             $product = $this->productService->getProduct($pid);
+            $validated = $request->validated();
+            $this->productService->infoRemarkCreate($product, $validated);
+            session()->flash('success', 'Product remarks added successfully!');
+            return redirect()->route('pm.product.info', $pid);
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product remarks added failed!');
+            throw $e;
+        }
+    }
+
 
     /**
      * Display the specified resource.

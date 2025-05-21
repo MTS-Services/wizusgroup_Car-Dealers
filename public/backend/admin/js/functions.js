@@ -242,9 +242,9 @@ function getModels({
     modelId = null
 }) {
     let axiosCall;
-    if (companyId) {
+    if (companyId && companyId != null) {
         axiosCall = axios.post(route, { company_id: companyId });
-    } else if (brandId) {
+    } else if (brandId && brandId != null) {
         axiosCall = axios.post(route, { brand_id: brandId });
     } else {
         toastr.error('Failed to load models.', 'Please select company or brand.');
@@ -252,7 +252,7 @@ function getModels({
     }
     axiosCall.then(function (response) {
         if (response.data.models.length > 0) {
-            $('#brand_id').html(`<option value="" selected hidden>Select Model</option>`);
+            $('#model_id').html(`<option value="" selected hidden>Select Model</option>`);
             response.data.models.forEach(function (model) {
                 $('#model_id').append(`<option value="${model.id}" ${model.id == modelId ? 'selected' : ''}>${model.name}</option>`);
             });
@@ -268,6 +268,25 @@ function getModels({
         });
 }
 
+function getInfoCatTypeFeatures(proInfoCatTypeId, route, proInfoCatTypeFeatureId = null) {
+    axios.post(route, { product_info_cat_type_id: proInfoCatTypeId })
+        .then(function (response) {
+            if (response.data.product_info_cat_type_features.length > 0) {
+                $('#product_info_cat_type_feature_id').html(`<option value="" selected hidden>Select Product Info Category Type Feature</option>`);
+                response.data.product_info_cat_type_features.forEach(function (feature) {
+                    $('#product_info_cat_type_feature_id').append(`<option value="${feature.id}" ${feature.id == proInfoCatTypeFeatureId ? 'selected' : ''}>${feature.name}</option>`);
+                });
+                $('#product_info_cat_type_feature_id').prop('disabled', false);
+            } else {
+                $('#product_info_cat_type_feature_id').html(`<option value="" selected hidden>Select Product Info Category Type Feature</option>`).prop('disabled', true);
+            }
+        })
+        .catch(function (error) {
+            console.error(error);
+            $('#product_info_cat_type_feature_id').html(`<option value="" selected hidden>Select Product Info Category Type Feature</option>`).prop('disabled', true);
+            toastr.error('Failed to load product info category type features.', error);
+        });
+}
 
 
 
