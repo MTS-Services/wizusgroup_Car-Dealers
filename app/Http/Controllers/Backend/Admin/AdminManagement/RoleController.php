@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\AdminManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\RoleRequest;
+use App\Models\Documentation;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Services\Admin\AdminManagement\PermissionService;
@@ -133,6 +134,7 @@ class RoleController extends Controller
     public function create(): View
     {
         $permissions = $this->permissionService->getPermissions('prefix')->select(['id', 'name', 'prefix'])->get();
+        $data['document'] = Documentation::where([['module_key', 'role'], ['type', 'create']])->first();
         $data['groupedPermissions'] = $permissions->groupBy(function ($permission) {
             return $permission->prefix;
         });
@@ -180,6 +182,7 @@ class RoleController extends Controller
             $role = $this->roleService->getRole($id);
             $data['role'] = $role->load(['permissions:id,name,prefix']);
             $data['permissions'] = $this->permissionService->getPermissions('prefix')->select(['id', 'name', 'prefix'])->get();
+        $data['document'] = Documentation::where([['module_key', 'role'], ['type', 'update']])->first();
             $data['groupedPermissions'] = $data['permissions']->groupBy('prefix');
        } catch (\Throwable $e) {
             session()->flash('error', 'Something went wrong, please try again!');

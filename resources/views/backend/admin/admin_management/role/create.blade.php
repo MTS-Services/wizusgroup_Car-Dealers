@@ -31,7 +31,7 @@
 @endpush
 @section('content')
     <div class="row">
-        <div class="col-md-12">
+   <div class="{{ $document ? 'col-md-8' : 'col-md-12' }}">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title">{{ __('Create Role') }}</h4>
@@ -91,6 +91,7 @@
                 </form>
             </div>
         </div>
+        <x-backend.admin.documentation :document="$document" />
     </div>
 @endsection
 
