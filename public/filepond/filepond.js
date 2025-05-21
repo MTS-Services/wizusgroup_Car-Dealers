@@ -12,8 +12,8 @@
 
 function file_upload(
     selectors,
-    existingFiles = [],
     fileTypes = ["image/*"],
+    existingFiles = [],
     multipleFile = false,
 
 ) {

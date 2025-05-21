@@ -30,7 +30,7 @@ class BannerService
     {
         $data['created_by'] = admin()->id;
         if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload(Banner::class, $file, admin(), 'banners/');
+                $data['image'] = $this->handleFileUpload($file,  'banners');
         }
         $banner = Banner::create($data);
         return $banner;
@@ -41,7 +41,8 @@ class BannerService
         $banner = $this->getBanner($encryptedId);
         $data['updated_by'] = admin()->id;
         if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload($banner, $file, admin(), 'banner/');
+                $data['image'] = $this->handleFileUpload($file,  'banners');
+                $this->fileDelete($banner->image);
         }
         $banner->update($data);
         return $banner;
