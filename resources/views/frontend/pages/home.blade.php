@@ -264,7 +264,7 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
                     <div class="bg-bg-light-secondary dark:bg-bg-dark-tertiary py-9 p-2 shadow-lg text-center">
-                        <i data-lucide="shopping-cart" class="w-16 h-16 mx-auto text-text-secondary/40 "></i>
+                        <i data-lucide="cpu" class="w-16 h-16 mx-auto text-text-secondary/40 "></i>
                         <p class="py-2 text-2xl font-semibold">{{ __('Select Your Machine') }}</p>
                     </div>
                     <div class="bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9 p-2 shadow-lg text-center">
@@ -272,7 +272,7 @@
                         <p class="py-2 text-2xl font-semibold">{{ __('Arrange for Export') }}</p>
                     </div>
                     <div class="bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9 p-2 shadow-lg text-center">
-                        <i data-lucide="shopping-cart" class="w-16 h-16 mx-auto text-text-secondary/40"></i>
+                        <i data-lucide="inbox" class="w-16 h-16 mx-auto text-text-secondary/40"></i>
                         <p class="py-2 text-2xl font-semibold">{{ __('Receive at Port') }}</p>
                     </div>
                 </div>
