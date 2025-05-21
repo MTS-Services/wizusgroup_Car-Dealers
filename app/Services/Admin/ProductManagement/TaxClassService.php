@@ -28,9 +28,6 @@ class TaxClassService
     public function createTaxClass(array $data, $file = null): TaxClass
     {
         $data['created_by'] = admin()->id;
-        if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload(TaxClass::class, $file, admin(), 'companies/');
-        }
        $tax_class = TaxClass::create($data);
         return$tax_class;
     }
@@ -39,9 +36,6 @@ class TaxClassService
     {
        $tax_class = $this->getTaxClass($encryptedId);
         $data['updated_by'] = admin()->id;
-        if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload($tax_class, $file, admin(), 'companies/');
-        }
        $tax_class->update($data);
         return$tax_class;
     }
@@ -63,9 +57,6 @@ class TaxClassService
     public function permanentDeleteTaxClass(string $encryptedId): void
     {
        $tax_class = $this->getDeletedTaxClass($encryptedId);
-        if ($tax_class->image) {
-            $this->fileDelete($tax_class->image);
-        }
        $tax_class->forceDelete();
     }
 
