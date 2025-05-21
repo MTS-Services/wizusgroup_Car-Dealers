@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserRequest;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Traits\DetailsCommonDataTrait;
+use App\Models\Documentation;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -158,7 +159,8 @@ class UserController extends Controller
      */
     public function create(): View
     {
-        return view('backend.admin.user_management.user.create');
+        $data['document'] = Documentation::where([['module_key', 'user'], ['type', 'create']])->first();
+        return view('backend.admin.user_management.user.create', $data);
     }
 
     /**
@@ -193,6 +195,7 @@ class UserController extends Controller
     public function edit(string $id): View
     {
         $data['user'] = $this->userService->getUser($id);
+        $data['document'] = Documentation::where([['module_key', 'user'], ['type', 'update']])->first();
         return view('backend.admin.user_management.user.edit', $data);
     }
 
