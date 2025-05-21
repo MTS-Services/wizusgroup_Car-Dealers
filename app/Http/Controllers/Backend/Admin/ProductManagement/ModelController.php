@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\ModelRequest;
+use App\Models\Documentation;
 use App\Services\Admin\ProductManagement\BrandService;
 use App\Services\Admin\ProductManagement\CompanyService;
 use App\Services\Admin\ProductManagement\ModelService;
@@ -174,6 +175,7 @@ class ModelController extends Controller
     public function create()
     {
         $data['companies'] = $this->companyService->getCompanies()->active()->select(['id','name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'model'], ['type', 'create']])->first();
         return view('backend.admin.product_management.model.create', $data);
     }
 
@@ -213,6 +215,7 @@ class ModelController extends Controller
     {
         $data['model'] = $this->modelService->getModel($id);
         $data['companies'] = $this->companyService->getCompanies()->active()->select(['id','name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'model'], ['type', 'update']])->first();
         return view('backend.admin.product_management.model.edit', $data);
     }
 
