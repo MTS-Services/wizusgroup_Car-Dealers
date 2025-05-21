@@ -29,9 +29,6 @@ class ProductAttributeValueService
     {
         $data['creater_type'] = get_class(admin());
         $data['created_by'] = admin()->id;
-        if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload(ProductAttributeValue::class, $file, admin(), 'Porduct Attribute Value/');
-        }
        $product_attr_value = ProductAttributeValue::create($data);
         return $product_attr_value;
     }
@@ -40,9 +37,6 @@ class ProductAttributeValueService
     {
        $product_attr_value = $this->getProductAttributeValue($encryptedId);
         $data['updated_by'] = admin()->id;
-        if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload($product_attr_value, $file, admin(), 'Porduct Attribute Value/');
-        }
        $product_attr_value->update($data);
         return $product_attr_value;
     }
