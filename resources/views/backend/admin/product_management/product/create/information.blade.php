@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="cart-title">
-                            {{ __('Set Product Information') }}
+                        {{ __('Set Product Information') }}
                     </h4>
                     <x-backend.admin.button :datas="[
                         'routeName' => 'pm.product.image',
@@ -16,7 +16,8 @@
                     ]" />
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('pm.product.info.store', $product_id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('pm.product.info.store', $product_id) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
 
                         <div class="row">
@@ -43,16 +44,18 @@
                             </div>
                             <div class="form-group">
                                 <label>{{ __('Product Info Category Type Feature') }}</label>
-                                <select name="product_info_cat_type_feature_id" class="form-control" id="product_info_cat_type_feature_id"
-                                    disabled>
-                                    <option value="" selected hidden>{{ __('Select Product Info Category Type Feature') }}
+                                <select name="product_info_cat_type_feature_id" class="form-control"
+                                    id="product_info_cat_type_feature_id" disabled>
+                                    <option value="" selected hidden>
+                                        {{ __('Select Product Info Category Type Feature') }}
                                     </option>
                                 </select>
                                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'product_info_cat_type_feature_id']" />
                             </div>
                             <div class="form-group">
                                 <label>{{ __('Information') }}<span class="text-danger">*</span></label>
-                                <input type="text" value="{{ old('description') }}" name="description" class="form-control" placeholder="Enter information">
+                                <input type="text" value="{{ old('description') }}" name="description"
+                                    class="form-control" placeholder="Enter information">
                                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'description']" />
                             </div>
                         </div>
@@ -62,15 +65,17 @@
                         </div>
                     </form>
                 </div>
-                 <div class="card-body">
-                    <form action="{{ route('pm.product.info.remarks.store', $product_id) }}" method="POST" enctype="multipart/form-data">
+                <div class="card-body">
+                    <form action="{{ route('pm.product.info.remarks.store', $product_id) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
 
                         <div class="row">
                             <div class="form-group">
                                 <label>{{ __('Product Info Category') }} <span class="text-danger">*</span></label>
                                 <select name="product_info_cat" class="form-control">
-                                    <option value="" selected hidden>{{ __('Select Product Info Category') }}</option>
+                                    <option value="" selected hidden>{{ __('Select Product Info Category') }}
+                                    </option>
                                     @foreach ($info_categories as $category)
                                         <option value="{{ $category->id }}"
                                             {{ old('product_info_cat') == $category->id ? 'selected' : '' }}>
@@ -88,12 +93,16 @@
 
                         <div class="form-group float-end">
                             <input type="submit" class="btn btn-primary" value="Add Remarks">
+                            <a href="{{ route('pm.product.index', $product_id) }}" class="btn btn-secondary">Complete</a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    @include('backend.admin.product_management.product.create.information_list')
+
 @endsection
 @push('js')
     <script src="{{ asset('ckEditor5/main.js') }}"></script>
@@ -107,6 +116,8 @@
                 let route = "{{ route('axios.get-info-cat-type-features') }}";
                 getInfoCatTypeFeatures($(this).val(), route);
             });
+
+
         });
     </script>
 @endpush

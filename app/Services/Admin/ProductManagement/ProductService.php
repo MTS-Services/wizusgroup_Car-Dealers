@@ -43,7 +43,7 @@ class ProductService
         return DB::transaction(function () use ($data, $product, $type) {
             $product->update(['entry_status' => Product::ENTRY_STATUS_IMAGE]);
             $type == 'create' ? $data['created_by'] = admin()->id : $data['updated_by'] = admin()->id;
-            return ProductRelation::updateOrCreate(['product_id'=> $product->id], $data);
+            return ProductRelation::updateOrCreate(['product_id' => $product->id], $data);
         });
     }
 
@@ -60,14 +60,14 @@ class ProductService
                     $image->forceDelete();
                 }
                 $file = $data['image'];
-                $data['image'] = $this->handleFileUpload($file,  'products');
+                $data['image'] = $this->handleFileUpload($file, 'products');
                 ProductImage::create(array_merge($data, ['is_primary' => ProductImage::IS_PRIMARY]));
             }
             if (isset($data['images'])) {
                 foreach ($data['images'] as $image) {
-                     if ($image instanceof UploadedFile) {
+                    if ($image instanceof UploadedFile) {
                         $file = $image;
-                        $data['image'] = $this->handleFileUpload($file,  'products');
+                        $data['image'] = $this->handleFileUpload($file, 'products');
                         ProductImage::create($data);
                     }
                 }
@@ -80,11 +80,11 @@ class ProductService
     public function infoCreate(Product $product, array $data, $type = 'create')
     {
         ($type == 'create' ? $data['created_by'] = admin()->id : $data['updated_by'] = admin()->id);
-        return ProductInformation::updateOrCreate(['product_id'=> $product->id, 'product_info_cat_id'=> $data['product_info_cat_id'],'product_info_cat_type_id'=> $data['product_info_cat_type_id']], ['product_info_cat_type_feature_id'=> $data['product_info_cat_type_feature_id'],'description'=> $data['description']]);
+        return ProductInformation::updateOrCreate(['product_id' => $product->id, 'product_info_cat_id' => $data['product_info_cat_id'], 'product_info_cat_type_id' => $data['product_info_cat_type_id']], ['product_info_cat_type_feature_id' => $data['product_info_cat_type_feature_id'], 'description' => $data['description']]);
 
     }
 
-     public function infoRemarkCreate(Product $product, array $data, $type = 'create')
+    public function infoRemarkCreate(Product $product, array $data, $type = 'create')
     {
         ($type == 'create' ? $data['created_by'] = admin()->id : $data['updated_by'] = admin()->id);
         $record = ProductInformation::where('product_id', $product->id)
@@ -113,7 +113,7 @@ class ProductService
     }
     public function delete(string $encryptedId): void
     {
-        $product =  $this->getProduct($encryptedId);
+        $product = $this->getProduct($encryptedId);
         $product->update(['deleted_by' => admin()->id]);
         $product->delete();
     }

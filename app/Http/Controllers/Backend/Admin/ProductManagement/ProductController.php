@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\ProductManagement\ProductInfoRequest;
 use App\Models\Brand;
 use App\Models\Company;
 use App\Models\Category;
+use App\Models\ProductInformation;
 use App\Models\Supplier;
 use App\Models\TaxClass;
 use App\Services\Admin\ProductManagement\CategoryService;
@@ -275,6 +276,7 @@ class ProductController extends Controller
 
     public function info(string $pid): View
     {
+        $data['infos'] = ProductInformation::where('product_id', decrypt($pid))->get();
         $data['product_id'] = $pid;
         $data['info_categories'] = $this->productInfoCategoryService->getProductInfoCats()->active()->select(['id', 'name'])->get();
         return view('backend.admin.product_management.product.create.information', $data);
@@ -282,11 +284,12 @@ class ProductController extends Controller
     public function infoStore(ProductInfoRequest $request, string $pid): RedirectResponse
     {
         try {
-            $product = $this->productService->getProduct($pid);
+            $product = $this->productService->getProduct(encryptedId: $pid);
             $validated = $request->validated();
             $this->productService->infoCreate($product, $validated);
             session()->flash('success', 'Product information added successfully!');
             return redirect()->route('pm.product.info', $pid);
+            ;
         } catch (\Throwable $e) {
             session()->flash('error', 'Product information added failed!');
             throw $e;
@@ -295,7 +298,7 @@ class ProductController extends Controller
     public function infoRemarkStore(ProductInfoRemarkRequest $request, string $pid): RedirectResponse
     {
         try {
-             $product = $this->productService->getProduct($pid);
+            $product = $this->productService->getProduct($pid);
             $validated = $request->validated();
             $this->productService->infoRemarkCreate($product, $validated);
             session()->flash('success', 'Product remarks added successfully!');
