@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\Admin\ProductManagement\BrandRequest;
+use App\Models\Documentation;
 use App\Services\Admin\ProductManagement\BrandService;
 use Illuminate\Http\RedirectResponse;
 
@@ -167,6 +168,7 @@ class BrandController extends Controller
     public function create()
     {
         $data['companies'] = $this->companyService->getCompanies()->active()->select(['id', 'name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'brand'], ['type', 'create']])->first();
         return view('backend.admin.product_management.brand.create', $data);
     }
 
@@ -205,6 +207,7 @@ class BrandController extends Controller
     {
         $data['brand'] = $this->brandService->getBrand($id);
         $data['companies'] = $this->companyService->getCompanies()->active()->select(['id', 'name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'brand'], ['type', 'update']])->first();
         return view('backend.admin.product_management.brand.edit', $data);
     }
 

@@ -197,6 +197,7 @@ class FaqController extends Controller
     public function edit(string $id)
     {
         $data['faq'] = $this->faqService->getFaq($id);
+        $data['document'] = Documentation::where([['module_key', 'faq'], ['type', 'update']])->first();
         return view('backend.admin.cms_management.faq.edit', $data);
     }
 
