@@ -22,8 +22,7 @@ class DocumentationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'key' => 'required|string',
-            'module_key' => 'nullable|string|in:create,update',
+            'type' => 'nullable|string|in:create,update',
             'documentation' => 'nullable|string',
 
         ]
@@ -35,6 +34,7 @@ class DocumentationRequest extends FormRequest
     {
         return [
             'title' => 'required|unique:documentations,title',
+            'module_key' => 'required|unique:documentations,module_key',
         ];
     }
 
@@ -43,6 +43,7 @@ class DocumentationRequest extends FormRequest
     {
         return [
             'title' => 'required|unique:documentations,title,' . decrypt($this->route('documentation')),
+            'module_key' => 'required|unique:documentations,module_key,' .decrypt($this->route('documentation')),
         ];
     }
 }
