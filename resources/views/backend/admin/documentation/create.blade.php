@@ -23,17 +23,17 @@
                         </div>
                         <div class="form-group">
                             <label>{{ __('Module Key') }}</label>
-                            <input type="text" value="{{ old('key') }}" name="key" class="form-control"
+                            <input type="text" value="{{ old('module_key') }}" name="module_key" class="form-control"
                                 placeholder="Enter module key">
-                            <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'key']" />
+                            <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'module_key']" />
                         </div>
                         <div class="form-group">
                             <label>{{ __('Type') }}</label>
                             <select name="type" class="form-control no-select">
                                 <option value="" selected hidden>{{ __('Select Type') }}</option>
-                                <option value="create" {{ old('key') == 'create' ? 'selected' : '' }}>{{ __('Create') }}
+                                <option value="create" {{ old('type') == 'create' ? 'selected' : '' }}>{{ __('Create') }}
                                 </option>
-                                <option value="update" {{ old('key') == 'update' ? 'selected' : '' }}>{{ __('Update') }}
+                                <option value="update" {{ old('type') == 'update' ? 'selected' : '' }}>{{ __('Update') }}
                                 </option>
                             </select>
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'type']" />

@@ -197,6 +197,9 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
 
     // Documentation
     Route::resource('documentation', DocumentationController::class);
+        Route::get('documentation/recycle/bin', [documentationController::class, 'recycleBin'])->name('documentation.recycle-bin');
+        Route::get('documentation/restore/{documentation}', [documentationController::class, 'restore'])->name('documentation.restore');
+        Route::delete('documentation/permanent-delete/{documentation}', [documentationController::class, 'permanentDelete'])->name('documentation.permanent-delete');
 
     // Audit Management
     Route::controller(AuditController::class)->prefix('audits')->name('audit.')->group(function () {

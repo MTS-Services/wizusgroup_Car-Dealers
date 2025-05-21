@@ -23,7 +23,7 @@ class DocumentationRequest extends FormRequest
     {
         return [
             'key' => 'required|string',
-            'type' => 'nullable|string|in:create,update',
+            'module_key' => 'nullable|string|in:create,update',
             'documentation' => 'nullable|string',
 
         ]

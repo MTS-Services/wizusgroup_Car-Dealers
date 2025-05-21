@@ -11,13 +11,16 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Traits\DetailsCommonDataTrait;
-
+use App\Services\Admin\DocumentationService;
 
 class DocumentationController extends Controller
 {
     use DetailsCommonDataTrait;
-    public function __construct()
+    protected DocumentationService $documentationService;
+    public function __construct(DocumentationService $documentationService)
     {
+        $this->documentationService = $documentationService;
+
         $this->middleware('auth:admin');
         $this->middleware('permission:documentation-list', ['only' => ['index']]);
         $this->middleware('permission:documentation-details', ['only' => ['show']]);
@@ -33,10 +36,9 @@ class DocumentationController extends Controller
     {
 
         if ($request->ajax()) {
-            $query = Documentation::with(['creater_admin'])
-            ->orderBy('sort_order', 'asc')
-            ->latest();
+           $query = $this->documentationService->getDocumentations()->with(['creater_admin']);
             return DataTables::eloquent($query)
+
                 ->editColumn('created_at', function ($doc) {
                     return $doc->created_at_formatted;
                 })
@@ -81,6 +83,52 @@ class DocumentationController extends Controller
         ];
     }
 
+        public function recycleBin(Request $request)
+    {
+
+        if ($request->ajax()) {
+            $query = $this->documentationService->getDocumentations()->onlyTrashed()->with(['deleter_admin']);
+            return DataTables::eloquent($query)
+                ->editColumn('deleted_by', function ($doc) {
+                    return $doc->deleter_name;
+                })
+                ->editColumn('deleted_at', function ($doc) {
+                    return $doc->deleted_at_formatted;
+                })
+                ->editColumn('action', function ($doc) {
+                    $menuItems = $this->trashedMenuItems($doc);
+                    return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
+                })
+                ->rawColumns([ 'deleted_by', 'deleted_at', 'action'])
+                ->make(true);
+        }
+        return view('backend.admin.documentation..recycle-bin');
+    }
+    /**
+     * Define menu items for trashed items in admin list.
+     *
+     * @param Admin $model
+     * @return array
+     */
+    protected function trashedMenuItems($model): array
+    {
+        return [
+            [
+                'routeName' => 'documentation.restore',
+                'params' => [encrypt($model->id)],
+                'label' => 'Restore',
+                'permissions' => ['admin-restore']
+            ],
+            [
+                'routeName' => 'documentation.permanent-delete',
+                'params' => [encrypt($model->id)],
+                'label' => 'Permanent Delete',
+                'p-delete' => true,
+                'permissions' => ['documentation-permanent-delete']
+            ]
+
+        ];
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -94,20 +142,24 @@ class DocumentationController extends Controller
      */
     public function store(DocumentationRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
-        $validated['created_by'] = admin()->id;
-        Documentation::create($validated);
-        session()->flash('success', 'Documentation created successfully!');
+         try {
+            $validated = $request->validated();
+            $this->documentationService->createDocumentation($validated);
+            session()->flash('success', 'Documentation created successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('success', 'Documentation created successfully!');
+            throw $e;
+        }
         return redirect()->route('documentation.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id): JsonResponse
+     public function show(string $id): JsonResponse
     {
-        $data = Documentation::with(['creater_admin', 'updater_admin'])->findOrFail(decrypt($id));
-        $data->documenatation = html_entity_decode($data->documentation);
+        $data = $this->documentationService->getDocumentation($id);
+        $data->load(['creater_admin', 'updater_admin']);
         return response()->json($data);
     }
 
@@ -116,7 +168,7 @@ class DocumentationController extends Controller
      */
     public function edit(string $id): View
     {
-        $data['doc'] = Documentation::findOrFail(decrypt($id));
+        $data['doc'] = $this->documentationService->getDocumentation($id);
         return view('backend.admin.documentation.edit', $data);
     }
 
@@ -125,23 +177,45 @@ class DocumentationController extends Controller
      */
     public function update(DocumentationRequest $request, string $id): RedirectResponse
     {
-        $doc = Documentation::findOrFail(decrypt($id));
-        $validated = $request->validated();
-        $validated['updated_by'] = admin()->id;
-        $doc->update($validated);
-        session()->flash('success', 'Documentation updated successfully!');
+        try {
+            $doc = $this->documentationService->getDocumentation($id);
+            $validated = $request->validated();
+            $this->documentationService->updateDocumentation($doc,$validated);
+            session()->flash('success', 'Documentation updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Documentation update failed!');
+            throw $e;
+        }
         return redirect()->route('documentation.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
+     public function destroy(string $id): RedirectResponse
     {
-        $doc = Documentation::findOrFail(decrypt($id));
-        $doc->update(['deleted_by' => admin()->id]);
-        $doc->delete();
-        session()->flash('success', 'Documentation deleted successfully!');
+        $doc = $this->documentationService->getDocumentation($id);
+        $this->documentationService->delete( $doc);
+        session()->flash('success', 'Documentation move to recycle bin successfully!');
         return redirect()->route('documentation.index');
+    }
+      public function restore(string $id): RedirectResponse
+    {
+        $this->documentationService->restore( $id );
+        session()->flash('success', 'Documentation restored successfully!');
+        return redirect()->route('documentation.recycle-bin');
+    }
+
+    /**
+     * Remove the specified resource from storage permanently.
+     *
+     * @param string $id
+     * @return RedirectResponse
+     */
+    public function permanentDelete(string $id): RedirectResponse
+    {
+       $this->documentationService->permanentDelete( $id );
+        session()->flash('success', 'Documentation permanently deleted successfully!');
+        return redirect()->route('documentation.recycle-bin');
     }
 }

@@ -25,9 +25,9 @@
                         </div>
                         <div class="form-group">
                             <label>{{ __('Module Key') }}</label>
-                            <input type="text" value="{{ $doc->key }}" name="key" class="form-control"
+                            <input type="text" value="{{ $doc->module_key }}" name="module_key" class="form-control"
                                 placeholder="Enter module key">
-                            <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'key']" />
+                            <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'module_key']" />
                         </div>
                         <div class="form-group">
                             <label>{{ __('Type') }}</label>
