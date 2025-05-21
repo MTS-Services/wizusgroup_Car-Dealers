@@ -40,7 +40,7 @@ class ModelRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                Rule::unique('brands')->where(
+                Rule::unique('models')->where(
                     fn($query) =>
                     $query->where('brand_id', $this->brand_id)
                 ),
@@ -55,12 +55,12 @@ class ModelRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                Rule::unique('brands')
+                Rule::unique('models')
                     ->where(
                         fn($query) =>
                         $query->where('brand_id', $this->brand_id)
                     )
-                    ->ignore($this->route('model')),
+                    ->ignore(decrypt($this->route('model'))),
             ],
             'slug' => 'required|unique:models,slug,' . decrypt($this->route('model')),
         ];
