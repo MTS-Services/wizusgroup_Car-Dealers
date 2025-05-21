@@ -23,10 +23,11 @@ class ModelRequest extends FormRequest
     public function rules(): array
     {
         return [
+
             'description' => 'nullable|string',
             'meta_description' => 'nullable|string',
             'meta_title' => 'nullable|string',
-            'image'=> 'nullable',
+            'image'=> 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
             'company_id' => 'required|exists:companies,id',
             'brand_id'=> 'required|exists:brands,id',
 
