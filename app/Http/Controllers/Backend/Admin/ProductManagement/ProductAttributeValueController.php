@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\ProductAttributeValueRequest;
+use App\Models\Documentation;
 use App\Models\Product;
 use App\Services\Admin\ProductManagement\ProductAttributeService;
 use App\Services\Admin\ProductManagement\ProductAttributeValueService;
@@ -152,6 +153,7 @@ class ProductAttributeValueController extends Controller
     {
         $products = Product::active()->select(['id', 'name'])->get();
         $product_attribute = $this->productAttributeService->getProductAttributes()->active()->select(['id', 'name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'product attribute value'], ['type', 'create']])->first();
         return view('backend.admin.product_management.product_attribute_value.create', compact('product_attribute', 'products'));
     }
 
@@ -192,6 +194,7 @@ class ProductAttributeValueController extends Controller
         $data['products'] = Product::active()->select(['id', 'name'])->get();
         $data['product_attribute_value'] = $this->productAttributeValueService->getProductAttributeValue($id);
         $data['product_attributes'] = $this->productAttributeService->getProductAttributes()->active()->get();
+        $data['document'] = Documentation::where([['module_key', 'product attribute value'], ['type', 'update']])->first();
         return view('backend.admin.product_management.product_attribute_value.edit', $data);
     }
 
