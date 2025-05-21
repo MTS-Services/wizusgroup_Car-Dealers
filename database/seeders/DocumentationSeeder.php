@@ -25,6 +25,53 @@ class DocumentationSeeder extends Seeder
         'type' => 'update',
         'documentation' => 'Documentation Contents',
        ]);
-
+       Documentation::create([
+        'title' => 'Permission Create Documentation',
+        'module_key' => 'permission',
+        'type' => 'create',
+        'documentation' => 'Documentation Contents',
+       ]);
+       Documentation::create([
+        'title' => 'Permission Update Documentation',
+        'module_key' => 'permission',
+        'type' => 'update',
+        'documentation' => 'Documentation Contents',
+       ]);
+       Documentation::create([
+        'title' => 'Role Create Documentation',
+        'module_key' => 'role',
+        'type' => 'create',
+        'documentation' => 'Documentation Contents',
+       ]);
+       Documentation::create([
+        'title' => 'Role Update Documentation',
+        'module_key' => 'role',
+        'type' => 'update',
+        'documentation' => 'Documentation Contents',
+       ]);
+       Documentation::create([
+        'title' => 'User Create Documentation',
+        'module_key' => 'user',
+        'type' => 'create',
+        'documentation' => 'Documentation Contents',
+       ]);
+       Documentation::create([
+        'title' => 'User Update Documentation',
+        'module_key' => 'user',
+        'type' => 'update',
+        'documentation' => 'Documentation Contents',
+       ]);
+       Documentation::create([
+        'title' => 'Supplier Create Documentation',
+        'module_key' => 'supplier',
+        'type' => 'create',
+        'documentation' => 'Documentation Contents',
+       ]);
+       Documentation::create([
+        'title' => 'Supplier Update Documentation',
+        'module_key' => 'supplier',
+        'type' => 'update',
+        'documentation' => 'Documentation Contents',
+       ]);
     }
 }

@@ -27,6 +27,9 @@ class DocumentationController extends Controller
         $this->middleware('permission:documentation-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:documentation-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:documentation-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:documentation-recycle-bin', ['only' => ['recycleBin']]);
+        $this->middleware('permission:documentation-restore', ['only' => ['restore']]);
+        $this->middleware('permission:documentation-permanent-delete', ['only' => ['permanentDelete']]);
     }
 
     /**
