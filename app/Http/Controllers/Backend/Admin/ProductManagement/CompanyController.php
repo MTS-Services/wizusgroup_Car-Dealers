@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\CompanyRequest;
+use App\Models\Documentation;
 use App\Services\Admin\ProductManagement\CompanyService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -156,6 +157,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
+        $data['document'] = Documentation::where([['module_key', 'company'], ['type', 'create']])->first();
         return view('backend.admin.product_management.company.create');
     }
 
@@ -191,7 +193,8 @@ class CompanyController extends Controller
      */
     public function edit(string $id)
     {
-        $company = $this->companyService->getCompany($id);;
+        $company = $this->companyService->getCompany($id);
+        $data['document'] = Documentation::where([['module_key', 'company'], ['type', 'update']])->first();
         return view('backend.admin.product_management.company.edit', compact('company'));
     }
 
