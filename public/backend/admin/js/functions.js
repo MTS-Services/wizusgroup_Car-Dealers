@@ -215,6 +215,25 @@ function getBrands(companyId, route, brandId = null) {
             toastr.error('Failed to load brands.', error);
         });
 }
+function getInfoCatTypes(proInfoCatId, route, proInfoCatTypeId = null) {
+    axios.post(route, { product_info_cat_id: proInfoCatId })
+        .then(function (response) {
+            if (response.data.product_info_cat_types.length > 0) {
+                $('#product_info_cat_type_id').html(`<option value="" selected hidden>Select Product Info Category Type</option>`);
+                response.data.product_info_cat_types.forEach(function (type) {
+                    $('#product_info_cat_type_id').append(`<option value="${type.id}" ${type.id == proInfoCatTypeId ? 'selected' : ''}>${type.name}</option>`);
+                });
+                $('#product_info_cat_type_id').prop('disabled', false);
+            } else {
+                $('#product_info_cat_type_id').html(`<option value="" selected hidden>Select Product Info Category Type</option>`).prop('disabled', true);
+            }
+        })
+        .catch(function (error) {
+            console.error(error);
+            $('#product_info_cat_type_id').html(`<option value="" selected hidden>Select Product Info Category Type</option>`).prop('disabled', true);
+            toastr.error('Failed to load product info category types.', error);
+        });
+}
 
 function getModels({
     companyId = null,
@@ -248,3 +267,8 @@ function getModels({
             toastr.error('Failed to load models.', error);
         });
 }
+
+
+
+
+

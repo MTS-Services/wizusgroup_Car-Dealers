@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Backend\Admin;
 
-use App\Models\City;
+use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\Category;
+use App\Models\City;
 use App\Models\State;
 use App\Models\Company;
 use App\Models\Country;
-use App\Models\Category;
 use App\Models\TaxClass;
-use Illuminate\Support\Arr;
-use Illuminate\Http\Request;
+use App\Models\ProductInfoCategory;
 use Illuminate\Http\JsonResponse;
-use App\Http\Controllers\Controller;
-use function PHPUnit\Framework\assertIsNotArray;
+use Illuminate\Http\Request;
+use App\Http\Requests\AxiosRequests\getInfoCatTypespeRequest;
 use App\Http\Requests\AxiosRequests\GetBrandRequest;
 use App\Http\Requests\AxiosRequests\GetModelRequest;
 use App\Http\Requests\AxiosRequests\GetSubCategoryRequest;
@@ -23,7 +23,6 @@ class AxiosRequestController extends Controller
 {
     public function getStates(Request $request): JsonResponse
     {
-
         $country_id = $request->country_id;
         if ($country_id) {
             $country = Country::with('states')->findOrFail($country_id);
@@ -38,9 +37,9 @@ class AxiosRequestController extends Controller
         ]);
     }
 
+
     public function getStatesOrCities(Request $request): JsonResponse
     {
-
         $country_id = $request->country_id;
         if ($country_id) {
             $country = Country::with(['states', 'cities'])->withCount(['activeStates', 'activeCities'])->findOrFail($country_id);
@@ -58,10 +57,26 @@ class AxiosRequestController extends Controller
             }
         }
         return response()->json([
+            'states' => [],
+            'cities' => [],
             'message' => "States or Cities not found!",
         ]);
     }
 
+    public function getInfoCatTypes(GetInfoCatTypespeRequest $request): JsonResponse{
+        $product_info_cat_id = $request->validated()["product_info_cat_id"];
+        if($product_info_cat_id){
+                $feature = ProductInfoCategory::with('activeProductInfoCategoryTypes')->findOrFail($product_info_cat_id);
+                return response()->json([
+                    'product_info_cat_types' => $feature->activeProductInfoCategoryTypes,
+                    'message'=> "Product Info Category Types fetched successfully!",
+                ]);
+        }
+        return response()->json([
+                'product_info_cat_types' => [],
+                'message'=> "Product Info Category Types not found!",
+        ]);
+    }
     public function getCities(Request $request): JsonResponse
     {
         $state_id = $request->state_id;
