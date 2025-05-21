@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Setup\CityRequest;
 use App\Models\City;
 use App\Models\Country;
+use App\Models\Documentation;
 use App\Models\State;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -150,6 +151,7 @@ class CityController extends Controller
     public function create()
     {
         $data['countries'] = Country::active()->select('id','name','slug')->orderBy('name')->get();
+        $data['document'] = Documentation::where([['module_key', 'city'], ['type', 'create']])->first();
         return view('backend.admin.setup.city.create',$data);
     }
 
@@ -183,6 +185,7 @@ class CityController extends Controller
     {
         $data['city'] = City::findOrFail(decrypt($id));
         $data['countries'] = Country::active()->select('id','name','slug')->orderBy('name')->get();
+        $data['document'] = Documentation::where([['module_key', 'city'], ['type', 'update']])->first();
         return view('backend.admin.setup.city.edit',$data);
     }
 

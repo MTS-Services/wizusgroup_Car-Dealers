@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Setup\OperationAreaRequest;
 use App\Models\City;
 use App\Models\Country;
+use App\Models\Documentation;
 use App\Models\OperationArea;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -156,6 +157,7 @@ class OperationAreaController extends Controller
     public function create()
     {
         $data['countries'] = Country::active()->select('id','name','slug')->orderBy('name')->get();
+        $data['document'] = Documentation::where([['module_key', 'operation area'], ['type', 'create']])->first();
         return view('backend.admin.setup.operation_area.create',$data);
     }
 
@@ -190,6 +192,7 @@ class OperationAreaController extends Controller
     {
         $data['operation_area'] = OperationArea::findOrFail(decrypt($id));
         $data['countries'] = Country::active()->select('id','name','slug')->orderBy('name')->get();
+        $data['document'] = Documentation::where([['module_key', 'operation area'], ['type', 'update']])->first();
         return view('backend.admin.setup.operation_area.edit',$data);
     }
 

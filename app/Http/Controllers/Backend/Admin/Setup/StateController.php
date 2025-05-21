@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\Admin\ProductManagement\CategoryController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Setup\StateRequest;
 use App\Models\Country;
+use App\Models\Documentation;
 use App\Models\State;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -153,6 +154,8 @@ class StateController extends Controller
     public function create()
     {
         $data['countries'] = Country::active()->select('id','name','slug')->orderBy('name')->get();
+
+        $data['document'] = Documentation::where([['module_key', 'state'], ['type', 'create']])->first();
         return view('backend.admin.setup.state.create',$data);
     }
 
@@ -184,6 +187,7 @@ class StateController extends Controller
     {
         $data['state'] = State::findOrFail(decrypt($id));
         $data['countries'] = Country::active()->select('id','name','slug')->orderBy('name')->get();
+        $data['document'] = Documentation::where([['module_key', 'state'], ['type', 'update']])->first();
         return view('backend.admin.setup.state.edit',$data);
     }
 
