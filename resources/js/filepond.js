@@ -28,3 +28,4 @@ FilePond.registerPlugin(FilePondPluginImageTransform);
 FilePond.registerPlugin(FilePondPluginImageEdit);
 FilePond.registerPlugin(FilePondPluginFileValidateSize);
 FilePond.registerPlugin(FilePondPluginImageValidateSize);
+
