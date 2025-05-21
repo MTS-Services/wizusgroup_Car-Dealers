@@ -333,7 +333,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="my-containers" class="nav-pane block">
+                        <div id="my-containers" class="nav-pane hidden">
                             <div class="bg-bg-gray dark:bg-opacity-20 p-10 pt-0">
                                 <div class="max-w-6xl mx-auto">
                                     <!-- My Containers Panel Header -->
@@ -798,9 +798,8 @@
                                                     @method('PUT')
                                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                         <div>
-                                                            <input type="file" name="uploadImage"
-                                                                data-actualName="image" class=" w-full  filepond"
-                                                                id="image" accept="image/*">
+                                                            <input type="file" name="image" class=" w-full  filepond"
+                                                                id="image" accept="image/jpeg, image/png, image/jpg, image/webp, image/svg">
                                                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'image']" />
                                                         </div>
                                                         <div class="flex flex-col gap-4">
@@ -1152,7 +1151,7 @@
             const existingFiles = {
                 "#image": "{{ $user->modified_image }}",
             }
-            file_upload(["#image"], "uploadImage", "user", existingFiles, false);
+            file_upload(["#image"], ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/svg"], existingFiles);
         });
     </script>
     {{-- FilePond  --}}

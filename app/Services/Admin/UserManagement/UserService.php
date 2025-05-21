@@ -81,4 +81,16 @@ class UserService
             'updater_type' => get_class(admin())
         ]);
     }
+
+    public function updateUserProfile( User $user, array $data, $file = null) :User
+    {
+        $data['updater_id'] = user()->id;
+        $data['updater_type'] = get_class(user());
+        if ($file) {
+            $data['image'] = $this->handleFileUpload($file, 'users_profile');
+            $this->fileDelete($user->image);
+        }
+        $user->update($data);
+        return $user;
+    }
 }
