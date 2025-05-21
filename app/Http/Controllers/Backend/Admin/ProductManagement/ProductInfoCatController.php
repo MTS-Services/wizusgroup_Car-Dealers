@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\ProductInfoCatRequest;
+use App\Models\Documentation;
 use App\Services\Admin\ProductManagement\ProductInfoCategoryService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -133,6 +134,7 @@ class ProductInfoCatController extends Controller
      */
     public function create()
     {
+        $data['document'] = Documentation::where([['module_key', 'product info category'], ['type', 'create']])->first();
         return view('backend.admin.product_management.product_info_cat.create');
     }
 
@@ -169,6 +171,8 @@ class ProductInfoCatController extends Controller
     public function edit(string $id)
     {
         $product_info_category = $this->ProductInfoCatService->getProductInfoCat($id);
+
+        $data['document'] = Documentation::where([['module_key', 'product info category'], ['type', 'update']])->first();
         return view('backend.admin.product_management.product_info_cat.edit', compact('product_info_category'));
 
     }
