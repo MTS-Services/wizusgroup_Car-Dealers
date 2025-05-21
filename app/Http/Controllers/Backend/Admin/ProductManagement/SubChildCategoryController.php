@@ -172,7 +172,8 @@ class SubChildCategoryController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->categoryService->createCategory($validated, $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->categoryService->createCategory($validated, $file);
             session()->flash('success', 'Sub child category created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Sub child category create failed!');
@@ -209,7 +210,8 @@ class SubChildCategoryController extends Controller
         try {
             $sub_child_category = $this->categoryService->getSubChildCategory($id);
             $validated = $request->validated();
-            $this->categoryService->updateCategory($sub_child_category, $validated, $request->image ?? null);
+            $file  = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->categoryService->updateCategory($sub_child_category, $validated, $file);
             session()->flash('success', 'Sub child category updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Sub child category update failed!');

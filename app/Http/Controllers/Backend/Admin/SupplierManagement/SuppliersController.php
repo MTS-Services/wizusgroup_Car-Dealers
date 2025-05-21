@@ -173,7 +173,8 @@ class SuppliersController extends Controller
     {
          try {
             $validated = $request->validated();
-            $this->supplierService->createSupplier($validated, $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->supplierService->createSupplier($validated, $file);
             session()->flash('success', 'Supplier created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Supplier create failed!');
@@ -209,7 +210,8 @@ class SuppliersController extends Controller
         try {
             $supplier = $this->supplierService->getSupplier($id);
             $validated = $request->validated();
-            $this->supplierService->updateSupplier($supplier,$validated,  $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->supplierService->updateSupplier($supplier,$validated,  $file);
             session()->flash('success', 'Supplier updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Supplier update failed!');

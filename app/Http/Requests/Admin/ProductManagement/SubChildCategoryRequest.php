@@ -27,7 +27,7 @@ class SubChildCategoryRequest extends FormRequest
             'meta_title' => 'nullable|string',
             'meta_description' => 'nullable|string',
             'description' => 'nullable|string',
-            'image' => 'nullable',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'parent_id' => 'required|exists:categories,id',
             'category_id' => 'required|exists:categories,id',
 

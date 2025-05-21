@@ -34,9 +34,6 @@ class TaxRateService
         $data['country_id'] = $data['country'];
         $data['state_id'] = $data['state'] ?? null;
         $data['city_id'] = $data['city'];
-        if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload(TaxRate::class, $file, admin(), 'companies/');
-        }
         $tax_rate = TaxRate::create($data);
         return $tax_rate;
     }
@@ -49,9 +46,6 @@ class TaxRateService
         $data['state_id'] = $data['state'] ?? null;
         $data['city_id'] = $data['city'];
         $data['updated_by'] = admin()->id;
-        if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload($tax_rate, $file, admin(), 'companies/');
-        }
         $tax_rate->update($data);
         return $tax_rate;
     }

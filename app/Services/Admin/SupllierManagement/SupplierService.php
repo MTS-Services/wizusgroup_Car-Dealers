@@ -34,7 +34,7 @@ class SupplierService
         return DB::transaction(function () use ($data, $file) {
             $data['created_by'] = admin()->id;
             if ($file) {
-                $data['image'] = $this->handleFilepondFileUpload(Supplier::class, $file, admin(), 'suppliers/');
+                $data['image'] = $this->handleFileUpload( $file, 'suppliers');
             }
             $supplier = Supplier::create($data);
             return $supplier;
@@ -47,7 +47,8 @@ class SupplierService
             $data['password'] = $data['password'] ?? $supplier->password;
             $data['updated_by'] = admin()->id;
             if ($file) {
-                $data['image'] = $this->handleFilepondFileUpload($supplier, $file, admin(), 'suppliers/');
+                $data['image'] = $this->handleFileUpload( $file, 'suppliers');
+                $this->fileDelete($supplier->image);
             }
             $supplier->update($data);
             return $supplier;

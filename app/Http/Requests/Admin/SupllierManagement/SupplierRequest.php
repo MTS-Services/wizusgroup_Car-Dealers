@@ -24,7 +24,7 @@ class SupplierRequest extends FormRequest
         return [
             'first_name' => 'required|string|min:4',
             'last_name' => 'required|string|min:4',
-            'image' => 'nullable',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
         ]
             +
