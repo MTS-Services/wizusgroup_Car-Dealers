@@ -76,7 +76,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Country Create Test Documentation',
         'module_key' => 'country',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -88,7 +88,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'State Create Test Documentation',
         'module_key' => 'state',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -100,7 +100,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'City Create Test Documentation',
         'module_key' => 'city',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -112,7 +112,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Operation Area Create Test Documentation',
         'module_key' => 'operation area',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -124,7 +124,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Operation Sub Area Create Test Documentation',
         'module_key' => 'operation sub area',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -136,7 +136,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Product Attribute Create Test Documentation',
         'module_key' => 'product attribute',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -148,7 +148,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Product Attribute Value Create Test Documentation',
         'module_key' => 'product attribute value',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -160,7 +160,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Company Create Test Documentation',
         'module_key' => 'company',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -172,7 +172,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Tax class Create Test Documentation',
         'module_key' => 'tax class',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -184,7 +184,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Tax Rate Create Test Documentation',
         'module_key' => 'tax rate',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -196,7 +196,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Brand Create Test Documentation',
         'module_key' => 'brand',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -208,7 +208,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Model Create Test Documentation',
         'module_key' => 'model',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -220,7 +220,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Category Create Test Documentation',
         'module_key' => 'category',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -232,7 +232,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Sub Category Create Test Documentation',
         'module_key' => 'sub category',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -244,7 +244,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Sub Child Category Create Test Documentation',
         'module_key' => 'sub child category',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -256,7 +256,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Product Info Category Create Test Documentation',
         'module_key' => 'product info category',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -268,7 +268,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Product Info Category Type Create Test Documentation',
         'module_key' => 'product info category type',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -280,7 +280,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Product Info Category Type Feature Create Test Documentation',
         'module_key' => 'product info category type feature',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -292,7 +292,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Banner Create Test Documentation',
         'module_key' => 'banner',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([
@@ -304,7 +304,7 @@ class DocumentationSeeder extends Seeder
        Documentation::create([
         'title' => 'Faq Create Test Documentation',
         'module_key' => 'faq',
-        'type' => 'update',
+        'type' => 'create',
         'documentation' => 'Documentation Contents',
        ]);
        Documentation::create([

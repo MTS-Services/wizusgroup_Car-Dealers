@@ -151,10 +151,10 @@ class ProductAttributeValueController extends Controller
      */
     public function create()
     {
-        $products = Product::active()->select(['id', 'name'])->get();
-        $product_attribute = $this->productAttributeService->getProductAttributes()->active()->select(['id', 'name'])->get();
+        $data['products'] = Product::active()->select(['id', 'name'])->get();
+        $data['product_attribute'] = $this->productAttributeService->getProductAttributes()->active()->select(['id', 'name'])->get();
         $data['document'] = Documentation::where([['module_key', 'product attribute value'], ['type', 'create']])->first();
-        return view('backend.admin.product_management.product_attribute_value.create', compact('product_attribute', 'products'));
+        return view('backend.admin.product_management.product_attribute_value.create',$data);
     }
 
     /**

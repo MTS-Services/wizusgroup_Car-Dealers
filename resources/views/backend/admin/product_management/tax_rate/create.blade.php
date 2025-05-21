@@ -6,7 +6,7 @@
             <div class="card">
 
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Create Tax Class') }}</h4>
+                    <h4 class="cart-title">{{ __('Create Tax Rate') }}</h4>
                     <x-backend.admin.button :datas="[
                         'routeName' => 'pm.tax-rate.index',
                         'label' => 'Back',
@@ -97,7 +97,7 @@
             </div>
         </div>
         <x-backend.admin.documentation :document="$document" />
-        
+
     </div>
 @endsection
 @push('js')

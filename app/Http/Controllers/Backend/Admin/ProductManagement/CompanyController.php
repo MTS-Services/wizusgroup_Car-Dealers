@@ -158,7 +158,7 @@ class CompanyController extends Controller
     public function create()
     {
         $data['document'] = Documentation::where([['module_key', 'company'], ['type', 'create']])->first();
-        return view('backend.admin.product_management.company.create');
+        return view('backend.admin.product_management.company.create', $data);
     }
 
     /**
@@ -193,9 +193,9 @@ class CompanyController extends Controller
      */
     public function edit(string $id)
     {
-        $company = $this->companyService->getCompany($id);
+        $data['company'] = $this->companyService->getCompany($id);
         $data['document'] = Documentation::where([['module_key', 'company'], ['type', 'update']])->first();
-        return view('backend.admin.product_management.company.edit', compact('company'));
+        return view('backend.admin.product_management.company.edit', $data);
     }
 
     /**

@@ -51,8 +51,8 @@
                 </form>
             </div>
         </div>
-        <x-backend.admin.documentation :document="$document" />
     </div>
+    <x-backend.admin.documentation :document="$document" />
 </div>
 @endsection
 @push('js')

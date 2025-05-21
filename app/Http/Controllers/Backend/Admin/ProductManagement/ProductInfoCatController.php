@@ -135,7 +135,7 @@ class ProductInfoCatController extends Controller
     public function create()
     {
         $data['document'] = Documentation::where([['module_key', 'product info category'], ['type', 'create']])->first();
-        return view('backend.admin.product_management.product_info_cat.create');
+        return view('backend.admin.product_management.product_info_cat.create', $data);
     }
 
     /**
@@ -170,10 +170,10 @@ class ProductInfoCatController extends Controller
      */
     public function edit(string $id)
     {
-        $product_info_category = $this->ProductInfoCatService->getProductInfoCat($id);
+        $data['product_info_category'] = $this->ProductInfoCatService->getProductInfoCat($id);
 
         $data['document'] = Documentation::where([['module_key', 'product info category'], ['type', 'update']])->first();
-        return view('backend.admin.product_management.product_info_cat.edit', compact('product_info_category'));
+        return view('backend.admin.product_management.product_info_cat.edit', $data);
 
     }
 

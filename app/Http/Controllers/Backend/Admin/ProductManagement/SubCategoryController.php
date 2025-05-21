@@ -172,7 +172,7 @@ class SubCategoryController extends Controller
     public function create(): View
     {
         $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->active()->select(['id', 'name'])->get();
-        $data['document'] = Documentation::where([['module_key', 'sub category'], ['type', 'update']])->first();
+        $data['document'] = Documentation::where([['module_key', 'sub category'], ['type', 'create']])->first();
         return view('backend.admin.product_management.sub_category.create', $data);
     }
 

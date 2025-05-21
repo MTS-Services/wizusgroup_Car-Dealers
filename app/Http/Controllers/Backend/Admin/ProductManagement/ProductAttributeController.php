@@ -153,8 +153,8 @@ class ProductAttributeController extends Controller
      */
     public function create()
     {
-        $data['document'] = Documentation::where([['module_key', 'product attribute'], ['type', 'update']])->first();
-        return view('backend.admin.product_management.product_attribute.create');
+        $data['document'] = Documentation::where([['module_key', 'product attribute'], ['type', 'create']])->first();
+        return view('backend.admin.product_management.product_attribute.create', $data);
     }
 
     /**
@@ -188,9 +188,9 @@ class ProductAttributeController extends Controller
      */
     public function edit(string $id)
     {
-         $product_attribute = $this->productAttrService->getProductAttribute($id);
+        $data['product_attribute'] = $this->productAttrService->getProductAttribute($id);
         $data['document'] = Documentation::where([['module_key', 'product attribute'], ['type', 'update']])->first();
-        return view('backend.admin.product_management.product_attribute.edit', compact('product_attribute'));
+        return view('backend.admin.product_management.product_attribute.edit', $data);
     }
 
     /**

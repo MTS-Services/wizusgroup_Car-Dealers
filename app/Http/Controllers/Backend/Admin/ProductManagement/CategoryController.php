@@ -167,7 +167,7 @@ class CategoryController extends Controller
     public function create(): View
     {
         $data['document'] = Documentation::where([['module_key', 'category'], ['type', 'create']])->first();
-        return view('backend.admin.product_management.category.create');
+        return view('backend.admin.product_management.category.create', $data);
     }
 
     /**
