@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\SubCategoryRequest;
+use App\Models\Documentation;
 use App\Services\Admin\ProductManagement\CategoryService;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -171,6 +172,7 @@ class SubCategoryController extends Controller
     public function create(): View
     {
         $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->active()->select(['id', 'name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'sub category'], ['type', 'update']])->first();
         return view('backend.admin.product_management.sub_category.create', $data);
     }
 
@@ -206,6 +208,7 @@ class SubCategoryController extends Controller
 
         $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->active()->select(['id', 'name'])->get();
         $data['subcategory'] = $this->categoryService->getSubCategory($id);
+        $data['document'] = Documentation::where([['module_key', 'sub category'], ['type', 'update']])->first();
         return view('backend.admin.product_management.sub_category.edit', $data);
     }
 

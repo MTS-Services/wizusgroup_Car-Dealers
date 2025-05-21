@@ -2,7 +2,7 @@
 @section('title', 'Create Sub Category')
 @section('content')
     <div class="row">
-        <div class="col-12">
+         <div class="{{ $document ? 'col-md-8' : 'col-md-12' }}">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="cart-title">{{ __('Create Sub Category') }}</h4>
@@ -68,6 +68,7 @@
                 </div>
             </div>
         </div>
+        <x-backend.admin.documentation :document="$document" />
     </div>
 @endsection
 @push('js')
