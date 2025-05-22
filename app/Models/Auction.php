@@ -186,4 +186,9 @@ class Auction extends BaseModel
     {
         return self::getFeaturedBtnColors()[$this->is_featured] ?? 'btn btn-secondary';
     }
+
+    public function scopeFeatured($query)
+    {
+        return $query->where('is_featured', self::FEATURED_YES);
+    }
 }

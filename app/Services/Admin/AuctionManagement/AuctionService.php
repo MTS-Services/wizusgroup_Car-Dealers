@@ -10,4 +10,9 @@ class AuctionService
     {
         return Auction::orderBy($orderBy, $order)->latest();
     }
+
+    public function getAuction($id)
+    {
+        return Auction::findOrFail($id);
+    }
 }

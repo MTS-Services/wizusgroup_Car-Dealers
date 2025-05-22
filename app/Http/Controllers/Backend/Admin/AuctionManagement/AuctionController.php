@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Admin\AuctionManagement;
 use App\Http\Controllers\Controller;
 use App\Models\Auction;
 use App\Services\Admin\AuctionManagement\AuctionService;
+use App\Services\Admin\ProductManagement\ProductService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -15,10 +16,12 @@ class AuctionController extends Controller
 {
 
     protected AuctionService $auctionService;
+    protected ProductService $productService;
 
-    public function __construct(AuctionService $auctionService)
+    public function __construct(AuctionService $auctionService, ProductService $productService)
     {
         $this->auctionService = $auctionService;
+        $this->productService = $productService;
         $this->middleware('auth:admin');
         $this->middleware('permission:auction-list', ['only' => ['index']]);
         $this->middleware('permission:auction-details', ['only' => ['show']]);
@@ -99,7 +102,8 @@ class AuctionController extends Controller
      */
     public function create()
     {
-        //
+        $data['products'] = $this->productService->getProducts()->active()->select(['id', 'name'])->get();
+        return view('backend.admin.auction_management.auction.create', $data);
     }
 
     /**
