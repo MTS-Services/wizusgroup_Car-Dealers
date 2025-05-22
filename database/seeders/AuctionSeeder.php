@@ -18,6 +18,7 @@ class AuctionSeeder extends Seeder
             'product_id' => 1, // John Deere 5075E Tractor
             'sort_order' => 1,
             'title' => 'Auction for John Deere 5075E Tractor',
+            'slug' => 'john-deere-5075e-tractor',
             'description' => 'Bid on a well-maintained John Deere 5075E utility tractor with low hours.',
             'start_price' => 25000.00,
             'reserve_price' => 30000.00,
@@ -35,6 +36,7 @@ class AuctionSeeder extends Seeder
             'product_id' => 2, // Caterpillar 320 Excavator
             'sort_order' => 2,
             'title' => 'Auction for Caterpillar 320 Excavator',
+            'slug' => 'caterpillar-320-excavator',
             'description' => 'Heavy-duty Caterpillar 320 excavator with recent maintenance, ready for work.',
             'start_price' => 120000.00,
             'reserve_price' => 135000.00,
@@ -52,6 +54,7 @@ class AuctionSeeder extends Seeder
             'product_id' => 3, // Toyota Hilux 2022
             'sort_order' => 3,
             'title' => 'Toyota Hilux 2022 Auction',
+            'slug' => 'toyota-hilux-2022',
             'description' => 'Top-trim Toyota Hilux 2022 with 4x4 drivetrain and advanced features.',
             'start_price' => 30000.00,
             'reserve_price' => 37000.00,

@@ -136,7 +136,7 @@
                                     <span class="sub-item">{{ __('City') }}</span>
                                 </a>
                             </li>
-                            @if(isset($not_used))
+                            @if (isset($not_used))
                                 {{-- <li class="@if ($page_slug == 'operation_area') active @endif">
                                     <a href="{{ route('setup.operation-area.index') }}">
                                         <span class="sub-item">{{ __('Operation Area') }}</span>
@@ -244,7 +244,7 @@
                                             $page_slug == 'tax_rate') show @endif"
                                     id="product_setups">
                                     <ul class="nav nav-collapse subnav">
-                                        @if(isset($not_used))
+                                        @if (isset($not_used))
                                             {{-- <li class="@if ($page_slug == 'product_attribute') active @endif">
                                                 <a href="{{ route('pm.product-attribute.index') }}">
                                                     <span class="sub-item">{{ __('Product Attribute') }}</span>
@@ -326,14 +326,14 @@
                                                 <span class="sub-item">{{ __('Sub Category') }}</span>
                                             </a>
                                         </li>
-                                        @if(isset($not_used))
-                                            {{-- <li class="@if ($page_slug == 'subchildcategory') active @endif">
+                                        @if (isset($not_used))
+                                            <li class="@if ($page_slug == 'subchildcategory') active @endif">
                                                 <a href="{{ route('pm.sub-child-category.index') }}">
                                                     <span class="sub-item">{{ __('Sub Child Category') }}</span>
                                                 </a>
-                                            </li> --}}
+                                            </li>
                                         @endif
-                                         <li class="@if ($page_slug == 'product_info_cat') active @endif">
+                                        <li class="@if ($page_slug == 'product_info_cat') active @endif">
                                             <a href="{{ route('pm.product-info-category.index') }}">
                                                 <span class="sub-item">{{ __('Product Info Category') }}</span>
                                             </a>

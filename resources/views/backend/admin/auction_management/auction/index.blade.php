@@ -39,7 +39,7 @@
                         <tbody>
 
                         </tbody>
-                    </table> 
+                    </table>
                 </div>
             </div>
         </div>
@@ -83,12 +83,40 @@
             let route = "{{ route('auction-m.auction.show', ['id']) }}";
             const detailsUrl = route.replace("id", id);
             const headers = [{
-                    label: "Name",
-                    key: "name"
+                    label: "Title",
+                    key: "title"
                 },
                 {
                     label: "Slug",
                     key: "slug"
+                },
+                {
+                    label: "Product",
+                    key: "product_name"
+                },
+                {
+                    label: "Start Date",
+                    key: "start_date"
+                },
+                {
+                    label: "End Date",
+                    key: "end_date"
+                },
+                {
+                    label: "Start Price",
+                    key: "start_price"
+                },
+                {
+                    label: "Reserve Price",
+                    key: "reserve_price"
+                },
+                {
+                    label: "Buy Price",
+                    key: "buy_now_price"
+                },
+                {
+                    label: "Increment Amount",
+                    key: "increment_amount"
                 },
                 {
                     label: "Status",
@@ -99,12 +127,6 @@
                     label: "Featured",
                     key: "featured_label",
                     color: "featured_color",
-
-                },
-                {
-                    label: "Image",
-                    key: "modified_image",
-                    type: "image"
                 },
                 {
                     label: "Description",

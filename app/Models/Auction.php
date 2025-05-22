@@ -13,6 +13,7 @@ class Auction extends BaseModel
         'sort_order',
         'product_id',
         'title',
+        'slug',
         'description',
         'start_price',
         'reserve_price',

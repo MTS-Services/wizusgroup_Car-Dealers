@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Admin\AuctionManagement;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\AuctionManagement\AuctionRequest;
 use App\Models\Auction;
 use App\Services\Admin\AuctionManagement\AuctionService;
 use App\Services\Admin\ProductManagement\ProductService;
@@ -109,9 +110,17 @@ class AuctionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AuctionRequest $request)
     {
-        //
+        try {
+            $validated = $request->validated();
+            $this->auctionService->create($validated);
+            session()->flash('success', 'Auction created successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Something went wrong, please try again');
+            throw $e;
+        }
+        return redirect()->route('auction-m.auction.index');
     }
 
     /**
@@ -119,7 +128,10 @@ class AuctionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = $this->auctionService->getAuction($id);
+        $data->load(['creater_admin', 'updater_admin', 'product']);
+        $data->product_name = $data?->product?->name;   
+        return response()->json($data);
     }
 
     /**

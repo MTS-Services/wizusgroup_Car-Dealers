@@ -25,9 +25,9 @@ class BrandRequest extends FormRequest
         return [
             'company_id' => 'required|exists:companies,id',
             'description' => 'nullable|string',
-            'meta_description' => 'nullable|string',
-            'meta_title' => 'nullable|string',
-            'image'=> 'nullable',
+            'meta_title' => 'nullable|string|min:20|max:60',
+            'meta_description' => 'nullable|string|min:50|max:160',
+            'image' => 'nullable',
 
         ]
             +

@@ -20,11 +20,12 @@ return new class extends Migration
             $table->bigInteger('sort_order')->default(0)->index();
             $table->unsignedBigInteger('product_id')->index();
             $table->string('title')->index();
+            $table->string('slug')->unique();
             $table->longText('description')->nullable()->index();
-            $table->decimal('start_price', 15, 2)->min(0)->default(0)->index();
-            $table->decimal('reserve_price', 15, 2)->min(0)->default(0)->index();
-            $table->decimal('buy_now_price', 15, 2)->min(0)->default(0)->index();
-            $table->decimal('increment_amount', 15, 2)->min(0)->default(0)->index();
+            $table->decimal('start_price', 15, 2)->min(0)->index();
+            $table->decimal('reserve_price', 15, 2)->min(0)->index();
+            $table->decimal('buy_now_price', 15, 2)->min(0)->nullable()->index();
+            $table->decimal('increment_amount', 15, 2)->min(0)->nullable()->index();
 
             $table->dateTime('start_date')->nullable()->index();
             $table->dateTime('end_date')->nullable()->index();

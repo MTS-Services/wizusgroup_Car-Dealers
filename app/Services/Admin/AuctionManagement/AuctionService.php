@@ -11,8 +11,14 @@ class AuctionService
         return Auction::orderBy($orderBy, $order)->latest();
     }
 
-    public function getAuction($id)
+    public function getAuction(string $encryptedId)
     {
-        return Auction::findOrFail($id);
+        return Auction::findOrFail(decrypt($encryptedId));
+    }
+
+    public function create(array $data)
+    {
+        $data['created_by'] = admin()->id;
+        return Auction::create($data);
     }
 }
