@@ -18,11 +18,11 @@ return new class extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
-            $table->unsignedBigInteger('open_by')->index();
+            $table->unsignedBigInteger('open_by')->nullable()->index();
             $table->boolean('status')->default(Contact::STATUS_PENDING)->index();
             $table->string('name');
             $table->string('email')->index();
-            $table->longText('massage');
+            $table->longText('message');
 
             $table->timestamps();
             $table->softDeletes();
