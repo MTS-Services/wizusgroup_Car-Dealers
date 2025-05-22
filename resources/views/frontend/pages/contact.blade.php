@@ -9,7 +9,7 @@
                     <div class="shadow-card bg-bg-light dark:bg-opacity-20 rounded-md p-6">
                         <h2 class="text-base md:text-lg xl:text-xl font-bold pb-3">{{ __('Send Us and Iquery') }}</h2>
                         <form action="javaScript:void(0)" method="POST">
-                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            <div class="grid grid-cols-1  gap-4">
                                 <div class="w-full mb-3">
                                     <label class="input">
                                         <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg"
@@ -38,22 +38,6 @@
                                     </label>
                                     <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'email']" />
                                 </div>
-                            </div>
-                            <div class="w-full mb-3">
-                                <label class="input">
-                                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24">
-                                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
-                                            stroke="currentColor">
-                                            <path
-                                                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
-                                            </path>
-                                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                                        </g>
-                                    </svg>
-                                    <input type="subject" name="subject" id="subject">
-                                </label>
                             </div>
                             <div class="w-full mb-3">
                                 <label for="message"

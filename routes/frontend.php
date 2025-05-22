@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Frontend\AuctionDetailsPageController;
+use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\HomePageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\FrontendController;
@@ -29,4 +30,6 @@ Route::get('/group-shipping', [GroupShippingPageController::class, 'group_shippi
 Route::get('/dropshipping', [FrontendController::class, 'dropshipping'])->name('dropshipping');
 // Regions
 Route::get('/regions', [FrontendController::class, 'regions'])->name('regions');
+// Contact Us
+Route::get('/contact', [ContactController::class, 'store'])->name('contact');
 });
