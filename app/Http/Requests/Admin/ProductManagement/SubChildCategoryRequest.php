@@ -24,8 +24,8 @@ class SubChildCategoryRequest extends FormRequest
     {
         return [
 
-            'meta_title' => 'nullable|string',
-            'meta_description' => 'nullable|string',
+            'meta_title' => 'nullable|string|min:20|max:60',
+            'meta_description' => 'nullable|string|min:50|max:160',
             'description' => 'nullable|string',
             'image' => 'nullable',
             'parent_id' => 'required|exists:categories,id',
@@ -46,7 +46,7 @@ class SubChildCategoryRequest extends FormRequest
                     $query->where('parent_id', $this->parent_id)
                 ),
             ],
-             'slug' => [
+            'slug' => [
                 'required',
                 Rule::unique('categories')->where(
                     fn($query) =>
@@ -69,7 +69,7 @@ class SubChildCategoryRequest extends FormRequest
                     )
                     ->ignore(decrypt($this->route('sub_child_category'))),
             ],
-             'slug' => [
+            'slug' => [
                 'required',
                 Rule::unique('categories')
                     ->where(

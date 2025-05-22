@@ -136,7 +136,7 @@
                                     <span class="sub-item">{{ __('City') }}</span>
                                 </a>
                             </li>
-                            @if(isset($not_used))
+                            @if (isset($not_used))
                                 {{-- <li class="@if ($page_slug == 'operation_area') active @endif">
                                     <a href="{{ route('setup.operation-area.index') }}">
                                         <span class="sub-item">{{ __('Operation Area') }}</span>
@@ -155,97 +155,96 @@
 
                 {{-- Product Management --}}
                 <li class="nav-item
-                @if ($page_slug == 'category' ||
-                    $page_slug == 'subcategory' ||
-                    $page_slug == 'subchildcategory' ||
-                    $page_slug == 'product_attribute' ||
-                    $page_slug == 'product_attribute_value' ||
-                    $page_slug == 'company' ||
-                    $page_slug == 'brand' ||
-                    $page_slug == 'model' ||
-                    $page_slug == 'tax_class' ||
-                    $page_slug == 'tax_rate' ||
-                    $page_slug == 'product_info_cat' ||
-                    $page_slug == 'product_info_cat_type' ||
-                    $page_slug == 'pro_info_cat_tf' ||
-                    $page_slug == 'product')
-                active submenu @endif">
+                @if (
+                    $page_slug == 'category' ||
+                        $page_slug == 'subcategory' ||
+                        $page_slug == 'subchildcategory' ||
+                        $page_slug == 'product_attribute' ||
+                        $page_slug == 'product_attribute_value' ||
+                        $page_slug == 'company' ||
+                        $page_slug == 'brand' ||
+                        $page_slug == 'model' ||
+                        $page_slug == 'tax_class' ||
+                        $page_slug == 'tax_rate' ||
+                        $page_slug == 'product_info_cat' ||
+                        $page_slug == 'product_info_cat_type' ||
+                        $page_slug == 'pro_info_cat_tf' ||
+                        $page_slug == 'product') active submenu @endif">
                     <a data-bs-toggle="collapse" href="#product_management"
-                        @if ($page_slug == 'category' ||
-                            $page_slug == 'subcategory' ||
-                            $page_slug == 'subchildcategory' ||
-                            $page_slug == 'product_attribute' ||
-                            $page_slug == 'product_attribute_value' ||
-                            $page_slug == 'company' ||
-                            $page_slug == 'brand' ||
-                            $page_slug == 'model'||
-                            $page_slug == 'tax_class' ||
-                            $page_slug == 'tax_rate' ||
-                            $page_slug == 'product_info_cat'||
-                            $page_slug == 'product_info_cat_type' ||
-                            $page_slug == 'pro_info_cat_tf' ||
-                            $page_slug == 'product')
-                        aria-expanded="true"@endif>
+                        @if (
+                            $page_slug == 'category' ||
+                                $page_slug == 'subcategory' ||
+                                $page_slug == 'subchildcategory' ||
+                                $page_slug == 'product_attribute' ||
+                                $page_slug == 'product_attribute_value' ||
+                                $page_slug == 'company' ||
+                                $page_slug == 'brand' ||
+                                $page_slug == 'model' ||
+                                $page_slug == 'tax_class' ||
+                                $page_slug == 'tax_rate' ||
+                                $page_slug == 'product_info_cat' ||
+                                $page_slug == 'product_info_cat_type' ||
+                                $page_slug == 'pro_info_cat_tf' ||
+                                $page_slug == 'product') aria-expanded="true" @endif>
 
                         <i class="icon-people"></i>
                         <p>{{ __('Product Management') }}</p>
                         <span class="caret"></span>
                     </a>
                     <div class="collapse
-                        @if ($page_slug == 'category' ||
-                            $page_slug == 'subcategory' ||
-                            $page_slug == 'subchildcategory' ||
-                            $page_slug == 'product_attribute' ||
-                            $page_slug == 'product_attribute_value' ||
-                            $page_slug == 'company' ||
-                            $page_slug == 'brand' ||
-                            $page_slug == 'model'||
-                            $page_slug == 'tax_class' ||
-                            $page_slug == 'tax_rate' ||
-                            $page_slug == 'product_info_cat'||
-                            $page_slug == 'product_info_cat_type' ||
-                            $page_slug == 'pro_info_cat_tf' ||
-                            $page_slug == 'product')
-                        show @endif"
+                        @if (
+                            $page_slug == 'category' ||
+                                $page_slug == 'subcategory' ||
+                                $page_slug == 'subchildcategory' ||
+                                $page_slug == 'product_attribute' ||
+                                $page_slug == 'product_attribute_value' ||
+                                $page_slug == 'company' ||
+                                $page_slug == 'brand' ||
+                                $page_slug == 'model' ||
+                                $page_slug == 'tax_class' ||
+                                $page_slug == 'tax_rate' ||
+                                $page_slug == 'product_info_cat' ||
+                                $page_slug == 'product_info_cat_type' ||
+                                $page_slug == 'pro_info_cat_tf' ||
+                                $page_slug == 'product') show @endif"
                         id="product_management">
                         <ul class="nav nav-collapse">
 
-                            <li class="
+                            <li
+                                class="
                                 @if (
                                     $page_slug == 'product_attribute' ||
-                                    $page_slug == 'product_attribute_value' ||
-                                    $page_slug == 'company' ||
-                                    $page_slug == 'brand' ||
-                                    $page_slug == 'model'||
-                                    $page_slug == 'tax_class' ||
-                                    $page_slug == 'tax_rate')
-                                active @endif">
-                                <a data-bs-toggle="collapse" href="#product_setups" aria-expanded="
-                                 @if (
-                                    $page_slug == 'product_attribute' ||
-                                    $page_slug == 'product_attribute_value' ||
-                                    $page_slug == 'company' ||
-                                    $page_slug == 'brand' ||
-                                    $page_slug == 'model'||
-                                    $page_slug == 'tax_class' ||
-                                    $page_slug == 'tax_rate')
-                                true @endif">
-                                    <span class="sub-item">{{__('Setups')}}</span>
-                                    <span class="caret"></span>
-                                </a>
-                                <div class="collapse
-                                    @if (
-                                        $page_slug == 'product_attribute' ||
                                         $page_slug == 'product_attribute_value' ||
                                         $page_slug == 'company' ||
                                         $page_slug == 'brand' ||
                                         $page_slug == 'model' ||
                                         $page_slug == 'tax_class' ||
-                                        $page_slug == 'tax_rate')
-                                    show @endif"
+                                        $page_slug == 'tax_rate') active @endif">
+                                <a data-bs-toggle="collapse" href="#product_setups"
+                                    aria-expanded="
+                                 @if (
+                                     $page_slug == 'product_attribute' ||
+                                         $page_slug == 'product_attribute_value' ||
+                                         $page_slug == 'company' ||
+                                         $page_slug == 'brand' ||
+                                         $page_slug == 'model' ||
+                                         $page_slug == 'tax_class' ||
+                                         $page_slug == 'tax_rate') true @endif">
+                                    <span class="sub-item">{{ __('Setups') }}</span>
+                                    <span class="caret"></span>
+                                </a>
+                                <div class="collapse
+                                    @if (
+                                        $page_slug == 'product_attribute' ||
+                                            $page_slug == 'product_attribute_value' ||
+                                            $page_slug == 'company' ||
+                                            $page_slug == 'brand' ||
+                                            $page_slug == 'model' ||
+                                            $page_slug == 'tax_class' ||
+                                            $page_slug == 'tax_rate') show @endif"
                                     id="product_setups">
                                     <ul class="nav nav-collapse subnav">
-                                        @if(isset($not_used))
+                                        @if (isset($not_used))
                                             {{-- <li class="@if ($page_slug == 'product_attribute') active @endif">
                                                 <a href="{{ route('pm.product-attribute.index') }}">
                                                     <span class="sub-item">{{ __('Product Attribute') }}</span>
@@ -286,33 +285,35 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="
-                                @if ($page_slug == 'category' ||
-                                    $page_slug == 'subcategory' ||
-                                    $page_slug == 'subchildcategory' ||
-                                    $page_slug == 'product_info_cat'||
-                                    $page_slug == 'product_info_cat_type' ||
-                                    $page_slug == 'pro_info_cat_tf')
-                                active @endif">
-                                <a data-bs-toggle="collapse" href="#product_categories" aria-expanded="
-                                 @if ($page_slug == 'category' ||
-                                    $page_slug == 'subcategory' ||
-                                    $page_slug == 'subchildcategory' ||
-                                    $page_slug == 'product_info_cat'||
-                                    $page_slug == 'product_info_cat_type' ||
-                                    $page_slug == 'pro_info_cat_tf')
-                                true @endif">
-                                    <span class="sub-item">{{__('Categories')}}</span>
+                            <li
+                                class="
+                                @if (
+                                    $page_slug == 'category' ||
+                                        $page_slug == 'subcategory' ||
+                                        $page_slug == 'subchildcategory' ||
+                                        $page_slug == 'product_info_cat' ||
+                                        $page_slug == 'product_info_cat_type' ||
+                                        $page_slug == 'pro_info_cat_tf') active @endif">
+                                <a data-bs-toggle="collapse" href="#product_categories"
+                                    aria-expanded="
+                                 @if (
+                                     $page_slug == 'category' ||
+                                         $page_slug == 'subcategory' ||
+                                         $page_slug == 'subchildcategory' ||
+                                         $page_slug == 'product_info_cat' ||
+                                         $page_slug == 'product_info_cat_type' ||
+                                         $page_slug == 'pro_info_cat_tf') true @endif">
+                                    <span class="sub-item">{{ __('Categories') }}</span>
                                     <span class="caret"></span>
                                 </a>
                                 <div class="collapse
-                                    @if ($page_slug == 'category' ||
-                                        $page_slug == 'subcategory' ||
-                                        $page_slug == 'subchildcategory' ||
-                                        $page_slug == 'product_info_cat'||
-                                        $page_slug == 'product_info_cat_type' ||
-                                        $page_slug == 'pro_info_cat_tf')
-                                    show @endif"
+                                    @if (
+                                        $page_slug == 'category' ||
+                                            $page_slug == 'subcategory' ||
+                                            $page_slug == 'subchildcategory' ||
+                                            $page_slug == 'product_info_cat' ||
+                                            $page_slug == 'product_info_cat_type' ||
+                                            $page_slug == 'pro_info_cat_tf') show @endif"
                                     id="product_categories">
                                     <ul class="nav nav-collapse subnav">
                                         <li class="@if ($page_slug == 'category') active @endif">
@@ -325,14 +326,14 @@
                                                 <span class="sub-item">{{ __('Sub Category') }}</span>
                                             </a>
                                         </li>
-                                        @if(isset($not_used))
-                                            {{-- <li class="@if ($page_slug == 'subchildcategory') active @endif">
+                                        @if (isset($not_used))
+                                            <li class="@if ($page_slug == 'subchildcategory') active @endif">
                                                 <a href="{{ route('pm.sub-child-category.index') }}">
                                                     <span class="sub-item">{{ __('Sub Child Category') }}</span>
                                                 </a>
-                                            </li> --}}
+                                            </li>
                                         @endif
-                                         <li class="@if ($page_slug == 'product_info_cat') active @endif">
+                                        <li class="@if ($page_slug == 'product_info_cat') active @endif">
                                             <a href="{{ route('pm.product-info-category.index') }}">
                                                 <span class="sub-item">{{ __('Product Info Category') }}</span>
                                             </a>
@@ -344,7 +345,8 @@
                                         </li>
                                         <li class="@if ($page_slug == 'pro_info_cat_tf') active @endif">
                                             <a href="{{ route('pm.pro-info-cat-tf.index') }}">
-                                                <span class="sub-item">{{ __('Product Info Category Type Feature') }}</span>
+                                                <span
+                                                    class="sub-item">{{ __('Product Info Category Type Feature') }}</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -356,6 +358,25 @@
                                 </a>
                             </li>
 
+                        </ul>
+                    </div>
+                </li>
+
+                {{-- Auction Management --}}
+                <li class="nav-item  @if ($page_slug == 'auction') active submenu @endif">
+                    <a data-bs-toggle="collapse" href="#auction_management"
+                        @if ($page_slug == 'auction') aria-expanded="true" @endif>
+                        <i class="fas fa-gavel"></i>
+                        <p>{{ __('Auction Management') }}</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse @if ($page_slug == 'auction') show @endif" id="auction_management">
+                        <ul class="nav nav-collapse">
+                            <li class="@if ($page_slug == 'auction') active @endif">
+                                <a href="{{ route('auction-m.auction.index') }}">
+                                    <span class="sub-item">{{ __('Auction') }}</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

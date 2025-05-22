@@ -95,6 +95,11 @@ class Product extends BaseModel
         ]);
     }
 
+    public function auctions(): HasMany
+    {
+        return $this->hasMany(Auction::class);
+    }
+
     public function productInformations(): HasMany
     {
         return $this->hasMany(ProductInformation::class);
