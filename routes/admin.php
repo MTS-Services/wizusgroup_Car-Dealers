@@ -85,6 +85,7 @@ Route::controller(AxiosRequestController::class)->name('axios.')->group(function
     Route::post('get-tax-rates', 'getTaxRates')->name('get-tax-rates');
 
     Route::post('get-info-category-types', 'getInfoCatTypes')->name('get-info-cat-types');
+    Route::post('get-info-category-type-features', 'getInfoCatTypeFeatures')->name('get-info-cat-type-features');
 });
 
 Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], function () {
@@ -290,6 +291,9 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         // Product Routes
         Route::resource('product', ProductController::class);
         Route::controller(ProductController::class)->name('product.')->prefix('product')->group(function () {
+            Route::get('relation/{product}', 'relation')->name('relation');
+            Route::get('images/{product}', 'images')->name('image');
+            Route::get('information/{product}', 'info')->name('info');
             Route::get('status/{product}', 'status')->name('status');
             Route::get('feature/{product}', 'feature')->name('feature');
             Route::get('backorder/{product}',  'backorder')->name('backorder');
@@ -298,6 +302,13 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
             Route::get('restore/{product}', 'restore')->name('restore');
             Route::delete('permanent-delete/{product}', 'permanentDelete')->name('permanent-delete');
             Route::post('relation/{product}', 'relationStore')->name('relation.store');
+            Route::post('images/{product}', 'imageStore')->name('image.store');
+            Route::post('information/{product}', 'infoStore')->name('info.store');
+            Route::post('information/remarks/{product}', 'infoRemarkStore')->name('info.remarks.store');
+
+             Route::get('view-remarks/{product_info_id}', 'viewRemarks')->name('view_remarks');
+             Route::get('delete-info/{product_info_id}', 'deleteInfo')->name('delete_info');
+             Route::get('entry-complete/{product}', 'entryComplete')->name('entry_complete');
         });
 
         // Company Routes
