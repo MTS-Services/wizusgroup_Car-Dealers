@@ -28,6 +28,7 @@ class ProductFilterRequest extends FormRequest
             "year"=> "nullable",
             "start_price"=> "nullable|min:0|numeric",
             "end_price"=> "nullable|min:0|numeric",
+            "sort"=> "nullable|in:latest,oldest,high_to_low,low_to_high",
         ];
     }
 }

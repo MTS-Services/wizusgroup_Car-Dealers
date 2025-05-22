@@ -17,6 +17,9 @@ class ProductPageController extends Controller
     public function productFilter(ProductFilterRequest $request, $category_slug): RedirectResponse
     {
         $data['category_slug'] = $category_slug;
+        if (!empty($request->input("sort"))) {
+            $data["sort"] = $request->input("sort");
+        }
         if (!empty($request->input("subcategory"))) {
             $data["subcategory"] = $request->input("subcategory");
         }
@@ -43,6 +46,21 @@ class ProductPageController extends Controller
         $query = Product::with(['category','company','brand','model','primaryImage','subCategory'])->whereHas('category', function ($query) use ($category_slug) {
             $query->where('slug', $category_slug);
         });
+
+        if ($request->input("sort")) {
+            if ($request->input("sort") == "high_to_low") {
+                $query->orderBy('price', 'asc');
+            }
+            if ($request->input("sort") == "low_to_high") {
+                $query->orderBy('price', 'desc');
+            }
+            if ($request->input("sort") == "latest") {
+                $query->latest();
+            }
+            if ($request->input("sort") == "oldest") {
+                $query->oldest();
+            }
+        }
 
         if ($request->input("subcategory")) {
             $query->whereHas("subCategory", function ($query) use ($request){
