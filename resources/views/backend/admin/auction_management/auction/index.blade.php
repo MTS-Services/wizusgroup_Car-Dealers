@@ -96,11 +96,11 @@
                 },
                 {
                     label: "Start Date",
-                    key: "start_date"
+                    key: "start_date_format"
                 },
                 {
                     label: "End Date",
-                    key: "end_date"
+                    key: "end_date_format"
                 },
                 {
                     label: "Start Price",

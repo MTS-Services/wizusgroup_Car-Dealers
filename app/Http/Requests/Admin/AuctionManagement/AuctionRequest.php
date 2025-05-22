@@ -24,8 +24,8 @@ class AuctionRequest extends FormRequest
         return [
             'title' => 'required|string',
             'product_id' => 'required|integer|exists:products,id',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after:start_date',
+            'start_date' => 'required|date|before_or_equal:end_date',
+            'end_date'   => 'required|date|after_or_equal:start_date|after_or_equal:today',
             'start_price' => 'required|numeric|min:0',
             'reserve_price' => 'required|numeric|min:0',
             'status' => 'required|integer',

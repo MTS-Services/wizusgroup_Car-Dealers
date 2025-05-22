@@ -306,9 +306,9 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
             Route::post('information/{product}', 'infoStore')->name('info.store');
             Route::post('information/remarks/{product}', 'infoRemarkStore')->name('info.remarks.store');
 
-             Route::get('view-remarks/{product_info_id}', 'viewRemarks')->name('view_remarks');
-             Route::get('delete-info/{product_info_id}', 'deleteInfo')->name('delete_info');
-             Route::get('entry-complete/{product}', 'entryComplete')->name('entry_complete');
+            Route::get('view-remarks/{product_info_id}', 'viewRemarks')->name('view_remarks');
+            Route::get('delete-info/{product_info_id}', 'deleteInfo')->name('delete_info');
+            Route::get('entry-complete/{product}', 'entryComplete')->name('entry_complete');
         });
 
         // Company Routes
@@ -388,7 +388,6 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         // Auction Routes 
         Route::resource('auction', AuctionController::class);
         Route::controller(AuctionController::class)->name('auction.')->prefix('auction')->group(function () {
-            Route::get('status/{auction}', 'status')->name('status');
             Route::get('feature/{auction}', 'feature')->name('feature');
             Route::get('recycle/bin', 'recycleBin')->name('recycle-bin');
             Route::get('restore/{auction}', 'restore')->name('restore');

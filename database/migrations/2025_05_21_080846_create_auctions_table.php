@@ -27,8 +27,8 @@ return new class extends Migration
             $table->decimal('buy_now_price', 15, 2)->min(0)->nullable()->index();
             $table->decimal('increment_amount', 15, 2)->min(0)->nullable()->index();
 
-            $table->dateTime('start_date')->nullable()->index();
-            $table->dateTime('end_date')->nullable()->index();
+            $table->date('start_date')->nullable()->index();
+            $table->date('end_date')->nullable()->index();
 
             $table->tinyInteger('status')->default(Auction::STATUS_SCHEDULED)->index();
             $table->boolean('is_featured')->default(Auction::FEATURED_NO)->index();

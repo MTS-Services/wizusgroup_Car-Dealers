@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\BaseModel;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Auction extends BaseModel
@@ -52,8 +53,25 @@ class Auction extends BaseModel
             'featured_btn_label',
             'featured_btn_color',
 
+            'start_date_format',
+            'end_date_format',
         ]);
     }
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+    ];
+
+    public function getStartDateFormatAttribute(): string
+    {
+        return $this->start_date ? Carbon::parse($this->start_date)->format('d M Y') : '';
+    }
+
+    public function getEndDateFormatAttribute(): string
+    {
+        return $this->end_date ? Carbon::parse($this->end_date)->format('d M Y') : '';
+    }
+
 
     // Relations
     public function product()

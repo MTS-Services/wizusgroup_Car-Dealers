@@ -39,7 +39,7 @@
                                     <select name="product_id" class="form-control">
                                         <option value="" selected hidden disabled>{{ __('Select Product') }}</option>
                                         @foreach ($products as $product)
-                                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                            <option value="{{ $product->id }}" {{ old('product_id') == $product->id ? 'selected' : ''}}>{{ $product->name }}</option>
                                         @endforeach
                                     </select>
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'product_id']" />

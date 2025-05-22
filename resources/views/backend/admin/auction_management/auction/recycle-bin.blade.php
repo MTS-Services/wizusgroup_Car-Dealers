@@ -1,16 +1,16 @@
-@extends('backend.admin.layouts.master', ['page_slug' => 'company'])
-@section('title', 'Company Recycle Bin')
+@extends('backend.admin.layouts.master', ['page_slug' => 'auction'])
+@section('title', 'Auction Recycle Bin')
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Company Recycle Bin') }}</h4>
+                    <h4 class="cart-title">{{ __('Auction Recycle Bin') }}</h4>
                     <div class="buttons">
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'pm.company.index',
+                            'routeName' => 'auction-m.auction.index',
                             'label' => 'Back',
-                            'permissions' => ['company-list'],
+                            'permissions' => ['auction-list'],
                         ]" />
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                         <thead>
                             <tr>
                                 <th>{{ __('SL') }}</th>
-                                <th>{{ __('Name') }}</th>
+                                <th>{{ __('Title') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Featured') }}</th>
                                 <th>{{ __('Deleted By') }}</th>
@@ -42,7 +42,7 @@
         $(document).ready(function() {
             let table_columns = [
                 //name and data, orderable, searchable
-                ['name', true, true],
+                ['title', true, true],
                 ['status', true, true],
                 ['is_featured', true, true],
                 ['deleted_by', true, true],
@@ -53,10 +53,10 @@
                 table_columns: table_columns,
                 main_class: '.datatable',
                 displayLength: 10,
-                main_route: "{{ route('pm.company.recycle-bin') }}",
+                main_route: "{{ route('auction-m.auction.recycle-bin') }}",
                 order_route: "{{ route('update.sort.order') }}",
-                export_columns: [0, 1, 2, 3,4,5],
-                model: 'Company',
+                export_columns: [0, 1, 2, 3, 4, 5],
+                model: 'Auction',
             };
             // initializeDataTable(details);
 
