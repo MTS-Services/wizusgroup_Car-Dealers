@@ -369,6 +369,17 @@ class ProductController extends Controller
         //
     }
 
+      public function status(string $id): RedirectResponse
+    {
+        try {
+            $this->productService->toggleStatus($id);
+            session()->flash('success', 'Product status updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product status update failed!');
+            throw $e;
+        }
+        return redirect()->route('pm.product.index');
+    }
     /**
      * Remove the specified resource from storage.
      */

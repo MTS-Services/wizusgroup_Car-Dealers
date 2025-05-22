@@ -134,6 +134,16 @@ class ProductService
         $product->update($data);
         return $product;
     }
+
+     public function toggleStatus(string $encryptedId): void
+    {
+        $product = $this->getProduct($encryptedId);
+        $product->update([
+            'updated_by' => admin()->id,
+            'status' => !$product->status
+        ]);
+    }
+
     public function delete(string $encryptedId): void
     {
         $product = $this->getProduct($encryptedId);
