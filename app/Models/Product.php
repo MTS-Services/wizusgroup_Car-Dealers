@@ -178,6 +178,7 @@ class Product extends BaseModel
     }
 
 
+
     public const STATUS_ACTIVE = 1;
     public const STATUS_DEACTIVE = 0;
     // Status labels

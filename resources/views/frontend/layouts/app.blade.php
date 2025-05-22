@@ -95,6 +95,7 @@
         lucide.createIcons();
     </script>
 
+    {{-- <script src="{{ asset('frontend/js/custom.js') }}"></script> --}}
     {{-- Toggle theme --}}
     <script src="{{ asset('frontend/js/themeToggle.js') }}"></script>
 
