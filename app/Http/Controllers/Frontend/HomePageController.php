@@ -17,15 +17,14 @@ class HomePageController extends Controller
         $this->categoryService = $categoryService;
         $this->bannerService = $bannerService;
         $this->faqService = $faqService;
-        
+
     }
     public function home()
     {
         $data['banners'] =$this->bannerService->getBanners()->active()->get();
         $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->active()->get();
-        // $data['faqs'] = $this->faqService->getFaqs()->active()->get();  
         return view('frontend.pages.home',$data);
     }
-    
+
 }
 

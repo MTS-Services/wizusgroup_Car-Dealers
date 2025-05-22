@@ -38,6 +38,7 @@ class Product extends BaseModel
         'transmission',
         'drive_system',
         'entry_status',
+        'year',
 
         'short_description',
         'description',

@@ -30,7 +30,7 @@
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'slug']" />
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>{{ __('SKU') }} <span class="text-danger">*</span></label>
                                     <input type="text" value="{{ old('sku') }}" name="sku" class="form-control"
@@ -38,12 +38,24 @@
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'sku']" />
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>{{ __('Stock Number') }} <span class="text-danger">*</span></label>
                                     <input type="text" value="{{ old('stock_no') }}" name="stock_no" class="form-control"
                                         placeholder="Enter stock number">
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'stock_no']" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>{{ __('Year') }} <span class="text-danger">*</span></label>
+                                    <select name="year" class="form-control" id="year">
+                                        <option value="" selected disabled>{{__('Select Year')}}</option>
+                                        @for ($i = date('Y'); $i >= 1900; $i--)
+                                            <option value="{{ $i }}" {{ old('year') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                        @endfor
+                                    </select>
+                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'year']" />
                                 </div>
                             </div>
                             <div class="col-md-6">

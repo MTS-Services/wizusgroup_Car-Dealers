@@ -46,6 +46,7 @@ return new class extends Migration
             $table->string('steering_wheel')->nullable();
             $table->string('transmission')->nullable();
             $table->string('drive_system')->nullable();
+            $table->year('year')->index();
 
             $table->tinyInteger('entry_status')->default(Product::ENTRY_STATUS_BASIC)->index();
 
