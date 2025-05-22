@@ -3,19 +3,13 @@
         <nav class="pull-left">
             <ul class="nav">
                 <li class="nav-item">
-                    <p>All rights reserved | &copy; {{ date('Y') }}</p>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"> Help </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"> Licenses </a>
+                    <p>{{__('All rights reserved by ')}}{{ config('app.name')}} | &copy; {{ date('Y') }}</p>
                 </li>
             </ul>
         </nav>
         <div class="copyright">
-            2024, made with <i class="fa fa-heart heart text-danger"></i> by
-            <a href="">Organization</a>
+            {{__('Design & Developed')}} <i class="fa fa-heart heart text-danger"></i> by
+            <a href="https://maktechsolution.com/">{{__('Mak Teach Solution')}}</a>
         </div>
     </div>
 </footer>

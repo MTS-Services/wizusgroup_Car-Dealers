@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\AxiosRequests;
+namespace App\Http\Requests\Admin\ProductManagement;
 
-use App\Http\Requests\JsonResponceErrors;
+use Illuminate\Foundation\Http\FormRequest;
 
-class GetModelRequest extends JsonResponceErrors
+class ProductInfoRemarkRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,8 @@ class GetModelRequest extends JsonResponceErrors
     public function rules(): array
     {
         return [
-            "brand_id" => "sometimes|required|exists:brands,id",
-            "company_id" => "sometimes|required|exists:companies,id",
+            "product_info_cat"=> "required|exists:product_info_categories,id",
+            "remarks"=> "required|string",
         ];
     }
 }
