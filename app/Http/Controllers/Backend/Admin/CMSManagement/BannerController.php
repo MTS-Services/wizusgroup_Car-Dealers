@@ -16,9 +16,6 @@
     class BannerController extends Controller
 
     {
-
-        use FileManagementTrait;
-
         protected BannerService $bannerService;
 
         public function __construct(BannerService $bannerService)

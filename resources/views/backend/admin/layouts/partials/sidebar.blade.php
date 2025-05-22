@@ -77,7 +77,7 @@
                         </ul>
                     </div>
                 </li>
-                {{-- User Management  --}}
+                {{-- Supplier Management  --}}
                 <li class="nav-item  @if ($page_slug == 'supplier') active submenu @endif">
                     <a data-bs-toggle="collapse" href="#supplier_management"
                         @if ($page_slug == 'supplier') aria-expanded="true" @endif>
@@ -136,94 +136,245 @@
                                     <span class="sub-item">{{ __('City') }}</span>
                                 </a>
                             </li>
-                            <li class="@if ($page_slug == 'operation_area') active @endif">
-                                <a href="{{ route('setup.operation-area.index') }}">
-                                    <span class="sub-item">{{ __('Operation Area') }}</span>
-                                </a>
-                            </li>
-                            <li class="@if ($page_slug == 'operation_sub_area') active @endif">
-                                <a href="{{ route('setup.operation-sub-area.index') }}">
-                                    <span class="sub-item">{{ __('Operation Sub Area') }}</span>
-                                </a>
-                            </li>
+                            @if (isset($not_used))
+                                {{-- <li class="@if ($page_slug == 'operation_area') active @endif">
+                                    <a href="{{ route('setup.operation-area.index') }}">
+                                        <span class="sub-item">{{ __('Operation Area') }}</span>
+                                    </a>
+                                </li>
+                                <li class="@if ($page_slug == 'operation_sub_area') active @endif">
+                                    <a href="{{ route('setup.operation-sub-area.index') }}">
+                                        <span class="sub-item">{{ __('Operation Sub Area') }}</span>
+                                    </a>
+                                </li> --}}
+                            @endif
                         </ul>
                     </div>
 
                 </li>
 
                 {{-- Product Management --}}
-                <li class="nav-item  @if ($page_slug == 'category' || $page_slug == 'subcategory' || $page_slug == 'subchildcategory' || $page_slug == 'company' || $page_slug == 'brand' || $page_slug == 'model' || $page_slug == 'product_info_cat' || $page_slug == 'product_info_cat_type' || $page_slug == 'product-info-category-type-feature') active submenu @endif">
+                <li class="nav-item
+                @if (
+                    $page_slug == 'category' ||
+                        $page_slug == 'subcategory' ||
+                        $page_slug == 'subchildcategory' ||
+                        $page_slug == 'product_attribute' ||
+                        $page_slug == 'product_attribute_value' ||
+                        $page_slug == 'company' ||
+                        $page_slug == 'brand' ||
+                        $page_slug == 'model' ||
+                        $page_slug == 'tax_class' ||
+                        $page_slug == 'tax_rate' ||
+                        $page_slug == 'product_info_cat' ||
+                        $page_slug == 'product_info_cat_type' ||
+                        $page_slug == 'pro_info_cat_tf' ||
+                        $page_slug == 'product') active submenu @endif">
                     <a data-bs-toggle="collapse" href="#product_management"
-                        @if ($page_slug == 'category' || $page_slug == 'subcategory' || $page_slug == 'subchildcategory' || $page_slug == 'company' || $page_slug == 'brand' || $page_slug == 'model'|| $page_slug == 'product_info_cat'|| $page_slug == 'product_info_cat_type' || $page_slug == 'product-info-category-type-feature') aria-expanded="true" @endif>
+                        @if (
+                            $page_slug == 'category' ||
+                                $page_slug == 'subcategory' ||
+                                $page_slug == 'subchildcategory' ||
+                                $page_slug == 'product_attribute' ||
+                                $page_slug == 'product_attribute_value' ||
+                                $page_slug == 'company' ||
+                                $page_slug == 'brand' ||
+                                $page_slug == 'model' ||
+                                $page_slug == 'tax_class' ||
+                                $page_slug == 'tax_rate' ||
+                                $page_slug == 'product_info_cat' ||
+                                $page_slug == 'product_info_cat_type' ||
+                                $page_slug == 'pro_info_cat_tf' ||
+                                $page_slug == 'product') aria-expanded="true" @endif>
+
                         <i class="icon-people"></i>
                         <p>{{ __('Product Management') }}</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse @if ($page_slug == 'category' || $page_slug == 'subcategory' || $page_slug == 'subchildcategory' || $page_slug == 'company' || $page_slug == 'brand' || $page_slug == 'model'|| $page_slug == 'product_info_cat'|| $page_slug == 'product_info_cat_type' || $page_slug == 'product-info-category-type-feature') show @endif" id="product_management">
+                    <div class="collapse
+                        @if (
+                            $page_slug == 'category' ||
+                                $page_slug == 'subcategory' ||
+                                $page_slug == 'subchildcategory' ||
+                                $page_slug == 'product_attribute' ||
+                                $page_slug == 'product_attribute_value' ||
+                                $page_slug == 'company' ||
+                                $page_slug == 'brand' ||
+                                $page_slug == 'model' ||
+                                $page_slug == 'tax_class' ||
+                                $page_slug == 'tax_rate' ||
+                                $page_slug == 'product_info_cat' ||
+                                $page_slug == 'product_info_cat_type' ||
+                                $page_slug == 'pro_info_cat_tf' ||
+                                $page_slug == 'product') show @endif"
+                        id="product_management">
                         <ul class="nav nav-collapse">
-                            <li class="@if ($page_slug == 'product_attribute') active @endif">
-                                <a href="{{ route('pm.product-attribute.index') }}">
-                                    <span class="sub-item">{{ __('Product Attribute') }}</span>
+
+                            <li
+                                class="
+                                @if (
+                                    $page_slug == 'product_attribute' ||
+                                        $page_slug == 'product_attribute_value' ||
+                                        $page_slug == 'company' ||
+                                        $page_slug == 'brand' ||
+                                        $page_slug == 'model' ||
+                                        $page_slug == 'tax_class' ||
+                                        $page_slug == 'tax_rate') active @endif">
+                                <a data-bs-toggle="collapse" href="#product_setups"
+                                    aria-expanded="
+                                 @if (
+                                     $page_slug == 'product_attribute' ||
+                                         $page_slug == 'product_attribute_value' ||
+                                         $page_slug == 'company' ||
+                                         $page_slug == 'brand' ||
+                                         $page_slug == 'model' ||
+                                         $page_slug == 'tax_class' ||
+                                         $page_slug == 'tax_rate') true @endif">
+                                    <span class="sub-item">{{ __('Setups') }}</span>
+                                    <span class="caret"></span>
+                                </a>
+                                <div class="collapse
+                                    @if (
+                                        $page_slug == 'product_attribute' ||
+                                            $page_slug == 'product_attribute_value' ||
+                                            $page_slug == 'company' ||
+                                            $page_slug == 'brand' ||
+                                            $page_slug == 'model' ||
+                                            $page_slug == 'tax_class' ||
+                                            $page_slug == 'tax_rate') show @endif"
+                                    id="product_setups">
+                                    <ul class="nav nav-collapse subnav">
+                                        @if (isset($not_used))
+                                            {{-- <li class="@if ($page_slug == 'product_attribute') active @endif">
+                                                <a href="{{ route('pm.product-attribute.index') }}">
+                                                    <span class="sub-item">{{ __('Product Attribute') }}</span>
+                                                </a>
+                                            </li>
+                                            <li class="@if ($page_slug == 'product_attribute_value') active @endif">
+                                                <a href="{{ route('pm.product-attr-value.index') }}">
+                                                    <span class="sub-item">{{ __('Product Attribute Value') }}</span>
+                                                </a>
+                                            </li> --}}
+                                            {{-- <li class="@if ($page_slug == 'tax_class') active @endif">
+                                                <a href="{{ route('pm.tax-class.index') }}">
+                                                    <span class="sub-item">{{ __('Tax Class') }}</span>
+                                                </a>
+                                            </li>
+                                            <li class="@if ($page_slug == 'tax_rate') active @endif">
+                                                <a href="{{ route('pm.tax-rate.index') }}">
+                                                    <span class="sub-item">{{ __('Tax Rate') }}</span>
+                                                </a>
+                                            </li> --}}
+                                        @endif
+
+                                        <li class="@if ($page_slug == 'company') active @endif">
+                                            <a href="{{ route('pm.company.index') }}">
+                                                <span class="sub-item">{{ __('Company') }}</span>
+                                            </a>
+                                        </li>
+                                        <li class="@if ($page_slug == 'brand') active @endif">
+                                            <a href="{{ route('pm.brand.index') }}">
+                                                <span class="sub-item">{{ __('Brand') }}</span>
+                                            </a>
+                                        </li>
+                                        <li class="@if ($page_slug == 'model') active @endif">
+                                            <a href="{{ route('pm.model.index') }}">
+                                                <span class="sub-item">{{ __('Model') }}</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li
+                                class="
+                                @if (
+                                    $page_slug == 'category' ||
+                                        $page_slug == 'subcategory' ||
+                                        $page_slug == 'subchildcategory' ||
+                                        $page_slug == 'product_info_cat' ||
+                                        $page_slug == 'product_info_cat_type' ||
+                                        $page_slug == 'pro_info_cat_tf') active @endif">
+                                <a data-bs-toggle="collapse" href="#product_categories"
+                                    aria-expanded="
+                                 @if (
+                                     $page_slug == 'category' ||
+                                         $page_slug == 'subcategory' ||
+                                         $page_slug == 'subchildcategory' ||
+                                         $page_slug == 'product_info_cat' ||
+                                         $page_slug == 'product_info_cat_type' ||
+                                         $page_slug == 'pro_info_cat_tf') true @endif">
+                                    <span class="sub-item">{{ __('Categories') }}</span>
+                                    <span class="caret"></span>
+                                </a>
+                                <div class="collapse
+                                    @if (
+                                        $page_slug == 'category' ||
+                                            $page_slug == 'subcategory' ||
+                                            $page_slug == 'subchildcategory' ||
+                                            $page_slug == 'product_info_cat' ||
+                                            $page_slug == 'product_info_cat_type' ||
+                                            $page_slug == 'pro_info_cat_tf') show @endif"
+                                    id="product_categories">
+                                    <ul class="nav nav-collapse subnav">
+                                        <li class="@if ($page_slug == 'category') active @endif">
+                                            <a href="{{ route('pm.category.index') }}">
+                                                <span class="sub-item">{{ __('Category') }}</span>
+                                            </a>
+                                        </li>
+                                        <li class="@if ($page_slug == 'subcategory') active @endif">
+                                            <a href="{{ route('pm.sub-category.index') }}">
+                                                <span class="sub-item">{{ __('Sub Category') }}</span>
+                                            </a>
+                                        </li>
+                                        @if (isset($not_used))
+                                            <li class="@if ($page_slug == 'subchildcategory') active @endif">
+                                                <a href="{{ route('pm.sub-child-category.index') }}">
+                                                    <span class="sub-item">{{ __('Sub Child Category') }}</span>
+                                                </a>
+                                            </li>
+                                        @endif
+                                        <li class="@if ($page_slug == 'product_info_cat') active @endif">
+                                            <a href="{{ route('pm.product-info-category.index') }}">
+                                                <span class="sub-item">{{ __('Product Info Category') }}</span>
+                                            </a>
+                                        </li>
+                                        <li class="@if ($page_slug == 'product_info_cat_type') active @endif">
+                                            <a href="{{ route('pm.product-info-category-type.index') }}">
+                                                <span class="sub-item">{{ __('Product Info Category Type') }}</span>
+                                            </a>
+                                        </li>
+                                        <li class="@if ($page_slug == 'pro_info_cat_tf') active @endif">
+                                            <a href="{{ route('pm.pro-info-cat-tf.index') }}">
+                                                <span
+                                                    class="sub-item">{{ __('Product Info Category Type Feature') }}</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="@if ($page_slug == 'product') active @endif">
+                                <a href="{{ route('pm.product.index') }}">
+                                    <span class="sub-item">{{ __('Product') }}</span>
                                 </a>
                             </li>
-                            <li class="@if ($page_slug == 'product_attribute_value') active @endif">
-                                <a href="{{ route('pm.product-attr-value.index') }}">
-                                    <span class="sub-item">{{ __('Product Attribute Value') }}</span>
-                                </a>
-                            </li>
-                            <li class="@if ($page_slug == 'company') active @endif">
-                                <a href="{{ route('pm.company.index') }}">
-                                    <span class="sub-item">{{ __('Company') }}</span>
-                                </a>
-                            </li>
-                            <li class="@if ($page_slug == 'tax_class') active @endif">
-                                <a href="{{ route('pm.tax-class.index') }}">
-                                    <span class="sub-item">{{ __('Tax Class') }}</span>
-                                </a>
-                            </li>
-                            <li class="@if ($page_slug == 'tax_rate') active @endif">
-                                <a href="{{ route('pm.tax-rate.index') }}">
-                                    <span class="sub-item">{{ __('Tax Rate') }}</span>
-                                </a>
-                            </li>
-                            <li class="@if ($page_slug == 'brand') active @endif">
-                                <a href="{{ route('pm.brand.index') }}">
-                                    <span class="sub-item">{{ __('Brand') }}</span>
-                                </a>
-                            </li>
-                            <li class="@if ($page_slug == 'model') active @endif">
-                                <a href="{{ route('pm.model.index') }}">
-                                    <span class="sub-item">{{ __('Model') }}</span>
-                                </a>
-                            </li>
-                            <li class="@if ($page_slug == 'category') active @endif">
-                                <a href="{{ route('pm.category.index') }}">
-                                    <span class="sub-item">{{ __('Category') }}</span>
-                                </a>
-                            </li>
-                            <li class="@if ($page_slug == 'subcategory') active @endif">
-                                <a href="{{ route('pm.sub-category.index') }}">
-                                    <span class="sub-item">{{ __('Sub Category') }}</span>
-                                </a>
-                            </li>
-                            <li class="@if ($page_slug == 'subchildcategory') active @endif">
-                                <a href="{{ route('pm.sub-child-category.index') }}">
-                                    <span class="sub-item">{{ __('Sub Child Category') }}</span>
-                                </a>
-                            </li>
-                            <li class="@if ($page_slug == 'product_info_cat') active @endif">
-                                <a href="{{ route('pm.product-info-category.index') }}">
-                                    <span class="sub-item">{{ __('Product Info Category') }}</span>
-                                </a>
-                            </li>
-                            <li class="@if ($page_slug == 'product_info_cat_type') active @endif">
-                                <a href="{{ route('pm.product-info-category-type.index') }}">
-                                    <span class="sub-item">{{ __('Pro Info Cat Type') }}</span>
-                                </a>
-                            </li>
-                            <li class="@if ($page_slug == 'product_info_cat_type_feature') active @endif">
-                                <a href="{{ route('pm.pro-info-cat-tf.index') }}">
-                                    <span class="sub-item">{{ __('Pro Info Cat Type Feature') }}</span>
+
+                        </ul>
+                    </div>
+                </li>
+
+                {{-- Auction Management --}}
+                <li class="nav-item  @if ($page_slug == 'auction') active submenu @endif">
+                    <a data-bs-toggle="collapse" href="#auction_management"
+                        @if ($page_slug == 'auction') aria-expanded="true" @endif>
+                        <i class="fas fa-gavel"></i>
+                        <p>{{ __('Auction Management') }}</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse @if ($page_slug == 'auction') show @endif" id="auction_management">
+                        <ul class="nav nav-collapse">
+                            <li class="@if ($page_slug == 'auction') active @endif">
+                                <a href="{{ route('auction-m.auction.index') }}">
+                                    <span class="sub-item">{{ __('Auction') }}</span>
                                 </a>
                             </li>
                         </ul>
@@ -231,14 +382,14 @@
                 </li>
 
                 {{-- CMS Management  --}}
-                <li class="nav-item  @if ($page_slug == 'banner' || $page_slug == 'faq') active submenu @endif">
+                <li class="nav-item  @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial') active submenu @endif">
                     <a data-bs-toggle="collapse" href="#cms_management"
-                        @if ($page_slug == 'banner' || $page_slug == 'faq') aria-expanded="true" @endif>
+                        @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial') aria-expanded="true" @endif>
                         <i class="icon-people"></i>
                         <p>{{ __('CMS Management') }}</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse @if ($page_slug == 'banner' || $page_slug == 'faq') show @endif" id="cms_management">
+                    <div class="collapse @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial') show @endif" id="cms_management">
                         <ul class="nav nav-collapse">
                             <li class="@if ($page_slug == 'banner') active @endif">
                                 <a href="{{ route('cms.banner.index') }}">
@@ -248,6 +399,11 @@
                             <li class="@if ($page_slug == 'faq') active @endif">
                                 <a href="{{ route('cms.faq.index') }}">
                                     <span class="sub-item">{{ __('Faq') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'testimonial') active @endif">
+                                <a href="{{ route('cms.testimonial.index') }}">
+                                    <span class="sub-item">{{ __('Testimonial') }}</span>
                                 </a>
                             </li>
                         </ul>

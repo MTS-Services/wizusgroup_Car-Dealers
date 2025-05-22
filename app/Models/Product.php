@@ -29,9 +29,20 @@ class Product extends BaseModel
         'serial_no',
         'capacity',
         'remarks',
+        'engine_type',
+        'fuel_type',
+        'color',
+        'mileage',
+        'odometer_replacement',
+        'steering_wheel',
+        'transmission',
+        'drive_system',
+        'entry_status',
+        'year',
 
         'short_description',
         'description',
+
         'price',
         'cost_price',
         'sale_price',
@@ -41,6 +52,7 @@ class Product extends BaseModel
         'is_featured',
         'is_dropshipping',
         'supplier_id',
+        'product_type',
 
         'meta_title',
         'meta_description',
@@ -73,7 +85,19 @@ class Product extends BaseModel
             'dropshipping_btn_label',
             'dropshipping_btn_color',
             'dropshipping_labels',
+
+            'backorder_label',
+            'backorder_color',
+            'backorder_btn_label',
+            'backorder_btn_color',
+            'backorder_labels',
+            'product_type_label',
         ]);
+    }
+
+    public function auctions(): HasMany
+    {
+        return $this->hasMany(Auction::class);
     }
 
     public function productInformations(): HasMany
@@ -83,7 +107,7 @@ class Product extends BaseModel
 
     public function attributes(): HasMany
     {
-        return $this->hasMany(ProductAttributeValue::class,'product_id','id');
+        return $this->hasMany(ProductAttributeValue::class, 'product_id', 'id');
     }
 
     public function relation(): HasOne
@@ -142,7 +166,7 @@ class Product extends BaseModel
 
     public function productImages(): HasMany
     {
-        return $this->hasMany(ProductImage::class,'product_id','id');
+        return $this->hasMany(ProductImage::class, 'product_id', 'id');
     }
     public function productActiveImages(): HasMany
     {
@@ -287,8 +311,8 @@ class Product extends BaseModel
     public static function getDropshippingBtnLabels(): array
     {
         return [
-            self::ALLOW_DROPSHIPPING => 'Remove From Dropshipping',
-            self::NOTALLOW_DROPSHIPPING => 'Make Dropshipping',
+            self::ALLOW_DROPSHIPPING => 'Not Allow Dropshipping',
+            self::NOTALLOW_DROPSHIPPING => 'Allow Dropshipping',
         ];
     }
 
@@ -318,7 +342,7 @@ class Product extends BaseModel
     // Accessor for Dropshipping btn color
     public function getDropshippingBtnColorAttribute(): string
     {
-        return $this->is_dropshipping == self::ALLOW_DROPSHIPPING ? 'btn btn-info': 'btn btn-primary';
+        return $this->is_dropshipping == self::ALLOW_DROPSHIPPING ? 'btn btn-info' : 'btn btn-primary';
     }
 
     public function scopeDropshipping($query): mixed
@@ -331,8 +355,125 @@ class Product extends BaseModel
         return $query->where('is_dropshipping', self::NOTALLOW_DROPSHIPPING);
     }
 
+    // ========================================Backorder labels
 
+    public const ALLOW_BACKORDER = 1;
+    public const NOTALLOW_BACKORDER = 0;
 
+    // Dropshipping labels
+    public static function getBackorderLabels(): array
+    {
+        return [
+            self::ALLOW_BACKORDER => 'Allow',
+            self::NOTALLOW_BACKORDER => 'Not Allow',
+        ];
+    }
 
+    // Dropshipping btn labels
+    public static function getBackorderBtnLabels(): array
+    {
+        return [
+            self::ALLOW_BACKORDER => 'Not Allow Backorder',
+            self::NOTALLOW_BACKORDER => 'ALlow Backorder',
+        ];
+    }
 
+    // Accessor for Dropshipping labels
+    public function getBackorderLabelsAttribute(): array
+    {
+        return self::getBackorderLabels();
+    }
+
+    // Accessor for Dropshipping label
+    public function getBackorderLabelAttribute(): string
+    {
+        return self::getBackorderLabels()[$this->allow_backorder] ?? 'Unknown';
+    }
+    // Accessor for Dropshipping color
+    public function getBackorderColorAttribute(): string
+    {
+        return $this->allow_backorder == self::ALLOW_BACKORDER ? 'bg-primary' : 'bg-info';
+    }
+
+    // Accessor for Dropshipping label
+    public function getBackorderBtnLabelAttribute(): string
+    {
+        return self::getBackorderBtnLabels()[$this->allow_backorder] ?? 'Unknown';
+    }
+
+    // Accessor for Dropshipping btn color
+    public function getBackorderBtnColorAttribute(): string
+    {
+        return $this->allow_backorder == self::ALLOW_BACKORDER ? 'btn btn-info' : 'btn btn-primary';
+    }
+
+    public function scopeBackorder($query): mixed
+    {
+        return $query->where('allow_backorder', self::ALLOW_BACKORDER);
+    }
+
+    public function scopeNotBackorder($query): mixed
+    {
+        return $query->where('allow_backorder', self::NOTALLOW_BACKORDER);
+    }
+
+    // Entry Status labels
+    public const ENTRY_STATUS_BASIC = 0;
+    public const ENTRY_STATUS_RELATION = 1;
+    public const ENTRY_STATUS_IMAGE = 2;
+    public const ENTRY_STATUS_INFORMATION = 3;
+    public const ENTRY_STATUS_COMPLETE = 4;
+
+    public function scopeBasic($query): mixed
+    {
+        return $query->where('entry_status', self::ENTRY_STATUS_BASIC);
+    }
+    public function scopeRelation($query): mixed
+    {
+        return $query->where('entry_status', self::ENTRY_STATUS_RELATION);
+    }
+    public function scopeImage($query): mixed
+    {
+        return $query->where('entry_status', self::ENTRY_STATUS_IMAGE);
+    }
+    public function scopeInformation($query): mixed
+    {
+        return $query->where('entry_status', self::ENTRY_STATUS_INFORMATION);
+    }
+    public function scopeComplete($query): mixed
+    {
+        return $query->where('entry_status', self::ENTRY_STATUS_COMPLETE);
+    }
+
+    // Product Types
+    public const PRODUCT_TYPE_PARTS = 0;
+    public const PRODUCT_TYPE_USED = 1;
+    public const PRODUCT_TYPE_NEW = 2;
+
+    public function scopeParts($query): mixed
+    {
+        return $query->where('product_type', self::PRODUCT_TYPE_PARTS);
+    }
+    public function scopeUsed($query): mixed
+    {
+        return $query->where('product_type', self::PRODUCT_TYPE_USED);
+    }
+    public function scopeNew($query): mixed
+    {
+        return $query->where('product_type', self::PRODUCT_TYPE_NEW);
+    }
+
+    public static function getProductTypes(): array
+    {
+        return [
+            self::PRODUCT_TYPE_PARTS => 'Parts & Accessories',
+            self::PRODUCT_TYPE_USED => 'Used/Damaged',
+            self::PRODUCT_TYPE_NEW => 'Brand New',
+        ];
+    }
+
+    public function getProductTypeLabelAttribute(): string
+    {
+        return self::getProductTypes()[$this->product_type] ?? 'Unknown';
+    }
 }

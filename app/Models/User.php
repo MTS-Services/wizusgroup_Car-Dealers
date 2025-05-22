@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends AuthBaseModel implements MustVerifyEmail
 {
@@ -66,9 +67,13 @@ class User extends AuthBaseModel implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    public function personalInformation():MorphOne
+    public function personalInformation(): MorphOne
     {
         return $this->morphOne(personalInformation::class, 'profile');
     }
 
+    public function auctions(): HasMany
+    {
+        return $this->hasMany(Auction::class);
+    }
 }

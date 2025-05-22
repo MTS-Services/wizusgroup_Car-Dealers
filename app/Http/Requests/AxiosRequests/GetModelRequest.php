@@ -3,6 +3,7 @@
 namespace App\Http\Requests\AxiosRequests;
 
 use App\Http\Requests\JsonResponceErrors;
+
 class GetModelRequest extends JsonResponceErrors
 {
     /**
@@ -10,7 +11,7 @@ class GetModelRequest extends JsonResponceErrors
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,7 +22,8 @@ class GetModelRequest extends JsonResponceErrors
     public function rules(): array
     {
         return [
-            "brand_id"=> "required|exists:brands,id",
+            "brand_id" => "sometimes|required|exists:brands,id",
+            "company_id" => "sometimes|required|exists:companies,id",
         ];
     }
 }

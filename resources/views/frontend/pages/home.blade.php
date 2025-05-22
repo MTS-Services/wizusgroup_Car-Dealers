@@ -153,19 +153,6 @@
         }
     </style> --}}
 @endpush
-@php
-    $banners = [
-        [
-            'image' => asset('frontend/images/home_page_banner.jpg'),
-        ],
-        [
-            'image' => asset('frontend/images/home_page_banner.jpg'),
-        ],
-        [
-            'image' => asset('frontend/images/home_page_banner.jpg'),
-        ],
-    ];
-@endphp
 
 @section('content')
     {{-- ===================== banner Section Start ===================== --}}
@@ -201,7 +188,8 @@
             <div class="swiper-wrapper h-full">
                 @foreach ($banners as $banner)
                     <div class="swiper-slide h-full">
-                        <img class="w-full h-full object-cover bg-center" src="{{ $banner['image'] }}" alt="image">
+                        <img class="w-full h-full object-cover bg-center" src="{{ storage_url($banner->image) }}"
+                            alt="{{ $banner->name }}">
                     </div>
                 @endforeach
             </div>
@@ -213,7 +201,8 @@
     <section class="2xl:py-20 xl:py-16 lg:py-12 md:py-10 py-8">
         <div class="container">
             <div class="header text-center mb-10">
-                <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase">{{ __('Categories') }}</h2>
+                <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase">
+                    {{ __('Categories') }}</h2>
             </div>
             <div class="relative">
                 <div class="swiper categories static">
@@ -222,21 +211,24 @@
                             <div class="swiper-slide py-8">
                                 <div>
                                     <div class="text-center">
-                                        <img class="w-auto rounded-xl object-cover mx-auto" src="{{ $category->modified_image }}"
-                                            alt="{{$category?->name }}">
+                                        <img class="w-auto rounded-xl object-cover mx-auto"
+                                            src="{{ $category->modified_image }}" alt="{{ $category?->name }}">
                                         <p class="py-2">{{ __($category?->name) }} </p>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                     </div>
-                    <div class="swiper-pagination"></div>
-                    <!-- Navigation buttons -->
-                    <div class="swiper-button swiper-button-prev hidden xl:block 3xl:-left-13 2xl:-left-9">
-                        <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
-                    </div>
-                    <div class="swiper-button swiper-button-next hidden xl:block 3xl:-right-13 2xl:-right-9 ">
-                        <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
+                    <div class="hidden xl:block">
+                        <div class="swiper-pagination z-10 !-bottom-6 lg:!-bottom-8"></div>
+                        <!-- Navigation buttons -->
+                        <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
+                            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                        </div>
+
+                        <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9">
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -257,30 +249,31 @@
         class="countdown_section flex justify-center items-center xl:py-20 lg:py-16 md:py-12 py-8  m-0 bg-gray-100 dark:bg-bg-dark-secondary ">
         <div class="container">
             <div
-                class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-6  text-center w-11/12 max-w-3xl shadow-md">
+                class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-6 xl:py-12 lg:py-10 md:py-8 py-4 text-center w-11/12 max-w-3xl shadow-md">
                 <h3 class="text-2xl font-bold mb-2">{{ __('Join Group Container – Save on Shipping') }}</h3>
                 <p class="text-xl mb-5">{{ __('Next Departure to Dakar, Senegal:') }}</p>
                 <div class="countdown-blocks py-2"></div>
                 <button class="btn-primary mx-auto py-3 mt-2 px-10 ">
-                    {{ __('JOIN NOW') }}
+                    {{ __('Join Now') }}
                 </button>
             </div>
-            <div class="pt-10">
+            <div class="pt-15">
                 <div class="header">
-                    <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase text-center">{{ __('How it Works') }}</h2>
+                    <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase text-center">
+                        {{ __('How it Works') }}</h2>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
                     <div class="bg-bg-light-secondary dark:bg-bg-dark-tertiary py-9 p-2 shadow-lg text-center">
-                        <i data-lucide="shopping-cart" class="w-12 h-12 mx-auto"></i>
-                        <p class="py-2">{{ __('Select Your Machine') }}</p>
+                        <i data-lucide="cpu" class="w-16 h-16 mx-auto text-text-secondary/40 "></i>
+                        <p class="py-2 text-2xl font-semibold">{{ __('Select Your Machine') }}</p>
                     </div>
                     <div class="bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9 p-2 shadow-lg text-center">
-                        <i data-lucide="ship" class="w-12 h-12 mx-auto"></i>
-                        <p class="py-2">{{ __('Arrange for Export') }}</p>
+                        <i data-lucide="ship" class="w-16 h-16 mx-auto text-text-secondary/40"></i>
+                        <p class="py-2 text-2xl font-semibold">{{ __('Arrange for Export') }}</p>
                     </div>
                     <div class="bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9 p-2 shadow-lg text-center">
-                        <i data-lucide="shopping-cart" class="w-12 h-12 mx-auto"></i>
-                        <p class="py-2">{{ __('Receive at Port') }}</p>
+                        <i data-lucide="inbox" class="w-16 h-16 mx-auto text-text-secondary/40"></i>
+                        <p class="py-2 text-2xl font-semibold">{{ __('Receive at Port') }}</p>
                     </div>
                 </div>
             </div>
@@ -288,69 +281,27 @@
     </section>
 
     {{-- ===================== countdown Group Container Section End ===================== --}}
-    @php
-        $testimonials = [
-            [
-                'description' =>
-                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
-                'image' => asset('frontend/images/unnamed.jpg'),
-                'name' => 'wasif ahmed',
-                'country' => 'bangladesh',
-            ],
 
-            [
-                'description' =>
-                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
-                'image' => asset('frontend/images/unnamed.jpg'),
-                'name' => 'wasif ahmed',
-                'country' => 'bangladesh',
-            ],
-
-            [
-                'description' =>
-                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
-                'image' => asset('frontend/images/unnamed.jpg'),
-                'name' => 'wasif ahmed',
-                'country' => 'bangladesh',
-            ],
-
-            [
-                'description' =>
-                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
-                'image' => asset('frontend/images/unnamed.jpg'),
-                'name' => 'wasif ahmed',
-                'country' => 'bangladesh',
-            ],
-
-            [
-                'description' =>
-                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
-                'image' => asset('frontend/images/unnamed.jpg'),
-                'name' => 'wasif ahmed',
-                'country' => 'bangladesh',
-            ],
-
-            [
-                'description' =>
-                    'I am very happy with the service I received from this company. They helped me find the perfect machine for my needs and made the shipping process so easy. Highly recommend!',
-                'image' => asset('frontend/images/unnamed.jpg'),
-                'name' => 'wasif ahmed',
-                'country' => 'bangladesh',
-            ],
-        ];
-    @endphp
 
     {{-- ===================== Testimonial Section Start ===================== --}}
-   <section class="py-8 md:py-10 xl:mb-8 mb-4 lg:py-12 xl:py-16 2xl:py-20 relative">
+    <section class="py-8 md:py-10 xl:mb-8 mb-4 lg:py-12 xl:py-16 2xl:py-20 relative">
         <div class="container mx-auto px-4">
             <div class="header text-center mb-10">
-                <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase">{{ __('Testimonials') }}</h2>
+                <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase">
+                    {{ __('Testimonials') }}
+                </h2>
             </div>
+
             <!-- Testimonial Carousel -->
             <div class="relative">
                 <div class="swiper testimonials static">
-                    <div class="swiper-wrapper ">
+                    <div class="swiper-wrapper">
                         @foreach ($testimonials as $testimonial)
+                            @php
+                                $isLong = strlen($testimonial->quote) > 200;
+                                $shortQuote = \Illuminate\Support\Str::limit($testimonial->quote, 200, '');
+                            @endphp
+
                             <div class="swiper-slide">
                                 <div
                                     class="bg-bg-light dark:bg-bg-dark rounded-xl shadow-card dark:shadow-dark-card overflow-hidden">
@@ -369,23 +320,29 @@
                                         <!-- Message -->
                                         <p
                                             class="text-lg md:text-xl font-light leading-relaxed font-montserrat mb-6 text-text-primary dark:text-text-dark-secondary">
-                                            {{ $testimonial['description'] }}
+                                            <span
+                                                class="quote-preview">{{ $isLong ? $shortQuote : $testimonial->quote }}</span>
+                                            @if ($isLong)
+                                                <span class="quote-full hidden">{{ $testimonial->quote }}</span>
+                                                <span class="text-blue-600 cursor-pointer read-toggle">Read more</span>
+                                            @endif
                                         </p>
 
                                         <!-- Author Info -->
                                         <div
                                             class="border-t border-border-gray dark:border-border-dark-secondary pt-6 flex items-center gap-4">
-                                            <img src="{{ $testimonial['image'] }}" alt="{{ $testimonial['name'] }}"
-                                                class="w-14 h-14 rounded-full object-cover">
+                                            <img src="{{ $testimonial->modified_image }}"
+                                                alt="{{ $testimonial->author_name }}"
+                                                class="w-18 h-18 rounded-full object-cover">
 
                                             <div>
                                                 <p
                                                     class="text-text-secondary dark:text-text-light font-bold text-lg uppercase font-playfair">
-                                                    {{ $testimonial['name'] }}
+                                                    {{ $testimonial->author_name }}
                                                 </p>
                                                 <p
                                                     class="text-sm uppercase tracking-wide mt-1 text-text-gray dark:text-text-light">
-                                                    {{ __('Country') }}: {{ $testimonial['country'] }}
+                                                    {{ __('Country') }}: {{ $testimonial->author_country }}
                                                 </p>
                                             </div>
                                         </div>
@@ -400,18 +357,21 @@
                         @endforeach
                     </div>
 
-                    <!-- Pagination -->
-                    <div class="swiper-pagination mt-6 !-bottom-10"></div>
+                   <div class="hidden xl:block">
+                        <div class="swiper-pagination z-10 !-bottom-6 lg:!-bottom-8"></div>
+                        <!-- Navigation buttons -->
+                        <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
+                            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                        </div>
 
-                    <!-- Navigation Buttons -->
-                    <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
-                        <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
+                        <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9">
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </div>
                     </div>
-                    <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9 ">
-                        <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
-                    </div>
+
+                    <!-- WhatsApp Floating Icon -->
                     <div
-                        class=" right-10 bottom-10 z-10 fixed shadow-lg w-16 h-16 flex items-center justify-center bg-gradient-primary rounded-full">
+                        class="right-10 bottom-10 z-10 fixed shadow-lg w-16 h-16 flex items-center justify-center bg-gradient-primary rounded-full">
                         <a href="#">
                             <i class="fa-brands fa-whatsapp text-5xl text-text-light"></i>
                         </a>
@@ -593,5 +553,29 @@
         // Initialize and set the interval
         updateCountdown();
         const timer = setInterval(updateCountdown, 1000);
+    </script>
+    {{-- quote Read more functionality --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll(".read-toggle").forEach(function(toggleBtn) {
+                toggleBtn.addEventListener("click", function() {
+                    const container = this.closest("p");
+                    const preview = container.querySelector(".quote-preview");
+                    const full = container.querySelector(".quote-full");
+
+                    if (preview.classList.contains("hidden")) {
+                        // Show short version
+                        preview.classList.remove("hidden");
+                        full.classList.add("hidden");
+                        this.innerText = "Read more";
+                    } else {
+                        // Show full version
+                        preview.classList.add("hidden");
+                        full.classList.remove("hidden");
+                        this.innerText = "Show less";
+                    }
+                });
+            });
+        });
     </script>
 @endpush

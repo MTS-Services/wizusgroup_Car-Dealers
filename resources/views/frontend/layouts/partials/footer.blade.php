@@ -73,17 +73,17 @@
                                         </div>
                                         {{ __('Home') }}
                                     </a>
-                                    <a href="{{route('frontend.about')}}"
+                                    <a href="{{ route('frontend.about') }}"
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
                                         <div>
                                             <span
-                                               class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/link:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
+                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/link:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
                                                 <i data-lucide="info" class="w-[14px] text-text-white"></i>
                                             </span>
                                         </div>
                                         {{ __('About Us') }}
                                     </a>
-                                  <a href="{{route('frontend.product')}}"
+                                    <a href="{{ route('frontend.product') }}"
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
                                         <div>
                                             <span
@@ -93,8 +93,8 @@
                                         </div>
                                         {{ __('Products') }}
                                     </a>
-                                    <a href="{{route('frontend.auction')}}"
-                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
+                                    <a href="{{ route('frontend.auction') }}"
+                                        class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
                                         <div>
                                             <span
                                                 class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/link:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
@@ -102,6 +102,16 @@
                                             </span>
                                         </div>
                                         {{ __('Auctions') }}
+                                    </a>
+                                    <a href="{{route('frontend.auction-details')}}"
+                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
+                                        <div>
+                                            <span
+                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/link:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
+                                                <i data-lucide="earth" class="w-[14px] text-text-white"></i>
+                                            </span>
+                                        </div>
+                                        {{ __('Auction Details') }}
                                     </a>
                                     <a href="{{route('frontend.contact')}}"
                                          class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
@@ -113,8 +123,8 @@
                                         </div>
                                         {{ __('Contact') }}
                                     </a>
-                                    <a href="{{route('frontend.dropshipping')}}"
-                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
+                                    <a href="{{ route('frontend.dropshipping') }}"
+                                        class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
                                         <div>
                                             <span
                                                 class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/link:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
@@ -123,8 +133,8 @@
                                         </div>
                                         {{ __('Dropshipping') }}
                                     </a>
-                                    <a href="{{route('frontend.regions')}}"
-                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
+                                    <a href="{{ route('frontend.regions') }}"
+                                        class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
                                         <div>
                                             <span
                                                 class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/link:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
@@ -218,8 +228,8 @@
             <p class="text-sm text-text-primary dark:text-text-light">{{ __('Copyright') }} &copy;
                 {{ date('Y') }}
                 {{ config('app.name') }}. {{ __('All rights reserved.') }}</p>
-            <p class="text-sm text-text-primary dark:text-text-light ml-2">{{ __('Developed by') }}
-                <a href="https://www.google.com/" target="_blank"
+            <p class="text-sm text-text-primary dark:text-text-light ml-2">{{ __('Design and Developed by') }}
+                <a href="https://maktechsolution.com/" target="_blank"
                     class="text-text-tertiary hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-300 ease-linear">{{ __('MTS Solutions') }}</a>
             </p>
         </div>

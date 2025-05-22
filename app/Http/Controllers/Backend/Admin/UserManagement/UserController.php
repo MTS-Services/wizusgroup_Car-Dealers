@@ -53,11 +53,11 @@ class UserController extends Controller
                 ->editColumn('email_verified_at', function ($user) {
                     return "<span class='badge " . $user->verify_color . "'>" . $user->verify_label . "</span>";
                 })
-                ->editColumn('created_at', function ($user) {
-                    return $user->created_at_formatted;
-                })
                 ->editColumn('creater_id', function ($user) {
                     return $user->creater_name;
+                })
+                ->editColumn('created_at', function ($user) {
+                    return $user->created_at_formatted;
                 })
                 ->editColumn('action', function ($user) {
                     $menuItems = $this->menuItems($user);
