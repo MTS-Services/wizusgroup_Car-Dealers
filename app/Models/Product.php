@@ -38,6 +38,7 @@ class Product extends BaseModel
         'transmission',
         'drive_system',
         'entry_status',
+        'year',
 
         'short_description',
         'description',
@@ -92,6 +93,11 @@ class Product extends BaseModel
             'backorder_labels',
             'product_type_label',
         ]);
+    }
+
+    public function auctions(): HasMany
+    {
+        return $this->hasMany(Auction::class);
     }
 
     public function productInformations(): HasMany

@@ -19,14 +19,14 @@ class CompanyRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-       public function rules(): array
+    public function rules(): array
     {
         return [
             'description' => 'nullable|string',
-            'meta_description' => 'nullable|string',
-            'meta_title' => 'nullable|string',
-            'image'=> 'nullable',
-            'website'=> 'nullable|url',
+            'meta_title' => 'nullable|string|min:20|max:60',
+            'meta_description' => 'nullable|string|min:50|max:160',
+            'image' => 'nullable',
+            'website' => 'nullable|url',
 
         ]
             +

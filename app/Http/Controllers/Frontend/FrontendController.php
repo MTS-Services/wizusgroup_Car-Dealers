@@ -7,10 +7,6 @@ use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
-    public function home()
-    {
-        return view('frontend.pages.home');
-    }
     public function about()
     {
         return view('frontend.pages.about');
@@ -35,10 +31,7 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.product_details');
     }
-    public function group_shipping()
-    {
-        return view('frontend.pages.group_shipping');
-    }
+    
     public function dropshipping()
     {
         return view('frontend.pages.dropshipping');
