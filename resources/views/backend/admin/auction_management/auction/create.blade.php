@@ -39,7 +39,9 @@
                                     <select name="product_id" class="form-control">
                                         <option value="" selected hidden disabled>{{ __('Select Product') }}</option>
                                         @foreach ($products as $product)
-                                            <option value="{{ $product->id }}" {{ old('product_id') == $product->id ? 'selected' : ''}}>{{ $product->name }}</option>
+                                            <option value="{{ $product->id }}"
+                                                {{ old('product_id') == $product->id ? 'selected' : '' }}>
+                                                {{ $product->name }}</option>
                                         @endforeach
                                     </select>
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'product_id']" />
@@ -106,19 +108,27 @@
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'end_date']" />
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>{{ __('Description') }}</label>
-                                    <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
-                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'description']" />
+                                    <label>{{ __('Auction Location') }} <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" value="{{ old('location') }}"
+                                        name="location">
+                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'location']" />
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Meta title') }}</label>
                                     <input type="text" class="form-control" value="{{ old('meta_title') }}"
                                         name="meta_title">
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'meta_title']" />
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>{{ __('Description') }}</label>
+                                    <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
+                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'description']" />
                                 </div>
                             </div>
                             <div class="col-md-12">

@@ -20,7 +20,7 @@ class Auction extends BaseModel
         'reserve_price',
         'buy_now_price',
         'increment_amount',
-
+        'location',
         'start_date',
         'end_date',
 
