@@ -200,27 +200,6 @@
                         <span class="ml-3 text-gray-600">Loading products...</span>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
-                        {{-- Product 1 --}}
-                        {{-- <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                            data-product="1">
-                            <a href="{{ route('frontend.product_details') }}">
-                                <div class="max-h-80 w-full  overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-base lg:text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        Kubota ZL1-215</h3>
-                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>2001</span>
-                                        <span class="mx-2">|</span>
-                                        <span>Osaka</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div> --}}
                         @forelse ($products as $product)
                             <x-frontend.product :product="$product" />
                         @empty

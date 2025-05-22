@@ -87,8 +87,23 @@ class ProductPageController extends Controller
         $data['products'] = $query->get();
         return view('frontend.pages.products', $data);
     }
-    public function product_details()
+    public function productDetails($slug)
     {
-        return view('frontend.pages.product_details');
+        $data['product'] = Product::with([
+            'category.products.primaryImage',
+            'category.products.brand',
+            'category.products.model',
+            'subCategory',
+            'company',
+            'brand',
+            'model',
+            'images',
+            'productInformations.infoCategory',
+            'productInformations.infoCategoryType',
+            'productInformations.infoCategoryTypeFeature',
+        ])->where('slug', $slug)->first();
+        $data['groupedInfo'] = $data['product']->productInformations->groupBy('infoCategory.name');
+        $data['related_products'] = $data['product']->category->products->where('id', '!=', $data['product']->id)->values();
+        return view('frontend.pages.product_details', $data);
     }
 }
