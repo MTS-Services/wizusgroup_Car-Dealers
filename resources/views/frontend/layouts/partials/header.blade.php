@@ -16,10 +16,6 @@
                     "
                         href="">{{ __('About Us') }}</a>
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
-                     @if (isset($page_slug) && $page_slug == 'products') text-text-secondary dark:text-text-secondary @endif
-                    "
-                        href="{{ route('frontend.product') }}">{{ __('Products') }}</a>
-                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
                      @if (isset($page_slug) && $page_slug == 'auctions') text-text-secondary dark:text-text-secondary @endif
                     "
                         href="{{ route('frontend.auction') }}">{{ __('Auctions') }}</a>

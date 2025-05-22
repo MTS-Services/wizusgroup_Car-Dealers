@@ -6,16 +6,17 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\View\Component;
+use App\Models\Product as ProductModel;
 
 class Product extends Component
 {
-    public array|Collection $items;
+    public ProductModel $product;
     /**
      * Create a new component instance.
      */
-    public function __construct(array|Collection $items)
+    public function __construct(ProductModel $product)
     {
-        $this->items = $items;
+        $this->product = $product;
     }
 
     /**

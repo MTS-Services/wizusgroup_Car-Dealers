@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Frontend\AuctionDetailsPageController;
 use App\Http\Controllers\Frontend\HomePageController;
+use App\Http\Controllers\Frontend\ProductPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\GroupShippingPageController;
@@ -12,7 +13,7 @@ Route::group(['as' => 'frontend.'], function () {
   // About Page
   Route::get('/about', [FrontendController::class, 'about'])->name('about');
   // Product Page
-  Route::get('/product', [FrontendController::class, 'product'])->name('product');
+  Route::get('/products/{category_slug}', [ProductPageController::class, 'products'])->name('products');
   // Contact Page
   Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
   // Auction Page
