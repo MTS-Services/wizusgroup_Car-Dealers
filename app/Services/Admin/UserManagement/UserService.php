@@ -93,4 +93,11 @@ class UserService
         $user->update($data);
         return $user;
     }
+
+    public function updateUserPassword(User $user, array $data, $file = null): User
+    {
+        $data['updater_id'] = user()->id;
+        $user->update($data);
+        return $user;
+    }
 }

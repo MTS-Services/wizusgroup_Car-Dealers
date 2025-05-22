@@ -516,7 +516,8 @@
                                                     <span class="text-sm font-medium text-text-gray">100% filled</span>
                                                 </div>
                                                 <div class="w-full bg-bg-gray rounded-full h-2.5">
-                                                    <div class="bg-bg-gray bg-opacity-50 h-2.5 rounded-full" style="width: 100%">
+                                                    <div class="bg-bg-gray bg-opacity-50 h-2.5 rounded-full"
+                                                        style="width: 100%">
                                                     </div>
                                                 </div>
 
@@ -774,14 +775,13 @@
                             <div class="bg-bg-gray dark:bg-opacity-20 p-10 pt-0">
                                 <div class="w-full">
                                     <div
-                                        class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 items-center gap-5 py-5 text-center">
+                                        class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 items-center gap-5 py-5 text-center">
                                         <p class="btn-item btn-primary w-full py-2 rounded-md" data-target="profile">
                                             Profile</p>
-                                        <p class="btn-item btn-primary w-full py-2 rounded-md" data-target="shop-details">
-                                            Shop Details</p>
-                                        <p class="btn-item btn-primary w-full py-2 rounded-md" data-target="address">
-                                            Address</p>
                                         <p class="btn-item btn-primary w-full py-2 rounded-md btn_active"
+                                            data-target="address">
+                                            Address</p>
+                                        <p class="btn-item btn-primary w-full py-2 rounded-md "
                                             data-target="change-password">Change Password</p>
                                     </div>
                                 </div>
@@ -798,8 +798,9 @@
                                                     @method('PUT')
                                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                         <div>
-                                                            <input type="file" name="image" class=" w-full  filepond"
-                                                                id="image" accept="image/jpeg, image/png, image/jpg, image/webp, image/svg">
+                                                            <input type="file" name="image"
+                                                                class=" w-full  filepond" id="image"
+                                                                accept="image/jpeg, image/png, image/jpg, image/webp, image/svg">
                                                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'image']" />
                                                         </div>
                                                         <div class="flex flex-col gap-4">
@@ -864,7 +865,6 @@
                                                             <label class="block pb-2">{{ __('Gender') }}</label>
                                                             <select name="gender" class="input">
                                                                 @foreach (App\Models\PersonalInformation::getGenderLabels() as $key => $gender)
-                                                                    dd($key);
                                                                     <option value="{{ $key }}"
                                                                         {{ $user?->personalInformation?->gender == $key ? 'selected' : '' }}>
                                                                         {{ $gender }}
@@ -919,11 +919,6 @@
                                                     <button type="submit" class="btn btn-primary mt-5">Update</button>
                                                 </form>
                                             </div>
-                                        </div>
-                                        <div id="shop-details" class="tab-pane hidden">
-                                            <h3 class="text-xl font-semibold">Shop Details</h3>
-                                            <p>This is the shop details content section. You can add your shop information
-                                                here.</p>
                                         </div>
                                         <div id="address" class="tab-pane hidden">
                                             <div class="rounded-md shadow-card">
@@ -1073,102 +1068,76 @@
     </section>
 @endsection
 @push('js')
+    {{-- FilePond --}}
+    <script src="{{ asset('filepond/filepond.js') }}"></script>
+    {{-- jQuery Functionality --}}
     <script>
         $(document).ready(function() {
-            // ******** Sidebar Navigation Tabs (.nav_item) ********
+            // Sidebar Navigation Tabs
             $('.nav_item').on('click', function() {
                 $('.nav_item')
                     .removeClass('active')
                     .addClass('bg-greenyellow text-black');
-
                 $(this).addClass('active');
 
                 const target = $(this).data('target');
-
                 $('.nav-pane').removeClass('block').addClass('hidden');
                 $('#' + target).removeClass('hidden').addClass('block');
             });
 
-            // ******** Update Profile Button Tabs (.btn-item) ********
+            // Update Profile Button Tabs
             $('.btn-item').on('click', function() {
                 $('.btn-item').removeClass('btn_active');
                 $(this).addClass('btn_active');
 
                 const target = $(this).data('target');
-
                 $('.tab-pane').removeClass('block').addClass('hidden');
                 $('#' + target).removeClass('hidden').addClass('block');
             });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            const $openSidebar = $('.openUsreDashboardSidebar');
-            const $closeSidebar = $('.closeUsreDashboardSidebar');
-            const $sidebar = $('.userDashboardSidebar'); // Select the sidebar element globally
 
-            // Sidebar open functionality
-            $openSidebar.on('click', function() {
-                $sidebar.css('transform', 'translateX(0)'); // Show the sidebar
-                // $(this).addClass('hidden'); // Hide the open button
+            // Sidebar Toggle
+            const $sidebar = $('.userDashboardSidebar');
+
+            $('.openUsreDashboardSidebar').on('click', function() {
+                $sidebar.css('transform', 'translateX(0)');
             });
 
-            $closeSidebar.on('click', function() {
-                $sidebar.css('transform', 'translateX(-100%)'); // Hide the sidebar
-                setTimeout(() => {
-                    // $openSidebar.removeClass('hidden'); // Show all openSidebar buttons
-                }, 300); // Delay for the sidebar transition
+            $('.closeUsreDashboardSidebar').on('click', function() {
+                $sidebar.css('transform', 'translateX(-100%)');
             });
-        });
-    </script>
-    <script>
-        // Get Country States By Axios
-        $(document).ready(function() {
-            let route1 = "{{ route('axios.get-cities') }}";
+
+            // Get Country States By Axios
+            let route1 = "{{ route('axios.get-states-or-cities') }}";
             $('#country').on('change', function() {
                 getStatesOrCity($(this).val(), route1);
             });
-            let route2 = "{{ route('axios.get-states-or-cities') }}";
+            let route2 = "{{ route('axios.get-cities') }}";
             $('#state').on('change', function() {
                 getCities($(this).val(), route2);
             });
-
-            let data_id =
-                `{{ $address?->state_id ? $address?->state_id : $address?->city_id }}`;
+            let data_id = `{{ $address->state_id ? $address->state_id : $address->city_id }}`;
             if (data_id) {
                 getStatesOrCity($('#country').val(), route1, data_id);
             }
+            if (`{{ $address->state_id }}`) {
+                getCities(`{{ $address->state_id }}`, route2, `{{ $address->city_id }}`);
+            }
 
-            if (`{{ $address?->state_id }}`) {
-                getCities(`{{ $address?->state_id }}`, route2, `{{ $address?->city_id }}`);
-            }
-        });
-    </script>
-    {{-- FilePond  --}}
-    <script src="{{ asset('filepond/filepond.js') }}"></script>
-    <script>
-        $(document).ready(function() {
+            // FilePond Upload
             const existingFiles = {
-                "#image": "{{ $user->modified_image }}",
-            }
+                "#image": "{{ $user->modified_image }}"
+            };
             file_upload(["#image"], ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/svg"], existingFiles);
         });
     </script>
-    {{-- FilePond  --}}
-    {{-- My orders --}}
+    {{-- My Orders - Button Filter Styling --}}
     <script>
-        // Filter buttons functionality
-        const filterButtons = document.querySelectorAll('.btn-item');
-
-        filterButtons.forEach(button => {
+        document.querySelectorAll('.btn-item').forEach(button => {
             button.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterButtons.forEach(btn => {
+                document.querySelectorAll('.btn-item').forEach(btn => {
                     btn.classList.remove('bg-bg-tertiary');
                     btn.classList.add('bg-bg-primary');
                 });
-
-                // Add active class to clicked button
                 button.classList.remove('bg-bg-primary');
                 button.classList.add('bg-bg-tertiary');
             });

@@ -14,19 +14,8 @@ class PersonalInformationService
         return PersonalInformation::orderBy($orderby, $order)->personal()->latest();
     }
 
-    public function UpdateUserInformation($data, $file = null)
+   public function updatePersonalInformation(PersonalInformation $personalInformation, $validated)
     {
-        $personal_info = $this->getUserPersonalInformations()->first();
-        $data['updater_id'] = user()->id;
-        $data['updater_type'] = get_class(user());
-        $data['profile_id'] = user()->id;
-        $data['profile_type'] = get_class(user());
-
-        if (!$personal_info) {
-            $personal_info->create($data);
-        } else {
-            $personal_info->update($data);
-        }
-        return $personal_info;
+        $personalInformation->update($validated);
     }
 }

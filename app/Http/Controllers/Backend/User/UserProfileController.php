@@ -32,78 +32,46 @@ class UserProfileController extends Controller
     public function profile()
     {
         $data['user'] = $this->userService->getUsers()->with('personalInformation')->first();
-        $data['address'] = $this->addressService->getUserAddresses()->first();
+        $data['address'] = $this->addressService->getAddresses()->userAddresses()->first();
         $data['countries'] = $this->countryService->getCountrys()->active()->get();
         return view('backend.user.dashboard', $data);
     }
 
     public function profileUpdate(UserProfileRequest $request)
     {
-        $user = $this->userService->getUsers(user()->id);
         $validated = $request->validated();
-        $file = $request->file('image');
-        $this->userService->updateUserProfile($user, $validated, $file);
-        // $user = $request->validated();
-        // $user['first_name'] = $request->first_name;
-        // $user['last_name'] = $request->last_name;
-        // $user['username'] = $request->username;
-        // $user['email'] = $request->email;
-        // $user['phone'] = $request->phone;
-        // $user['image'] = $request->image;
-        // $user['updater_id'] = user()->id;
-        // $user['updater_type'] = get_class(user());
-        // if (isset($request->image)) {
-        //     $user['image'] = $this->handleFilepondFileUpload($user, $request->image, user(), 'users/');
-        // }
+        $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+        $this->userService->updateUserProfile(user(), $validated , $file);
 
-        $pesonal_info = PersonalInformation::userProfile()->first();
-        $validated_info = $request->validated();
-        $this->personalInformationService->UpdateUserInformation($pesonal_info, $validated_info);
-        // $validated_info['dob'] = $request->dob;
-        // $validated_info['gender'] = $request->gender;
-        // $validated_info['father_name'] = $request->father_name;
-        // $validated_info['mother_name'] = $request->mother_name;
-        // $validated_info['emergency_phone'] = $request->emergency_phone;
-        // $validated_info['nationality'] = $request->nationality;
-        // $validated_info['bio'] = $request->bio;
-        // $validated_info['updater_id'] = user()->id;
-        // $validated_info['updater_type'] = get_class(user());
-        // $validated_info['profile_id'] = user()->id;
-        // $validated_info['profile_type'] = get_class(user());
-
-        // if (!$pesonal_info) {
-        //     PersonalInformation::create($validated_info);
-        // }
-        // if (!$user) {
-        //     $user_profile = User::create($user);
-        // }
-
-        // // $user_profile->update($user);
-        // $pesonal_info->update($validated_info);
+        $this->personalInformationService->updatePersonalInformation(user()->personalInformation, $validated);
 
         session()->flash('success', 'Profile updated successfully.');
         return redirect()->back();
     }
     public function addressUpdate(AddressRequest $request)
     {
+        // dd($request->all());
         try {
-            $address = $this->addressService->getUserAddresses()->first();
+            $address = $this->addressService->getAddresses()->userAddresses()->first();
             $validated = $request->validated();
-            $this->addressService->updateUserAddress($address, $validated);
+            $this->addressService->updateAddress($address, $validated);
             session()->flash('success', 'Address updated successfully.');
         } catch (\Throwable $th) {
             session()->flash('error', 'Address update failed!');
             throw $th;
         }
-
         return redirect()->back();
     }
     public function passwordUpdate(UserPasswordUpdateRequest $request)
     {
-        $user = User::findOrFail(user()->id);
-        $validated = $request->validated();
-        $user->update($validated);
-        session()->flash('success', 'Password updated successfully.');
+        try {
+            $validated = $request->validated();
+            $this->userService->updateUserPassword(user(), $validated);
+            session()->flash('success', 'Password updated successfully.');
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Password update failed!');
+            throw $th;
+        }
         return redirect()->back();
     }
 }

@@ -24,8 +24,8 @@ class AddressRequest extends FormRequest
         return [
             'phone' => 'nullable|string',
             'country_id' => 'required|integer|exists:countries,id',
-            'state_id' => 'nullable|integer|exists:states,id',
-            'city_id' => 'required|integer|exists:cities,id',
+            'state' => 'nullable|integer|exists:states,id',
+            'city' => 'required|integer|exists:cities,id',
             'address_line_1' => 'required|string',
             'address_line_2' => 'nullable|string',
             'postal_code' => 'required|string',
