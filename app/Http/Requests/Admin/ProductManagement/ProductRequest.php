@@ -53,6 +53,7 @@ class ProductRequest extends FormRequest
             'remarks' => 'nullable|string',
             'description' => 'nullable|string',
             'product_type' => 'required|integer',
+            'year'=> 'required|integer',
         ] + ($this->isMethod('POST') ? $this->store() : $this->update());
     }
 

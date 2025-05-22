@@ -34,7 +34,7 @@ class ProductService
         $data['created_by'] = admin()->id;
         $data['status'] = Product::STATUS_DEACTIVE;
         $data['entry_status'] = Product::ENTRY_STATUS_RELATION;
-        $data['meta_keywords'] = json_encode($data['meta_keywords']);
+        $data['meta_keywords'] = isset($data['meta_keywords']) ? json_encode($data['meta_keywords']) : null;
         return Product::create($data);
     }
 

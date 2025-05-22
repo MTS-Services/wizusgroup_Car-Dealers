@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="text-3xl font-semibold text-text-primary dark:text-text-light text-center">
-                        {{ __('Agricultural Machinery') }}
+                        {{ $category->name }}
                     </h1>
                 </div>
             </div>
@@ -51,126 +51,122 @@
                 @include('frontend.layouts.includes.product_filter_sidebar')
                 <div class="w-1/4 hidden xl:block">
                     {{-- Sidebar Filter --}}
-                    <div class="shadow-card rounded-lg dark:bg-bg-dark-tertiary">
-                        <!-- Category Filter -->
-                        <div class="p-4 pb-0">
-                            <div data-target="category-filter">
-                                <h3 class="text-xl font-medium">Category</h3>
-                            </div>
-
-                            <div class="filter-content" id="category-filter">
-                                <div class="mt-2">
-                                    <select
-                                        class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
-                                        <option>All Agricultural</option>
-                                        <option>Tractors</option>
-                                        <option>Harvesters</option>
-                                        <option>Plows</option>
-                                        <option>Seeders</option>
-                                    </select>
+                    <form action="{{route('frontend.products.filter', ['category_slug' => $category->slug])}}" method="POST">
+                        @csrf
+                        <div class="shadow-card rounded-lg dark:bg-bg-dark-tertiary">
+                            <!-- Category Filter -->
+                                <div class="p-4 pb-0">
+                                <div data-target="category-filter">
+                                    <h3 class="text-xl font-medium">{{__('Category')}}</h3>
                                 </div>
-                            </div>
-                        </div>
 
-                        <!-- Brand Filter -->
-                        <div class="p-4 pb-0">
-                            <div data-target="brand-filter">
-                                <h3 class="text-xl font-medium">Brand</h3>
-                            </div>
-
-                            <div class="filter-content" id="brand-filter">
-                                <div class="mt-2">
-                                    <select
-                                        class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
-                                        <option>All</option>
-                                        <option>Kubota</option>
-                                        <option>Iseki</option>
-                                        <option>John Deere</option>
-                                        <option>Mitsubishi</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Model Filter -->
-                        <div class="p-4 pb-0">
-                            <div data-target="model-filter">
-                                <h3 class="text-xl font-medium">Model</h3>
-                            </div>
-
-                            <div class="filter-content" id="model-filter">
-                                <div class="mt-2">
-                                    <select
-                                        class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
-                                        <option>All</option>
-                                        <option>ZL1-215</option>
-                                        <option>TM15</option>
-                                        <option>GL-29</option>
-                                        <option>1070</option>
-                                        <option>MT200</option>
-                                        <option>TU1500F</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Year Filter -->
-                        <div class="p-4 pb-0">
-                            <div data-target="year-filter">
-                                <h3 class="text-xl font-medium">Year</h3>
-                            </div>
-
-                            <div class="filter-content" id="year-filter">
-                                <div class="mt-2">
-                                    <select
-                                        class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
-                                        <option>All</option>
-                                        <option>2020 - Present</option>
-                                        <option>2010 - 2019</option>
-                                        <option>2000 - 2009</option>
-                                        <option>1990 - 1999</option>
-                                        <option>Before 1990</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        {{-- Price Filter --}}
-                        <details class="collapse collapse-arrow" open>
-                            <summary class="collapse-title text-xl font-medium">{{ __('Price') }}</summary>
-                            <div class="collapse-content">
-                                <div class="mb-3">
-                                    <div class="relative w-full price-slider">
-                                        <div class="absolute w-full h-1 bg-bg-dark bg-opacity-40 z-[1] rounded-full"></div>
-                                        <div class="absolute h-1 z-[2] rounded-full bg-bg-primary slider-range"></div>
-                                        <input type="range" min="0" max="500" value="20"
-                                            class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none min-range">
-                                        <input type="range" min="0" max="500" value="300"
-                                            class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none max-range">
+                                <div class="filter-content" id="category-filter">
+                                    <div class="mt-2">
+                                        <select class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2" name="subcategory" id="subcategory">
+                                            <option value="">{{__('All Agricultural')}}</option>
+                                            @foreach ($category->childrens as $children)
+                                                <option value="{{ $children->slug }}" {{request()->subcategory == $children->slug ? 'selected' : ''}}>{{ $children->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- Price display -->
-                                <div class="pt-8">
-                                    <p class="text-sm lg:text-base">
-                                        {{ __('Price:') }} <span
-                                            class="text-text-danger min-price">{{ __("$20") }}</span> -
-                                        <span class="text-text-danger max-price">{{ __("$300") }}</span>
-                                    </p>
+                            <!-- Brand Filter -->
+                            <div class="p-4 pb-0">
+                                <div data-target="brand-filter">
+                                    <h3 class="text-xl font-medium">{{__('Brand')}}</h3>
+                                </div>
+
+                                <div class="filter-content" id="brand-filter">
+                                    <div class="mt-2">
+                                        <select name="brand" id="brand"
+                                            class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
+                                            <option value="">{{__('All')}}</option>
+                                            @foreach ($category->brands as $brand)
+                                                <option value="{{ $brand->slug }}" {{request()->brand == $brand->slug ? 'selected' : ''}}>{{ $brand->name }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </details>
 
-                        <button
-                            class="w-full btn-primary hover:bg-bg-tertiary py-2 rounded-md transition-all duration-200 flex items-center justify-center group">
-                            <span>Sherch</span>
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
-                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                            </svg>
-                        </button>
-                    </div>
+                            <!-- Model Filter -->
+                            <div class="p-4 pb-0">
+                                <div data-target="model-filter">
+                                    <h3 class="text-xl font-medium">{{__('Model')}}</h3>
+                                </div>
+
+                                <div class="filter-content" id="model-filter">
+                                    <div class="mt-2">
+                                        <select name="model" id="model" class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
+                                            <option value="">{{__('All')}}</option>
+                                             @foreach ($category->models as $model)
+                                                <option value="{{ $model->slug }}" {{request()->model == $model->slug ? 'selected' : ''}}>{{ $model->name }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Year Filter -->
+                            <div class="p-4 pb-0">
+                                <div data-target="year-filter">
+                                    <h3 class="text-xl font-medium">{{__('Year')}}</h3>
+                                </div>
+
+                                <div class="filter-content" id="year-filter">
+                                    <div class="mt-2">
+                                        <select name="year" id="year"
+                                            class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
+                                            <option value=" ">{{__('All')}}</option>
+                                            @for ($i = date('Y'); $i >= 1900; $i--)
+                                                <option value="{{ $i }}" {{request()->year == $i ? 'selected' : ''}}>{{ $i }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- Price Filter --}}
+                            <details class="collapse collapse-arrow" open>
+                                <summary class="collapse-title text-xl font-medium">{{ __('Price') }}</summary>
+                                <div class="collapse-content">
+                                    <div class="mb-3">
+                                        <div class="relative w-full price-slider">
+                                            <div class="absolute w-full h-1 bg-bg-dark bg-opacity-40 z-[1] rounded-full"></div>
+                                            <div class="absolute h-1 z-[2] rounded-full bg-bg-primary slider-range"></div>
+                                            <input type="range" name="start_price" min="0" max="50000" value="{{request()->start_price ?? 20}}"
+                                                class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none min-range">
+                                            <input type="range" min="0" name="end_price" max="50000" value="{{request()->end_price ?? 50000}}"
+                                                class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none max-range">
+                                        </div>
+                                    </div>
+
+                                    <!-- Price display -->
+                                    <div class="pt-8">
+                                        <p class="text-sm lg:text-base">
+                                            {{ __('Price:') }} <span
+                                                class="text-text-danger min-price">${{request()->start_price ?? 20}}</span> -
+                                            <span class="text-text-danger max-price">${{request()->end_price ?? 50000}}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </details>
+
+                            <button type="submit"
+                                class="w-full btn-primary hover:bg-bg-tertiary py-2 rounded-md transition-all duration-200 flex items-center justify-center group">
+                                <span>{{__('Sherch')}}</span>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
                 </div>
                 <div class="w-full xl:w-3/4">
                     {{-- Products Grid --}}
@@ -181,7 +177,7 @@
                                 <span><i data-lucide="sliders-horizontal" class="w-5 h-5"></i></span>
                                 <span class="ml-2 text-base">{{ __('Filter') }}</span>
                             </button>
-                            <h2 class="text-sm xs:text-base md:text-lg  font-semibold">Sort <span>38,001</span></h2>
+                            <h2 class="text-sm xs:text-base md:text-lg  font-semibold">{{__('Sort')}} <span>{{number_format(count($products))}}</span></h2>
                         </div>
                         <div class="flex items-center">
                             <select
@@ -202,11 +198,10 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
                         {{-- Product 1 --}}
-                        <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                        {{-- <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="1">
                             <a href="{{ route('frontend.product_details') }}">
                                 <div class="max-h-80 w-full  overflow-hidden">
-                                    {{-- transition: transform 0.7s ease; --}}
                                     <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
                                         class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
@@ -222,189 +217,13 @@
                                     </div>
                                 </div>
                             </a>
-                        </div>
-                        {{-- Product 2 --}}
-                        <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                            data-product="2">
-                            <a href="{{ route('frontend.product_details') }}">
-                                <div class="max-h-80 w-full  overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        Kubota ZL1-215</h3>
-                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>2001</span>
-                                        <span class="mx-2">|</span>
-                                        <span>Osaka</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        {{-- Product 3 --}}
-                        <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                            data-product="2">
-                            <a href="{{ route('frontend.product_details') }}">
-                                <div class="max-h-80 w-full  overflow-hidden">
-                                    {{-- transition: transform 0.7s ease; --}}
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
-                                        alt="Kubota ZL1-215"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        Kubota ZL1-215</h3>
-                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>2001</span>
-                                        <span class="mx-2">|</span>
-                                        <span>Osaka</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        {{-- Product 4 --}}
-                        <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                            data-product="4">
-                            <a href="{{ route('frontend.product_details') }}">
-                                <div class="max-h-80 w-full  overflow-hidden">
-                                    {{-- transition: transform 0.7s ease; --}}
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
-                                        alt="Kubota ZL1-215"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        Kubota ZL1-215</h3>
-                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>2001</span>
-                                        <span class="mx-2">|</span>
-                                        <span>Osaka</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        {{-- Product 5 --}}
-                        <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                            data-product="5">
-                            <a href="{{ route('frontend.product_details') }}">
-                                <div class="max-h-80 w-full  overflow-hidden">
-                                    {{-- transition: transform 0.7s ease; --}}
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
-                                        alt="Kubota ZL1-215"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        Kubota ZL1-215</h3>
-                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>2001</span>
-                                        <span class="mx-2">|</span>
-                                        <span>Osaka</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        {{-- Product 6 --}}
-                        <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                            data-product="6">
-                            <a href="{{ route('frontend.product_details') }}">
-                                <div class="max-h-80 w-full  overflow-hidden">
-                                    {{-- transition: transform 0.7s ease; --}}
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
-                                        alt="Kubota ZL1-215"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        Kubota ZL1-215</h3>
-                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>2001</span>
-                                        <span class="mx-2">|</span>
-                                        <span>Osaka</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        {{-- Product 7 --}}
-                        <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                            data-product="7">
-                            <a href="{{ route('frontend.product_details') }}">
-                                <div class="max-h-80 w-full  overflow-hidden">
-                                    {{-- transition: transform 0.7s ease; --}}
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
-                                        alt="Kubota ZL1-215"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        Kubota ZL1-215</h3>
-                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>2001</span>
-                                        <span class="mx-2">|</span>
-                                        <span>Osaka</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        {{-- Product 8 --}}
-                        <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                            data-product="8">
-                            <a href="{{ route('frontend.product_details') }}">
-                                <div class="max-h-80 w-full  overflow-hidden">
-                                    {{-- transition: transform 0.7s ease; --}}
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
-                                        alt="Kubota ZL1-215"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        Kubota ZL1-215</h3>
-                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>2001</span>
-                                        <span class="mx-2">|</span>
-                                        <span>Osaka</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        {{-- Product 9 --}}
-                        <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                            data-product="9">
-                            <a href="{{ route('frontend.product_details') }}">
-                                <div class="max-h-80 w-full  overflow-hidden">
-                                    {{-- transition: transform 0.7s ease; --}}
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
-                                        alt="Kubota ZL1-215"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        Kubota ZL1-215</h3>
-                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>2001</span>
-                                        <span class="mx-2">|</span>
-                                        <span>Osaka</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                        </div> --}}
+                        @forelse ($products as $product)
+                            <x-frontend.product :product="$product" />
+                        @empty
+
+                        @endforelse
+
                     </div>
                 </div>
             </div>

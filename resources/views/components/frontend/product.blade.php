@@ -1,33 +1,21 @@
-<div class="product">
-
-    <figure>
-        <img src="{{ asset($items['image']) }}" alt="{{ $items['title'] }}" />
-    </figure>
-    <div class="card-body">
-        <a href="{{route('frontend.singel_product')}}" class="product-title">{{ $items['title'] }}</a>
-        <div class="product-prices">
-            <span class="product-price">${{ $items['price'] }}</span>
-            <span class="product-old-price">{{ $items['old_price'] }}</span>
+<div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+    data-product="1">
+    <a href="{{ route('frontend.product_details') }}">
+        <div class="max-h-80 w-full  overflow-hidden">
+            {{-- transition: transform 0.7s ease; --}}
+            <img src="{{storage_url($product->primaryImage->first()?->image)}}" alt="{{$product->primaryImage->first()?->alt ?? $product->name}}"
+                class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
         </div>
-    </div>
-    <div class="product-actions">
-        <a href="#" class="btn-product">
-            <span>{{ __('Add to Cart') }}</span>
-            <i>
-                <i data-lucide="shopping-basket"></i>
-            </i>
-        </a>
-        <a href="#" class="btn-product">
-            <span>{{ __('Add to Wishlist') }}</span>
-            <i>
-                <i data-lucide="heart"></i>
-            </i>
-        </a>
-        <a href="#" class="btn-product">
-            <span>{{ __('Quick View') }}</span>
-            <i>
-                <i data-lucide="eye"></i>
-            </i>
-        </a>
-    </div>
+        <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+            <h3
+                class="text-base lg:text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                {{$product->model?->name}}</h3>
+            <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">${{ number_format($product->price,2) }}</p>
+            <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                <span>{{$product->year}}</span>
+                <span class="mx-2">|</span>
+                <span>{{$product->brand?->name}}</span>
+            </div>
+        </div>
+    </a>
 </div>
