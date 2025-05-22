@@ -11,10 +11,7 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.about');
     }
-    public function product()
-    {
-        return view('frontend.pages.products');
-    }
+   
     public function contact()
     {
         return view('frontend.pages.contact');
@@ -23,11 +20,8 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.parts_accessories');
     }
-    public function product_details()
-    {
-        return view('frontend.pages.product_details');
-    }
-    
+
+
     public function dropshipping()
     {
         return view('frontend.pages.dropshipping');

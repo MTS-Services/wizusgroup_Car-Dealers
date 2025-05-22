@@ -83,7 +83,7 @@
                                         </div>
                                         {{ __('About Us') }}
                                     </a>
-                                    <a href="{{ route('frontend.product') }}"
+                                    <a href=""
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
                                         <div>
                                             <span
