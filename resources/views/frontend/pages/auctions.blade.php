@@ -19,64 +19,66 @@
             <div class="flex justify-start gap-10">
                 <div class="w-1/4 hidden xl:block">
                     {{-- Sidebar Filter --}}
-                    <div class="space-y-6 shadow-card dark:shadow-dark-card rounded-lg dark:bg-bg-dark-tertiary overflow-hidden mt-3">
+                    <div
+                        class="space-y-6 shadow-card dark:shadow-dark-card rounded-lg dark:bg-bg-dark-tertiary overflow-hidden mt-3">
                         <h2
                             class="text-lg md:text-xl font-semibold capitalize border-b bg-bg-light dark:bg-bg-light dark:bg-opacity-20 border-border-gray dark:border-opacity-50 p-4">
                             {{ __(' Auction fillters') }}</h2>
                         <div class="px-4">
-                            <div data-target="category-filter">
-                                <h3 class="text-sm md:text-base font-medium">{{ __('Category') }}</h3>
-                            </div>
-
-                            <div class="filter-content" id="category-filter">
-                                <div class="mt-2">
-                                    <select
-                                        class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
-                                        <option>{{ __('All Agricultural') }}</option>
-                                        <option>{{ __('Tractors') }}</option>
-                                        <option>{{ __('Harvesters') }}</option>
-                                        <option>{{ __('Plows') }}</option>
-                                        <option>{{ __('Seeders') }}</option>
-                                    </select>
-                                </div>
+                            <h3 class="text-sm md:text-base font-medium">{{ __('Category') }}</h3>
+                            <div class="mt-2">
+                                <select class="select">
+                                    <option value="" selected disabled>Select Category</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->slug }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="px-4">
-                            <div data-target="brand-filter">
-                                <h3 class="text-sm md:text-base font-medium">{{ __('Make') }}</h3>
-                            </div>
-
-                            <div class="filter-content" id="brand-filter">
-                                <div class="mt-2">
-                                    <select
-                                        class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
-                                        <option>{{ __('All') }}</option>
-                                        <option>{{ __('Kubota') }}</option>
-                                        <option>{{ __('Iseki') }}</option>
-                                        <option>{{ __('John Deere') }}</option>
-                                        <option>{{ __('Mitsubishi') }}</option>
-                                    </select>
-                                </div>
+                            <h3 class="text-sm md:text-base font-medium">{{ __('Make') }}</h3>
+                            <div class="mt-2">
+                                <select class="select">
+                                    <option value="" selected disabled>Select Make</option>
+                                    @foreach ($companies as $make)
+                                        <option value="{{ $make->slug }}">{{ $make->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="px-4">
-                            <div data-target="model-filter">
-                                <h3 class="text-sm md:text-base font-medium">{{ __('End Time') }}</h3>
-                            </div>
+                            <h3 class="text-sm md:text-base font-medium">{{ __('End Time') }}</h3>
+                            <div class="mt-2">
+                                <input type="date" name="date" hidden id="date">
 
-                            <div class="filter-content" id="model-filter">
-                                <div class="mt-2">
-                                    <select
-                                        class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
-                                        <option>{{ __('All') }}</option>
-                                        <option>{{ __('ZL1-215') }}</option>
-                                        <option>{{ __('TM15') }}</option>
-                                        <option>{{ __('GL-29') }}</option>
-                                        <option>{{ __('1070') }}</option>
-                                        <option>{{ __('MT200') }}</option>
-                                        <option>{{ __('TU1500F') }}</option>
-                                    </select>
+                                <button popovertarget="cally-popover1" class="input input-border" id="cally1"
+                                    style="anchor-name:--cally1">
+                                    {{ __('Pick a date') }}
+                                </button>
+
+                                <div popover id="cally-popover1" class="dropdown bg-base-100 rounded-box shadow-lg"
+                                    style="position-anchor:--cally1">
+                                    <calendar-date class="cally" id="calendar"
+                                        onchange="
+        document.getElementById('cally1').innerText = this.value;
+        document.getElementById('date').value = this.value;
+    ">
+                                        <svg aria-label="Previous" class="fill-current size-4" slot="previous"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M15.75 19.5 8.25 12l7.5-7.5"></path>
+                                        </svg>
+                                        <svg aria-label="Next" class="fill-current size-4" slot="next"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
+                                        </svg>
+                                        <calendar-month></calendar-month>
+                                    </calendar-date>
                                 </div>
+
+                                <script type="module" src="https://unpkg.com/cally"></script>
+                                <script type="module">
+                                    import "cally";
+                                </script>
                             </div>
                         </div>
                         <div class="px-4 pb-4">
@@ -109,15 +111,21 @@
                         <span class="ml-3 text-text-dark dark:text-text-light text-opacity-50">Loading products...</span>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
-                       @foreach ( $auctions as $auction )
-                           <x-frontend.auction-card :auction="$auction"/>
-                       @endforeach
+                        @foreach ($auctions as $auction)
+                            <x-frontend.auction-card :auction="$auction" />
+                        @endforeach
                     </div>
                 </div>
             </div>
     </section>
 @endsection
 @push('js')
+    <script type="module" src="https://unpkg.com/cally"></script>
+    <script type="module">
+        import "cally";
+    </script>
+
+    </script>
     <script>
         $(document).ready(function() {
             const $openSidebar = $('.openAuctionFilterSidebar');
