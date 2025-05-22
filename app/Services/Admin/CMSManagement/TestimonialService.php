@@ -4,6 +4,8 @@ namespace App\Services\Admin\CMSManagement;
 
 use App\Http\Traits\FileManagementTrait;
 use App\Models\Testimonial;
+use App\View\Components\Frontend\Test;
+use Illuminate\Database\Eloquent\Collection;
 
 class TestimonialService
 {
@@ -17,74 +19,67 @@ class TestimonialService
         return Testimonial::orderBy($orderby, $order)->latest();
     }
 
-    // public function getFaq(string $encryptedId): Faq | Collection
-    // {
-    //     return Testimonial::findOrFail(decrypt($encryptedId));
-    // }
+    public function getTestimonial(string $encryptedId): Testimonial | Collection
+    {
+        return Testimonial::findOrFail(decrypt($encryptedId));
+    }
 
-    // public function getDeletedFaq(string $encryptedId): Faq | Collection
-    // {
-    //     return Testimonial::onlyTrashed()->findOrFail(decrypt($encryptedId));
-    // }
+    public function getDeletedTestimonial(string $encryptedId): Testimonial | Collection
+    {
+        return Testimonial::onlyTrashed()->findOrFail(decrypt($encryptedId));
+    }
 
-    // public function createFaq(array $data, $file = null): Faq
-    // {
-    //     $data['created_by'] = admin()->id;
+    public function createTestimonial(array $data, $file = null): Testimonial
+    {
+        $data['creater_id'] = admin()->id;
+        $data['creater_type'] = get_class(admin());
+        if ($file) {
+            $data['author_image'] = $this->handleFilepondFileUpload(Testimonial::class, $file, admin(), 'testimonials/');
+        }
+        return Testimonial::create($data);
+    }
+    public function updateTestimonial(Testimonial $user, array $data, $file = null): Testimonial
+    {
+        $data['updater_id'] = admin()->id;
+        $data['updater_type'] = get_class(admin());
+        if ($file) {
+            $data['author_image'] = $this->handleFilepondFileUpload($user, $file, admin(), 'testimonials/');
+        }
+        $user->update($data);
+        return $user;
+    }
+    public function delete(Testimonial $user): void
+    {
+        $user->update([
+            'deleter_id' => admin()->id,
+            'deleter_type' => get_class(admin()),
+        ]);
+        $user->delete();
+    }
 
-    //     $faq = Testimonial::create($data);
-    //     return $faq;
-    // }
-
-    // public function updateFaq(string $encryptedId, array $data, $file = null): Faq
-    // {
-    //     $faq = $this->getFaq($encryptedId);
-    //     $data['updated_by'] = admin()->id;
-    //     if ($file) {
-    //         $data['image'] = $this->handleFilepondFileUpload($faq, $file, admin(), 'faqs/');
-    //     }
-    //     $faq->update($data);
-    //     return $faq;
-    // }
-
-    // public function deleteFaq(string $encryptedId): void
-    // {
-    //     $faq = $this->getFaq($encryptedId);
-    //     $faq->update(['deleted_by' => admin()->id]);
-    //     $faq->delete();
-    // }
-
-    // public function restoreFaq(string $encryptedId): void
-    // {
-    //     $faq = $this->getDeletedFaq($encryptedId);
-    //     $faq->update(['updated_by' => admin()->id]);
-    //     $faq->restore();
-    // }
-
-    // public function permanentDeleteFaq(string $encryptedId): void
-    // {
-    //     $faq = $this->getDeletedFaq($encryptedId);
-    //     if ($faq->image) {
-    //         $this->fileDelete(file: $faq->image);
-    //     }
-    //     $faq->forceDelete();
-    // }
-
-    // public function toggleStatus(string $encryptedId): void
-    // {
-    //     $faq = $this->getFaq($encryptedId);
-    //     $faq->update([
-    //         'updated_by' => admin()->id,
-    //         'status' => !$faq->status
-    //     ]);
-    // }
-
-    // public function toggleFeature(string $encryptedId): void
-    // {
-    //     $faq = $this->getFaq($encryptedId);
-    //     $faq->update([
-    //         'updated_by' => admin()->id,
-    //         'is_featured' => !$faq->is_featured
-    //     ]);
-    // }
-
+    public function restore(string $encryptedId): void
+    {
+        $user = $this->getDeletedTestimonial($encryptedId);
+        $user->update([
+            'updater_id' => admin()->id,
+            'updater_type' => get_class(admin())
+        ]);
+        $user->restore();
+    }
+    public function permanentDelete(string $encryptedId): void
+    {
+        $user = $this->getDeletedTestimonial($encryptedId);
+        if ($user->image) {
+            $this->fileDelete($user->image);
+        }
+        $user->forceDelete();
+    }
+    public function toggleStatus(Testimonial $user): void
+    {
+        $user->update([
+            'status' => !$user->status,
+            'updater_id' => admin()->id,
+            'updater_type' => get_class(admin())
+        ]);
+    }
 }
