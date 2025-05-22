@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\AxiosRequests;
+namespace App\Http\Requests\Admin\ProductManagement;
 
-use App\Http\Requests\JsonResponceErrors;
+use Illuminate\Foundation\Http\FormRequest;
 
-class GetModelRequest extends JsonResponceErrors
+class ProductImageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,9 @@ class GetModelRequest extends JsonResponceErrors
     public function rules(): array
     {
         return [
-            "brand_id" => "sometimes|required|exists:brands,id",
-            "company_id" => "sometimes|required|exists:companies,id",
+            "image"=> "required|image|mimes:jpeg,png,jpg,webp,svg|max:2048",
+            "images.*" => "required|image|mimes:jpeg,png,jpg,webp,svg|max:2048",
+            "images"=> "required|array",
         ];
     }
 }

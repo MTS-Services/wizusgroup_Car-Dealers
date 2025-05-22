@@ -38,7 +38,16 @@ return new class extends Migration
             $table->string('serial_no')->nullable();
             $table->string('capacity')->nullable();
             $table->longText('remarks')->nullable();
+            $table->string('engine_type')->nullable();
+            $table->string('fuel_type')->nullable();
+            $table->string('color')->nullable();
+            $table->string('mileage')->nullable();
+            $table->string('odometer_replacement')->nullable();
+            $table->string('steering_wheel')->nullable();
+            $table->string('transmission')->nullable();
+            $table->string('drive_system')->nullable();
 
+            $table->tinyInteger('entry_status')->default(Product::ENTRY_STATUS_BASIC)->index();
 
             // Descriptions
             $table->text('short_description')->nullable();
@@ -51,7 +60,9 @@ return new class extends Migration
 
             // Inventory
             $table->unsignedInteger('quantity')->default(0); // non-negative
-            $table->boolean('allow_backorder')->default(false)->index(); // indexed for faster backorder queries
+            $table->boolean('allow_backorder')->default(Product::NOTALLOW_BACKORDER)->index(); // indexed for faster backorder queries
+
+            $table->tinyInteger('product_type')->default(Product::PRODUCT_TYPE_USED)->index();
 
             // Flags
             $table->tinyInteger('status')->default(Product::STATUS_ACTIVE)->index();
