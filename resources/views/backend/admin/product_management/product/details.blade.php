@@ -6,11 +6,15 @@
     <div class="container-fluid">
         <div class="row">
             <div class="product_tabs col-lg-12">
-                <div class="d-flex justify-content-around align-items-center gap-5 py-5 text-center">
-                    <p class="btn_item w-100 py-2 active" data-bs-target="basic">{{ __('Basic Information') }}</p>
-                    <p class="btn_item w-100 py-2 " data-bs-target="relations">{{ __('Relations') }}</p>
-                    <p class="btn_item w-100 py-2" data-bs-target="images">{{ __('Images Gallery') }}</p>
-                    <p class="btn_item w-100 py-2" data-bs-target="informations">{{ __('Informations') }}</p>
+                <div class="flex justify-content-between items-center">
+                    <div class="d-flex justify-content-around align-items-center gap-5 py-5 text-center">
+                        <p class="btn_item w-100 py-2 active" data-bs-target="basic">{{ __('Basic Information') }}</p>
+                        <p class="btn_item w-100 py-2 " data-bs-target="relations">{{ __('Relations') }}</p>
+                        <p class="btn_item w-100 py-2" data-bs-target="images">{{ __('Images Gallery') }}</p>
+                        <p class="btn_item w-100 py-2" data-bs-target="informations">{{ __('Informations') }}</p>
+                    </div>
+                    <div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,26 +34,32 @@
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item"><strong class="me-2 mb-0 h5">Slug: </strong>
                                                     {{ $product->slug }}</li>
-                                                <li class="list-group-item"><strong class="me-2 mb-0 h5">Stock keeping unit: </strong>
+                                                <li class="list-group-item"><strong class="me-2 mb-0 h5">Stock keeping unit:
+                                                    </strong>
                                                     {{ $product->sku }}</li>
                                                 <li class="list-group-item"><strong class="me-2 mb-0 h5">Stock No: </strong>
                                                     {{ $product->stock_no }}</li>
-                                                <li class="list-group-item"><strong class="me-2 mb-0 h5">Chassis No: </strong>
+                                                <li class="list-group-item"><strong class="me-2 mb-0 h5">Chassis No:
+                                                    </strong>
                                                     {{ $product->chassis_no }}</li>
-                                                <li class="list-group-item"><strong class="me-2 mb-0 h5">Serial No: </strong>
+                                                <li class="list-group-item"><strong class="me-2 mb-0 h5">Serial No:
+                                                    </strong>
                                                     {{ $product->serial_no }}</li>
                                                 <li class="list-group-item"><strong class="me-2 mb-0 h5">Type: </strong>
                                                     {{ $product->type }}</li>
-                                                <li class="list-group-item"><strong class="me-2 mb-0 h5">Fuel Type: </strong>
+                                                <li class="list-group-item"><strong class="me-2 mb-0 h5">Fuel Type:
+                                                    </strong>
                                                     {{ $product->fuel_type }}</li>
-                                                <li class="list-group-item"><strong class="me-2 mb-0 h5">Displacement: </strong>
+                                                <li class="list-group-item"><strong class="me-2 mb-0 h5">Displacement:
+                                                    </strong>
                                                     {{ $product->displacement }}cc</li>
                                                 <li class="list-group-item"><strong class="me-2 mb-0 h5">Capacity: </strong>
                                                     {{ $product->capacity }}</li>
                                                 <li class="list-group-item"><strong class="me-2 mb-0 h5">Specification No:
                                                     </strong>
                                                     {{ $product->specification_no }}</li>
-                                                <li class="list-group-item"><strong class="me-2 mb-0 h5">Classification: </strong>
+                                                <li class="list-group-item"><strong class="me-2 mb-0 h5">Classification:
+                                                    </strong>
                                                     {{ $product->classification_no }}</li>
                                                 <li class="list-group-item"><strong class="me-2 mb-0 h5">First Registration:
                                                     </strong>
@@ -67,10 +77,12 @@
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item"><strong class="me-2 mb-0 h5">Price: </strong>
                                                     ${{ number_format($product->price, 2) }}</li>
-                                                <li class="list-group-item"><strong class="me-2 mb-0 h5">Cost Price: </strong>
+                                                <li class="list-group-item"><strong class="me-2 mb-0 h5">Cost Price:
+                                                    </strong>
                                                     ${{ number_format($product->cost_price, 2) }}
                                                 </li>
-                                                <li class="list-group-item"><strong class="me-2 mb-0 h5">Sale Price: </strong>
+                                                <li class="list-group-item"><strong class="me-2 mb-0 h5">Sale Price:
+                                                    </strong>
                                                     ${{ number_format($product->sale_price, 2) }}
                                                 </li>
                                                 <li class="list-group-item"><strong class="me-2 mb-0 h5">Quantity Available:
@@ -108,9 +120,11 @@
                                                 <ul class="list-group list-group-flush">
                                                     <li class="list-group-item"><strong class="me-2 mb-0 h5">Title:</strong>
                                                         {{ $product->meta_title ?? 'N/A' }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Description:</strong>
+                                                    <li class="list-group-item"><strong
+                                                            class="me-2 mb-0 h5">Description:</strong>
                                                         {{ $product->meta_description ?? 'N/A' }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Keywords:</strong>
+                                                    <li class="list-group-item"><strong
+                                                            class="me-2 mb-0 h5">Keywords:</strong>
                                                         {{ $product->meta_keywords ?? 'N/A' }}</li>
                                                 </ul>
                                             </div>
