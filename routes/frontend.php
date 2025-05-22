@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Frontend\AuctionController;
+use App\Http\Controllers\Frontend\AuctionPageController;
 use App\Http\Controllers\Frontend\AuctionDetailsPageController;
 use App\Http\Controllers\Frontend\HomePageController;
 use App\Http\Controllers\Frontend\ProductPageController;
@@ -18,9 +18,9 @@ Route::group(['as' => 'frontend.'], function () {
   // Contact Page
   Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
   // Auction Page
-  Route::get('/auction', [AuctionController::class, 'auction'])->name('auction');
+  Route::get('/auction', [AuctionPageController::class, 'auction'])->name('auction');
   // Auction Details Page
-  Route::get('/auction/{slug}', [AuctionController::class, 'auctionDetails'])->name('auction-details');
+  Route::get('/auction/{slug}', [AuctionPageController::class, 'auctionDetails'])->name('auction-details');
   // Parts & Accessories Page
   Route::get('/parts-accessories', [FrontendController::class, 'parts_accessories'])->name('parts-accessories');
   //  Product Details Page

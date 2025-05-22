@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Admin\AuctionManagement\AuctionService;
 use Illuminate\Http\Request;
 
-class AuctionController extends Controller
+class AuctionPageController extends Controller
 {
     protected AuctionService $auctionService;
     public function __construct(AuctionService $auctionService)
@@ -19,8 +19,6 @@ class AuctionController extends Controller
         $data['auctions'] = $this->auctionService->getAuctions()->with(['product.primaryImage', 'product.subCategory'])->open()->latest()->get();
         return view('frontend.pages.auctions', $data);
     }
-
-
 
     public function auctionDetails(string $slug)
     {
