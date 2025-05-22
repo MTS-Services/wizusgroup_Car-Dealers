@@ -1,7 +1,12 @@
 
 $(document).ready(function () {
     //Select 2
-    $("select.form-control:not(.no-select)").select2();
+    $("select.form-control:not(.no-select)").select2(
+        {
+            tags: true,
+            tokenSeparators: [',']
+        }
+    );
 
 
     // Slug Generate

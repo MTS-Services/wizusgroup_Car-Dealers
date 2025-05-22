@@ -1,45 +1,47 @@
 <?php
 
 
-use App\Http\Controllers\Backend\Admin\ProductManagement\CompanyController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Backend\Admin\AuditController;
 use App\Http\Controllers\Backend\Admin\TempFileController;
-use App\Http\Controllers\Backend\Admin\CMSManagement\FaqController;
 use App\Http\Controllers\Backend\Admin\Setup\CityController;
+use App\Http\Controllers\Backend\Admin\AdminProfileContoller;
 use App\Http\Controllers\Backend\Admin\Setup\StateController;
 use App\Http\Controllers\Backend\Admin\SiteSettingController;
 use App\Http\Controllers\Backend\Admin\AxiosRequestController;
 use App\Http\Controllers\Backend\Admin\DocumentationController;
 use App\Http\Controllers\Backend\Admin\Setup\CountryController;
+use App\Http\Controllers\Backend\Admin\CMSManagement\FaqController;
 use App\Http\Controllers\Backend\Admin\Setup\OperationAreaController;
 use App\Http\Controllers\Backend\Admin\UserManagement\UserController;
 use App\Http\Controllers\Backend\Admin\AdminManagement\RoleController;
 use App\Http\Controllers\Backend\Admin\CMSManagement\BannerController;
 use App\Http\Controllers\Backend\Admin\AdminManagement\AdminController;
 use App\Http\Controllers\Backend\Admin\Setup\OperationSubAreaController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\BrandController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\ModelController;
+use App\Http\Controllers\Backend\Admin\AuctionManagement\AuctionController;
+use App\Http\Controllers\Backend\Admin\CMSManagement\TestimonialController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\CompanyController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\ProductController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\TaxRateController;
 use App\Http\Controllers\Backend\Admin\AdminManagement\PermissionController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\CategoryController;
-use App\Http\Controllers\Backend\Admin\ProductManagement\SubCategoryController;
-use App\Http\Controllers\Backend\Admin\Auth\LoginController as AdminLoginController;
-use App\Http\Controllers\Backend\Admin\ProductManagement\SubChildCategoryController;
-use App\Http\Controllers\Backend\Admin\DashboardController as AdminDashboardController;
-use App\Http\Controllers\Backend\Admin\AdminProfileContoller;
-use App\Http\Controllers\Backend\Admin\Auth\ForgotPasswordController as AdminForgotPasswordController;
-use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminResetPasswordController;
-use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerificationController;
-use App\Http\Controllers\Backend\Admin\CMSManagement\TestimonialController;
-use App\Http\Controllers\Backend\Admin\ProductManagement\BrandController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\TaxClassController;
 use App\Http\Controllers\Backend\Admin\SupplierManagement\SuppliersController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\SubCategoryController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\ProductInfoCatController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\ProInfoCatTypeController;
-use App\Http\Controllers\Backend\Admin\ProductManagement\ProInfoCatTypeFeatureController;
+use App\Http\Controllers\Backend\Admin\Auth\LoginController as AdminLoginController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\ProductAttributeController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\SubChildCategoryController;
+use App\Http\Controllers\Backend\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\ProductAttributeValueController;
-use App\Http\Controllers\Backend\Admin\ProductManagement\TaxClassController;
-use App\Http\Controllers\Backend\Admin\ProductManagement\TaxRateController;
-use App\Http\Controllers\Backend\Admin\ProductManagement\ModelController;
+use App\Http\Controllers\Backend\Admin\ProductManagement\ProInfoCatTypeFeatureController;
+use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerificationController;
+use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminResetPasswordController;
+use App\Http\Controllers\Backend\Admin\Auth\ForgotPasswordController as AdminForgotPasswordController;
 
 // Admin Auth Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -76,14 +78,14 @@ Route::controller(AxiosRequestController::class)->name('axios.')->group(function
     Route::get('get-cities', 'getCities')->name('get-cities');
     Route::get('get-operation-areas', 'getOperationAreas')->name('get-operation-areas');
     Route::get('get-sub-areas', 'getSubAreas')->name('get-sub-areas');
-
-    Route::get('get-sub-categories', 'getSubCategories')->name('get-sub-categories');
-
-
+    Route::post('get-sub-categories', 'getSubCategories')->name('get-sub-categories');
+    Route::post('get-sub-child-categories', 'getSubChildCategories')->name('get-sub-child-categories');
     Route::post('get-brands', 'getBrands')->name('get-brands');
     Route::post('get-models', 'getModels')->name('get-models');
+    Route::post('get-tax-rates', 'getTaxRates')->name('get-tax-rates');
 
     Route::post('get-info-category-types', 'getInfoCatTypes')->name('get-info-cat-types');
+    Route::post('get-info-category-type-features', 'getInfoCatTypeFeatures')->name('get-info-cat-type-features');
 });
 
 Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], function () {
@@ -286,6 +288,29 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         Route::get('sub-child-category/restore/{sub_child_category}', [SubChildCategoryController::class, 'restore'])->name('sub-child-category.restore');
         Route::delete('sub-child-category/permanent-delete/{sub_child_category}', [SubChildCategoryController::class, 'permanentDelete'])->name('sub-child-category.permanent-delete');
 
+        // Product Routes
+        Route::resource('product', ProductController::class);
+        Route::controller(ProductController::class)->name('product.')->prefix('product')->group(function () {
+            Route::get('relation/{product}', 'relation')->name('relation');
+            Route::get('images/{product}', 'images')->name('image');
+            Route::get('information/{product}', 'info')->name('info');
+            Route::get('status/{product}', 'status')->name('status');
+            Route::get('feature/{product}', 'feature')->name('feature');
+            Route::get('backorder/{product}',  'backorder')->name('backorder');
+            Route::get('dropshipping/{product}', 'dropshipping')->name('dropshipping');
+            Route::get('recycle/bin', 'recycleBin')->name('recycle-bin');
+            Route::get('restore/{product}', 'restore')->name('restore');
+            Route::delete('permanent-delete/{product}', 'permanentDelete')->name('permanent-delete');
+            Route::post('relation/{product}', 'relationStore')->name('relation.store');
+            Route::post('images/{product}', 'imageStore')->name('image.store');
+            Route::post('information/{product}', 'infoStore')->name('info.store');
+            Route::post('information/remarks/{product}', 'infoRemarkStore')->name('info.remarks.store');
+
+            Route::get('view-remarks/{product_info_id}', 'viewRemarks')->name('view_remarks');
+            Route::get('delete-info/{product_info_id}', 'deleteInfo')->name('delete_info');
+            Route::get('entry-complete/{product}', 'entryComplete')->name('entry_complete');
+        });
+
         // Company Routes
         Route::resource('company', CompanyController::class);
         Route::get('company/status/{company}', [CompanyController::class, 'status'])->name('company.status');
@@ -358,6 +383,19 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         Route::delete('tax-rate/permanent-delete/{tax_rate}', [TaxRateController::class, 'permanentDelete'])->name('tax-rate.permanent-delete');
     });
 
+    // Auction Management
+    Route::group(['as' => 'auction-m.', 'prefix' => 'auction-management'], function () {
+        // Auction Routes 
+        Route::resource('auction', AuctionController::class);
+        Route::controller(AuctionController::class)->name('auction.')->prefix('auction')->group(function () {
+            Route::get('feature/{auction}', 'feature')->name('feature');
+            Route::get('recycle/bin', 'recycleBin')->name('recycle-bin');
+            Route::get('restore/{auction}', 'restore')->name('restore');
+            Route::delete('permanent-delete/{auction}', 'permanentDelete')->name('permanent-delete');
+            Route::post('relation/{auction}', 'relationStore')->name('relation.store');
+        });
+    });
+
     // Supplier Management
     Route::group(['as' => 'sm.', 'prefix' => 'supplier-management'], function () {
         Route::resource('supplier', SuppliersController::class);
@@ -366,5 +404,4 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         Route::get('supplier/restore/{supplier}', [SuppliersController::class, 'restore'])->name('supplier.restore');
         Route::delete('supplier/permanent-delete/{supplier}', [SuppliersController::class, 'permanentDelete'])->name('supplier.permanent-delete');
     });
-
 });

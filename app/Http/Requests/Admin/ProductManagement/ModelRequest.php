@@ -15,7 +15,7 @@ class ModelRequest extends FormRequest
         return true;
     }
 
-     /**
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
@@ -24,11 +24,11 @@ class ModelRequest extends FormRequest
     {
         return [
             'description' => 'nullable|string',
-            'meta_description' => 'nullable|string',
-            'meta_title' => 'nullable|string',
-            'image'=> 'nullable',
+            'meta_title' => 'nullable|string|min:20|max:60',
+            'meta_description' => 'nullable|string|min:50|max:160',
+            'image' => 'nullable',
             'company_id' => 'required|exists:companies,id',
-            'brand_id'=> 'required|exists:brands,id',
+            'brand_id' => 'required|exists:brands,id',
 
         ]
             +

@@ -153,19 +153,6 @@
         }
     </style> --}}
 @endpush
-@php
-    $banners = [
-        [
-            'image' => asset('frontend/images/home_page_banner.jpg'),
-        ],
-        [
-            'image' => asset('frontend/images/home_page_banner.jpg'),
-        ],
-        [
-            'image' => asset('frontend/images/home_page_banner.jpg'),
-        ],
-    ];
-@endphp
 
 @section('content')
     {{-- ===================== banner Section Start ===================== --}}
@@ -201,7 +188,8 @@
             <div class="swiper-wrapper h-full">
                 @foreach ($banners as $banner)
                     <div class="swiper-slide h-full">
-                        <img class="w-full h-full object-cover bg-center" src="{{ $banner['image'] }}" alt="image">
+                        <img class="w-full h-full object-cover bg-center" src="{{ storage_url($banner->image) }}"
+                            alt="{{ $banner->name }}">
                     </div>
                 @endforeach
             </div>
@@ -231,13 +219,16 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="swiper-pagination"></div>
-                    <!-- Navigation buttons -->
-                    <div class="swiper-button swiper-button-prev hidden xl:block 3xl:-left-13 2xl:-left-9">
-                        <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
-                    </div>
-                    <div class="swiper-button swiper-button-next hidden xl:block 3xl:-right-13 2xl:-right-9 ">
-                        <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
+                    <div class="hidden xl:block">
+                        <div class="swiper-pagination z-10 !-bottom-6 lg:!-bottom-8"></div>
+                        <!-- Navigation buttons -->
+                        <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
+                            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                        </div>
+
+                        <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9">
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -258,7 +249,7 @@
         class="countdown_section flex justify-center items-center xl:py-20 lg:py-16 md:py-12 py-8  m-0 bg-gray-100 dark:bg-bg-dark-secondary ">
         <div class="container">
             <div
-                class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-6  text-center w-11/12 max-w-3xl shadow-md">
+                class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-6 xl:py-12 lg:py-10 md:py-8 py-4 text-center w-11/12 max-w-3xl shadow-md">
                 <h3 class="text-2xl font-bold mb-2">{{ __('Join Group Container – Save on Shipping') }}</h3>
                 <p class="text-xl mb-5">{{ __('Next Departure to Dakar, Senegal:') }}</p>
                 <div class="countdown-blocks py-2"></div>
@@ -266,23 +257,23 @@
                     {{ __('Join Now') }}
                 </button>
             </div>
-            <div class="pt-10">
+            <div class="pt-15">
                 <div class="header">
                     <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase text-center">
                         {{ __('How it Works') }}</h2>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
                     <div class="bg-bg-light-secondary dark:bg-bg-dark-tertiary py-9 p-2 shadow-lg text-center">
-                        <i data-lucide="shopping-cart" class="w-12 h-12 mx-auto"></i>
-                        <p class="py-2">{{ __('Select Your Machine') }}</p>
+                        <i data-lucide="cpu" class="w-16 h-16 mx-auto text-text-secondary/40 "></i>
+                        <p class="py-2 text-2xl font-semibold">{{ __('Select Your Machine') }}</p>
                     </div>
                     <div class="bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9 p-2 shadow-lg text-center">
-                        <i data-lucide="ship" class="w-12 h-12 mx-auto"></i>
-                        <p class="py-2">{{ __('Arrange for Export') }}</p>
+                        <i data-lucide="ship" class="w-16 h-16 mx-auto text-text-secondary/40"></i>
+                        <p class="py-2 text-2xl font-semibold">{{ __('Arrange for Export') }}</p>
                     </div>
                     <div class="bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9 p-2 shadow-lg text-center">
-                        <i data-lucide="shopping-cart" class="w-12 h-12 mx-auto"></i>
-                        <p class="py-2">{{ __('Receive at Port') }}</p>
+                        <i data-lucide="inbox" class="w-16 h-16 mx-auto text-text-secondary/40"></i>
+                        <p class="py-2 text-2xl font-semibold">{{ __('Receive at Port') }}</p>
                     </div>
                 </div>
             </div>
@@ -290,7 +281,7 @@
     </section>
 
     {{-- ===================== countdown Group Container Section End ===================== --}}
-   
+
 
     {{-- ===================== Testimonial Section Start ===================== --}}
     <section class="py-8 md:py-10 xl:mb-8 mb-4 lg:py-12 xl:py-16 2xl:py-20 relative">
@@ -366,15 +357,16 @@
                         @endforeach
                     </div>
 
-                    <!-- Pagination -->
-                    <div class="swiper-pagination mt-6 !-bottom-10"></div>
+                   <div class="hidden xl:block">
+                        <div class="swiper-pagination z-10 !-bottom-6 lg:!-bottom-8"></div>
+                        <!-- Navigation buttons -->
+                        <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
+                            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                        </div>
 
-                    <!-- Navigation Buttons -->
-                    <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
-                        <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
-                    </div>
-                    <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9 ">
-                        <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
+                        <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9">
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </div>
                     </div>
 
                     <!-- WhatsApp Floating Icon -->

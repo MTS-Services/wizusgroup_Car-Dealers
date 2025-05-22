@@ -41,8 +41,6 @@ function initializeCKEditor(textAreas) {
     });
 }
 function destroyAllEditors() {
-    console.log(editors);
-
     editors.forEach((editor) => {
         editor
             .destroy()
