@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Traits\AuditColumnsTrait;
+use App\Models\Auction;
 
 return new class extends Migration
 {
@@ -28,8 +29,8 @@ return new class extends Migration
             $table->dateTime('start_date')->nullable()->index();
             $table->dateTime('end_date')->nullable()->index();
 
-            $table->tinyInteger('status')->default(0)->index(); //schedule, open, closed, cancelled 
-            $table->boolean('is_featured')->default(0)->index();
+            $table->tinyInteger('status')->default(Auction::STATUS_SCHEDULED)->index();
+            $table->boolean('is_featured')->default(Auction::FEATURED_NO)->index();
 
             $table->string('meta_title')->nullable();
             $table->longText('meta_description')->nullable();
