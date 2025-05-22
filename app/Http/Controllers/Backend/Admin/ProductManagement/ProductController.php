@@ -380,6 +380,43 @@ class ProductController extends Controller
         }
         return redirect()->route('pm.product.index');
     }
+
+    public function feature($id): RedirectResponse
+    {
+        try {
+            $this->productService->toggleFeature($id);
+            session()->flash('success', 'Product feature updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product feature update failed!');
+            throw $e;
+        }
+        return redirect()->route('pm.product.index');
+    }
+
+    public function backorder(string $id): RedirectResponse
+    {
+        try {
+            $this->productService->toggleBackOrder($id);
+            session()->flash('success', 'Product back order updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product back order update failed!');
+            throw $e;
+        }
+        return redirect()->route('pm.product.index');
+    }
+
+    public function dropshipping(string $id): RedirectResponse
+    {
+        try {
+            $this->productService->toggleDropshipping($id);
+            session()->flash('success', 'Product dropshipping updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product dropshipping update failed!');
+            throw $e;
+        }
+        return redirect()->route('pm.product.index');
+    }
+
     /**
      * Remove the specified resource from storage.
      */

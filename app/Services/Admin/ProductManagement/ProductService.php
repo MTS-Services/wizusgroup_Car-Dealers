@@ -144,6 +144,33 @@ class ProductService
         ]);
     }
 
+    public function toggleFeature(string $encryptedId): void
+    {
+        $product = $this->getProduct($encryptedId);
+        $product->update([
+            'updated_by' => admin()->id,
+            'is_featured' => !$product->is_featured
+        ]);
+    }
+
+    public function toggleBackOrder(string $encryptedId): void
+    {
+        $product = $this->getProduct($encryptedId);
+        $product->update([
+            'updated_by' => admin()->id,
+            'allow_backorder' => !$product->allow_backorder
+        ]);
+    }
+
+    public function toggleDropshipping(string $encryptedId): void
+    {
+        $product = $this->getProduct($encryptedId);
+        $product->update([
+            'updated_by' => admin()->id,
+            'is_dropshipping' => !$product->is_dropshipping
+        ]);
+    }
+
     public function delete(string $encryptedId): void
     {
         $product = $this->getProduct($encryptedId);
