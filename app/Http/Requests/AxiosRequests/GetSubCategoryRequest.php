@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\AxiosRequests;
 
-use App\Http\Requests\JsonResponceErrors;
+use Illuminate\Foundation\Http\FormRequest;
 
-class GetModelRequest extends JsonResponceErrors
+class GetSubCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,7 @@ class GetModelRequest extends JsonResponceErrors
     public function rules(): array
     {
         return [
-            "brand_id" => "sometimes|required|exists:brands,id",
-            "company_id" => "sometimes|required|exists:companies,id",
+            "category_id" => "required|exists:categories,id",
         ];
     }
 }
