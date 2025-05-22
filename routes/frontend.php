@@ -22,7 +22,7 @@ Route::group(['as' => 'frontend.'], function () {
   // Parts & Accessories Page
   Route::get('/parts-accessories', [FrontendController::class, 'parts_accessories'])->name('parts-accessories');
 //  Product Details Page
-  Route::get('/product_details', [FrontendController::class, 'product_details'])->name('product_details');
+  Route::get('/product-details', [FrontendController::class, 'product_details'])->name('product_details');
 // group Shipping page
 Route::get('/group-shipping', [GroupShippingPageController::class, 'group_shipping'])->name('group_shipping');
 // droopshipping
