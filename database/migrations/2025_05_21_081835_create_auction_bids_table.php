@@ -5,8 +5,6 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Traits\AuditColumnsTrait;
-use App\Models\Testimonial;
-use App\View\Components\Frontend\Test;
 
 return new class extends Migration
 {
@@ -16,20 +14,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('testimonials', function (Blueprint $table) {
+        Schema::create('auction_bids', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
-            $table->string('author_name')->index();
-            $table->string('author_image');
-            $table->boolean('status')->default(Testimonial::STATUS_ACTIVE)->index();
-            $table->string('author_designation')->nullable();
-            $table->string('author_country')->nullable();
-            $table->longText('quote');
+
+            $table->unsignedBigInteger('auction_id')->index();
+            $table->unsignedBigInteger('user_id')->index();
+            $table->decimal('bid_amount', 15, 2)->min(0)->default(0)->index();
+            $table->boolean('is_winning')->default(0)->index();
+            $table->boolean('is_buy_now')->default(0)->index();
+
+            $table->string('ip_address')->nullable()->index();
+
             $table->timestamps();
             $table->softDeletes();
+            $this->addAdminAuditColumns($table);
 
-            $this->addMorphedAuditColumns($table);
-
+            $table->foreign('auction_id')->references('id')->on('auctions')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
             // Indexes
             $table->index('created_at'); // Index for soft deletes
@@ -43,6 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('testimonials');
+        Schema::dropIfExists('auction_bids');
     }
 };

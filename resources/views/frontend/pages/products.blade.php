@@ -134,7 +134,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- Price Filter--}}
+                        {{-- Price Filter --}}
                         <details class="collapse collapse-arrow" open>
                             <summary class="collapse-title text-xl font-medium">{{ __('Price') }}</summary>
                             <div class="collapse-content">
@@ -152,7 +152,8 @@
                                 <!-- Price display -->
                                 <div class="pt-8">
                                     <p class="text-sm lg:text-base">
-                                        {{ __('Price:') }} <span class="text-text-danger min-price">{{ __("$20") }}</span> -
+                                        {{ __('Price:') }} <span
+                                            class="text-text-danger min-price">{{ __("$20") }}</span> -
                                         <span class="text-text-danger max-price">{{ __("$300") }}</span>
                                     </p>
                                 </div>
@@ -163,8 +164,8 @@
                             class="w-full btn-primary hover:bg-bg-tertiary py-2 rounded-md transition-all duration-200 flex items-center justify-center group">
                             <span>Sherch</span>
                             <svg xmlns="http://www.w3.org/2000/svg"
-                                class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
+                                class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M14 5l7 7m0 0l-7 7m7-7H3" />
                             </svg>
@@ -183,7 +184,8 @@
                             <h2 class="text-sm xs:text-base md:text-lg  font-semibold">Sort <span>38,001</span></h2>
                         </div>
                         <div class="flex items-center">
-                            <select class="border border-border-gray dark:border-opacity-20 shadow-card focus:outline-none rounded-md px-2 py-1 text-sm "
+                            <select
+                                class="border border-border-gray dark:border-opacity-20 shadow-card focus:outline-none rounded-md px-2 py-1 text-sm "
                                 id="sort-select">
                                 <option>Price: Low to High</option>
                                 <option>Price: High to Low</option>
@@ -202,181 +204,206 @@
                         {{-- Product 1 --}}
                         <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="1">
-                            <div class="max-h-80 w-full  overflow-hidden">
-                                {{-- transition: transform 0.7s ease; --}}
-                                <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
-                                    class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                            </div>
-                            <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                <h3
-                                    class="text-base lg:text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                    Kubota ZL1-215</h3>
-                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                    <span>2001</span>
-                                    <span class="mx-2">|</span>
-                                    <span>Osaka</span>
+                            <a href="{{ route('frontend.product_details') }}">
+                                <div class="max-h-80 w-full  overflow-hidden">
+                                    {{-- transition: transform 0.7s ease; --}}
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
+                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
-                            </div>
+                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                    <h3
+                                        class="text-base lg:text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                        Kubota ZL1-215</h3>
+                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
+                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                        <span>2001</span>
+                                        <span class="mx-2">|</span>
+                                        <span>Osaka</span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                         {{-- Product 2 --}}
                         <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="2">
-                            <div class="max-h-80 w-full  overflow-hidden">
-                                <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
-                                    class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                            </div>
-                            <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                <h3
-                                    class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                    Kubota ZL1-215</h3>
-                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                    <span>2001</span>
-                                    <span class="mx-2">|</span>
-                                    <span>Osaka</span>
+                            <a href="{{ route('frontend.product_details') }}">
+                                <div class="max-h-80 w-full  overflow-hidden">
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
+                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
-                            </div>
+                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                    <h3
+                                        class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                        Kubota ZL1-215</h3>
+                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
+                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                        <span>2001</span>
+                                        <span class="mx-2">|</span>
+                                        <span>Osaka</span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                         {{-- Product 3 --}}
                         <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="2">
-                            <div class="max-h-80 w-full  overflow-hidden">
-                                {{-- transition: transform 0.7s ease; --}}
-                                <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
-                                    class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                            </div>
-                            <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                <h3
-                                    class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                    Kubota ZL1-215</h3>
-                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                    <span>2001</span>
-                                    <span class="mx-2">|</span>
-                                    <span>Osaka</span>
+                            <a href="{{ route('frontend.product_details') }}">
+                                <div class="max-h-80 w-full  overflow-hidden">
+                                    {{-- transition: transform 0.7s ease; --}}
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
+                                        alt="Kubota ZL1-215"
+                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
-                            </div>
+                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                    <h3
+                                        class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                        Kubota ZL1-215</h3>
+                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
+                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                        <span>2001</span>
+                                        <span class="mx-2">|</span>
+                                        <span>Osaka</span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                         {{-- Product 4 --}}
                         <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="4">
-                            <div class="max-h-80 w-full  overflow-hidden">
-                                {{-- transition: transform 0.7s ease; --}}
-                                <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
-                                    class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                            </div>
-                            <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                <h3
-                                    class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                    Kubota ZL1-215</h3>
-                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                    <span>2001</span>
-                                    <span class="mx-2">|</span>
-                                    <span>Osaka</span>
+                            <a href="{{ route('frontend.product_details') }}">
+                                <div class="max-h-80 w-full  overflow-hidden">
+                                    {{-- transition: transform 0.7s ease; --}}
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
+                                        alt="Kubota ZL1-215"
+                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
-                            </div>
+                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                    <h3
+                                        class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                        Kubota ZL1-215</h3>
+                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
+                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                        <span>2001</span>
+                                        <span class="mx-2">|</span>
+                                        <span>Osaka</span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                         {{-- Product 5 --}}
                         <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="5">
-                            <div class="max-h-80 w-full  overflow-hidden">
-                                {{-- transition: transform 0.7s ease; --}}
-                                <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
-                                    class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                            </div>
-                            <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                <h3
-                                    class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                    Kubota ZL1-215</h3>
-                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                    <span>2001</span>
-                                    <span class="mx-2">|</span>
-                                    <span>Osaka</span>
+                            <a href="{{ route('frontend.product_details') }}">
+                                <div class="max-h-80 w-full  overflow-hidden">
+                                    {{-- transition: transform 0.7s ease; --}}
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
+                                        alt="Kubota ZL1-215"
+                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
-                            </div>
+                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                    <h3
+                                        class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                        Kubota ZL1-215</h3>
+                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
+                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                        <span>2001</span>
+                                        <span class="mx-2">|</span>
+                                        <span>Osaka</span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                         {{-- Product 6 --}}
                         <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="6">
-                            <div class="max-h-80 w-full  overflow-hidden">
-                                {{-- transition: transform 0.7s ease; --}}
-                                <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
-                                    class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                            </div>
-                            <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                <h3
-                                    class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                    Kubota ZL1-215</h3>
-                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                    <span>2001</span>
-                                    <span class="mx-2">|</span>
-                                    <span>Osaka</span>
+                            <a href="{{ route('frontend.product_details') }}">
+                                <div class="max-h-80 w-full  overflow-hidden">
+                                    {{-- transition: transform 0.7s ease; --}}
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
+                                        alt="Kubota ZL1-215"
+                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
-                            </div>
+                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                    <h3
+                                        class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                        Kubota ZL1-215</h3>
+                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
+                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                        <span>2001</span>
+                                        <span class="mx-2">|</span>
+                                        <span>Osaka</span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                         {{-- Product 7 --}}
                         <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="7">
-                            <div class="max-h-80 w-full  overflow-hidden">
-                                {{-- transition: transform 0.7s ease; --}}
-                                <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
-                                    class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                            </div>
-                            <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                <h3
-                                    class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                    Kubota ZL1-215</h3>
-                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                    <span>2001</span>
-                                    <span class="mx-2">|</span>
-                                    <span>Osaka</span>
+                            <a href="{{ route('frontend.product_details') }}">
+                                <div class="max-h-80 w-full  overflow-hidden">
+                                    {{-- transition: transform 0.7s ease; --}}
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
+                                        alt="Kubota ZL1-215"
+                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
-                            </div>
+                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                    <h3
+                                        class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                        Kubota ZL1-215</h3>
+                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
+                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                        <span>2001</span>
+                                        <span class="mx-2">|</span>
+                                        <span>Osaka</span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                         {{-- Product 8 --}}
                         <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="8">
-                            <div class="max-h-80 w-full  overflow-hidden">
-                                {{-- transition: transform 0.7s ease; --}}
-                                <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
-                                    class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                            </div>
-                            <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                <h3
-                                    class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                    Kubota ZL1-215</h3>
-                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                    <span>2001</span>
-                                    <span class="mx-2">|</span>
-                                    <span>Osaka</span>
+                            <a href="{{ route('frontend.product_details') }}">
+                                <div class="max-h-80 w-full  overflow-hidden">
+                                    {{-- transition: transform 0.7s ease; --}}
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
+                                        alt="Kubota ZL1-215"
+                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
-                            </div>
+                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                    <h3
+                                        class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                        Kubota ZL1-215</h3>
+                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
+                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                        <span>2001</span>
+                                        <span class="mx-2">|</span>
+                                        <span>Osaka</span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                         {{-- Product 9 --}}
                         <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                             data-product="9">
-                            <div class="max-h-80 w-full  overflow-hidden">
-                                {{-- transition: transform 0.7s ease; --}}
-                                <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
-                                    class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                            </div>
-                            <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                <h3
-                                    class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                    Kubota ZL1-215</h3>
-                                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                    <span>2001</span>
-                                    <span class="mx-2">|</span>
-                                    <span>Osaka</span>
+                            <a href="{{ route('frontend.product_details') }}">
+                                <div class="max-h-80 w-full  overflow-hidden">
+                                    {{-- transition: transform 0.7s ease; --}}
+                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
+                                        alt="Kubota ZL1-215"
+                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
                                 </div>
-                            </div>
+                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                    <h3
+                                        class="text-base lg:text-lg xl:text-xl font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                        Kubota ZL1-215</h3>
+                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
+                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                        <span>2001</span>
+                                        <span class="mx-2">|</span>
+                                        <span>Osaka</span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -386,18 +413,18 @@
 @endsection
 @push('js')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             const $openSidebar = $('.openFilterSidebar');
             const $closeSidebar = $('.closeFilterSidebar');
             const $sidebar = $('.filterSidebar'); // Select the sidebar element globally
 
             // Sidebar open functionality
-            $openSidebar.on('click', function () {
+            $openSidebar.on('click', function() {
                 $sidebar.css('transform', 'translateX(0)'); // Show the sidebar
                 // $(this).addClass('hidden'); // Hide the open button
             });
 
-            $closeSidebar.on('click', function () {
+            $closeSidebar.on('click', function() {
                 $sidebar.css('transform', 'translateX(-100%)'); // Hide the sidebar
                 setTimeout(() => {
                     // $openSidebar.removeClass('hidden'); // Show all openSidebar buttons
@@ -406,7 +433,7 @@
         });
         // Product card click functionality
         document.querySelectorAll('.product-card').forEach(card => {
-            card.addEventListener('click', function () {
+            card.addEventListener('click', function() {
                 const productId = this.getAttribute('data-product');
             });
         });
@@ -438,29 +465,29 @@
         }
 
         // Initialize animations
-        window.addEventListener('load', function () {
+        window.addEventListener('load', function() {
             simulateLoading();
 
             // Add hover effect to nav links
             document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('mouseenter', function () {
+                link.addEventListener('mouseenter', function() {
                     this.querySelector('span').style.width = '100%';
                 });
 
-                link.addEventListener('mouseleave', function () {
+                link.addEventListener('mouseleave', function() {
                     this.querySelector('span').style.width = '0';
                 });
             });
         });
 
         // Sort functionality
-        document.getElementById('sort-select').addEventListener('change', function () {
+        document.getElementById('sort-select').addEventListener('change', function() {
             simulateLoading();
         });
     </script>
     {{-- Price Range Slide --}}
     <script>
-        $('.price-slider').each(function () {
+        $('.price-slider').each(function() {
             const $slider = $(this);
             const $minRange = $slider.find('.min-range');
             const $maxRange = $slider.find('.max-range');
@@ -488,14 +515,14 @@
             updatePriceSlider();
 
             // Update on input
-            $minRange.on('input', function () {
+            $minRange.on('input', function() {
                 if (parseInt($minRange.val()) > parseInt($maxRange.val()) - 10) {
                     $minRange.val(parseInt($maxRange.val()) - 10);
                 }
                 updatePriceSlider();
             });
 
-            $maxRange.on('input', function () {
+            $maxRange.on('input', function() {
                 if (parseInt($maxRange.val()) < parseInt($minRange.val()) + 10) {
                     $maxRange.val(parseInt($minRange.val()) + 10);
                 }
