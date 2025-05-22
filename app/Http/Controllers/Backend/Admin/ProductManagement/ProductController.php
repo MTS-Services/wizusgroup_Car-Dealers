@@ -63,7 +63,6 @@ class ProductController extends Controller
      */
     public function index(Request $request): JsonResponse|View
     {
-
         if ($request->ajax()) {
             $query = $this->productService->getProducts()
                 ->with(['creater_admin']);
@@ -276,15 +275,32 @@ class ProductController extends Controller
 
     public function info(string $pid): View
     {
-        $data['infos'] = ProductInformation::where('product_id', decrypt($pid))->get();
+        $data['infos'] = $this->productService->getInfos($pid);
+        $data['info_remarks'] = $this->productService->getInfoRemarks($pid);
         $data['product_id'] = $pid;
         $data['info_categories'] = $this->productInfoCategoryService->getProductInfoCats()->active()->select(['id', 'name'])->get();
         return view('backend.admin.product_management.product.create.information', $data);
     }
+    public function viewRemarks(string $pi_id): JsonResponse
+    {
+        $info_remark = $this->productService->getProductInfo($pi_id);
+        $info_remark->remarks = html_entity_decode($info_remark->remarks );
+        $info_remark->load('infoCategory');
+        return response()->json($info_remark);
+    }
+
+    public function deleteInfo(string $pi_id): RedirectResponse
+    {
+        $info_remark = $this->productService->getProductInfo($pi_id);
+        $product_id = $info_remark->product_id;
+        $info_remark->forceDelete();
+        session()->flash('success', 'Product information deleted successfully!');
+        return redirect()->route('pm.product.info', encrypt($product_id));
+    }
     public function infoStore(ProductInfoRequest $request, string $pid): RedirectResponse
     {
         try {
-            $product = $this->productService->getProduct(encryptedId: $pid);
+            $product = $this->productService->getProduct( $pid);
             $validated = $request->validated();
             $this->productService->infoCreate($product, $validated);
             session()->flash('success', 'Product information added successfully!');
@@ -305,6 +321,23 @@ class ProductController extends Controller
             return redirect()->route('pm.product.info', $pid);
         } catch (\Throwable $e) {
             session()->flash('error', 'Product remarks added failed!');
+            throw $e;
+        }
+    }
+
+    public function entryComplete(string $pid): RedirectResponse
+    {
+        try {
+            $completed = $this->productService->getProductEntryComplete($pid);
+            if ($completed) {
+                session()->flash('success', 'Product entry finished successfully!');
+                return redirect()->route('pm.product.index');
+            }else{
+                session()->flash('error', value: 'Product entry completed failed!');
+                return redirect()->route('pm.product.info', $pid);
+            }
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product entry completed failed!');
             throw $e;
         }
     }

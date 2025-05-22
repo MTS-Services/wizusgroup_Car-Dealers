@@ -93,7 +93,7 @@
 
                         <div class="form-group float-end">
                             <input type="submit" class="btn btn-primary" value="Add Remarks">
-                            <a href="{{ route('pm.product.index', $product_id) }}" class="btn btn-secondary">Complete</a>
+                            <a href="{{ route('pm.product.entry_complete', $product_id) }}" class="btn btn-secondary">{{__('Finish')}}</a>
                         </div>
                     </form>
                 </div>
@@ -101,7 +101,7 @@
         </div>
     </div>
 
-    @include('backend.admin.product_management.product.create.information_list')
+    @include('backend.admin.product_management.product.create.information_list', ['infos' => $infos])
 
 @endsection
 @push('js')
