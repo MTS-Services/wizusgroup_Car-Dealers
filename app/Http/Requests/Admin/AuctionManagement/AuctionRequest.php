@@ -29,6 +29,7 @@ class AuctionRequest extends FormRequest
             'start_price' => 'required|numeric|min:0',
             'reserve_price' => 'required|numeric|min:0',
             'status' => 'required|integer',
+            'location' => 'required|string',
             'description' => 'nullable|string',
             'meta_title' => 'nullable|string|min:20|max:60',
             'meta_description' => 'nullable|string|min:50|max:160',
