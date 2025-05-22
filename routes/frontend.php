@@ -20,7 +20,8 @@ Route::group(['as' => 'frontend.'], function () {
   // Contact Page
   Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
   // Auction Page
-  Route::get('/auction', [AuctionPageController::class, 'auction'])->name('auction');
+  Route::get('/auctions', [AuctionPageController::class, 'auction'])->name('auctions');
+  Route::post('/auctions-filter', [AuctionPageController::class, 'auctionFilter'])->name('auctions.filter');
   // Auction Details Page
   Route::get('/auction/{slug}', [AuctionPageController::class, 'auctionDetails'])->name('auction-details');
   // Parts & Accessories Page

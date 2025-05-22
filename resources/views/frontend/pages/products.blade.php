@@ -1,36 +1,6 @@
 @extends('frontend.layouts.app', ['page_slug' => 'products'])
 
 @section('title', 'Products')
-@push('css')
-    <style>
-        /* General Animations */
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        .animate-slide-up {
-            animation: slideInUp 0.5s ease-out forwards;
-        }
-
-        .animate-pulse {
-            animation: pulse 1.5s infinite;
-        }
-
-        .animate-spin {
-            animation: spin 1s linear infinite;
-        }
-
-        /* Loading Spinner */
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(59, 130, 246, 0.3);
-            border-radius: 50%;
-            border-top-color: #3B82F6;
-            animation: spin 1s linear infinite;
-        }
-    </style>
-@endpush
 
 @section('content')
     <section class="py-15">
@@ -51,21 +21,26 @@
                 @include('frontend.layouts.includes.product_filter_sidebar')
                 <div class="w-1/4 hidden xl:block">
                     {{-- Sidebar Filter --}}
-                    <form action="{{route('frontend.products.filter', ['category_slug' => $category->slug])}}" method="POST">
+                    <form action="{{ route('frontend.products.filter', ['category_slug' => $category->slug]) }}"
+                        method="POST">
                         @csrf
                         <div class="shadow-card rounded-lg dark:bg-bg-dark-tertiary">
                             <!-- Category Filter -->
-                                <div class="p-4 pb-0">
+                            <div class="p-4 pb-0">
                                 <div data-target="category-filter">
-                                    <h3 class="text-xl font-medium">{{__('Category')}}</h3>
+                                    <h3 class="text-xl font-medium">{{ __('Category') }}</h3>
                                 </div>
 
                                 <div class="filter-content" id="category-filter">
                                     <div class="mt-2">
-                                        <select class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2" name="subcategory" id="subcategory">
-                                            <option value="">{{__('All Agricultural')}}</option>
+                                        <select
+                                            class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2"
+                                            name="subcategory" id="subcategory">
+                                            <option value="">{{ __('All Agricultural') }}</option>
                                             @foreach ($category->childrens as $children)
-                                                <option value="{{ $children->slug }}" {{request()->subcategory == $children->slug ? 'selected' : ''}}>{{ $children->name }}</option>
+                                                <option value="{{ $children->slug }}"
+                                                    {{ request()->subcategory == $children->slug ? 'selected' : '' }}>
+                                                    {{ $children->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -75,16 +50,18 @@
                             <!-- Brand Filter -->
                             <div class="p-4 pb-0">
                                 <div data-target="brand-filter">
-                                    <h3 class="text-xl font-medium">{{__('Brand')}}</h3>
+                                    <h3 class="text-xl font-medium">{{ __('Brand') }}</h3>
                                 </div>
 
                                 <div class="filter-content" id="brand-filter">
                                     <div class="mt-2">
                                         <select name="brand" id="brand"
                                             class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
-                                            <option value="">{{__('All')}}</option>
+                                            <option value="">{{ __('All') }}</option>
                                             @foreach ($category->brands as $brand)
-                                                <option value="{{ $brand->slug }}" {{request()->brand == $brand->slug ? 'selected' : ''}}>{{ $brand->name }}</option>
+                                                <option value="{{ $brand->slug }}"
+                                                    {{ request()->brand == $brand->slug ? 'selected' : '' }}>
+                                                    {{ $brand->name }}</option>
                                             @endforeach
 
                                         </select>
@@ -95,15 +72,18 @@
                             <!-- Model Filter -->
                             <div class="p-4 pb-0">
                                 <div data-target="model-filter">
-                                    <h3 class="text-xl font-medium">{{__('Model')}}</h3>
+                                    <h3 class="text-xl font-medium">{{ __('Model') }}</h3>
                                 </div>
 
                                 <div class="filter-content" id="model-filter">
                                     <div class="mt-2">
-                                        <select name="model" id="model" class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
-                                            <option value="">{{__('All')}}</option>
-                                             @foreach ($category->models as $model)
-                                                <option value="{{ $model->slug }}" {{request()->model == $model->slug ? 'selected' : ''}}>{{ $model->name }}</option>
+                                        <select name="model" id="model"
+                                            class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
+                                            <option value="">{{ __('All') }}</option>
+                                            @foreach ($category->models as $model)
+                                                <option value="{{ $model->slug }}"
+                                                    {{ request()->model == $model->slug ? 'selected' : '' }}>
+                                                    {{ $model->name }}</option>
                                             @endforeach
 
                                         </select>
@@ -114,16 +94,18 @@
                             <!-- Year Filter -->
                             <div class="p-4 pb-0">
                                 <div data-target="year-filter">
-                                    <h3 class="text-xl font-medium">{{__('Year')}}</h3>
+                                    <h3 class="text-xl font-medium">{{ __('Year') }}</h3>
                                 </div>
 
                                 <div class="filter-content" id="year-filter">
                                     <div class="mt-2">
                                         <select name="year" id="year"
                                             class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
-                                            <option value=" ">{{__('All')}}</option>
+                                            <option value=" ">{{ __('All') }}</option>
                                             @for ($i = date('Y'); $i >= 1900; $i--)
-                                                <option value="{{ $i }}" {{request()->year == $i ? 'selected' : ''}}>{{ $i }}</option>
+                                                <option value="{{ $i }}"
+                                                    {{ request()->year == $i ? 'selected' : '' }}>{{ $i }}
+                                                </option>
                                             @endfor
                                         </select>
                                     </div>
@@ -135,7 +117,8 @@
                                 <div class="collapse-content">
                                     <div class="mb-3">
                                         <div class="relative w-full price-slider">
-                                            <div class="absolute w-full h-1 bg-bg-dark bg-opacity-40 z-[1] rounded-full"></div>
+                                            <div class="absolute w-full h-1 bg-bg-dark bg-opacity-40 z-[1] rounded-full">
+                                            </div>
                                             <div class="absolute h-1 z-[2] rounded-full bg-bg-primary slider-range"></div>
                                             <input type="range" name="start_price" min="0" max="500000" value="{{request()->start_price ?? 20}}"
                                                 class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none min-range">
@@ -148,8 +131,10 @@
                                     <div class="pt-8">
                                         <p class="text-sm lg:text-base">
                                             {{ __('Price:') }} <span
-                                                class="text-text-danger min-price">${{request()->start_price ?? 20}}</span> -
-                                            <span class="text-text-danger max-price">${{request()->end_price ?? 50000}}</span>
+                                                class="text-text-danger min-price">${{ request()->start_price ?? 20 }}</span>
+                                            -
+                                            <span
+                                                class="text-text-danger max-price">${{ request()->end_price ?? 50000 }}</span>
                                         </p>
                                     </div>
                                 </div>
@@ -157,7 +142,7 @@
 
                             <button type="submit"
                                 class="w-full btn-primary hover:bg-bg-tertiary py-2 rounded-md transition-all duration-200 flex items-center justify-center group">
-                                <span>{{__('Sherch')}}</span>
+                                <span>{{ __('Sherch') }}</span>
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -177,7 +162,8 @@
                                 <span><i data-lucide="sliders-horizontal" class="w-5 h-5"></i></span>
                                 <span class="ml-2 text-base">{{ __('Filter') }}</span>
                             </button>
-                            <h2 class="text-sm xs:text-base md:text-lg  font-semibold">{{__('Sort')}} <span>{{number_format(count($products))}}</span></h2>
+                            <h2 class="text-sm xs:text-base md:text-lg  font-semibold">{{ __('Sort') }}
+                                <span>{{ number_format(count($products)) }}</span></h2>
                         </div>
                         <div class="flex items-center">
                             <form action="{{route('frontend.products.filter', $category->slug)}}" method="POST" id="filter_form">
@@ -197,13 +183,12 @@
                     <!-- Loading Indicator -->
                     <div id="loading-indicator" class="hidden flex justify-center items-center py-12">
                         <div class="loading-spinner"></div>
-                        <span class="ml-3 text-gray-600">Loading products...</span>
+                        <span class="ml-3 text-gray-600">{{ __('Loading products...') }}</span>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
                         @forelse ($products as $product)
                             <x-frontend.product :product="$product" />
                         @empty
-
                         @endforelse
 
                     </div>
