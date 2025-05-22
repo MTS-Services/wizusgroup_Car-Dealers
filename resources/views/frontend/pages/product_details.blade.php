@@ -56,12 +56,12 @@
                             <div
                                 class="swiper static product_slider_image w-full max-w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px] mx-auto bg-bg-light dark:bg-bg-dark-tertiary rounded-lg overflow-hidden">
                                 <div class="swiper-wrapper">
-                                    @for ($i = 1; $i <= 10; $i++)
+                                    @foreach ($product->images as $image)
                                         <div class="swiper-slide flex items-center justify-center">
-                                            <img src="https://swiperjs.com/demos/images/nature-{{ $i }}.jpg"
+                                            <img src="{{ storage_url($image->image) }}" alt="{{ $image->alt ?? $product->name }}"
                                                 class="zoomable block w-full h-full object-cover" />
                                         </div>
-                                    @endfor
+                                    @endforeach
                                 </div>
                                 <div class="swiper-button swiper-button-prev">
                                     <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
@@ -78,13 +78,13 @@
                         <div
                             class="swiper product_slider_thumbs h-16 sm:h-20 mt-2 box-border py-1 px-2 bg-bg-light dark:bg-bg-dark-tertiary rounded-lg overflow-hidden">
                             <div class="swiper-wrapper">
-                                @for ($i = 1; $i <= 10; $i++)
+                                @foreach ($product->images as $image)
                                     <div
                                         class="swiper-slide w-1/5 sm:w-1/6 md:w-1/8 h-full opacity-40 transition-opacity duration-300 cursor-pointer hover:opacity-70 swiper-slide-thumb-active:opacity-100 dark:swiper-slide-thumb-active:opacity-100">
-                                        <img src="https://swiperjs.com/demos/images/nature-{{ $i }}.jpg"
+                                        <img src="{{ storage_url($image->image) }}" alt="{{ $image->alt ?? $product->name }}"
                                             class="block w-full h-full object-cover rounded" />
                                     </div>
-                                @endfor
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -270,189 +270,33 @@
                 <div class="swiper related_product static">
                     <div class="swiper-wrapper">
                         <!-- Slide 1 -->
-                        <div class="swiper-slide">
-                            <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                                data-product="1">
-                                <div class="max-h-80 w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
-                                        alt="{{ __('Kubota ZL1-215') }}"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        {{ __('Kubota ZL1-215') }}
-                                    </h3>
-                                    <p class="text-xl font-bold text-text-danger">{{ __('$3,500') }}</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>{{ __('2001') }}</span>
-                                        <span class="mx-2">|</span>
-                                        <span>{{ __('Osaka') }}</span>
+                        @foreach ($related_products as $r_product)
+                            <div class="swiper-slide">
+                                <a href="{{ route('frontend.product.details', $r_product->slug) }}">
+                                    <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                                    data-product="1">
+                                    <div class="max-h-80 w-full overflow-hidden">
+                                        <img src="{{ storage_url($r_product->primaryImage->first()?->image) }}"
+                                            alt="{{ $r_product->primaryImage->first()?->alt ?? $r_product->name }}"
+                                            class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
+                                    </div>
+                                    <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
+                                        <h3
+                                            class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                                            {{ $r_product->model?->name }}
+                                        </h3>
+                                        <p class="text-xl font-bold text-text-danger">{{ number_format($r_product->price, 2) }}</p>
+                                        <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                            <span>{{ $r_product->year }}</span>
+                                            <span class="mx-2">|</span>
+                                            <span>{{ $r_product->brand?->name }}</span>
+                                        </div>
                                     </div>
                                 </div>
+                                </a>
                             </div>
-                        </div>
-                        <!-- Slide 1 -->
-                        <div class="swiper-slide">
-                            <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                                data-product="1">
-                                <div class="max-h-80 w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
-                                        alt="{{ __('Kubota ZL1-215') }}"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        {{ __('Kubota ZL1-215') }}
-                                    </h3>
-                                    <p class="text-xl font-bold text-text-danger">{{ __('$3,500') }}</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>{{ __('2001') }}</span>
-                                        <span class="mx-2">|</span>
-                                        <span>{{ __('Osaka') }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Slide 1 -->
-                        <div class="swiper-slide">
-                            <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                                data-product="1">
-                                <div class="max-h-80 w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
-                                        alt="{{ __('Kubota ZL1-215') }}"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        {{ __('Kubota ZL1-215') }}
-                                    </h3>
-                                    <p class="text-xl font-bold text-text-danger">{{ __('$3,500') }}</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>{{ __('2001') }}</span>
-                                        <span class="mx-2">|</span>
-                                        <span>{{ __('Osaka') }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Slide 1 -->
-                        <div class="swiper-slide">
-                            <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                                data-product="1">
-                                <div class="max-h-80 w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
-                                        alt="{{ __('Kubota ZL1-215') }}"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        {{ __('Kubota ZL1-215') }}
-                                    </h3>
-                                    <p class="text-xl font-bold text-text-danger">{{ __('$3,500') }}</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>{{ __('2001') }}</span>
-                                        <span class="mx-2">|</span>
-                                        <span>{{ __('Osaka') }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Slide 1 -->
-                        <div class="swiper-slide">
-                            <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                                data-product="1">
-                                <div class="max-h-80 w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
-                                        alt="{{ __('Kubota ZL1-215') }}"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        {{ __('Kubota ZL1-215') }}
-                                    </h3>
-                                    <p class="text-xl font-bold text-text-danger">{{ __('$3,500') }}</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>{{ __('2001') }}</span>
-                                        <span class="mx-2">|</span>
-                                        <span>{{ __('Osaka') }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Slide 1 -->
-                        <div class="swiper-slide">
-                            <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                                data-product="1">
-                                <div class="max-h-80 w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
-                                        alt="{{ __('Kubota ZL1-215') }}"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        {{ __('Kubota ZL1-215') }}
-                                    </h3>
-                                    <p class="text-xl font-bold text-text-danger">{{ __('$3,500') }}</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>{{ __('2001') }}</span>
-                                        <span class="mx-2">|</span>
-                                        <span>{{ __('Osaka') }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Slide 1 -->
-                        <div class="swiper-slide">
-                            <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                                data-product="1">
-                                <div class="max-h-80 w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
-                                        alt="{{ __('Kubota ZL1-215') }}"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        {{ __('Kubota ZL1-215') }}
-                                    </h3>
-                                    <p class="text-xl font-bold text-text-danger">{{ __('$3,500') }}</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>{{ __('2001') }}</span>
-                                        <span class="mx-2">|</span>
-                                        <span>{{ __('Osaka') }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Slide 1 -->
-                        <div class="swiper-slide">
-                            <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                                data-product="1">
-                                <div class="max-h-80 w-full overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}"
-                                        alt="{{ __('Kubota ZL1-215') }}"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        {{ __('Kubota ZL1-215') }}
-                                    </h3>
-                                    <p class="text-xl font-bold text-text-danger">{{ __('$3,500') }}</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>{{ __('2001') }}</span>
-                                        <span class="mx-2">|</span>
-                                        <span>{{ __('Osaka') }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+
                         <!-- Repeat swiper-slide for other products -->
                     </div>
 

@@ -120,11 +120,9 @@
                                             <div class="absolute w-full h-1 bg-bg-dark bg-opacity-40 z-[1] rounded-full">
                                             </div>
                                             <div class="absolute h-1 z-[2] rounded-full bg-bg-primary slider-range"></div>
-                                            <input type="range" name="start_price" min="0" max="50000"
-                                                value="{{ request()->start_price ?? 20 }}"
+                                            <input type="range" name="start_price" min="0" max="500000" value="{{request()->start_price ?? 20}}"
                                                 class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none min-range">
-                                            <input type="range" min="0" name="end_price" max="50000"
-                                                value="{{ request()->end_price ?? 50000 }}"
+                                            <input type="range" min="0" name="end_price" max="500000" value="{{request()->end_price ?? 500000}}"
                                                 class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none max-range">
                                         </div>
                                     </div>
@@ -168,14 +166,17 @@
                                 <span>{{ number_format(count($products)) }}</span></h2>
                         </div>
                         <div class="flex items-center">
-                            <select
-                                class="border border-border-gray dark:border-opacity-20 shadow-card focus:outline-none rounded-md px-2 py-1 text-sm "
-                                id="sort-select">
-                                <option>{{ __('Price: Low to High') }}</option>
-                                <option>{{ __('Price: High to Low') }}</option>
-                                <option>{{ __('Newest First') }}</option>
-                                <option>{{ __('Oldest First') }}</option>
-                            </select>
+                            <form action="{{route('frontend.products.filter', $category->slug)}}" method="POST" id="filter_form">
+                                @csrf
+                                <select name="sort" id="sort-select"
+                                    class="border border-border-gray dark:border-opacity-20 shadow-card focus:outline-none rounded-md px-2 py-1 text-sm "
+                                    id="sort-select">
+                                    <option value="low_to_high" {{ request()->sort == 'low_to_high' ? 'selected' : ''}}>{{__('Price: High to Low')}}</option>
+                                    <option value="high_to_low" {{ request()->sort == 'high_to_low' ? 'selected' : ''}}>{{__('Price: Low to High')}}</option>
+                                    <option value="latest" {{ request()->sort == 'latest' ? 'selected' : ''}}>{{__('Newest First')}}</option>
+                                    <option value="oldest" {{ request()->sort == 'oldest' ? 'selected' : ''}}>{{__('Oldest First')}}</option>
+                                </select>
+                            </form>
                         </div>
                     </div>
 
@@ -185,27 +186,6 @@
                         <span class="ml-3 text-gray-600">{{ __('Loading products...') }}</span>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
-                        {{-- Product 1 --}}
-                        {{-- <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                            data-product="1">
-                            <a href="{{ route('frontend.product_details') }}">
-                                <div class="max-h-80 w-full  overflow-hidden">
-                                    <img src="{{ asset('frontend/images/products/tractor-2.avif') }}" alt="Kubota ZL1-215"
-                                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                    <h3
-                                        class="text-base lg:text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                        Kubota ZL1-215</h3>
-                                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">$3,500</p>
-                                    <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                        <span>2001</span>
-                                        <span class="mx-2">|</span>
-                                        <span>Osaka</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div> --}}
                         @forelse ($products as $product)
                             <x-frontend.product :product="$product" />
                         @empty
@@ -218,6 +198,13 @@
     </section>
 @endsection
 @push('js')
+    <script>
+        $(document).ready(function() {
+            $("#sort-select").on("change", function() {
+                $("#filter_form").submit();
+            });
+        });
+    </script>
     <script>
         $(document).ready(function() {
             const $openSidebar = $('.openFilterSidebar');
@@ -284,11 +271,6 @@
                     this.querySelector('span').style.width = '0';
                 });
             });
-        });
-
-        // Sort functionality
-        document.getElementById('sort-select').addEventListener('change', function() {
-            simulateLoading();
         });
     </script>
     {{-- Price Range Slide --}}
