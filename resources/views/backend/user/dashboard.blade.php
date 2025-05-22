@@ -792,7 +792,7 @@
                                             {{-- Update Profile --}}
                                             {{-- <h3 class="text-xl font-semibold mb-4 uppercase">Update Profile</h3> --}}
                                             <div>
-                                                <form action="{{ route('user.profile.update'), encrypt($user->id) }}"
+                                                <form action="{{ route('user.profile.update', encrypt($user->id)) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('PUT')

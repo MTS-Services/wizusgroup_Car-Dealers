@@ -15,7 +15,7 @@ class ModelRequest extends FormRequest
         return true;
     }
 
-     /**
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
@@ -29,7 +29,7 @@ class ModelRequest extends FormRequest
             'meta_title' => 'nullable|string',
             'image'=> 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
             'company_id' => 'required|exists:companies,id',
-            'brand_id'=> 'required|exists:brands,id',
+            'brand_id' => 'required|exists:brands,id',
 
         ]
             +

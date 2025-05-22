@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests\Admin\ProductManagement;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class CategoryRequest extends FormRequest
@@ -22,8 +23,8 @@ class CategoryRequest extends FormRequest
     {
         return [
 
-            'meta_title' => 'nullable|string',
-            'meta_description' => 'nullable|string',
+            'meta_title' => 'nullable|string|min:20|max:60',
+            'meta_description' => 'nullable|string|min:50|max:160',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
 
