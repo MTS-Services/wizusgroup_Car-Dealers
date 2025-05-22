@@ -43,12 +43,14 @@ class Auction extends BaseModel
         $this->appends = array_merge(parent::getAppends(), [
             'status_label',
             'status_color',
+            'status_labels',
 
+            'featured_labels',
             'featured_label',
             'featured_color',
             'featured_btn_label',
             'featured_btn_color',
-            'featured_labels',
+
         ]);
     }
 
@@ -69,7 +71,7 @@ class Auction extends BaseModel
     }
 
     public const STATUS_SCHEDULED = 1;
-    public const STATUS_ACTIVE = 2;
+    public const STATUS_OPEN = 2;
     public const STATUS_CLOSED = 3;
     public const STATUS_CANCELLED = 4;
 
@@ -77,31 +79,44 @@ class Auction extends BaseModel
     {
         return [
             self::STATUS_SCHEDULED => 'Scheduled',
-            self::STATUS_ACTIVE => 'Active',
+            self::STATUS_OPEN => 'Open',
             self::STATUS_CLOSED => 'Closed',
             self::STATUS_CANCELLED => 'Cancelled',
         ];
     }
 
-    public function getStatusLabelAttribute(): array
+    // Status colors
+    public static function getStatusColors(): array
+    {
+        return [
+            self::STATUS_SCHEDULED => 'bg-info',
+            self::STATUS_OPEN => 'bg-primary',
+            self::STATUS_CLOSED => 'bg-success',
+            self::STATUS_CANCELLED => 'bg-danger',
+        ];
+    }
+
+    // Accessor for Status labels
+
+    public function getStatusLabelsAttribute(): array
+    {
+        return self::getStatusLabels();
+    }
+
+
+    // Accessor for Status label
+    public function getStatusLabelAttribute(): string
     {
         return self::getStatusLabels()[$this->status] ?? 'Unknown';
     }
 
-    public function getStatusColors(): array
-    {
-        return [
-            self::STATUS_SCHEDULED => 'warning',
-            self::STATUS_ACTIVE => 'primary',
-            self::STATUS_CLOSED => 'success',
-            self::STATUS_CANCELLED => 'danger',
-        ];
-    }
-
+    // Accessor for Status color
     public function getStatusColorAttribute(): string
     {
-        return $this->getStatusColors()[$this->status] ?? 'secondary';
+        return self::getStatusColors()[$this->status] ?? 'bg-secondary';
     }
+
+    // Featured labels
 
     public const FEATURED_YES = 1;
     public const FEATURED_NO = 0;
@@ -109,36 +124,66 @@ class Auction extends BaseModel
     public static function getFeaturedLabels(): array
     {
         return [
-            self::FEATURED_YES => 'Yes',
             self::FEATURED_NO => 'No',
+            self::FEATURED_YES => 'Yes',
         ];
     }
 
+
+
+    // Featured colors
+    public static function getFeaturedColors(): array
+    {
+        return [
+            self::FEATURED_NO => 'bg-warning',
+            self::FEATURED_YES => 'bg-info',
+        ];
+    }
+
+    // Featured btn labels
     public static function getFeaturedBtnLabels(): array
     {
         return [
-            self::FEATURED_YES => 'Remove From Featured',
             self::FEATURED_NO => 'Make Featured',
+            self::FEATURED_YES => 'Remove From Featured',
         ];
     }
 
-    public function getFeaturedLabelAttribute(): array
+    // Featured btn colors
+    public static function getFeaturedBtnColors(): array
+    {
+        return [
+            self::FEATURED_NO => 'btn btn-info',
+            self::FEATURED_YES => 'btn btn-warning',
+        ];
+    }
+
+    // Accessor for featured labels
+    public function getFeaturedLabelsAttribute(): array
+    {
+        return self::getFeaturedLabels();
+    }
+
+    // Accessor for featured label
+    public function getFeaturedLabelAttribute(): string
     {
         return self::getFeaturedLabels()[$this->is_featured] ?? 'Unknown';
     }
+    // Accessor for featured color
+    public function getFeaturedColorAttribute(): string
+    {
+        return self::getFeaturedColors()[$this->is_featured] ?? 'bg-secondary';
+    }
 
-    public function getFeaturedBtnLabelAttribute(): array
+    // Accessor for featured label
+    public function getFeaturedBtnLabelAttribute(): string
     {
         return self::getFeaturedBtnLabels()[$this->is_featured] ?? 'Unknown';
     }
 
-    public function getFeaturedColorAttribute(): string
-    {
-        return $this->status == self::FEATURED_YES ? 'bg-success' : 'bg-warning';
-    }
-
+    // Accessor for featured btn color
     public function getFeaturedBtnColorAttribute(): string
     {
-        return $this->status == self::FEATURED_YES ? 'bg-primary' : 'bg-info';
+        return self::getFeaturedBtnColors()[$this->is_featured] ?? 'btn btn-secondary';
     }
 }
