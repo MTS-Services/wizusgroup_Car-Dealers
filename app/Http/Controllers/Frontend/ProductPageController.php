@@ -14,37 +14,33 @@ use Illuminate\Http\Request;
 class ProductPageController extends Controller
 {
 
-    public function profuctFilter(ProductFilterRequest $request): RedirectResponse
+    public function productFilter(ProductFilterRequest $request, $category_slug): RedirectResponse
     {
-        $data = [];
-        if ($request->input("subcategory")) {
+        $data['category_slug'] = $category_slug;
+        if (!empty($request->input("subcategory"))) {
             $data["subcategory"] = $request->input("subcategory");
         }
-        if ($request->input("brand")) {
+        if (!empty($request->input("brand"))) {
             $data["brand"] = $request->input("brand");
         }
-        if ($request->input("model")) {
+        if (!empty(request()->input("model"))) {
             $data["model"] = $request->input("model");
         }
-        if ($request->input("year")) {
+        if (!empty(request()->input("year"))) {
             $data["year"] = $request->input("year");
         }
-        if ($request->input("start_price")) {
+        if (!empty(request()->input("start_price"))) {
             $data["start_price"] = $request->input("start_price");
         }
-        if ($request->input("end_price")) {
-            $data["start_price"] = $request->input("end_price");
+        if (!empty(request()->input("end_price"))) {
+            $data["end_price"] = $request->input("end_price");
         }
         return redirect()->route('frontend.products', $data);
 
     }
-
-
-
-
      public function products(Request $request, $category_slug): View
     {
-        $query = Product::with(['category','company','brand','model','primaryImage'])->whereHas('category', function ($query) use ($category_slug) {
+        $query = Product::with(['category','company','brand','model','primaryImage','subCategory'])->whereHas('category', function ($query) use ($category_slug) {
             $query->where('slug', $category_slug);
         });
 

@@ -22,9 +22,9 @@ class ProductFilterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "subcategory"=> "nullable|exists:categories,id",
-            "brand"=> "nullable|exists:brands,id",
-            "model"=> "nullable|exists:models,id",
+            "subcategory"=> "nullable|exists:categories,slug",
+            "brand"=> "nullable|exists:brands,slug",
+            "model"=> "nullable|exists:models,slug",
             "year"=> "nullable",
             "start_price"=> "nullable|min:0|numeric",
             "end_price"=> "nullable|min:0|numeric",
