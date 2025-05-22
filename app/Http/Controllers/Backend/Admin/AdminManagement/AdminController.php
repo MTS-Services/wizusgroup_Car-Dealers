@@ -191,7 +191,8 @@ class AdminController extends Controller
          try {
             $validated = $request->validated();
             $validated['role_id'] = $request->role;
-            $this->adminService->createAdmin($validated, $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->adminService->createAdmin($validated, $file);
             session()->flash('success', 'Admin created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Admin create failed!');
@@ -229,7 +230,8 @@ class AdminController extends Controller
             $admin = $this->adminService->getAdmin($id);
             $validated = $request->validated();
             $validated['role_id'] = $request->role;
-            $this->adminService->updateAdmin($admin,$validated,  $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->adminService->updateAdmin($admin,$validated,  $file);
             session()->flash('success', 'Admin updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Admin update failed!');

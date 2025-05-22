@@ -21,11 +21,11 @@ return new class extends Migration
             $table->bigInteger('sort_order')->default(0)->index();
             $table->string('title')->index();
             $table->string('subtitle')->nullable()->index();
-            $table->string('image');
-            $table->string('url');
+            $table->string('image')->nullable();
+            $table->string('url')->nullable();
             $table->boolean('status')->default(Banner::STATUS_ACTIVE)->index();
-            $table->date('start_date')->index();
-            $table->date('end_date')->index();
+            $table->date('start_date')->nullable()->index();
+            $table->date('end_date')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);

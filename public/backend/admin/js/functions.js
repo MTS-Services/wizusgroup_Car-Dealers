@@ -181,6 +181,25 @@ function getBrands(companyId, route, brandId = null) {
             toastr.error('Failed to load brands.', error);
         });
 }
+function getInfoCatTypes(proInfoCatId, route, proInfoCatTypeId = null) {
+    axios.post(route, { product_info_cat_id: proInfoCatId })
+        .then(function (response) {
+            if (response.data.product_info_cat_types.length > 0) {
+                $('#product_info_cat_type_id').html(`<option value="" selected hidden>Select Product Info Category Type</option>`);
+                response.data.product_info_cat_types.forEach(function (type) {
+                    $('#product_info_cat_type_id').append(`<option value="${type.id}" ${type.id == proInfoCatTypeId ? 'selected' : ''}>${type.name}</option>`);
+                });
+                $('#product_info_cat_type_id').prop('disabled', false);
+            } else {
+                $('#product_info_cat_type_id').html(`<option value="" selected hidden>Select Product Info Category Type</option>`).prop('disabled', true);
+            }
+        })
+        .catch(function (error) {
+            console.error(error);
+            $('#product_info_cat_type_id').html(`<option value="" selected hidden>Select Product Info Category Type</option>`).prop('disabled', true);
+            toastr.error('Failed to load product info category types.', error);
+        });
+}
 
 function getModels({
     companyId = null,
@@ -189,29 +208,33 @@ function getModels({
     modelId = null
 }) {
     let axiosCall;
-    if(companyId){
-        axiosCall =axios.post(route, {company_id: companyId});
-    }else if(brandId){
-        axiosCall =axios.post(route, {brand_id: brandId});
-    }else{
+    if (companyId) {
+        axiosCall = axios.post(route, { company_id: companyId });
+    } else if (brandId) {
+        axiosCall = axios.post(route, { brand_id: brandId });
+    } else {
         toastr.error('Failed to load models.', 'Please select company or brand.');
         return;
     }
-        axiosCall.then(function (response) {
-            if (response.data.models.length > 0) {
-                $('#brand_id').html(`<option value="" selected hidden>Select Model</option>`);
-                response.data.models.forEach(function (model) {
-                    $('#model_id').append(`<option value="${model.id}" ${model.id == modelId ? 'selected' : ''}>${model.name}</option>`);
-                });
-                $('#model_id').prop('disabled', false);
-            } else {
-                $('#model_id').html(`<option value="" selected hidden>Select Model</option>`).prop('disabled', true);
-            }
-        })
+    axiosCall.then(function (response) {
+        if (response.data.models.length > 0) {
+            $('#brand_id').html(`<option value="" selected hidden>Select Model</option>`);
+            response.data.models.forEach(function (model) {
+                $('#model_id').append(`<option value="${model.id}" ${model.id == modelId ? 'selected' : ''}>${model.name}</option>`);
+            });
+            $('#model_id').prop('disabled', false);
+        } else {
+            $('#model_id').html(`<option value="" selected hidden>Select Model</option>`).prop('disabled', true);
+        }
+    })
         .catch(function (error) {
             console.error(error);
             $('#model_id').html(`<option value="" selected hidden>Select Model</option>`).prop('disabled', true);
             toastr.error('Failed to load models.', error);
         });
 }
+
+
+
+
 

@@ -77,6 +77,24 @@
                         </ul>
                     </div>
                 </li>
+                {{-- User Management  --}}
+                <li class="nav-item  @if ($page_slug == 'supplier') active submenu @endif">
+                    <a data-bs-toggle="collapse" href="#supplier_management"
+                        @if ($page_slug == 'supplier') aria-expanded="true" @endif>
+                        <i class="icon-people"></i>
+                        <p>{{ __('Supplier Management') }}</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse @if ($page_slug == 'supplier') show @endif" id="supplier_management">
+                        <ul class="nav nav-collapse">
+                            <li class="@if ($page_slug == 'supplier') active @endif">
+                                <a href="{{ route('sm.supplier.index') }}">
+                                    <span class="sub-item">{{ __('Supplier') }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
                 {{-- Setup Management  --}}
                 <li class="nav-item  @if (
@@ -134,18 +152,38 @@
                 </li>
 
                 {{-- Product Management --}}
-                <li class="nav-item  @if ($page_slug == 'category' || $page_slug == 'subcategory' || $page_slug == 'subchildcategory' || $page_slug == 'company' || $page_slug == 'brand' || $page_slug == 'model') active submenu @endif">
+                <li class="nav-item  @if ($page_slug == 'category' || $page_slug == 'subcategory' || $page_slug == 'subchildcategory' || $page_slug == 'company' || $page_slug == 'brand' || $page_slug == 'model' || $page_slug == 'product_info_cat' || $page_slug == 'product_info_cat_type' || $page_slug == 'product-info-category-type-feature') active submenu @endif">
                     <a data-bs-toggle="collapse" href="#product_management"
-                        @if ($page_slug == 'category' || $page_slug == 'subcategory' || $page_slug == 'subchildcategory' || $page_slug == 'company' || $page_slug == 'brand' || $page_slug == 'model') aria-expanded="true" @endif>
+                        @if ($page_slug == 'category' || $page_slug == 'subcategory' || $page_slug == 'subchildcategory' || $page_slug == 'company' || $page_slug == 'brand' || $page_slug == 'model'|| $page_slug == 'product_info_cat'|| $page_slug == 'product_info_cat_type' || $page_slug == 'product-info-category-type-feature') aria-expanded="true" @endif>
                         <i class="icon-people"></i>
                         <p>{{ __('Product Management') }}</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse @if ($page_slug == 'category' || $page_slug == 'subcategory' || $page_slug == 'subchildcategory' || $page_slug == 'company' || $page_slug == 'brand' || $page_slug == 'model') show @endif" id="product_management">
+                    <div class="collapse @if ($page_slug == 'category' || $page_slug == 'subcategory' || $page_slug == 'subchildcategory' || $page_slug == 'company' || $page_slug == 'brand' || $page_slug == 'model'|| $page_slug == 'product_info_cat'|| $page_slug == 'product_info_cat_type' || $page_slug == 'product-info-category-type-feature') show @endif" id="product_management">
                         <ul class="nav nav-collapse">
+                            <li class="@if ($page_slug == 'product_attribute') active @endif">
+                                <a href="{{ route('pm.product-attribute.index') }}">
+                                    <span class="sub-item">{{ __('Product Attribute') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'product_attribute_value') active @endif">
+                                <a href="{{ route('pm.product-attr-value.index') }}">
+                                    <span class="sub-item">{{ __('Product Attribute Value') }}</span>
+                                </a>
+                            </li>
                             <li class="@if ($page_slug == 'company') active @endif">
                                 <a href="{{ route('pm.company.index') }}">
                                     <span class="sub-item">{{ __('Company') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'tax_class') active @endif">
+                                <a href="{{ route('pm.tax-class.index') }}">
+                                    <span class="sub-item">{{ __('Tax Class') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'tax_rate') active @endif">
+                                <a href="{{ route('pm.tax-rate.index') }}">
+                                    <span class="sub-item">{{ __('Tax Rate') }}</span>
                                 </a>
                             </li>
                             <li class="@if ($page_slug == 'brand') active @endif">
@@ -171,6 +209,21 @@
                             <li class="@if ($page_slug == 'subchildcategory') active @endif">
                                 <a href="{{ route('pm.sub-child-category.index') }}">
                                     <span class="sub-item">{{ __('Sub Child Category') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'product_info_cat') active @endif">
+                                <a href="{{ route('pm.product-info-category.index') }}">
+                                    <span class="sub-item">{{ __('Product Info Category') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'product_info_cat_type') active @endif">
+                                <a href="{{ route('pm.product-info-category-type.index') }}">
+                                    <span class="sub-item">{{ __('Pro Info Cat Type') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'product_info_cat_type_feature') active @endif">
+                                <a href="{{ route('pm.pro-info-cat-tf.index') }}">
+                                    <span class="sub-item">{{ __('Pro Info Cat Type Feature') }}</span>
                                 </a>
                             </li>
                         </ul>
@@ -213,12 +266,12 @@
                         <p>{{ __('Documentation') }}</p>
                     </a>
                 </li>
-                <li class="nav-item  @if ($page_slug == 'temp_file') active @endif">
+                {{-- <li class="nav-item  @if ($page_slug == 'temp_file') active @endif">
                     <a href="{{ route('temp.index') }}">
                         <i class="icon-trash"></i>
                         <p>{{ __('Temporary Files') }}</p>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item  @if ($page_slug == 'site_setting') active @endif">
                     <a href="{{ route('site_setting.index') }}">
                         <i class="icon-settings"></i>

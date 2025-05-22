@@ -175,7 +175,7 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full btn-primary px-4 rounded-md mt-4">
+                                    class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
@@ -225,7 +225,7 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
+                                    class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
@@ -275,7 +275,7 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
+                                    class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
@@ -325,7 +325,7 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
+                                    class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
@@ -375,7 +375,7 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
+                                    class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
@@ -425,7 +425,7 @@
 
                                 <!-- Bid Button -->
                                 <button onclick="openModal()"
-                                    class="w-full bg-bg-primary hover:bg-bg-tertiary text-text-white font-medium py-2 px-4 rounded mt-4 transition duration-300">
+                                    class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
                                     {{ __('Place Bid') }}
                                 </button>
                             </div>
@@ -456,7 +456,7 @@
                     </div>
 
                     <button onclick="submitBid()"
-                        class="w-full bg-bg-primary text-text-white py-2 rounded-md hover:bg-bg-tertiary transition">
+                        class="w-full btn-primary py-2 rounded-md hover:bg-bg-tertiary transition">
                         Submit Bid
                     </button>
                 </div>

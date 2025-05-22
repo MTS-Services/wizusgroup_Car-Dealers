@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             OperationAreaSeeder::class,
             OperationSubAreaSeeder::class,
-            
+
             BannerSeeder::class,
             AddressSeeder::class,
             FaqSeeder::class,

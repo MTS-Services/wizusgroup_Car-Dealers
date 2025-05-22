@@ -6,18 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserRequest;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Traits\DetailsCommonDataTrait;
-use App\Http\Traits\FileManagementTrait;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Services\Admin\UserManagement\UserService;
 
 class UserController extends Controller
 {
-    use FileManagementTrait, DetailsCommonDataTrait;
-    public function __construct()
+    use DetailsCommonDataTrait;
+
+    protected UserService $userService;
+
+    public function __construct(UserService $userService)
     {
+        $this->userService = $userService;
+
         $this->middleware('auth:admin');
         $this->middleware('permission:user-list', ['only' => ['index']]);
         $this->middleware('permission:user-details', ['only' => ['show']]);
@@ -36,9 +41,8 @@ class UserController extends Controller
     {
 
         if ($request->ajax()) {
-            $query = User::with(['creater'])
-                ->orderBy('sort_order', 'asc')
-                ->latest();
+            $query = $this->userService->getUsers()
+                ->with(['creater']);
             return DataTables::eloquent($query)
                 ->editColumn('first_name', function ($user) {
                     return $user->full_name . ($user->username ? " (" . $user->username . ")" : "");
@@ -76,18 +80,17 @@ class UserController extends Controller
                 'permissions' => ['user-details']
             ],
             [
-                'routeName' => 'um.user.status',
-                'params' => [encrypt($model->id)],
-                'label' => $model->status_btn_label,
-                'permissions' => ['user-status']
-            ],
-            [
                 'routeName' => 'um.user.edit',
                 'params' => [encrypt($model->id)],
                 'label' => 'Edit',
                 'permissions' => ['user-edit']
             ],
-
+            [
+                'routeName' => 'um.user.status',
+                'params' => [encrypt($model->id)],
+                'label' => $model->status_btn_label,
+                'permissions' => ['user-status']
+            ],
             [
                 'routeName' => 'um.user.destroy',
                 'params' => [encrypt($model->id)],
@@ -101,13 +104,9 @@ class UserController extends Controller
 
     public function recycleBin(Request $request)
     {
-
         if ($request->ajax()) {
-            $query = User::with(['deleter'])
-                ->onlyTrashed()
-                ->orderBy('sort_order', 'asc')
-                ->latest();
-
+            $query = $this->userService->getUsers()->onlyTrashed()
+            ->with(['deleter']);
             return DataTables::eloquent($query)
                 ->editColumn('first_name', function ($user) {
                     return $user->full_name . ($user->username ? " (" . $user->username . ")" : "");
@@ -167,11 +166,14 @@ class UserController extends Controller
      */
     public function store(UserRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
-        $validated['creater_id'] = admin()->id;
-        $validated['creater_type'] = get_class(admin());
-        User::create($validated);
-        session()->flash('success', 'User created successfully!');
+        try {
+            $validated = $request->validated();
+            $this->userService->createUser($validated, $request->file('image') ?? null);
+            session()->flash('success', 'User created successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'User create failed!');
+            throw $e;
+        }
         return redirect()->route('um.user.index');
     }
 
@@ -180,7 +182,8 @@ class UserController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $data = User::with(['creater', 'updater'])->findOrFail(decrypt($id));
+        $data = $this->userService->getUser($id);
+        $data->load(['creater', 'updater']);
         return response()->json($data);
     }
 
@@ -189,7 +192,7 @@ class UserController extends Controller
      */
     public function edit(string $id): View
     {
-        $data['user'] = User::findOrFail(decrypt($id));
+        $data['user'] = $this->userService->getUser($id);
         return view('backend.admin.user_management.user.edit', $data);
     }
 
@@ -198,13 +201,15 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, string $id): RedirectResponse
     {
-        $user = User::findOrFail(decrypt($id));
-        $validated = $request->validated();
-        $validated['updater_id'] = admin()->id;
-        $validated['password'] = ($request->password ? $request->password : $user->password);
-        $validated['updater_type'] = get_class(admin());
-        $user->update($validated);
-        session()->flash('success', 'User updated successfully!');
+        try {
+            $user = $this->userService->getUser($id);
+            $validated = $request->validated();
+            $this->userService->updateUser($user, $validated, $request->file('image') ?? null);
+            session()->flash('success', 'User updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'User update failed!');
+            throw $e;
+        }
         return redirect()->route('um.user.index');
     }
 
@@ -213,26 +218,38 @@ class UserController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
-        $user = User::findOrFail(decrypt($id));
-        $user->update(['deleter_id' => admin()->id, 'deleter_type' => get_class(admin())]);
-        $user->delete();
-        session()->flash('success', 'User deleted successfully!');
+        try {
+            $user = $this->userService->getUser($id);
+            $this->userService->delete($user);
+            session()->flash('success', 'User deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'User delete failed!');
+            throw $e;
+        }
         return redirect()->route('um.user.index');
     }
 
     public function status(string $id): RedirectResponse
     {
-        $user = User::findOrFail(decrypt($id));
-        $user->update(['status' => !$user->status, 'updater_id' => admin()->id, 'updater_type' => get_class(admin())]);
-        session()->flash('success', 'User status updated successfully!');
+        try {
+            $user = $this->userService->getUser($id);
+            $this->userService->toggleStatus($user);
+            session()->flash('success', 'User status updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'User status update failed!');
+            throw $e;
+        }
         return redirect()->route('um.user.index');
     }
     public function restore(string $id): RedirectResponse
     {
-        $user = User::onlyTrashed()->findOrFail(decrypt($id));
-        $user->update(['updated_by' => admin()->id]);
-        $user->restore();
-        session()->flash('success', 'User restored successfully!');
+        try {
+            $this->userService->restore($id);
+            session()->flash('success', 'User restored successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'User restore failed!');
+            throw $e;
+        }
         return redirect()->route('um.user.recycle-bin');
     }
 
@@ -244,12 +261,13 @@ class UserController extends Controller
      */
     public function permanentDelete(string $id): RedirectResponse
     {
-        $user = User::onlyTrashed()->findOrFail(decrypt($id));
-        $user->forceDelete();
-        if($user->image){
-            $this->fileDelete($user->image);
+        try {
+            $this->userService->permanentDelete($id);
+            session()->flash('success', 'User permanently deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'User permanent delete failed!');
+            throw $e;
         }
-        session()->flash('success', 'User permanently deleted successfully!');
         return redirect()->route('um.user.recycle-bin');
     }
 }

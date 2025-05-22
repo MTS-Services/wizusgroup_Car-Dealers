@@ -13,7 +13,7 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="header text-center mb-8 md:mb-12 lg:mb-16">
                 <h1
-                    class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold text-text-secondary dark:text-text-light">
+                    class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-5xl font-semibold text-text-secondary dark:text-text-light">
                     {{ __('Simple, Fast, and Secure Process') }}
                 </h1>
             </div>
@@ -233,7 +233,7 @@
     <section class="2xl:py-15 xl:py-12 lg:py-10 md:py-7 py-5 bg-bg-light-secondary">
         <div class="container mx-auto">
             <div class=" p-6  ">
-                <h2 class="text-2xl md:text-3xl font-semibold text-text-secondary dark:text-text-white mb-4">
+                <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold text-text-secondary dark:text-text-white mb-4">
                     {{ __('Eligibility Criteria and documents required for loan approval') }}
                 </h2>
                 <p class="text-text-primary dark:text-text-white text-sm md:text-base mt-4">

@@ -10,6 +10,7 @@ class Supplier extends AuthBaseModel
     use HasFactory;
 
     protected $fillable = [
+        'sort_order',
         'first_name',
         'last_name',
         'username',
