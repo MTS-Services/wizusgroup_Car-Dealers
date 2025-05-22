@@ -206,8 +206,26 @@ class Auction extends BaseModel
         return self::getFeaturedBtnColors()[$this->is_featured] ?? 'btn btn-secondary';
     }
 
+    // Scope Functions 
     public function scopeFeatured($query)
     {
         return $query->where('is_featured', self::FEATURED_YES);
+    }
+
+    public function scopeOpen($query)
+    {
+        return $query->where('status', self::STATUS_OPEN);
+    }
+    public function scopeScheduled($query)
+    {
+        return $query->where('status', self::STATUS_SCHEDULED);
+    }
+    public function scopeClosed($query)
+    {
+        return $query->where('status', self::STATUS_CLOSED);
+    }
+    public function scopeCancelled($query)
+    {
+        return $query->where('status', self::STATUS_CANCELLED);
     }
 }

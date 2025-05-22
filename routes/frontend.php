@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\AuctionController;
 use App\Http\Controllers\Frontend\AuctionDetailsPageController;
 use App\Http\Controllers\Frontend\HomePageController;
 use Illuminate\Support\Facades\Route;
@@ -16,17 +17,17 @@ Route::group(['as' => 'frontend.'], function () {
   // Contact Page
   Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
   // Auction Page
-  Route::get('/auction', [FrontendController::class, 'auction'])->name('auction');
+  Route::get('/auction', [AuctionController::class, 'auction'])->name('auction');
   // Auction Details Page
-  Route::get('/auction-details', [AuctionDetailsPageController::class, 'auction_details'])->name('auction-details');
+  Route::get('/auction/{slug}', [AuctionController::class, 'auctionDetails'])->name('auction-details');
   // Parts & Accessories Page
   Route::get('/parts-accessories', [FrontendController::class, 'parts_accessories'])->name('parts-accessories');
-//  Product Details Page
+  //  Product Details Page
   Route::get('/product-details', [FrontendController::class, 'product_details'])->name('product_details');
-// group Shipping page
-Route::get('/group-shipping', [GroupShippingPageController::class, 'group_shipping'])->name('group_shipping');
-// droopshipping
-Route::get('/dropshipping', [FrontendController::class, 'dropshipping'])->name('dropshipping');
-// Regions
-Route::get('/regions', [FrontendController::class, 'regions'])->name('regions');
+  // group Shipping page
+  Route::get('/group-shipping', [GroupShippingPageController::class, 'group_shipping'])->name('group_shipping');
+  // droopshipping
+  Route::get('/dropshipping', [FrontendController::class, 'dropshipping'])->name('dropshipping');
+  // Regions
+  Route::get('/regions', [FrontendController::class, 'regions'])->name('regions');
 });

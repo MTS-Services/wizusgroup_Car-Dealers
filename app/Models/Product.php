@@ -164,14 +164,19 @@ class Product extends BaseModel
     }
 
 
-    public function productImages(): HasMany
+    public function images(): HasMany
     {
         return $this->hasMany(ProductImage::class, 'product_id', 'id');
     }
-    public function productActiveImages(): HasMany
+    public function primaryImage(): HasMany
     {
-        return $this->productImages()->active();
+        return $this->images()->primary();
     }
+    public function activeImages(): HasMany
+    {
+        return $this->images()->active();
+    }
+
 
 
     public const STATUS_ACTIVE = 1;
