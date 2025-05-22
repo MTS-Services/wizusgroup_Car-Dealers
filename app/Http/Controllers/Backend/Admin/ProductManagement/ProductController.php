@@ -348,9 +348,10 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        $data = $this->productService->getProduct($id);
-        $data->load(['creater_admin']);
-        return dd($data);
+        $data['supplier'] = Supplier::select('id', 'first_name')->get();
+        $data['product'] = $this->productService->getProduct($id);
+        $data['product']->load(['creater_admin']);
+        return view('backend.admin.product_management.product.details', $data);
     }
 
     /**
