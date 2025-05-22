@@ -51,7 +51,8 @@
                 @include('frontend.layouts.includes.product_filter_sidebar')
                 <div class="w-1/4 hidden xl:block">
                     {{-- Sidebar Filter --}}
-                    <form action="">
+                    <form action="{{route('frontend.products.filter', ['category_slug' => $category->slug])}}" method="POST">
+                        @csrf
                         <div class="shadow-card rounded-lg dark:bg-bg-dark-tertiary">
                             <!-- Category Filter -->
                                 <div class="p-4 pb-0">
@@ -120,9 +121,9 @@
                                     <div class="mt-2">
                                         <select name="year" id="year"
                                             class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
-                                            <option value="">{{__('All')}}</option>
+                                            <option value=" ">{{__('All')}}</option>
                                             @for ($i = date('Y'); $i >= 1900; $i--)
-                                                <option value="{{ $i }}" {{request()->year == $brand->year ? 'selected' : ''}}>{{ $i }}</option>
+                                                <option value="{{ $i }}" {{request()->year == $i ? 'selected' : ''}}>{{ $i }}</option>
                                             @endfor
                                         </select>
                                     </div>
@@ -148,7 +149,7 @@
                                         <p class="text-sm lg:text-base">
                                             {{ __('Price:') }} <span
                                                 class="text-text-danger min-price">${{request()->start_price ?? 20}}</span> -
-                                            <span class="text-text-danger max-price">${{request()->start_price ?? 50000}}</span>
+                                            <span class="text-text-danger max-price">${{request()->end_price ?? 50000}}</span>
                                         </p>
                                     </div>
                                 </div>

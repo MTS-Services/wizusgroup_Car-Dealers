@@ -14,6 +14,7 @@ Route::group(['as' => 'frontend.'], function () {
   Route::get('/about', [FrontendController::class, 'about'])->name('about');
   // Product Page
   Route::get('/products/{category_slug}', [ProductPageController::class, 'products'])->name('products');
+  Route::post('/products-filter/{category_slug}', [ProductPageController::class, 'productFilter'])->name('products.filter');
   // Contact Page
   Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
   // Auction Page
