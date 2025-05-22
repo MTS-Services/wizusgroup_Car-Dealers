@@ -97,12 +97,27 @@
                 </div>
                 <div class="w-full xl:w-3/4">
                     {{-- Products Grid --}}
-                    <div class="flex items-center gap-2 md:gap-3 mb-4">
-                        <button
-                            class="openAuctionFilterSidebar btn px-2 py-0 rounded-md bg-transparent border-bg-accent dark:border-bg-light dark:border-opacity-50 text-text-accent text-sm font-medium  xs:px-5 xs:py-2 lg:text-base w-fit text-nowrap xl:hidden">
-                            <span><i data-lucide="sliders-horizontal" class="w-4 h-4 md:w-5 md:h-5"></i></span>
-                            <span class="">{{ __('Filter') }}</span>
-                        </button>
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="flex items-center gap-2 md:gap-3">
+                            <button
+                                class="openAuctionFilterSidebar btn px-2 py-0 rounded-md bg-transparent border-bg-accent dark:border-bg-light dark:border-opacity-50 text-text-accent text-sm font-medium  xs:px-5 xs:py-2 lg:text-base w-fit text-nowrap xl:hidden">
+                                <span><i data-lucide="sliders-horizontal" class="w-4 h-4 md:w-5 md:h-5"></i></span>
+                                <span class="">{{ __('Filter') }}</span>
+                            </button>
+                            <h2 class="text-sm xs:text-base md:text-lg  font-semibold">{{ __('Sort') }}
+                                <span>{{ number_format(count($auctions)) }}</span>
+                            </h2>
+                        </div>
+                        <div class="flex items-center">
+                            <select
+                                class="border border-border-gray dark:border-opacity-20 shadow-card focus:outline-none rounded-md px-2 py-1 text-sm "
+                                id="sort-select">
+                                <option>{{ __('Price: Low to High') }}</option>
+                                <option>{{ __('Price: High to Low') }}</option>
+                                <option>{{ __('Newest First') }}</option>
+                                <option>{{ __('Oldest First') }}</option>
+                            </select>
+                        </div>
                     </div>
 
                     <!-- Loading Indicator -->
