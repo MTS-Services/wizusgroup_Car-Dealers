@@ -46,20 +46,64 @@
         </div>
 
         <!-- Bid Button -->
-        <button onclick="openModal()" class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
+        <button onclick="document.getElementById('{{ $auction->id }}-modal').showModal()"
+            class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
             {{ __('Place Bid') }}
         </button>
     </div>
 </div>
 
+<dialog id="{{ $auction->id }}-modal" class="modal">
+    <div class="modal-box bg-bg-light dark:bg-bg-dark-tertiary p-6 rounded-lg w-full max-w-sm shadow-lg">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold">{{ __('Place Your Bid') }}</h2>
+            <form method="dialog">
+                <button onclick="closeModal()"
+                    class="text-text-primary hover:text-text-tertiary text-2xl dark:text-text-light btn btn-sm btn-circle btn-ghost"><i
+                        data-lucide="x" class="w-4 h-4"></i></button>
+            </form>
+        </div>
+        <form action="" class="space-y-4">
+            <div>
+                <label
+                    class="block text-sm font-medium text-text-primary dark:text-text-light text-opacity-50">{{ __('Your Bid (USD)') }}</label>
+                <input type="number" id="bidAmount"
+                    class="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-bg-primary"
+                    placeholder="Enter your bid" />
+            </div>
+
+            <button class="w-full btn-primary py-2 rounded-md hover:bg-bg-tertiary transition">
+                {{ __('Submit Bid') }}
+            </button>
+        </form>
+    </div>
+</dialog>
+
+{{-- Countdown Timer --}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const expireDate = $('#timer-{{ $auction->id }}');
-        const endDate = moment(expireDate.data(
-        'enddate')); // 'data-enddate' auto converts to camelCase in jQuery `.data()`
+        const timer = document.getElementById('timer-{{ $auction->id }}');
+        const endDate = moment(timer.dataset.enddate); // Read from data-enddate
 
-        // Display time remaining from now
-        expireDate.html(endDate.fromNow());
+        function updateCountdown() {
+            const now = moment();
+            const duration = moment.duration(endDate.diff(now));
 
-    })
+            if (duration.asSeconds() <= 0) {
+                timer.innerText = 'Expired';
+                clearInterval(interval);
+                return;
+            }
+
+            const days = Math.floor(duration.asDays());
+            const hours = duration.hours();
+            const minutes = duration.minutes();
+            const seconds = duration.seconds();
+
+            timer.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        updateCountdown(); // Initial call
+        const interval = setInterval(updateCountdown, 1000);
+    });
 </script>
