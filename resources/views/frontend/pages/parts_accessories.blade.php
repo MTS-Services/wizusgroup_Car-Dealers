@@ -45,20 +45,22 @@
                         <h2
                             class="text-lg md:text-xl font-semibold capitalize border-b bg-bg-light dark:bg-bg-light dark:bg-opacity-20 border-border-gray dark:border-opacity-50 p-4">
                             {{ __(' Auction fillters') }}</h2>
-                        <div class="px-4">
+                        <div class="p-4 pb-0">
                             <div data-target="category-filter">
-                                <h3 class="text-sm md:text-base font-medium">{{ __('Category') }}</h3>
+                                <h3 class="text-xl font-medium">{{ __('Category') }}</h3>
                             </div>
 
                             <div class="filter-content" id="category-filter">
                                 <div class="mt-2">
                                     <select
-                                        class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
-                                        <option>{{ __('All Agricultural') }}</option>
-                                        <option>{{ __('Tractors') }}</option>
-                                        <option>{{ __('Harvesters') }}</option>
-                                        <option>{{ __('Plows') }}</option>
-                                        <option>{{ __('Seeders') }}</option>
+                                        class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2"
+                                        name="subcategory" id="subcategory">
+                                        <option value="">{{ __('All Agricultural') }}</option>
+                                        @foreach ($category->childrens as $children)
+                                            <option value="{{ $children->slug }}"
+                                                {{ request()->category == $children->slug ? 'selected' : '' }}>
+                                                {{ $children->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -142,7 +144,7 @@
                         @foreach ($products as $product)
                             <x-frontend.parts-accessories :product="$product" />
                         @endforeach
-                       
+
                     </div>
                 </div>
             </div>

@@ -27,6 +27,8 @@ Route::group(['as' => 'frontend.'], function () {
   Route::get('/auction/{slug}', [AuctionPageController::class, 'auctionDetails'])->name('auction-details');
   // Parts & Accessories Page
   Route::get('/parts-accessories', [PartsAccessoriesPageController::class, 'parts'])->name('parts-accessories');
+  Route::post('/parts-accessories-filter', [PartsAccessoriesPageController::class, 'productFilter'])->name('parts-accessories.filter');
+
   //  Product Details Page
 
   // group Shipping page
