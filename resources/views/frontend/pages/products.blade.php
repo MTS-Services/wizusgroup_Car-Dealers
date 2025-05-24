@@ -120,9 +120,11 @@
                                             <div class="absolute w-full h-1 bg-bg-dark bg-opacity-40 z-[1] rounded-full">
                                             </div>
                                             <div class="absolute h-1 z-[2] rounded-full bg-bg-primary slider-range"></div>
-                                            <input type="range" name="start_price" min="0" max="500000" value="{{request()->start_price ?? 20}}"
+                                            <input type="range" name="start_price" min="0" max="500000"
+                                                value="{{ request()->start_price ?? 20 }}"
                                                 class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none min-range">
-                                            <input type="range" min="0" name="end_price" max="500000" value="{{request()->end_price ?? 500000}}"
+                                            <input type="range" min="0" name="end_price" max="500000"
+                                                value="{{ request()->end_price ?? 500000 }}"
                                                 class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none max-range">
                                         </div>
                                     </div>
@@ -163,18 +165,23 @@
                                 <span class="ml-2 text-base">{{ __('Filter') }}</span>
                             </button>
                             <h2 class="text-sm xs:text-base md:text-lg  font-semibold">{{ __('Sort') }}
-                                <span>{{ number_format(count($products)) }}</span></h2>
+                                <span>{{ number_format(count($products)) }}</span>
+                            </h2>
                         </div>
                         <div class="flex items-center">
-                            <form action="{{route('frontend.products.filter', $category->slug)}}" method="POST" id="filter_form">
+                            <form action="{{ route('frontend.products.filter', $category->slug) }}" method="POST"
+                                id="filter_form">
                                 @csrf
-                                <select name="sort" id="sort-select"
-                                    class="border border-border-gray dark:border-opacity-20 shadow-card focus:outline-none rounded-md px-2 py-1 text-sm "
-                                    id="sort-select">
-                                    <option value="low_to_high" {{ request()->sort == 'low_to_high' ? 'selected' : ''}}>{{__('Price: High to Low')}}</option>
-                                    <option value="high_to_low" {{ request()->sort == 'high_to_low' ? 'selected' : ''}}>{{__('Price: Low to High')}}</option>
-                                    <option value="latest" {{ request()->sort == 'latest' ? 'selected' : ''}}>{{__('Newest First')}}</option>
-                                    <option value="oldest" {{ request()->sort == 'oldest' ? 'selected' : ''}}>{{__('Oldest First')}}</option>
+                                <select name="sort" id="sort-select" class="select">
+                                    <option value="" {{ request()->sort == '' ? 'selected' : '' }}>Default</option>
+                                    <option value="low_to_high" {{ request()->sort == 'low_to_high' ? 'selected' : '' }}>
+                                        {{ __('Price: High to Low') }}</option>
+                                    <option value="high_to_low" {{ request()->sort == 'high_to_low' ? 'selected' : '' }}>
+                                        {{ __('Price: Low to High') }}</option>
+                                    <option value="latest" {{ request()->sort == 'latest' ? 'selected' : '' }}>
+                                        {{ __('Newest First') }}</option>
+                                    <option value="oldest" {{ request()->sort == 'oldest' ? 'selected' : '' }}>
+                                        {{ __('Oldest First') }}</option>
                                 </select>
                             </form>
                         </div>

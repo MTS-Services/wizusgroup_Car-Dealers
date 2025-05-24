@@ -39,11 +39,10 @@ class ProductPageController extends Controller
             $data["end_price"] = $request->input("end_price");
         }
         return redirect()->route('frontend.products', $data);
-
     }
-     public function products(Request $request, $category_slug): View
+    public function products(Request $request, $category_slug): View
     {
-        $query = Product::with(['category','company','brand','model','primaryImage','subCategory'])->whereHas('category', function ($query) use ($category_slug) {
+        $query = Product::with(['category', 'company', 'brand', 'model', 'primaryImage', 'subCategory'])->whereHas('category', function ($query) use ($category_slug) {
             $query->where('slug', $category_slug);
         });
 
@@ -61,19 +60,18 @@ class ProductPageController extends Controller
                 $query->oldest();
             }
         }
-
         if ($request->input("subcategory")) {
-            $query->whereHas("subCategory", function ($query) use ($request){
+            $query->whereHas("subCategory", function ($query) use ($request) {
                 $query->where("slug", $request->input("subcategory"));
             });
         }
         if ($request->input("brand")) {
-            $query->whereHas("brand", function ($query) use ($request){
+            $query->whereHas("brand", function ($query) use ($request) {
                 $query->where("slug", $request->input("brand"));
             });
         }
         if ($request->input("model")) {
-            $query->whereHas("model", function ($query) use ($request){
+            $query->whereHas("model", function ($query) use ($request) {
                 $query->where("slug", $request->input("model"));
             });
         }
@@ -81,9 +79,9 @@ class ProductPageController extends Controller
             $query->where('year', $request->input("year"));
         }
         if ($request->input("start_price") && $request->input("end_price")) {
-             $query->whereBetween('price', [$request->input('start_price'), $request->input('end_price')]);
+            $query->whereBetween('price', [$request->input('start_price'), $request->input('end_price')]);
         }
-        $data['category'] = Category::with(['brands','models'])->where('slug', $category_slug)->first();
+        $data['category'] = Category::with(['brands', 'models'])->where('slug', $category_slug)->first();
         $data['products'] = $query->get();
         return view('frontend.pages.products', $data);
     }

@@ -18,6 +18,9 @@ class AuctionPageController extends Controller
     public function auctionFilter(AuctionFilterRequest $request): RedirectResponse
     {
         $data = [];
+        if (!empty($request->input("sort"))) {
+            $data["sort"] = $request->input("sort");
+        }
         if (!empty($request->input("category"))) {
             $data["category"] = $request->input("category");
         }
@@ -35,6 +38,20 @@ class AuctionPageController extends Controller
     {
         // dd($request->all());
         $query = Auction::with(['product.primaryImage', 'product.subCategory']);
+        if ($request->input("sort")) {
+            if ($request->input("sort") == "high_to_low") {
+                $query->orderBy('start_price', 'asc');
+            }
+            if ($request->input("sort") == "low_to_high") {
+                $query->orderBy('start_price', 'desc');
+            }
+            if ($request->input("sort") == "latest") {
+                $query->latest();
+            }
+            if ($request->input("sort") == "oldest") {
+                $query->oldest();
+            }
+        }
         if ($request->input("category")) {
             $query->whereHas("product.category", function ($query) use ($request) {
                 $query->where("slug", $request->input("category"));
@@ -48,7 +65,7 @@ class AuctionPageController extends Controller
         if ($request->filled('date')) {
             $query->whereDate('end_date', '>=', Carbon::parse($request->input('date'))->startOfDay());
         }
-        $data['auctions'] = $query->open()->latest()->get();
+        $data['auctions'] = $query->open()->get();
         $data['categories'] = Category::orderBy('name', 'asc')->isMainCategory()->active()->get();
         $data['companies'] = Company::orderBy('name', 'asc')->active()->get();
         return view('frontend.pages.auctions', $data);

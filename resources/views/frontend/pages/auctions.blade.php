@@ -87,12 +87,21 @@
                             </h2>
                         </div>
                         <div class="flex items-center">
-                            <select class="select" id="sort-select">
-                                <option>{{ __('Price: Low to High') }}</option>
-                                <option>{{ __('Price: High to Low') }}</option>
-                                <option>{{ __('Newest First') }}</option>
-                                <option>{{ __('Oldest First') }}</option>
-                            </select>
+                            <form action="{{ route('frontend.auctions.filter', $category->slug) }}" method="POST"
+                                id="filter_form">
+                                @csrf
+                                <select name="sort" id="sort-select" class="select">
+                                    <option value="" {{ request()->sort == '' ? 'selected' : '' }}>Default</option>
+                                    <option value="low_to_high" {{ request()->sort == 'low_to_high' ? 'selected' : '' }}>
+                                        {{ __('Price: High to Low') }}</option>
+                                    <option value="high_to_low" {{ request()->sort == 'high_to_low' ? 'selected' : '' }}>
+                                        {{ __('Price: Low to High') }}</option>
+                                    <option value="latest" {{ request()->sort == 'latest' ? 'selected' : '' }}>
+                                        {{ __('Newest First') }}</option>
+                                    <option value="oldest" {{ request()->sort == 'oldest' ? 'selected' : '' }}>
+                                        {{ __('Oldest First') }}</option>
+                                </select>
+                            </form>
                         </div>
                     </div>
 
@@ -111,6 +120,13 @@
     </section>
 @endsection
 @push('js')
+    <script>
+        $(document).ready(function() {
+            $("#sort-select").on("change", function() {
+                $("#filter_form").submit();
+            });
+        });
+    </script>
     <script>
         $(document).ready(function() {
             const $dateInput = $('input[name="date"]');
@@ -132,27 +148,6 @@
                     $dateInput.removeClass(
                         'border-red-500 focus:focus:border-red-500 focus-within:border-red-500');
                     $submitBtn.prop('disabled', false).removeClass('opacity-50 cursor-not-allowed');
-                }
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('input[name="date"]').on('change', function() {
-                const selectedDate = new Date($(this).val());
-                const today = new Date();
-                today.setHours(0, 0, 0, 0); // Normalize today's date to 00:00:00
-
-                if (selectedDate < today) {
-                    $('.date-error').text('Oops! You can\'t pick a past date.');
-                    $(this).addClass(
-                        'border-red-500 focus:focus:border-red-500 focus-within:border-red-500'
-                    ); // Optional visual feedback
-                } else {
-                    $('.date-error').text('');
-                    $(this).removeClass(
-                        'border-red-500 focus:focus:border-red-500 focus-within:border-red-500');
                 }
             });
         });
