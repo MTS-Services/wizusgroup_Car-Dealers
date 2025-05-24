@@ -21,6 +21,7 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
+        // dd($this->all());
         return [
             'name' => 'required|string|min:3',
             'grade' => 'nullable|string',

@@ -106,7 +106,7 @@ class ProductController extends Controller
                 'permissions' => ['product-details']
             ],
             [
-                'routeName' => 'pm.product.edit',
+                'routeName' => 'pm.product.info.edit',
                 'params' => [encrypt($model->id)],
                 'label' => 'Edit',
                 'permissions' => ['product-edit']
@@ -284,7 +284,7 @@ class ProductController extends Controller
     public function viewRemarks(string $pi_id): JsonResponse
     {
         $info_remark = $this->productService->getProductInfo($pi_id);
-        $info_remark->remarks = html_entity_decode($info_remark->remarks );
+        $info_remark->remarks = html_entity_decode($info_remark->remarks);
         $info_remark->load('infoCategory');
         return response()->json($info_remark);
     }
@@ -300,12 +300,11 @@ class ProductController extends Controller
     public function infoStore(ProductInfoRequest $request, string $pid): RedirectResponse
     {
         try {
-            $product = $this->productService->getProduct( $pid);
+            $product = $this->productService->getProduct($pid);
             $validated = $request->validated();
             $this->productService->infoCreate($product, $validated);
             session()->flash('success', 'Product information added successfully!');
-            return redirect()->route('pm.product.info', $pid);
-            ;
+            return redirect()->route('pm.product.info', $pid);;
         } catch (\Throwable $e) {
             session()->flash('error', 'Product information added failed!');
             throw $e;
@@ -332,7 +331,7 @@ class ProductController extends Controller
             if ($completed) {
                 session()->flash('success', 'Product entry finished successfully!');
                 return redirect()->route('pm.product.index');
-            }else{
+            } else {
                 session()->flash('error', value: 'Product entry completed failed!');
                 return redirect()->route('pm.product.info', $pid);
             }
@@ -359,18 +358,81 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data['product'] = $this->productService->getProduct($id);
+        $data['suppliers'] = Supplier::select('id', 'first_name')->get();
+        return view('backend.admin.product_management.product.edit', $data);
     }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductRequest $request, string $pid)
     {
-        //
+        try {
+            $validated = $request->validated();
+            $this->productService->update($pid, $validated);
+            session()->flash('success', 'Product updated successfully!');
+            return redirect()->route('pm.product.relation.edit', $pid);
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product update failed!');
+            throw $e;
+        }
     }
 
-      public function status(string $id): RedirectResponse
+    public function editRelation(string $pid)
+    {
+        $data['product'] = $this->productService->getProduct($pid);
+        $data['product']->load(['brand', 'category', 'model', 'company', 'subCategory']);
+        $data['companies'] = $this->companyService->getCompanies()->active()->select(['id', 'name'])->get();
+        $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->active()->select(['id', 'name'])->get();
+        return view('backend.admin.product_management.product.edit.relation', $data);
+    }
+
+    public function updateRelation(ProductRelationRequest $request, string $pid)
+    {
+        try {
+            $product = $this->productService->getProduct($pid);
+            $validated = $request->validated();
+            $this->productService->relationUpdate($product, $validated);
+            session()->flash('success', 'Product relations updated successfully!');
+            return redirect()->route('pm.product.image.edit', $pid);
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product relations update failed!');
+            throw $e;
+        }
+    }
+
+    public function editImage(string $pid)
+    {
+        $data['product_id'] = $pid;
+        $data['product'] = $this->productService->getProduct($pid);
+        return view('backend.admin.product_management.product.edit.image', $data);
+    }
+
+
+    public function updateImage(ProductImageRequest $request, string $pid)
+    {
+        try {
+            $product = $this->productService->getProduct($pid);
+            $validated = $request->validated();
+            $this->productService->imageUpdate($product, $validated);
+            session()->flash('success', 'Product images updated successfully!');
+            return redirect()->route('pm.product.info.edit', $pid);
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product images update failed!');
+            throw $e;
+        }
+    }
+
+    public function editInfo(string $pid)
+    {
+        $data['product'] = $this->productService->getProduct($pid);
+        $data['product']->load([]);
+        $data['infos'] = $this->productService->getInfos($pid);
+        $data['info_categories'] = $this->productInfoCategoryService->getProductInfoCats()->active()->select(['id', 'name'])->get();
+        return view('backend.admin.product_management.product.edit.information', $data);
+    }
+
+    public function status(string $id): RedirectResponse
     {
         try {
             $this->productService->toggleStatus($id);

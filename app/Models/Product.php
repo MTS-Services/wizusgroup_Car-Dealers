@@ -114,6 +114,23 @@ class Product extends BaseModel
     {
         return $this->hasOne(ProductRelation::class);
     }
+
+    // Info Category, Info Category Type, Info Category Feature
+    public function infoCategory(): HasOneThrough
+    {
+        return $this->hasOneThrough(ProductInfoCategory ::class, ProductRelation::class, 'product_id', 'id', 'id', 'info_category_id');
+    }
+
+    public function infoCategoryType(): HasOneThrough
+    {
+        return $this->hasOneThrough(ProductInfoCategoryType::class, ProductRelation::class, 'product_id', 'id', 'id', 'info_category_type_id');
+    }
+
+    public function infoCategoryTypeFeature(): HasOneThrough
+    {
+        return $this->hasOneThrough(ProductInfoCategoryTypeFeature::class, ProductRelation::class, 'product_id', 'id', 'id', 'info_category_type_feature_id');
+    }
+
     // Brand, Company, Model
     public function company(): HasOneThrough
     {
@@ -127,7 +144,7 @@ class Product extends BaseModel
 
     public function model(): HasOneThrough
     {
-        return $this->hasOneThrough(Brand::class, ProductRelation::class, 'product_id', 'id', 'id', 'model_id');
+        return $this->hasOneThrough(Model::class, ProductRelation::class, 'product_id', 'id', 'id', 'model_id');
     }
 
     // Tax Class & Rate

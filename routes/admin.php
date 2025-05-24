@@ -309,6 +309,16 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
             Route::get('view-remarks/{product_info_id}', 'viewRemarks')->name('view_remarks');
             Route::get('delete-info/{product_info_id}', 'deleteInfo')->name('delete_info');
             Route::get('entry-complete/{product}', 'entryComplete')->name('entry_complete');
+
+            //Edit
+            Route::get('edit-relation/{product}', 'editRelation')->name('relation.edit');
+            Route::get('edit-image/{product}', 'editImage')->name('image.edit');
+            Route::get('edit-info/{product}', 'editInfo')->name('info.edit');
+
+            // update 
+            Route::put('update-relation/{product}', 'updateRelation')->name('relation.update');
+            Route::put('update-image/{product}', 'updateImage')->name('image.update');
+            Route::put('update-info/{product}', 'updateInfo')->name('info.update');
         });
 
         // Company Routes
