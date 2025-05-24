@@ -28,43 +28,39 @@
                                 {{ __(' Auction fillters') }}</h2>
                             <div class="px-4">
                                 <h3 class="text-sm md:text-base font-medium">{{ __('Category') }}</h3>
-                                <div class="mt-2">
-                                    <select class="select" name="category">
-                                        <option value="" selected>All Category</option>
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->slug }}"
-                                                {{ request()->category == $category->slug ? 'selected' : '' }}>
-                                                {{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'category']" />
-                                </div>
+
+                                <select class="select mt-2" name="category">
+                                    <option value="" selected>All Category</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->slug }}"
+                                            {{ request()->category == $category->slug ? 'selected' : '' }}>
+                                            {{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'category']" />
+
                             </div>
                             <div class="px-4">
                                 <h3 class="text-sm md:text-base font-medium">{{ __('Make') }}</h3>
-                                <div class="mt-2">
-                                    <select class="select" name="company">
-                                        <option value="" selected>Select Make</option>
-                                        @foreach ($companies as $company)
-                                            <option value="{{ $company->slug }}"
-                                                {{ request()->company == $company->slug ? 'selected' : '' }}>
-                                                {{ $company->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'company']" />
-                                </div>
+                                <select class="select mt-2" name="company">
+                                    <option value="" selected>Select Make</option>
+                                    @foreach ($companies as $company)
+                                        <option value="{{ $company->slug }}"
+                                            {{ request()->company == $company->slug ? 'selected' : '' }}>
+                                            {{ $company->name }}</option>
+                                    @endforeach
+                                </select>
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'company']" />
                             </div>
                             <div class="px-4">
                                 <h3 class="text-sm md:text-base font-medium">{{ __('End Time') }}</h3>
-                                <div class="mt-2">
-                                    <input type="date" class="input py-0 px-4" name="date"
-                                        value="{{ request()->date }}">
-                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'date']" />
-                                </div>
+                                <input type="date" class="input py-0 px-4 mt-2" name="date"
+                                    value="{{ request()->date }}">
+                                <span class="date-error text-xs text-red-500"></span>
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'date']" />
                             </div>
                             <div class="px-4 pb-4">
-                                <button
-                                    class="w-full btn-primary hover:bg-bg-tertiary py-2 rounded-md transition-all duration-300 flex items-center justify-center group">
+                                <button id="filterBtn" class="w-full btn-primary group">
                                     <span>Sherch</span>
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
@@ -91,9 +87,7 @@
                             </h2>
                         </div>
                         <div class="flex items-center">
-                            <select
-                                class="border border-border-gray dark:border-opacity-20 shadow-card focus:outline-none rounded-md px-2 py-1 text-sm "
-                                id="sort-select">
+                            <select class="select" id="sort-select">
                                 <option>{{ __('Price: Low to High') }}</option>
                                 <option>{{ __('Price: High to Low') }}</option>
                                 <option>{{ __('Newest First') }}</option>
@@ -103,7 +97,7 @@
                     </div>
 
                     <!-- Loading Indicator -->
-                    <div id="loading-indicator" class="hidden flex justify-center items-center py-12">
+                    <div id="loading-indicator" class="flex justify-center items-center py-12">
                         <div class="loading-spinner"></div>
                         <span class="ml-3 text-text-dark dark:text-text-light text-opacity-50">Loading products...</span>
                     </div>
@@ -117,6 +111,52 @@
     </section>
 @endsection
 @push('js')
+    <script>
+        $(document).ready(function() {
+            const $dateInput = $('input[name="date"]');
+            const $errorSpan = $('.date-error');
+            const $submitBtn = $('#filterBtn');
+
+            $dateInput.on('change', function() {
+                const selectedDate = new Date($dateInput.val());
+                const today = new Date();
+                today.setHours(0, 0, 0, 0); // Remove time for accurate comparison
+
+                if (selectedDate < today) {
+                    $errorSpan.text('Oops! You can\'t pick a past date.');
+                    $dateInput.addClass(
+                        'border-red-500 focus:focus:border-red-500 focus-within:border-red-500');
+                    $submitBtn.prop('disabled', true).addClass('opacity-50 cursor-not-allowed');
+                } else {
+                    $errorSpan.text('');
+                    $dateInput.removeClass(
+                        'border-red-500 focus:focus:border-red-500 focus-within:border-red-500');
+                    $submitBtn.prop('disabled', false).removeClass('opacity-50 cursor-not-allowed');
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('input[name="date"]').on('change', function() {
+                const selectedDate = new Date($(this).val());
+                const today = new Date();
+                today.setHours(0, 0, 0, 0); // Normalize today's date to 00:00:00
+
+                if (selectedDate < today) {
+                    $('.date-error').text('Oops! You can\'t pick a past date.');
+                    $(this).addClass(
+                        'border-red-500 focus:focus:border-red-500 focus-within:border-red-500'
+                    ); // Optional visual feedback
+                } else {
+                    $('.date-error').text('');
+                    $(this).removeClass(
+                        'border-red-500 focus:focus:border-red-500 focus-within:border-red-500');
+                }
+            });
+        });
+    </script>
     </script>
     <script>
         $(document).ready(function() {

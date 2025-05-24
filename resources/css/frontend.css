@@ -179,7 +179,7 @@ input[type="range"]::-webkit-slider-thumb {
     }
 
     .select {
-        @apply focus:outline-0 focus-within:outline-0 focus:ring-0 focus:border-border-primary focus-within:border-border-primary w-full pr-0 shadow-card transition-all duration-300 ease-linear;
+        @apply focus:outline-0 focus-within:outline-0 focus:ring-0 focus:border-border-primary focus-within:border-border-primary w-full shadow-card transition-all duration-300 ease-linear;
     }
 }
 
