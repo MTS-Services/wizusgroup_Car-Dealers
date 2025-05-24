@@ -18,8 +18,6 @@
         <div class="container">
             <div class="flex justify-start gap-10">
                 <div class="w-1/4 hidden xl:block">
-
-                    <dd class=""></dd>
                     {{-- Sidebar Filter --}}
                     <form action="{{ route('frontend.auctions.filter') }}" method="post">
                         @csrf
@@ -39,6 +37,7 @@
                                                 {{ $category->name }}</option>
                                         @endforeach
                                     </select>
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'category']" />
                                 </div>
                             </div>
                             <div class="px-4">
@@ -52,41 +51,15 @@
                                                 {{ $company->name }}</option>
                                         @endforeach
                                     </select>
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'company']" />
                                 </div>
                             </div>
                             <div class="px-4">
                                 <h3 class="text-sm md:text-base font-medium">{{ __('End Time') }}</h3>
                                 <div class="mt-2">
-                                    <input type="date" class="input" name="date" value="{{ request()->date }}">
-
-                                    {{-- <button popovertarget="cally-popover1" class="input input-border" type="button" id="cally1"
-                                        style="anchor-name:--cally1">
-                                        {{ __('Pick a date') }}
-                                    </button>
-
-                                    <div popover id="cally-popover1" class="dropdown bg-base-100 rounded-box shadow-lg"
-                                        style="position-anchor:--cally1">
-                                        <calendar-date class="cally" id="calendar"
-                                            onchange="
-                                            document.getElementById('cally1').innerText = this.value;
-                                            document.getElementById('date').value = this.value;
-                                        ">
-                                            <svg aria-label="Previous" class="fill-current size-4" slot="previous"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                <path d="M15.75 19.5 8.25 12l7.5-7.5"></path>
-                                            </svg>
-                                            <svg aria-label="Next" class="fill-current size-4" slot="next"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                <path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
-                                            </svg>
-                                            <calendar-month></calendar-month>
-                                        </calendar-date>
-                                    </div> --}}
-
-                                    <script type="module" src="https://unpkg.com/cally"></script>
-                                    <script type="module">
-                                        import "cally";
-                                    </script>
+                                    <input type="date" class="input py-0 px-4" name="date"
+                                        value="{{ request()->date }}">
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'date']" />
                                 </div>
                             </div>
                             <div class="px-4 pb-4">
@@ -144,11 +117,6 @@
     </section>
 @endsection
 @push('js')
-    {{-- <script type="module" src="https://unpkg.com/cally"></script>
-    <script type="module">
-        import "cally";
-    </script> --}}
-
     </script>
     <script>
         $(document).ready(function() {

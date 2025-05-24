@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Carbon\Carbon;
+use App\Models\Auction;
+use App\Models\Company;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Frontend\AuctionFilterRequest;
-use App\Models\Auction;
-use App\Models\Company;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Frontend\AuctionFilterRequest;
 use App\Services\Admin\AuctionManagement\AuctionService;
 
 class AuctionPageController extends Controller
@@ -44,8 +45,8 @@ class AuctionPageController extends Controller
                 $query->where("slug", $request->input("company"));
             });
         }
-        if ($request->input("date")) {
-            $query->whereDate("end_date", $request->input("date"));
+        if ($request->filled('date')) {
+            $query->whereDate('end_date', '>=', Carbon::parse($request->input('date'))->startOfDay());
         }
         $data['auctions'] = $query->open()->latest()->get();
         $data['categories'] = Category::orderBy('name', 'asc')->isMainCategory()->active()->get();
