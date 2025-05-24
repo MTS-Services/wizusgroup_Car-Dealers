@@ -10,8 +10,8 @@ class PartsAccessoriesPageController extends Controller
 {
     public function parts(Request $request)
     {
-        $data['products'] = Product::with(['category', 'company',  'primaryImage'])->parts()->letest()->get();
         
+        $data['products'] = Product::with(['category', 'company',  'primaryImage'])->parts()->latest()->get();
         return view('frontend.pages.parts_accessories', $data);
     }
 }

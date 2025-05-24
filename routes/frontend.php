@@ -26,7 +26,7 @@ Route::group(['as' => 'frontend.'], function () {
   // Auction Details Page
   Route::get('/auction/{slug}', [AuctionPageController::class, 'auctionDetails'])->name('auction-details');
   // Parts & Accessories Page
-  Route::get('/parts-accessories', [FrontendController::class, 'parts_accessories'])->name('parts-accessories');
+  Route::get('/parts-accessories', [PartsAccessoriesPageController::class, 'parts'])->name('parts-accessories');
   //  Product Details Page
 
   // group Shipping page
@@ -37,5 +37,4 @@ Route::group(['as' => 'frontend.'], function () {
   Route::get('/regions', [FrontendController::class, 'regions'])->name('regions');
 
   // Parts & Accessories Page
-  Route::get('/parts', [PartsAccessoriesPageController::class, 'parts'])->name('parts');
 });
