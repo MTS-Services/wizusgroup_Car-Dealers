@@ -24,6 +24,7 @@ class UserProfileController extends Controller
 
     public function __construct(AddressService $addressService, PersonalInformationService $personalInformationService, CountryService $countryService, UserService $userService)
     {
+        $this->middleware("auth:web");
         $this->addressService = $addressService;
         $this->personalInformationService = $personalInformationService;
         $this->countryService = $countryService;

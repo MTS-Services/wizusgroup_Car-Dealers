@@ -21,12 +21,14 @@ Route::get('auth/callback/{provider}', [SocialAuthController::class, 'callback']
 
 Route::middleware(['auth:web', 'verified'])->group(function () {
   Route::get('/profile', [UserDashboardController::class, 'profile'])->name('profile');
-});
 
- // User Profile
+   // User Profile
     Route::controller(UserProfileController::class)->name('user.')->group(function () {
         Route::get('/profile', 'profile')->name('profile');
         Route::put('/profile/update', 'profileUpdate')->name('profile.update');
         Route::put('/address/update', 'addressUpdate')->name('address.update');
         Route::put('/password/update', 'passwordUpdate')->name('password.update');
     });
+});
+
+
