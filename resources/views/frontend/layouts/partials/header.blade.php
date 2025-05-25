@@ -1,4 +1,4 @@
-<header class="bg-bg-white dark:bg-bg-dark">
+<header class="bg-bg-white dark:bg-bg-dark sticky top-0 z-[9999999]">
     <div class="container">
         <div class="navbar">
             <div class="navbar-start">
