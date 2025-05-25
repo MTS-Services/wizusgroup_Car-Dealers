@@ -55,5 +55,23 @@
     "Your Bid (USD)": "Votre offre (USD)",
     "Submit Bid": "Soumettre l'offre",
     "Enter your bid": "Entrez votre offre",
-    "Expired": "Expiré"
+    "Expired": "Expiré",
+
+
+    "Contact": "Contact",
+    "Contact us": "Contactez-nous",
+    "Send Us and Iquery": "Envoyez-nous une demande",  
+     "name": "nom",
+    "Email": "Email",
+    "Message": "Message",
+    "Send Message": "Envoyer le message",
+    "Our Offices": "Nos bureaux",
+    "WhatsApp Us": "Contactez-nous sur WhatsApp",
+    "+1(123) 456-789": "+1(123) 456-789",
+    "Japan": "Japon",
+    "128 Example Street Tokyo,Japan": "128 rue Exemple, Tokyo, Japon",
+    "example@gmail.com": "example@gmail.com",
+    "+1 234 567": "+1 234 567",
+    "Monday-Friday, 9am-6pm": "Lundi à vendredi, de 9h à 18h",
+    "Africa": "Afrique"
 }
