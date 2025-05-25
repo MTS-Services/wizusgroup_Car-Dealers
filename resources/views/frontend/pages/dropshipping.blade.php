@@ -146,15 +146,16 @@
         </div>
     </section>
     {{-- special offers section end --}}
-    <section class="bg-bg-light-secondary dark:bg-bg-dark  pt-6 pb-10 px-6 lg:px-20 xl:pt-12 md:pb-8 xl:pb-24 lg:pb-16 font-poppins countdown_section">
+   <section
+        class="countdown_section flex justify-center items-center xl:py-20 lg:py-16 md:py-12 py-8  m-0 bg-gray-100 dark:bg-bg-dark-secondary ">
         <div class="container">
             <div
-                class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-6  text-center w-11/12 max-w-3xl shadow-md">
+                class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-6 xl:py-12 lg:py-10 md:py-8 py-4 text-center w-11/12 max-w-3xl shadow-md">
                 <h3 class="text-2xl font-bold mb-2">{{ __('Join Group Container – Save on Shipping') }}</h3>
                 <p class="text-xl mb-5">{{ __('Next Departure to Dakar, Senegal:') }}</p>
                 <div class="countdown-blocks py-2"></div>
-                <button class="btn-primary mx-auto py-3 mt-2 px-10 ">
-                    {{ __('JOIN NOW') }}
+                <button class="btn-primary mx-auto mt-10 ">
+                    {{ __('Join Now') }}
                 </button>
             </div>
         </div>

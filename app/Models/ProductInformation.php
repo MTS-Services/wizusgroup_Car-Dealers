@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ProductInformation extends BaseModel
 {
 
-     protected $fillable = [
+    protected $fillable = [
         'sort_order',
         'product_id',
         'product_info_cat_id',
@@ -16,6 +16,7 @@ class ProductInformation extends BaseModel
         'product_info_cat_type_feature_id',
         'remarks',
         'description',
+        'file',
         'created_by',
         'updated_by',
         'deleted_by',

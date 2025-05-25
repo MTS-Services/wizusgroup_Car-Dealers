@@ -45,7 +45,7 @@ class ProductInfoCategoryType extends BaseModel
     }
     public function activeFeatures():HasMany
     {
-        return $this->types()->active();
+        return $this->features()->active();
     }
 
     // ================= Status Functionality Start Here =================
@@ -106,5 +106,5 @@ class ProductInfoCategoryType extends BaseModel
     {
         return $query->where('status', self::STATUS_DEACTIVE);
     }
-     
+
 }

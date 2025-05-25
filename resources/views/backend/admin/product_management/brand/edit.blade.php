@@ -39,20 +39,19 @@
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'name']" />
                         </div>
 
-                        {{-- Slug --}}
-                        <div class="form-group">
-                            <label>{{ __('Slug') }}<span class="text-danger">*</span></label>
-                            <input type="text" value="{{ old('slug', $brand->slug) }}" id="slug" name="slug"
-                                class="form-control" placeholder="Enter slug">
-                            <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'slug']" />
-                        </div>
-                        {{-- Image --}}
-                        <div class="form-group">
-                            <label>{{ __('image') }}<span class="text-danger">*</span></label>
-                            <input type="file" accept="image/*" name="uploadImage" data-actualName="image"
-                                class="form-control filepond" id="image">
-                            <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'image']" />
-                        </div>
+                    {{-- Slug --}}
+                    <div class="form-group">
+                        <label>{{ __('Slug') }}<span class="text-danger">*</span></label>
+                        <input type="text" value="{{ old('slug', $brand->slug) }}" id="slug" name="slug" class="form-control" placeholder="Enter slug">
+                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'slug']" />
+                    </div>
+                    {{-- Image --}}
+                    <div class="form-group">
+                        <label>{{ __('image') }}<span class="text-danger">*</span></label>
+                        <input type="file" accept="image/jpg, image/jpeg, image/png, image/webp, image/svg" name="image"
+                            class="form-control filepond" id="image">
+                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'image']" />
+                    </div>
 
                         {{-- Website --}}
                         <div class="form-group">
@@ -98,10 +97,8 @@
     <script src="{{ asset('filepond/filepond.js') }}"></script>
     <script>
         $(document).ready(function() {
-            const existingFiles = {
-                "#image": "{{ $brand->modified_image }}",
-            };
-            file_upload(["#image"], "uploadImage", "admin", existingFiles, false);
+             const existingFiles = {"#image":"{{ $brand->modified_image }}"};
+            file_upload(["#image"], ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/svg"], existingFiles);
         });
     </script>
     {{-- FilePond  --}}

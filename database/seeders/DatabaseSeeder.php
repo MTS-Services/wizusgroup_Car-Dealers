@@ -56,6 +56,8 @@ class DatabaseSeeder extends Seeder
             ProductInformationSeeder::class,
             ProductAttributeValueSeeder::class,
             DocumentationSeeder::class,
+
+            AuctionSeeder::class,
         ]);
     }
 }

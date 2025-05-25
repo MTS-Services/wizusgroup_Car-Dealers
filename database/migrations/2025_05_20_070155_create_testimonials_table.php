@@ -24,7 +24,7 @@ return new class extends Migration
             $table->boolean('status')->default(Testimonial::STATUS_ACTIVE)->index();
             $table->string('author_designation')->nullable();
             $table->string('author_country')->nullable();
-            $table->longText('quate');
+            $table->longText('quote');
             $table->timestamps();
             $table->softDeletes();
 

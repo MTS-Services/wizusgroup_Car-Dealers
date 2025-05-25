@@ -6,9 +6,11 @@
 /*=============================================================
                 Datatable CSS
  =============================================================*/
- .dataTable .action-btn, .dataTable .reorder {
+.dataTable .action-btn,
+.dataTable .reorder {
     transition: .4s;
 }
+
 .dataTable th:last-child {
     text-align: center;
 }
@@ -17,10 +19,12 @@
     transform: rotate(90deg);
     color: var(--primary-color) !important;
 }
-.dataTable .reorder:hover{
+
+.dataTable .reorder:hover {
     transform: scale(1.1);
     color: var(--primary-color) !important;
 }
+
 .dt-container .dt-buttons {
     display: inline-block;
 }
@@ -42,7 +46,7 @@
 /*=============================================================
                 Site Settings CSS
  =============================================================*/
- .site_settings .tab {
+.site_settings .tab {
     border-radius: 5px 0 0 5px;
     border: 1px solid #ccc;
     min-height: 80vh;
@@ -156,29 +160,36 @@
     left: 4.1em;
     color: #31ce36;
 }
+
 /*=============================================================
                 Select2 CSS
  =============================================================*/
 .select2-container--default .select2-selection--single {
     background-color: transparent !important;
 }
+
 .select2-container .select2-selection--single {
     height: 32px !important;
 }
+
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     line-height: 32px !important;
 }
+
 .select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 30px !important;
 }
 
 .select2-container--default.select2-container--disabled .select2-selection--single {
-    background-color: #e8e8e8 !important; /* Bootstrap's disabled bg */
-    background: #e8e8e8 !important; /* Bootstrap's disabled bg */
+    background-color: #e8e8e8 !important;
+    /* Bootstrap's disabled bg */
+    background: #e8e8e8 !important;
+    /* Bootstrap's disabled bg */
     border-color: transparent !important;
     cursor: not-allowed;
     opacity: 0.65;
 }
+
 .select2-container--default.select2-container--disabled .select2-selection--multiple {
     background-color: #e8e8e8 !important;
     background: #e8e8e8 !important;
@@ -190,13 +201,38 @@
 /*=============================================================
                 CK Editor 5 CSS
  =============================================================*/
- .ck.ck-editor__top .ck-sticky-panel .ck-sticky-panel__content .ck-toolbar {
+.ck.ck-editor__top .ck-sticky-panel .ck-sticky-panel__content .ck-toolbar {
     background: transparent;
 }
+
 /* .ck.ck-editor__editable.ck-focused:not(.ck-editor__nested-editable) {
     min-height: 200px !important;
 } */
 .ck.ck-editor__main>.ck-editor__editable {
     min-height: 200px;
     background-color: transparent !important;
+}
+
+/*=============================================================
+                Product View Tabs CSS
+ =============================================================*/
+
+.product_tabs .btn_item {
+    background: linear-gradient(to right, #1f0036, #37006d);
+    color: white;
+    border: 1px solid #444;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+}
+
+.product_tabs .btn_item:hover {
+    background: linear-gradient(to right, #37006d, #1f0036);
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.product_tabs .active.btn_item {
+    background: linear-gradient(to right, #0972C1, #37006d);
 }

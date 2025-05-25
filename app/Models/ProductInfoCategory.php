@@ -36,6 +36,10 @@ class ProductInfoCategory extends BaseModel
     {
         return $this->hasMany(ProductInfoCategoryType::class,'product_info_cat_id','id');
     }
+    public function activeProductInfoCategoryTypes()
+    {
+        return $this->catagoryTypes()->active();
+    }
     public function activeTypes():HasMany
     {
         return $this->types()->active();
@@ -110,8 +114,5 @@ class ProductInfoCategory extends BaseModel
     {
         return $query->where('status', self::STATUS_DEACTIVE);
     }
-    public function activeProductInfoCategoryTypes()
-    {
-        return $this->catagoryTypes()->active();
-    }
+
 }

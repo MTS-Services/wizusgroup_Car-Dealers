@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Category extends BaseModel
 {
@@ -298,6 +299,58 @@ class Category extends BaseModel
     public function subChildCategory()
     {
         return $this->parent_id !== null && $this->parent->parent_id !== null;
+    }
+
+    // Get all product relations
+    public function productRelations(): HasMany
+    {
+        return $this->hasMany(ProductRelation::class);
+    }
+
+    // Get all products via product_relations
+    public function products(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Product::class,
+            ProductRelation::class,
+            'category_id',
+            'id',
+            'id',
+            'product_id'
+        );
+    }
+    public function companies(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Company::class,
+            ProductRelation::class,
+            'category_id',
+            'id',
+            'id',
+            'company_id'
+        );
+    }
+    public function brands(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Brand::class,
+            ProductRelation::class,
+            'category_id',
+            'id',
+            'id',
+            'brand_id'
+        );
+    }
+    public function models(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Model::class,
+            ProductRelation::class,
+            'category_id',
+            'id',
+            'id',
+            'model_id'
+        );
     }
 
 }

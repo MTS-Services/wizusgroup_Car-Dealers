@@ -135,96 +135,22 @@
 
             <div class="space-y-3  mx-auto" id="faq-container">
                 <!-- FAQ Item 1 -->
-                <div
+                @foreach ($faqs as $faq )
+                    <div
                     class="faq-item bg-bg-light dark:bg-bg-tertiary/30 p-6 rounded-xl shadow-md transition-all duration-300 border border-border-gray">
                     <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFaq(this)">
                         <h3 class="text-base lg:text-lg xl:text-xl font-bold text-text-secondary dark:text-text-white">
-                            {{ __('What Shipping Options Do You Offer?') }}
+                            {{ $faq->question }}
                         </h3>
                         <i
                             class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
                     </div>
                     <div
                         class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base  text-opacity-80">
-                        {{ __('We offer standard, expedited, and next-day shipping through trusted carriers like FedEx, UPS, and USPS. During checkout, you\'ll be able to choose the option that best fits your timeline and budget.') }}
+                        {{ $faq->answer }}
                     </div>
                 </div>
-
-                <!-- FAQ Item 2 -->
-                <div
-                    class="faq-item bg-bg-light dark:bg-bg-tertiary/30 p-6 rounded-xl shadow-md transition-all duration-300 border border-border-gray">
-                    <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFaq(this)">
-                        <h3 class="text-base lg:text-lg xl:text-xl font-bold text-text-secondary dark:text-text-white">
-                            {{ __('Do You Ship Internationally?') }}</h3>
-                        <i
-                            class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
-                    </div>
-                    <div
-                        class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base  text-opacity-80">
-                        {{ __('Yes, we ship to most countries worldwide. International shipping rates and delivery times vary depending on your location and the shipping method selected at checkout.') }}
-                    </div>
-                </div>
-
-                <!-- FAQ Item 3 -->
-                <div
-                    class="faq-item bg-bg-light dark:bg-bg-tertiary/30 p-6 rounded-xl shadow-md transition-all duration-300 border border-border-gray">
-                    <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFaq(this)">
-                        <h3 class="text-base lg:text-lg xl:text-xl font-bold text-text-secondary dark:text-text-white">
-                            {{ __('How Long Will My Order Take to Arrive?') }}</h3>
-                        <i
-                            class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
-                    </div>
-                    <div
-                        class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base  text-opacity-80">
-                        {{ __('Domestic orders typically arrive within 3–7 business days, while international deliveries can take 7–21 business days depending on customs and local postal services. We’ll provide a tracking number once your order ships.') }}
-                    </div>
-                </div>
-
-                <!-- FAQ Item 4 -->
-                <div
-                    class="faq-item bg-bg-light dark:bg-bg-tertiary/30 p-6 rounded-xl shadow-md transition-all duration-300 border border-border-gray">
-                    <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFaq(this)">
-                        <h3 class="text-base lg:text-lg xl:text-xl font-bold text-text-secondary dark:text-text-white">
-                            {{ __('How Can I Track My Order?') }}
-                        </h3>
-                        <i
-                            class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
-                    </div>
-                    <div
-                        class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base  text-opacity-80">
-                        {{ __('Once your order ships, you\'ll receive an email with a tracking link. You can also log in to your account on our website and view your tracking details in the Order History section.') }}
-                    </div>
-                </div>
-
-                <!-- FAQ Item 5 -->
-                <div
-                    class="faq-item bg-bg-light dark:bg-bg-tertiary/30 p-6 rounded-xl shadow-md transition-all duration-300 border border-border-gray">
-                    <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFaq(this)">
-                        <h3 class="text-base lg:text-lg xl:text-xl font-bold text-text-secondary dark:text-text-white">
-                            {{ __('What Happens If My Package Is Lost or Delayed?') }}</h3>
-                        <i
-                            class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
-                    </div>
-                    <div
-                        class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base  text-opacity-80">
-                        {{ __('If your package is delayed or appears lost, please contact our support team. We’ll work with the shipping carrier to locate your package or arrange a replacement or refund, depending on the situation.') }}
-                    </div>
-                </div>
-
-                <!-- FAQ Item 6 -->
-                <div
-                    class="faq-item bg-bg-light dark:bg-bg-tertiary/30 p-6 rounded-xl shadow-md transition-all duration-300 border border-border-gray">
-                    <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFaq(this)">
-                        <h3 class="text-base lg:text-lg xl:text-xl font-bold text-text-secondary dark:text-text-white">
-                            {{ __('Do You Offer Free Shipping?') }}</h3>
-                        <i
-                            class="fa-solid fa-plus text-text-secondary dark:text-text-white transition-transform duration-300"></i>
-                    </div>
-                    <div
-                        class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base  text-opacity-80">
-                        {{ __('Yes, we offer free standard shipping on all domestic orders over $100. Promotions and free shipping thresholds may vary during special sales events.') }}
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

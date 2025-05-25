@@ -171,7 +171,7 @@ class FaqController extends Controller
 
         try {
             $validated = $request->validated();
-            $this->faqService->createFaq($validated, $request->image ?? null);
+            $this->faqService->createFaq($validated);
             session()->flash('success', 'Faq created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Faq create failed!');
@@ -208,7 +208,7 @@ class FaqController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->faqService->updateFaq($id, $validated, $request->image ?? null);
+            $this->faqService->updateFaq($id, $validated);
             session()->flash('success', 'Faq updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Faq update failed!');

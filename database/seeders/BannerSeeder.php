@@ -13,7 +13,7 @@ class BannerSeeder extends Seeder
         Banner::create([
             'title' => 'Summer Sale 2025',
             'subtitle' => 'Up to 40% off on all vehicles',
-            'image' => 'banners/summer-sale.jpg',
+            'image' => 'https://placehold.co/1920x1080',
             'url' => 'https://example.com/summer-sale',
             'start_date' => '2025-06-01',
             'end_date' => '2025-06-30',
@@ -22,7 +22,7 @@ class BannerSeeder extends Seeder
         Banner::create([
             'title' => 'New Arrivals: Electric Vehicles',
             'subtitle' => 'Discover our latest eco-friendly lineup',
-            'image' => 'banners/electric-arrivals.jpg',
+            'image' => 'https://placehold.co/1920x1080',
             'url' => 'https://example.com/electric-vehicles',
             'start_date' => '2025-05-10',
             'end_date' => '2025-07-10',
@@ -31,7 +31,7 @@ class BannerSeeder extends Seeder
         Banner::create([
             'title' => 'Limited Time Offer',
             'subtitle' => 'Get $1000 off on select models',
-            'image' => 'banners/limited-offer.jpg',
+            'image' => 'https://placehold.co/1920x1080',
             'url' => 'https://example.com/limited-offer',
             'start_date' => '2025-05-20',
             'end_date' => '2025-06-05',

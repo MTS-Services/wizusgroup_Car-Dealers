@@ -44,16 +44,16 @@
                 {{-- General Settings --}}
 
                 <span
-                    class="block text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50 pb-3">{{ __('Settings') }}</span>
+                    class="block text-text-primary dark:text-text-white pb-3">{{ __('Settings') }}</span>
                 <div class="pl-5">
                     <div class="flex items-center justify-between gap-2">
                         <span
-                            class="text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50">{{ __('Theme') }}</span>
+                            class="text-text-primary dark:text-text-white">{{ __('Theme') }}</span>
                         <x-frontend.theme />
                     </div>
                     <div class="flex items-center justify-between gap-2">
                         <span
-                            class="text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50">{{ __('Language') }}</span>
+                            class="text-text-primary dark:text-text-white">{{ __('Language') }}</span>
                         <x-frontend.language />
                     </div>
                 </div>
@@ -62,25 +62,25 @@
 
                 {{-- Account Settings  --}}
                 <span
-                    class="block text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50 pb-3">{{ __('Account') }}</span>
+                    class="block text-text-primary dark:text-text-white pb-3">{{ __('Account') }}</span>
                 <div class="pl-5">
                     @auth('web')
                         <a href="" class="flex items-center justify-between gap-2">
                             <span
-                                class="text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50">{{ __('Profile') }}</span>
+                                class="text-text-primary dark:text-text-white">{{ __('Profile') }}</span>
                             <i data-lucide="user"
                                 class="hover:text-text-secondary transition-all duration-300 ease-linear"></i>
                         </a>
                         <a href="" class="flex items-center justify-between gap-2">
                             <span
-                                class="text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50">{{ __('Password') }}</span>
+                                class="text-text-primary dark:text-text-white">{{ __('Password') }}</span>
                             <i data-lucide="key-round"
                                 class="hover:text-text-secondary transition-all duration-300 ease-linear"></i>
                         </a>
                     @else
                         <a href="{{ route('login') }}" class="flex items-center justify-between gap-2">
                             <span
-                                class="text-text-primary dark:text-text-white text-opacity-50 dark:text-opacity-50">{{ __('Profile') }}</span>
+                                class="text-text-primary dark:text-text-white">{{ __('Profile') }}</span>
                             <i data-lucide="user"
                                 class="hover:text-text-secondary transition-all duration-300 ease-linear"></i>
                         </a>

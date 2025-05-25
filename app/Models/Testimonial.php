@@ -14,7 +14,7 @@ class Testimonial extends BaseModel
         'author_image',
         'author_designation',
         'author_country',
-        'quate',
+        'quote',
         'status',
 
         'creater_id',
@@ -34,6 +34,8 @@ class Testimonial extends BaseModel
             'status_btn_label',
             'status_btn_color',
             'status_labels',
+
+            'modified_image',
         ]);
     }
     public const STATUS_ACTIVE = 1;
@@ -55,7 +57,11 @@ class Testimonial extends BaseModel
             self::STATUS_DEACTIVE => 'Active',
         ];
     }
-
+    // modified image
+    public function getModifiedImageAttribute()
+    {
+        return storage_url($this->author_image);
+    }
     // Accessor for status labels
     public function getStatusLabelsAttribute(): array
     {
