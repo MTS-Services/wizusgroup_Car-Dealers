@@ -205,7 +205,41 @@
     "All rights reserved.": "Tous droits réservés.",
     "Design and Developed by": "Conception et développement par",
     "example@example.com": "example@example.com",
-    "000-000-000": "000-000-000"
-}
+
+
+
+    "Admin Login - Secure Area": "Connexion administrateur - Zone sécurisée",
+    "Password": "Mot de passe",
+    "Login": "Connexion",
+    "Forgot password?": "Mot de passe oublié ?",
+    "Reset password": "Réinitialiser le mot de passe",
+    "Forgot your password?": "Vous avez oublié votre mot de passe ?",
+    "Reset Administrator Credentials": "Réinitialiser les identifiants administrateur",
+    "Send Reset Link": "Envoyer le lien de réinitialisation",
+    "Remember password?": "Vous vous souvenez du mot de passe ?",
+    "Sign in": "Se connecter",
+    "Confirm Password": "Confirmez le mot de passe",
+    "Please confirm your password before continuing.": "Veuillez confirmer votre mot de passe avant de continuer.",
+    "A fresh verification link has been sent to your email address.": "Un nouveau lien de vérification a été envoyé à votre adresse e-mail.",
+    "Before proceeding, please check your email for a verification link.": "Avant de continuer, veuillez vérifier votre e-mail pour un lien de vérification.",
+    "If you did not receive the email": "Si vous n'avez pas reçu l'e-mail",
+    "Resend Verification Link": "Renvoyer le lien de vérification",
+
+
+
+    "Login to Your Account": "Connectez-vous à votre compte",
+    "Username or email": "Nom d'utilisateur ou e-mail",
+    "Remember me": "Se souvenir de moi",
+    "Or sign up with": "Ou inscrivez-vous avec",
+    "Google": "Google",
+    "Facebook": "Facebook",
+    "Don't have an account?": "Vous n'avez pas de compte ?",
+    "Sign up": "S'inscrire",
+    "Start Your Journey with Us": "Commencez votre aventure avec nous",
+    "First Name": "Prénom",
+    "Last Name": "Nom de famille",
+    "Register": "S'inscrire",
+    "Already have an account?": "Vous avez déjà un compte ?"
+    }
 
 

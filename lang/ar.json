@@ -203,7 +203,39 @@
     "All rights reserved.": "Todos los derechos reservados.",
     "Design and Developed by": "Diseñado y desarrollado por",
     "example@example.com": "example@example.com",
-    "000-000-000": "000-000-000"
+
+
+    "Admin Login - Secure Area": "Ingreso de Administrador - Área Segura",
+    "Password": "Contraseña",
+    "Login": "Iniciar sesión",
+    "Forgot password?": "¿Olvidaste tu contraseña?",
+    "Reset password": "Restablecer contraseña",
+    "Forgot your password?": "¿Olvidaste tu contraseña?",
+    "Reset Administrator Credentials": "Restablecer credenciales de administrador",
+    "Send Reset Link": "Enviar enlace de restablecimiento",
+    "Remember password?": "¿Recordás la contraseña?",
+    "Sign in": "Iniciar sesión",
+    "Confirm Password": "Confirmar contraseña",
+    "Please confirm your password before continuing.": "Por favor, confirmá tu contraseña antes de continuar.",
+    "A fresh verification link has been sent to your email address.": "Se ha enviado un nuevo enlace de verificación a tu correo electrónico.",
+    "Before proceeding, please check your email for a verification link.": "Antes de continuar, revisá tu correo electrónico para el enlace de verificación.",
+    "If you did not receive the email": "Si no recibiste el correo electrónico",
+    "Resend Verification Link": "Reenviar enlace de verificación",
+
+    "Login to Your Account": "Iniciar sesión en tu cuenta",
+    "Username or email": "Nombre de usuario o correo electrónico",
+    "Remember me": "Recordarme",
+    "Or sign up with": "O registrate con",
+    "Google": "Google",
+    "Facebook": "Facebook",
+    "Don't have an account?": "¿No tenés una cuenta?",
+    "Sign up": "Registrate",
+    
+    "Start Your Journey with Us": "Comenzá tu camino con nosotros",
+    "First Name": "Nombre",
+    "Last Name": "Apellido",
+    "Register": "Registrarse",
+    "Already have an account?": "¿Ya tenés una cuenta?"
 }
 
 

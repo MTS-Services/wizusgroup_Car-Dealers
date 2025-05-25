@@ -207,7 +207,44 @@
     "All rights reserved.": "All rights reserved.",
     "Design and Developed by": "Design and Developed by",
     "example@example.com": "example@example.com",
-    "000-000-000": "000-000-000"
-}
+
+
+
+    "Admin Login - Secure Area": "Admin Login - Secure Area",
+    "Password": "Password",
+    "Login": "Login",
+    "Forgot password?": "Forgot password?",
+    "Reset password": "Reset password",
+    "Forgot your password?": "Forgot your password?",
+    "Reset Administrator Credentials": "Reset Administrator Credentials",
+    "Send Reset Link": "Send Reset Link",
+    "Remember password?": "Remember password?",
+    "Sign in": "Sign in",
+    "Confirm Password": "Confirm Password",
+    "Please confirm your password before continuing.": "Please confirm your password before continuing.",
+    "A fresh verification link has been sent to your email address.": "A fresh verification link has been sent to your email address.",
+    "Before proceeding, please check your email for a verification link.": "Before proceeding, please check your email for a verification link.",
+    "If you did not receive the email": "If you did not receive the email",
+    "Resend Verification Link": "Resend Verification Link",
+
+
+
+
+    "Login to Your Account": "Login to Your Account",
+    "Username or email": "Username or email",
+    "Remember me": "Remember me",
+    "Or sign up with": "Or sign up with",
+    "Google": "Google",
+    "Facebook": "Facebook",
+    "Don't have an account?": "Don't have an account?",
+    "Sign up": "Sign up",
+
+
+    "Start Your Journey with Us": "Start Your Journey with Us",
+    "First Name": "First Name",
+    "Last Name": "Last Name",
+    "Register": "Register",
+    "Already have an account?": "Already have an account?"
+    }
 
 
