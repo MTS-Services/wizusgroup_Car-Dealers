@@ -134,10 +134,10 @@
                                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'product_info_cat']" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="file" name="files"
-                                                accept="image/jpeg, image/png, image/jpg, image/webp, image/svg"
-                                                class="form-control filepond" id="image">
-                                                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'files']" />
+                                            <input type="file" name="file"
+                                                accept="application/pdf, application/doc, application/docx, application/xls, application/xlsx"
+                                                class="form-control filepond" id="file">
+                                                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'file']" />
                                         </div>
                                         <div class="form-group float-end">
                                             <input type="submit" class="btn btn-primary" value="Add File">
@@ -166,7 +166,7 @@
     <script src="{{ asset('filepond/filepond.js') }}"></script>
     <script>
         $(document).ready(function() {
-            file_upload(["#image"], "uploadImage", "admin", [], false);
+            file_upload(["#file"], ['application/pdf', 'application/doc', 'application/docx', 'application/xls', 'application/xlsx'] );
         })
     </script>
     <script>
