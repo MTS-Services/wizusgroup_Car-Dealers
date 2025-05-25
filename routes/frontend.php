@@ -28,6 +28,7 @@ Route::group(['as' => 'frontend.'], function () {
   // Parts & Accessories Page
   Route::get('/parts-accessories', [PartsAccessoriesPageController::class, 'parts'])->name('parts-accessories');
   Route::post('/parts-accessories-filter', [PartsAccessoriesPageController::class, 'productFilter'])->name('parts-accessories.filter');
+  Route::get('/parts-accessories/{slug}', [PartsAccessoriesPageController::class, 'partsDetails'])->name('parts-accessories.details');
 
   //  Product Details Page
 

@@ -56,7 +56,7 @@
                                         class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2"
                                         name="subcategory" id="subcategory">
                                         <option value="">{{ __('All Agricultural') }}</option>
-                                        @foreach ($category->childrens as $children)
+                                        @foreach ($categories as $children)
                                             <option value="{{ $children->slug }}"
                                                 {{ request()->category == $children->slug ? 'selected' : '' }}>
                                                 {{ $children->name }}</option>
@@ -66,45 +66,44 @@
                             </div>
                         </div>
                         <div class="px-4">
-                            <div data-target="brand-filter">
-                                <h3 class="text-sm md:text-base font-medium">{{ __('Make') }}</h3>
-                            </div>
-
-                            <div class="filter-content" id="brand-filter">
-                                <div class="mt-2">
-                                    <select
-                                        class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
-                                        <option>{{ __('All') }}</option>
-                                        <option>{{ __('Kubota') }}</option>
-                                        <option>{{ __('Iseki') }}</option>
-                                        <option>{{ __('John Deere') }}</option>
-                                        <option>{{ __('Mitsubishi') }}</option>
-                                    </select>
-                                </div>
-                            </div>
+                            <h3 class="text-sm md:text-base font-medium">{{ __('Make') }}</h3>
+                            <select class="select mt-2" name="company">
+                                <option value="" selected>Select Make</option>
+                                @foreach ($companies as $company)
+                                    <option value="{{ $company->slug }}"
+                                        {{ request()->company == $company->slug ? 'selected' : '' }}>
+                                        {{ $company->name }}</option>
+                                @endforeach
+                            </select>
+                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'company']" />
                         </div>
                         <div>
                             {{-- Price Filter --}}
                             <details class="collapse collapse-arrow" open>
-                                <summary class="collapse-title text-base font-medium">{{ __('Price') }}</summary>
+                                <summary class="collapse-title text-xl font-medium">{{ __('Price') }}</summary>
                                 <div class="collapse-content">
                                     <div class="mb-3">
                                         <div class="relative w-full price-slider">
                                             <div class="absolute w-full h-1 bg-bg-dark bg-opacity-40 z-[1] rounded-full">
                                             </div>
                                             <div class="absolute h-1 z-[2] rounded-full bg-bg-primary slider-range"></div>
-                                            <input type="range" min="0" max="500" value="20"
+                                            <input type="range" name="start_price" min="0" max="500000"
+                                                value="{{ request()->start_price ?? 20 }}"
                                                 class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none min-range">
-                                            <input type="range" min="0" max="500" value="300"
+                                            <input type="range" min="0" name="end_price" max="500000"
+                                                value="{{ request()->end_price ?? 500000 }}"
                                                 class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none max-range">
                                         </div>
                                     </div>
+
                                     <!-- Price display -->
                                     <div class="pt-8">
                                         <p class="text-sm lg:text-base">
                                             {{ __('Price:') }} <span
-                                                class="text-text-danger min-price">{{ __("$20") }}</span> -
-                                            <span class="text-text-danger max-price">{{ __("$300") }}</span>
+                                                class="text-text-danger min-price">${{ request()->start_price ?? 20 }}</span>
+                                            -
+                                            <span
+                                                class="text-text-danger max-price">${{ request()->end_price ?? 50000 }}</span>
                                         </p>
                                     </div>
                                 </div>
@@ -124,29 +123,54 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div class="w-full xl:w-3/4">
                     {{-- Products Grid --}}
-                    <div class="flex items-center gap-2 md:gap-3 mb-4">
-                        <button
-                            class="openPartsFilterSidebar btn px-2 py-0 rounded-md bg-transparent border-bg-accent dark:border-bg-light dark:border-opacity-50 text-text-accent text-sm font-medium  xs:px-5 xs:py-2 lg:text-base w-fit text-nowrap xl:hidden">
-                            <span><i data-lucide="sliders-horizontal" class="w-4 h-4 md:w-5 md:h-5"></i></span>
-                            <span class="">{{ __('Filter') }}</span>
-                        </button>
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="flex items-center gap-2 md:gap-3">
+                            <button
+                                class="openFilterSidebar btn px-2 py-0 rounded-md bg-transparent border border-bg-accent text-text-accent text-xs font-medium xs:text-sm xs:px-5 xs:py-2 lg:text-base w-fit text-nowrap xl:hidden">
+                                <span><i data-lucide="sliders-horizontal" class="w-5 h-5"></i></span>
+                                <span class="ml-2 text-base">{{ __('Filter') }}</span>
+                            </button>
+                            <h2 class="text-sm xs:text-base md:text-lg  font-semibold">{{ __('Sort') }}
+                                <span>{{ number_format(count($products)) }}</span>
+                            </h2>
+                        </div>
+                        <div class="flex items-center">
+                            <form action="{{ route('frontend.parts-accessories.filter', $categories) }}" method="POST"
+                                id="filter_form">
+                                @csrf
+                                <select name="sort" id="sort-select" class="select">
+                                    <option value="" {{ request()->sort == '' ? 'selected' : '' }}>Default
+                                    </option>
+                                    <option value="low_to_high" {{ request()->sort == 'low_to_high' ? 'selected' : '' }}>
+                                        {{ __('Price: High to Low') }}</option>
+                                    <option value="high_to_low" {{ request()->sort == 'high_to_low' ? 'selected' : '' }}>
+                                        {{ __('Price: Low to High') }}</option>
+                                    <option value="latest" {{ request()->sort == 'latest' ? 'selected' : '' }}>
+                                        {{ __('Newest First') }}</option>
+                                    <option value="oldest" {{ request()->sort == 'oldest' ? 'selected' : '' }}>
+                                        {{ __('Oldest First') }}</option>
+                                </select>
+                            </form>
+                        </div>
                     </div>
 
                     <!-- Loading Indicator -->
                     <div id="loading-indicator" class="hidden flex justify-center items-center py-12">
                         <div class="loading-spinner"></div>
-                        <span class="ml-3 text-text-dark dark:text-text-light text-opacity-50">Loading products...</span>
+                        <span class="ml-3 text-gray-600">{{ __('Loading products...') }}</span>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
-                        {{-- Product 1 --}}
                         @foreach ($products as $product)
                             <x-frontend.parts-accessories :product="$product" />
                         @endforeach
 
                     </div>
                 </div>
+
             </div>
     </section>
     {{-- Modal --}}
@@ -182,6 +206,13 @@
     </section>
 @endsection
 @push('js')
+    <script script>
+        $(document).ready(function() {
+            $("#sort-select").on("change", function() {
+                $("#filter_form").submit();
+            });
+        });
+    </script>
     <script>
         $(document).ready(function() {
             const $openSidebar = $('.openPartsFilterSidebar');
