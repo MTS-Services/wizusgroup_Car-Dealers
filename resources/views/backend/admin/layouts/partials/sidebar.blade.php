@@ -136,8 +136,8 @@
                                     <span class="sub-item">{{ __('City') }}</span>
                                 </a>
                             </li>
-                            @if (isset($not_used))
-                                {{-- <li class="@if ($page_slug == 'operation_area') active @endif">
+                            {{-- @if (isset($not_used)) --}}
+                                <li class="@if ($page_slug == 'operation_area') active @endif">
                                     <a href="{{ route('setup.operation-area.index') }}">
                                         <span class="sub-item">{{ __('Operation Area') }}</span>
                                     </a>
@@ -146,8 +146,8 @@
                                     <a href="{{ route('setup.operation-sub-area.index') }}">
                                         <span class="sub-item">{{ __('Operation Sub Area') }}</span>
                                     </a>
-                                </li> --}}
-                            @endif
+                                </li>
+                            {{-- @endif --}}
                         </ul>
                     </div>
 
