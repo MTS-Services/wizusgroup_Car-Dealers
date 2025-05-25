@@ -21,6 +21,7 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
+        // dd($this->all());
         return [
             'name' => 'required|string|min:3',
             'grade' => 'nullable|string',
@@ -53,6 +54,7 @@ class ProductRequest extends FormRequest
             'remarks' => 'nullable|string',
             'description' => 'nullable|string',
             'product_type' => 'required|integer',
+            'year'=> 'required|integer',
         ] + ($this->isMethod('POST') ? $this->store() : $this->update());
     }
 

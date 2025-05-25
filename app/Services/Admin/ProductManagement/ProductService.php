@@ -34,7 +34,7 @@ class ProductService
         $data['created_by'] = admin()->id;
         $data['status'] = Product::STATUS_DEACTIVE;
         $data['entry_status'] = Product::ENTRY_STATUS_RELATION;
-        $data['meta_keywords'] = json_encode($data['meta_keywords']);
+        $data['meta_keywords'] = isset($data['meta_keywords']) ? json_encode($data['meta_keywords']) : null;
         return Product::create($data);
     }
 
@@ -134,6 +134,76 @@ class ProductService
         $product->update($data);
         return $product;
     }
+
+    public function relationUpdate(Product $product, array $data)
+    {
+        $data['updated_by'] = admin()->id;
+        $product->update($data);
+    }
+
+    public function imageUpdate(Product $product, array $data, $file = null)
+    {
+        $data['updated_by'] = admin()->id;
+        $data['product_id'] = $product->id;
+        if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
+            $images = ProductImage::where('product_id', $product->id)->get();
+            foreach ($images as $image) {
+                $this->fileDelete($image->image);
+                $image->forceDelete();
+            }
+            $file = $data['image'];
+            $data['image'] = $this->handleFileUpload($file, 'products');
+            ProductImage::create(array_merge($data, ['is_primary' => ProductImage::IS_PRIMARY]));
+        }
+        if (isset($data['images'])) {
+            foreach ($data['images'] as $image) {
+                if ($image instanceof UploadedFile) {
+                    $file = $image;
+                    $data['image'] = $this->handleFileUpload($file, 'products');
+                    ProductImage::create($data);
+                }
+            }
+        }
+
+        $product->update($data);
+    }
+
+     public function toggleStatus(string $encryptedId): void
+    {
+        $product = $this->getProduct($encryptedId);
+        $product->update([
+            'updated_by' => admin()->id,
+            'status' => !$product->status
+        ]);
+    }
+
+    public function toggleFeature(string $encryptedId): void
+    {
+        $product = $this->getProduct($encryptedId);
+        $product->update([
+            'updated_by' => admin()->id,
+            'is_featured' => !$product->is_featured
+        ]);
+    }
+
+    public function toggleBackOrder(string $encryptedId): void
+    {
+        $product = $this->getProduct($encryptedId);
+        $product->update([
+            'updated_by' => admin()->id,
+            'allow_backorder' => !$product->allow_backorder
+        ]);
+    }
+
+    public function toggleDropshipping(string $encryptedId): void
+    {
+        $product = $this->getProduct($encryptedId);
+        $product->update([
+            'updated_by' => admin()->id,
+            'is_dropshipping' => !$product->is_dropshipping
+        ]);
+    }
+
     public function delete(string $encryptedId): void
     {
         $product = $this->getProduct($encryptedId);

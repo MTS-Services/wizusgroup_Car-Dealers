@@ -11,27 +11,17 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.about');
     }
-    public function product()
-    {
-        return view('frontend.pages.products');
-    }
+   
     public function contact()
     {
         return view('frontend.pages.contact');
-    }
-    public function auction()
-    {
-        return view('frontend.pages.auctions');
     }
     public function parts_accessories()
     {
         return view('frontend.pages.parts_accessories');
     }
-    public function product_details()
-    {
-        return view('frontend.pages.product_details');
-    }
-    
+
+
     public function dropshipping()
     {
         return view('frontend.pages.dropshipping');
@@ -39,5 +29,9 @@ class FrontendController extends Controller
     public function regions()
     {
         return view('frontend.pages.regions');
+    }
+    public function orderForm()
+    {
+        return view('frontend.pages.order_form');
     }
 }

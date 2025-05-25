@@ -208,7 +208,8 @@
                 <div class="swiper categories static">
                     <div class="swiper-wrapper">
                         @foreach ($categories as $category)
-                            <div class="swiper-slide py-8">
+                        <div class="swiper-slide py-8">
+                                <a href="{{ route('frontend.products', $category->slug) }}">
                                 <div>
                                     <div class="text-center">
                                         <img class="w-auto rounded-xl object-cover mx-auto"
@@ -216,6 +217,7 @@
                                         <p class="py-2">{{ __($category?->name) }} </p>
                                     </div>
                                 </div>
+                            </a>
                             </div>
                         @endforeach
                     </div>
