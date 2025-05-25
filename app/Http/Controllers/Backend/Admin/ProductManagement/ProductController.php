@@ -442,6 +442,8 @@ public function download(string $id)
     public function editImage(string $pid)
     {
         $data['product_id'] = $pid;
+        $data['product_images'] = $this->productService->getProductImages($pid);
+        // dd($data['product_images']);
         $data['product'] = $this->productService->getProduct($pid);
         return view('backend.admin.product_management.product.edit.image', $data);
     }
@@ -465,6 +467,7 @@ public function download(string $id)
     {
         $data['infos'] = $this->productService->getInfos($pid);
         $data['info_remarks'] = $this->productService->getInfoRemarks($pid);
+        $data['info_files'] = $this->productService->getInfoFiles($pid);
         $data['product_id'] = $pid;
         $data['info_categories'] = $this->productInfoCategoryService->getProductInfoCats()->active()->select(['id', 'name'])->get();
         return view('backend.admin.product_management.product.edit.information', $data);

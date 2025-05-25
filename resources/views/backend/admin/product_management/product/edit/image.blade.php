@@ -49,11 +49,9 @@
     <script src="{{ asset('filepond/filepond.js') }}"></script>
     <script>
         $(document).ready(function() {
-            const existingFiles = {
-                "#image":"{{ $product->modified_image }}",
-            }
+            // const existingFiles = {"#image":"{{ $product_images->modified_image }}"};
             file_upload(["#image"], [], ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg']);
-            file_upload(["#images"], [], ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg'], true);
+            file_upload(["#images"], [], ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg']);
         });
     </script>
 @endpush

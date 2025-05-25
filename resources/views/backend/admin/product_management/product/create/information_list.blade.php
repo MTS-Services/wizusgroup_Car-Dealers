@@ -93,7 +93,6 @@
                         <thead>
                             <tr>
                                 <th>{{ __('Info Category') }}</th>
-                                <th>{{ __('Image') }}</th>
                                 <th class="w-25 text-center">{{ __('Action') }}</th>
                             </tr>
                         </thead>

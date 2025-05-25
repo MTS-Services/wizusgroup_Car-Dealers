@@ -142,6 +142,11 @@ class ProductService
     {
         return ProductInformation::with(['infoCategory','infoCategoryType','infoCategoryTypeFeature'])->where('product_id', decrypt($encryptedId))->whereNull('remarks')->select('id','product_info_cat_id', 'product_info_cat_type_id', 'product_info_cat_type_feature_id', 'description')->latest()->get();
     }
+
+    public function getProductImages(string $encryptedId): ProductImage|Collection
+    {
+        return ProductImage::where('product_id', decrypt($encryptedId))->select('id', 'image')->latest()->get();
+    }
     public function getInfoRemarks(string $encryptedId): ProductInformation|Collection
     {
         return ProductInformation::with('infoCategory')->where('product_id', decrypt($encryptedId))->whereNotNull('remarks')->select('id','product_info_cat_id', 'remarks')->latest()->get();
