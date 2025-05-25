@@ -5,9 +5,9 @@
             <div
                 class="shadow-shadowPrimary shadow-shadow-dark/10 dark:shadow-shadow-light/10 rounded-2xl w-full overflow-hidden bg-bg-white dark:bg-bg-dark-tertiary p-5">
                 <h2 class="text-3xl font-semibold text-center mb-6">{{ __('Start Your Journey with Us') }}</h2>
-                <form action="{{ route('register') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-3" enctype="multipart/form-data">
+                <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="space-y-5">
+                    <div class="grid grid-cols-1 gap-5">
                         {{-- Name Field --}}
                         <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
@@ -43,60 +43,57 @@
                         </div>
 
                         {{-- Password Field --}}
-                        <div>
-                            <div class="flex items-center justify-between flex-wrap lg:flex-nowrap gap-3">
-                                <div class="w-full">
-                                    <span class="label">{{ __('Password') }}<span class="text-red-500">*</span></span>
-                                    <label class="input relative">
-                                        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24">
-                                            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5"
-                                                fill="none" stroke="currentColor">
-                                                <path
-                                                    d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
-                                                </path>
-                                                <circle cx="16.5" cy="7.5" r=".5" fill="currentColor">
-                                                </circle>
-                                            </g>
-                                        </svg>
-                                        <input type="password" placeholder="Password" name="password" />
-                                        <button type="button"
-                                            class="showpassword absolute top-1/2 right-1 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full text-text-primary dark:text-text-light hover:text-text-secondary transition-all duration-300 ease-linear">
-                                            <i class="fa-regular fa-eye-slash w-4 h-4"></i>
-                                        </button>
-                                    </label>
-                                </div>
-                                <div class="w-full">
-                                    <span class="label">{{ __('Confirm Password') }}<span
-                                            class="text-red-500">*</span></span>
-                                    <label class="input relative">
-                                        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24">
-                                            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5"
-                                                fill="none" stroke="currentColor">
-                                                <path
-                                                    d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
-                                                </path>
-                                                <circle cx="16.5" cy="7.5" r=".5" fill="currentColor">
-                                                </circle>
-                                            </g>
-                                        </svg>
-                                        <input type="password" placeholder="Confirm Password"
-                                            name="password_confirmation" />
-                                        <button type="button"
-                                            class="showpassword absolute top-1/2 right-1 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full text-text-primary dark:text-text-light hover:text-text-secondary transition-all duration-300 ease-linear">
-                                            <i class="fa-regular fa-eye-slash w-4 h-4"></i>
-                                        </button>
-                                    </label>
-                                </div>
+
+                        <div class="flex flex-col md:flex-row gap-3">
+                            <div class="w-full">
+                                <span class="label">{{ __('Password') }}<span class="text-red-500">*</span></span>
+                                <label class="input relative">
+                                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                                            stroke="currentColor">
+                                            <path
+                                                d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
+                                            </path>
+                                            <circle cx="16.5" cy="7.5" r=".5" fill="currentColor">
+                                            </circle>
+                                        </g>
+                                    </svg>
+                                    <input type="password" placeholder="Password" name="password" />
+                                    <button type="button"
+                                        class="showpassword absolute top-1/2 right-1 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full text-text-primary dark:text-text-light hover:text-text-secondary transition-all duration-300 ease-linear">
+                                        <i class="fa-regular fa-eye-slash w-4 h-4"></i>
+                                    </button>
+                                </label>
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'password']" />
                             </div>
-                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'password']" />
+                            <div class="w-full">
+                                <span class="label">{{ __('Confirm Password') }}<span class="text-red-500">*</span></span>
+                                <label class="input relative">
+                                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                                            stroke="currentColor">
+                                            <path
+                                                d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
+                                            </path>
+                                            <circle cx="16.5" cy="7.5" r=".5" fill="currentColor">
+                                            </circle>
+                                        </g>
+                                    </svg>
+                                    <input type="password" placeholder="Confirm Password" name="password_confirmation" />
+                                    <button type="button"
+                                        class="showpassword absolute top-1/2 right-1 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full text-text-primary dark:text-text-light hover:text-text-secondary transition-all duration-300 ease-linear">
+                                        <i class="fa-regular fa-eye-slash w-4 h-4"></i>
+                                    </button>
+                                </label>
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'password_confirmation']" />
+                            </div>
                         </div>
 
-                        <div class="flex items-center justify-between flex-wrap lg:flex-nowrap gap-3">
+                        {{-- Gender and Language --}}
+                        <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label block">{{ __('Gender') }}<span class="text-red-500">*</span></span>
-                                <div class="input justify-between px-5">
+                                <div class="input justify-between flex-wrap py-2 px-5 h-fit">
                                     @foreach (App\Models\User::getGenderLabels() as $key => $gender)
                                         <label for="gender-{{ $key }}" class="flex items-center gap-2">
                                             <input type="radio" name="gender" value="{{ $key }}"
@@ -110,7 +107,7 @@
                             </div>
                             <div class="w-full">
                                 <span class="label block">{{ __('Language') }}<span class="text-red-500">*</span></span>
-                                <div class="input justify-between px-5">
+                                <div class="input justify-between flex-wrap py-2 px-5 h-fit">
                                     @foreach (App\Models\PersonalInformation::getLanguages() as $key => $language)
                                         <label for="language-{{ $key }}" class="flex items-center gap-2">
                                             <input type="radio" name="language" value="{{ $key }}"
@@ -123,7 +120,9 @@
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'language']" />
                             </div>
                         </div>
-                        <div class="flex items-center justify-between flex-wrap lg:flex-nowrap gap-3">
+
+                        {{-- Country and State --}}
+                        <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label">{{ __('Country') }}<span class="text-red-500">*</span></span>
 
@@ -146,7 +145,9 @@
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'state']" />
                             </div>
                         </div>
-                        <div class="flex items-center justify-between flex-wrap lg:flex-nowrap gap-3">
+
+                        {{-- City and Postal Code --}}
+                        <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label">{{ __('City') }}<span class="text-red-500">*</span></span>
                                 <select name="city" class="select" disabled id="city">
@@ -161,7 +162,9 @@
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'postal_code']" />
                             </div>
                         </div>
-                        <div class="flex items-center justify-between flex-wrap lg:flex-nowrap gap-3">
+
+                        {{-- Phone Number --}}
+                        <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label">{{ __('Tel (first contact)') }}<span
                                         class="text-red-500">*</span></span>
@@ -174,9 +177,9 @@
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'phone_2']" />
                             </div>
                         </div>
-                    </div>
-                    <div class="space-y-5">
-                        <div class="flex items-center flex-wrap lg:flex-nowrap justify-between gap-3">
+
+                        {{-- Company name and Occupation --}}
+                        <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label">{{ __('Company Name') }}</span>
                                 <input type="text" placeholder="Company name" name="company_name" class="input" />
@@ -189,16 +192,18 @@
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'occupation']" />
                             </div>
                         </div>
-                        <div class="flex items-center flex-wrap lg:flex-nowrap justify-between gap-3">
+
+                        {{-- Date of birth and Business Type --}}
+                        <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label">{{ __('Date of Birth') }}<span class="text-red-500">*</span></span>
-                                <input type="date" placeholder="dd-mm-yyyy" name="dob" class="input" />
+                                <input type="date" placeholder="dd-mm-yyyy" name="dob" class="input py-0 px-4" />
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'dob']" />
                             </div>
                             <div class="w-full">
                                 <span class="label block">{{ __('Business Type') }}<span
                                         class="text-red-500">*</span></span>
-                                <div class="input justify-between px-5">
+                                <div class="input justify-between flex-wrap py-2 px-5 h-fit">
                                     @foreach (App\Models\User::getBusinessTypes() as $key => $type)
                                         <label for="type-{{ $key }}" class="flex items-center gap-2">
                                             <input type="radio" name="business_type" value="{{ $key }}"
@@ -211,7 +216,9 @@
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'business_type']" />
                             </div>
                         </div>
-                        <div class="flex items-center flex-wrap lg:flex-nowrap justify-between gap-3">
+
+                        {{-- Business Name and Information --}}
+                        <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label">{{ __('Business Name') }} <span class="text-red-500">*</span></span>
                                 <select name="business_name" class="select">
@@ -225,14 +232,20 @@
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'business_name']" />
                             </div>
                             <div class="w-full">
-                                <span class="label">{{ __('Information') }} <span
-                                        class="text-sm text-gray-500">({{ __('Required if "Other" is selected') }})</span></span>
+                                <span class="label">
+                                    {{ __('Additional Information') }}
+                                    <span class="text-sm text-gray-500">
+                                        ({{ __('Only required if "Other" is selected') }})
+                                    </span>
+                                </span>
                                 <input type="text" placeholder="Business Information" name="business_information"
                                     class="input" disabled />
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'business_information']" />
                             </div>
                         </div>
-                        <div class="flex items-center flex-wrap lg:flex-nowrap justify-between gap-3">
+
+                        {{-- Business Line and Receive Promotion Emails --}}
+                        <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label">{{ __('Business Line') }} <span class="text-red-500">*</span></span>
                                 <select name="business_line" class="select">
@@ -248,20 +261,23 @@
                             <div class="w-full">
                                 <span class="label block">{{ __('Receive Promotion Emails?') }}<span
                                         class="text-red-500">*</span></span>
-                                <div class="input justify-between px-5">
-                                    @foreach (App\Models\User::getReceivePromotionEmails() as $key => $type)
-                                        <label for="type-{{ $key }}" class="flex items-center gap-2">
+                                <div class="input justify-between flex-wrap py-2 px-5 h-fit">
+                                    @foreach (App\Models\User::getReceivePromotionEmails() as $key => $promotional_email)
+                                        <label for="promotional_email-{{ $key }}"
+                                            class="flex items-center gap-2">
                                             <input type="radio" name="receive_promotion_email"
                                                 value="{{ $key }}" class="radio radio-xs radio-info"
-                                                checked="checked" id="type-{{ $key }}" />
-                                            <span>{{ $type }}</span>
+                                                checked="checked" id="promotional_email-{{ $key }}" />
+                                            <span>{{ $promotional_email }}</span>
                                         </label>
                                     @endforeach
                                 </div>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'receive_promotion_email']" />
                             </div>
                         </div>
-                        <div class="flex items-center flex-wrap lg:flex-nowrap justify-between gap-3">
+
+                        {{-- How did you hear about us and For Friend and Other --}}
+                        <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label">{{ __('How did you hear about us') }} <span
                                         class="text-red-500">*</span></span>
@@ -277,14 +293,16 @@
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'how_know']" />
                             </div>
                             <div class="w-full">
-                                <span class="label">{{ __('For Friend and Other') }}</span>
+                                <span class="label">{{ __('Please Provide Details for Friend or Other') }} <span
+                                        class="text-red-500">*</span></span>
                                 <input type="text" placeholder="Please Enter the Details" name="how_know_detail"
                                     class="input" disabled />
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'how_know_detail']" />
                             </div>
                         </div>
 
-                        <div class="flex items-center flex-wrap lg:flex-nowrap justify-between gap-3">
+                        {{-- ID Registration and Dealer Registration Permit --}}
+                        <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label">{{ __('ID Registration') }}</span>
                                 <input type="file" name="id_registration_info" class="form-control filepond"
@@ -299,23 +317,21 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center flex-wrap lg:flex-nowrap justify-between gap-3">
+                        {{-- Accept Terms --}}
+                        <div class="flex flex-col items-center md:flex-row gap-3">
                             <div class="w-full">
-                                <label class="flex items-center gap-2 justify-start">
-
-                                    <input type="radio" class="radio radio-xs radio-info" name="accept_terms"
-                                        id="accept_terms" />
+                                <label class="flex items-center gap-2 justify-end">
                                     <span class="label block" for="accept_terms">{{ __('Accept Terms') }}<span
                                             class="text-red-500">*</span></span>
+                                    <input type="radio" class="radio radio-xs radio-info" name="accept_terms"
+                                        id="accept_terms" />
                                 </label>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'accept_terms']" />
                             </div>
-
+                            <div class="w-full">
+                                <button type="submit" class="btn-primary">{{ __('Register') }}</button>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="flex justify-center items-center gap-5 flex-wrap col-span-2">
-                        <button type="submit" class="btn-primary">{{ __('Register') }}</button>
                     </div>
                 </form>
 
