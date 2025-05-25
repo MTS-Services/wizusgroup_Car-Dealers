@@ -20,12 +20,17 @@ class ContactPageController extends Controller
         $this->contactService = $contactService;
     }
 
+    public function contact()
+    {
+        return view('frontend.pages.contact');
+    }
+
     public function store(ContactRequest $request)
     {
 
         try {
             $validated = $request->validated();
-            $this->contactService->createContact($validated, $request);
+            $this->contactService->createContact($validated);
         } catch (\Throwable $e) {
             session()->flash('error', 'Contact create failed!');
             throw $e;
