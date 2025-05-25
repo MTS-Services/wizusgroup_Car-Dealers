@@ -75,7 +75,7 @@
     "+1 234 567": "+1 234 567",
     "Monday-Friday, 9am-6pm": "Lundi à vendredi, de 9h à 18h",
     "Africa": "Afrique",
-    
+
 
     "Groupshipping": "Groupage d'expédition",
     "Simple, Fast, and Secure Process": "Processus simple, rapide et sécurisé",
@@ -163,7 +163,7 @@
 
 
 
-    "Region": "Région",  
+    "Region": "Régions",  
     "Regions We Serve": "Régions desservies",
     "Middle East": "Moyen-Orient",
     "Asia": "Asie",
@@ -190,7 +190,22 @@
     "French": "Français",
     "Swahili": "Swahili",
     "Mandarin": "Mandarin",
-    "Spanish": "Espagnol"
+    "Spanish": "Espagnol",
+
+
+
+    "Services": "Services",
+    "Service 1": "Service 1",
+    "Service 2": "Service 2",
+    "Service 3": "Service 3",
+    "Service 4": "Service 4",
+    "Parts": "Pièces",
+    "Quick Links": "Liens rapides",
+    "Copyright": "Droits d'auteur",
+    "All rights reserved.": "Tous droits réservés.",
+    "Design and Developed by": "Conception et développement par",
+    "example@example.com": "example@example.com",
+    "000-000-000": "000-000-000"
 }
 
 

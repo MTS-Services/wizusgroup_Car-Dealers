@@ -164,7 +164,7 @@
     "Price:": "Price:",
 
 
-    "Region": "Region",
+    "Regions": "Regions",
     "Regions We Serve": "Regions We Serve",
     "Middle East": "Middle East",
     "Asia": "Asia",
@@ -191,7 +191,23 @@
     "French": "French",
     "Swahili": "Swahili",
     "Mandarin": "Mandarin",
-    "Spanish": "Spanish"
+    "Spanish": "Spanish",
+
+
+
+    
+    "Services": "Services",
+    "Service 1": "Service 1",
+    "Service 2": "Service 2",
+    "Service 3": "Service 3",
+    "Service 4": "Service 4",
+    "Parts": "Parts",
+    "Quick Links": "Quick Links",
+    "Copyright": "Copyright",
+    "All rights reserved.": "All rights reserved.",
+    "Design and Developed by": "Design and Developed by",
+    "example@example.com": "example@example.com",
+    "000-000-000": "000-000-000"
 }
 
 

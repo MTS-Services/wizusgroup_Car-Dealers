@@ -162,7 +162,7 @@
     "Price:": "Precio:",
 
 
-    "Region": "Región",
+    "Region": "Regiónes",
     "Regions We Serve": "Regiones a las que servimos",
     "Middle East": "Medio Oriente",
     "Asia": "Asia",
@@ -189,7 +189,21 @@
     "French": "Francés",
     "Swahili": "Suajili",
     "Mandarin": "Mandarín",
-    "Spanish": "Español"
+    "Spanish": "Español",
+
+
+    "Services": "Servicios",
+    "Service 1": "Servicio 1",
+    "Service 2": "Servicio 2",
+    "Service 3": "Servicio 3",
+    "Service 4": "Servicio 4",
+    "Parts": "Repuestos",
+    "Quick Links": "Enlaces rápidos",
+    "Copyright": "Derechos de autor",
+    "All rights reserved.": "Todos los derechos reservados.",
+    "Design and Developed by": "Diseñado y desarrollado por",
+    "example@example.com": "example@example.com",
+    "000-000-000": "000-000-000"
 }
 
 
