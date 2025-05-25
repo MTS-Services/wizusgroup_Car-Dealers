@@ -14,15 +14,11 @@
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear
                      @if (isset($page_slug) && $page_slug == 'about') text-text-secondary dark:text-text-secondary @endif
                     "
-                        href="">{{ __('About Us') }}</a>
-                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
-                     @if (isset($page_slug) && $page_slug == 'products') text-text-secondary dark:text-text-secondary @endif
-                    "
-                        href="{{ route('frontend.product') }}">{{ __('Products') }}</a>
+                        href="{{ route('frontend.about') }}">{{ __('About Us') }}</a>
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
                      @if (isset($page_slug) && $page_slug == 'auctions') text-text-secondary dark:text-text-secondary @endif
                     "
-                        href="{{ route('frontend.auction') }}">{{ __('Auctions') }}</a>
+                        href="{{ route('frontend.auctions') }}">{{ __('Auctions') }}</a>
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
                     @if (isset($page_slug) && $page_slug == 'contact') text-text-secondary dark:text-text-secondary @endif
                     "
@@ -33,10 +29,10 @@
                 <span class="hidden tablet:flex">
                     <x-frontend.language />
                 </span>
-                <a href="#" class="hover:text-text-secondary transition-all duration-300 ease-linear"><i
+                {{-- <a href="#" class="hover:text-text-secondary transition-all duration-300 ease-linear"><i
                         data-lucide="heart"></i></a>
                 <a href="#" class="hover:text-text-secondary transition-all duration-300 ease-linear"><i
-                        data-lucide="shopping-basket"></i></a>
+                        data-lucide="shopping-basket"></i></a> --}}
                 <a href="javaScript:void(0)" onclick="my_modal_1.showModal()"
                     class="hover:text-text-secondary transition-all duration-300 ease-linear"><i
                         data-lucide="user"></i></a>

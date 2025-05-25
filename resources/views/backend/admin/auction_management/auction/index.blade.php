@@ -95,6 +95,10 @@
                     key: "product_name"
                 },
                 {
+                    label: "Auction Location",
+                    key: "location"
+                },
+                {
                     label: "Start Date",
                     key: "start_date_format"
                 },

@@ -26,7 +26,8 @@ class AuctionSeeder extends Seeder
             'increment_amount' => 500.00,
             'start_date' => Carbon::now()->addDays(1),
             'end_date' => Carbon::now()->addDays(10),
-            'status' => 1, // STATUS_SCHEDULED
+            'status' => 2,
+            'location' => 'Mexico. Albuquerque',
             'is_featured' => true,
             'meta_title' => 'John Deere Tractor Auction',
             'meta_description' => 'Participate in the auction for a reliable John Deere 5075E Tractor. Starting bid $25,000.',
@@ -44,14 +45,15 @@ class AuctionSeeder extends Seeder
             'increment_amount' => 1000.00,
             'start_date' => Carbon::now()->subDays(2),
             'end_date' => Carbon::now()->addDays(5),
-            'status' => 2, // Example: STATUS_OPEN
+            'status' => 2,
+            'location' => 'Paris, France',
             'is_featured' => false,
             'meta_title' => 'Caterpillar 320 Excavator Auction',
             'meta_description' => 'Join the live auction for a Caterpillar 320 Excavator. Heavy-duty and reliable.',
         ]);
 
         Auction::create([
-            'product_id' => 3, // Toyota Hilux 2022
+            'product_id' => 3,
             'sort_order' => 3,
             'title' => 'Toyota Hilux 2022 Auction',
             'slug' => 'toyota-hilux-2022',
@@ -62,7 +64,8 @@ class AuctionSeeder extends Seeder
             'increment_amount' => 750.00,
             'start_date' => Carbon::now()->addDays(3),
             'end_date' => Carbon::now()->addDays(12),
-            'status' => 1, // STATUS_SCHEDULED
+            'status' => 2,
+            'location' => 'Tokyo, Japan',
             'is_featured' => true,
             'meta_title' => 'Toyota Hilux Auction',
             'meta_description' => 'Bid for the rugged 2022 Toyota Hilux in our upcoming auction.',
