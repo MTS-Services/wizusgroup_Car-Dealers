@@ -113,7 +113,7 @@ class User extends AuthBaseModel implements MustVerifyEmail
     }
 
     public const BUSINESS_NAME_SHEET_METAL = 1;
-    public const BUSINESS_NAME_DEMOLITION__PARTS = 2;
+    public const BUSINESS_NAME_DEMOLITION_PARTS = 2;
     public const BUSINESS_NAME_BROKERS = 3;
     public const BUSINESS_NAME_USED_CAR_EXPORT = 4;
     public const BUSINESS_NAME_USED_CAR_IMPORT = 5;
@@ -126,7 +126,7 @@ class User extends AuthBaseModel implements MustVerifyEmail
     {
         return [
             self::BUSINESS_NAME_SHEET_METAL => 'Sheet Metal . Repair',
-            self::BUSINESS_NAME_DEMOLITION__PARTS => 'Demolition & Parts',
+            self::BUSINESS_NAME_DEMOLITION_PARTS => 'Demolition & Parts',
             self::BUSINESS_NAME_BROKERS => 'Brokers',
             self::BUSINESS_NAME_USED_CAR_EXPORT => 'Second-hand Car Export',
             self::BUSINESS_NAME_USED_CAR_IMPORT => 'Second-hand Car Import',

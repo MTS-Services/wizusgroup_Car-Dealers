@@ -126,7 +126,7 @@
                             <div class="w-full">
                                 <span class="label">{{ __('Country') }}<span class="text-red-500">*</span></span>
 
-                                <select name="country" class="select" id="country">
+                                <select name="country_id" class="select" id="country">
                                     <option value="" disabled selected>{{ __('Select country') }}</option>
                                     @foreach (App\Models\Country::active()->get() as $country)
                                         <option value="{{ $country->id }}"
@@ -139,7 +139,7 @@
                             </div>
                             <div class="w-full">
                                 <span class="label">{{ __('State') }}<span class="text-red-500">*</span></span>
-                                <select name="state" class="select" disabled id="state">
+                                <select name="state_id" class="select" disabled id="state">
                                     <option value="" disabled selected>{{ __('Select state') }}</option>
                                 </select>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'state']" />
@@ -150,7 +150,7 @@
                         <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label">{{ __('City') }}<span class="text-red-500">*</span></span>
-                                <select name="city" class="select" disabled id="city">
+                                <select name="city_id" class="select" disabled id="city">
                                     <option value="" disabled selected>{{ __('Select state') }}</option>
                                 </select>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'city']" />

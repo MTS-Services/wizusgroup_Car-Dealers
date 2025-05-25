@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\AuthBaseModel;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use App\Models\PersonalInformation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -66,6 +69,59 @@ class RegisterController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+
+            'gender' => [
+                'required',
+                'integer',
+                Rule::in([
+                    AuthBaseModel::GENDER_MALE,
+                    AuthBaseModel::GENDER_FEMALE,
+                    AuthBaseModel::GENDER_OTHERS,
+                ]),
+            ],
+            'language' => [
+                'required',
+                'integer',
+                Rule::in([
+                    PersonalInformation::LANGUAGE_ENGLISH,
+                    PersonalInformation::LANGUAGE_FRENCH,
+                    PersonalInformation::LANGUAGE_ARGENTINE,
+                ]),
+            ],
+            'country_id' => ['required', 'integer', Rule::exists('countries', 'id')],
+            'state_id' => ['nullable', 'integer', Rule::exists('states', 'id')],
+            'city_id' => ['required', 'integer', Rule::exists('cities', 'id')],
+            'postal_code' => ['required', 'string'],
+            'phone' => ['required', 'string'],
+            'phone_2' => ['nullable', 'string'],
+            'company_name' => ['nullable', 'string'],
+            'occupation' => ['required', 'string'],
+            'dob' => ['required', 'date'],
+            'business_type' => [
+                'required',
+                'integer',
+                Rule::in([
+                    User::BUSINESS_TYPE_INDIVIDUAL,
+                    User::BUSINESS_TYPE_CORPORATE,
+                ])
+            ],
+            'business_name' => [
+                'required',
+                'integer',
+                Rule::in([
+                    User::BUSINESS_NAME_AUCTION_BUSINESS,
+                    User::BUSINESS_NAME_BROKERS,
+                    User::BUSINESS_NAME_DEMOLITION_PARTS,
+                    User::BUSINESS_NAME_OTHER,
+                    User::BUSINESS_NAME_SHEET_METAL,
+                    User::BUSINESS_NAME_SIDE_JOB,
+                    User::BUSINESS_NAME_USED_CAR_DEALER,
+                    User::BUSINESS_NAME_USED_CAR_EXPORT,
+                    User::BUSINESS_NAME_USED_CAR_IMPORT,
+                ]),
+            ],
+            'business_information' => ['required', 'sometimes', 'string'],
+
         ]);
     }
 
