@@ -24,20 +24,20 @@ class AdminProfileContoller extends Controller
         return view('backend.admin.profile_management.profile', $data);
     }
 
-    public function profileUpdate(AdminProfileRequest $request) 
+    public function profileUpdate(AdminProfileRequest $request)
     {
-        $admin_proffile = Admin::findOrFail(admin()->id);
-        $admin_validated = $request->validated();
-        $admin_validated['first_name'] = $request->first_name;
-        $admin_validated['last_name'] = $request->last_name;
-        $admin_validated['username'] = $request->username;
-        $admin_validated['email'] = $request->email;
-        $admin_validated['phone'] = $request->phone;
-        $admin_validated['image'] = $request->image;
-        $admin_validated['updater_id'] = admin()->id;
-        $admin_validated['updater_type'] = get_class(admin());
-        if(isset($request->image)) {
-            $admin_validated['image'] = $this->handleFilepondFileUpload($admin_validated, $request->image, admin(), 'admins/');
+        $admin = Admin::findOrFail(admin()->id);
+        $validated = $request->validated();
+        $validated['first_name'] = $request->first_name;
+        $validated['last_name'] = $request->last_name;
+        $validated['username'] = $request->username;
+        $validated['email'] = $request->email;
+        $validated['phone'] = $request->phone;
+        $validated['updater_id'] = admin()->id;
+        $validated['updater_type'] = get_class(admin());
+        if($request->hasFile('image')) {
+            $validated['image'] = $this->handleFileUpload($request->file('image'),  'admins', $validated['first_name']);
+                $this->fileDelete($admin->image);
         }
 
         $admin_info = PersonalInformation::findOrFail(admin()->id);
@@ -57,10 +57,10 @@ class AdminProfileContoller extends Controller
         if(!$admin_info) {
             PersonalInformation::create($validated_info);
         }
-        if(!$admin_proffile){
-            Admin::create($admin_validated);
+        if(!$admin){
+            Admin::create($validated);
         }
-        $admin_proffile->update($admin_validated);
+        $admin->update($validated);
         $admin_info->update($validated_info);
         session()->flash('success', 'Profile updated successfully.');
         return redirect()->back();
@@ -70,9 +70,7 @@ class AdminProfileContoller extends Controller
         $validated = $request->validated();
         $validated['country_id'] = $request->country_id;
         $validated['state_id'] = $request->state;
-        $validated['city_id'] = $request->city_id;
-        $validated['operation_area_id'] = $request->operation_area;
-        $validated['operation_sub_area_id'] = $request->operation_sub_area;
+        $validated['city_id'] = $request->city;
         $validated['updater_id'] = admin()->id;
         $validated['updater_type'] = get_class(admin());
         $validated['profile_id'] = admin()->id;

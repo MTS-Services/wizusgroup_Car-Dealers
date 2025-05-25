@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\CompanyRequest;
+use App\Models\Documentation;
 use App\Services\Admin\ProductManagement\CompanyService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -156,7 +157,8 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('backend.admin.product_management.company.create');
+        $data['document'] = Documentation::where([['module_key', 'company'], ['type', 'create']])->first();
+        return view('backend.admin.product_management.company.create', $data);
     }
 
     /**
@@ -166,7 +168,8 @@ class CompanyController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->companyService->createCompany($validated, $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->companyService->createCompany($validated, $file);
             session()->flash('success', 'Company created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Company create failed!');
@@ -191,8 +194,9 @@ class CompanyController extends Controller
      */
     public function edit(string $id)
     {
-        $company = $this->companyService->getCompany($id);;
-        return view('backend.admin.product_management.company.edit', compact('company'));
+        $data['company'] = $this->companyService->getCompany($id);
+        $data['document'] = Documentation::where([['module_key', 'company'], ['type', 'update']])->first();
+        return view('backend.admin.product_management.company.edit', $data);
     }
 
     /**
@@ -203,7 +207,8 @@ class CompanyController extends Controller
 
         try {
             $validated = $request->validated();
-            $this->companyService->updateCompany($id, $validated, $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->companyService->updateCompany($id, $validated, $file);
             session()->flash('success', 'Company updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Company update failed!');

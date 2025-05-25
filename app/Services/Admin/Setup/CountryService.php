@@ -29,9 +29,6 @@ class CountryService
     public function createCountry(array $data, $file = null): Country
     {
         $data['created_by'] = admin()->id;
-        // if ($file) {
-        //     $data['image'] = $this->handleFilepondFileUpload(model: Country::class, $file, admin(), 'countrys/');
-        // }
         $country = Country::create($data);
         return $country;
     }
@@ -40,9 +37,6 @@ class CountryService
     {
         $country = $this->getCountry($encryptedId);
         $data['updated_by'] = admin()->id;
-        if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload($country, $file, admin(), 'countrys/');
-        }
         $country->update($data);
         return $country;
     }
@@ -64,9 +58,6 @@ class CountryService
     public function permanentDeleteCountry(string $encryptedId): void
     {
         $country = $this->getDeletedCountry($encryptedId);
-        if ($country->image) {
-            $this->fileDelete(file: $country->image);
-        }
         $country->forceDelete();
     }
 

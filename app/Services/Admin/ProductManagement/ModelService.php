@@ -29,7 +29,7 @@ class ModelService
     {
         $data['created_by'] = admin()->id;
         if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload(Model::class, $file, admin(), 'models/');
+            $data['image'] = $this->handleFileUpload($file,'models');
         }
         $model = Model::create($data);
         return $model;
@@ -40,7 +40,8 @@ class ModelService
         $model = $this->getModel($encryptedId);
         $data['updated_by'] = admin()->id;
         if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload($model, $file, admin(), 'brands/');
+            $data['image'] = $this->handleFileUpload($file, 'models');
+            $this->fileDelete($model->image);
         }
         $model->update($data);
         return $model;

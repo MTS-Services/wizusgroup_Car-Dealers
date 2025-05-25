@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('auction_id')->index();
             $table->unsignedBigInteger('user_id')->index();
             $table->decimal('bid_amount', 15, 2)->min(0)->default(0)->index();
+            $table->integer('whatsapp_number')->index();
             $table->boolean('is_winning')->default(0)->index();
             $table->boolean('is_buy_now')->default(0)->index();
 
@@ -28,7 +29,7 @@ return new class extends Migration
 
             $table->timestamps();
             $table->softDeletes();
-            $this->addAdminAuditColumns($table);
+            $this->addMorphedAuditColumns($table);
 
             $table->foreign('auction_id')->references('id')->on('auctions')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

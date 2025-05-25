@@ -120,6 +120,8 @@
     </section>
 @endsection
 @push('js')
+
+    {{-- Filter By Order  --}}
     <script>
         $(document).ready(function() {
             $("#sort-select").on("change", function() {
@@ -127,6 +129,8 @@
             });
         });
     </script>
+
+    {{-- Date Validation --}}
     <script>
         $(document).ready(function() {
             const $dateInput = $('input[name="date"]');
@@ -152,7 +156,7 @@
             });
         });
     </script>
-    </script>
+    
     <script>
         $(document).ready(function() {
             const $openSidebar = $('.openAuctionFilterSidebar');
