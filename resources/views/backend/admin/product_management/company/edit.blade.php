@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-12">
+     <div class="{{ $document ? 'col-md-8' : 'col-md-12' }}">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4 class="cart-title">{{ __('Edit Company') }}</h4>
@@ -34,7 +34,7 @@
                     {{-- Image --}}
                     <div class="form-group">
                         <label>{{ __('image') }}<span class="text-danger">*</span></label>
-                        <input type="file" accept="image/*" name="uploadImage" data-actualName="image"
+                        <input type="file" accept="image/jpg, image/jpeg, image/png, image/webp, image/svg" name="image"
                             class="form-control filepond" id="image">
                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'image']" />
                     </div>
@@ -72,6 +72,7 @@
             </div>
         </div>
     </div>
+    <x-backend.admin.documentation :document="$document" />
 </div>
 @endsection
 @push('js')
@@ -83,7 +84,7 @@
             const existingFiles = {
                 "#image":"{{ $company->modified_image }}",
             };
-            file_upload(["#image"], "uploadImage", "admin", existingFiles, false);
+            file_upload(["#image"], ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/svg"], existingFiles);
         });
     </script>
 {{-- FilePond  --}}

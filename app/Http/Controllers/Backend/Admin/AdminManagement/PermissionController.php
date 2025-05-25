@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\AdminManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PermissionRequest;
+use App\Models\Documentation;
 use App\Models\Permission;
 use App\Services\Admin\AdminManagement\PermissionService;
 use Illuminate\Http\Request;
@@ -128,7 +129,9 @@ class PermissionController extends Controller
      */
     public function create(): View
     {
-        return view('backend.admin.admin_management.permission.create');
+
+        $data['document'] = Documentation::where([['module_key', 'permission'], ['type', 'create']])->first();
+        return view('backend.admin.admin_management.permission.create', $data);
     }
 
     /**
@@ -158,6 +161,7 @@ class PermissionController extends Controller
     public function edit(string $id): View
     {
         $data['permission'] = $this->permissionService->getPermission($id);
+        $data['document'] = Documentation::where([['module_key', 'permission'], ['type', 'update']])->first();
         return view('backend.admin.admin_management.permission.edit', $data);
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\SupplierManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SupllierManagement\SupplierRequest;
+use App\Models\Documentation;
 use App\Services\Admin\SupllierManagement\SupplierService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -17,7 +18,7 @@ class SuppliersController extends Controller
     public function __construct(SupplierService $supplierService)
     {
         $this->supplierService = $supplierService;
-        
+
         $this->middleware('auth:admin');
         $this->middleware('permission:supplier-list', ['only' => ['index']]);
         $this->middleware('permission:supplier-details', ['only' => ['show']]);
@@ -163,7 +164,8 @@ class SuppliersController extends Controller
    public function create(): View
     {
 
-        return view('backend.admin.supplier_management.supplier.create');
+        $data['document'] = Documentation::where([['module_key', 'supplier'], ['type', 'create']])->first();
+        return view('backend.admin.supplier_management.supplier.create', $data);
     }
 
     /**
@@ -173,7 +175,8 @@ class SuppliersController extends Controller
     {
          try {
             $validated = $request->validated();
-            $this->supplierService->createSupplier($validated, $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->supplierService->createSupplier($validated, $file);
             session()->flash('success', 'Supplier created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Supplier create failed!');
@@ -198,6 +201,7 @@ class SuppliersController extends Controller
     public function edit(string $id)
     {
         $data['supplier'] = $this->supplierService->getSupplier($id);
+        $data['document'] = Documentation::where([['module_key', 'supplier'], ['type', 'update']])->first();
         return view('backend.admin.supplier_management.supplier.edit', $data);
     }
 
@@ -209,7 +213,8 @@ class SuppliersController extends Controller
         try {
             $supplier = $this->supplierService->getSupplier($id);
             $validated = $request->validated();
-            $this->supplierService->updateSupplier($supplier,$validated,  $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->supplierService->updateSupplier($supplier,$validated,  $file);
             session()->flash('success', 'Supplier updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Supplier update failed!');

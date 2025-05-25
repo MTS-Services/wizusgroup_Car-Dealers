@@ -2,7 +2,7 @@
 @section('title', 'Edit Category')
 @section('content')
     <div class="row">
-        <div class="col-12">
+         <div class="{{ $document ? 'col-md-8' : 'col-md-12' }}">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="cart-title">{{ __('Edit Category') }}</h4>
@@ -31,8 +31,8 @@
                         </div>
                         <div class="form-group">
                             <label>{{ __('Image') }}</label>
-                            <input type="file" name="uploadImage" data-actualName="image" class="form-control filepond"
-                                id="image" accept="image/*">
+                            <input type="file" name="image" class="form-control filepond"
+                                id="image" accept="image/jpg, image/jpeg, image/png, image/webp, image/svg">
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'image']" />
                         </div>
                         <div class="form-group">
@@ -57,6 +57,7 @@
                 </div>
             </div>
         </div>
+        <x-backend.admin.documentation :document="$document" />
     </div>
 @endsection
 @push('js')
@@ -64,11 +65,11 @@
     <script src="{{ asset('filepond/filepond.js') }}"></script>
     <script src="{{ asset('ckEditor5/main.js') }}"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function() { 
             const existingFiles = {
                 "#image":"{{ $category->modified_image }}",
             }
-            file_upload(["#image"], "uploadImage", "admin", existingFiles, false);
+            file_upload(["#image"], ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/svg"], existingFiles);
         });
     </script>
     {{-- FilePond  --}}
