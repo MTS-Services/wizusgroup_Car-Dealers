@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\TaxClassRequest;
+use App\Models\Documentation;
 use App\Models\TaxClass;
 use App\Services\Admin\ProductManagement\TaxClassService;
 use Illuminate\Contracts\View\View;
@@ -141,7 +142,8 @@ class TaxClassController extends Controller
      */
     public function create()
     {
-        return view('backend.admin.product_management.tax_class.create');
+        $data['document'] = Documentation::where([['module_key', 'tax class'], ['type', 'create']])->first();
+        return view('backend.admin.product_management.tax_class.create', $data);
     }
 
     /**
@@ -176,8 +178,9 @@ class TaxClassController extends Controller
      */
     public function edit(string $id)
     {
-        $tax_class = $this->taxClassService->getTaxClass($id);
-        return view('backend.admin.product_management.tax_class.edit', compact('tax_class'));
+       $data ['tax_class'] = $this->taxClassService->getTaxClass($id);
+        $data['document'] = Documentation::where([['module_key', 'tax class'], ['type', 'update']])->first();
+        return view('backend.admin.product_management.tax_class.edit', $data);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Admin\Setup;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Setup\CountryRequest;
 use App\Models\Country;
+use App\Models\Documentation;
 use App\Services\Admin\Setup\CountryService;
 
 use Illuminate\Http\JsonResponse;
@@ -147,7 +148,8 @@ class CountryController extends Controller
      */
     public function create()
     {
-        return view('backend.admin.setup.country.create');
+        $data['document'] = Documentation::where([['module_key', 'country'], ['type', 'create']])->first();
+        return view('backend.admin.setup.country.create', $data);
     }
 
     /**
@@ -184,6 +186,7 @@ class CountryController extends Controller
     public function edit(string $id)
     {
         $data['country'] = Country::findOrFail(decrypt($id));
+        $data['document'] = Documentation::where([['module_key', 'country'], ['type', 'update']])->first();
         return view('backend.admin.setup.country.edit', $data);
     }
 

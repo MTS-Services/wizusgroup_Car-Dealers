@@ -22,9 +22,9 @@ class DocumentationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'key' => 'required|string',
-            'type' => 'nullable|string|in:create,update',
+            'type' => 'required|enum|in:create,update',
             'documentation' => 'nullable|string',
+            'module_key' => 'required|string',
 
         ]
             +

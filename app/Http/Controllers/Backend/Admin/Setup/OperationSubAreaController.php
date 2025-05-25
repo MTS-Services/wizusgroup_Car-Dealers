@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Admin\Setup;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Setup\OperationSubAreaRequest;
 use App\Models\Country;
+use App\Models\Documentation;
 use App\Models\OperationSubArea;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -162,6 +163,7 @@ class OperationSubAreaController extends Controller
     public function create()
     {
         $data['countries'] = Country::active()->select('id','name','slug')->orderBy('name')->get();
+        $data['document'] = Documentation::where([['module_key', 'operation sub area'], ['type', 'create']])->first();
         return view('backend.admin.setup.operation_sub_area.create',$data);
     }
 
@@ -197,6 +199,7 @@ class OperationSubAreaController extends Controller
     {
         $data['operation_sub_area'] = OperationSubArea::findOrFail(decrypt($id));
         $data['countries'] = Country::active()->select('id','name','slug')->orderBy('name')->get();
+        $data['document'] = Documentation::where([['module_key', 'operation sub area'], ['type', 'update']])->first();
         return view('backend.admin.setup.operation_sub_area.edit',$data);
     }
 
