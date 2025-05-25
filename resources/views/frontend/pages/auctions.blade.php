@@ -19,94 +19,94 @@
             <div class="flex justify-start gap-10">
                 <div class="w-1/4 hidden xl:block">
                     {{-- Sidebar Filter --}}
-                    <div
-                        class="space-y-6 shadow-card dark:shadow-dark-card rounded-lg dark:bg-bg-dark-tertiary overflow-hidden mt-3">
-                        <h2
-                            class="text-lg md:text-xl font-semibold capitalize border-b bg-bg-light dark:bg-bg-light dark:bg-opacity-20 border-border-gray dark:border-opacity-50 p-4">
-                            {{ __(' Auction fillters') }}</h2>
-                        <div class="px-4">
-                            <h3 class="text-sm md:text-base font-medium">{{ __('Category') }}</h3>
-                            <div class="mt-2">
-                                <select class="select">
-                                    <option value="" selected disabled>Select Category</option>
+                    <form action="{{ route('frontend.auctions.filter') }}" method="post">
+                        @csrf
+                        <div
+                            class="space-y-6 shadow-card dark:shadow-dark-card rounded-lg dark:bg-bg-dark-tertiary overflow-hidden mt-3">
+                            <h2
+                                class="text-lg md:text-xl font-semibold capitalize border-b bg-bg-light dark:bg-bg-light dark:bg-opacity-20 border-border-gray dark:border-opacity-50 p-4">
+                                {{ __(' Auction fillters') }}</h2>
+                            <div class="px-4">
+                                <h3 class="text-sm md:text-base font-medium">{{ __('Category') }}</h3>
+
+                                <select class="select mt-2" name="category">
+                                    <option value="" selected>All Category</option>
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->slug }}">{{ $category->name }}</option>
+                                        <option value="{{ $category->slug }}"
+                                            {{ request()->category == $category->slug ? 'selected' : '' }}>
+                                            {{ $category->name }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-                        <div class="px-4">
-                            <h3 class="text-sm md:text-base font-medium">{{ __('Make') }}</h3>
-                            <div class="mt-2">
-                                <select class="select">
-                                    <option value="" selected disabled>Select Make</option>
-                                    @foreach ($companies as $make)
-                                        <option value="{{ $make->slug }}">{{ $make->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="px-4">
-                            <h3 class="text-sm md:text-base font-medium">{{ __('End Time') }}</h3>
-                            <div class="mt-2">
-                                <input type="date" name="date" hidden id="date">
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'category']" />
 
-                                <button popovertarget="cally-popover1" class="input input-border" id="cally1"
-                                    style="anchor-name:--cally1">
-                                    {{ __('Pick a date') }}
+                            </div>
+                            <div class="px-4">
+                                <h3 class="text-sm md:text-base font-medium">{{ __('Make') }}</h3>
+                                <select class="select mt-2" name="company">
+                                    <option value="" selected>Select Make</option>
+                                    @foreach ($companies as $company)
+                                        <option value="{{ $company->slug }}"
+                                            {{ request()->company == $company->slug ? 'selected' : '' }}>
+                                            {{ $company->name }}</option>
+                                    @endforeach
+                                </select>
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'company']" />
+                            </div>
+                            <div class="px-4">
+                                <h3 class="text-sm md:text-base font-medium">{{ __('End Time') }}</h3>
+                                <input type="date" class="input py-0 px-4 mt-2" name="date"
+                                    value="{{ request()->date }}">
+                                <span class="date-error text-xs text-red-500"></span>
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'date']" />
+                            </div>
+                            <div class="px-4 pb-4">
+                                <button id="filterBtn" class="w-full btn-primary group">
+                                    <span>Sherch</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                    </svg>
                                 </button>
-
-                                <div popover id="cally-popover1" class="dropdown bg-base-100 rounded-box shadow-lg"
-                                    style="position-anchor:--cally1">
-                                    <calendar-date class="cally" id="calendar"
-                                        onchange="
-        document.getElementById('cally1').innerText = this.value;
-        document.getElementById('date').value = this.value;
-    ">
-                                        <svg aria-label="Previous" class="fill-current size-4" slot="previous"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                            <path d="M15.75 19.5 8.25 12l7.5-7.5"></path>
-                                        </svg>
-                                        <svg aria-label="Next" class="fill-current size-4" slot="next"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                            <path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
-                                        </svg>
-                                        <calendar-month></calendar-month>
-                                    </calendar-date>
-                                </div>
-
-                                <script type="module" src="https://unpkg.com/cally"></script>
-                                <script type="module">
-                                    import "cally";
-                                </script>
                             </div>
                         </div>
-                        <div class="px-4 pb-4">
-                            <button
-                                class="w-full btn-primary hover:bg-bg-tertiary py-2 rounded-md transition-all duration-300 flex items-center justify-center group">
-                                <span>Sherch</span>
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="w-full xl:w-3/4">
                     {{-- Products Grid --}}
-                    <div class="flex items-center gap-2 md:gap-3 mb-4">
-                        <button
-                            class="openAuctionFilterSidebar btn px-2 py-0 rounded-md bg-transparent border-bg-accent dark:border-bg-light dark:border-opacity-50 text-text-accent text-sm font-medium  xs:px-5 xs:py-2 lg:text-base w-fit text-nowrap xl:hidden">
-                            <span><i data-lucide="sliders-horizontal" class="w-4 h-4 md:w-5 md:h-5"></i></span>
-                            <span class="">{{ __('Filter') }}</span>
-                        </button>
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="flex items-center gap-2 md:gap-3">
+                            <button
+                                class="openAuctionFilterSidebar btn px-2 py-0 rounded-md bg-transparent border-bg-accent dark:border-bg-light dark:border-opacity-50 text-text-accent text-sm font-medium  xs:px-5 xs:py-2 lg:text-base w-fit text-nowrap xl:hidden">
+                                <span><i data-lucide="sliders-horizontal" class="w-4 h-4 md:w-5 md:h-5"></i></span>
+                                <span class="">{{ __('Filter') }}</span>
+                            </button>
+                            <h2 class="text-sm xs:text-base md:text-lg  font-semibold">{{ __('Sort') }}
+                                <span>{{ number_format(count($auctions)) }}</span>
+                            </h2>
+                        </div>
+                        <div class="flex items-center">
+                            <form action="{{ route('frontend.auctions.filter') }}" method="POST"
+                                id="filter_form">
+                                @csrf
+                                <select name="sort" id="sort-select" class="select">
+                                    <option value="" {{ request()->sort == '' ? 'selected' : '' }}>Default</option>
+                                    <option value="low_to_high" {{ request()->sort == 'low_to_high' ? 'selected' : '' }}>
+                                        {{ __('Price: High to Low') }}</option>
+                                    <option value="high_to_low" {{ request()->sort == 'high_to_low' ? 'selected' : '' }}>
+                                        {{ __('Price: Low to High') }}</option>
+                                    <option value="latest" {{ request()->sort == 'latest' ? 'selected' : '' }}>
+                                        {{ __('Newest First') }}</option>
+                                    <option value="oldest" {{ request()->sort == 'oldest' ? 'selected' : '' }}>
+                                        {{ __('Oldest First') }}</option>
+                                </select>
+                            </form>
+                        </div>
                     </div>
 
                     <!-- Loading Indicator -->
-                    <div id="loading-indicator" class="hidden flex justify-center items-center py-12">
+                    <div id="loading-indicator" class="flex justify-center items-center py-12">
                         <div class="loading-spinner"></div>
                         <span class="ml-3 text-text-dark dark:text-text-light text-opacity-50">Loading products...</span>
                     </div>
@@ -120,11 +120,38 @@
     </section>
 @endsection
 @push('js')
-    <script type="module" src="https://unpkg.com/cally"></script>
-    <script type="module">
-        import "cally";
+    <script>
+        $(document).ready(function() {
+            $("#sort-select").on("change", function() {
+                $("#filter_form").submit();
+            });
+        });
     </script>
+    <script>
+        $(document).ready(function() {
+            const $dateInput = $('input[name="date"]');
+            const $errorSpan = $('.date-error');
+            const $submitBtn = $('#filterBtn');
 
+            $dateInput.on('change', function() {
+                const selectedDate = new Date($dateInput.val());
+                const today = new Date();
+                today.setHours(0, 0, 0, 0); // Remove time for accurate comparison
+
+                if (selectedDate < today) {
+                    $errorSpan.text('Oops! You can\'t pick a past date.');
+                    $dateInput.addClass(
+                        'border-red-500 focus:focus:border-red-500 focus-within:border-red-500');
+                    $submitBtn.prop('disabled', true).addClass('opacity-50 cursor-not-allowed');
+                } else {
+                    $errorSpan.text('');
+                    $dateInput.removeClass(
+                        'border-red-500 focus:focus:border-red-500 focus-within:border-red-500');
+                    $submitBtn.prop('disabled', false).removeClass('opacity-50 cursor-not-allowed');
+                }
+            });
+        });
+    </script>
     </script>
     <script>
         $(document).ready(function() {

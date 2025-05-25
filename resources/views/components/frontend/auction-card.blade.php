@@ -14,9 +14,7 @@
         </a>
         <!-- Timer Badge -->
         <div class="absolute z-50 bottom-[-10px] left-3 bg-bg-orange text-text-white px-3 py-1 rounded-md text-sm font-medium"
-            id="timer-{{ $auction->id }}" data-endDate="{{ $auction->end_date }}">
-            {{ __('2d 04h 15m') }}
-        </div>
+            id="timer-{{ $auction->id }}" data-endDate="{{ $auction->end_date }}"></div>
     </div>
 
     <!-- Card Content -->

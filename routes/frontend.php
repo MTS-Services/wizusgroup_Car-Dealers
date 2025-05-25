@@ -16,16 +16,18 @@ Route::group(['as' => 'frontend.'], function () {
   // Product Page
   Route::get('/products/{category_slug}', [ProductPageController::class, 'products'])->name('products');
   Route::post('/products-filter/{category_slug}', [ProductPageController::class, 'productFilter'])->name('products.filter');
+  Route::get('/product-details/{slug}', [ProductPageController::class, 'productDetails'])->name('product.details');
   // Contact Page
   Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
   // Auction Page
-  Route::get('/auction', [AuctionPageController::class, 'auction'])->name('auction');
+  Route::get('/auctions', [AuctionPageController::class, 'auction'])->name('auctions');
+  Route::post('/auctions-filter', [AuctionPageController::class, 'auctionFilter'])->name('auctions.filter');
   // Auction Details Page
   Route::get('/auction/{slug}', [AuctionPageController::class, 'auctionDetails'])->name('auction-details');
   // Parts & Accessories Page
   Route::get('/parts-accessories', [FrontendController::class, 'parts_accessories'])->name('parts-accessories');
   //  Product Details Page
-  Route::get('/product-details', [FrontendController::class, 'product_details'])->name('product_details');
+
   // group Shipping page
   Route::get('/group-shipping', [GroupShippingPageController::class, 'group_shipping'])->name('group_shipping');
   // droopshipping
