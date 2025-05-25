@@ -122,8 +122,7 @@
                 <div>
                     <h2 class="text-2xl md:text-3xl xl:text-4xl font-bold mb-6 xl:mb-12 text-text-dark dark:text-text-white">{{ __("Our Locations") }}</h2>
                     <p class="text-sm md:text-base xl:text-lg text-text-gray dark:text-text-light-secondary mb-6">
-                       {{ __(" With offices and warehouses strategically located in Japan and China, Wiz afrik
-                        ensures efficient sourcing and logistics operations for all our clients across Africa.")}}
+                       {{ __("With offices and warehouses strategically located in Japan and China, Wiz afrik ensures efficient sourcing and logistics operations for all our clients across Africa.")}}
                     </p>
                 </div>
 
