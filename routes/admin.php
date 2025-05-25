@@ -322,7 +322,7 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
             Route::put('update-info/{product}', 'updateInfo')->name('info.update');
 
             // Download
-            Route::get('download/{file}', 'download')->name('info.document.download');
+            Route::get('download/{id}', 'download')->name('info.file.download');
         });
 
         // Company Routes

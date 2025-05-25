@@ -23,7 +23,7 @@ class ProductInfoFileRequest extends FormRequest
     {
         return [
             "product_info_cat"=> "required|exists:product_info_categories,id",
-            "files"=> "required",
+            "file"=> "required|file|mimes:pdf,doc,docx,xls,xlsx,txt,zip",
         ];
     }
 }
