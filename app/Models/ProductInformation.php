@@ -16,6 +16,7 @@ class ProductInformation extends BaseModel
         'product_info_cat_type_feature_id',
         'remarks',
         'description',
+        'file',
         'created_by',
         'updated_by',
         'deleted_by',
