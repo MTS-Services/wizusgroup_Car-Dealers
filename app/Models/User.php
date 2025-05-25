@@ -201,13 +201,13 @@ class User extends AuthBaseModel implements MustVerifyEmail
     }
 
     public const RECEIVE_PROMOTION_EMAIL = 1;
-    public const NOT_RECEIVE_PROMOTION_EMAIL = 1;
+    public const NOT_RECEIVE_PROMOTION_EMAIL = 2;
 
     public static function getReceivePromotionEmails(): array
     {
         return [
             self::RECEIVE_PROMOTION_EMAIL => 'Recieve',
-            self::NOT_RECEIVE_PROMOTION_EMAIL => 'Cannot Accept',
+            self::NOT_RECEIVE_PROMOTION_EMAIL => 'Cannot Recieve',
         ];
     }
 
@@ -219,7 +219,7 @@ class User extends AuthBaseModel implements MustVerifyEmail
     public const ACCEPT_TERMS = 1;
     public const NOT_ACCEPT_TERMS = 0;
 
-    public static function getAcceptTerms(): array
+    public static function getTerms(): array
     {
         return [
             self::ACCEPT_TERMS => 'Accept',
@@ -229,6 +229,6 @@ class User extends AuthBaseModel implements MustVerifyEmail
 
     public function getAcceptTermAttribute(): string
     {
-        return self::getAcceptTerms()[$this->accept_terms] ?? 'Unknown';
+        return self::getTerms()[$this->accept_terms] ?? 'Unknown';
     }
 }

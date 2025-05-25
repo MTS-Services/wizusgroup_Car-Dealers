@@ -28,10 +28,11 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->tinyInteger('status')->default(AuthBaseModel::STATUS_ACTIVE)->index();
 
+            $table->string('occupation')->nullable()->index();
             $table->string('company_name')->nullable()->index();
             $table->boolean('business_type')->index();
             $table->tinyInteger('business_name')->index();
-            $table->string('business_information')->index();
+            $table->string('business_information')->nullable()->index();
             $table->tinyInteger('business_line')->index();
             $table->string('id_registration_info')->nullable()->index();
             $table->string('dealer_registration_permit')->nullable()->index();
