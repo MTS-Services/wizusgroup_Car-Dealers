@@ -202,7 +202,7 @@ function getBrands(companyId, route, brandId = null) {
             if (response.data.brands.length > 0) {
                 $('#brand_id').html(`<option value="" selected hidden>Select Brand</option>`);
                 response.data.brands.forEach(function (brand) {
-                    $('#brand_id').append(`<option value="${brand.id}" ${brand.id == brandId ? 'selected' : ''}>${brand.name}</option>`);
+                    $('#brand_id').append(`<option value="${brand.id}" ${brand.id == brandId ? 'selected' : ''}> ${brand.name}</option>`);
                 });
                 $('#brand_id').prop('disabled', false);
             } else {

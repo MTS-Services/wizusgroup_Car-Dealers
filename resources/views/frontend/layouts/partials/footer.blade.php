@@ -58,6 +58,16 @@
                                         </div>
                                         {{ __('Service 4') }}
                                     </a>
+                                    <a href="{{ route('frontend.parts-accessories') }}"
+                                        class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm group/service group/service w-fit">
+                                        <div>
+                                            <span
+                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/service:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
+                                                <i data-lucide="arrow-big-right" class="w-4 text-text-white"></i>
+                                            </span>
+                                        </div>
+                                        {{ __('Parts') }}
+                                    </a>
                                 </div>
                             </div>
                             <div class="basis-1/2">
@@ -83,7 +93,7 @@
                                         </div>
                                         {{ __('About Us') }}
                                     </a>
-                                    <a href="{{ route('frontend.product') }}"
+                                    {{-- <a href=""
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
                                         <div>
                                             <span
@@ -93,7 +103,7 @@
                                         </div>
                                         {{ __('Products') }}
                                     </a>
-                                    <a href="{{ route('frontend.auction') }}"
+                                    <a href="{{ route('frontend.auctions') }}"
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
                                         <div>
                                             <span
@@ -103,7 +113,7 @@
                                         </div>
                                         {{ __('Auctions') }}
                                     </a>
-                                    <a href="{{route('frontend.auction-details')}}"
+                                    {{-- <a href="{{route('frontend.auction-details')}}"
                                          class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
                                         <div>
                                             <span
@@ -112,9 +122,9 @@
                                             </span>
                                         </div>
                                         {{ __('Auction Details') }}
-                                    </a>
-                                    <a href="{{route('frontend.contact')}}"
-                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
+                                    </a> --}}
+                                    <a href="{{ route('frontend.contact') }}"
+                                        class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
                                         <div>
                                             <span
                                                 class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/link:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">

@@ -184,7 +184,8 @@ class ModelController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->modelService->createModel($validated, $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->modelService->createModel($validated, $file);
             session()->flash('success', 'Model created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Model create failed!');
@@ -221,10 +222,10 @@ class ModelController extends Controller
      */
     public function update(ModelRequest $request, string $id)
     {
-
         try {
             $validated = $request->validated();
-            $this->modelService->updateModel($id, $validated, $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->modelService->updateModel($id, $validated, $file);
             session()->flash('success', 'Model updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Model update failed!');

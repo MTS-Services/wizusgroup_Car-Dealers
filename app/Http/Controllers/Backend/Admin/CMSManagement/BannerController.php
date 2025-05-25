@@ -168,7 +168,8 @@
 
             try {
                 $validated = $request->validated();
-                $this->bannerService->createBanner($validated, $request->image ?? null);
+                $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+                $this->bannerService->createBanner($validated, $file);
                 session()->flash('success', 'Banner created successfully!');
             } catch (\Throwable $e) {
                 session()->flash('error', 'Banner create failed!');
@@ -206,7 +207,8 @@
 
             try {
                 $validated = $request->validated();
-                $this->bannerService->updateBanner($id, $validated, $request->image ?? null);
+                $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+                $this->bannerService->updateBanner($id, $validated, $file);
                 session()->flash('success', 'Banner updated successfully!');
             } catch (\Throwable $e) {
                 session()->flash('error', 'Banner update failed!');

@@ -21,12 +21,12 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id')->index();
             $table->string('title')->index();
             $table->string('slug')->unique();
-            $table->longText('description')->nullable()->index();
+            $table->longText('description')->nullable();
             $table->decimal('start_price', 15, 2)->min(0)->index();
             $table->decimal('reserve_price', 15, 2)->min(0)->index();
             $table->decimal('buy_now_price', 15, 2)->min(0)->nullable()->index();
             $table->decimal('increment_amount', 15, 2)->min(0)->nullable()->index();
-
+            $table->string('location');
             $table->date('start_date')->nullable()->index();
             $table->date('end_date')->nullable()->index();
 

@@ -177,7 +177,8 @@ class BrandController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->brandService->createBrand($validated, $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->brandService->createBrand($validated, $file);
             session()->flash('success', 'Brand created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Brand create failed!');
@@ -216,7 +217,8 @@ class BrandController extends Controller
 
         try {
             $validated = $request->validated();
-            $this->brandService->updateBrand($id, $validated, $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->brandService->updateBrand($id, $validated, $file);
             session()->flash('success', 'Brand updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Brand update failed!');

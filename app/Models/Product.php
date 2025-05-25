@@ -114,6 +114,7 @@ class Product extends BaseModel
     {
         return $this->hasOne(ProductRelation::class);
     }
+
     // Brand, Company, Model
     public function company(): HasOneThrough
     {
@@ -127,7 +128,7 @@ class Product extends BaseModel
 
     public function model(): HasOneThrough
     {
-        return $this->hasOneThrough(Brand::class, ProductRelation::class, 'product_id', 'id', 'id', 'model_id');
+        return $this->hasOneThrough(Model::class, ProductRelation::class, 'product_id', 'id', 'id', 'model_id');
     }
 
     // Tax Class & Rate
@@ -164,14 +165,19 @@ class Product extends BaseModel
     }
 
 
-    public function productImages(): HasMany
+    public function images(): HasMany
     {
         return $this->hasMany(ProductImage::class, 'product_id', 'id');
     }
-    public function productActiveImages(): HasMany
+    public function primaryImage(): HasMany
     {
-        return $this->productImages()->active();
+        return $this->images()->primary();
     }
+    public function activeImages(): HasMany
+    {
+        return $this->images()->active();
+    }
+
 
 
     public const STATUS_ACTIVE = 1;
