@@ -12,7 +12,7 @@ class Documentation extends BaseModel
     protected $fillable = [
         'sort_order',
         'title',
-        'key',
+        'module_key',
         'type',
         'documentation',
 

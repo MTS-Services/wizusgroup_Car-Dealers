@@ -26,6 +26,7 @@ class ProductInfoRequest extends FormRequest
             "product_info_cat_type_id"=> "required|exists:product_info_category_types,id",
             "product_info_cat_type_feature_id"=> "nullable|exists:product_info_category_type_features,id",
             "description"=> "required|string",
+            "file"=> "nullable",
         ];
     }
 }

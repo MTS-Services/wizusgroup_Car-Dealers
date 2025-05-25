@@ -21,14 +21,12 @@
                         @csrf
                         <div class="form-group">
                             <label>{{ __('Primary image') }} <span class="text-danger">*</span></label>
-                            <input type="file" name="image" accept="image/jpeg, image/png, image/jpg, image/webp, image/svg" class="form-control filepond" id="image"
-                                accept="image/*">
+                            <input type="file" name="image" accept="image/jpeg, image/png, image/jpg, image/webp, image/svg" class="form-control filepond" id="image">
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'image']" />
                         </div>
                         <div class="form-group">
                             <label for="images">{{ __('Images') }}</label>
-                            <input type="file" name="images[]" accept="image/jpeg, image/png, image/jpg, image/webp, image/svg"  class="form-control filepond" multiple id="images"
-                                accept="image/*">
+                            <input type="file" name="images[]" accept="image/jpeg, image/png, image/jpg, image/webp, image/svg"  class="form-control filepond" multiple id="images">
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'images.*']" />
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'images']" />
                         </div>
@@ -48,8 +46,11 @@
     <script src="{{ asset('filepond/filepond.js') }}"></script>
     <script>
         $(document).ready(function() {
-            file_upload(["#image"], [], ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg']);
-            file_upload(["#images"], [], ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg'], true);
+            const existingFiles = {
+                "#image":"{{ $product->modified_image }}",
+            }
+            file_upload(["#image"], [], ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg'], existingFiles);
+            file_upload(["#images"], [], ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg'],existingFiles);
         });
     </script>
 @endpush

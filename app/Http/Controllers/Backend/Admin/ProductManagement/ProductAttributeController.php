@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\ProductAttributeRequest;
 use App\Http\Traits\FileManagementTrait;
+use App\Models\Documentation;
 use App\Models\ProductAttribute;
 use App\Services\Admin\ProductManagement\ProductAttributeService;
 use Illuminate\Http\RedirectResponse;
@@ -152,7 +153,8 @@ class ProductAttributeController extends Controller
      */
     public function create()
     {
-        return view('backend.admin.product_management.product_attribute.create');
+        $data['document'] = Documentation::where([['module_key', 'product attribute'], ['type', 'create']])->first();
+        return view('backend.admin.product_management.product_attribute.create', $data);
     }
 
     /**
@@ -162,7 +164,7 @@ class ProductAttributeController extends Controller
     {
          try {
             $validated = $request->validated();
-            $this->productAttrService->createProductAttribute($validated, $request->image ?? null);
+            $this->productAttrService->createProductAttribute($validated);
             session()->flash('success', 'Product Attribute created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Product Attribute create failed!');
@@ -186,8 +188,9 @@ class ProductAttributeController extends Controller
      */
     public function edit(string $id)
     {
-         $product_attribute = $this->productAttrService->getProductAttribute($id);
-        return view('backend.admin.product_management.product_attribute.edit', compact('product_attribute'));
+        $data['product_attribute'] = $this->productAttrService->getProductAttribute($id);
+        $data['document'] = Documentation::where([['module_key', 'product attribute'], ['type', 'update']])->first();
+        return view('backend.admin.product_management.product_attribute.edit', $data);
     }
 
     /**
@@ -195,10 +198,10 @@ class ProductAttributeController extends Controller
      */
     public function update(ProductAttributeRequest $request, string $id): RedirectResponse
     {
-        
+
         try {
             $validated = $request->validated();
-            $this->productAttrService->updateProductAttribute($id, $validated, $request->image ?? null);
+            $this->productAttrService->updateProductAttribute($id, $validated);
             session()->flash('success', 'Product attribute updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Product attribute update failed!');

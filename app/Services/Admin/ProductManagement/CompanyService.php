@@ -29,7 +29,7 @@ class CompanyService
     {
         $data['created_by'] = admin()->id;
         if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload(Company::class, $file, admin(), 'companies/');
+            $data['image'] = $this->handleFileUpload( $file, 'companies');
         }
         $company = Company::create($data);
         return $company;
@@ -40,7 +40,8 @@ class CompanyService
         $company = $this->getCompany($encryptedId);
         $data['updated_by'] = admin()->id;
         if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload($company, $file, admin(), 'companies/');
+            $data['image'] = $this->handleFileUpload($file, 'companies');
+            $this->fileDelete($company->image);
         }
         $company->update($data);
         return $company;

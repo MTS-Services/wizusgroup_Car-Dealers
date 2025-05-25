@@ -22,19 +22,19 @@ Route::get('auth/callback/{provider}', [SocialAuthController::class, 'callback']
 
 Route::middleware(['auth:web', 'verified'])->group(function () {
   Route::get('/profile', [UserDashboardController::class, 'profile'])->name('profile');
-});
 
-Route::group(['as' => 'user.'], function () {
-  // User Profile
-  Route::controller(UserProfileController::class)->group(function () {
-    Route::get('/profile', 'profile')->name('profile');
-    Route::put('/profile/update', 'profileUpdate')->name('profile.update');
-    Route::put('/address/update', 'addressUpdate')->name('address.update');
-    Route::put('/password/update', 'passwordUpdate')->name('password.update');
-  });
+  Route::group(['as' => 'user.'], function () {
+    // User Profile
+    Route::controller(UserProfileController::class)->group(function () {
+      Route::get('/profile', 'profile')->name('profile');
+      Route::put('/profile/update', 'profileUpdate')->name('profile.update');
+      Route::put('/address/update', 'addressUpdate')->name('address.update');
+      Route::put('/password/update', 'passwordUpdate')->name('password.update');
+    });
 
-  // Auction Bid Place Route
-  Route::controller(AuctionBidPlaceController::class)->prefix('bid-place')->name('auction.')->group(function () {
-    Route::post('/place/{slug}', 'placeBid')->name('bid-place');
+    // Auction Bid Place Route
+    Route::controller(AuctionBidPlaceController::class)->prefix('bid-place')->name('auction.')->group(function () {
+      Route::post('/place/{slug}', 'placeBid')->name('bid-place');
+    });
   });
 });
