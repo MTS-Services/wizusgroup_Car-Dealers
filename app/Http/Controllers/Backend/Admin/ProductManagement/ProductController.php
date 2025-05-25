@@ -106,7 +106,7 @@ class ProductController extends Controller
                 'permissions' => ['product-details']
             ],
             [
-                'routeName' => 'pm.product.info.edit',
+                'routeName' => 'pm.product.edit',
                 'params' => [encrypt($model->id)],
                 'label' => 'Edit',
                 'permissions' => ['product-edit']
@@ -150,28 +150,37 @@ class ProductController extends Controller
 
     public function recycleBin(Request $request): JsonResponse|View
     {
-
         if ($request->ajax()) {
+            // Get all the products that are in the recycle bin
             $query = $this->productService->getProducts()
                 ->with(['deleter_admin'])
                 ->onlyTrashed();
+
+            // Define the columns that will be shown in the table
+            // The editColumn method is used to customize the values of a column
             return DataTables::eloquent($query)
                 ->editColumn('status', function ($product) {
+                    // The status of the product is shown as a badge
                     return "<span class='badge " . $product->status_color . "'>$product->status_label</span>";
                 })
                 ->editColumn('is_featured', function ($product) {
+                    // The featured status of the product is shown as a badge
                     return "<span class='badge " . $product->featured_color . "'>" . $product->featured_label . "</span>";
                 })
                 ->editColumn('allow_backorder', function ($product) {
+                    // The backorder status of the product is shown as a badge
                     return "<span class='badge " . $product->backorder_color . "'>" . $product->backorder_label . "</span>";
                 })
                 ->editColumn('is_dropshipping', function ($product) {
+                    // The dropshipping status of the product is shown as a badge
                     return "<span class='badge " . $product->dropshipping_color . "'>" . $product->dropshipping_label . "</span>";
                 })
                 ->editColumn('deleted_by', function ($category) {
+                    // The name of the user who deleted the product is shown
                     return $category->deleter_name;
                 })
                 ->editColumn('deleted_at', function ($category) {
+                    // The date when the product was deleted is shown
                     return $category->deleted_at_formatted;
                 })
                 ->editColumn('action', function ($category) {
@@ -256,6 +265,7 @@ class ProductController extends Controller
     public function images(string $pid): View
     {
         $data['product_id'] = $pid;
+        $data['product'] = $this->productService->getProduct($pid);
         return view('backend.admin.product_management.product.create.image', $data);
     }
 
@@ -425,11 +435,25 @@ class ProductController extends Controller
 
     public function editInfo(string $pid)
     {
-        $data['product'] = $this->productService->getProduct($pid);
-        $data['product']->load([]);
         $data['infos'] = $this->productService->getInfos($pid);
+        $data['info_remarks'] = $this->productService->getInfoRemarks($pid);
+        $data['product_id'] = $pid;
         $data['info_categories'] = $this->productInfoCategoryService->getProductInfoCats()->active()->select(['id', 'name'])->get();
         return view('backend.admin.product_management.product.edit.information', $data);
+    }
+
+    public function updateInfo(ProductInfoRequest $request, string $pid)
+    {
+        try {
+            $product = $this->productService->getProduct($pid);
+            $validated = $request->validated();
+            $this->productService->infoCreate($product, $validated);
+            session()->flash('success', 'Product information updated successfully!');
+            return redirect()->route('pm.product.info.edit', $pid);
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product information update failed!');
+            throw $e;
+        }
     }
 
     public function status(string $id): RedirectResponse

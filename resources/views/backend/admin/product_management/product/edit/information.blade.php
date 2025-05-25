@@ -10,13 +10,13 @@
                     </h4>
                     <x-backend.admin.button :datas="[
                         'routeName' => 'pm.product.image',
-                        'params' => ['product' => $product->id],
+                        'params' => ['product' => $product_id],
                         'label' => 'Back',
-                        'permissions' => ['product-update'],
+                        'permissions' => ['product-create'],
                     ]" />
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('pm.product.info.update', $product->id) }}" method="POST"
+                    <form action="{{ route('pm.product.info.update', $product_id) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -54,20 +54,54 @@
                             </div>
                             <div class="form-group">
                                 <label>{{ __('Information') }}<span class="text-danger">*</span></label>
-                                <input type="text" value="{{ $product->ProductInformation?->description }}" name="description"
+                                <input type="text" value="{{ old('description') }}" name="description"
                                     class="form-control" placeholder="Enter information">
                                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'description']" />
                             </div>
                         </div>
 
                         <div class="form-group float-end">
-                            <input type="submit" class="btn btn-primary" value="Add Information">
+                            <input type="submit" class="btn btn-primary" value="Update Information">
+                        </div>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('pm.product.info.remarks.store', $product_id) }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div class="row">
+                            <div class="form-group">
+                                <label>{{ __('Product Info Category') }} <span class="text-danger">*</span></label>
+                                <select name="product_info_cat" class="form-control">
+                                    <option value="" selected hidden>{{ __('Select Product Info Category') }}
+                                    </option>
+                                    @foreach ($info_categories as $category)
+                                        <option value="{{ $category->id }}"
+                                            {{ old('product_info_cat') == $category->id ? 'selected' : '' }}>
+                                            {{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'product_info_cat']" />
+                            </div>
+                            <div class="form-group">
+                                <label>{{ __('Remarks') }}<span class="text-danger">*</span></label>
+                                <textarea name="remarks" class="form-control" placeholder="Enter remarks">{{ old('remarks') }}</textarea>
+                                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'remarks']" />
+                            </div>
+                        </div>
+
+                        <div class="form-group float-end">
+                            <input type="submit" class="btn btn-primary" value="Add Remarks">
+                            <a href="{{ route('pm.product.index') }}" class="btn btn-secondary">{{__('Finish')}}</a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    @include('backend.admin.product_management.product.create.information_list', ['infos' => $infos])
 
 @endsection
 @push('js')
