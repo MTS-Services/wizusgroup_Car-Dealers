@@ -19,6 +19,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\ProductImageRequest;
+use App\Http\Requests\Admin\ProductManagement\ProductInfoFileRequest;
 use App\Http\Requests\Admin\ProductManagement\ProductRelationRequest;
 use Illuminate\Http\RedirectResponse;
 use Yajra\DataTables\Facades\DataTables;
@@ -287,6 +288,7 @@ class ProductController extends Controller
     {
         $data['infos'] = $this->productService->getInfos($pid);
         $data['info_remarks'] = $this->productService->getInfoRemarks($pid);
+        $data['info_files'] = $this->productService->getInfoFiles($pid);
         $data['product_id'] = $pid;
         $data['info_categories'] = $this->productInfoCategoryService->getProductInfoCats()->active()->select(['id', 'name'])->get();
         return view('backend.admin.product_management.product.create.information', $data);
@@ -330,6 +332,20 @@ class ProductController extends Controller
             return redirect()->route('pm.product.info', $pid);
         } catch (\Throwable $e) {
             session()->flash('error', 'Product remarks added failed!');
+            throw $e;
+        }
+    }
+
+    public function infoFileStore(ProductInfoFileRequest $request, string $pid): RedirectResponse
+    {
+        try {
+            $product = $this->productService->getProduct($pid);
+            $validated = $request->validated();
+            $this->productService->infoFileCreate($product, $validated);
+            session()->flash('success', 'Product files added successfully!');
+            return redirect()->route('pm.product.info', $pid);
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product files added failed!');
             throw $e;
         }
     }

@@ -103,6 +103,24 @@ class ProductService
         }
 
     }
+
+    public function infoFileCreate(Product $product, array $data, $type = 'create')
+    {
+        ($type == 'create' ? $data['created_by'] = admin()->id : $data['updated_by'] = admin()->id);
+        $record = ProductInformation::where('product_id', $product->id)
+            ->where('product_info_cat_id', $data['product_info_cat'])
+            ->whereNotNull('files')
+            ->first();
+        if ($record) {
+            $record->update(['files' => $data['files']]);
+        } else {
+            $record = ProductInformation::create([
+                'product_id' => $product->id,
+                'product_info_cat_id' => $data['product_info_cat'],
+                'files' => $data['files'],
+            ]);
+        }
+    }
     public function getProductEntryComplete($encryptedId)
     {
         $product = $this->getProduct($encryptedId);
@@ -121,6 +139,10 @@ class ProductService
     public function getInfoRemarks(string $encryptedId): ProductInformation|Collection
     {
         return ProductInformation::with('infoCategory')->where('product_id', decrypt($encryptedId))->whereNotNull('remarks')->select('id','product_info_cat_id', 'remarks')->latest()->get();
+    }
+    public function getInfoFiles(string $encryptedId): ProductInformation|Collection
+    {
+        return ProductInformation::with('infoCategory')->where('product_id', decrypt($encryptedId))->whereNotNull('files')->select('id','product_info_cat_id', 'files')->latest()->get();
     }
      public function getProductInfo(string $encryptedId): ProductInformation|Collection
     {
