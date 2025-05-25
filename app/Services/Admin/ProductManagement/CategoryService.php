@@ -20,7 +20,7 @@ class CategoryService
     {
         $data['created_by'] = admin()->id;
         if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload(Category::class, $file, admin(), 'categories/');
+            $data['image'] = $this->handleFileUpload($file, 'categories');
         }
         $category = Category::create($data);
         return $category;
@@ -30,7 +30,8 @@ class CategoryService
     {
         $data['updated_by'] = admin()->id;
         if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload($category, $file, admin(), 'categories/');
+            $data['image'] = $this->handleFileUpload($file, 'categories');
+            $this->fileDelete($category->image);
         }
         $category->update($data);
         return $category;

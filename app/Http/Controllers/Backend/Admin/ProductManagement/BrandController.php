@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\Admin\ProductManagement\BrandRequest;
+use App\Models\Documentation;
 use App\Services\Admin\ProductManagement\BrandService;
 use Illuminate\Http\RedirectResponse;
 
@@ -167,6 +168,7 @@ class BrandController extends Controller
     public function create()
     {
         $data['companies'] = $this->companyService->getCompanies()->active()->select(['id', 'name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'brand'], ['type', 'create']])->first();
         return view('backend.admin.product_management.brand.create', $data);
     }
 
@@ -177,7 +179,8 @@ class BrandController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->brandService->createBrand($validated, $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->brandService->createBrand($validated, $file);
             session()->flash('success', 'Brand created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Brand create failed!');
@@ -205,6 +208,7 @@ class BrandController extends Controller
     {
         $data['brand'] = $this->brandService->getBrand($id);
         $data['companies'] = $this->companyService->getCompanies()->active()->select(['id', 'name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'brand'], ['type', 'update']])->first();
         return view('backend.admin.product_management.brand.edit', $data);
     }
 
@@ -216,7 +220,8 @@ class BrandController extends Controller
 
         try {
             $validated = $request->validated();
-            $this->brandService->updateBrand($id, $validated, $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->brandService->updateBrand($id, $validated, $file);
             session()->flash('success', 'Brand updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Brand update failed!');

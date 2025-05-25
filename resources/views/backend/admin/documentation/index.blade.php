@@ -6,11 +6,19 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="cart-title">{{ __('Documentation List') }}</h4>
-                    <x-backend.admin.button :datas="[
-                        'routeName' => 'documentation.create',
-                        'label' => 'Add New',
-                        'permissions' => ['documentation-create'],
-                    ]" />
+                    <div class="buttons">
+                        <x-backend.admin.button :datas="[
+                            'routeName' => 'documentation.recycle-bin',
+                            'label' => 'Recycle Bin',
+                            'className' => 'btn-danger',
+                            'permissions' => ['documentation-restore'],
+                        ]" />
+                        <x-backend.admin.button :datas="[
+                            'routeName' => 'documentation.create',
+                            'label' => 'Add New',
+                            'permissions' => ['documentation-create'],
+                        ]" />
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-responsive table-striped datatable">
@@ -43,7 +51,7 @@
             let table_columns = [
                 //name and data, orderable, searchable
                 ['title', true, true],
-                ['key', true, true],
+                ['module_key', true, true],
                 ['type', true, true],
                 ['created_by', true, true],
                 ['created_at', false, false],
@@ -79,7 +87,7 @@
                 },
                 {
                     label: "Module Key",
-                    key: "key",
+                    key: "module_key",
                 },
                 {
                     label: "Type",

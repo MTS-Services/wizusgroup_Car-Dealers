@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app', ['page_slug' => 'product_details'])
+ @extends('frontend.layouts.app', ['page_slug' => 'product_details'])
 
 @section('title', 'Products Details')
 @push('css')
@@ -139,7 +139,7 @@
                             </div>
                             <!-- Tab Content -->
                             <div
-                                class="bg-bg-white dark:bg-bg-tertiary/25 shadow-card dark:shadow-none p-4 sm:p-6 rounded-b-lg border border-border-gray dark:border-bg-dark-secondary overflow-auto max-h-[400px] lg:max-h-[570px] xl:max-h-[720px]">
+                                class="bg-bg-white dark:bg-bg-tertiary/25 shadow-card dark:shadow-none p-4 sm:p-6 rounded-b-lg border border-border-gray dark:border-bg-dark-secondary overflow-auto max-h-[400px] lg:max-h-[520px] xl:max-h-[670px]">
 
                                 <!-- Basic Info -->
                                 <div x-show="tab === 'basic'" x-cloak>
@@ -250,6 +250,7 @@
                                         {{ __('No documents attached.') }}</p>
                                 </div>
                             </div>
+                            <a href="#" class="btn-primary w-full mt-2">{{ __('WhatsApp Inquiry') }}</a>
                         </div>
                     </div>
                 </div>
@@ -300,14 +301,16 @@
                         <!-- Repeat swiper-slide for other products -->
                     </div>
 
-                    <!-- Optional controls -->
-                    <div class="swiper-pagination !-bottom-10"></div>
-                    <!-- Navigation buttons -->
-                    <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
-                        <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
-                    </div>
-                    <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9 ">
-                        <i data-lucide="chevron-right" class="w-5 h-5 text-blue-800"></i>
+                    <div class="hidden xl:block">
+                        <div class="swiper-pagination z-10 !-bottom-6 lg:!-bottom-8"></div>
+                        <!-- Navigation buttons -->
+                        <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
+                            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                        </div>
+
+                        <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9">
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </div>
                     </div>
                 </div>
             </div>
