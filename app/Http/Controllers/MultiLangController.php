@@ -13,7 +13,7 @@ class MultiLangController extends Controller
     {
 
         $lang = $request->lang;
-        if (!in_array($lang, ['en', 'bn'])) {
+        if (!in_array($lang, ['en', 'fr', 'ar'])) {
             abort(400);
         }
 

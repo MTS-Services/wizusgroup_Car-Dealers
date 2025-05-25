@@ -8,8 +8,11 @@
         <option value="en" {{session()->get('locale', 'en') == 'en' ? 'selected' : '' }}>
             {{ __('English') }}
         </option>
-        <option value="bn" {{ session()->get('locale', 'en') == 'bn' ? 'selected' : '' }}>
-            {{ __('Bengali') }}
+        <option value="fr" {{ session()->get('locale', 'fr') == 'fr' ? 'selected' : '' }}>
+            {{ __('French') }}
+        </option>
+        <option value="ar" {{ session()->get('locale', 'ar') == 'ar' ? 'selected' : '' }}>
+            {{ __('Argentine') }}
         </option>
     </select>
 </form>
