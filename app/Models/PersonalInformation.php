@@ -30,6 +30,8 @@ class PersonalInformation extends BaseModel
                 'gender_label',
                 'gender_color',
                 'gender_labels',
+
+                'language_label',
             ]
         );
     }
@@ -89,5 +91,24 @@ class PersonalInformation extends BaseModel
     public function scopeUserProfile($query)
     {
         return $query->where('profile_id', user()->id)->where('profile_type', get_class(user()));
+    }
+
+
+    public const LANGUAGE_ENGLISH = 1;
+    public const LANGUAGE_FRENCH = 2;
+    public const LANGUAGE_ARGENTINE = 3;
+
+    public static function getLanguages(): array
+    {
+        return [
+            self::LANGUAGE_ENGLISH => 'English',
+            self::LANGUAGE_FRENCH => 'French',
+            self::LANGUAGE_ARGENTINE => 'Argentine',
+        ];
+    }
+
+    public function getLanguageLabelAttribute(): array
+    {
+        return self::getLanguages()[$this->language] ?? 'Unknown';
     }
 }
