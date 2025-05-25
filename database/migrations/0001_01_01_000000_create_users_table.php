@@ -6,6 +6,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Traits\AuditColumnsTrait;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -26,6 +27,19 @@ return new class extends Migration
             $table->string('phone')->unique()->nullable();
             $table->string('image')->nullable();
             $table->tinyInteger('status')->default(AuthBaseModel::STATUS_ACTIVE)->index();
+
+            $table->string('company_name')->nullable()->index();
+            $table->boolean('business_type')->index();
+            $table->tinyInteger('business_name')->index();
+            $table->string('business_information')->index();
+            $table->tinyInteger('business_line')->index();
+            $table->string('id_registration_info')->nullable()->index();
+            $table->string('dealer_registration_permit')->nullable()->index();
+            $table->tinyInteger('how_know')->index();
+            $table->string('how_know_detail')->nullable()->index();
+            $table->boolean('receive_promotion_email')->index();
+            $table->boolean('accept_terms')->index();
+
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
