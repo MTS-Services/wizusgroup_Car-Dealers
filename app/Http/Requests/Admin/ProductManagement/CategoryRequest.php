@@ -26,7 +26,7 @@ class CategoryRequest extends FormRequest
             'meta_title' => 'nullable|string|min:20|max:60',
             'meta_description' => 'nullable|string|min:50|max:160',
             'description' => 'nullable|string',
-            'image' => 'nullable',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
 
         ]
             +

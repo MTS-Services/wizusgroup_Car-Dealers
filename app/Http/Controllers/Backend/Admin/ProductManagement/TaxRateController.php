@@ -180,7 +180,7 @@ class TaxRateController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->taxRateService->createTaxRate($validated, $request->image ?? null);
+            $this->taxRateService->createTaxRate($validated);
             session()->flash('success', 'Tax rate created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Tax rate create failed!');
@@ -224,7 +224,7 @@ class TaxRateController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->taxRateService->updateTaxRate($id, $validated, $request->image ?? null);
+            $this->taxRateService->updateTaxRate($id, $validated);
             session()->flash('success', 'Tax rate updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Tax rate update failed!');

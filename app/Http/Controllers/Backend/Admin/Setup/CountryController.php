@@ -158,7 +158,7 @@ class CountryController extends Controller
 
         try {
             $validated = $request->validated();
-            $this->countryService->createCountry($validated, $request->image ?? null);
+            $this->countryService->createCountry($validated);
             session()->flash('success', 'Country created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Country create failed!');

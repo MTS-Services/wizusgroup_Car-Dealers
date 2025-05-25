@@ -30,7 +30,7 @@
                         </div>
                         <div class="form-group">
                             <label>{{ __('Image') }}</label>
-                            <input type="file" accept="image/*" name="uploadImage" data-actualName="image"
+                            <input type="file" accept="image/jpeg, image/png, image/jpg, image/webp, image/svg" name="image"
                                 class="form-control filepond" id="image">
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'image']" />
                         </div>
@@ -65,10 +65,8 @@
     <script src="{{ asset('filepond/filepond.js') }}"></script>
     <script>
         $(document).ready(function() {
-            const existingFiles = {
-                "#image":"{{ $banner->modified_image }}",
-            }
-            file_upload(["#image"], "uploadImage", "admin", existingFiles, false);
+            const existingFiles = {"#image":"{{ $banner->modified_image }}"};
+            file_upload(["#image"], ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/svg"], existingFiles);
         });
     </script>
     {{-- FilePond  --}}

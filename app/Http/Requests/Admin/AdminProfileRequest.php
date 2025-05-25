@@ -27,7 +27,7 @@ class AdminProfileRequest extends FormRequest
             'username' => 'nullable|string|min:3',
             // 'email' => 'required|email|unique:users,email,',
             'phone' => 'nullable|string|min:3',
-            'image' => 'nullable',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             // 'gender' => 'required|in:male,female',
             'dob' => 'nullable|date',
             'father_name' => 'nullable|string|min:3',

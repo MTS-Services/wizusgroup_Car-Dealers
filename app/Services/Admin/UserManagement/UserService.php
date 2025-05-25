@@ -31,7 +31,7 @@ class UserService
         $data['creater_id'] = admin()->id;
         $data['creater_type'] = get_class(admin());
         if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload(User::class, $file, user(), 'users/');
+            $data['image'] = $this->handleFileUpload($file, 'users');
         }
         return User::create($data);
     }
@@ -41,7 +41,8 @@ class UserService
         $data['updater_id'] = admin()->id;
         $data['updater_type'] = get_class(admin());
         if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload($user, $file, user(), 'users/');
+            $data['image'] = $this->handleFileUpload($file, 'users');
+            $this->fileDelete($user->image);
         }
         $user->update($data);
         return $user;
@@ -79,5 +80,24 @@ class UserService
             'updater_id' => admin()->id,
             'updater_type' => get_class(admin())
         ]);
+    }
+
+    public function updateUserProfile( User $user, array $data, $file = null) :User
+    {
+        $data['updater_id'] = user()->id;
+        $data['updater_type'] = get_class(user());
+        if ($file) {
+            $data['image'] = $this->handleFileUpload($file, 'users_profile');
+            $this->fileDelete($user->image);
+        }
+        $user->update($data);
+        return $user;
+    }
+
+    public function updateUserPassword(User $user, array $data, $file = null): User
+    {
+        $data['updater_id'] = user()->id;
+        $user->update($data);
+        return $user;
     }
 }
