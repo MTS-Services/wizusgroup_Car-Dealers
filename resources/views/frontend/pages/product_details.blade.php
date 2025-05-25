@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app', ['page_slug' => 'product_details'])
+ @extends('frontend.layouts.app', ['page_slug' => 'product_details'])
 
 @section('title', 'Products Details')
 @push('css')
