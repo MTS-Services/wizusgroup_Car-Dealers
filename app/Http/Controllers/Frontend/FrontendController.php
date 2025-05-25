@@ -30,4 +30,8 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.regions');
     }
+    public function orderForm()
+    {
+        return view('frontend.pages.order_form');
+    }
 }
