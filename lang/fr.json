@@ -33,6 +33,7 @@
     "With offices and warehouses strategically located in Japan and China, Wiz afrik ensures efficient sourcing and logistics operations for all our clients across Africa.": "Avec des bureaux et des entrepôts stratégiquement situés au Japon et en Chine, Wiz afrik assure des opérations efficaces d'approvisionnement et de logistique pour tous nos clients à travers l'Afrique.",
 
 
+
     "Auctions": "Enchères",
     "Auction fillters": "Filtres d'enchères",
     "Category": "Catégorie",
@@ -74,6 +75,32 @@
     "+1 234 567": "+1 234 567",
     "Monday-Friday, 9am-6pm": "Lundi à vendredi, de 9h à 18h",
     "Africa": "Afrique",
+    
+
+    "Groupshipping": "Groupage d'expédition",
+    "Simple, Fast, and Secure Process": "Processus simple, rapide et sécurisé",
+    "Step 1": "Étape 1",
+    "Select Machine": "Sélectionnez la machine",
+    "Browse our inventory and choose the perfect machine for your needs from our quality selection.": "Parcourez notre inventaire et choisissez la machine parfaite pour vos besoins parmi notre sélection de qualité.",
+    "Step 2": "Étape 2",
+    "Pay Deposit": "Payer un acompte",
+    "Secure your selected machine with a small deposit to reserve it while we prepare for shipping.": "Sécurisez la machine choisie avec un petit acompte pour la réserver pendant que nous préparons l'expédition.",
+    "Step 3": "Étape 3",
+    "Wait for Container": "Attendez le conteneur",
+    "We efficiently group shipments to fill containers, saving you money on transportation costs.": "Nous regroupons efficacement les expéditions pour remplir les conteneurs, vous faisant ainsi économiser sur les frais de transport.",
+    "Step 4": "Étape 4",
+    "Complete & Deliver": "Finaliser et livrer",
+    "Pay the remaining balance and receive your machine with all necessary documentation at your chosen port.": "Payez le solde restant et recevez votre machine avec toute la documentation nécessaire au port choisi.",
+    "Navigate Your Queries": "Naviguez parmi vos questions",
+    "Explore Answers to Common Questions": "Découvrez les réponses aux questions fréquentes",
+    "Eligibility Criteria and documents required for loan approval": "Critères d’éligibilité et documents requis pour l’approbation du prêt",
+    "To be eligible for free shipping, your order must meet the following criteria  your order must meet the following criteria  your order must meet the following criteria  your order must meet the following criteria:": "Pour être éligible à la livraison gratuite, votre commande doit respecter les critères suivants :",
+    "Eligibility Criteria": "Critères d’éligibilité",
+    "Nationality": "Nationalité",
+    "USA": "États-Unis",
+    "Add text here": "Ajouter du texte ici",
+    "Documents Required": "Documents requis",
+    "Proof of business ownership": "Preuve de propriété de l’entreprise",
 
 
     "Dropshipping": "Dropshipping",
@@ -126,6 +153,7 @@
     "Related Products": "Produits connexes",
 
 
+
     "All Agricultural": "Tous les matériels agricoles",
     "Brand": "Marque",
     "All": "Tous",
@@ -133,34 +161,36 @@
     "Price": "Prix",
     "Price:": "Prix :",
 
-    
-  "Regions We Serve": "Régions desservies",
-  "Middle East": "Moyen-Orient",
-  "Asia": "Asie",
-  "Europe": "Europe",
-  "North America": "Amérique du Nord",
-  "South America": "Amérique du Sud",
-  "Click to view shipping info and languages supported.": "Cliquez pour voir les informations d'expédition et les langues prises en charge.",
-  "Shipping Timelines & Port Listings": "Délais d'expédition et liste des ports",
-  "15-30 days": "15-30 jours",
-  "Ports: Lagos, Mombasa": "Ports : Lagos, Mombasa",
-  "10-20 days": "10-20 jours",
-  "Ports: Jebel Ali, Dammam": "Ports : Jebel Ali, Dammam",
-  "7-15 days": "7-15 jours",
-  "Ports: Shanghai, Chittagong": "Ports : Shanghai, Chittagong",
-  "20-35 days": "20-35 jours",
-  "Ports: Rotterdam, Hamburg": "Ports : Rotterdam, Hambourg",
-  "25-40 days": "25-40 jours",
-  "Ports: New York, Los Angeles": "Ports : New York, Los Angeles",
-  "Multilingual": "Multilingue",
-  "We Speak Your Language": "Nous parlons votre langue",
-  "Our platform supports multiple languages to provide seamless communication and a personalized experience across all regions.": "Notre plateforme prend en charge plusieurs langues pour assurer une communication fluide et une expérience personnalisée dans toutes les régions.",
-  "English": "Anglais",
-  "Arabic": "Arabe",
-  "French": "Français",
-  "Swahili": "Swahili",
-  "Mandarin": "Mandarin",
-  "Spanish": "Espagnol"
+
+
+    "Region": "Région",  
+    "Regions We Serve": "Régions desservies",
+    "Middle East": "Moyen-Orient",
+    "Asia": "Asie",
+    "Europe": "Europe",
+    "North America": "Amérique du Nord",
+    "South America": "Amérique du Sud",
+    "Click to view shipping info and languages supported.": "Cliquez pour voir les informations d'expédition et les langues prises en charge.",
+    "Shipping Timelines & Port Listings": "Délais d'expédition et liste des ports",
+    "15-30 days": "15-30 jours",
+    "Ports: Lagos, Mombasa": "Ports : Lagos, Mombasa",
+    "10-20 days": "10-20 jours",
+    "Ports: Jebel Ali, Dammam": "Ports : Jebel Ali, Dammam",
+    "7-15 days": "7-15 jours",
+    "Ports: Shanghai, Chittagong": "Ports : Shanghai, Chittagong",
+    "20-35 days": "20-35 jours",
+    "Ports: Rotterdam, Hamburg": "Ports : Rotterdam, Hambourg",
+    "25-40 days": "25-40 jours",
+    "Ports: New York, Los Angeles": "Ports : New York, Los Angeles",
+    "Multilingual": "Multilingue",
+    "We Speak Your Language": "Nous parlons votre langue",
+    "Our platform supports multiple languages to provide seamless communication and a personalized experience across all regions.": "Notre plateforme prend en charge plusieurs langues pour assurer une communication fluide et une expérience personnalisée dans toutes les régions.",
+    "English": "Anglais",
+    "Arabic": "Arabe",
+    "French": "Français",
+    "Swahili": "Swahili",
+    "Mandarin": "Mandarin",
+    "Spanish": "Espagnol"
 }
 
 

@@ -59,6 +59,7 @@
     "Enter your bid": "Ingresá tu oferta",
     "Expired": "Vencido",
 
+
     "Contact": "Contacto",
     "Contact us": "Contáctanos",
     "Send Us and Iquery": "Enviá una consulta",
@@ -76,6 +77,33 @@
     "Monday-Friday, 9am-6pm": "Lunes a viernes, 9am a 6pm",
     "Africa": "África",
 
+
+     "Groupshipping": "Envío grupal",
+    "Simple, Fast, and Secure Process": "Proceso simple, rápido y seguro",
+    "Step 1": "Paso 1",
+    "Select Machine": "Seleccioná máquina",
+    "Browse our inventory and choose the perfect machine for your needs from our quality selection.": "Explorá nuestro inventario y elegí la máquina perfecta para tus necesidades de nuestra selección de calidad.",
+    "Step 2": "Paso 2",
+    "Pay Deposit": "Pagá el depósito",
+    "Secure your selected machine with a small deposit to reserve it while we prepare for shipping.": "Asegurá tu máquina seleccionada con un pequeño depósito para reservarla mientras preparamos el envío.",
+    "Step 3": "Paso 3",
+    "Wait for Container": "Esperá el contenedor",
+    "We efficiently group shipments to fill containers, saving you money on transportation costs.": "Agrupamos envíos de forma eficiente para llenar contenedores, ahorrándote costos de transporte.",
+    "Step 4": "Paso 4",
+    "Complete & Deliver": "Completar y entregar",
+    "Pay the remaining balance and receive your machine with all necessary documentation at your chosen port.": "Pagá el saldo restante y recibí tu máquina con toda la documentación necesaria en el puerto elegido.",
+    "Navigate Your Queries": "Resolvé tus dudas",
+    "Explore Answers to Common Questions": "Explorá respuestas a preguntas frecuentes",
+    "Eligibility Criteria and documents required for loan approval": "Criterios de elegibilidad y documentos requeridos para la aprobación del préstamo",
+    "To be eligible for free shipping, your order must meet the following criteria  your order must meet the following criteria  your order must meet the following criteria  your order must meet the following criteria:": "Para ser elegible para envío gratis, tu pedido debe cumplir con los siguientes criterios:",
+    "Eligibility Criteria": "Criterios de elegibilidad",
+    "Nationality": "Nacionalidad",
+    "USA": "EE.UU.",
+    "Add text here": "Agregar texto aquí",
+    "Documents Required": "Documentos requeridos",
+    "Proof of business ownership": "Comprobante de propiedad del negocio",
+
+
     "Dropshipping": "Dropshipping",
     "SPECIAL ORDER DEALS": "OFERTAS ESPECIALES POR PEDIDO",
     "Imported from our global warehouse": "Importado desde nuestro almacén global",
@@ -84,6 +112,7 @@
     "WhatsApp Inquiry": "Consulta por WhatsApp",
     "Eligible for group shipping • Shipped without branding to protect our sourcing": "Elegible para envío grupal • Enviado sin marca para proteger nuestra fuente",
     "Next Departure to Dakar, Senegal:": "Próxima salida a Dakar, Senegal:",
+
 
     "Basic Info": "Información básica",
     "Air-bag": "Airbag",
@@ -124,6 +153,7 @@
     "No documents attached.": "No hay documentos adjuntos.",
     "Related Products": "Productos relacionados",
 
+
     "All Agricultural": "Todos los equipos agrícolas",
     "Brand": "Marca",
     "All": "Todos",
@@ -131,6 +161,8 @@
     "Price": "Precio",
     "Price:": "Precio:",
 
+
+    "Region": "Región",
     "Regions We Serve": "Regiones a las que servimos",
     "Middle East": "Medio Oriente",
     "Asia": "Asia",
