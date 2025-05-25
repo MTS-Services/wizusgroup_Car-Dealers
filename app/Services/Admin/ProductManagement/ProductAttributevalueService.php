@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ProductAttributeValueService
 {
-   use FileManagementTrait;
+   use FileManagementTrait; 
+   
 
     public function getProductAttributeValues($orderby = 'sort_order', $order = 'asc')
     {
