@@ -25,7 +25,7 @@ class BannerRequest extends FormRequest
             'start_date'=> 'nullable|date',
             'end_date'=> 'nullable|date|after:start_date',
             'url'=> 'nullable|url',
-            'image'=> 'nullable',
+            'image'=> 'required|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
 
         ]
             +

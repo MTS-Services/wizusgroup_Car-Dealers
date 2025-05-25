@@ -10,6 +10,7 @@ use App\Models\Role;
 use Yajra\DataTables\Facades\DataTables;
 use App\Services\Admin\CMSManagement\FaqService;
 use App\Http\Traits\FileManagementTrait;
+use App\Models\Documentation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
@@ -158,7 +159,8 @@ class FaqController extends Controller
      */
     public function create()
     {
-        return view('backend.admin.cms_management.faq.create');
+        $data['document'] = Documentation::where([['module_key', 'faq'], ['type', 'create']])->first();
+        return view('backend.admin.cms_management.faq.create', $data);
     }
 
     /**
@@ -169,7 +171,7 @@ class FaqController extends Controller
 
         try {
             $validated = $request->validated();
-            $this->faqService->createFaq($validated, $request->image ?? null);
+            $this->faqService->createFaq($validated);
             session()->flash('success', 'Faq created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Faq create failed!');
@@ -195,6 +197,7 @@ class FaqController extends Controller
     public function edit(string $id)
     {
         $data['faq'] = $this->faqService->getFaq($id);
+        $data['document'] = Documentation::where([['module_key', 'faq'], ['type', 'update']])->first();
         return view('backend.admin.cms_management.faq.edit', $data);
     }
 
@@ -205,7 +208,7 @@ class FaqController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->faqService->updateFaq($id, $validated, $request->image ?? null);
+            $this->faqService->updateFaq($id, $validated);
             session()->flash('success', 'Faq updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Faq update failed!');

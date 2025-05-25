@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\ProInfoCatTypeFeatureRequest;
+use App\Models\Documentation;
 use App\Services\Admin\ProductManagement\ProductInfoCategoryTypeFeatureService;
 use App\Services\Admin\ProductManagement\ProductInfoCategoryTypeService;
 use Illuminate\Http\RedirectResponse;
@@ -154,6 +155,7 @@ class ProInfoCatTypeFeatureController extends Controller
     public function create()
     {
         $data['features'] = $this->proInfoCatTypeFeatureService->getProInfoCatTypeFeatures()->active()->select(['id','name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'product info category type feature'], ['type', 'create']])->first();
         return view('backend.admin.product_management.product_info_category_type_feature.create', $data);
     }
 
@@ -193,6 +195,7 @@ class ProInfoCatTypeFeatureController extends Controller
     {
         $data['feature'] = $this->proInfoCatTypeFeatureService->getProInfoCatTypeFeature($id);
         $data['pro_info_cat_types'] = $this->proInfoCatTypeService->getProInfoCatTypes()->active()->select(['id','name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'product info category type feature'], ['type', 'update']])->first();
         return view('backend.admin.product_management.product_info_category_type_feature.edit', $data);
     }
 

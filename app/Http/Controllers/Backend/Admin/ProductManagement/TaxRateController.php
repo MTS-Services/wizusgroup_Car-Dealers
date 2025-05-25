@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\TaxRateRequest;
 use App\Models\Country;
+use App\Models\Documentation;
 use App\Models\TaxRate;
 use App\Services\Admin\ProductManagement\TaxClassService;
 use App\Services\Admin\ProductManagement\TaxRateService;
@@ -170,6 +171,7 @@ class TaxRateController extends Controller
     {
         $data['tax_classes'] = $this->taxClassService->getTaxClasses()->active()->select(['id', 'name'])->get();
         $data['countries'] = $this->countryService->getCountrys()->active()->select(['id', 'name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'tax rate'], ['type', 'create']])->first();
         return view('backend.admin.product_management.tax_rate.create', $data);
     }
 
@@ -180,7 +182,7 @@ class TaxRateController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->taxRateService->createTaxRate($validated, $request->image ?? null);
+            $this->taxRateService->createTaxRate($validated);
             session()->flash('success', 'Tax rate created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Tax rate create failed!');
@@ -213,6 +215,7 @@ class TaxRateController extends Controller
 
         $data['tax_classes'] = $this->taxClassService->getTaxClasses()->active()->select(['id', 'name'])->get();
         $data['countries'] = $this->countryService->getCountrys()->active()->select(['id', 'name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'tax rate'], ['type', 'update']])->first();
         $data['tax_rate'] = $this->taxRateService->getTaxRate($id);
         return view('backend.admin.product_management.tax_rate.edit', $data);
     }
@@ -224,7 +227,7 @@ class TaxRateController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->taxRateService->updateTaxRate($id, $validated, $request->image ?? null);
+            $this->taxRateService->updateTaxRate($id, $validated);
             session()->flash('success', 'Tax rate updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Tax rate update failed!');

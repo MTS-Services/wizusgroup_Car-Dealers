@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Yajra\DataTables\Facades\DataTables;
 use App\Services\Admin\ProductManagement\CategoryService;
 use App\Http\Requests\Admin\ProductManagement\SubChildCategoryRequest;
+use App\Models\Documentation;
 
 class SubChildCategoryController extends Controller
 {
@@ -162,6 +163,7 @@ class SubChildCategoryController extends Controller
     public function create(): View
     {
         $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->active()->select(['id', 'name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'sub child category'], ['type', 'create']])->first();
         return view('backend.admin.product_management.sub_child_category.create', $data);
     }
 
@@ -172,7 +174,8 @@ class SubChildCategoryController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->categoryService->createCategory($validated, $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->categoryService->createCategory($validated, $file);
             session()->flash('success', 'Sub child category created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Sub child category create failed!');
@@ -195,6 +198,7 @@ class SubChildCategoryController extends Controller
     public function edit(string $id)
     {
         $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->active()->select(['id', 'name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'sub child category'], ['type', 'update']])->first();
         $data['subcategory'] = $this->categoryService->getSubChildCategory($id);
         return view('backend.admin.product_management.sub_child_category.edit', $data);
     }
@@ -209,7 +213,8 @@ class SubChildCategoryController extends Controller
         try {
             $sub_child_category = $this->categoryService->getSubChildCategory($id);
             $validated = $request->validated();
-            $this->categoryService->updateCategory($sub_child_category, $validated, $request->image ?? null);
+            $file  = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->categoryService->updateCategory($sub_child_category, $validated, $file);
             session()->flash('success', 'Sub child category updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Sub child category update failed!');

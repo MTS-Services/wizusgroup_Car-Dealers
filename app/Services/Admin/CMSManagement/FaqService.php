@@ -29,7 +29,6 @@ class FaqService
     public function createFaq(array $data, $file = null): Faq
     {
         $data['created_by'] = admin()->id;
-
         $faq = Faq::create($data);
         return $faq;
     }
@@ -38,9 +37,6 @@ class FaqService
     {
         $faq = $this->getFaq($encryptedId);
         $data['updated_by'] = admin()->id;
-        if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload($faq, $file, admin(), 'faqs/');
-        }
         $faq->update($data);
         return $faq;
     }
@@ -62,9 +58,6 @@ class FaqService
     public function permanentDeleteFaq(string $encryptedId): void
     {
         $faq = $this->getDeletedFaq($encryptedId);
-        if ($faq->image) {
-            $this->fileDelete(file: $faq->image);
-        }
         $faq->forceDelete();
     }
 

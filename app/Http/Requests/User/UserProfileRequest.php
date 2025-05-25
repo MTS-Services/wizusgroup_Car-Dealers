@@ -21,13 +21,14 @@ class UserProfileRequest extends FormRequest
      */
     public function rules(): array
     {
+        // dd($this->all());
         return [
             'first_name' => 'required|string|min:3',
             'last_name' => 'required|string|min:3',
             'username' => 'nullable|string|min:3',
             // 'email' => 'required|email|unique:users,email,',
             'phone' => 'nullable|string|size:11',
-            'image' => 'nullable',
+            'image'=> 'nullable',
             'gender' => 'nullable',
             'dob' => 'nullable|date',
             'father_name' => 'nullable|string|min:3',
