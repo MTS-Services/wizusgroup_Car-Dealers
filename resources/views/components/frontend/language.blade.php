@@ -1,6 +1,15 @@
-<select
-    class="select focus:outline-0 focus-within:outline-0 focus:ring-0 focus:border-border-primary bg-bg-light dark:bg-bg-dark border-border-tertiary shadow-none w-fit min-w-30 px-auto">
-    <option value="EN" selected>{{ __('English') }}</option>
-    <option value="FR">{{ __('Franch') }}</option>
-    <option value="AR">{{ __('Argentina') }}</option>
-</select>
+
+<form action="{{ route('lang.change') }}" method="POST">
+    @csrf
+    <select name="lang"
+        class="select focus:outline-0 focus-within:outline-0 focus:ring-0 focus:border-border-primary bg-bg-light dark:bg-bg-dark border-border-tertiary shadow-none w-fit min-w-30 px-auto"
+        onchange="this.form.submit()">
+
+        <option value="en" {{session()->get('locale', 'en') == 'en' ? 'selected' : '' }}>
+            {{ __('English') }}
+        </option>
+        <option value="bn" {{ session()->get('locale', 'en') == 'bn' ? 'selected' : '' }}>
+            {{ __('Bengali') }}
+        </option>
+    </select>
+</form>
