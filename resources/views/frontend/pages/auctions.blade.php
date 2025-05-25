@@ -87,7 +87,7 @@
                             </h2>
                         </div>
                         <div class="flex items-center">
-                            <form action="{{ route('frontend.auctions.filter', $category->slug) }}" method="POST"
+                            <form action="{{ route('frontend.auctions.filter') }}" method="POST"
                                 id="filter_form">
                                 @csrf
                                 <select name="sort" id="sort-select" class="select">
