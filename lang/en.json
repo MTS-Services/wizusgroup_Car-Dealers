@@ -76,6 +76,7 @@
     "Monday-Friday, 9am-6pm": "Monday-Friday, 9am-6pm",
     "Africa": "Africa",
 
+
     "Dropshipping": "Dropshipping",
     "SPECIAL ORDER DEALS": "SPECIAL ORDER DEALS",
     "Imported from our global warehouse": "Imported from our global warehouse",
@@ -83,7 +84,50 @@
     "Electric Sprayer 16L": "Electric Sprayer 16L",
     "WhatsApp Inquiry": "WhatsApp Inquiry",
     "Eligible for group shipping • Shipped without branding to protect our sourcing": "Eligible for group shipping • Shipped without branding to protect our sourcing",
-    "Next Departure to Dakar, Senegal:": "Next Departure to Dakar, Senegal:"
+    "Next Departure to Dakar, Senegal:": "Next Departure to Dakar, Senegal:",
+
+
+    
+    "Basic Info": "Basic Info",
+    "Air-bag": "Air-bag",
+    "Other Info": "Other Info",
+    "Development": "Development",
+    "Documents": "Documents",
+    "Stock No.": "Stock No.",
+    "No.1287864": "No.1287864",
+    "Maker": "Maker",
+    "TOYOTA": "TOYOTA",
+    "Model": "Model",
+    "SOARER": "SOARER",
+    "Grade": "Grade",
+    "Unknown": "Unknown",
+    "Body Type": "Body Type",
+    "Open": "Open",
+    "First Registration": "First Registration",
+    "03/1987": "03/1987",
+    "Displacement": "Displacement",
+    "2950 cc": "2950 cc",
+    "Engine Type": "Engine Type",
+    "7M": "7M",
+    "Fuel": "Fuel",
+    "Gasoline": "Gasoline",
+    "Mileage": "Mileage",
+    "79540 km": "79540 km",
+    "Color": "Color",
+    "White": "White",
+    "Drive System": "Drive System",
+    "2WD": "2WD",
+    "Transmission": "Transmission",
+    "AT": "AT",
+    "Capacity": "Capacity",
+    "5": "5",
+    "No airbag data available.": "No airbag data available.",
+    "No additional information provided.": "No additional information provided.",
+    "Development info not available.": "Development info not available.",
+    "No documents attached.": "No documents attached.",
+    "Related Products": "Related Products"
+
+    
 }
 
 
