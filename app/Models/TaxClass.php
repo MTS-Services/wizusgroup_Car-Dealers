@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TaxClass extends BaseModel
 {
-     protected $fillable = [
+    protected $fillable = [
         'sort_order',
         'name',
         'description',
+        'status',
 
         'created_by',
         'updated_by',
@@ -111,5 +112,10 @@ class TaxClass extends BaseModel
     public function taxRates()
     {
         return $this->hasMany(TaxRate::class, 'tax_class_id', 'id');
+    }
+
+    public function activeTaxRates()
+    {
+        return $this->taxRates()->active();
     }
 }

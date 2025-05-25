@@ -37,6 +37,7 @@ class ProductSeeder extends Seeder
             'quantity' => 3,
             'allow_backorder' => false,
             'supplier_id' => 1,
+            'year'=> "2021",
         ]);
 
         Product::create([
@@ -63,6 +64,7 @@ class ProductSeeder extends Seeder
             'quantity' => 2,
             'allow_backorder' => false,
             'supplier_id' => 2,
+            'year'=> '2019',
         ]);
 
         Product::create([
@@ -89,6 +91,7 @@ class ProductSeeder extends Seeder
             'quantity' => 4,
             'allow_backorder' => false,
             'supplier_id' => 3,
+            'year'=> '2022',
         ]);
 
         Product::create([
@@ -115,6 +118,7 @@ class ProductSeeder extends Seeder
             'quantity' => 6,
             'allow_backorder' => true,
             'supplier_id' => 1,
+            'year'=> '2018',
         ]);
 
         Product::create([
@@ -141,6 +145,7 @@ class ProductSeeder extends Seeder
             'quantity' => 8,
             'allow_backorder' => false,
             'supplier_id' => 2,
+            'year'=> '2020',
         ]);
     }
 }

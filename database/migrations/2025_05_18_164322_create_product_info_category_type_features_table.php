@@ -41,7 +41,7 @@ return new class extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->unique(['product_info_cat_type_id','name'],'type_feature_unique');
+            $table->unique(['product_info_cat_type_id', 'name'], 'type_feature_unique');
             $table->index('product_info_cat_id', 'idx_cat_id');
             $table->index('product_info_cat_type_id', 'idx_cat_type_id');
 

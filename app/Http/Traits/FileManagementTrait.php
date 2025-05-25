@@ -5,6 +5,7 @@ namespace App\Http\Traits;
 use App\Models\TempFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Str;
 
 trait FileManagementTrait
 {
@@ -17,26 +18,17 @@ trait FileManagementTrait
      * @param string $folderName The folder to store the image
      * @return void
      */
-    // public function handleFileUpload(Request $request, $model, $file_name, $fileField = 'image', $folderName = 'uploads/')
-    // {
-    //     // Check if the request has a file
-    //     if ($request->hasFile($fileField)) {
-    //         $file = $request->file($fileField);
-    //         $fileName = $file_name . '_' . time() . '.' . $file->getClientOriginalExtension();
-    //         $path = $file->storeAs($folderName, $fileName, 'public');
-
-    //         // If the model already has an file, delete the old one
-    //         if ($model->$fileField) {
-    //             $this->fileDelete($model->$fileField);
-    //         }
-    //         // Assign the new image path to the model
-    //         $model->$fileField = $path;
-    //     }
-    // }
-    public function fileDelete($file)
+    public function handleFileUpload($file, $folderName = 'uploads', $fileName = false): string
     {
-        if ($file) {
-            Storage::disk('public')->delete($file);
+            $file_name = Str::slug($fileName) ?? Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+            $fileName = $file_name . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs($folderName, $fileName, 'public');
+            return $path;
+    }
+    public function fileDelete($path)
+    {
+        if ($path) {
+            Storage::disk('public')->delete($path);
         }
     }
 

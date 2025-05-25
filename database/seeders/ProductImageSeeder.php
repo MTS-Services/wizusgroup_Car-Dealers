@@ -16,32 +16,32 @@ class ProductImageSeeder extends Seeder
         $images = [
             [
                 'product_id' => 1,
-                'image' => 'https://via.placeholder.com/600x400.png?text=John+Deere+5055E',
+                'image' => 'https://placehold.co/600x400',
                 'alt' => 'John Deere 5055E Tractor'
             ],
             [
                 'product_id' => 1,
-                'image' => 'https://via.placeholder.com/600x400.png?text=5055E+Rear+View',
+                'image' => 'https://placehold.co/600x400',
                 'alt' => 'Rear View of John Deere 5055E'
             ],
             [
                 'product_id' => 2,
-                'image' => 'https://via.placeholder.com/600x400.png?text=Ford+Mustang',
+                'image' => 'https://placehold.co/600x400',
                 'alt' => 'Ford Mustang Front Profile'
             ],
             [
                 'product_id' => 3,
-                'image' => 'https://via.placeholder.com/600x400.png?text=Toyota+Corolla',
+                'image' => 'https://placehold.co/600x400',
                 'alt' => 'Toyota Corolla Side View'
             ],
             [
                 'product_id' => 4,
-                'image' => 'https://via.placeholder.com/600x400.png?text=Massey+Ferguson+MF+241+DI',
+                'image' => 'https://placehold.co/600x400',
                 'alt' => 'Massey Ferguson MF 241 DI in field'
             ],
             [
                 'product_id' => 4,
-                'image' => 'https://via.placeholder.com/600x400.png?text=MF+241+DI+Dashboard',
+                'image' => 'https://placehold.co/600x400',
                 'alt' => 'Dashboard view of MF 241 DI'
             ],
         ];

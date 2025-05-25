@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\Backend\DatatableController;
+use App\Http\Controllers\MultiLangController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,11 @@ Route::controller(FileManagementController::class)->prefix('file-management')->n
     // Route::post('/cleanup-temp-files', 'cleanupTempFiles')->name('cleanup_tf');
     Route::post('/delete-unsaved-temp-files', 'deleteUnsavedTempFiles')->name('du_tf');
     Route::post('/content-image/upload', 'content_image_upload')->name('ci_upload');
+
+
 });
+
+Route::post('language',[MultiLangController::class,'langChange'])->name('lang.change');
 
 require __DIR__ . '/admin.php';
 require __DIR__ . '/user.php';

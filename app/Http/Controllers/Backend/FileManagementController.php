@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\FileManagementTrait;
 use App\Models\ContentImage;
 use App\Models\TempFile;
 use Carbon\Carbon;

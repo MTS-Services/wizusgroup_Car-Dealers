@@ -4,6 +4,7 @@ namespace App\Services\Admin\AdminManagement;
 
 use App\Http\Traits\FileManagementTrait;
 use App\Models\Admin;
+use Faker\Core\File;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -27,10 +28,10 @@ class AdminService
     public function createAdmin(array $data, $file = null): Admin
     {
         return DB::transaction(function () use ($data, $file) {
-            $data['created_by'] = admin()->id;
             if ($file) {
-                $data['image'] = $this->handleFilepondFileUpload(Admin::class, $file, admin(), 'admins/');
+                $data['image'] = $this->handleFileUpload($file,  'admins', $data['first_name']);
             }
+            $data['created_by'] = admin()->id;
             $admin = Admin::create($data);
             $admin->assignRole($admin->role->name);
             return $admin;
@@ -43,7 +44,8 @@ class AdminService
             $data['password'] = $data['password'] ?? $admin->password;
             $data['updated_by'] = admin()->id;
             if ($file) {
-                $data['image'] = $this->handleFilepondFileUpload($admin, $file, admin(), 'admins/');
+                $data['image'] = $this->handleFileUpload($file,  'admins', $data['first_name']);
+                $this->fileDelete($admin->image);
             }
             $admin->update($data);
             $admin->syncRoles($admin->role->name);

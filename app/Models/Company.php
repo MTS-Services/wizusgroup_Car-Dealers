@@ -117,7 +117,7 @@ class Company extends BaseModel
         return self::getStatusBtnColors()[$this->status] ?? 'btn btn-secondary';
     }
 
-      public function scopeActive($query)
+    public function scopeActive($query)
     {
         return $query->where('status', self::STATUS_ACTIVE);
     }
@@ -206,7 +206,7 @@ class Company extends BaseModel
 
     public function brands()
     {
-        return $this->hasMany(Brand::class,'company_id','id');
+        return $this->hasMany(Brand::class, 'company_id', 'id');
     }
 
     public function activeBrands()
@@ -216,7 +216,7 @@ class Company extends BaseModel
 
     public function models()
     {
-        return $this->hasMany(Model::class, 'company_id','id');
+        return $this->hasMany(Model::class, 'company_id', 'id');
     }
 
     public function activeModels()

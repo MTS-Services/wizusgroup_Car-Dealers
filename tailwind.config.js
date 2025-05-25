@@ -39,6 +39,10 @@ module.exports = {
           secondary: '#0972C1',
           tertiary: '#422AD5',
 
+          wiz_green: '#6ECB63',
+          wiz_orange: '#e05e24',
+          wiz_cream: '#f9f5eb',
+
           light: '#F2F9FF',
           gray: '#696969',
           'light-secondary': '#FBFBFB',
@@ -56,6 +60,9 @@ module.exports = {
           primary: '#0972C1',
           secondary: '#FBFBFB',
           tertiary: '#422AD5',
+          wiz_green: '#6ECB63',
+          wiz_orange: '#e05e24',
+          wiz_cream: '#f9f5eb',
 
           light: '#F2F9FF',
           gray: '#F3F4F6',

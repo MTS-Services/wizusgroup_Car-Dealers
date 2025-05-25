@@ -6,6 +6,7 @@ use App\Notifications\AdminPasswordResetNotification;
 use App\Notifications\AdminVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -74,9 +75,17 @@ class Admin extends AuthBaseModel implements Auditable, MustVerifyEmail
             'username' => 'string',
         ];
     }
+    public function contact(){
+        return $this->hasMany(Contact::class, 'open_by');
+    }
 
     public function role()
     {
         return $this->belongsTo(Role::class, 'role_id')->select(['name', 'id']);
+    }
+    // MorpOne
+    public function personalInformation():MorphOne
+    {
+        return $this->morphOne(PersonalInformation::class, 'profile');
     }
 }

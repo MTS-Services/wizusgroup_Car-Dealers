@@ -9,6 +9,7 @@ class ProductInfoCategory extends BaseModel
 {
     protected $fillable = [
         'sort_order',
+
         'name',
         'slug',
         'status',
@@ -31,9 +32,13 @@ class ProductInfoCategory extends BaseModel
         ]);
     }
 
-    public function types():HasMany
+    public function catagoryTypes():HasMany
     {
         return $this->hasMany(ProductInfoCategoryType::class,'product_info_cat_id','id');
+    }
+    public function activeProductInfoCategoryTypes()
+    {
+        return $this->catagoryTypes()->active();
     }
     public function activeTypes():HasMany
     {
@@ -109,4 +114,5 @@ class ProductInfoCategory extends BaseModel
     {
         return $query->where('status', self::STATUS_DEACTIVE);
     }
+
 }

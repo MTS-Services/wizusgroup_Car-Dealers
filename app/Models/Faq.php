@@ -77,6 +77,16 @@ class Faq extends BaseModel
         ];
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::STATUS_ACTIVE);
+    }
+
+    public function scopeDeactive($query)
+    {
+        return $query->where('status', self::STATUS_DEACTIVE);
+    }
+
     // Accessor for status labels
     public function getStatusLabelsAttribute(): array
     {

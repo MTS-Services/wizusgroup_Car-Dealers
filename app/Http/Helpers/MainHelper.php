@@ -15,6 +15,12 @@ function timeFormatHuman($time)
 {
     return Carbon::parse($time)->diffForHumans();
 }
+
+function inputDateFormat($date)
+{
+    return Carbon::parse($date)->format('Y-m-d');
+}
+
 function admin()
 {
     return Auth::guard('admin')->user();
@@ -131,7 +137,8 @@ function storage_url($urlOrArray)
         $itemCount = count($urlOrArray);
         foreach ($urlOrArray as $index => $url) {
 
-            $result .= $url ? asset('storage/' . $url) : $image;
+            $result .= $url ? (Str::startsWith($url, 'https://') ? $url : asset('storage/' . $url)) : $image;
+
 
             if ($count === $itemCount - 1) {
                 $result .= '';
@@ -142,7 +149,7 @@ function storage_url($urlOrArray)
         }
         return $result;
     } else {
-        return $urlOrArray ? asset('storage/' . $urlOrArray) : $image;
+        return $urlOrArray ? (Str::startsWith($urlOrArray, 'https://') ? $urlOrArray : asset('storage/' . $urlOrArray)) : $image;
     }
 }
 

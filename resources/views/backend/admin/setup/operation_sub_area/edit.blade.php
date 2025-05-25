@@ -2,7 +2,7 @@
 @section('title', 'Edit Operation Sub Area')
 @section('content')
     <div class="row">
-        <div class="col-12">
+        <div class="{{ $document ? 'col-md-8' : 'col-md-12' }}">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="cart-title">{{ __('Edit Operation Sub Area') }}</h4>
@@ -13,15 +13,18 @@
                     ]" />
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('setup.operation-sub-area.update', encrypt($operation_sub_area->id)) }}') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('setup.operation-sub-area.update', encrypt($operation_sub_area->id)) }}') }}"
+                        method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
                             <label>{{ __('Country') }} <span class="text-danger">*</span></label>
                             <select name="country" id="country" class="form-control">
-                                <option value="" selected hidden>{{__('Select Country')}}</option>
+                                <option value="" selected hidden>{{ __('Select Country') }}</option>
                                 @foreach ($countries as $country)
-                                    <option value="{{$country->id}}" {{ $operation_sub_area->country_id == $country->id ? 'selected' : ''}}>{{ $country->name }}</option>
+                                    <option value="{{ $country->id }}"
+                                        {{ $operation_sub_area->country_id == $country->id ? 'selected' : '' }}>
+                                        {{ $country->name }}</option>
                                 @endforeach
                             </select>
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'country']" />
@@ -29,7 +32,7 @@
                         <div class="form-group">
                             <label>{{ __('State') }}</label>
                             <select name="state" id="state" class="form-control" disabled>
-                                <option value="" selected hidden>{{__('Select State')}}</option>
+                                <option value="" selected hidden>{{ __('Select State') }}</option>
                             </select>
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'state']" />
                         </div>
@@ -37,27 +40,27 @@
                         <div class="form-group">
                             <label>{{ __('City') }} <span class="text-danger">*</span></label>
                             <select name="city" id="city" class="form-control" disabled>
-                                <option value="" selected hidden>{{__('Select City')}}</option>
+                                <option value="" selected hidden>{{ __('Select City') }}</option>
                             </select>
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'city']" />
                         </div>
                         <div class="form-group">
                             <label>{{ __('Operation Area') }} <span class="text-danger">*</span></label>
                             <select name="operation_area" id="operation_area" class="form-control" disabled>
-                                <option value="" selected hidden>{{__('Select Operation Area')}}</option>
+                                <option value="" selected hidden>{{ __('Select Operation Area') }}</option>
                             </select>
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'operation_area']" />
                         </div>
                         <div class="form-group">
                             <label>{{ __('Name') }} <span class="text-danger">*</span></label>
-                            <input type="text" value="{{ $operation_sub_area->name }}" id="title" name="name" class="form-control"
-                                placeholder="Enter name">
+                            <input type="text" value="{{ $operation_sub_area->name }}" id="title" name="name"
+                                class="form-control" placeholder="Enter name">
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'name']" />
                         </div>
                         <div class="form-group">
                             <label>{{ __('Slug') }}<span class="text-danger">*</span></label>
-                            <input type="text" value="{{ $operation_sub_area->slug }}" id="slug" name="slug" class="form-control"
-                                placeholder="Enter slug">
+                            <input type="text" value="{{ $operation_sub_area->slug }}" id="slug" name="slug"
+                                class="form-control" placeholder="Enter slug">
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'slug']" />
                         </div>
 
@@ -73,34 +76,37 @@
                 </div>
             </div>
         </div>
+        <x-backend.admin.documentation :document="$document" />
     </div>
 @endsection
 @push('js')
     <script src="{{ asset('ckEditor5/main.js') }}"></script>
 
     <script>
-         // Get Country States By Axios
+        // Get Country States By Axios
         $(document).ready(function() {
             let route1 = "{{ route('axios.get-states-or-cities') }}";
-            $('#country').on('change', function () {
+            $('#country').on('change', function() {
                 getStatesOrCity($(this).val(), route1);
             });
             let route2 = "{{ route('axios.get-cities') }}";
-            $('#state').on('change', function () {
+            $('#state').on('change', function() {
                 getCities($(this).val(), route2);
             });
-            let route3 ="{{ route('axios.get-operation-areas') }}";
-            $('#city').on('change', function () {
+            let route3 = "{{ route('axios.get-operation-areas') }}";
+            $('#city').on('change', function() {
                 getOperationAreas($(this).val(), route3);
             });
 
 
-            let data_id = `{{ $operation_sub_area->state_id ? $operation_sub_area->state_id : $operation_sub_area->city_id }}`;
+            let data_id =
+                `{{ $operation_sub_area->state_id ? $operation_sub_area->state_id : $operation_sub_area->city_id }}`;
             getStatesOrCity($('#country').val(), route1, data_id);
-            if(`{{$operation_sub_area->state_id}}`){
-                getCities(`{{$operation_sub_area->state_id}}`, route2, `{{ $operation_sub_area->city_id }}`);
+            if (`{{ $operation_sub_area->state_id }}`) {
+                getCities(`{{ $operation_sub_area->state_id }}`, route2, `{{ $operation_sub_area->city_id }}`);
             }
-            getOperationAreas(`{{ $operation_sub_area->city_id }}`, route3, `{{ $operation_sub_area->operation_area_id }}`);
+            getOperationAreas(`{{ $operation_sub_area->city_id }}`, route3,
+                `{{ $operation_sub_area->operation_area_id }}`);
         });
     </script>
 @endpush

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\CategoryRequest;
+use App\Models\Documentation;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -165,7 +166,8 @@ class CategoryController extends Controller
      */
     public function create(): View
     {
-        return view('backend.admin.product_management.category.create');
+        $data['document'] = Documentation::where([['module_key', 'category'], ['type', 'create']])->first();
+        return view('backend.admin.product_management.category.create', $data);
     }
 
     /**
@@ -175,7 +177,8 @@ class CategoryController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->categoryService->createCategory($validated, $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->categoryService->createCategory($validated, $file);
             session()->flash('success', 'Category created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Category create failed!');
@@ -199,6 +202,7 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         $data['category'] = $this->categoryService->getCategory($id);
+        $data['document'] = Documentation::where([['module_key', 'category'], ['type', 'update']])->first();
         return view('backend.admin.product_management.category.edit', $data);
     }
 
@@ -207,7 +211,8 @@ class CategoryController extends Controller
         try {
             $category = $this->categoryService->getCategory($id);
             $validated = $request->validated();
-            $this->categoryService->updateCategory($category, $validated, $request->image ?? null);
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->categoryService->updateCategory($category, $validated, $file);
             session()->flash('success', 'Category updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Category update failed!');
