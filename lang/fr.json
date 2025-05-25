@@ -123,5 +123,44 @@
     "No additional information provided.": "Aucune information supplémentaire fournie.",
     "Development info not available.": "Informations de développement non disponibles.",
     "No documents attached.": "Aucun document joint.",
-    "Related Products": "Produits connexes"
+    "Related Products": "Produits connexes",
+
+
+    "All Agricultural": "Tous les matériels agricoles",
+    "Brand": "Marque",
+    "All": "Tous",
+    "Year": "Année",
+    "Price": "Prix",
+    "Price:": "Prix :",
+
+    
+  "Regions We Serve": "Régions desservies",
+  "Middle East": "Moyen-Orient",
+  "Asia": "Asie",
+  "Europe": "Europe",
+  "North America": "Amérique du Nord",
+  "South America": "Amérique du Sud",
+  "Click to view shipping info and languages supported.": "Cliquez pour voir les informations d'expédition et les langues prises en charge.",
+  "Shipping Timelines & Port Listings": "Délais d'expédition et liste des ports",
+  "15-30 days": "15-30 jours",
+  "Ports: Lagos, Mombasa": "Ports : Lagos, Mombasa",
+  "10-20 days": "10-20 jours",
+  "Ports: Jebel Ali, Dammam": "Ports : Jebel Ali, Dammam",
+  "7-15 days": "7-15 jours",
+  "Ports: Shanghai, Chittagong": "Ports : Shanghai, Chittagong",
+  "20-35 days": "20-35 jours",
+  "Ports: Rotterdam, Hamburg": "Ports : Rotterdam, Hambourg",
+  "25-40 days": "25-40 jours",
+  "Ports: New York, Los Angeles": "Ports : New York, Los Angeles",
+  "Multilingual": "Multilingue",
+  "We Speak Your Language": "Nous parlons votre langue",
+  "Our platform supports multiple languages to provide seamless communication and a personalized experience across all regions.": "Notre plateforme prend en charge plusieurs langues pour assurer une communication fluide et une expérience personnalisée dans toutes les régions.",
+  "English": "Anglais",
+  "Arabic": "Arabe",
+  "French": "Français",
+  "Swahili": "Swahili",
+  "Mandarin": "Mandarin",
+  "Spanish": "Espagnol"
 }
+
+

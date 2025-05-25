@@ -125,9 +125,45 @@
     "No additional information provided.": "No additional information provided.",
     "Development info not available.": "Development info not available.",
     "No documents attached.": "No documents attached.",
-    "Related Products": "Related Products"
+    "Related Products": "Related Products",
 
-    
+
+
+    "All Agricultural": "All Agricultural",
+    "Brand": "Brand",
+    "All": "All",
+    "Year": "Year",
+    "Price": "Price",
+    "Price:": "Price:",
+
+
+    "Regions We Serve": "Regions We Serve",
+    "Middle East": "Middle East",
+    "Asia": "Asia",
+    "Europe": "Europe",
+    "North America": "North America",
+    "South America": "South America",
+    "Click to view shipping info and languages supported.": "Click to view shipping info and languages supported.",
+    "Shipping Timelines & Port Listings": "Shipping Timelines & Port Listings",
+    "15-30 days": "15-30 days",
+    "Ports: Lagos, Mombasa": "Ports: Lagos, Mombasa",
+    "10-20 days": "10-20 days",
+    "Ports: Jebel Ali, Dammam": "Ports: Jebel Ali, Dammam",
+    "7-15 days": "7-15 days",
+    "Ports: Shanghai, Chittagong": "Ports: Shanghai, Chittagong",
+    "20-35 days": "20-35 days",
+    "Ports: Rotterdam, Hamburg": "Ports: Rotterdam, Hamburg",
+    "25-40 days": "25-40 days",
+    "Ports: New York, Los Angeles": "Ports: New York, Los Angeles",
+    "Multilingual": "Multilingual",
+    "We Speak Your Language": "We Speak Your Language",
+    "Our platform supports multiple languages to provide seamless communication and a personalized experience across all regions.": "Our platform supports multiple languages to provide seamless communication and a personalized experience across all regions.",
+    "English": "English",
+    "Arabic": "Arabic",
+    "French": "French",
+    "Swahili": "Swahili",
+    "Mandarin": "Mandarin",
+    "Spanish": "Spanish"
 }
 
 
