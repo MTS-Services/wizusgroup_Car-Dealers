@@ -20,8 +20,8 @@ trait FileManagementTrait
      */
     public function handleFileUpload($file, $folderName = 'uploads', $fileName = false): string
     {
-            $file_name = Str::slug($fileName) ?? Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
-            $fileName = $file_name . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $file_name = Str::slug($fileName) ?? Str::slug($file->getClientOriginalName().rand(1000, 9999));
+            $fileName = $file_name . '_' . time().rand(1000, 9999) . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs($folderName, $fileName, 'public');
             return $path;
     }
