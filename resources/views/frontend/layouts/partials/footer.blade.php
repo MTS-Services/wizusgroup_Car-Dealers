@@ -18,45 +18,25 @@
                             <div class="basis-1/2">
                                 <h4>{{ __('Services') }}</h4>
                                 <div class="flex flex-col pt-3 pl-3 gap-1">
-                                    <a href="#"
+                                    <a href="{{ route('frontend.auctions') }}"
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm group/service group/service w-fit">
                                         <div>
                                             <span
                                                 class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/service:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
-                                                <i data-lucide="arrow-big-right" class="w-4 text-text-white"></i>
+                                                <i data-lucide="gavel" class="w-4 text-text-white"></i>
                                             </span>
                                         </div>
-                                        {{ __('Service 1') }}
+                                        {{ __('Auctions') }}
                                     </a>
-                                    <a href="#"
+                                    <a href="{{ route('frontend.dropshipping') }}"
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm group/service group/service w-fit">
                                         <div>
                                             <span
                                                 class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/service:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
-                                                <i data-lucide="arrow-big-right" class="w-4 text-text-white"></i>
+                                                <i data-lucide="handshake" class="w-4 text-text-white"></i>
                                             </span>
                                         </div>
-                                        {{ __('Service 2') }}
-                                    </a>
-                                    <a href="#"
-                                        class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm group/service group/service w-fit">
-                                        <div>
-                                            <span
-                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/service:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
-                                                <i data-lucide="arrow-big-right" class="w-4 text-text-white"></i>
-                                            </span>
-                                        </div>
-                                        {{ __('Service 3') }}
-                                    </a>
-                                    <a href="#"
-                                        class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm group/service group/service w-fit">
-                                        <div>
-                                            <span
-                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/service:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
-                                                <i data-lucide="arrow-big-right" class="w-4 text-text-white"></i>
-                                            </span>
-                                        </div>
-                                        {{ __('Service 4') }}
+                                        {{ __('Special Deals') }}
                                     </a>
                                     <a href="{{ route('frontend.parts-accessories') }}"
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm group/service group/service w-fit">
@@ -66,7 +46,17 @@
                                                 <i data-lucide="arrow-big-right" class="w-4 text-text-white"></i>
                                             </span>
                                         </div>
-                                        {{ __('Parts') }}
+                                        {{ __('Parts & Accessories') }}
+                                    </a>
+                                    <a href="{{ route('frontend.group_shipping') }}"
+                                        class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm group/service group/service w-fit">
+                                        <div>
+                                            <span
+                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/service:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
+                                                <i data-lucide="arrow-big-right" class="w-4 text-text-white"></i>
+                                            </span>
+                                        </div>
+                                        {{ __('Shipping') }}
                                     </a>
                                 </div>
                             </div>
@@ -93,56 +83,6 @@
                                         </div>
                                         {{ __('About Us') }}
                                     </a>
-                                    {{-- <a href=""
-                                        class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
-                                        <div>
-                                            <span
-                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/link:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
-                                                <i data-lucide="package" class="w-[14px] text-text-white"></i>
-                                            </span>
-                                        </div>
-                                        {{ __('Products') }}
-                                    </a>
-                                    <a href="{{ route('frontend.auctions') }}"
-                                        class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
-                                        <div>
-                                            <span
-                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/link:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
-                                                <i data-lucide="gavel" class="w-[14px] text-text-white"></i>
-                                            </span>
-                                        </div>
-                                        {{ __('Auctions') }}
-                                    </a>
-                                    {{-- <a href="{{route('frontend.auction-details')}}"
-                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
-                                        <div>
-                                            <span
-                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/link:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
-                                                <i data-lucide="earth" class="w-[14px] text-text-white"></i>
-                                            </span>
-                                        </div>
-                                        {{ __('Auction Details') }}
-                                    </a> --}}
-                                    <a href="{{ route('frontend.contact') }}"
-                                        class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
-                                        <div>
-                                            <span
-                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/link:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
-                                                <i data-lucide="square-user-round" class="w-[14px] text-text-white"></i>
-                                            </span>
-                                        </div>
-                                        {{ __('Contact') }}
-                                    </a>
-                                    <a href="{{ route('frontend.dropshipping') }}"
-                                        class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
-                                        <div>
-                                            <span
-                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/link:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
-                                                <i data-lucide="truck" class="w-[14px] text-text-white"></i>
-                                            </span>
-                                        </div>
-                                        {{ __('Dropshipping') }}
-                                    </a>
                                     <a href="{{ route('frontend.regions') }}"
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
                                         <div>
@@ -152,6 +92,16 @@
                                             </span>
                                         </div>
                                         {{ __('Regions') }}
+                                    </a>
+                                    <a href="{{ route('frontend.contact') }}"
+                                        class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
+                                        <div>
+                                            <span
+                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/link:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
+                                                <i data-lucide="square-user-round" class="w-[14px] text-text-white"></i>
+                                            </span>
+                                        </div>
+                                        {{ __('Contact') }}
                                     </a>
                                 </div>
                             </div>
