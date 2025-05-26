@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Traits\AuditColumnsTrait;
+use App\Models\ProductInquiry;
 
 return new class extends Migration
 {
@@ -19,7 +20,7 @@ return new class extends Migration
             $table->bigInteger('sort_order')->default(0)->index();
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('product_id')->index();
-            $table->tinyInteger('status')->default(0)->index();
+            $table->tinyInteger('status')->default(ProductInquiry::STATUS_PENDING)->index();
             $table->text('message');
             $table->dateTime('response_at')->nullable();
             $table->dateTime('inquiry_at')->nullable();
