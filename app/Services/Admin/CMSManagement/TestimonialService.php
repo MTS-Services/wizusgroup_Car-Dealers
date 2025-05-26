@@ -34,19 +34,21 @@ class TestimonialService
         $data['creater_id'] = admin()->id;
         $data['creater_type'] = get_class(admin());
         if ($file) {
-            $data['author_image'] = $this->handleFilepondFileUpload(Testimonial::class, $file, admin(), 'testimonials/');
+            $data['author_image'] = $this->handleFileUpload($file, 'testimonials');
         }
         return Testimonial::create($data);
     }
-    public function updateTestimonial(Testimonial $user, array $data, $file = null): Testimonial
+    public function updateTestimonial(string $encryptedId, array $data, $file = null): Testimonial
     {
+         $testimonial = $this->getTestimonial($encryptedId);
         $data['updater_id'] = admin()->id;
         $data['updater_type'] = get_class(admin());
         if ($file) {
-            $data['author_image'] = $this->handleFilepondFileUpload($user, $file, admin(), 'testimonials/');
+              $data['author_image'] = $this->handleFileUpload( $file, 'testimonials');
+               $this->fileDelete($testimonial->image);
         }
-        $user->update($data);
-        return $user;
+        $testimonial->update($data);
+        return $testimonial;
     }
     public function delete(Testimonial $user): void
     {

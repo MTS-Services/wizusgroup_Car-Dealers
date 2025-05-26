@@ -5,7 +5,7 @@ namespace App\Http\Traits;
 use App\Models\TempFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Str;
+use Illuminate\Support\Str;
 
 trait FileManagementTrait
 {
