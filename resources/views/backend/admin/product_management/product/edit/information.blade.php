@@ -163,6 +163,12 @@
 @endsection
 @push('js')
     <script src="{{ asset('ckEditor5/main.js') }}"></script>
+    <script src="{{ asset('filepond/filepond.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            file_upload(["#file"], ['application/pdf', 'application/doc', 'application/docx', 'application/xls', 'application/xlsx'] );
+        })
+    </script>
     <script>
         $(document).ready(function() {
             $('#product_info_cat_id').on('change', function() {
