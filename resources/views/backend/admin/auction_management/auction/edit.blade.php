@@ -121,16 +121,9 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Meta title') }}</label>
-                                    <input type="text" class="form-control" value="{{ $auction->meta_title ?? old('meta_title') }}"
+                                    <input type="text" class="form-control" id="meta_title" value="{{ $auction->meta_title ?? old('meta_title') }}"
                                         name="meta_title">
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'meta_title']" />
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>{{ __('Description') }}</label>
-                                    <textarea name="description" id="description" class="form-control">{{ $auction->description ?? old('description') }}</textarea>
-                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'description']" />
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -138,6 +131,13 @@
                                     <label>{{ __('Meta description') }}</label>
                                     <textarea rows="6" name="meta_description" id="meta_description" class="form-control no-ckeditor5">{{ $auction->meta_description ?? old('meta_description') }}</textarea>
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'meta_description']" />
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>{{ __('Description') }}</label>
+                                    <textarea name="description" id="description" class="form-control">{{ $auction->description ?? old('description') }}</textarea>
+                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'description']" />
                                 </div>
                             </div>
                         </div>
