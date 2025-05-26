@@ -73,7 +73,7 @@ class User extends AuthBaseModel implements MustVerifyEmail
     ];
     public function personalInformation(): MorphOne
     {
-        return $this->morphOne(personalInformation::class, 'profile');
+        return $this->morphOne(PersonalInformation::class, 'profile');
     }
 
     public function auctions(): HasMany
