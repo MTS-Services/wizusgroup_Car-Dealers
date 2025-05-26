@@ -71,6 +71,27 @@ class User extends AuthBaseModel implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function productReserves(): HasMany
+    {
+        return $this->hasMany(ProductReserve::class);
+    }
+
+    public function productInquiries(): HasMany
+    {
+        return $this->hasMany(ProductInquiry::class);
+    }
+
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class);
+    }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
     public function personalInformation(): MorphOne
     {
         return $this->morphOne(PersonalInformation::class, 'profile');

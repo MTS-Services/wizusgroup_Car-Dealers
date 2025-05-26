@@ -63,6 +63,16 @@ class Product extends BaseModel
         'deleted_by',
     ];
 
+    public function productReserves(): HasMany
+    {
+        return $this->hasMany(ProductReserve::class);
+    }
+
+    public function productInquiries(): HasMany
+    {
+        return $this->hasMany(ProductInquiry::class);
+    }
+
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
