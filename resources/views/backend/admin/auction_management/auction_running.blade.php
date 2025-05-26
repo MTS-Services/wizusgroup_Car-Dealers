@@ -31,7 +31,7 @@
                         {{-- Category --}}
                         <p class="m-0"><span class="fw-medium">{{ __('Category:') }}</span> <span
                                 class="text-muted">{{ $auction->product?->category?->name }}</span></p>
-                        <div class="d-flex align-items-center watch-count badge bg-success rounded-pill px-3">
+                        <div class="d-flex align-items-center watch-count badge bg-success rounded-pill px-3 py-0">
                             <i class="far fa-eye me-1"></i>
                             <p class="lead m-0 fw-medium">{{ number_format($auction->auction_watchers_count) }} watching</p>
                         </div>
