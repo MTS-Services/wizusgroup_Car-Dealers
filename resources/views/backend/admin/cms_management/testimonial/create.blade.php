@@ -26,7 +26,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>{{ __(' Name') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Author Name') }} <span class="text-danger">*</span></label>
                                             <input type="text" value="{{ old('author_name') }}" name="author_name"
                                                 class="form-control" placeholder="Enter name">
                                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'author_name']" />
@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>{{ __(' Designation') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Author Designation') }} </label>
                                             <input type="text" value="{{ old('author_designation') }}"
                                                 name="author_designation" class="form-control"
                                                 placeholder="Enter designation">
@@ -43,7 +43,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>{{ __(' Country') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Author Country') }} </label>
                                             <input type="text" value="{{ old('author_country') }}" name="author_country"
                                                 class="form-control" placeholder="Enter country">
                                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'author_country']" />
@@ -57,17 +57,17 @@
                             <div class="col-md-6">
                                 <div class="form-group h-100"
                                     style="border:  padding: 20px; display: flex; flex-direction: column; justify-content: center; min-height: 100%;">
-                                    <label>{{ __('Image') }}</label>
-                                    <input type="file" name="uploadImage" data-actualName="author_image"
-                                        class="form-control filepond" id="image" accept="image/*">
+                                    <label>{{ __('Author Image') }}<span class="text-danger">*</span></label>
+                                    <input type="file" name="author_image"
+                                        class="form-control filepond" id="image" accept="image/jpeg, image/png, image/jpg, image/webp, image/svg">
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'author_image']" />
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>{{ __('Quote') }}</label>
-                            <textarea name="quote" class="form-control" id="quote" placeholder="Enter Quote">{{ old('quote') }}</textarea>
+                            <label>{{ __('Quote') }}<span class="text-danger">*</span></label>
+                            <textarea name="quote" class="form-control no-ckeditor5" id="quote" placeholder="Enter Quote">{{ old('quote') }}</textarea>
                         </div>
 
 
@@ -87,7 +87,7 @@
     <script src="{{ asset('filepond/filepond.js') }}"></script>
     <script>
         $(document).ready(function() {
-            file_upload(["#image"], "uploadImage", "admin", [], false);
+            file_upload(["#image"], ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg']);
         });
     </script>
     {{-- FilePond  --}}
