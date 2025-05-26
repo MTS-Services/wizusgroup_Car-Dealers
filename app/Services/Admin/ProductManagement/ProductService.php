@@ -103,6 +103,30 @@ class ProductService
         }
 
     }
+
+    public function infoFileCreate(Product $product, array $data, $file = null, $type = 'create')
+    {
+        ($type == 'create' ? $data['created_by'] = admin()->id : $data['updated_by'] = admin()->id);
+        $record = ProductInformation::where('product_id', $product->id)
+            ->where('product_info_cat_id', $data['product_info_cat'])
+            ->whereNotNull('file')
+            ->first();
+        if (!$record) {
+             if ($file) {
+                $data['file'] = $this->handleFileUpload($file,  'product_documents');
+            }
+            $record = ProductInformation::create([
+                'product_id' => $product->id,
+                'product_info_cat_id' => $data['product_info_cat'],
+                'file' => $data['file'],
+            ]);
+        }else{
+            if ($file) {
+                $data['file'] = $this->handleFileUpload($file,  'product_documents');
+            }
+            $record->update(['file' => $data['file']]);
+        }
+    }
     public function getProductEntryComplete($encryptedId)
     {
         $product = $this->getProduct($encryptedId);
@@ -118,9 +142,18 @@ class ProductService
     {
         return ProductInformation::with(['infoCategory','infoCategoryType','infoCategoryTypeFeature'])->where('product_id', decrypt($encryptedId))->whereNull('remarks')->select('id','product_info_cat_id', 'product_info_cat_type_id', 'product_info_cat_type_feature_id', 'description')->latest()->get();
     }
+
+    public function getProductImages(string $encryptedId): ProductImage|Collection
+    {
+        return ProductImage::where('product_id', decrypt($encryptedId))->select('id', 'image')->latest()->get();
+    }
     public function getInfoRemarks(string $encryptedId): ProductInformation|Collection
     {
         return ProductInformation::with('infoCategory')->where('product_id', decrypt($encryptedId))->whereNotNull('remarks')->select('id','product_info_cat_id', 'remarks')->latest()->get();
+    }
+    public function getInfoFiles(string $encryptedId): ProductInformation|Collection
+    {
+        return ProductInformation::with('infoCategory')->where('product_id', decrypt($encryptedId))->whereNotNull('file')->select('id','product_info_cat_id', 'file')->latest()->get();
     }
      public function getProductInfo(string $encryptedId): ProductInformation|Collection
     {

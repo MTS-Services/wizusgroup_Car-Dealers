@@ -156,10 +156,10 @@ class ContactController extends Controller
     {
         $contact = $this->contactService->getContact($id);
 
-        $contact->load(['creater', 'open_by']);
+        $contact->load(['creater']);
         return response()->json($contact);
     }
-   
+
 
     /**
      * Show the form for editing the specified resource.
