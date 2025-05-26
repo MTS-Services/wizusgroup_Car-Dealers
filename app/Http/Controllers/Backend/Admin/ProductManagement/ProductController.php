@@ -245,7 +245,8 @@ class ProductController extends Controller
 
     public function relation(string $pid): View
     {
-        $data['product_id'] = $pid;
+        $data['product'] = $this->productService->getProduct($pid);
+        $data['product']->load(['brand','model','category','company','subCategory']);
         $data['companies'] = $this->companyService->getCompanies()->active()->select(['id', 'name'])->get();
         $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->active()->select(['id', 'name'])->get();
         return view('backend.admin.product_management.product.create.relation', $data);
@@ -256,7 +257,7 @@ class ProductController extends Controller
         try {
             $product = $this->productService->getProduct($pid);
             $validated = $request->validated();
-            $this->productService->relationCreate($product, $validated);
+            $this->productService->relationCreateOrUpdate($product, $validated);
             session()->flash('success', 'Product relations added successfully!');
             return redirect()->route('pm.product.image', $pid);
         } catch (\Throwable $e) {
@@ -267,8 +268,8 @@ class ProductController extends Controller
 
     public function images(string $pid): View
     {
-        $data['product_id'] = $pid;
         $data['product'] = $this->productService->getProduct($pid);
+        $data['product']->load(['images','primaryImage']);
         return view('backend.admin.product_management.product.create.image', $data);
     }
 
@@ -352,16 +353,16 @@ class ProductController extends Controller
         }
     }
 
-public function download(string $id)
-{
-    $info = $this->productService->getProductInfo($id);
-    if (Storage::disk('public')->exists($info->file)) {
-        return response()->download(Storage::disk('public')->path($info->file), basename($info->file));
-    } else {
-        session()->flash('error', 'File not found!');
-        return redirect()->route('pm.product.index');
+    public function download(string $id)
+    {
+        $info = $this->productService->getProductInfo($id);
+        if (Storage::disk('public')->exists($info->file)) {
+            return response()->download(Storage::disk('public')->path($info->file), basename($info->file));
+        } else {
+            session()->flash('error', 'File not found!');
+            return redirect()->route('pm.product.index');
+        }
     }
-}
     public function entryComplete(string $pid): RedirectResponse
     {
         try {
@@ -409,84 +410,12 @@ public function download(string $id)
             $validated = $request->validated();
             $this->productService->update($pid, $validated);
             session()->flash('success', 'Product updated successfully!');
-            return redirect()->route('pm.product.relation.edit', $pid);
+            return redirect()->route('pm.product.relation', $pid);
         } catch (\Throwable $e) {
             session()->flash('error', 'Product update failed!');
             throw $e;
         }
     }
-
-    public function editRelation(string $pid)
-    {
-        $data['product'] = $this->productService->getProduct($pid);
-        $data['product']->load(['brand', 'category', 'model', 'company', 'subCategory']);
-        $data['companies'] = $this->companyService->getCompanies()->active()->select(['id', 'name'])->get();
-        $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->active()->select(['id', 'name'])->get();
-        return view('backend.admin.product_management.product.edit.relation', $data);
-    }
-
-    public function updateRelation(ProductRelationRequest $request, string $pid)
-    {
-        try {
-            $product = $this->productService->getProduct($pid);
-            $validated = $request->validated();
-            $this->productService->relationUpdate($product, $validated);
-            session()->flash('success', 'Product relations updated successfully!');
-            return redirect()->route('pm.product.image.edit', $pid);
-        } catch (\Throwable $e) {
-            session()->flash('error', 'Product relations update failed!');
-            throw $e;
-        }
-    }
-
-    public function editImage(string $pid)
-    {
-        $data['product_id'] = $pid;
-        $data['product_images'] = $this->productService->getProductImages($pid);
-        // dd($data['product_images']);
-        $data['product'] = $this->productService->getProduct($pid);
-        return view('backend.admin.product_management.product.edit.image', $data);
-    }
-
-
-    public function updateImage(ProductImageRequest $request, string $pid)
-    {
-        try {
-            $product = $this->productService->getProduct($pid);
-            $validated = $request->validated();
-            $this->productService->imageUpdate($product, $validated);
-            session()->flash('success', 'Product images updated successfully!');
-            return redirect()->route('pm.product.info.edit', $pid);
-        } catch (\Throwable $e) {
-            session()->flash('error', 'Product images update failed!');
-            throw $e;
-        }
-    }
-
-    public function editInfo(string $pid)
-    {
-        $data['infos'] = $this->productService->getInfos($pid);
-        $data['info_remarks'] = $this->productService->getInfoRemarks($pid);
-        $data['info_files'] = $this->productService->getInfoFiles($pid);
-        $data['product_id'] = $pid;
-        $data['info_categories'] = $this->productInfoCategoryService->getProductInfoCats()->active()->select(['id', 'name'])->get();
-        return view('backend.admin.product_management.product.edit.information', $data);
-    }
-
-    public function updateInfo(ProductInfoRequest $request, string $pid)
-    {
-        try {
-            $product = $this->productService->getProduct($pid);
-            $validated = $request->validated();
-            $this->productService->infoCreate($product, $validated);
-            session()->flash('success', 'Product information updated successfully!');
-            return redirect()->route('pm.product.info.edit', $pid);
-        } catch (\Throwable $e) {
-            session()->flash('error', 'Product information update failed!');
-            throw $e;
-        }
-    }
-
     public function status(string $id): RedirectResponse
     {
         try {

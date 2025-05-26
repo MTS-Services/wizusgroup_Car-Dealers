@@ -173,6 +173,10 @@ class Product extends BaseModel
     {
         return $this->images()->primary();
     }
+    public function nonPrimayImages(): HasMany
+    {
+        return $this->images()->notPrimary();
+    }
     public function activeImages(): HasMany
     {
         return $this->images()->active();

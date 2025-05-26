@@ -21,7 +21,7 @@
                         @csrf
 
                         <div class="row">
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
                                 <label>{{ __('Product Info Category') }} <span class="text-danger">*</span></label>
                                 <select name="product_info_cat_id" class="form-control" id="product_info_cat_id">
                                     <option value="" selected hidden>{{ __('Select Product Info Category') }}</option>
@@ -33,7 +33,7 @@
                                 </select>
                                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'product_info_cat_id']" />
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
                                 <label>{{ __('Product Info Category Type') }}<span class="text-danger">*</span></label>
                                 <select name="product_info_cat_type_id" class="form-control" id="product_info_cat_type_id"
                                     disabled>
@@ -42,7 +42,7 @@
                                 </select>
                                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'product_info_cat_type_id']" />
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
                                 <label>{{ __('Product Info Category Type Feature') }}</label>
                                 <select name="product_info_cat_type_feature_id" class="form-control"
                                     id="product_info_cat_type_feature_id" disabled>
@@ -52,7 +52,7 @@
                                 </select>
                                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'product_info_cat_type_feature_id']" />
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
                                 <label>{{ __('Information') }}<span class="text-danger">*</span></label>
                                 <input type="text" value="{{ old('description') }}" name="description"
                                     class="form-control" placeholder="Enter information">
