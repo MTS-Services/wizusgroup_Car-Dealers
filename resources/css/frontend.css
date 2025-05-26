@@ -144,7 +144,7 @@ input[type="range"]::-webkit-slider-thumb {
 /* Buttons */
 @layer components {
     .btn-search {
-        @apply py-2 pl-4 pr-8 text-text-white bg-bg-primary !rounded-r-full font-medium transition-all duration-300 relative overflow-hidden;
+        @apply py-2 pl-4 pr-10 text-text-white bg-bg-primary !rounded-r-full font-medium transition-all duration-300 relative overflow-hidden;
 
         @apply after:content-[''] after:absolute after:w-5 after:h-[200%] after:bg-bg-light after:opacity-30 after:backdrop-blur-md after:left-[200%] after:z-[1] after:rounded-full after:transition-all after:duration-500 after:ease-linear after:-top-5 after:rotate-45;
 
@@ -180,6 +180,10 @@ input[type="range"]::-webkit-slider-thumb {
 
     .select {
         @apply focus:outline-0 focus-within:outline-0 focus:ring-0 focus:border-border-primary focus-within:border-border-primary w-full shadow-card transition-all duration-300 ease-linear;
+    }
+
+    .input-search {
+        @apply px-4 py-2 bg-bg-light dark:bg-bg-dark-tertiary rounded-l-full border border-bg-light dark:border-bg-dark text-text-primary dark:text-text-white border-none shadow-lg focus:border-border-primary focus-within:border-border-primary transition-all duration-300 ease-linear w-full max-w-[500px];
     }
 }
 

@@ -59,7 +59,7 @@
                     </div>
                     <div class="form-group">
                         <label>{{__('Meta Description')}}</label>
-                        <textarea name="meta_description" class="form-control" id="meta_description" placeholder="Enter meta description">{{old('meta_description')}}</textarea>
+                        <textarea name="meta_description" class="form-control no-ckeditor5" id="meta_description" placeholder="Enter meta description">{{old('meta_description')}}</textarea>
                     </div>
                     <div class="form-group">
                         <label>{{__('Description')}}</label>

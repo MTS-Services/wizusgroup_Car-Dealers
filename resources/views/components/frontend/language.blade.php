@@ -6,13 +6,13 @@
         onchange="this.form.submit()">
 
         <option value="en" {{session()->get('locale') == 'en' ? 'selected' : '' }}>
-            {{ __('English') }}
+            {{'English' }}
         </option>
         <option value="fr" {{ session()->get('locale') == 'fr' ? 'selected' : '' }}>
-            {{ __('French') }}
+            {{ 'French'}}
         </option>
         <option value="ar" {{ session()->get('locale') == 'ar' ? 'selected' : '' }}>
-            {{ __('Argentine') }}
+            {{ 'Argentine' }}
         </option>
 
     </select>

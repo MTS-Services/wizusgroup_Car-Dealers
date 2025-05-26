@@ -50,7 +50,7 @@
                     {{-- Meta_description --}}
                     <div class="form-group">
                         <label>{{__('Meta_description')}}</label>
-                        <textarea name="meta_description" class="form-control" id="meta_description" placeholder="Enter meta_description">{{old('meta_description')}}</textarea>
+                        <textarea name="meta_description" class="form-control no-ckeditor5" id="meta_description" placeholder="Enter meta_description">{{old('meta_description')}}</textarea>
                     </div>
                     {{-- Description --}}
                     <div class="form-group">

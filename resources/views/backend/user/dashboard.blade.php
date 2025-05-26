@@ -1115,12 +1115,12 @@
             $('#state').on('change', function() {
                 getCities($(this).val(), route2);
             });
-            let data_id = `{{ $address->state_id ? $address->state_id : $address->city_id }}`;
+            let data_id = `{{ $address?->state_id ? $address?->state_id : $address?->city_id }}`;
             if (data_id) {
                 getStatesOrCity($('#country').val(), route1, data_id);
             }
-            if (`{{ $address->state_id }}`) {
-                getCities(`{{ $address->state_id }}`, route2, `{{ $address->city_id }}`);
+            if (`{{ $address?->state_id }}`) {
+                getCities(`{{ $address?->state_id }}`, route2, `{{ $address?->city_id }}`);
             }
 
             // FilePond Upload

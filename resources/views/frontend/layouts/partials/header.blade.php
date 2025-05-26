@@ -6,7 +6,7 @@
                         class="w-28"></a>
             </div>
             <div class="navbar-center hidden tablet:flex">
-                <div class="flex items-center justify-center gap-2">
+                <div class="flex items-center justify-center">
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear
                     @if (isset($page_slug) && $page_slug == 'home') text-text-secondary dark:text-text-secondary @endif
                     "
@@ -19,6 +19,14 @@
                      @if (isset($page_slug) && $page_slug == 'auctions') text-text-secondary dark:text-text-secondary @endif
                     "
                         href="{{ route('frontend.auctions') }}">{{ __('Auctions') }}</a>
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
+                     @if (isset($page_slug) && $page_slug == 'dropshipping') text-text-secondary dark:text-text-secondary @endif
+                    "
+                        href="{{ route('frontend.dropshipping') }}">{{ __('Deals') }}</a>
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
+                     @if (isset($page_slug) && $page_slug == 'parts-accessories') text-text-secondary dark:text-text-secondary @endif
+                    "
+                        href="{{ route('frontend.parts-accessories') }}">{{ __('Parts & Accessories') }}</a>
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
                     @if (isset($page_slug) && $page_slug == 'contact') text-text-secondary dark:text-text-secondary @endif
                     "

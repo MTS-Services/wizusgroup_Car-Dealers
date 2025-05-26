@@ -14,7 +14,7 @@ class PersonalInformationService
         return PersonalInformation::orderBy($orderby, $order)->personal()->latest();
     }
 
-   public function updatePersonalInformation(PersonalInformation $personalInformation, $validated)
+   public function updatePersonalInformation($personalInformation, $validated)
     {
         $personalInformation->update($validated);
     }
