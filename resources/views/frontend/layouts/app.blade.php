@@ -53,6 +53,13 @@
     {{-- Custom CSS --}}
     @stack('css')
 
+    <style>
+        #toast-container {
+            z-index: 99999999999 !important;
+        }
+    </style>
+
+
 </head>
 
 <body>
