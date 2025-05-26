@@ -420,6 +420,9 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
             Route::delete('permanent-delete/{auction}', 'permanentDelete')->name('permanent-delete');
             Route::post('relation/{auction}', 'relationStore')->name('relation.store');
         });
+
+        // Auction Running Routes
+        Route::get('auction-running', [AuctionController::class, 'auctionRunning'])->name('auction-running');
     });
 
     // Supplier Management

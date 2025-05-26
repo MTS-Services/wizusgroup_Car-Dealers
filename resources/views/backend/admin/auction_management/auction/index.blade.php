@@ -44,8 +44,6 @@
             </div>
         </div>
     </div>
-    {{-- Admin Details Modal  --}}
-    <x-backend.admin.details-modal :datas="['modal_title' => 'Auction Details']" />
 @endsection
 @push('js')
     <script src="{{ asset('custom_litebox/litebox.js') }}"></script>
@@ -72,82 +70,5 @@
             };
             initializeDataTable(details);
         })
-    </script>
-@endpush
-@push('js')
-    {{-- Show details scripts --}}
-    <script src="{{ asset('modal/details_modal.js') }}"></script>
-    <script>
-        $(document).on("click", ".view", function() {
-            let id = $(this).data("id");
-            let route = "{{ route('auction-m.auction.show', ['id']) }}";
-            const detailsUrl = route.replace("id", id);
-            const headers = [{
-                    label: "Title",
-                    key: "title"
-                },
-                {
-                    label: "Slug",
-                    key: "slug"
-                },
-                {
-                    label: "Product",
-                    key: "product_name"
-                },
-                {
-                    label: "Auction Location",
-                    key: "location"
-                },
-                {
-                    label: "Start Date",
-                    key: "start_date_format"
-                },
-                {
-                    label: "End Date",
-                    key: "end_date_format"
-                },
-                {
-                    label: "Start Price",
-                    key: "start_price"
-                },
-                {
-                    label: "Reserve Price",
-                    key: "reserve_price"
-                },
-                {
-                    label: "Buy Price",
-                    key: "buy_now_price"
-                },
-                {
-                    label: "Increment Amount",
-                    key: "increment_amount"
-                },
-                {
-                    label: "Status",
-                    key: "status_label",
-                    color: "status_color",
-                },
-                {
-                    label: "Featured",
-                    key: "featured_label",
-                    color: "featured_color",
-                },
-                {
-                    label: "Description",
-                    key: "description",
-                },
-                {
-                    label: "Meta Title",
-                    key: "meta_title",
-                },
-                {
-                    label: "Meta Description",
-                    key: "meta_description",
-                },
-
-
-            ];
-            fetchAndShowModal(detailsUrl, headers, "#modal_data", "myModal");
-        });
     </script>
 @endpush
