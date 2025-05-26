@@ -13,33 +13,52 @@
                             <div class="w-full">
                                 <label class="w-full">
                                     <span class="label">{{ __('First Name') }} <span class="text-red-500">*</span></span>
-                                    <input type="text" placeholder="First Name" name="first_name" value="{{ old('first_name') }}" class="input" />
+                                    <input type="text" placeholder="First Name" name="first_name"
+                                        value="{{ old('first_name') }}" class="input" />
                                 </label>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'first_name']" />
                             </div>
                             <div class="w-full">
                                 <label class="w-full">
                                     <span class="label">{{ __('Last Name') }} <span class="text-red-500">*</span></span>
-                                    <input type="text" placeholder="Last Name" value="{{ old('last_name') }}" name="last_name" class="input" />
+                                    <input type="text" placeholder="Last Name" value="{{ old('last_name') }}"
+                                        name="last_name" class="input" />
                                 </label>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'last_name']" />
                             </div>
                         </div>
 
-                        {{-- Email Field --}}
-                        <div class="w-full">
-                            <span class="label">{{ __('Email') }}<span class="text-red-500">*</span></span>
-                            <label class="input">
-                                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
-                                        stroke="currentColor">
-                                        <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                                    </g>
-                                </svg>
-                                <input type="email" placeholder="example@gmail.com" value="{{ old('email') }}" name="email" />
-                            </label>
-                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'email']" />
+                        {{-- Email And Language --}}
+                        <div class="flex flex-col md:flex-row gap-3">
+                            <div class="w-full">
+                                <span class="label">{{ __('Email') }}<span class="text-red-500">*</span></span>
+                                <label class="input">
+                                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                                            stroke="currentColor">
+                                            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                                        </g>
+                                    </svg>
+                                    <input type="email" placeholder="example@gmail.com" value="{{ old('email') }}"
+                                        name="email" />
+                                </label>
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'email']" />
+                            </div>
+                            <div class="w-full">
+                                <span class="label block">{{ __('Language') }}<span class="text-red-500">*</span></span>
+                                <div class="input justify-between flex-wrap py-2 px-5 h-fit">
+                                    @foreach (App\Models\PersonalInformation::getLanguages() as $key => $language)
+                                        <label for="language-{{ $key }}" class="flex items-center gap-2">
+                                            <input type="radio" name="language" value="{{ $key }}"
+                                                class="radio radio-xs radio-info" @checked(old('language', App\Models\PersonalInformation::LANGUAGE_ENGLISH) == $key)
+                                                id="language-{{ $key }}" />
+                                            <span>{{ $language }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'language']" />
+                            </div>
                         </div>
 
                         {{-- Password Field --}}
@@ -89,7 +108,7 @@
                             </div>
                         </div>
 
-                        {{-- Gender and Language --}}
+                        {{-- Gender and Country --}}
                         <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label block">{{ __('Gender') }}<span class="text-red-500">*</span></span>
@@ -106,59 +125,52 @@
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'gender']" />
                             </div>
                             <div class="w-full">
-                                <span class="label block">{{ __('Language') }}<span class="text-red-500">*</span></span>
-                                <div class="input justify-between flex-wrap py-2 px-5 h-fit">
-                                    @foreach (App\Models\PersonalInformation::getLanguages() as $key => $language)
-                                        <label for="language-{{ $key }}" class="flex items-center gap-2">
-                                            <input type="radio" name="language" value="{{ $key }}"
-                                                class="radio radio-xs radio-info" @checked(old('language', App\Models\PersonalInformation::LANGUAGE_ENGLISH) == $key)
-                                                id="language-{{ $key }}" />
-                                            <span>{{ $language }}</span>
-                                        </label>
-                                    @endforeach
-                                </div>
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'language']" />
-                            </div>
-                        </div>
-
-                        {{-- Country and State --}}
-                        <div class="flex flex-col md:flex-row gap-3">
-                            <div class="w-full">
                                 <span class="label">{{ __('Country') }}<span class="text-red-500">*</span></span>
 
                                 <select name="country_id" class="select" id="country">
                                     <option value="" disabled selected>{{ __('Select country') }}</option>
                                     @foreach (App\Models\Country::active()->get() as $country)
                                         <option value="{{ $country->id }}"
-                                            {{ old('country') == $country->id ? 'selected' : '' }}>
+                                            {{ old('country_id') == $country->id ? 'selected' : '' }}>
                                             {{ $country->name }}</option>
                                     @endforeach
                                 </select>
 
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'country']" />
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'country_id']" />
                             </div>
+                        </div>
+
+                        {{-- State and City --}}
+                        <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label">{{ __('State') }}<span class="text-red-500">*</span></span>
                                 <select name="state_id" class="select" disabled id="state">
                                     <option value="" disabled selected>{{ __('Select state') }}</option>
                                 </select>
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'state']" />
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'state_id']" />
                             </div>
-                        </div>
-
-                        {{-- City and Postal Code --}}
-                        <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label">{{ __('City') }}<span class="text-red-500">*</span></span>
                                 <select name="city_id" class="select" disabled id="city">
                                     <option value="" disabled selected>{{ __('Select state') }}</option>
                                 </select>
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'city']" />
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'city_id']" />
+                            </div>
+                        </div>
+
+                        {{-- Street Address and Postal Code --}}
+                        <div class="flex flex-col md:flex-row gap-3">
+                            <div class="w-full">
+                                <span class="label">{{ __('Street Address') }}<span class="text-red-500">*</span></span>
+                                <input type="text" name="address_line_1" placeholder="Street Address" value="{{ old('address_line_1') }}"
+                                    class="input">
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'address_line_1']" />
                             </div>
                             <div class="w-full">
                                 <span class="label">{{ __('Postal or ZIP Code') }}<span
                                         class="text-red-500">*</span></span>
-                                <input type="text" class="input" placeholder="000-000" name="postal_code" />
+                                <input type="text" class="input" placeholder="000-000"
+                                    value="{{ old('postal_code') }}" name="postal_code" />
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'postal_code']" />
                             </div>
                         </div>
@@ -168,12 +180,14 @@
                             <div class="w-full">
                                 <span class="label">{{ __('Tel (first contact)') }}<span
                                         class="text-red-500">*</span></span>
-                                <input type="text" class="input" placeholder="000-0000-0000" name="phone" />
+                                <input type="text" class="input" value="{{ old('phone') }}"
+                                    placeholder="000-0000-0000" name="phone" />
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'phone']" />
                             </div>
                             <div class="w-full">
                                 <span class="label">{{ __('Tel (second contact)') }}</span>
-                                <input type="text" class="input" placeholder="000-0000-0000" name="phone_2" />
+                                <input type="text" class="input" value="{{ old('phone_2') }}"
+                                    placeholder="000-0000-0000" name="phone_2" />
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'phone_2']" />
                             </div>
                         </div>
@@ -182,12 +196,14 @@
                         <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label">{{ __('Company Name') }}</span>
-                                <input type="text" placeholder="Company name" name="company_name" class="input" />
+                                <input type="text" placeholder="Company name" value="{{ old('company_name') }}"
+                                    name="company_name" class="input" />
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'company_name']" />
                             </div>
                             <div class="w-full">
                                 <span class="label">{{ __('Occupation') }} <span class="text-red-500">*</span></span>
-                                <input type="text" placeholder="Company name" name="occupation" class="input" />
+                                <input type="text" placeholder="Company name" value="{{ old('occupation') }}"
+                                    name="occupation" class="input" />
 
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'occupation']" />
                             </div>
@@ -197,7 +213,8 @@
                         <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label">{{ __('Date of Birth') }}<span class="text-red-500">*</span></span>
-                                <input type="date" placeholder="dd-mm-yyyy" name="dob" class="input py-0 px-4" />
+                                <input type="date" placeholder="dd-mm-yyyy" value="{{ old('dob') }}"
+                                    name="dob" class="input py-0 px-4" />
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'dob']" />
                             </div>
                             <div class="w-full">
@@ -207,7 +224,7 @@
                                     @foreach (App\Models\User::getBusinessTypes() as $key => $type)
                                         <label for="type-{{ $key }}" class="flex items-center gap-2">
                                             <input type="radio" name="business_type" value="{{ $key }}"
-                                                class="radio radio-xs radio-info" checked="checked"
+                                                class="radio radio-xs radio-info" @checked(old('business_type') == $key)
                                                 id="type-{{ $key }}" />
                                             <span>{{ $type }}</span>
                                         </label>
@@ -238,8 +255,9 @@
                                         ({{ __('Only required if "Other" is selected') }})
                                     </span>
                                 </span>
-                                <input type="text" placeholder="Business Information" name="business_information"
-                                    class="input" disabled />
+                                <input type="text" placeholder="Business Information"
+                                    value="{{ old('business_information') }}" name="business_information" class="input"
+                                    disabled />
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'business_information']" />
                             </div>
                         </div>
@@ -267,7 +285,7 @@
                                             class="flex items-center gap-2">
                                             <input type="radio" name="receive_promotion_email"
                                                 value="{{ $key }}" class="radio radio-xs radio-info"
-                                                checked="checked" id="promotional_email-{{ $key }}" />
+                                                @checked(old('receive_promotion_email') == $key) id="promotional_email-{{ $key }}" />
                                             <span>{{ $promotional_email }}</span>
                                         </label>
                                     @endforeach
@@ -295,8 +313,9 @@
                             <div class="w-full">
                                 <span class="label">{{ __('Please Provide Details for Friend or Other') }} <span
                                         class="text-red-500">*</span></span>
-                                <input type="text" placeholder="Please Enter the Details" name="how_know_detail"
-                                    class="input" disabled />
+                                <input type="text" placeholder="Please Enter the Details"
+                                    value="{{ old('how_know_detail') }}" name="how_know_detail" class="input"
+                                    disabled />
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'how_know_detail']" />
                             </div>
                         </div>
@@ -319,12 +338,13 @@
 
                         {{-- Accept Terms --}}
                         <div class="flex flex-col items-center md:flex-row gap-3">
-                            <div class="w-full">
+                            <div class="w-full text-end">
                                 <label class="flex items-center gap-2 justify-end">
                                     <span class="label block" for="accept_terms">{{ __('Accept Terms') }}<span
                                             class="text-red-500">*</span></span>
                                     <input type="radio" class="radio radio-xs radio-info" name="accept_terms"
-                                        id="accept_terms" />
+                                        value="{{ App\Models\User::ACCEPT_TERMS }}" id="accept_terms"
+                                        @checked(old('accept_terms') == App\Models\User::ACCEPT_TERMS) />
                                 </label>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'accept_terms']" />
                             </div>
@@ -403,14 +423,18 @@
 
     <script>
         $(document).ready(function() {
+            let route1 = "{{ route('axios.get-states-or-cities') }}";
             $('#country').on('change', function() {
-                let route1 = "{{ route('axios.get-states-or-cities') }}";
                 getStatesOrCity($(this).val(), route1);
             });
+            getStatesOrCity($('#country').val(), route1, '{{ old('state_id') }}');
+            let route2 = "{{ route('axios.get-cities') }}";
             $('#state').on('change', function() {
-                let route2 = "{{ route('axios.get-cities') }}";
                 getCities($(this).val(), route2);
             });
+            if (`{{ old('state_id') }}`) {
+                getCities(`{{ old('state_id') }}`, route2, `{{ old('city_id') }}`);
+            }
         })
     </script>
 @endpush
