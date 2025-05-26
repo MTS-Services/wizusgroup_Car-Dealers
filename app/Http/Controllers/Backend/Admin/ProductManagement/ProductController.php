@@ -9,18 +9,12 @@ use App\Http\Requests\Admin\ProductManagement\ProductInfoRemarkRequest;
 use App\Http\Requests\Admin\ProductManagement\ProductInfoRequest;
 use App\Http\Requests\Admin\ProductManagement\ProductRelationRequest;
 use App\Http\Requests\Admin\ProductManagement\ProductRequest;
-use App\Models\Brand;
-use App\Models\Category;
-use App\Models\Company;
-use App\Models\ProductInformation;
 use App\Models\Supplier;
-use App\Models\TaxClass;
 use App\Services\Admin\ProductManagement\CategoryService;
 use App\Services\Admin\ProductManagement\CompanyService;
 use App\Services\Admin\ProductManagement\ProductInfoCategoryService;
 use App\Services\Admin\ProductManagement\ProductService;
 use App\Services\Admin\SupllierManagement\SupplierService;
-use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -224,9 +218,6 @@ class ProductController extends Controller
         $data['suppliers'] = Supplier::select('id', 'first_name')->get();
         return view('backend.admin.product_management.product.create.basic_info', $data);
     }
-
-
-
     /**
      * Store a newly created resource in storage.
      */
@@ -343,7 +334,8 @@ class ProductController extends Controller
         try {
             $product = $this->productService->getProduct($pid);
             $validated = $request->validated();
-            $this->productService->infoFileCreate($product, $validated, $request->file('file'));
+             $file = $request->validated('file') &&  $request->hasFile('file') ? $request->file('file') : null;
+            $this->productService->infoFileCreate($product, $validated, $file);
             session()->flash('success', 'Product files added successfully!');
             return redirect()->route('pm.product.info', $pid);
         } catch (\Throwable $e) {
@@ -352,16 +344,16 @@ class ProductController extends Controller
         }
     }
 
-public function download(string $id)
-{
-    $info = $this->productService->getProductInfo($id);
-    if (Storage::disk('public')->exists($info->file)) {
-        return response()->download(Storage::disk('public')->path($info->file), basename($info->file));
-    } else {
-        session()->flash('error', 'File not found!');
-        return redirect()->route('pm.product.index');
+    public function download(string $id)
+    {
+        $info = $this->productService->getProductInfo($id);
+        if (Storage::disk('public')->exists($info->file)) {
+            return response()->download(Storage::disk('public')->path($info->file), basename($info->file));
+        } else {
+            session()->flash('error', 'File not found!');
+            return redirect()->route('pm.product.index');
+        }
     }
-}
     public function entryComplete(string $pid): RedirectResponse
     {
         try {
@@ -387,7 +379,7 @@ public function download(string $id)
     {
         $data['supplier'] = Supplier::select('id', 'first_name')->get();
         $data['product'] = $this->productService->getProduct($id);
-        $data['product']->load(['creater_admin']);
+        $data['product']->load(['creater_admin','images','primaryImage']);
         return view('backend.admin.product_management.product.details', $data);
     }
 
