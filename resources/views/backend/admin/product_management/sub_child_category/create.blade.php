@@ -54,12 +54,12 @@
                         </div>
                         <div class="form-group">
                             <label>{{ __('Meta Title') }}</label>
-                            <input type="text" name="meta_title" value="{{ old('meta_title') }}" class="form-control" placeholder="Enter meta title">
+                            <input type="text" name="meta_title" value="{{ old('meta_title') }}" class="form-control" id="meta_title" placeholder="Enter meta title">
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'meta_title']" />
                         </div>
                         <div class="form-group">
                             <label>{{ __('Meta Description') }}</label>
-                            <textarea name="meta_description" class="form-control" placeholder="Enter meta description">{{old('meta_description')}}</textarea>
+                            <textarea name="meta_description" id="meta_description" class="form-control no-ckeditor5" placeholder="Enter meta description">{{old('meta_description')}}</textarea>
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'meta_description']" />
                         </div>
                         <div class="form-group">
