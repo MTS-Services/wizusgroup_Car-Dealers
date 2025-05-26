@@ -23,8 +23,8 @@ class TestimonialRequest extends FormRequest
     {
         return [
             'author_name' => 'required|string|min:3',
-            'author_designation' => 'required|string|min:4',
-            'author_country' => 'required|string|min:4',
+            'author_designation' => 'nullable|string',
+            'author_country' => 'nullable|string',
             'quote' => 'required|string|min:10',
         ] + ($this->isMethod('POST') ? $this->store() : $this->update());
     }
