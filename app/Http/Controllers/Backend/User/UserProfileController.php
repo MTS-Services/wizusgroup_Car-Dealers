@@ -17,10 +17,10 @@ use Illuminate\Http\Request;
 
 class UserProfileController extends Controller
 {
-    protected $addressService;
-    protected $personalInformationService;
-    protected $countryService;
-    protected $userService;
+    protected addressService $addressService;
+    protected personalInformationService $personalInformationService;
+    protected countryService $countryService;
+    protected userService $userService;
 
     public function __construct(AddressService $addressService, PersonalInformationService $personalInformationService, CountryService $countryService, UserService $userService)
     {
@@ -32,8 +32,9 @@ class UserProfileController extends Controller
     }
     public function profile()
     {
-        $data['user'] = $this->userService->getUsers()->with('personalInformation')->first();
-        $data['address'] = $this->addressService->getAddresses()->userAddresses()->first();
+        $data['user'] = $this->userService->getUser(encrypt(user()->id));
+        $data['user']->load(['personalInformation']);
+        $data['address'] = $this->addressService->getAddresses()->userAddresses()->personal()->first();
         $data['countries'] = $this->countryService->getCountrys()->active()->get();
         return view('backend.user.dashboard', $data);
     }

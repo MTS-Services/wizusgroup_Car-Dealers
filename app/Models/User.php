@@ -81,6 +81,15 @@ class User extends AuthBaseModel implements MustVerifyEmail
         return $this->hasMany(Auction::class);
     }
 
+     public function auctionBids()
+    {
+        return $this->hasMany(AuctionBid::class);
+    }
+    public function auctionWatcher()
+    {
+        return $this->hasMany(AuctionWatcher::class);
+    }
+
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
