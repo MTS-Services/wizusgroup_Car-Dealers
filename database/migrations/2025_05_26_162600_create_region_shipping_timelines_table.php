@@ -5,7 +5,6 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Traits\AuditColumnsTrait;
-use App\Models\Region;
 
 return new class extends Migration
 {
@@ -15,15 +14,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('regions', function (Blueprint $table) {
+        Schema::create('region_shipping_timelines', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
-            $table->boolean('status')->default(Region::STATUS_ACTIVE)->index();
+            $table->unsignedBigInteger('region_id')->unique()->index();
+            $table->integer('min_days');
+            $table->integer('max_days');
+            $table->string('ports');
             $table->text('description')->nullable();
 
 
+
+            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
             $table->softDeletes();
@@ -42,6 +44,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('regions');
+        Schema::dropIfExists('region_shipping_timelines');
     }
 };

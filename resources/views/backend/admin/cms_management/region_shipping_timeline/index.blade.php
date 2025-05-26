@@ -1,22 +1,22 @@
-@extends('backend.admin.layouts.master', ['page_slug' => 'region'])
-@section('title', 'Region List')
+@extends('backend.admin.layouts.master', ['page_slug' => 'region_shipping_timeline'])
+@section('title', 'Region Shipping Timeline List')
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Region List') }}</h4>
+                    <h4 class="cart-title">{{ __('Region Shipping Timeline List') }}</h4>
                     <div class="buttons">
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'cms.region.recycle-bin',
+                            'routeName' => 'cms.region-shipping-timeline.recycle-bin',
                             'label' => 'Recycle Bin',
                             'className' => 'btn-danger',
-                            'permissions' => ['region-restore'],
+                            'permissions' => ['region-shipping-timeline-restore'],
                         ]" />
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'cms.region.create',
+                            'routeName' => 'cms.region-shipping-timeline.create',
                             'label' => 'Add New',
-                            'permissions' => ['region-create'],
+                            'permissions' => ['region-shipping-timeline-create'],
                         ]" />
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                             <tr>
                                 <th>{{ __('SL') }}</th>
                                 <th>{{ __('Region Name') }}</th>
-                                <th>{{ __('Status') }}</th>
+                                <th>{{ __('Ports') }}</th>
                                 <th>{{ __('Created By') }}</th>
                                 <th>{{ __('Created Date') }}</th>
                                 <th>{{ __('Action') }}</th>
@@ -40,7 +40,7 @@
         </div>
     </div>
     {{-- Admin Details Modal  --}}
-    <x-backend.admin.details-modal :datas="['modal_title' => 'Region Details']" />
+    <x-backend.admin.details-modal :datas="['modal_title' => 'Region Shipping Timeline Details']" />
 @endsection
 @push('js')
     <script src="{{ asset('custom_litebox/litebox.js') }}"></script>
@@ -50,8 +50,8 @@
         $(document).ready(function() {
             let table_columns = [
                 //name and data, orderable, searchable
-                ['name', true, true],
-                ['status', true, true],
+                ['region_id', true, true],
+                ['ports', true, true],
                 ['created_by', true, true],
                 ['created_at', false, false],
                 ['action', false, false],
@@ -60,10 +60,10 @@
                 table_columns: table_columns,
                 main_class: '.datatable',
                 displayLength: 10,
-                main_route: "{{ route('cms.region.index') }}",
+                main_route: "{{ route('cms.region-shipping-timeline.index') }}",
                 order_route: "{{ route('update.sort.order') }}",
                 export_columns: [0, 1, 2, 3, 4],
-                model: 'Region',
+                model: 'RegionShippingTimeline',
             };
             initializeDataTable(details);
         })
@@ -76,22 +76,27 @@
         // Event listener for viewing details
         $(document).on("click", ".view", function() {
             let id = $(this).data("id");
-            let route = "{{ route('cms.region.show', ['id']) }}";
+            let route = "{{ route('cms.region-shipping-timeline.show', ['id']) }}";
             const detailsUrl = route.replace("id", id);
             const headers = [{
-                    label: "Name",
-                    key: "name"
+                    label: " Region Name",
+                    key: "region_name"
                 },
                 {
-                    label:'Slug',
-                    key: "slug"
-                },{
+                    label: "Ports",
+                    key: "ports"
+                },
+                {
+                    label: "Minimum Days",
+                    key: "min_days"
+                },
+                {
+                    label: "Maximum Days",
+                    key: "max_days"
+                },
+                {
                     label:'Description',
                     key: "description"
-                }
-                , {
-                    label: "Status",
-                    key: "status"
                 }
             ];
             fetchAndShowModal(detailsUrl, headers, "#modal_data", "myModal");

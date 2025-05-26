@@ -8,10 +8,10 @@
 
             {{-- Interactive Region Cards --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-15">
-                @foreach (['Africa', 'Middle East', 'Asia', 'Europe', 'North America', 'South America'] as $region)
+                @foreach ($regions as $region)
                     <div class="bg-bg-white p-6 rounded-2xl shadow-card hover:shadow-lg transition-shadow">
-                        <h3 class="text-xl font-semibold text-text-primary mb-2">{{ __($region) }}</h3>
-                        <p class="text-sm text-text-secondary">{{ __('Click to view shipping info and languages supported.') }}</p>
+                        <h3 class="text-xl font-semibold text-text-primary mb-2">{{ __($region->name ) }}</h3>
+                        <p class="text-sm !text-text-secondary">{!! $region->description !!}</p>
                     </div>
                 @endforeach
             </div>

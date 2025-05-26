@@ -382,14 +382,14 @@
                 </li>
 
                 {{-- CMS Management  --}}
-                <li class="nav-item  @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial'|| $page_slug == 'contact'|| $page_slug == 'region') active submenu @endif">
+                <li class="nav-item  @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial'|| $page_slug == 'contact'|| $page_slug == 'region'|| $page_slug == 'region_shipping_timeline') active submenu @endif">
                     <a data-bs-toggle="collapse" href="#cms_management"
-                        @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial'|| $page_slug == 'contact'|| $page_slug == 'region') aria-expanded="true" @endif>
+                        @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial'|| $page_slug == 'contact'|| $page_slug == 'region'|| $page_slug == 'region_shipping_timeline') aria-expanded="true" @endif>
                         <i class="icon-people"></i>
                         <p>{{ __('CMS Management') }}</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial'|| $page_slug == 'contact'|| $page_slug == 'region') show @endif" id="cms_management">
+                    <div class="collapse @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial'|| $page_slug == 'contact'|| $page_slug == 'region'|| $page_slug == 'region_shipping_timeline') show @endif" id="cms_management">
                         <ul class="nav nav-collapse">
                             <li class="@if ($page_slug == 'banner') active @endif">
                                 <a href="{{ route('cms.banner.index') }}">
@@ -414,6 +414,11 @@
                             <li class="@if ($page_slug == 'region') active @endif">
                                 <a href="{{ route('cms.region.index') }}">
                                     <span class="sub-item">{{ __('Region') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'region_shipping_timeline') active @endif">
+                                <a href="{{ route('cms.region-shipping-timeline.index') }}">
+                                    <span class="sub-item">{{ __('Region Shipping Timeline') }}</span>
                                 </a>
                             </li>
                         </ul>

@@ -13,27 +13,23 @@ class RegionsService
         return Region::orderBy($orderby, $order)->latest();
     }
 
-     public function getRegion(string $encryptedId): Region | Collection
+    public function getRegion(string $encryptedId): Region | Collection
     {
         return Region::findOrFail(decrypt($encryptedId));
     }
-    // public function getTestimonial(string $encryptedId): Testimonial | Collection
-    // {
-    //     return Testimonial::findOrFail(decrypt($encryptedId));
-    // }
 
     public function getDeleted(string $encryptedId): Region | Collection
     {
         return Region::onlyTrashed()->findOrFail(decrypt($encryptedId));
     }
 
-    public function createRegion(array $data, $file = null): Region
+    public function createRegion(array $data): Region
     {
         $data['created_by'] = admin()->id;
         $region = Region::create($data);
         return $region;
     }
-    public function updateRegion(string $encryptedId, array $data, $file = null): Region
+    public function updateRegion(string $encryptedId, array $data): Region
     {
         $region = $this->getRegion($encryptedId);
         $data['updated_by'] = admin()->id;
@@ -51,8 +47,7 @@ class RegionsService
     {
         $user = $this->getDeleted($encryptedId);
         $user->update([
-            'updater_id' => admin()->id,
-            'updater_type' => get_class(admin())
+            'updated_by' => admin()->id,
         ]);
         $user->restore();
     }
@@ -61,5 +56,13 @@ class RegionsService
         $user = $this->getDeleted($encryptedId);
         $user->forceDelete();
     }
-}
 
+    public function toggleStatus(Region $region): void
+    {
+        $region->update([
+            'updated_by' => admin()->id,
+            'status' => !$region->status
+        ]);
+    }
+    
+}

@@ -41,6 +41,10 @@ class RegionController extends Controller
             $query = $this->regionService->getRegions()
                 ->with(['creater_admin']);
             return DataTables::eloquent($query)
+
+                ->editColumn('status', function ($region) {
+                    return "<span class='badge " . $region->status_color . "'>$region->status_label</span>";
+                })
                 ->editColumn('created_by', function ($region) {
                     return $region->creater_name;
                 })
@@ -51,7 +55,7 @@ class RegionController extends Controller
                     $menuItems = $this->menuItems($region);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['created_at', 'created_by', 'action'])
+                ->rawColumns([ 'status', 'created_at', 'created_by', 'action'])
                 ->make(true);
         }
         return view('backend.admin.cms_management.region.index');
@@ -74,6 +78,12 @@ class RegionController extends Controller
                 'permissions' => ['region-edit']
             ],
             [
+                'routeName' => 'cms.region.status',
+                'params' => [encrypt($model->id)],
+                'label' => $model->status_btn_label,
+                'permissions' => ['region-status']
+            ],
+            [
                 'routeName' => 'cms.region.destroy',
                 'params' => [encrypt($model->id)],
                 'label' => 'Delete',
@@ -89,8 +99,11 @@ class RegionController extends Controller
     {
         if ($request->ajax()) {
             $query = $this->regionService->getRegions()->onlyTrashed()
-                ->with(['deleter']);
+                ->with(['deleter_admin']);
             return DataTables::eloquent($query)
+                ->editColumn('status', function ($region) {
+                    return "<span class='badge " . $region->status_color . "'>$region->status_label</span>";
+                })
                 ->editColumn('deleted_by', function ($region) {
                     return $region->deleter_name;
                 })
@@ -101,7 +114,7 @@ class RegionController extends Controller
                     $menuItems = $this->trashedMenuItems($region);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['deleted_by', 'deleted_at', 'action'])
+                ->rawColumns([ 'status', 'deleted_by', 'deleted_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.cms_management.region.recycle-bin');
@@ -226,5 +239,17 @@ class RegionController extends Controller
             throw $e;
         }
         return redirect()->route('cms.region.recycle-bin');
+    }
+     public function status(string $id): RedirectResponse
+    {
+        try {
+            $region = $this->regionService->getRegion($id);
+            $this->regionService->toggleStatus($region);
+            session()->flash('success', 'Region status updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Region status update failed!');
+            throw $e;
+        }
+        return redirect()->route('cms.region.index');
     }
 }

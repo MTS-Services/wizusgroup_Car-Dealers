@@ -44,6 +44,7 @@ use App\Http\Controllers\Backend\Admin\ProductManagement\ProInfoCatTypeFeatureCo
 use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerificationController;
 use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminResetPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\ForgotPasswordController as AdminForgotPasswordController;
+use App\Http\Controllers\Backend\Admin\CMSManagement\RegionShippingTimelineController;
 
 // Admin Auth Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -261,9 +262,17 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         // Region Routes
         Route::resource('region', RegionController::class);
         
+        Route::get('region/status/{region}', [RegionController::class, 'status'])->name('region.status');
         Route::get('region/recycle/bin', [RegionController::class, 'recycleBin'])->name('region.recycle-bin');
         Route::get('region/restore/{region}', [RegionController::class, 'restore'])->name('region.restore');
         Route::delete('region/permanent-delete/{region}', [RegionController::class, 'permanentDelete'])->name('region.permanent-delete');
+
+        // Region Shipping Timeline Routes
+        Route::resource('region-shipping-timeline', RegionShippingTimelineController::class);
+
+        Route::get('region-shipping-timeline/recycle/bin', [RegionShippingTimelineController::class, 'recycleBin'])->name('region-shipping-timeline.recycle-bin');
+        Route::get('region-shipping-timeline/restore/{region_shipping_timeline}', [RegionShippingTimelineController::class, 'restore'])->name('region-shipping-timeline.restore');
+        Route::delete('region-shipping-timeline/permanent-delete/{region_shipping_timeline}', [RegionShippingTimelineController::class, 'permanentDelete'])->name('region-shipping-timeline.permanent-delete');
     });
 
     // Product Management
