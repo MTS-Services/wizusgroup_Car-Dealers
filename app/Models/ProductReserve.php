@@ -14,9 +14,11 @@ class ProductReserve extends BaseModel
         'user_id',
         'reserve_price',
         'status',
-        'reserve_at',
-        'expire_at',
         'note',
+
+        'name',
+        'email',
+        'whatsapp_number',
 
         'sort_order',
 
@@ -64,9 +66,9 @@ class ProductReserve extends BaseModel
     public function getStatusColors(): array
     {
         return [
-            self::STATUS_PENDING => 'btn-primary',   // Blue for pending
-            self::STATUS_COMPLETE => 'btn-success',  // Green for answered
-            self::STATUS_CANCLED => 'btn-danger',    // Red for closed
+            self::STATUS_PENDING => 'btn-primary',
+            self::STATUS_COMPLETE => 'btn-success',
+            self::STATUS_CANCLED => 'btn-danger',
         ];
     }
 

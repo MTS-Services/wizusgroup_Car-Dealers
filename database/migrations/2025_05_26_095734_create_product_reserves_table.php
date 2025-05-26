@@ -21,12 +21,15 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id')->index();
             $table->decimal(('reserve_price'), 10, 2)->nullable();
             $table->tinyInteger('status')->default(0)->index();
-            $table->dateTime('reserve_at')->nullable();
-            $table->dateTime('expire_at')->nullable();
             $table->longText('note')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $this->addMorphedAuditColumns($table);
+
+            // Contact Infromation
+            $table->string('name')->index();
+            $table->string('email')->index();
+            $table->string('whatsapp_number')->index();
 
             // Indexes
             $table->index('created_at'); // Index for soft deletes

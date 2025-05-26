@@ -22,11 +22,14 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id')->index();
             $table->tinyInteger('status')->default(ProductInquiry::STATUS_PENDING)->index();
             $table->text('message');
-            $table->dateTime('response_at')->nullable();
-            $table->dateTime('inquiry_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $this->addMorphedAuditColumns($table);
+
+            // Contact Infromation
+            $table->string('name')->index();
+            $table->string('email')->index();
+            $table->string('whatsapp_number')->index();
 
             // Indexes
             $table->index('created_at'); // Index for soft deletes

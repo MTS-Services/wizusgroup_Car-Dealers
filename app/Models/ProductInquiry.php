@@ -15,8 +15,9 @@ class ProductInquiry extends BaseModel
         'user_id',
         'message',
         'status',
-        'response_at',
-        'inquiry_at',
+        'name',
+        'email',
+        'whatsapp_number',
         'sort_order',
 
         'creater_id',
@@ -47,24 +48,24 @@ class ProductInquiry extends BaseModel
     }
 
     public const STATUS_PENDING = 0;
-    public const STATUS_ANSWERED = 1;
-    public const STATUS_CLOSED = 2;
+    public const STATUS_COMPLETE = 1;
+    public const STATUS_CANCLED = 2;
 
     public static function getStatusLabels(): array
     {
         return [
             self::STATUS_PENDING => 'Pending',
-            self::STATUS_ANSWERED => 'Answered',
-            self::STATUS_CLOSED => 'Closed',
+            self::STATUS_COMPLETE => 'Complete',
+            self::STATUS_CANCLED => 'Cancled',
         ];
     }
 
     public function getStatusColors(): array
     {
         return [
-            self::STATUS_PENDING => 'btn-primary',   // Blue for pending
-            self::STATUS_ANSWERED => 'btn-success',  // Green for answered
-            self::STATUS_CLOSED => 'btn-danger',    // Red for closed
+           self::STATUS_PENDING => 'btn-primary',
+            self::STATUS_COMPLETE => 'btn-success',
+            self::STATUS_CANCLED => 'btn-danger',
         ];
     }
 
