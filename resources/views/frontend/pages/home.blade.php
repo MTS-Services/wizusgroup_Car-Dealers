@@ -157,7 +157,7 @@
 @section('content')
     {{-- ===================== banner Section Start ===================== --}}
     <section
-        class="lg:max-h-screen max-h-[70vh] md:max-h-[80vh] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative overflow-hidden">
+        class="xl:max-h-screen max-h-[60vh] md:max-h-[70vh] lg:max-h-[80vh] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative overflow-hidden">
         <div class="absolute bg-transparent inset-0 z-10">
             <div class="container flex items-center justify-center h-full px-4 xs:px-2">
                 <div class="text-center w-full">
@@ -373,7 +373,7 @@
 
                     <!-- WhatsApp Floating Icon -->
                     <div
-                        class="right-10 bottom-10 z-10 fixed shadow-lg w-16 h-16 flex items-center justify-center bg-gradient-primary rounded-full">
+                        class="md:right-10  md:bottom-10 bottom-24 right-10 z-10 fixed shadow-lg md:w-16 md:h-16 w-10 h-10 flex items-center justify-center bg-gradient-primary rounded-full">
                         <a href="#">
                             <i class="fa-brands fa-whatsapp text-5xl text-text-light"></i>
                         </a>
