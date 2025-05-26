@@ -6,163 +6,53 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    {{-- <style>
-        #countdown {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-            text-align: center;
-        }
-
-        .countdown-title {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            margin-bottom: 0.75rem;
-            color: #022622;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .countdown-description {
-            font-size: clamp(0.9rem, 2vw, 1.1rem);
-            margin-bottom: 2.5rem;
-            color: #4b5563;
-            line-height: 1.5;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .countdown-blocks {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            justify-content: center;
-            padding: 0 1rem;
-        }
-
-        .time-block {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #f3f4f6;
-            padding: 1.25rem 0.5rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            min-height: 90px;
-        }
-
-        .time-block:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-            background-color: #e5e7eb;
-        }
-
-        .time-value {
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            font-weight: bold;
-            color: #022622;
-            margin-bottom: 0.25rem;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-        }
-
-        .time-label {
-            font-size: clamp(0.75rem, 2vw, 0.875rem);
-            font-weight: 500;
-            color: #6b7280;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin: 0;
-        }
-
-        /* Animation for seconds changing */
-        .seconds .time-value {
-            animation: pulse 1s ease;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.1);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        /* Small screens (mobile) */
-        @media (max-width: 640px) {
-            .countdown-blocks {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.75rem;
-            }
-
-            .time-block {
-                padding: 1rem 0.5rem;
-                min-height: 80px;
-            }
-
-            #countdown {
-                padding: 1.5rem 0.5rem;
-            }
-        }
-
-        /* Medium screens (tablets) */
-        @media (min-width: 641px) and (max-width: 1023px) {
-            .countdown-blocks {
-                gap: 1.25rem;
-            }
-
-            .time-block {
-                padding: 1.5rem 0.75rem;
-            }
-        }
-
-        /* Large screens (desktops) */
-        @media (min-width: 1024px) {
-            .countdown-blocks {
-                gap: 1.5rem;
-            }
-
-            .time-block {
-                padding: 1.75rem 1rem;
-                min-height: 110px;
-            }
-
-            #countdown {
-                padding: 3rem 1rem;
-            }
-        }
-
-        /* Extra large screens */
-        @media (min-width: 1280px) {
-            #countdown {
-                max-width: 900px;
-            }
-        }
-
-        /* Accessibility focus states */
-        .time-block:focus {
-            outline: 2px solid #022622;
-            outline-offset: 2px;
-        }
-    </style> --}}
 @endpush
 
 @section('content')
     {{-- ===================== banner Section Start ===================== --}}
-    <section
+
+    <section class="lg:max-h-screen max-h-[70vh] md:max-h-[80vh] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative">
+        <div class="swiper banner h-full">
+            <div class="swiper-wrapper h-full">
+                @foreach ($banners as $banner)
+                    <div
+                        class="swiper-slide h-full relative after:content-[''] after:w-full after:h-full after:absolute after:top-0 after:left-0 after:bg-bg-dark/35">
+                        <img class="w-full h-full object-cover bg-center" src="{{ storage_url($banner->image) }}"
+                            alt="{{ $banner->name }}">
+
+                        <div class="absolute bg-transparent inset-0 z-10">
+                            <div class="container flex items-center justify-center h-full flex-col gap-5">
+                                <div class="max-w-[600px] text-center">
+                                    <h1
+                                        class="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold pb-3 text-text-white dark:text-text-primary">
+                                        {{ $banner->title }}
+                                    </h1>
+                                    <p
+                                        class="text-base xs:text-sm sm:text-lg md:text-xl text-text-light-secondary dark:text-text-primary">
+                                        {{ $banner->subtitle }}
+                                    </p>
+                                </div>
+                                <form action="" class="w-full">
+                                    <div class="join w-full justify-center">
+                                        <input type="search" class="input input-search" placeholder="Search here..." />
+                                        <button class="btn-search">Search</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    {{-- <section
         class="lg:max-h-screen max-h-[70vh] md:max-h-[80vh] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative overflow-hidden">
         <div class="absolute bg-transparent inset-0 z-10">
             <div class="container flex items-center justify-center h-full px-4 xs:px-2">
                 <div class="text-center w-full">
                     <h1 class="text-3xl xs:text-3xl sm:text-5xl md:text-5xl lg:text-6xl font-bold pb-3 text-text-white">
-                        {{ __('Affordable Machines,') }} <br class="hidden xs:block"> {{ __('Shipped Worldwide') }}
+                        {{ __('Affordable Machines,') }} <br class="hidden xs:block">
+                        {{ __('Shipped Worldwide') }}
                     </h1>
                     <p class="my-4 text-base xs:text-sm sm:text-lg md:text-xl text-text-white px-4 xs:px-0">
                         {{ __('Discover amazing content and features.') }}
@@ -187,14 +77,15 @@
         <div class="swiper banner h-full">
             <div class="swiper-wrapper h-full">
                 @foreach ($banners as $banner)
-                    <div class="swiper-slide h-full">
+                    <div
+                        class="swiper-slide h-full relative after:content-[''] after:w-full after:h-full after:absolute after:top-0 after:left-0 after:bg-gradient-to-t after:from-bg-dark-tertiary after:to-transparent">
                         <img class="w-full h-full object-cover bg-center" src="{{ storage_url($banner->image) }}"
                             alt="{{ $banner->name }}">
                     </div>
                 @endforeach
             </div>
         </div>
-    </section>
+    </section> --}}
     {{-- ===================== banner Section End ===================== --}}
     {{-- ===================== Category Section Start ===================== --}}
 
@@ -208,16 +99,16 @@
                 <div class="swiper categories static">
                     <div class="swiper-wrapper">
                         @foreach ($categories as $category)
-                        <div class="swiper-slide py-8">
+                            <div class="swiper-slide py-8">
                                 <a href="{{ route('frontend.products', $category->slug) }}">
-                                <div>
-                                    <div class="text-center">
-                                        <img class="w-auto rounded-xl object-cover mx-auto"
-                                            src="{{ $category->modified_image }}" alt="{{ $category?->name }}">
-                                        <p class="py-2">{{ __($category?->name) }} </p>
+                                    <div>
+                                        <div class="text-center">
+                                            <img class="w-auto rounded-xl object-cover mx-auto"
+                                                src="{{ $category->modified_image }}" alt="{{ $category?->name }}">
+                                            <p class="py-2">{{ __($category?->name) }} </p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
                             </div>
                         @endforeach
                     </div>
@@ -359,7 +250,7 @@
                         @endforeach
                     </div>
 
-                   <div class="hidden xl:block">
+                    <div class="hidden xl:block">
                         <div class="swiper-pagination z-10 !-bottom-6 lg:!-bottom-8"></div>
                         <!-- Navigation buttons -->
                         <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
@@ -396,7 +287,7 @@
             slidesPerView: 1,
             loop: true,
             autoplay: {
-                delay: 5000,
+                delay: 5000000,
                 disableOnInteraction: true,
             },
             spaceBetween: 20,
