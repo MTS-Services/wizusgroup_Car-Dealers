@@ -5,14 +5,15 @@
         class="select focus:outline-0 focus-within:outline-0 focus:ring-0 focus:border-border-primary bg-bg-light dark:bg-bg-dark border-border-tertiary shadow-none w-fit min-w-30 px-auto"
         onchange="this.form.submit()">
 
-        <option value="en" {{session()->get('locale', 'en') == 'en' ? 'selected' : '' }}>
+        <option value="en" {{session()->get('locale') == 'en' ? 'selected' : '' }}>
             {{ __('English') }}
         </option>
-        <option value="fr" {{ session()->get('locale', 'fr') == 'fr' ? 'selected' : '' }}>
+        <option value="fr" {{ session()->get('locale') == 'fr' ? 'selected' : '' }}>
             {{ __('French') }}
         </option>
-        <option value="ar" {{ session()->get('locale', 'ar') == 'ar' ? 'selected' : '' }}>
+        <option value="ar" {{ session()->get('locale') == 'ar' ? 'selected' : '' }}>
             {{ __('Argentine') }}
         </option>
+
     </select>
 </form>

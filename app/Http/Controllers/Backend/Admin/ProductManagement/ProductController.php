@@ -2,28 +2,31 @@
 
 namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ProductManagement\ProductImageRequest;
+use App\Http\Requests\Admin\ProductManagement\ProductInfoFileRequest;
 use App\Http\Requests\Admin\ProductManagement\ProductInfoRemarkRequest;
 use App\Http\Requests\Admin\ProductManagement\ProductInfoRequest;
+use App\Http\Requests\Admin\ProductManagement\ProductRelationRequest;
+use App\Http\Requests\Admin\ProductManagement\ProductRequest;
 use App\Models\Brand;
-use App\Models\Company;
 use App\Models\Category;
+use App\Models\Company;
 use App\Models\ProductInformation;
 use App\Models\Supplier;
 use App\Models\TaxClass;
 use App\Services\Admin\ProductManagement\CategoryService;
 use App\Services\Admin\ProductManagement\CompanyService;
 use App\Services\Admin\ProductManagement\ProductInfoCategoryService;
-use App\Services\Admin\SupllierManagement\SupplierService;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Contracts\View\View;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\ProductManagement\ProductImageRequest;
-use App\Http\Requests\Admin\ProductManagement\ProductRelationRequest;
-use Illuminate\Http\RedirectResponse;
-use Yajra\DataTables\Facades\DataTables;
 use App\Services\Admin\ProductManagement\ProductService;
-use App\Http\Requests\Admin\ProductManagement\ProductRequest;
+use App\Services\Admin\SupllierManagement\SupplierService;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
 {
@@ -287,6 +290,7 @@ class ProductController extends Controller
     {
         $data['infos'] = $this->productService->getInfos($pid);
         $data['info_remarks'] = $this->productService->getInfoRemarks($pid);
+        $data['info_files'] = $this->productService->getInfoFiles($pid);
         $data['product_id'] = $pid;
         $data['info_categories'] = $this->productInfoCategoryService->getProductInfoCats()->active()->select(['id', 'name'])->get();
         return view('backend.admin.product_management.product.create.information', $data);
@@ -334,6 +338,30 @@ class ProductController extends Controller
         }
     }
 
+    public function infoFileStore(ProductInfoFileRequest $request, string $pid): RedirectResponse
+    {
+        try {
+            $product = $this->productService->getProduct($pid);
+            $validated = $request->validated();
+            $this->productService->infoFileCreate($product, $validated, $request->file('file'));
+            session()->flash('success', 'Product files added successfully!');
+            return redirect()->route('pm.product.info', $pid);
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Product files added failed!');
+            throw $e;
+        }
+    }
+
+public function download(string $id)
+{
+    $info = $this->productService->getProductInfo($id);
+    if (Storage::disk('public')->exists($info->file)) {
+        return response()->download(Storage::disk('public')->path($info->file), basename($info->file));
+    } else {
+        session()->flash('error', 'File not found!');
+        return redirect()->route('pm.product.index');
+    }
+}
     public function entryComplete(string $pid): RedirectResponse
     {
         try {
@@ -414,6 +442,8 @@ class ProductController extends Controller
     public function editImage(string $pid)
     {
         $data['product_id'] = $pid;
+        $data['product_images'] = $this->productService->getProductImages($pid);
+        // dd($data['product_images']);
         $data['product'] = $this->productService->getProduct($pid);
         return view('backend.admin.product_management.product.edit.image', $data);
     }
@@ -437,6 +467,7 @@ class ProductController extends Controller
     {
         $data['infos'] = $this->productService->getInfos($pid);
         $data['info_remarks'] = $this->productService->getInfoRemarks($pid);
+        $data['info_files'] = $this->productService->getInfoFiles($pid);
         $data['product_id'] = $pid;
         $data['info_categories'] = $this->productInfoCategoryService->getProductInfoCats()->active()->select(['id', 'name'])->get();
         return view('backend.admin.product_management.product.edit.information', $data);

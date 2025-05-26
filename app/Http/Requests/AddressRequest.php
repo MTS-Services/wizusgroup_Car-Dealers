@@ -27,7 +27,6 @@ class AddressRequest extends FormRequest
             'state' => 'nullable|integer|exists:states,id',
             'city' => 'required|integer|exists:cities,id',
             'address_line_1' => 'required|string',
-            'address_line_2' => 'nullable|string',
             'postal_code' => 'required|string',
             'latitude' => 'nullable|string',
             'longitude' => 'nullable|string',
