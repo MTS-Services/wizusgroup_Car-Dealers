@@ -7,11 +7,16 @@ use Illuminate\Http\Request;
 use App\Models\AuthBaseModel;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\PersonalInformation;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
 
 class RegisterController extends Controller
 {
@@ -89,9 +94,10 @@ class RegisterController extends Controller
                     PersonalInformation::LANGUAGE_ARGENTINE,
                 ]),
             ],
-            'country_id' => ['required', 'integer', Rule::exists('countries', 'id')],
-            'state_id' => ['nullable', 'integer', Rule::exists('states', 'id')],
-            'city_id' => ['required', 'integer', Rule::exists('cities', 'id')],
+            'country_id' => ['required', 'integer', 'exists:countries,id'],
+            'state_id' => ['nullable', 'integer', 'exists:states,id'],
+            'city_id' => ['required', 'integer', 'exists:cities,id'],
+            'address_line_1' => ['required', 'string'],
             'postal_code' => ['required', 'string'],
             'phone' => ['required', 'string'],
             'phone_2' => ['nullable', 'string'],
@@ -174,12 +180,25 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return dd($data);
-        // return User::create([
-        //     'first_name' => $data['first_name'],
-        //     'last_name' => $data['last_name'],
-        //     'email' => $data['email'],
-        //     'password' => Hash::make($data['password']),
-        // ]);
+        try {
+            return DB::transaction(function () use ($data) {
+                $data['password'] = Hash::make($data['password']);
+                $user = User::create($data);
+                $data['creater_id'] = $user->id;
+                $data['creater_type'] = get_class($user);
+                $data['profile_id'] = $user->id;
+                $data['profile_type'] = get_class($user);
+                $data['email'] = null;
+                PersonalInformation::create($data);
+                $data['type'] = Address::TYPE_PERSONAL;
+                $data['phone'] = null;
+                Address::create($data);
+
+                return $user;
+            });
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Something went wrong! Please try again.');
+            throw $e;
+        }
     }
 }

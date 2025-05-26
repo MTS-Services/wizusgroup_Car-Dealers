@@ -49,7 +49,7 @@ Route::group(['as' => 'frontend.'], function () {
     });
 
   // droopshipping
-  Route::get('/dropshipping', [FrontendController::class, 'dropshipping'])->name('dropshipping');
+  Route::get('/drop-shipping', [FrontendController::class, 'dropshipping'])->name('dropshipping');
   // Regions
   Route::get('/regions', [FrontendController::class, 'regions'])->name('regions');
 
