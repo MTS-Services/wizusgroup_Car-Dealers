@@ -60,17 +60,11 @@ class ContactController extends Controller
     {
         return [
             [
-                'routeName' => 'javascript:void(0)',
+                'routeName' => 'cms.contact.show',
                 'data-id' => encrypt($model->id),
                 'className' => 'view',
                 'label' => 'Details',
                 'permissions' => ['contact-details']
-            ],
-            [
-                'routeName' => 'cms.contact.edit',
-                'params' => [encrypt($model->id)],
-                'label' => 'Edit',
-                'permissions' => ['contact-edit']
             ],
             [
                 'routeName' => 'cms.contact.status',
@@ -154,10 +148,10 @@ class ContactController extends Controller
      */
     public function show(string $id)
     {
-        $contact = $this->contactService->getContact($id);
+        $data['contact'] = $this->contactService->getContact($id);
 
-        $contact->load(['creater']);
-        return response()->json($contact);
+        $data['contact'] ->load(['creater']);
+        return view('backend.admin.cms_management.contact.show',$data);
     }
 
 
