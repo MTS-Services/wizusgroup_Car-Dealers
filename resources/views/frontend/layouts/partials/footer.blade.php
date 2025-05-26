@@ -1,6 +1,6 @@
 <footer class="bg-bg-light dark:bg-bg-dark-secondary pt-10 pb-5">
     <div class="container">
-        <div class="flex flex-wrap space-y-5">
+        <div class="flex flex-wrap space-y-5 xl:space-y-0">
             <div class="basis-full xl:basis-[45%] xl:pr-10">
                 <div class="flex flex-wrap space-y-5 lg:space-y-0 xl:space-y-5">
                     <a href="#" class="basis-full lg:basis-[30%] xl:basis-full text-center">
@@ -17,7 +17,7 @@
                         <div class="flex items-start">
                             <div class="basis-1/2">
                                 <h4>{{ __('Services') }}</h4>
-                                <div class="flex flex-col pt-3 pl-3 gap-1">
+                                <div class="flex flex-col pl-3 gap-1">
                                     <a href="{{ route('frontend.auctions') }}"
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm group/service group/service w-fit">
                                         <div>
@@ -43,7 +43,7 @@
                                         <div>
                                             <span
                                                 class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/service:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
-                                                <i data-lucide="arrow-big-right" class="w-4 text-text-white"></i>
+                                                <i data-lucide="cog" class="w-4 text-text-white"></i>
                                             </span>
                                         </div>
                                         {{ __('Parts & Accessories') }}
@@ -53,7 +53,7 @@
                                         <div>
                                             <span
                                                 class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/service:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
-                                                <i data-lucide="arrow-big-right" class="w-4 text-text-white"></i>
+                                                <i data-lucide="truck" class="w-4 text-text-white"></i>
                                             </span>
                                         </div>
                                         {{ __('Shipping') }}
@@ -182,7 +182,7 @@
             </div> --}}
         </div>
     </div>
-    <div class="divider mx-5"></div>
+    <div class="divider mx-5 mt-10"></div>
     <div class="container">
         <div class="flex flex-wrap justify-center">
             <p class="text-sm text-text-primary dark:text-text-light">{{ __('Copyright') }} &copy;

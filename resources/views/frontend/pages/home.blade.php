@@ -97,9 +97,9 @@
             </div>
             <div class="relative">
                 <div class="swiper categories static">
-                    <div class="swiper-wrapper">
+                    <div class="swiper-wrapper p-5">
                         @foreach ($categories as $category)
-                            <div class="swiper-slide py-8">
+                            <div class="swiper-slide">
                                 <a href="{{ route('frontend.products', $category->slug) }}">
                                     <div>
                                         <div class="text-center">
