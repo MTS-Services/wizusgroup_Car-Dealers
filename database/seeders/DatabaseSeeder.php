@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\View\Components\Frontend\Test;
 use Dom\Document;
 use Illuminate\Database\Seeder;
 
@@ -58,6 +59,7 @@ class DatabaseSeeder extends Seeder
             DocumentationSeeder::class,
 
             AuctionSeeder::class,
+            TestimonialSeeder::class,
         ]);
     }
 }
