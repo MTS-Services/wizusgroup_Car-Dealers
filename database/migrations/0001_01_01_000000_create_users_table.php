@@ -30,16 +30,16 @@ return new class extends Migration
 
             $table->string('occupation')->nullable()->index();
             $table->string('company_name')->nullable()->index();
-            $table->boolean('business_type')->index();
-            $table->tinyInteger('business_name')->index();
+            $table->boolean('business_type')->nullable()->index();
+            $table->tinyInteger('business_name')->nullable()->index();
             $table->string('business_information')->nullable()->index();
-            $table->tinyInteger('business_line')->index();
+            $table->tinyInteger('business_line')->nullable()->index();
             $table->string('id_registration_info')->nullable()->index();
             $table->string('dealer_registration_permit')->nullable()->index();
-            $table->tinyInteger('how_know')->index();
+            $table->tinyInteger('how_know')->nullable()->index();
             $table->string('how_know_detail')->nullable()->index();
-            $table->boolean('receive_promotion_email')->index();
-            $table->boolean('accept_terms')->index();
+            $table->boolean('receive_promotion_email')->nullable()->index();
+            $table->boolean('accept_terms')->nullable()->index();
 
             $table->rememberToken();
             $table->timestamps();

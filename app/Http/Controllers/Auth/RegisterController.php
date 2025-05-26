@@ -64,6 +64,7 @@ class RegisterController extends Controller
 
     protected function validator(array $data)
     {
+        // dd($data);
         return Validator::make($data, [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -121,7 +122,47 @@ class RegisterController extends Controller
                 ]),
             ],
             'business_information' => ['required', 'sometimes', 'string'],
-
+            'business_line' => [
+                'required',
+                'integer',
+                Rule::in([
+                    User::BUSINESS_LINE_AUTO_PART,
+                    User::BUSINESS_LINE_CONSTRUCTION,
+                    User::BUSINESS_LINE_DAMAGED_CAR,
+                    User::BUSINESS_LINE_FARM_MACHINE,
+                    User::BUSINESS_LINE_FORKLIFT,
+                    User::BUSINESS_LINE_TRUCK_BUS,
+                    User::BUSINESS_LINE_USED_CAR,
+                ]),
+            ],
+            'receive_promotion_email' => [
+                'required',
+                'boolean',
+                Rule::in([
+                    User::RECEIVE_PROMOTION_EMAIL,
+                    User::NOT_RECEIVE_PROMOTION_EMAIL
+                ]),
+            ],
+            'how_know' => [
+                'required',
+                'integer',
+                Rule::in([
+                    User::KNOW_AGENT,
+                    User::KNOW_FACEBOOK,
+                    User::KNOW_FRIEND,
+                    User::KNOW_INSTAGRAM,
+                    User::KNOW_LINKEDIN,
+                    User::KNOW_OTHER,
+                    User::KNOW_SEARCH,
+                    User::KNOW_STAFF,
+                    User::KNOW_TWITTER,
+                    User::KNOW_YOUTUBE,
+                ]),
+            ],
+            'how_know_detail' => ['required', 'sometimes', 'string'],
+            'id_registration_info' => ['nullable', 'mimes:pdf', 'max:5120'],
+            'dealer_registration_permit' => ['nullable', 'mimes:pdf', 'max:5120'],
+            'accept_terms' => ['required', 'boolean', Rule::in([User::ACCEPT_TERMS])],
         ]);
     }
 
@@ -133,11 +174,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return dd($data);
+        // return User::create([
+        //     'first_name' => $data['first_name'],
+        //     'last_name' => $data['last_name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        // ]);
     }
 }

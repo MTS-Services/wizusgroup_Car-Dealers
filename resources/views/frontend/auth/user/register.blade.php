@@ -13,14 +13,14 @@
                             <div class="w-full">
                                 <label class="w-full">
                                     <span class="label">{{ __('First Name') }} <span class="text-red-500">*</span></span>
-                                    <input type="text" placeholder="First Name" name="first_name" class="input" />
+                                    <input type="text" placeholder="First Name" name="first_name" value="{{ old('first_name') }}" class="input" />
                                 </label>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'first_name']" />
                             </div>
                             <div class="w-full">
                                 <label class="w-full">
                                     <span class="label">{{ __('Last Name') }} <span class="text-red-500">*</span></span>
-                                    <input type="text" placeholder="Last Name" name="last_name" class="input" />
+                                    <input type="text" placeholder="Last Name" value="{{ old('last_name') }}" name="last_name" class="input" />
                                 </label>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'last_name']" />
                             </div>
@@ -37,7 +37,7 @@
                                         <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                                     </g>
                                 </svg>
-                                <input type="email" placeholder="example@gmail.com" name="email" />
+                                <input type="email" placeholder="example@gmail.com" value="{{ old('email') }}" name="email" />
                             </label>
                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'email']" />
                         </div>
@@ -97,7 +97,7 @@
                                     @foreach (App\Models\User::getGenderLabels() as $key => $gender)
                                         <label for="gender-{{ $key }}" class="flex items-center gap-2">
                                             <input type="radio" name="gender" value="{{ $key }}"
-                                                class="radio radio-xs radio-info" checked="checked"
+                                                class="radio radio-xs radio-info" @checked(old('gender', App\Models\AuthBaseModel::GENDER_OTHERS) == $key)
                                                 id="gender-{{ $key }}" />
                                             <span>{{ $gender }}</span>
                                         </label>
@@ -111,7 +111,7 @@
                                     @foreach (App\Models\PersonalInformation::getLanguages() as $key => $language)
                                         <label for="language-{{ $key }}" class="flex items-center gap-2">
                                             <input type="radio" name="language" value="{{ $key }}"
-                                                class="radio radio-xs radio-info" checked="checked"
+                                                class="radio radio-xs radio-info" @checked(old('language', App\Models\PersonalInformation::LANGUAGE_ENGLISH) == $key)
                                                 id="language-{{ $key }}" />
                                             <span>{{ $language }}</span>
                                         </label>
@@ -252,7 +252,7 @@
                                     <option value="" disabled selected>{{ __('Select Business Line') }}</option>
                                     @foreach (App\Models\User::getBusinessLines() as $key => $line)
                                         <option value="{{ $key }}"
-                                            {{ old('business_name') == $key ? 'selected' : '' }}>
+                                            {{ old('business_line') == $key ? 'selected' : '' }}>
                                             {{ $line }}</option>
                                     @endforeach
                                 </select>

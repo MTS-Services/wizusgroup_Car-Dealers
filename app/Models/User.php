@@ -201,7 +201,7 @@ class User extends AuthBaseModel implements MustVerifyEmail
     }
 
     public const RECEIVE_PROMOTION_EMAIL = 1;
-    public const NOT_RECEIVE_PROMOTION_EMAIL = 2;
+    public const NOT_RECEIVE_PROMOTION_EMAIL = 0;
 
     public static function getReceivePromotionEmails(): array
     {
