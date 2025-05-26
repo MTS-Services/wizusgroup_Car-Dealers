@@ -25,8 +25,7 @@
                         </div>
                         <div class="form-group">
                             <label>{{ __('Answer') }} <span class="text-danger">*</span></label>
-                            <input type="text" value="{{ $faq->answer }}" id="title" name="answer"
-                                class="form-control" placeholder="Enter answer">
+                            <textarea name="answer" class="form-control" placeholder="Enter Answer">{{ old('quote', $faq->answer) }}</textarea>
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'answer']" />
                         </div>
                         <div class="form-group">
