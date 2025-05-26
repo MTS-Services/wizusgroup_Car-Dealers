@@ -1,27 +1,6 @@
 @extends('frontend.layouts.app', ['page_slug' => 'parts-accessories'])
 
 @section('title', 'Parts & Accessories')
-@push('css')
-    <style>
-        /* General Animations */
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        .animate-slide-up {
-            animation: slideInUp 0.5s ease-out forwards;
-        }
-
-        .animate-pulse {
-            animation: pulse 1.5s infinite;
-        }
-
-        .animate-spin {
-            animation: spin 1s linear infinite;
-        }
-    </style>
-@endpush
-
 @section('content')
     <section class="py-15">
         <div class="container">
