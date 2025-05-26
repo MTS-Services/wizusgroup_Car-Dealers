@@ -113,7 +113,7 @@ class User extends AuthBaseModel implements MustVerifyEmail
     }
 
     public const BUSINESS_NAME_SHEET_METAL = 1;
-    public const BUSINESS_NAME_DEMOLITION__PARTS = 2;
+    public const BUSINESS_NAME_DEMOLITION_PARTS = 2;
     public const BUSINESS_NAME_BROKERS = 3;
     public const BUSINESS_NAME_USED_CAR_EXPORT = 4;
     public const BUSINESS_NAME_USED_CAR_IMPORT = 5;
@@ -126,7 +126,7 @@ class User extends AuthBaseModel implements MustVerifyEmail
     {
         return [
             self::BUSINESS_NAME_SHEET_METAL => 'Sheet Metal . Repair',
-            self::BUSINESS_NAME_DEMOLITION__PARTS => 'Demolition & Parts',
+            self::BUSINESS_NAME_DEMOLITION_PARTS => 'Demolition & Parts',
             self::BUSINESS_NAME_BROKERS => 'Brokers',
             self::BUSINESS_NAME_USED_CAR_EXPORT => 'Second-hand Car Export',
             self::BUSINESS_NAME_USED_CAR_IMPORT => 'Second-hand Car Import',
@@ -201,13 +201,13 @@ class User extends AuthBaseModel implements MustVerifyEmail
     }
 
     public const RECEIVE_PROMOTION_EMAIL = 1;
-    public const NOT_RECEIVE_PROMOTION_EMAIL = 1;
+    public const NOT_RECEIVE_PROMOTION_EMAIL = 0;
 
     public static function getReceivePromotionEmails(): array
     {
         return [
             self::RECEIVE_PROMOTION_EMAIL => 'Recieve',
-            self::NOT_RECEIVE_PROMOTION_EMAIL => 'Cannot Accept',
+            self::NOT_RECEIVE_PROMOTION_EMAIL => 'Cannot Recieve',
         ];
     }
 
@@ -219,7 +219,7 @@ class User extends AuthBaseModel implements MustVerifyEmail
     public const ACCEPT_TERMS = 1;
     public const NOT_ACCEPT_TERMS = 0;
 
-    public static function getAcceptTerms(): array
+    public static function getTerms(): array
     {
         return [
             self::ACCEPT_TERMS => 'Accept',
@@ -229,6 +229,6 @@ class User extends AuthBaseModel implements MustVerifyEmail
 
     public function getAcceptTermAttribute(): string
     {
-        return self::getAcceptTerms()[$this->accept_terms] ?? 'Unknown';
+        return self::getTerms()[$this->accept_terms] ?? 'Unknown';
     }
 }

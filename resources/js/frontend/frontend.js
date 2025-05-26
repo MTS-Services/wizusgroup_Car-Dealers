@@ -4,4 +4,5 @@ import '../filepond';
 import '../axios';
 import '../moment';
 import '../toastr';
-// import '../select2'
+import '../filepond';
+import '../select2'
