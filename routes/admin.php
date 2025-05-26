@@ -17,7 +17,9 @@ use App\Http\Controllers\Backend\Admin\Setup\OperationAreaController;
 use App\Http\Controllers\Backend\Admin\UserManagement\UserController;
 use App\Http\Controllers\Backend\Admin\AdminManagement\RoleController;
 use App\Http\Controllers\Backend\Admin\CMSManagement\BannerController;
+use App\Http\Controllers\Backend\Admin\CMSManagement\RegionController;
 use App\Http\Controllers\Backend\Admin\AdminManagement\AdminController;
+use App\Http\Controllers\Backend\Admin\CMSManagement\ContactController;
 use App\Http\Controllers\Backend\Admin\Setup\OperationSubAreaController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\BrandController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\ModelController;
@@ -42,7 +44,6 @@ use App\Http\Controllers\Backend\Admin\ProductManagement\ProInfoCatTypeFeatureCo
 use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerificationController;
 use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminResetPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\ForgotPasswordController as AdminForgotPasswordController;
-use App\Http\Controllers\Backend\Admin\CMSManagement\ContactController;
 
 // Admin Auth Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -256,6 +257,13 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         Route::get('contact/recycle/bin', [ContactController::class, 'recycleBin'])->name('contact.recycle-bin');
         Route::get('contact/restore/{contact}', [ContactController::class, 'restore'])->name('contact.restore');
         Route::delete('contact/permanent-delete/{contact}', [ContactController::class, 'permanentDelete'])->name('contact.permanent-delete');
+
+        // Region Routes
+        Route::resource('region', RegionController::class);
+        
+        Route::get('region/recycle/bin', [RegionController::class, 'recycleBin'])->name('region.recycle-bin');
+        Route::get('region/restore/{region}', [RegionController::class, 'restore'])->name('region.restore');
+        Route::delete('region/permanent-delete/{region}', [RegionController::class, 'permanentDelete'])->name('region.permanent-delete');
     });
 
     // Product Management
