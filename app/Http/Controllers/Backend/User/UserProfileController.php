@@ -17,10 +17,10 @@ use Illuminate\Http\Request;
 
 class UserProfileController extends Controller
 {
-    protected $addressService;
-    protected $personalInformationService;
-    protected $countryService;
-    protected $userService;
+    protected AddressService $addressService;
+    protected PersonalInformationService $personalInformationService;
+    protected CountryService $countryService;
+    protected UserService $userService;
 
     public function __construct(AddressService $addressService, PersonalInformationService $personalInformationService, CountryService $countryService, UserService $userService)
     {

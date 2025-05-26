@@ -202,7 +202,7 @@ class BannerController extends Controller
     {
         $data['banner'] = $this->bannerService->getBanner($id);
         $data['document'] = Documentation::where([['module_key', 'banner'], ['type', 'update']])->first();
-        return view('backend.admin.cms_management.Banner.edit', $data);
+        return view('backend.admin.cms_management.banner.edit', $data);
     }
 
     /**
