@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Services\User\Authentication\SocialAuthService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class SocialAuthController extends Controller
 {
@@ -20,6 +19,6 @@ class SocialAuthController extends Controller
     {
         $this->socialAuthService->handleProviderCallback($provider);
 
-        return redirect()->intended('/user/profile'); // Redirect after login
+        return redirect()->route('user.profile');
     }
 }

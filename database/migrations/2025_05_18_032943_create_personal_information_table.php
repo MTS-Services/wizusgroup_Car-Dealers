@@ -31,7 +31,6 @@ return new class extends Migration
             $table->string('phone_2')->unique()->nullable();
             $table->string('fax')->nullable()->index();
             $table->tinyInteger('language')->default(PersonalInformation::LANGUAGE_ENGLISH)->index();
-            $table->string('occupation')->nullable()->index();
 
             $table->timestamps();
             $table->softDeletes();

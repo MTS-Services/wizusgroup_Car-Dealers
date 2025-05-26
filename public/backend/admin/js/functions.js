@@ -12,18 +12,18 @@ function getStates(countryId, route, stateId = null) {
     })
         .then(function (response) {
             if (response.data.states.length > 0) {
-                $('#state').html(`<option value="" selected hidden>Select State</option>`);
+                $('#state').html(`<option value="" selected disabled>Select State</option>`);
                 response.data.states.forEach(function (state) {
                     $('#state').append(`<option value="${state.id}" ${state.id == stateId ? 'selected' : ''}>${state.name}</option>`);
                 });
                 $('#state').prop('disabled', false);
             } else {
-                $('#state').html(`<option value="" selected hidden>Select State</option>`).prop('disabled', true);
+                $('#state').html(`<option value="" selected disabled>Select State</option>`).prop('disabled', true);
             }
         })
         .catch(function (error) {
             console.error(error);
-            $('#state').html(`<option value="" selected hidden>Select State</option>`).prop('disabled', true);
+            $('#state').html(`<option value="" selected disabled>Select State</option>`).prop('disabled', true);
             toastr.error('Failed to load states.');
         });
 }
@@ -34,41 +34,41 @@ function getStatesOrCity(countryId, route, stateOrCityId = null) {
         .then(function (response) {
             if (response.data.states) {
                 if (response.data.states.length > 0) {
-                    $('#state').html(`<option value="" selected hidden>Select State</option>`);
+                    $('#state').html(`<option value="" selected disabled>Select State</option>`);
                     response.data.states.forEach(function (state) {
                         $('#state').append(`<option value="${state.id}" ${state.id == stateOrCityId ? 'selected' : ''}>${state.name}</option>`);
 
-                        $('#city').html(`<option value="" selected hidden>Select City</option>`).prop('disabled', true);
-                        $('#operation_area').html(`<option value="" selected hidden>Select Operation Area</option>`).prop('disabled', true);
+                        $('#city').html(`<option value="" selected disabled>Select City</option>`).prop('disabled', true);
+                        $('#operation_area').html(`<option value="" selected disabled>Select Operation Area</option>`).prop('disabled', true);
                     });
                     $('#state').prop('disabled', false);
                 } else {
-                    $('#state').html(`<option value="" selected hidden>Select State</option>`).prop('disabled', true);
+                    $('#state').html(`<option value="" selected disabled>Select State</option>`).prop('disabled', true);
                 }
             } else if (response.data.cities) {
                 if (response.data.cities.length > 0) {
-                    $('#city').html(`<option value="" selected hidden>Select City</option>`);
+                    $('#city').html(`<option value="" selected disabled>Select City</option>`);
                     response.data.cities.forEach(function (city) {
                         $('#city').append(`<option value="${city.id}" ${city.id == stateOrCityId ? 'selected' : ''}>${city.name}</option>`);
 
-                        $('#state').html(`<option value="" selected hidden>Select State</option>`).prop('disabled', true);
-                        $('#operation_area').html(`<option value="" selected hidden>Select Operation Area</option>`).prop('disabled', true);
+                        $('#state').html(`<option value="" selected disabled>Select State</option>`).prop('disabled', true);
+                        $('#operation_area').html(`<option value="" selected disabled>Select Operation Area</option>`).prop('disabled', true);
                     });
                     $('#city').prop('disabled', false);
                 } else {
-                    $('#city').html(`<option value="" selected hidden>Select City</option>`).prop('disabled', true);
+                    $('#city').html(`<option value="" selected disabled>Select City</option>`).prop('disabled', true);
                 }
             } else {
-                $('#state').html(`<option value="" selected hidden>Select State</option>`).prop('disabled', true);
-                $('#city').html(`<option value="" selected hidden>Select City</option>`).prop('disabled', true);
+                $('#state').html(`<option value="" selected disabled>Select State</option>`).prop('disabled', true);
+                $('#city').html(`<option value="" selected disabled>Select City</option>`).prop('disabled', true);
             }
 
 
         })
         .catch(function (error) {
             console.error(error);
-            $('#state').html(`<option value="" selected hidden>Select State</option>`).prop('disabled', true);
-            $('#city').html(`<option value="" selected hidden>Select City</option>`).prop('disabled', true);
+            $('#state').html(`<option value="" selected disabled>Select State</option>`).prop('disabled', true);
+            $('#city').html(`<option value="" selected disabled>Select City</option>`).prop('disabled', true);
             toastr.error('Failed to load states or cities.');
         });
 }
@@ -80,19 +80,19 @@ function getCities(stateId, route, cityId = null) {
     })
         .then(function (response) {
             if (response.data.cities.length > 0) {
-                $('#city').html(`<option value="" selected hidden>Select City</option>`);
+                $('#city').html(`<option value="" selected disabled>Select City</option>`);
                 response.data.cities.forEach(function (city) {
                     $('#city').append(`<option value="${city.id}" ${city.id == cityId ? 'selected' : ''}>${city.name}</option>`);
-                    $('#operation_area').html(`<option value="" selected hidden>Select Operation Area</option>`).prop('disabled', true);
+                    $('#operation_area').html(`<option value="" selected disabled>Select Operation Area</option>`).prop('disabled', true);
                 });
                 $('#city').prop('disabled', false);
             } else {
-                $('#city').html(`<option value="" selected hidden>Select City</option>`).prop('disabled', true);
+                $('#city').html(`<option value="" selected disabled>Select City</option>`).prop('disabled', true);
             }
         })
         .catch(function (error) {
             console.error(error);
-            $('#city').html(`<option value="" selected hidden>Select City</option>`).prop('disabled', true);
+            $('#city').html(`<option value="" selected disabled>Select City</option>`).prop('disabled', true);
             toastr.error('Failed to load states.');
         });
 }
@@ -103,18 +103,18 @@ function getOperationAreas(cityId, route, operationAreaId = null) {
     })
         .then(function (response) {
             if (response.data.operation_areas.length > 0) {
-                $('#operation_area').html(`<option value="" selected hidden>Select Operation Area</option>`);
+                $('#operation_area').html(`<option value="" selected disabled>Select Operation Area</option>`);
                 response.data.operation_areas.forEach(function (operation_area) {
                     $('#operation_area').append(`<option value="${operation_area.id}" ${operation_area.id == operationAreaId ? 'selected' : ''}>${operation_area.name}</option>`);
                 });
                 $('#operation_area').prop('disabled', false);
             } else {
-                $('#operation_area').html(`<option value="" selected hidden>Select Operation Area</option>`).prop('disabled', true);
+                $('#operation_area').html(`<option value="" selected disabled>Select Operation Area</option>`).prop('disabled', true);
             }
         })
         .catch(function (error) {
             console.error(error);
-            $('#operation_area').html(`<option value="" selected hidden>Select Operation Area</option>`).prop('disabled', true);
+            $('#operation_area').html(`<option value="" selected disabled>Select Operation Area</option>`).prop('disabled', true);
             toastr.error('Failed to load operation areas.');
         });
 }
@@ -140,17 +140,17 @@ function getSubCategories(parentId, route, childId = null) {
     axios.post(route, { category_id: parentId })
         .then(function (response) {
             if (response.data.childrens.length > 0) {
-                $('#childrens').html(`<option value="" selected hidden>Select Sub Category</option>`);
+                $('#childrens').html(`<option value="" selected disabled>Select Sub Category</option>`);
                 response.data.childrens.forEach(function (children) {
                     $('#childrens').append(`<option value="${children.id}" ${children.id == childId ? 'selected' : ''}>${children.name}</option>`);
                 });
                 $('#childrens').prop('disabled', false);
             } else {
-                $('#childrens').html(`<option value="" selected hidden>Select Sub Category</option>`).prop('disabled', true);
+                $('#childrens').html(`<option value="" selected disabled>Select Sub Category</option>`).prop('disabled', true);
             }
         })
         .catch(function (error) {
-            $('#childrens').html(`<option value="" selected hidden>Select Sub Category</option>`).prop('disabled', true);
+            $('#childrens').html(`<option value="" selected disabled>Select Sub Category</option>`).prop('disabled', true);
             toastr.error('Failed to load sub categories.');
         });
 }
@@ -159,18 +159,18 @@ function getSubChildCategories(parentId, route, subChildId = null) {
     axios.post(route, { category_id: parentId })
         .then(function (response) {
             if (response.data.sub_childrens.length > 0) {
-                $('#sub_childrens').html(`<option value="" selected hidden>Select Sub Child Category</option>`);
+                $('#sub_childrens').html(`<option value="" selected disabled>Select Sub Child Category</option>`);
                 response.data.sub_childrens.forEach(function (sub_children) {
                     $('#sub_childrens').append(`<option value="${sub_children.id}" ${sub_children.id == subChildId ? 'selected' : ''}>${sub_children.name}</option>`);
                 });
                 $('#sub_childrens').prop('disabled', false);
             } else {
-                $('#sub_childrens').html(`<option value="" selected hidden>Select Sub Child Category</option>`).prop('disabled', true);
+                $('#sub_childrens').html(`<option value="" selected disabled>Select Sub Child Category</option>`).prop('disabled', true);
             }
         })
         .catch(function (error) {
             console.error(error);
-            $('#sub_childrens').html(`<option value="" selected hidden>Select Sub Child Category</option>`).prop('disabled', true);
+            $('#sub_childrens').html(`<option value="" selected disabled>Select Sub Child Category</option>`).prop('disabled', true);
             toastr.error('Failed to load sub child categories.');
         });
 }
@@ -179,18 +179,18 @@ function getTaxRates(TaxClassId, route) {
     axios.post(route, { tax_class_id: TaxClassId })
         .then(function (response) {
             if (response.data.tax_rates.length > 0) {
-                $('#tax_rate_id').html(`<option value="" selected hidden>Select Tax Rate</option>`);
+                $('#tax_rate_id').html(`<option value="" selected disabled>Select Tax Rate</option>`);
                 response.data.tax_rates.forEach(function (tax_rate) {
                     $('#tax_rate_id').append(`<option value="${tax_rate.id}">${tax_rate.name}</option>`);
                 });
                 $('#tax_rate_id').prop('disabled', false);
             } else {
-                $('#tax_rate_id').html(`<option value="" selected hidden>Select Tax Rate</option>`).prop('disabled', true);
+                $('#tax_rate_id').html(`<option value="" selected disabled>Select Tax Rate</option>`).prop('disabled', true);
             }
         })
         .catch(function (error) {
             console.error(error);
-            $('#tax_rate_id').html(`<option value="" selected hidden>Select Tax Rate</option>`).prop('disabled', true);
+            $('#tax_rate_id').html(`<option value="" selected disabled>Select Tax Rate</option>`).prop('disabled', true);
             toastr.error('Failed to load tax rates.');
         });
 }
@@ -200,18 +200,18 @@ function getBrands(companyId, route, brandId = null) {
     axios.post(route, { company_id: companyId })
         .then(function (response) {
             if (response.data.brands.length > 0) {
-                $('#brand_id').html(`<option value="" selected hidden>Select Brand</option>`);
+                $('#brand_id').html(`<option value="" selected disabled>Select Brand</option>`);
                 response.data.brands.forEach(function (brand) {
                     $('#brand_id').append(`<option value="${brand.id}" ${brand.id == brandId ? 'selected' : ''}> ${brand.name}</option>`);
                 });
                 $('#brand_id').prop('disabled', false);
             } else {
-                $('#brand_id').html(`<option value="" selected hidden>Select Brand</option>`).prop('disabled', true);
+                $('#brand_id').html(`<option value="" selected disabled>Select Brand</option>`).prop('disabled', true);
             }
         })
         .catch(function (error) {
             console.error(error);
-            $('#brand_id').html(`<option value="" selected hidden>Select Brand</option>`).prop('disabled', true);
+            $('#brand_id').html(`<option value="" selected disabled>Select Brand</option>`).prop('disabled', true);
             toastr.error('Failed to load brands.', error);
         });
 }
@@ -219,18 +219,18 @@ function getInfoCatTypes(proInfoCatId, route, proInfoCatTypeId = null) {
     axios.post(route, { product_info_cat_id: proInfoCatId })
         .then(function (response) {
             if (response.data.product_info_cat_types.length > 0) {
-                $('#product_info_cat_type_id').html(`<option value="" selected hidden>Select Product Info Category Type</option>`);
+                $('#product_info_cat_type_id').html(`<option value="" selected disabled>Select Product Info Category Type</option>`);
                 response.data.product_info_cat_types.forEach(function (type) {
                     $('#product_info_cat_type_id').append(`<option value="${type.id}" ${type.id == proInfoCatTypeId ? 'selected' : ''}>${type.name}</option>`);
                 });
                 $('#product_info_cat_type_id').prop('disabled', false);
             } else {
-                $('#product_info_cat_type_id').html(`<option value="" selected hidden>Select Product Info Category Type</option>`).prop('disabled', true);
+                $('#product_info_cat_type_id').html(`<option value="" selected disabled>Select Product Info Category Type</option>`).prop('disabled', true);
             }
         })
         .catch(function (error) {
             console.error(error);
-            $('#product_info_cat_type_id').html(`<option value="" selected hidden>Select Product Info Category Type</option>`).prop('disabled', true);
+            $('#product_info_cat_type_id').html(`<option value="" selected disabled>Select Product Info Category Type</option>`).prop('disabled', true);
             toastr.error('Failed to load product info category types.', error);
         });
 }
@@ -252,18 +252,18 @@ function getModels({
     }
     axiosCall.then(function (response) {
         if (response.data.models.length > 0) {
-            $('#model_id').html(`<option value="" selected hidden>Select Model</option>`);
+            $('#model_id').html(`<option value="" selected disabled>Select Model</option>`);
             response.data.models.forEach(function (model) {
                 $('#model_id').append(`<option value="${model.id}" ${model.id == modelId ? 'selected' : ''}>${model.name}</option>`);
             });
             $('#model_id').prop('disabled', false);
         } else {
-            $('#model_id').html(`<option value="" selected hidden>Select Model</option>`).prop('disabled', true);
+            $('#model_id').html(`<option value="" selected disabled>Select Model</option>`).prop('disabled', true);
         }
     })
         .catch(function (error) {
             console.error(error);
-            $('#model_id').html(`<option value="" selected hidden>Select Model</option>`).prop('disabled', true);
+            $('#model_id').html(`<option value="" selected disabled>Select Model</option>`).prop('disabled', true);
             toastr.error('Failed to load models.', error);
         });
 }
@@ -272,18 +272,18 @@ function getInfoCatTypeFeatures(proInfoCatTypeId, route, proInfoCatTypeFeatureId
     axios.post(route, { product_info_cat_type_id: proInfoCatTypeId })
         .then(function (response) {
             if (response.data.product_info_cat_type_features.length > 0) {
-                $('#product_info_cat_type_feature_id').html(`<option value="" selected hidden>Select Product Info Category Type Feature</option>`);
+                $('#product_info_cat_type_feature_id').html(`<option value="" selected disabled>Select Product Info Category Type Feature</option>`);
                 response.data.product_info_cat_type_features.forEach(function (feature) {
                     $('#product_info_cat_type_feature_id').append(`<option value="${feature.id}" ${feature.id == proInfoCatTypeFeatureId ? 'selected' : ''}>${feature.name}</option>`);
                 });
                 $('#product_info_cat_type_feature_id').prop('disabled', false);
             } else {
-                $('#product_info_cat_type_feature_id').html(`<option value="" selected hidden>Select Product Info Category Type Feature</option>`).prop('disabled', true);
+                $('#product_info_cat_type_feature_id').html(`<option value="" selected disabled>Select Product Info Category Type Feature</option>`).prop('disabled', true);
             }
         })
         .catch(function (error) {
             console.error(error);
-            $('#product_info_cat_type_feature_id').html(`<option value="" selected hidden>Select Product Info Category Type Feature</option>`).prop('disabled', true);
+            $('#product_info_cat_type_feature_id').html(`<option value="" selected disabled>Select Product Info Category Type Feature</option>`).prop('disabled', true);
             toastr.error('Failed to load product info category type features.', error);
         });
 }

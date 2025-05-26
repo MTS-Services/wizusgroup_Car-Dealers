@@ -4,14 +4,14 @@
             @foreach ($datas['errors']->get($datas['field']) as $error)
                 @if (is_array($error))
                     @foreach ($error as $er)
-                        <span class="text-text-danger block text-xs py-2">{{ $er }}</span>
+                        <span class="text-text-danger block text-xs pt-2">{{ $er }}</span>
                     @endforeach
                 @else
-                    <span class="text-text-danger block text-xs py-2">{{ $error }}</span>
+                    <span class="text-text-danger block text-xs pt-2">{{ $error }}</span>
                 @endif
             @endforeach
         @else
-            <span class="text-text-danger block text-xs py-2">{{ $datas['errors']->first($datas['field']) }}</span>
+            <span class="text-text-danger block text-xs pt-2">{{ $datas['errors']->first($datas['field']) }}</span>
         @endif
     @endif
 @endif

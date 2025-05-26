@@ -317,6 +317,7 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
             Route::post('images/{product}', 'imageStore')->name('image.store');
             Route::post('information/{product}', 'infoStore')->name('info.store');
             Route::post('information/remarks/{product}', 'infoRemarkStore')->name('info.remarks.store');
+            Route::post('information/files/{product}', 'infoFileStore')->name('info.files.store');
 
             Route::get('view-remarks/{product_info_id}', 'viewRemarks')->name('view_remarks');
             Route::get('delete-info/{product_info_id}', 'deleteInfo')->name('delete_info');
@@ -331,6 +332,9 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
             Route::put('update-relation/{product}', 'updateRelation')->name('relation.update');
             Route::put('update-image/{product}', 'updateImage')->name('image.update');
             Route::put('update-info/{product}', 'updateInfo')->name('info.update');
+
+            // Download
+            Route::get('download/{id}', 'download')->name('info.file.download');
         });
 
         // Company Routes
