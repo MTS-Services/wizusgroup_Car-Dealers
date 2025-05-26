@@ -18,7 +18,7 @@ class TestimonialSeeder extends Seeder
             'author_designation' => 'CEO',
             'status' => Testimonial::STATUS_ACTIVE,
             'author_country' => 'USA',
-            'author_image' => 'https://via.placeholder.com/150',
+            'author_image' => 'https://placehold.co/300x200',
             'quote' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl vitae ultricies luctus, nunc nisl ultricies nisl, a tincidunt nisl nisl sit amet nisl.',
         ]);
         Testimonial::create([
@@ -26,7 +26,7 @@ class TestimonialSeeder extends Seeder
             'author_designation' => 'CEO',
             'status' => Testimonial::STATUS_ACTIVE,
             'author_country' => 'USA',
-            'author_image' => 'https://via.placeholder.com/150',
+            'author_image' => 'https://placehold.co/300x200',
             'quote' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl vitae ultricies luctus, nunc nisl ultricies nisl, a tincidunt nisl nisl sit amet nisl.',
         ]);
         Testimonial::create([
@@ -34,7 +34,7 @@ class TestimonialSeeder extends Seeder
             'author_designation' => 'CEO',
             'status' => Testimonial::STATUS_ACTIVE,
             'author_country' => 'USA',
-            'author_image' => 'https://via.placeholder.com/150',
+            'author_image' => 'https://placehold.co/300x200',
             'quote' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl vitae ultricies luctus, nunc nisl ultricies nisl, a tincidunt nisl nisl sit amet nisl.',
         ]);
         Testimonial::create([
@@ -42,7 +42,7 @@ class TestimonialSeeder extends Seeder
             'author_designation' => 'CEO',
             'status' => Testimonial::STATUS_ACTIVE,
             'author_country' => 'USA',
-            'author_image' => 'https://via.placeholder.com/150',
+            'author_image' => 'https://placehold.co/300x200',
             'quote' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl vitae ultricies luctus, nunc nisl ultricies nisl, a tincidunt nisl nisl sit amet nisl.',
         ]);
         Testimonial::create([
@@ -50,7 +50,7 @@ class TestimonialSeeder extends Seeder
             'author_designation' => 'CEO',
             'status' => Testimonial::STATUS_ACTIVE,
             'author_country' => 'USA',
-            'author_image' => 'https://via.placeholder.com/150',
+            'author_image' => 'https://placehold.co/300x200',
             'quote' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl vitae ultricies luctus, nunc nisl ultricies nisl, a tincidunt nisl nisl sit amet nisl.',
         ]);
     }
