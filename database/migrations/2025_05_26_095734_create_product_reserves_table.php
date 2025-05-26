@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Traits\AuditColumnsTrait;
+use App\Models\ProductReserve;
 
 return new class extends Migration
 {
@@ -20,7 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('product_id')->index();
             $table->decimal(('reserve_price'), 10, 2)->nullable();
-            $table->tinyInteger('status')->default(0)->index();
+            $table->tinyInteger('status')->default(ProductReserve::STATUS_PENDING)->index();
             $table->longText('note')->nullable();
             $table->timestamps();
             $table->softDeletes();

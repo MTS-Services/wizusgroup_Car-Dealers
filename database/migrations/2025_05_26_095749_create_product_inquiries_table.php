@@ -21,15 +21,14 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('product_id')->index();
             $table->tinyInteger('status')->default(ProductInquiry::STATUS_PENDING)->index();
-            $table->text('message');
             $table->timestamps();
             $table->softDeletes();
             $this->addMorphedAuditColumns($table);
 
             // Contact Infromation
-            $table->string('name')->index();
-            $table->string('email')->index();
-            $table->string('whatsapp_number')->index();
+            $table->string('in_name')->index();
+            $table->string('in_email')->index();
+            $table->string('in_whatsapp_number')->index();
 
             // Indexes
             $table->index('created_at'); // Index for soft deletes

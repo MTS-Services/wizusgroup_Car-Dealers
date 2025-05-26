@@ -13,11 +13,10 @@ class ProductInquiry extends BaseModel
     protected $fillable = [
         'product_id',
         'user_id',
-        'message',
         'status',
-        'name',
-        'email',
-        'whatsapp_number',
+        'in_name',
+        'in_email',
+        'in_whatsapp_number',
         'sort_order',
 
         'creater_id',
