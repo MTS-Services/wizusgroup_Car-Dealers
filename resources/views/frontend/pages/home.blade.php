@@ -62,7 +62,7 @@
             </div>
             <div class="relative">
                 <div class="swiper categories static">
-                    <div class="swiper-wrapper p-5">
+                    <div class="swiper-wrapper py-5">
                         @foreach ($categories as $category)
                             <div class="swiper-slide">
                                 <a href="{{ route('frontend.products', $category->slug) }}">
@@ -283,7 +283,7 @@
             },
             breakpoints: {
                 0: {
-                    slidesPerView: 1
+                    slidesPerView: 2
                 },
                 450: {
                     slidesPerView: 2
