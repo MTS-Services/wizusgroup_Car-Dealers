@@ -20,9 +20,9 @@
                     "
                         href="{{ route('frontend.auctions') }}">{{ __('Auctions') }}</a>
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
-                     @if (isset($page_slug) && $page_slug == 'dropshipping') text-text-secondary dark:text-text-secondary @endif
+                     @if (isset($page_slug) && $page_slug == 'products') text-text-secondary dark:text-text-secondary @endif
                     "
-                        href="{{ route('frontend.dropshipping') }}">{{ __('Deals') }}</a>
+                        href="{{ route('frontend.products') }}">{{ __('Products') }}</a>
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
                      @if (isset($page_slug) && $page_slug == 'parts-accessories') text-text-secondary dark:text-text-secondary @endif
                     "
