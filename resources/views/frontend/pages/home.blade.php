@@ -50,7 +50,7 @@
                 @endforeach
             </div>
         </div>
-    </section> --}}
+    </section>
     {{-- ===================== banner Section End ===================== --}}
     {{-- ===================== Category Section Start ===================== --}}
 
