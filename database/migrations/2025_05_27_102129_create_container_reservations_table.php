@@ -25,7 +25,7 @@ return new class extends Migration {
             $table->string('width_cm')->index();
             $table->string('height_cm')->index();
             $table->string('weight_kg')->nullable();
-            $table->string('status')->index()->comment(ContainerReservation::STATUS_PENDING);
+            $table->string('status')->index()->default(ContainerReservation::STATUS_PENDING);
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);

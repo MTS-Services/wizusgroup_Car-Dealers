@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend\Admin\GroupShipping;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\GroupShipping\ShippingLocationRequest;
+use App\Models\Documentation;
 use App\Services\Admin\GroupShipping\ShippingLocationService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -81,12 +83,6 @@ class ShippingLocationController extends Controller
                 'permissions' => ['shipping-location-status']
             ],
             [
-                'routeName' => 'gs.shipping-location.feature',
-                'params' => [encrypt($model->id)],
-                'label' => $model->featured_btn_label,
-                'permissions' => ['shipping-location-feature']
-            ],
-            [
                 'routeName' => 'gs.shipping-location.destroy',
                 'params' => [encrypt($model->id)],
                 'label' => 'Delete',
@@ -97,51 +93,169 @@ class ShippingLocationController extends Controller
         ];
     }
 
+     public function recycleBin(Request $request)
+    {
+
+        if ($request->ajax()) {
+            $query = $this->shippingLocationService->getShippingLocations()->onlyTrashed()->with(['deleter_admin']);
+            return DataTables::eloquent($query)
+                ->editColumn('status', function ($shipping_location) {
+                    return "<span class='badge " . $shipping_location->status_color . "'>$shipping_location->status_label</span>";
+                })
+                ->editColumn('deleted_by', function ($shipping_location) {
+                    return $shipping_location->deleter_name;
+                })
+                ->editColumn('deleted_at', function ($shipping_location) {
+                    return $shipping_location->deleted_at_formatted;
+                })
+                ->editColumn('action', function ($shipping_location) {
+                    $menuItems = $this->trashedMenuItems($shipping_location);
+                    return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
+                })
+                ->rawColumns(['status', 'deleted_by', 'deleted_at', 'action'])
+                ->make(true);
+        }
+        return view('backend.admin.group_shipping.shipping_location.recycle-bin');
+    }
+
+    protected function trashedMenuItems($model): array
+    {
+        return [
+            [
+                'routeName' => 'gs.shipping-location.restore',
+                'params' => [encrypt($model->id)],
+                'label' => 'Restore',
+                'permissions' => ['shipping-location-restore']
+            ],
+            [
+                'routeName' => 'gs.shipping-location.permanent-delete',
+                'params' => [encrypt($model->id)],
+                'label' => 'Permanent Delete',
+                'p-delete' => true,
+                'permissions' => ['shipping-location-permanent-delete']
+            ]
+
+        ];
+    }
+
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+   public function create()
     {
-        //
+        $data['document'] = Documentation::where([['module_key', 'shipping-location'], ['type', 'create']])->first();
+        return view('backend.admin.group_shipping.shipping_location.create', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ShippingLocationRequest $request)
     {
-        //
+        try {
+            $validated = $request->validated();
+            $this->shippingLocationService->createShippingLocation($validated);
+            session()->flash('success', 'Shipping Location created successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Shipping Location create failed!');
+            throw $e;
+        }
+
+        return redirect()->route('gs.shipping-location.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+     public function show(string $id)
     {
-        //
+        $shippingLocation = $this->shippingLocationService->getShippingLocation($id);
+        $shippingLocation->load(['creater_admin', 'updater_admin',]);
+        return response()->json($shippingLocation);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+     public function edit(string $id)
     {
-        //
+        $data['shipping_location'] = $this->shippingLocationService->getShippingLocation($id);
+        $data['document'] = Documentation::where([['module_key', 'shipping-location'], ['type', 'update']])->first();
+        return view('backend.admin.group_shipping.shipping_location.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ShippingLocationRequest $request, string $id)
     {
-        //
+
+        try {
+            $validated = $request->validated();
+            $this->shippingLocationService->updateShippingLocation($id, $validated);
+            session()->flash('success', 'Shipping Location updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Shipping Location update failed!');
+            throw $e;
+        }
+        return redirect()->route('gs.shipping-location.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+   public function destroy(string $id)
     {
-        //
+        try {
+            $this->shippingLocationService->deleteShippingLocation($id);
+            session()->flash('success', 'Shipping Location deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Shipping Location delete failed!');
+            throw $e;
+        }
+        return redirect()->route('gs.shipping-location.index');
+    }
+
+
+    public function status(string $id): RedirectResponse
+    {
+        try {
+            $this->shippingLocationService->toggleStatus($id);
+            session()->flash('success', 'Shipping Location status updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Shipping Location status update failed!');
+            throw $e;
+        }
+        return redirect()->route('gs.shipping-location.index');
+    }
+
+    public function restore(string $id): RedirectResponse
+    {
+        try {
+            $this->shippingLocationService->restore($id);
+            session()->flash('success', 'Shipping Location restored successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Shipping Location restore failed!');
+            throw $e;
+        }
+        return redirect()->route('gs.shipping-location.recycle-bin');
+    }
+
+    /**
+     * Remove the specified resource from storage permanently.
+     *
+     * @param string $id
+     * @return RedirectResponse
+     */
+    public function permanentDelete(string $id): RedirectResponse
+    {
+        try {
+            $this->shippingLocationService->permanentDelete($id);
+            session()->flash('success', 'Shipping Location permanently deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Shipping Location permanent delete failed!');
+            throw $e;
+        }
+        return redirect()->route('gs.shipping-location.recycle-bin');
     }
 }

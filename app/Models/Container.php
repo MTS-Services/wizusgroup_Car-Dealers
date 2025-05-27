@@ -54,10 +54,10 @@ class Container extends BaseModel
     // ================= Status Functionality Start Here =================
   
     // Status constants
-    public const STATUS_ACTIVE = 'active';
-    public const STATUS_PENDING = 'pending';
-    public const STATUS_DELIVERED = 'delivered';
-    public const STATUS_SHIPPED = 'shipped';
+    public const STATUS_ACTIVE = 1;
+    public const STATUS_PENDING = 2;
+    public const STATUS_DELIVERED = 3;
+    public const STATUS_SHIPPED = 4;
 
     // Status labels
     public static function getStatusLabels(): array
