@@ -62,34 +62,36 @@
             </div>
             <div class="relative">
                 <div class="swiper categories static">
-                    <div class="swiper-wrapper py-5">
+                    <div class="swiper-wrapper py-4 sm:py-5">
                         @foreach ($categories as $category)
-                            <div class="swiper-slide">
+                            <div class="swiper-slide px-2">
                                 <a href="{{ route('frontend.products', $category->slug) }}">
-                                    <div>
-                                        <div class="text-center">
+                                     <div class="text-center">
                                             <img class="w-auto rounded-xl object-cover mx-auto"
                                                 src="{{ $category->modified_image }}" alt="{{ $category?->name }}">
                                             <p class="py-2">{{ __($category?->name) }} </p>
                                         </div>
-                                    </div>
                                 </a>
                             </div>
                         @endforeach
                     </div>
-                    <div class="hidden xl:block">
+
+                    <!-- Controls (Hidden on small screens) -->
+                    <div class="hidden md:block">
                         <div class="swiper-pagination z-10 !-bottom-6 lg:!-bottom-8"></div>
-                        <!-- Navigation buttons -->
-                        <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
+
+                        <div
+                            class="swiper-button swiper-button-prev absolute top-1/2 transform -translate-y-1/2 -left-4 sm:-left-6 2xl:-left-9">
                             <i data-lucide="chevron-left" class="w-5 h-5"></i>
                         </div>
-
-                        <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9">
+                        <div
+                            class="swiper-button swiper-button-next absolute top-1/2 transform -translate-y-1/2 -right-4 sm:-right-6 2xl:-right-9">
                             <i data-lucide="chevron-right" class="w-5 h-5"></i>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="text-center mx-auto xl:mt-10 lg:mt-8 md:mt-6 mt-4">
                 <button>
                     <a href="#" class="btn-primary ">
