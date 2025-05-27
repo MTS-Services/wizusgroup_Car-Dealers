@@ -107,6 +107,16 @@
                                      {{ __('Basic Info') }}
                                  </button>
 
+                                 @foreach ($groupedInfo as $category => $type)
+                                     <button @click="tab = '{{ $category }}'"
+                                         :class="tab === 'airbag' ?
+                                             'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
+                                             'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
+                                         class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
+                                         {{ $category }}
+                                     </button>
+                                 @endforeach
+
 
                                  {{-- <button @click="tab = 'airbag'"
                                      :class="tab === 'airbag' ?
@@ -149,6 +159,27 @@
                                      <table class="w-full table-auto text-sm sm:text-base">
                                          <tbody>
                                              <tr class=" border-border-gray dark:border-bg-dark-secondary">
+                                                 <td class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                     {{ __('Name') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->name ?? 'N/A' }}
+                                                 </td>
+                                             </tr>
+                                             <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
+                                                 <td class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                     {{ __('Price.') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->price ?? 'N/A' }}
+                                                 </td>
+                                             </tr>
+                                             <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
+                                                 <td class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                     {{ __('Short Description.') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->short_description ?? 'N/A' }}
+                                                 </td>
+                                             </tr>
+                                             <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
                                                  <td class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
                                                      {{ __('Stock No.') }}</td>
                                                  <td class="py-2 sm:py-3 dark:text-text-secondary">
@@ -310,7 +341,17 @@
                                          </tbody>
                                          <tfoot class="border-t border-border-gray dark:border-bg-dark-secondary">
                                              <tr>
-                                                 <td colspan="2" class="font-semibold py-2 sm:py-3 dark:text-text-light">{{ __('Remarks') }}</td>
+                                                 <td colspan="2"
+                                                     class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                     {{ __('Description') }}</td>
+                                             </tr>
+                                             <tr>
+                                                 <td colspan="2">{{ $product->description ?? 'N/A' }}</td>
+                                             </tr>
+                                             <tr>
+                                                 <td colspan="2"
+                                                     class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                     {{ __('Remarks') }}</td>
                                              </tr>
                                              <tr>
                                                  <td colspan="2">{{ $product->remarks ?? 'N/A' }}</td>
@@ -318,6 +359,60 @@
                                          </tfoot>
                                      </table>
                                  </div>
+
+
+                                 @foreach ($infos as $key => $info)
+                                     <div x-show="tab === '{{ $category }}'" x-cloak>
+                                         <table class="w-full table-auto text-sm sm:text-base">
+                                             <tbody>
+                                                 {{-- @dd($type->toArray()) --}}
+                                                 <p>{{$info->infoCategory->catagoryTypes[$key]->name}}</p>
+
+                                                 @foreach ($info->infoCategory->catagoryTypes as $type)
+                                                     @if (!empty($type->features))
+                                                         @foreach ($type->features as $feature)
+                                                             <td
+                                                                 class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                                 {{ $feature->name }}</td>
+                                                             <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                                 {{-- {{ $product->name ?? 'N/A' }} --}}
+                                                             </td>
+                                                         @endforeach
+                                                     @endif
+                                                 @endforeach
+
+
+
+                                                 {{-- <tr class=" border-border-gray dark:border-bg-dark-secondary">
+                                                     <td
+                                                         class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Name') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->name ?? 'N/A' }}
+                                                     </td>
+                                                 </tr> --}}
+                                             </tbody>
+                                             {{-- <tfoot class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                 <tr>
+                                                     <td colspan="2"
+                                                         class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Description') }}</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td colspan="2">{{ $product->description ?? 'N/A' }}</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td colspan="2"
+                                                         class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Remarks') }}</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td colspan="2">{{ $product->remarks ?? 'N/A' }}</td>
+                                                 </tr>
+                                             </tfoot> --}}
+                                         </table>
+                                     </div>
+                                 @endforeach
 
                                  {{-- <!-- Airbag Info -->
                                  <div x-show="tab === 'airbag'" x-cloak>
