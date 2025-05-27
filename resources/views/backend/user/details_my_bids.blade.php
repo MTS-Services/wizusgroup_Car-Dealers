@@ -6,7 +6,7 @@
         <div class="container">
             <div class="bg-white dark:bg-bg-dark-tertiary shadow rounded-2xl p-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h4 class="text-xl font-semibold mb-0">{{ $auction?->title }}</h4>
+                    <h4 class="text-xl font-semibold mb-0">{{ __('Auciton Details')}}</h4>
                     <a href="{{ route('user.profile') }}"
                         class="btn-primary py-2 bg-bg-primary rounded-md hover:bg-bg-tertiary">
                         {{ __('Back') }}
