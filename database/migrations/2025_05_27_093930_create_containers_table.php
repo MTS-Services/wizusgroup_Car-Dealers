@@ -27,7 +27,7 @@ return new class extends Migration {
             $table->string('max_weight_kg')->nullable();
             $table->unsignedBigInteger('shipping_port')->index();
             $table->unsignedBigInteger('destination_port')->index();
-            $table->boolean('status')->index()->comment(Container::STATUS_PENDING);
+            $table->boolean('status')->index()->default(Container::STATUS_PENDING);
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);

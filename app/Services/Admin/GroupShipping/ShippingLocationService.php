@@ -17,19 +17,19 @@ class ShippingLocationService
         return ShippingLocation::findOrFail(decrypt($encryptedId));
     }
 
-    public function getDeletedshipping_location(string $encryptedId): ShippingLocation | Collection
+    public function getDeletedShippingLocation(string $encryptedId): ShippingLocation | Collection
     {
         return ShippingLocation::onlyTrashed()->findOrFail(decrypt($encryptedId));
     }
 
-    public function createshipping_location(array $data, $file = null): ShippingLocation
+    public function createShippingLocation(array $data): ShippingLocation
     {
         $data['created_by'] = admin()->id;
         $shipping_location = ShippingLocation::create($data);
         return $shipping_location;
     }
 
-    public function updateshipping_location(string $encryptedId, array $data, $file = null): ShippingLocation
+    public function updateShippingLocation(string $encryptedId, array $data): ShippingLocation
     {
         $shipping_location = $this->getShippingLocation($encryptedId);
         $data['updated_by'] = admin()->id;
@@ -37,23 +37,23 @@ class ShippingLocationService
         return $shipping_location;
     }
 
-    public function deleteshipping_location(string $encryptedId): void
+    public function deleteShippingLocation(string $encryptedId): void
     {
         $shipping_location = $this->getShippingLocation($encryptedId);
         $shipping_location->update(['deleted_by' => admin()->id]);
         $shipping_location->delete();
     }
 
-    public function restoreshipping_location(string $encryptedId): void
+    public function restore(string $encryptedId): void
     {
-        $shipping_location = $this->getDeletedshipping_location($encryptedId);
+        $shipping_location = $this->getDeletedShippingLocation($encryptedId);
         $shipping_location->update(['updated_by' => admin()->id]);
         $shipping_location->restore();
     }
 
-    public function permanentDeleteshipping_location(string $encryptedId): void
+    public function permanentDelete(string $encryptedId): void
     {
-        $shipping_location = $this->getDeletedshipping_location($encryptedId);
+        $shipping_location = $this->getDeletedShippingLocation($encryptedId);
         $shipping_location->forceDelete();
     }
 

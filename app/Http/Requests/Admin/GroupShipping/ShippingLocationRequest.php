@@ -11,7 +11,7 @@ class ShippingLocationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,26 @@ class ShippingLocationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+       ]
+            +
+            ($this->isMethod('POST') ? $this->store() : $this->update());
+    }
+
+    protected function store(): array
+    {
+        return [
+            'name' => 'required|unique:shipping_locations,name',
+            'slug' => 'required|unique:shipping_locations,slug',
+        ];
+    }
+
+
+    protected function update(): array
+    {
+        return [
+            'name' => 'required|unique:shipping_locations,name,' . decrypt($this->route('shipping_location')),
+            'slug' => 'required|unique:shipping_locations,slug,' . decrypt($this->route('shipping_location')),
         ];
     }
 }
