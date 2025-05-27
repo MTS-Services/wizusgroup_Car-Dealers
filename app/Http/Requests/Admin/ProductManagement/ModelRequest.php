@@ -23,10 +23,11 @@ class ModelRequest extends FormRequest
     public function rules(): array
     {
         return [
+
             'description' => 'nullable|string',
-            'meta_title' => 'nullable|string|min:20|max:60',
-            'meta_description' => 'nullable|string|min:50|max:160',
-            'image' => 'nullable',
+            'meta_title' => 'nullable|string|min:30|max:60',
+            'meta_description' => 'nullable|string|min:60|max:160',
+            'image'=> 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
             'company_id' => 'required|exists:companies,id',
             'brand_id' => 'required|exists:brands,id',
 
@@ -40,7 +41,7 @@ class ModelRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                Rule::unique('brands')->where(
+                Rule::unique('models')->where(
                     fn($query) =>
                     $query->where('brand_id', $this->brand_id)
                 ),
@@ -55,12 +56,12 @@ class ModelRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                Rule::unique('brands')
+                Rule::unique('models')
                     ->where(
                         fn($query) =>
                         $query->where('brand_id', $this->brand_id)
                     )
-                    ->ignore($this->route('model')),
+                    ->ignore(decrypt($this->route('model'))),
             ],
             'slug' => 'required|unique:models,slug,' . decrypt($this->route('model')),
         ];

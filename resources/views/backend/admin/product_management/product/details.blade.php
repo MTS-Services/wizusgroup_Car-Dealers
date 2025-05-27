@@ -152,19 +152,19 @@
                                                 <ul class="list-group list-group-flush">
                                                     <li class="list-group-item"><strong class="me-2 mb-0 h5">Company:
                                                         </strong>
-                                                        {{ $product->company->name ?? 'N/A' }}</li>
+                                                        {{ $product->company?->name ?? 'N/A' }}</li>
                                                     <li class="list-group-item"><strong class="me-2 mb-0 h5">Brand:
                                                         </strong>
-                                                        {{ $product->brand->name ?? 'N/A' }}</li>
+                                                        {{ $product->brand?->name ?? 'N/A' }}</li>
                                                     <li class="list-group-item"><strong class="me-2 mb-0 h5">Model:
                                                         </strong>
-                                                        {{ $product->model->name ?? 'N/A' }}</li>
+                                                        {{ $product->model?->name ?? 'N/A' }}</li>
                                                     <li class="list-group-item"><strong class="me-2 mb-0 h5">Category:
                                                         </strong>
-                                                        {{ $product->category->name ?? 'N/A' }}</li>
+                                                        {{ $product->category?->name ?? 'N/A' }}</li>
                                                     <li class="list-group-item"><strong class="me-2 mb-0 h5">Sub Category:
                                                         </strong>
-                                                        {{ $product->sub_category->name ?? 'N/A' }}</li>
+                                                        {{ $product->sub_category?->name ?? 'N/A' }}</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -177,7 +177,18 @@
                         <div id="images" class="tab-pane">
                             <div class="mb-5">
                                 <div class="card shadow">
-                                    <h2 class="text-center m-0 p-2">Images Gallery</h2>
+                                    <h2 class="text-center m-0 p-2">{{ __('Images Gallery') }}</h2>
+                                    <div class="card-body">
+                                        <h4>{{ __('Primary Image') }}</h4>
+                                        <img src="{{ $product->primaryImage->first()?->modified_image }}" alt="{{ $image->alt ?? $product->name }}">
+                                    </div>
+                                    <div class="card-body">
+                                        <h4>{{ __('Images') }}</h4>
+                                        @foreach ($product->images as $image)
+                                            <img src="{{ $image->modified_image }}" alt="{{ $image->alt ?? $product->name }}">
+                                        @endforeach
+
+                                    </div>
                                 </div>
                             </div>
                         </div>

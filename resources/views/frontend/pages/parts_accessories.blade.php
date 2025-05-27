@@ -1,27 +1,6 @@
 @extends('frontend.layouts.app', ['page_slug' => 'parts-accessories'])
 
 @section('title', 'Parts & Accessories')
-@push('css')
-    <style>
-        /* General Animations */
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        .animate-slide-up {
-            animation: slideInUp 0.5s ease-out forwards;
-        }
-
-        .animate-pulse {
-            animation: pulse 1.5s infinite;
-        }
-
-        .animate-spin {
-            animation: spin 1s linear infinite;
-        }
-    </style>
-@endpush
-
 @section('content')
     <section class="py-15">
         <div class="container">
@@ -45,64 +24,65 @@
                         <h2
                             class="text-lg md:text-xl font-semibold capitalize border-b bg-bg-light dark:bg-bg-light dark:bg-opacity-20 border-border-gray dark:border-opacity-50 p-4">
                             {{ __(' Auction fillters') }}</h2>
-                        <div class="px-4">
+                        <div class="p-4 pb-0">
                             <div data-target="category-filter">
-                                <h3 class="text-sm md:text-base font-medium">{{ __('Category') }}</h3>
+                                <h3 class="text-xl font-medium">{{ __('Category') }}</h3>
                             </div>
 
                             <div class="filter-content" id="category-filter">
                                 <div class="mt-2">
                                     <select
-                                        class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
-                                        <option>{{ __('All Agricultural') }}</option>
-                                        <option>{{ __('Tractors') }}</option>
-                                        <option>{{ __('Harvesters') }}</option>
-                                        <option>{{ __('Plows') }}</option>
-                                        <option>{{ __('Seeders') }}</option>
+                                        class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2"
+                                        name="subcategory" id="subcategory">
+                                        <option value="">{{ __('All Agricultural') }}</option>
+                                        @foreach ($categories as $children)
+                                            <option value="{{ $children->slug }}"
+                                                {{ request()->category == $children->slug ? 'selected' : '' }}>
+                                                {{ $children->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="px-4">
-                            <div data-target="brand-filter">
-                                <h3 class="text-sm md:text-base font-medium">{{ __('Make') }}</h3>
-                            </div>
-
-                            <div class="filter-content" id="brand-filter">
-                                <div class="mt-2">
-                                    <select
-                                        class="w-full border border-border-gray dark:border-opacity-50 rounded-md px-3 py-2">
-                                        <option>{{ __('All') }}</option>
-                                        <option>{{ __('Kubota') }}</option>
-                                        <option>{{ __('Iseki') }}</option>
-                                        <option>{{ __('John Deere') }}</option>
-                                        <option>{{ __('Mitsubishi') }}</option>
-                                    </select>
-                                </div>
-                            </div>
+                            <h3 class="text-sm md:text-base font-medium">{{ __('Make') }}</h3>
+                            <select class="select mt-2" name="company">
+                                <option value="" selected>Select Make</option>
+                                @foreach ($companies as $company)
+                                    <option value="{{ $company->slug }}"
+                                        {{ request()->company == $company->slug ? 'selected' : '' }}>
+                                        {{ $company->name }}</option>
+                                @endforeach
+                            </select>
+                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'company']" />
                         </div>
                         <div>
                             {{-- Price Filter --}}
                             <details class="collapse collapse-arrow" open>
-                                <summary class="collapse-title text-base font-medium">{{ __('Price') }}</summary>
+                                <summary class="collapse-title text-xl font-medium">{{ __('Price') }}</summary>
                                 <div class="collapse-content">
                                     <div class="mb-3">
                                         <div class="relative w-full price-slider">
                                             <div class="absolute w-full h-1 bg-bg-dark bg-opacity-40 z-[1] rounded-full">
                                             </div>
                                             <div class="absolute h-1 z-[2] rounded-full bg-bg-primary slider-range"></div>
-                                            <input type="range" min="0" max="500" value="20"
+                                            <input type="range" name="start_price" min="0" max="500000"
+                                                value="{{ request()->start_price ?? 20 }}"
                                                 class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none min-range">
-                                            <input type="range" min="0" max="500" value="300"
+                                            <input type="range" min="0" name="end_price" max="500000"
+                                                value="{{ request()->end_price ?? 500000 }}"
                                                 class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none max-range">
                                         </div>
                                     </div>
+
                                     <!-- Price display -->
                                     <div class="pt-8">
                                         <p class="text-sm lg:text-base">
                                             {{ __('Price:') }} <span
-                                                class="text-text-danger min-price">{{ __("$20") }}</span> -
-                                            <span class="text-text-danger max-price">{{ __("$300") }}</span>
+                                                class="text-text-danger min-price">${{ request()->start_price ?? 20 }}</span>
+                                            -
+                                            <span
+                                                class="text-text-danger max-price">${{ request()->end_price ?? 50000 }}</span>
                                         </p>
                                     </div>
                                 </div>
@@ -122,319 +102,54 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div class="w-full xl:w-3/4">
                     {{-- Products Grid --}}
-                    <div class="flex items-center gap-2 md:gap-3 mb-4">
-                        <button
-                            class="openPartsFilterSidebar btn px-2 py-0 rounded-md bg-transparent border-bg-accent dark:border-bg-light dark:border-opacity-50 text-text-accent text-sm font-medium  xs:px-5 xs:py-2 lg:text-base w-fit text-nowrap xl:hidden">
-                            <span><i data-lucide="sliders-horizontal" class="w-4 h-4 md:w-5 md:h-5"></i></span>
-                            <span class="">{{ __('Filter') }}</span>
-                        </button>
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="flex items-center gap-2 md:gap-3">
+                            <button
+                                class="openFilterSidebar btn px-2 py-0 rounded-md bg-transparent border border-bg-accent text-text-accent text-xs font-medium xs:text-sm xs:px-5 xs:py-2 lg:text-base w-fit text-nowrap xl:hidden">
+                                <span><i data-lucide="sliders-horizontal" class="w-5 h-5"></i></span>
+                                <span class="ml-2 text-base">{{ __('Filter') }}</span>
+                            </button>
+                            <h2 class="text-sm xs:text-base md:text-lg  font-semibold">{{ __('Sort') }}
+                                <span>{{ number_format(count($products)) }}</span>
+                            </h2>
+                        </div>
+                        <div class="flex items-center">
+                            <form action="{{ route('frontend.parts-accessories.filter', $categories) }}" method="POST"
+                                id="filter_form">
+                                @csrf
+                                <select name="sort" id="sort-select" class="select">
+                                    <option value="" {{ request()->sort == '' ? 'selected' : '' }}>Default
+                                    </option>
+                                    <option value="low_to_high" {{ request()->sort == 'low_to_high' ? 'selected' : '' }}>
+                                        {{ __('Price: High to Low') }}</option>
+                                    <option value="high_to_low" {{ request()->sort == 'high_to_low' ? 'selected' : '' }}>
+                                        {{ __('Price: Low to High') }}</option>
+                                    <option value="latest" {{ request()->sort == 'latest' ? 'selected' : '' }}>
+                                        {{ __('Newest First') }}</option>
+                                    <option value="oldest" {{ request()->sort == 'oldest' ? 'selected' : '' }}>
+                                        {{ __('Oldest First') }}</option>
+                                </select>
+                            </form>
+                        </div>
                     </div>
 
                     <!-- Loading Indicator -->
                     <div id="loading-indicator" class="hidden flex justify-center items-center py-12">
                         <div class="loading-spinner"></div>
-                        <span class="ml-3 text-text-dark dark:text-text-light text-opacity-50">Loading products...</span>
+                        <span class="ml-3 text-gray-600">{{ __('Loading products...') }}</span>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
-                        {{-- Product 1 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer flex flex-col"
-                            data-product="1">
-                            <!-- Car Image -->
-                            <div class="relative">
-                                <div class="w-full min-h-60 overflow-hidden">
-                                    <img src="{{ asset('frontend/images/parts/parts-1.jpg') }}" alt="Kubota ZL1-215"
-                                        class="w-full min-h-60 h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <!-- Timer Badge -->
-                                <div
-                                    class="absolute z-50 bottom-[-10px] left-3 bg-bg-orange text-text-white px-3 py-1 rounded-md text-sm font-medium">
-                                    {{ __('2d 04h 15m') }}
-                                </div>
-                            </div>
+                        @foreach ($products as $product)
+                            <x-frontend.parts-accessories :product="$product" />
+                        @endforeach
 
-                            <!-- Card Content -->
-                            <div class="flex flex-col flex-grow p-4">
-                                <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                    {{ __('Fuel filter or fuel water separator') }}</h2>
-                                <p class="text-text-danger text-base lg:text-md font-bold mt-1">{{ __("US$ 4,800") }}</p>
-                                <div
-                                    class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 6h16M4 12h16M4 18h7" />
-                                    </svg>
-                                    {{ __('All Categories') }}
-                                </div>
-                                <div
-                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    {{ __('Chiba') }}
-                                </div>
-                                <!-- Bid Button -->
-                                <button onclick="openModal()"
-                                    class="mt-auto w-full btn-primary hover:bg-bg-tertiary rounded-md py-2 px-4">
-                                    {{ __('Place Bid') }}
-                                </button>
-                            </div>
-                        </div>
-                        {{-- Product 2 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer flex flex-col"
-                            data-product="2">
-                            <!-- Car Image -->
-                            <div class="relative">
-                                <div class="w-full min-h-60 overflow-hidden">
-                                    <img src="{{ asset('frontend/images/parts/parts-2.jpg') }}" alt="Kubota ZL1-215"
-                                        class="w-full min-h-60 h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <!-- Timer Badge -->
-                                <div
-                                    class="absolute z-50 bottom-[-10px] left-3 bg-bg-orange text-text-white px-3 py-1 rounded-md text-sm font-medium">
-                                    {{ __('2d 04h 15m') }}
-                                </div>
-                            </div>
-
-                            <!-- Card Content -->
-                            <div class="flex flex-col flex-grow p-4">
-                                <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                    {{ __('Timing belt or engine drive system ') }}</h2>
-                                <p class="text-text-danger text-base lg:text-md font-bold mt-1">{{ __("US$ 4,200") }}</p>
-                                <div
-                                    class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 6h16M4 12h16M4 18h7" />
-                                    </svg>
-                                    {{ __('All Categories') }}
-                                </div>
-                                <div
-                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    {{ __('Chiba') }}
-                                </div>
-
-                                <!-- Bid Button -->
-                                <button onclick="openModal()"
-                                    class="mt-auto w-full btn-primary hover:bg-bg-tertiary rounded-md py-2 px-4">
-                                    {{ __('Place Bid') }}
-                                </button>
-                            </div>
-                        </div>
-                        {{-- Product 3 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer flex flex-col"
-                            data-product="3">
-                            <!-- Car Image -->
-                            <div class="relative">
-                                <div class="w-full min-h-60 overflow-hidden">
-                                    <img src="{{ asset('frontend/images/parts/parts-3.jpg') }}" alt="Kubota ZL1-215"
-                                        class="w-full min-h-60 h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <!-- Timer Badge -->
-                                <div
-                                    class="absolute z-50 bottom-[-10px] left-3 bg-bg-orange text-text-white px-3 py-1 rounded-md text-sm font-medium">
-                                    {{ __('2d 04h 15m') }}
-                                </div>
-                            </div>
-
-                            <!-- Card Content -->
-                            <div class="flex flex-col flex-grow p-4">
-                                <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                    {{ __('Tractor or heavy vehicle engine assembly') }}</h2>
-                                <p class="text-text-danger text-base lg:text-md font-bold mt-1">{{ __("US$ 4,500") }}</p>
-                                <div
-                                    class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 6h16M4 12h16M4 18h7" />
-                                    </svg>
-                                    {{ __('All Categories') }}
-                                </div>
-                                <div
-                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    {{ __('Chiba') }}
-                                </div>
-
-                                <!-- Bid Button -->
-                                <button onclick="openModal()"
-                                    class="mt-auto w-full btn-primary hover:bg-bg-tertiary rounded-md py-2 px-4">
-                                    {{ __('Place Bid') }}
-                                </button>
-                            </div>
-                        </div>
-                        {{-- Product 4 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full h-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer flex flex-col"
-                            data-product="4">
-                            <!-- Car Image -->
-                            <div class="relative">
-                                <div class="w-full min-h-60 overflow-hidden">
-                                    <img src="{{ asset('frontend/images/parts/parts-4.jpg') }}" alt="Kubota ZL1-215"
-                                        class="w-full min-h-60 h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <!-- Timer Badge -->
-                                <div
-                                    class="absolute z-50 bottom-[-10px] left-3 bg-bg-orange text-text-white px-3 py-1 rounded-md text-sm font-medium">
-                                    {{ __('2d 04h 15m') }}
-                                </div>
-                            </div>
-
-                            <!-- Card Content -->
-                            <div class="flex flex-col flex-grow p-4">
-                                <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                    {{ __('Pistons and connecting rods') }}</h2>
-                                <p class="text-text-danger text-base lg:text-md font-bold mt-1">{{ __("US$ 3,500") }}</p>
-                                <div
-                                    class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 6h16M4 12h16M4 18h7" />
-                                    </svg>
-                                    {{ __('All Categories') }}
-                                </div>
-                                <div
-                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    {{ __('Chiba') }}
-                                </div>
-
-                                <div class="mt-auto">
-                                    <!-- Bid Button -->
-                                    <button onclick="openModal()"
-                                        class="mt-auto w-full btn-primary hover:bg-bg-tertiary rounded-md py-2 px-4">
-                                        {{ __('Place Bid') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        {{-- Product 5 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group  shadow-card rounded-lg overflow-hidden cursor-pointer flex flex-col"
-                            data-product="5">
-                            <!-- Car Image -->
-                            <div class="relative">
-                                <div class="w-full min-h-60 overflow-hidden">
-                                    <img src="{{ asset('frontend/images/parts/parts5.jpg') }}" alt="Kubota ZL1-215"
-                                        class="w-full min-h-60 h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <!-- Timer Badge -->
-                                <div
-                                    class="absolute z-50 bottom-[-10px] left-3 bg-bg-orange text-text-white px-3 py-1 rounded-md text-sm font-medium">
-                                    {{ __('2d 04h 15m') }}
-                                </div>
-                            </div>
-
-                            <!-- Card Content -->
-                            <div class="flex flex-col flex-grow p-4">
-                                <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                    {{ __('Fuel injection system or hydraulic control system') }}</h2>
-                                <p class="text-text-danger text-base lg:text-md font-bold mt-1">{{ __("US$ 4,400") }}</p>
-                                <div
-                                    class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 6h16M4 12h16M4 18h7" />
-                                    </svg>
-                                    {{ __('All Categories') }}
-                                </div>
-                                <div
-                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    {{ __('Chiba') }}
-                                </div>
-
-                                <!-- Bid Button -->
-                                <button onclick="openModal()"
-                                    class="mt-auto w-full btn-primary hover:bg-bg-tertiary rounded-md py-2 px-4">
-                                    {{ __('Place Bid') }}
-                                </button>
-                            </div>
-                        </div>
-                        {{-- Product 6 --}}
-                        <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer flex flex-col"
-                            data-product="6">
-                            <!-- Car Image -->
-                            <div class="relative">
-                                <div class="w-full min-h-60 overflow-hidden">
-                                    <img src="{{ asset('frontend/images/parts/parts-6.jpg') }}" alt="Kubota ZL1-215"
-                                        class="w-full min-h-60 h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                </div>
-                                <!-- Timer Badge -->
-                                <div
-                                    class="absolute z-50 bottom-[-10px] left-3 bg-bg-orange text-text-white px-3 py-1 rounded-md text-sm font-medium">
-                                    {{ __('2d 04h 15m') }}
-                                </div>
-                            </div>
-
-                            <!-- Card Content -->
-                            <div class="flex flex-col flex-grow p-4">
-                                <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                    {{ __('Sales or negotiation scene') }}</h2>
-                                <p class="text-text-danger text-base lg:text-md font-bold mt-1">{{ __("US$ 4,100") }}</p>
-                                <div
-                                    class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 6h16M4 12h16M4 18h7" />
-                                    </svg>
-                                    {{ __('All Categories') }}
-                                </div>
-                                <div
-                                    class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    {{ __('Chiba') }}
-                                </div>
-
-                                <!-- Bid Button -->
-                                <button onclick="openModal()"
-                                    class="mt-auto w-full btn-primary hover:bg-bg-tertiary rounded-md py-2 px-4">
-                                    {{ __('Place Bid') }}
-                                </button>
-                            </div>
-                        </div>
                     </div>
                 </div>
+
             </div>
     </section>
     {{-- Modal --}}
@@ -470,6 +185,13 @@
     </section>
 @endsection
 @push('js')
+    <script script>
+        $(document).ready(function() {
+            $("#sort-select").on("change", function() {
+                $("#filter_form").submit();
+            });
+        });
+    </script>
     <script>
         $(document).ready(function() {
             const $openSidebar = $('.openPartsFilterSidebar');

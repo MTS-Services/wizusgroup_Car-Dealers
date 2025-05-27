@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\ProductAttributeValueRequest;
+use App\Models\Documentation;
 use App\Models\Product;
 use App\Services\Admin\ProductManagement\ProductAttributeService;
 use App\Services\Admin\ProductManagement\ProductAttributeValueService;
@@ -150,9 +151,10 @@ class ProductAttributeValueController extends Controller
      */
     public function create()
     {
-        $products = Product::active()->select(['id', 'name'])->get();
-        $product_attribute = $this->productAttributeService->getProductAttributes()->active()->select(['id', 'name'])->get();
-        return view('backend.admin.product_management.product_attribute_value.create', compact('product_attribute', 'products'));
+        $data['products'] = Product::active()->select(['id', 'name'])->get();
+        $data['product_attribute'] = $this->productAttributeService->getProductAttributes()->active()->select(['id', 'name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'product attribute value'], ['type', 'create']])->first();
+        return view('backend.admin.product_management.product_attribute_value.create',$data);
     }
 
     /**
@@ -162,7 +164,7 @@ class ProductAttributeValueController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->productAttributeValueService->createProductAttributeValue($validated, $request->image ?? null);
+            $this->productAttributeValueService->createProductAttributeValue($validated);
             session()->flash('success', 'Product Attribute Value created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Product Attribute Value create failed!');
@@ -192,6 +194,7 @@ class ProductAttributeValueController extends Controller
         $data['products'] = Product::active()->select(['id', 'name'])->get();
         $data['product_attribute_value'] = $this->productAttributeValueService->getProductAttributeValue($id);
         $data['product_attributes'] = $this->productAttributeService->getProductAttributes()->active()->get();
+        $data['document'] = Documentation::where([['module_key', 'product attribute value'], ['type', 'update']])->first();
         return view('backend.admin.product_management.product_attribute_value.edit', $data);
     }
 
@@ -202,7 +205,7 @@ class ProductAttributeValueController extends Controller
     {
          try {
             $validated = $request->validated();
-            $this->productAttributeValueService->updateProductAttributeValue($id, $validated, $request->image ?? null);
+            $this->productAttributeValueService->updateProductAttributeValue($id, $validated);
             session()->flash('success', 'Product attribute value updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Product attribute value update failed!');

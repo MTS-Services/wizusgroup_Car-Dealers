@@ -2,7 +2,7 @@
 @section('title', 'Create Brand')
 @section('content')
 <div class="row">
-    <div class="col-12">
+     <div class="{{ $document ? 'col-md-8' : 'col-md-12' }}">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4 class="cart-title">{{ __('Create Brand') }}</h4>
@@ -41,8 +41,8 @@
                     {{-- Image --}}
                     <div class="form-group">
                         <label>{{ __('Image') }}<span class="text-danger">*</span></label>
-                        <input type="file" name="uploadImage" data-actualName="image" class="form-control filepond"
-                            id="image" accept="image/*">
+                        <input type="file" name="image" class="form-control filepond"
+                            id="image" accept="image/jpg, image/jpeg, image/png, image/webp, image/svg">
                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'image']" />
                     </div>
                     <div class="form-group">
@@ -60,7 +60,7 @@
                     {{-- Meta_description --}}
                     <div class="form-group">
                         <label>{{__('Meta_description')}}</label>
-                        <textarea name="meta_description" class="form-control" id="meta_description" placeholder="Enter meta_description">{{old('meta_description')}}</textarea>
+                        <textarea name="meta_description" class="form-control no-ckeditor5" id="meta_description" placeholder="Enter meta_description">{{old('meta_description')}}</textarea>
                     </div>
                     {{-- Description --}}
                     <div class="form-group">
@@ -74,6 +74,7 @@
             </div>
         </div>
     </div>
+    <x-backend.admin.documentation :document="$document" />
 </div>
 @endsection
 @push('js')
@@ -82,7 +83,7 @@
 <script src="{{ asset('filepond/filepond.js') }}"></script>
 <script>
     $(document).ready(function() {
-        file_upload(["#image"], "uploadImage", "admin", [], false);
+        file_upload(["#image"],["image/jpg, image/jpeg, image/png, image/webp, image/svg"]);
     });
 </script>
 {{-- FilePond  --}}

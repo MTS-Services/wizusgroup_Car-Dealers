@@ -3,4 +3,6 @@ import '../toastr';
 import '../filepond';
 import '../axios';
 import '../moment';
-// import '../select2'
+import '../toastr';
+import '../filepond';
+import '../select2'

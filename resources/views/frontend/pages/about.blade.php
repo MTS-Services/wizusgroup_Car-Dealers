@@ -11,7 +11,7 @@
         </div>
         <div class="container mx-auto px-6 z-10 relative">
             <h1 class="text-text-white text-4xl md:text-5xl xl:text-6xl font-bold leading-tight max-w-2xl">
-                {{ ("Connecting Africa to Japan & China's Best Machines") }}
+                {{ __("Connecting Africa to Japan & China's Best Machines") }}
             </h1>
         </div>
     </section>
@@ -21,10 +21,7 @@
         <div class="container mx-auto px-6">
             <h2 class="text-2xl md:text-3xl xl:text-4xl font-bold mb-8 text-text-dark dark:text-text-white">{{ __("Our Story") }}</h2>
             <p class="text-sm md:text-base xl:text-lg text-text-gray dark:text-text-light-secondary max-w-4xl">
-                {{__("Founded to bridge the gap between Africa's growing industrial needs and Asia's leading
-                machinery markets, Wiz afrik has established itself as a trusted partner for African
-                entrepreneurs. Our mission is to make it easier for businesses in Africa to access high-quality,
-                affordable used equipment from Japan and China.")}}
+                {{ __("Founded to bridge the gap between Africa's growing industrial needs and Asia's leading machinery markets, Wiz afrik has established itself as a trusted partner for African entrepreneurs. Our mission is to make it easier for businesses in Africa to access high-quality, affordable used equipment from Japan and China.") }}
             </p>
         </div>
     </section>
@@ -125,8 +122,7 @@
                 <div>
                     <h2 class="text-2xl md:text-3xl xl:text-4xl font-bold mb-6 xl:mb-12 text-text-dark dark:text-text-white">{{ __("Our Locations") }}</h2>
                     <p class="text-sm md:text-base xl:text-lg text-text-gray dark:text-text-light-secondary mb-6">
-                       {{__(" With offices and warehouses strategically located in Japan and China, Wiz afrik
-                        ensures efficient sourcing and logistics operations for all our clients across Africa.")}}
+                       {{ __("With offices and warehouses strategically located in Japan and China, Wiz afrik ensures efficient sourcing and logistics operations for all our clients across Africa.")}}
                     </p>
                 </div>
 

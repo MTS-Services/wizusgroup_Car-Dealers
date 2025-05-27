@@ -2,7 +2,7 @@
 @section('title', 'Edit Faq')
 @section('content')
     <div class="row">
-        <div class="col-12">
+        <div class="{{ $document ? 'col-md-8' : 'col-md-12' }}">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="cart-title">{{ __('Edit Faq') }}</h4>
@@ -25,8 +25,7 @@
                         </div>
                         <div class="form-group">
                             <label>{{ __('Answer') }} <span class="text-danger">*</span></label>
-                            <input type="text" value="{{ $faq->answer }}" id="title" name="answer"
-                                class="form-control" placeholder="Enter answer">
+                            <textarea name="answer" class="form-control" placeholder="Enter Answer">{{ old('quote', $faq->answer) }}</textarea>
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'answer']" />
                         </div>
                         <div class="form-group">
@@ -48,6 +47,7 @@
                 </div>
             </div>
         </div>
+        <x-backend.admin.documentation :document="$document" />
     </div>
 @endsection
 @push('js')

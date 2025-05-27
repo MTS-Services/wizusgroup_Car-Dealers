@@ -21,7 +21,8 @@ return new class extends Migration
             $table->unsignedBigInteger('profile_id')->index();
             $table->string('profile_type')->index();
             $table->tinyInteger('type')->default(Address::TYPE_OTHER)->index()->comment(Address::TYPE_PERSONAL . ': Personal, ' . Address::TYPE_BILLING . ': Billing, ' . Address::TYPE_SHIPPING . ': Shipping'. Address::TYPE_OTHER . ': Other');
-            $table->string('name')->nullable();
+            $table->string('email')->nullable()->index();
+            $table->string('name')->nullable()->index();
             $table->string('phone')->nullable()->index();
             $table->unsignedBigInteger('country_id')->index();
             $table->unsignedBigInteger('state_id')->nullable()->index();

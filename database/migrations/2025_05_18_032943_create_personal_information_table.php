@@ -21,12 +21,17 @@ return new class extends Migration
             $table->bigInteger('profile_id')->index();
             $table->string('profile_type')->index();
             $table->date('dob')->nullable()->index();
-            $table->tinyInteger('gender')->default(PersonalInformation::GENDER_MALE)->index()->comment(PersonalInformation::GENDER_MALE . ': Male, ' . PersonalInformation::GENDER_FEMALE . ': Female');
+            $table->tinyInteger('gender')->default(PersonalInformation::GENDER_MALE)->index()->comment(PersonalInformation::GENDER_MALE . ': Male, ' . PersonalInformation::GENDER_FEMALE . ': Female')->index();
             $table->string('emergency_phone')->nullable()->index();
-            $table->string('father_name')->nullable();
-            $table->string('mother_name')->nullable();
+            $table->string('father_name')->nullable()->index();
+            $table->string('mother_name')->nullable()->index();
             $table->string('nationality')->nullable()->index();
-            $table->longText('bio')->nullable();
+            $table->longText('bio')->nullable()->index();
+
+            $table->string('phone_2')->unique()->nullable();
+            $table->string('fax')->nullable()->index();
+            $table->tinyInteger('language')->default(PersonalInformation::LANGUAGE_ENGLISH)->index();
+
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);

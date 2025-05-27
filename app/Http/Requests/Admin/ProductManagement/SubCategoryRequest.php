@@ -24,10 +24,10 @@ class SubCategoryRequest extends FormRequest
     {
         return [
 
-            'meta_title' => 'nullable|string|min:20|max:60',
-            'meta_description' => 'nullable|string|min:50|max:160',
+           'meta_title' => 'nullable|string|min:30|max:60',
+            'meta_description' => 'nullable|string|min:60|max:160',
             'description' => 'nullable|string',
-            'image' => 'nullable',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
             'parent_id' => 'required|exists:categories,id',
 
         ]

@@ -75,6 +75,9 @@ class Admin extends AuthBaseModel implements Auditable, MustVerifyEmail
             'username' => 'string',
         ];
     }
+    public function contact(){
+        return $this->hasMany(Contact::class, 'open_by');
+    }
 
     public function role()
     {

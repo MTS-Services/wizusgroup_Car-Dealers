@@ -27,7 +27,7 @@
                         <!-- Absolute positioned text -->
                         <div class="absolute top-3 left-3">
                             <div class="text-sm text-white bg-bg-primary rounded px-2 py-1 w-fit">
-                                {{ __('Ships in 14–21 days') }}
+                                {{ __('Ships in 14-21 days') }}
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                         <!-- Absolute positioned text -->
                         <div class="absolute top-3 left-3">
                             <div class="text-sm text-white bg-bg-primary rounded px-2 py-1 w-fit">
-                                {{ __('Ships in 14–21 days') }}
+                                {{ __('Ships in 14-21 days') }}
                             </div>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                         <!-- Absolute positioned text -->
                         <div class="absolute top-3 left-3">
                             <div class="text-sm text-white bg-bg-primary rounded px-2 py-1 w-fit">
-                                {{ __('Ships in 14–21 days') }}
+                                {{ __('Ships in 14-21 days') }}
                             </div>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                         <!-- Absolute positioned text -->
                         <div class="absolute top-3 left-3">
                             <div class="text-sm text-white bg-bg-primary rounded px-2 py-1 w-fit">
-                                {{ __('Ships in 14–21 days') }}
+                                {{ __('Ships in 14-21 days') }}
                             </div>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
         <div class="container">
             <div
                 class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-6 xl:py-12 lg:py-10 md:py-8 py-4 text-center w-11/12 max-w-3xl shadow-md">
-                <h3 class="text-2xl font-bold mb-2">{{ __('Join Group Container – Save on Shipping') }}</h3>
+                <h3 class="text-2xl font-bold mb-2">{{ __('Join Group Container - Save on Shipping') }}</h3>
                 <p class="text-xl mb-5">{{ __('Next Departure to Dakar, Senegal:') }}</p>
                 <div class="countdown-blocks py-2"></div>
                 <button class="btn-primary mx-auto mt-10 ">

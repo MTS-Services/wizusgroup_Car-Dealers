@@ -42,6 +42,7 @@ use App\Http\Controllers\Backend\Admin\ProductManagement\ProInfoCatTypeFeatureCo
 use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerificationController;
 use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminResetPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\ForgotPasswordController as AdminForgotPasswordController;
+use App\Http\Controllers\Backend\Admin\CMSManagement\ContactController;
 
 // Admin Auth Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -199,6 +200,9 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
 
     // Documentation
     Route::resource('documentation', DocumentationController::class);
+        Route::get('documentation/recycle/bin', [documentationController::class, 'recycleBin'])->name('documentation.recycle-bin');
+        Route::get('documentation/restore/{documentation}', [documentationController::class, 'restore'])->name('documentation.restore');
+        Route::delete('documentation/permanent-delete/{documentation}', [documentationController::class, 'permanentDelete'])->name('documentation.permanent-delete');
 
     // Audit Management
     Route::controller(AuditController::class)->prefix('audits')->name('audit.')->group(function () {
@@ -244,6 +248,14 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         Route::get('testimonial/recycle/bin', [TestimonialController::class, 'recycleBin'])->name('testimonial.recycle-bin');
         Route::get('testimonial/restore/{testimonial}', [TestimonialController::class, 'restore'])->name('testimonial.restore');
         Route::delete('testimonial/permanent-delete/{testimonial}', [TestimonialController::class, 'permanentDelete'])->name('testimonial.permanent-delete');
+
+        // Contact Routes
+        Route::resource('contact', ContactController::class);
+        Route::get('contact/status/{contact}', [ContactController::class, 'status'])->name('contact.status');
+
+        Route::get('contact/recycle/bin', [ContactController::class, 'recycleBin'])->name('contact.recycle-bin');
+        Route::get('contact/restore/{contact}', [ContactController::class, 'restore'])->name('contact.restore');
+        Route::delete('contact/permanent-delete/{contact}', [ContactController::class, 'permanentDelete'])->name('contact.permanent-delete');
     });
 
     // Product Management
@@ -305,6 +317,7 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
             Route::post('images/{product}', 'imageStore')->name('image.store');
             Route::post('information/{product}', 'infoStore')->name('info.store');
             Route::post('information/remarks/{product}', 'infoRemarkStore')->name('info.remarks.store');
+            Route::post('information/files/{product}', 'infoFileStore')->name('info.files.store');
 
             Route::get('view-remarks/{product_info_id}', 'viewRemarks')->name('view_remarks');
             Route::get('delete-info/{product_info_id}', 'deleteInfo')->name('delete_info');
@@ -315,10 +328,13 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
             Route::get('edit-image/{product}', 'editImage')->name('image.edit');
             Route::get('edit-info/{product}', 'editInfo')->name('info.edit');
 
-            // update 
+            // update
             Route::put('update-relation/{product}', 'updateRelation')->name('relation.update');
             Route::put('update-image/{product}', 'updateImage')->name('image.update');
             Route::put('update-info/{product}', 'updateInfo')->name('info.update');
+
+            // Download
+            Route::get('download/{id}', 'download')->name('info.file.download');
         });
 
         // Company Routes
@@ -395,7 +411,7 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
 
     // Auction Management
     Route::group(['as' => 'auction-m.', 'prefix' => 'auction-management'], function () {
-        // Auction Routes 
+        // Auction Routes
         Route::resource('auction', AuctionController::class);
         Route::controller(AuctionController::class)->name('auction.')->prefix('auction')->group(function () {
             Route::get('feature/{auction}', 'feature')->name('feature');

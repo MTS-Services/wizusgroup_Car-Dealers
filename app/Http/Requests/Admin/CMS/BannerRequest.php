@@ -40,7 +40,7 @@ class BannerRequest extends FormRequest
     protected function update(): array
     {
         return [
-            'image' => 'nullable',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

@@ -44,6 +44,8 @@ class ProductImage extends BaseModel
             'primary_btn_label',
             'primary_btn_color',
             'primary_labels',
+
+            'modified_image',
         ]);
     }
     public const STATUS_ACTIVE = 1;
@@ -199,5 +201,10 @@ class ProductImage extends BaseModel
     public function scopeNotPrimary($query)
     {
         return $query->where('is_primary', self::NOT_PRIMARY);
+    }
+
+    public function getModifiedImageAttribute(): string
+    {
+        return storage_url($this->image);
     }
 }

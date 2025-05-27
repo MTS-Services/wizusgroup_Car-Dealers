@@ -44,12 +44,30 @@
         </div>
 
         <!-- Bid Button -->
-        <button onclick="document.getElementById('{{ $auction->id }}-modal').showModal()"
+
+        <a href="
+            @auth('web')
+javascript:void(0)
+            @else
+            {{ route('login') }} @endauth"
+            @auth('web')
+                onclick="document.getElementById('{{ $auction->id }}-modal').showModal()"
+            @endauth
             class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
             {{ __('Place Bid') }}
-        </button>
+        </a>
+
+
     </div>
 </div>
+
+{{-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @if (session('error'))
+            document.getElementById('{{ $auction->id }}-modal').showModal();
+        @endif
+    });
+</script> --}}
 
 <dialog id="{{ $auction->id }}-modal" class="modal">
     <div class="modal-box bg-bg-light dark:bg-bg-dark-tertiary p-6 rounded-lg w-full max-w-sm shadow-lg">
@@ -61,13 +79,21 @@
                         data-lucide="x" class="w-4 h-4"></i></button>
             </form>
         </div>
-        <form action="" class="space-y-4">
-            <div>
+        <form id="place-bid-form-{{ $auction->id }}" method="post">
+            @csrf
+            <div class="space-y-2 pb-3">
+                <label
+                    class="block text-sm font-medium text-text-primary dark:text-text-light text-opacity-50">{{ __('Your Whatsapp Number') }}</label>
+                <input type="number" name="whatsapp_number"
+                    class="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-bg-primary"
+                    placeholder="Enter your whatsapp number" />
+                <p class="text-red-500 text-sm mt-1" id="whatsapp_number_error_{{ $auction->id }}"></p>
                 <label
                     class="block text-sm font-medium text-text-primary dark:text-text-light text-opacity-50">{{ __('Your Bid (USD)') }}</label>
-                <input type="number" id="bidAmount"
+                <input type="number" name="bid_amount"
                     class="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-bg-primary"
                     placeholder="Enter your bid" />
+                <p class="text-red-500 text-sm mt-1" id="bid_amount_error_{{ $auction->id }}"></p>
             </div>
 
             <button class="w-full btn-primary py-2 rounded-md hover:bg-bg-tertiary transition">
@@ -76,6 +102,62 @@
         </form>
     </div>
 </dialog>
+
+<script>
+    (function() {
+        const placeBidForm = document.getElementById(`place-bid-form-{{ $auction->id }}`);
+
+        placeBidForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const route = "{{ route('user.auction.bid-place', ['slug']) }}";
+            const url = route.replace('slug', "{{ $auction->slug }}");
+
+
+            axios.post(url, formData)
+                .then(response => {
+                    // Close Modal 
+                    const modal = document.getElementById('{{ $auction->id }}-modal');
+                    modal.close()
+
+                    // Clear Everything 
+                    document.getElementById('whatsapp_number_error_{{ $auction->id }}').textContent =
+                        '';
+                    document.getElementById('bid_amount_error_{{ $auction->id }}').textContent = '';
+                    document.getElementById('place-bid-form-{{ $auction->id }}').reset();
+
+                    toastr.success('Bid Placed Successfully');
+                    // console.log(response.data);
+
+                })
+                .catch(error => {
+                    // Clear existing errors
+                    document.getElementById('whatsapp_number_error_{{ $auction->id }}').textContent =
+                        '';
+                    document.getElementById('bid_amount_error_{{ $auction->id }}').textContent = '';
+
+                    if (error.response && error.response.status === 422) {
+                        const errors = error.response.data.errors;
+
+                        if (errors.whatsapp_number) {
+                            document.getElementById('whatsapp_number_error_{{ $auction->id }}')
+                                .textContent = errors.whatsapp_number[0];
+                        }
+
+                        if (errors.bid_amount) {
+                            document.getElementById('bid_amount_error_{{ $auction->id }}')
+                                .textContent = errors.bid_amount[0];
+                        }
+                    } else {
+                        toastr.error('Something went wrong');
+                        console.error(error);
+                    }
+                });
+        });
+    })();
+</script>
+
 
 {{-- Countdown Timer --}}
 <script>
@@ -88,7 +170,7 @@
             const duration = moment.duration(endDate.diff(now));
 
             if (duration.asSeconds() <= 0) {
-                timer.innerText = 'Expired';
+                timer.innerText = 'Auction Ended';
                 clearInterval(interval);
                 return;
             }

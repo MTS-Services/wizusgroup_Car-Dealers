@@ -154,7 +154,8 @@ class TestimonialController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->testimonialService->createTestimonial($validated, $request->author_image);
+            $file = $request->validated('author_image') &&  $request->hasFile('author_image') ? $request->file('author_image') : null;
+            $this->testimonialService->createTestimonial($validated, $file);
             session()->flash('success', 'Testimonial created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Testimonial create failed!');
@@ -191,7 +192,8 @@ class TestimonialController extends Controller
         try {
             $testimonial = $this->testimonialService->getTestimonial($id);
             $validated = $request->validated();
-            $this->testimonialService->updateTestimonial($testimonial, $validated, $request->author_image);
+            $file = $request->validated('author_image') &&  $request->hasFile('author_image') ? $request->file('author_image') : null;
+            $this->testimonialService->updateTestimonial($testimonial, $validated, $file);
             session()->flash('success', 'Testimonial updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Testimonial update failed!');

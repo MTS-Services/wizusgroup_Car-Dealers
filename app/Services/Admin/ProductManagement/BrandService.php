@@ -30,7 +30,7 @@ class BrandService
     {
         $data['created_by'] = admin()->id;
         if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload(Brand::class, $file, admin(), 'brands/');
+            $data['image'] = $this->handleFileUpload($file, 'brands');
         }
         $brand = Brand::create($data);
         return $brand;
@@ -41,7 +41,8 @@ class BrandService
         $brand = $this->getBrand($encryptedId);
         $data['updated_by'] = admin()->id;
         if ($file) {
-            $data['image'] = $this->handleFilepondFileUpload($brand, $file, admin(), 'brands/');
+            $data['image'] = $this->handleFileUpload($file, 'brands');
+            $this->fileDelete($brand->image);
         }
         $brand->update($data);
         return $brand;
