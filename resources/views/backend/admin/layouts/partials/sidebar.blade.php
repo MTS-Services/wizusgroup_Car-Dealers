@@ -353,6 +353,21 @@
                                 </div>
                             </li>
                             <li class="@if ($page_slug == 'product') active @endif">
+                                <a href="{{ route('pm.product.create', ['product_type' => App\Models\Product::PRODUCT_TYPE_NORMAL] ) }}">
+                                    <span class="sub-item">{{ __('Product') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'product') active @endif">
+                                <a href="{{ route('pm.product.index') }}">
+                                    <span class="sub-item">{{ __('Product') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'product') active @endif">
+                                <a href="{{ route('pm.product.index') }}">
+                                    <span class="sub-item">{{ __('Product') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'product') active @endif">
                                 <a href="{{ route('pm.product.index') }}">
                                     <span class="sub-item">{{ __('Product') }}</span>
                                 </a>

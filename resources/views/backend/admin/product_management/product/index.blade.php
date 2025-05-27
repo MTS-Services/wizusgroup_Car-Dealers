@@ -29,10 +29,10 @@
                             <tr>
                                 <th>{{ __('SL') }}</th>
                                 <th>{{ __('Name') }}</th>
+                                <th>{{ __('Price') }}</th>
+                                <th>{{ __('Cost Price') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Featured') }}</th>
-                                <th>{{ __('Backorder') }}</th>
-                                <th>{{ __('Dropshipping') }}</th>
                                 <th>{{ __('Created By') }}</th>
                                 <th>{{ __('Created Date') }}</th>
                                 <th>{{ __('Action') }}</th>
@@ -57,10 +57,10 @@
             let table_columns = [
                 //name and data, orderable, searchable
                 ['name', true, true],
+                ['price', true, true],
+                ['cost_price', true, true],
                 ['status', true, true],
                 ['is_featured', true, true],
-                ['allow_backorder', true, true],
-                ['is_dropshipping', true, true],
                 ['created_by', true, true],
                 ['created_at', false, false],
                 ['action', false, false],

@@ -326,8 +326,8 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
             Route::get('information/{product}', 'info')->name('info');
             Route::get('status/{product}', 'status')->name('status');
             Route::get('feature/{product}', 'feature')->name('feature');
-            Route::get('backorder/{product}',  'backorder')->name('backorder');
-            Route::get('dropshipping/{product}', 'dropshipping')->name('dropshipping');
+            // Route::get('backorder/{product}',  'backorder')->name('backorder');
+            // Route::get('dropshipping/{product}', 'dropshipping')->name('dropshipping');
             Route::get('recycle/bin', 'recycleBin')->name('recycle-bin');
             Route::get('restore/{product}', 'restore')->name('restore');
             Route::delete('permanent-delete/{product}', 'permanentDelete')->name('permanent-delete');
