@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row">
-            <div class="product_tabs col-lg-12">
+        <div class="row product_tabs">
+            <div class="col-lg-12">
                 <div class="d-flex justify-content-around align-items-center gap-5 py-5 text-center">
                     <p class="btn_item w-100 py-2 m-0 active" data-bs-target="basic">{{ __('Basic Information') }}</p>
                     <p class="btn_item w-100 py-2 m-0 " data-bs-target="relations">{{ __('Relations') }}</p>

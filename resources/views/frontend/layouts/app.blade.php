@@ -28,6 +28,8 @@
 
     {{-- Swiper CSS --}}
     <link rel="stylesheet" href="{{ asset('frontend/css/swiper.min.css') }}">
+    {{-- Custom CSS --}}
+    <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
 
     {{-- BoxIcons --}}
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" /> --}}

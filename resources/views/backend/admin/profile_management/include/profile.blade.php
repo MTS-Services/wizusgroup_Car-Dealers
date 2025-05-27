@@ -1,4 +1,4 @@
-<div id="profile" class="tab-pane active">
+<div id="profile" class="tab-pane active profile_management">
     {{-- Profile Edit Card --}}
     <div class="col-lg-12 mb-4">
         <div class="card shadow-sm border-0">
