@@ -25,8 +25,8 @@
                         <tr>
                             <th>{{ __('Status') }}</th>
                             <td>
-                                <span class="badge bg-{{ $contact->status_color ?? 'secondary' }}">
-                                    {{ $contact->status_label ?? '-' }}
+                                <span class="badge {{ $contact->status_color }}">
+                                    {{ $contact->status_label }}
                                 </span>
                             </td>
                         </tr>
@@ -36,8 +36,9 @@
                         </tr>
                         <tr>
                             <th>{{ __('Opened By') }}</th>
-                            <td>{{ $contact->open_by ?? '-' }}</td>
+                            <td>{{ $contact->openBy?->full_name ?? 'Null' }}</td>
                         </tr>
+
                     </table>
                 </div>
             </div>

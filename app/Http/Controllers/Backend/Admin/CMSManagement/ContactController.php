@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Admin\CMSManagement;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
 use App\Services\Admin\CMSManagement\ContactService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -61,8 +62,7 @@ class ContactController extends Controller
         return [
             [
                 'routeName' => 'cms.contact.show',
-                'data-id' => encrypt($model->id),
-                'className' => 'view',
+                'params' => [encrypt($model->id)],
                 'label' => 'Details',
                 'permissions' => ['contact-details']
             ],
@@ -149,8 +149,14 @@ class ContactController extends Controller
     public function show(string $id)
     {
         $data['contact'] = $this->contactService->getContact($id);
-
-        $data['contact'] ->load(['creater']);
+        $data['contact'] ->update(['open_by' => admin()->id, 'updated_at' => null]);
+        if ($data['contact']->status == Contact::STATUS_PENDING) {
+        $data['contact']->update([
+            'status' => Contact::STATUS_OPEN,
+            'open_by' => admin()->id,
+        ]);
+    }
+        $data['contact'] ->load(['openBy']);
         return view('backend.admin.cms_management.contact.show',$data);
     }
 
