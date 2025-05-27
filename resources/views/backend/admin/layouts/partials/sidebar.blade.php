@@ -363,18 +363,23 @@
                 </li>
 
                 {{-- Auction Management --}}
-                <li class="nav-item  @if ($page_slug == 'auction') active submenu @endif">
+                <li class="nav-item  @if ($page_slug == 'auction' || $page_slug == 'auction_running') active submenu @endif">
                     <a data-bs-toggle="collapse" href="#auction_management"
-                        @if ($page_slug == 'auction') aria-expanded="true" @endif>
+                        @if ($page_slug == 'auction' || $page_slug == 'auction_running') aria-expanded="true" @endif>
                         <i class="fas fa-gavel"></i>
                         <p>{{ __('Auction Management') }}</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse @if ($page_slug == 'auction') show @endif" id="auction_management">
+                    <div class="collapse @if ($page_slug == 'auction' || $page_slug == 'auction_running') show @endif" id="auction_management">
                         <ul class="nav nav-collapse">
                             <li class="@if ($page_slug == 'auction') active @endif">
                                 <a href="{{ route('auction-m.auction.index') }}">
                                     <span class="sub-item">{{ __('Auction') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'auction_running') active @endif">
+                                <a href="{{ route('auction-m.auction-running') }}">
+                                    <span class="sub-item">{{ __('Auction Running') }}</span>
                                 </a>
                             </li>
                         </ul>
@@ -382,14 +387,14 @@
                 </li>
 
                 {{-- CMS Management  --}}
-                <li class="nav-item  @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial'|| $page_slug == 'contact') active submenu @endif">
+                <li class="nav-item  @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial'|| $page_slug == 'contact'|| $page_slug == 'region'|| $page_slug == 'region_shipping_timeline') active submenu @endif">
                     <a data-bs-toggle="collapse" href="#cms_management"
-                        @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial'|| $page_slug == 'contact') aria-expanded="true" @endif>
+                        @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial'|| $page_slug == 'contact'|| $page_slug == 'region'|| $page_slug == 'region_shipping_timeline') aria-expanded="true" @endif>
                         <i class="icon-people"></i>
                         <p>{{ __('CMS Management') }}</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial'|| $page_slug == 'contact') show @endif" id="cms_management">
+                    <div class="collapse @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial'|| $page_slug == 'contact'|| $page_slug == 'region'|| $page_slug == 'region_shipping_timeline') show @endif" id="cms_management">
                         <ul class="nav nav-collapse">
                             <li class="@if ($page_slug == 'banner') active @endif">
                                 <a href="{{ route('cms.banner.index') }}">
@@ -409,6 +414,16 @@
                             <li class="@if ($page_slug == 'contact') active @endif">
                                 <a href="{{ route('cms.contact.index') }}">
                                     <span class="sub-item">{{ __('Contact') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'region') active @endif">
+                                <a href="{{ route('cms.region.index') }}">
+                                    <span class="sub-item">{{ __('Region') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'region_shipping_timeline') active @endif">
+                                <a href="{{ route('cms.region-shipping-timeline.index') }}">
+                                    <span class="sub-item">{{ __('Region Shipping Timeline') }}</span>
                                 </a>
                             </li>
                         </ul>

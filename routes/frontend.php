@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\GroupShippingPageController;
 use App\Http\Controllers\Frontend\PartsAccessoriesPageController;
+use App\Http\Controllers\Frontend\RegionPageController;
 
 Route::group(['as' => 'frontend.'], function () {
     // Home Page
@@ -43,15 +44,15 @@ Route::group(['as' => 'frontend.'], function () {
     });
 
 
-  // group Shipping page
-   Route::controller(GroupShippingPageController::class)->group(function () {
+    // group Shipping page
+    Route::controller(GroupShippingPageController::class)->group(function () {
         Route::get('/group-shipping', 'group_shipping')->name('group_shipping');
     });
 
-  // droopshipping
-  Route::get('/drop-shipping', [FrontendController::class, 'dropshipping'])->name('dropshipping');
-  // Regions
-  Route::get('/regions', [FrontendController::class, 'regions'])->name('regions');
+    // droopshipping
+    Route::get('/drop-shipping', [FrontendController::class, 'dropshipping'])->name('dropshipping');
 
-  // Parts & Accessories Page
+    //   Region Page
+    Route::get('/region', [RegionPageController::class, 'region'])->name('regions');
+
 });

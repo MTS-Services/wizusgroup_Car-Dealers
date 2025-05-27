@@ -31,4 +31,9 @@ class AuctionBid extends BaseModel
     {
         return $this->belongsTo(Auction::class);
     }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
