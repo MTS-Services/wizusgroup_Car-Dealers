@@ -366,17 +366,21 @@
                                          <table class="w-full table-auto text-sm sm:text-base">
                                              <tbody>
                                                  {{-- @dd($type->toArray()) --}}
-                                                 <p>{{$info->infoCategory->catagoryTypes[$key]->name}}</p>
+                                                 <p>{{ $info->infoCategory->catagoryTypes[$key]->name }}</p>
 
                                                  @foreach ($info->infoCategory->catagoryTypes as $type)
+
                                                      @if (!empty($type->features))
                                                          @foreach ($type->features as $feature)
-                                                             <td
-                                                                 class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
-                                                                 {{ $feature->name }}</td>
-                                                             <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                                 {{-- {{ $product->name ?? 'N/A' }} --}}
-                                                             </td>
+                                                             <tr class=" border-border-gray dark:border-bg-dark-secondary">
+                                                                 <td
+                                                                     class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                                     {{ $feature->name }}</td>
+                                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                                     {{ $info->description ?? 'N/A' }}
+
+                                                                 </td>
+                                                             </tr>
                                                          @endforeach
                                                      @endif
                                                  @endforeach
