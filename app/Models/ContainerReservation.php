@@ -26,6 +26,20 @@ class ContainerReservation extends BaseModel
         'deleted_by',
     ];
 
+    // relationships
+    public function container()
+    {
+        return $this->belongsTo(Container::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
      // ✅ Status constants
     public const STATUS_PENDING = 1;
     public const STATUS_ACCEPT = 2;
