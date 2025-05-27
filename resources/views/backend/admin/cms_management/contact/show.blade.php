@@ -38,6 +38,14 @@
                             <th>{{ __('Opened By') }}</th>
                             <td>{{ $contact->openBy?->full_name ?? 'Null' }}</td>
                         </tr>
+                        <tr>
+                            <th>{{ __('Created By') }}</th>
+                            <td>{{ $contact->creater?->full_name ?? 'Guest' }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('Updated By') }}</th>
+                            <td>{{ $contact->updater?->full_name ?? 'Null' }}</td>
+                        </tr>
 
                     </table>
                 </div>

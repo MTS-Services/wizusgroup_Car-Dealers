@@ -67,12 +67,6 @@ class ContactController extends Controller
                 'permissions' => ['contact-details']
             ],
             [
-                'routeName' => 'cms.contact.status',
-                'params' => [encrypt($model->id)],
-                'label' => $model->status_btn_label,
-                'permissions' => ['contact-status']
-            ],
-            [
                 'routeName' => 'cms.contact.destroy',
                 'params' => [encrypt($model->id)],
                 'label' => 'Delete',
@@ -149,15 +143,12 @@ class ContactController extends Controller
     public function show(string $id)
     {
         $data['contact'] = $this->contactService->getContact($id);
-        $data['contact'] ->update(['open_by' => admin()->id, 'updated_at' => null]);
-        if ($data['contact']->status == Contact::STATUS_PENDING) {
-        $data['contact']->update([
-            'status' => Contact::STATUS_OPEN,
-            'open_by' => admin()->id,
-        ]);
-    }
-        $data['contact'] ->load(['openBy']);
-        return view('backend.admin.cms_management.contact.show',$data);
+        if (empty($data['contact']->open_by)) {
+            $data['contact']->update(['open_by' => admin()->id, 'status' => Contact::STATUS_OPEN]);
+        }
+        $data['contact']->load(['creater', 'updater', 'openBy']);
+
+        return view('backend.admin.cms_management.contact.show', $data);
     }
 
 
@@ -191,16 +182,9 @@ class ContactController extends Controller
         }
         return redirect()->route('cms.contact.index');
     }
-    public function status(string $id): RedirectResponse
+    public function status(string $id)
     {
-        try {
-            $this->contactService->toggleStatus($id);
-            session()->flash('success', 'Contacat status updated successfully!');
-        } catch (\Throwable $e) {
-            session()->flash('error', 'Contacat status update failed!');
-            throw $e;
-        }
-        return redirect()->route('cms.contact.index');
+
     }
 
     public function restore(string $id): RedirectResponse
