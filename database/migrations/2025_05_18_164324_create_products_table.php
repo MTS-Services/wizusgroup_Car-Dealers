@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Traits\AuditColumnsTrait;
 
-return new class extends Migration
-{
+return new class extends Migration {
     use SoftDeletes, AuditColumnsTrait;
     /**
      * Run the migrations.
@@ -47,6 +46,12 @@ return new class extends Migration
             $table->string('transmission')->nullable();
             $table->string('drive_system')->nullable();
             $table->year('year')->index();
+
+            //For Container Calculation
+            $table->string('length_cm')->nullable();
+            $table->string('width_cm')->nullable();
+            $table->string('height_cm')->nullable();
+            $table->string('weight_kg')->nullable();
 
             $table->tinyInteger('entry_status')->default(Product::ENTRY_STATUS_BASIC)->index();
 

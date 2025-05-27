@@ -54,6 +54,11 @@ class Product extends BaseModel
         'supplier_id',
         'product_type',
 
+        'length_cm',
+        'width_cm',
+        'height_cm',
+        'weight_kg',
+
         'meta_title',
         'meta_description',
         'meta_keywords',
@@ -62,6 +67,11 @@ class Product extends BaseModel
         'updated_by',
         'deleted_by',
     ];
+
+    public function productVolume()
+    {
+        return $this->length_cm * $this->width_cm;
+    }
 
     public function productReserves(): HasMany
     {
