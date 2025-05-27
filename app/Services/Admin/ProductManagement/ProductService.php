@@ -41,11 +41,11 @@ class ProductService
     public function relationCreateOrUpdate(Product $product, array $data): ProductRelation
     {
         return DB::transaction(function () use ($data, $product) {
-            if($product->updated_by == null){
+            if ($product->updated_by == null) {
                 $product->update(['entry_status' => Product::ENTRY_STATUS_IMAGE]);
             }
 
-            $product->updated_by ?  $data['updated_by'] = admin()->id : $data['created_by'] = admin()->id;
+            $product->updated_by ? $data['updated_by'] = admin()->id : $data['created_by'] = admin()->id;
             return ProductRelation::updateOrCreate(['product_id' => $product->id], $data);
         });
     }
@@ -54,7 +54,7 @@ class ProductService
     {
         return DB::transaction(function () use ($data, $product) {
 
-            $product->updated_by ?  $data['updated_by'] = admin()->id : $data['created_by'] = admin()->id;
+            $product->updated_by ? $data['updated_by'] = admin()->id : $data['created_by'] = admin()->id;
             $data['product_id'] = $product->id;
             if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
                 $images = ProductImage::where('product_id', $product->id)->get();
@@ -76,7 +76,7 @@ class ProductService
                     }
                 }
             }
-            if($product->updated_by == null){
+            if ($product->updated_by == null) {
                 $product->update(['entry_status' => Product::ENTRY_STATUS_INFORMATION]);
             }
 
@@ -86,7 +86,8 @@ class ProductService
     public function infoCreate(Product $product, array $data)
     {
         $data['created_by'] = admin()->id;
-        return ProductInformation::updateOrCreate(['product_id' => $product->id, 'product_info_cat_id' => $data['product_info_cat_id'], 'product_info_cat_type_id' => $data['product_info_cat_type_id']], ['product_info_cat_type_feature_id' => $data['product_info_cat_type_feature_id'], 'description' => $data['description']]);
+        $info = ProductInformation::updateOrCreate(['product_id' => $product->id, 'product_info_cat_id' => $data['product_info_cat_id'], 'product_info_cat_type_id' => $data['product_info_cat_type_id']], ['product_info_cat_type_feature_id' => $data['product_info_cat_type_feature_id'], 'description' => $data['description']]);
+        return $info;
 
     }
 
@@ -118,17 +119,17 @@ class ProductService
             ->whereNotNull('file')
             ->first();
         if (!$record) {
-             if ($file) {
-                $data['file'] = $this->handleFileUpload($file,  'product_documents');
+            if ($file) {
+                $data['file'] = $this->handleFileUpload($file, 'product_documents');
             }
             $record = ProductInformation::create([
                 'product_id' => $product->id,
                 'product_info_cat_id' => $data['product_info_cat'],
                 'file' => $data['file'],
             ]);
-        }else{
+        } else {
             if ($file) {
-                $data['file'] = $this->handleFileUpload($file,  'product_documents');
+                $data['file'] = $this->handleFileUpload($file, 'product_documents');
             }
             $record->update(['file' => $data['file']]);
         }
@@ -137,16 +138,16 @@ class ProductService
     {
         $product = $this->getProduct($encryptedId);
         if ($product->entry_status == Product::ENTRY_STATUS_INFORMATION) {
-            $product->update(['entry_status' => Product::ENTRY_STATUS_COMPLETE,'status'=> Product::STATUS_ACTIVE]);
+            $product->update(['entry_status' => Product::ENTRY_STATUS_COMPLETE, 'status' => Product::STATUS_ACTIVE]);
             return true;
-        }else{
+        } else {
             return false;
         }
 
     }
     public function getInfos(string $encryptedId): ProductInformation|Collection
     {
-        return ProductInformation::with(['infoCategory','infoCategoryType','infoCategoryTypeFeature'])->where('product_id', decrypt($encryptedId))->whereNull('remarks')->select('id','product_info_cat_id', 'product_info_cat_type_id', 'product_info_cat_type_feature_id', 'description')->latest()->get();
+        return ProductInformation::with(['infoCategory', 'infoCategoryType', 'infoCategoryTypeFeature'])->where('product_id', decrypt($encryptedId))->whereNull('remarks')->whereNotNull('product_info_cat_type_id')->whereNotNull('product_info_cat_type_feature_id')->select('id', 'product_info_cat_id', 'product_info_cat_type_id', 'product_info_cat_type_feature_id', 'description')->latest()->get();
     }
 
     public function getProductImages(string $encryptedId): ProductImage|Collection
@@ -155,13 +156,13 @@ class ProductService
     }
     public function getInfoRemarks(string $encryptedId): ProductInformation|Collection
     {
-        return ProductInformation::with('infoCategory')->where('product_id', decrypt($encryptedId))->whereNotNull('remarks')->select('id','product_info_cat_id', 'remarks')->latest()->get();
+        return ProductInformation::with('infoCategory')->where('product_id', decrypt($encryptedId))->whereNotNull('remarks')->select('id', 'product_info_cat_id', 'remarks')->latest()->get();
     }
     public function getInfoFiles(string $encryptedId): ProductInformation|Collection
     {
-        return ProductInformation::with('infoCategory')->where('product_id', decrypt($encryptedId))->whereNotNull('file')->select('id','product_info_cat_id', 'file')->latest()->get();
+        return ProductInformation::with('infoCategory')->where('product_id', decrypt($encryptedId))->whereNotNull('file')->select('id', 'product_info_cat_id', 'file')->latest()->get();
     }
-     public function getProductInfo(string $encryptedId): ProductInformation|Collection
+    public function getProductInfo(string $encryptedId): ProductInformation|Collection
     {
         return ProductInformation::findOrFail(decrypt($encryptedId));
     }
@@ -174,7 +175,7 @@ class ProductService
         return $product;
     }
 
-     public function toggleStatus(string $encryptedId): void
+    public function toggleStatus(string $encryptedId): void
     {
         $product = $this->getProduct($encryptedId);
         $product->update([

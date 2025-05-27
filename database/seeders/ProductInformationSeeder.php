@@ -20,14 +20,10 @@ class ProductInformationSeeder extends Seeder
                 'product_info_cat_type_id' => 1,
                 'product_info_cat_type_feature_id' => 1, // Front Bumper
                 'description' => 'Heavy-duty steel bumper with fog lamp slots.',
-                'remarks' => 'Reinforced for added protection.',
             ],
             [
                 'product_id' => 1,
                 'product_info_cat_id' => 2,
-                'product_info_cat_type_id' => 1,
-                'product_info_cat_type_feature_id' => 2, // Bonnet
-                'description' => 'Aerodynamic bonnet design for efficient airflow.',
                 'remarks' => 'Scratch resistant coating.',
             ],
             [
@@ -36,14 +32,10 @@ class ProductInformationSeeder extends Seeder
                 'product_info_cat_type_id' => 1,
                 'product_info_cat_type_feature_id' => 3, // Left Front Fender
                 'description' => 'Fiber-reinforced plastic fender.',
-                'remarks' => 'No dents or cracks.',
             ],
             [
                 'product_id' => 3,
                 'product_info_cat_id' => 2,
-                'product_info_cat_type_id' => 1,
-                'product_info_cat_type_feature_id' => 1, // Front Bumper
-                'description' => 'Sleek design with integrated sensors.',
                 'remarks' => 'Slight wear on right corner.',
             ],
             [
@@ -52,7 +44,6 @@ class ProductInformationSeeder extends Seeder
                 'product_info_cat_type_id' => 1,
                 'product_info_cat_type_feature_id' => 2, // Bonnet
                 'description' => 'Paint-matched bonnet with noise insulation.',
-                'remarks' => 'Minor touch-up needed on edge.',
             ],
         ];
 
