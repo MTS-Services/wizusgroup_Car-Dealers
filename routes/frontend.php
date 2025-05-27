@@ -17,7 +17,7 @@ Route::group(['as' => 'frontend.'], function () {
     Route::get('/about', [FrontendController::class, 'about'])->name('about');
     // Product Page
     Route::controller(ProductPageController::class)->group(function () {
-        Route::get('/products/{category_slug}',  'products')->name('products');
+        Route::get('/products/{category_slug?}',  'products')->name('products');
         Route::post('/products-filter/{category_slug}' , 'productFilter')->name('products.filter');
         Route::get('/product-details/{slug}',  'productDetails')->name('product.details');
     });
@@ -49,7 +49,7 @@ Route::group(['as' => 'frontend.'], function () {
     });
 
   // droopshipping
-  Route::get('/dropshipping', [FrontendController::class, 'dropshipping'])->name('dropshipping');
+  Route::get('/drop-shipping', [FrontendController::class, 'dropshipping'])->name('dropshipping');
   // Regions
   Route::get('/regions', [FrontendController::class, 'regions'])->name('regions');
 

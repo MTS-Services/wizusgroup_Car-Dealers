@@ -226,17 +226,17 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Streeing Wheel') }}</label>
-                                    <input type="text" value="{{ old('streeing_wheel') }}" name="streeing_wheel"
+                                    <input type="text" value="{{ old('steering_wheel') }}" name="steering_wheel"
                                         class="form-control" placeholder="Enter streeing wheel">
-                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'streeing_wheel']" />
+                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'steering_wheel']" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Transmission') }}</label>
-                                    <input type="text" value="{{ old('transmisison') }}" name="transmisison" class="form-control"
-                                        placeholder="Enter transmisison">
-                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'transmisison']" />
+                                    <input type="text" value="{{ old('transmission') }}" name="transmission" class="form-control"
+                                        placeholder="Enter transmission">
+                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'transmission']" />
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -270,8 +270,8 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ __('Sort Description') }}</label>
-                                    <textarea name="sort_description" class="form-control" placeholder="Enter sort description">{{ old('sort_description') }}</textarea>
-                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'sort_description']" />
+                                    <textarea name="short_description" class="form-control" placeholder="Enter sort description">{{ old('short_description') }}</textarea>
+                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'short_description']" />
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -284,7 +284,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ __('Meta Title') }}</label>
-                                    <input type="text" value="{{ old('meta_title') }}" name="meta_title" class="form-control"
+                                    <input type="text" value="{{ old('meta_title') }}" id="meta_title" name="meta_title" class="form-control"
                                         placeholder="Enter meta title">
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'meta_title']" />
                                 </div>
@@ -292,7 +292,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ __('Meta Description') }}</label>
-                                    <textarea name="meta_description" class="form-control no-ckeditor5" rows="6"
+                                    <textarea name="meta_description" class="form-control no-ckeditor5" id="meta_description" rows="6"
                                         placeholder="Enter meta description">{{ old('meta_description') }}</textarea>
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'meta_description']" />
                                 </div>

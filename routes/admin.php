@@ -252,7 +252,7 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         // Contact Routes
         Route::resource('contact', ContactController::class);
         Route::get('contact/status/{contact}', [ContactController::class, 'status'])->name('contact.status');
-        
+
         Route::get('contact/recycle/bin', [ContactController::class, 'recycleBin'])->name('contact.recycle-bin');
         Route::get('contact/restore/{contact}', [ContactController::class, 'restore'])->name('contact.restore');
         Route::delete('contact/permanent-delete/{contact}', [ContactController::class, 'permanentDelete'])->name('contact.permanent-delete');
@@ -328,7 +328,7 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
             Route::get('edit-image/{product}', 'editImage')->name('image.edit');
             Route::get('edit-info/{product}', 'editInfo')->name('info.edit');
 
-            // update 
+            // update
             Route::put('update-relation/{product}', 'updateRelation')->name('relation.update');
             Route::put('update-image/{product}', 'updateImage')->name('image.update');
             Route::put('update-info/{product}', 'updateInfo')->name('info.update');

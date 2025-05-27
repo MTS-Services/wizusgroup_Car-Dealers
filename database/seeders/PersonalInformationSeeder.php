@@ -26,15 +26,15 @@ class PersonalInformationSeeder extends Seeder
             'nationality' => 'Japanese',
             'bio' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         ]);
-        
+
         PersonalInformation::create([
-           'profile_id' => 2,
+            'profile_id' => 1,
             'profile_type' => User::class,
             'dob' => '2001-01-01',
             'gender' => PersonalInformation::GENDER_MALE,
             'emergency_phone' => '1234567890',
             'father_name' => 'Duane Smith',
-            'mother_name' => 'Sally Smith',  
+            'mother_name' => 'Sally Smith',
             'nationality' => 'American',
             'bio' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         ]);

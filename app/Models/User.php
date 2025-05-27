@@ -71,6 +71,27 @@ class User extends AuthBaseModel implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function productReserves(): HasMany
+    {
+        return $this->hasMany(ProductReserve::class);
+    }
+
+    public function productInquiries(): HasMany
+    {
+        return $this->hasMany(ProductInquiry::class);
+    }
+
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class);
+    }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
     public function personalInformation(): MorphOne
     {
         return $this->morphOne(PersonalInformation::class, 'profile');
@@ -94,13 +115,13 @@ class User extends AuthBaseModel implements MustVerifyEmail
     {
         parent::__construct($attributes);
         $this->appends = array_merge(parent::getAppends(), [
-            'business_type',
-            'business_name',
-            'business_line',
+            // 'business_type',
+            // 'business_name',
+            // 'business_line',
 
-            'know_label',
-            'receive_promotion_email',
-            'accept_term'
+            // 'know_label',
+            // 'receive_promotion_email',
+            // 'accept_term'
         ]);
     }
 
@@ -114,11 +135,6 @@ class User extends AuthBaseModel implements MustVerifyEmail
             self::BUSINESS_TYPE_CORPORATE => 'Corporate',
             self::BUSINESS_TYPE_INDIVIDUAL => 'Individual',
         ];
-    }
-
-    public function getBusinessTypeAttribute(): string
-    {
-        return self::getBusinessTypes()[$this->business_type] ?? 'Unknown';
     }
 
     public const BUSINESS_NAME_SHEET_METAL = 1;
@@ -146,11 +162,6 @@ class User extends AuthBaseModel implements MustVerifyEmail
         ];
     }
 
-    public function getBusinessNameAttribute(): string
-    {
-        return self::getBusinessNames()[$this->business_name] ?? 'Unknown';
-    }
-
     public const BUSINESS_LINE_DAMAGED_CAR = 1;
     public const BUSINESS_LINE_USED_CAR = 2;
     public const BUSINESS_LINE_TRUCK_BUS = 3;
@@ -170,11 +181,6 @@ class User extends AuthBaseModel implements MustVerifyEmail
             self::BUSINESS_LINE_FARM_MACHINE => 'Farm Machine',
             self::BUSINESS_LINE_AUTO_PART => 'Auto Parts',
         ];
-    }
-
-    public function getBusinessLineAttribute(): string
-    {
-        return self::getBusinessLines()[$this->business_line] ?? 'Unknown';
     }
 
     public const KNOW_FACEBOOK = 1;
@@ -204,11 +210,6 @@ class User extends AuthBaseModel implements MustVerifyEmail
         ];
     }
 
-    public function getKnowLabelAttribute(): string
-    {
-        return self::getKnows()[$this->how_know] ?? 'Unknown';
-    }
-
     public const RECEIVE_PROMOTION_EMAIL = 1;
     public const NOT_RECEIVE_PROMOTION_EMAIL = 0;
 
@@ -220,11 +221,6 @@ class User extends AuthBaseModel implements MustVerifyEmail
         ];
     }
 
-    public function getReceivePromotionEmailAttribute(): string
-    {
-        return self::getReceivePromotionEmails()[$this->receive_promotion_email] ?? 'Unknown';
-    }
-
     public const ACCEPT_TERMS = 1;
     public const NOT_ACCEPT_TERMS = 0;
 
@@ -234,10 +230,5 @@ class User extends AuthBaseModel implements MustVerifyEmail
             self::ACCEPT_TERMS => 'Accept',
             self::NOT_ACCEPT_TERMS => 'Not Accept',
         ];
-    }
-
-    public function getAcceptTermAttribute(): string
-    {
-        return self::getTerms()[$this->accept_terms] ?? 'Unknown';
     }
 }

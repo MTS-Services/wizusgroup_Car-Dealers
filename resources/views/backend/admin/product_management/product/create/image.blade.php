@@ -11,13 +11,13 @@
                     </h4>
                     <x-backend.admin.button :datas="[
                         'routeName' => 'pm.product.relation',
-                        'params' => ['product' => $product_id],
+                        'params' => ['product' => encrypt($product->id)],
                         'label' => 'Back',
                         'permissions' => ['product-create'],
                     ]" />
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('pm.product.image.store', $product_id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('pm.product.image.store', encrypt($product->id)) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label>{{ __('Primary image') }} <span class="text-danger">*</span></label>
@@ -47,10 +47,29 @@
     <script>
         $(document).ready(function() {
             const existingFiles = {
-                "#image":"{{ $product->modified_image }}",
+                "#image":"{{ $product?->primaryImage?->first()?->modified_image }}",
             }
-            file_upload(["#image"], [], ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg'], existingFiles);
-            file_upload(["#images"], [], ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg'],existingFiles);
+            const existingMultiFiles = {
+                "#images":@json($product->nonPrimayImages->map(fn ($img) => $img->modified_image)->toArray()),
+            }
+            console.log(existingMultiFiles);
+
+            file_upload(["#image"],['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg'], existingFiles);
+            file_upload(["#images"],['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg'], existingMultiFiles, true);
+
+            // const existingFiles = {
+            //     "#image": "{{ $product?->primaryImage?->first()?->modified_image }}",
+            //     "#images": @json($product->nonPrimayImages->map(fn ($img) => $img->modified_image)->toArray()),
+            // };
+            // console.log(existingFiles);
+
+
+            // const multipleConfig = {
+            //     "#image": false,
+            //     "#images": true
+            // };
+
+            // file_upload(["#image", "#images"], ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg'], existingFiles, multipleConfig);
         });
     </script>
 @endpush

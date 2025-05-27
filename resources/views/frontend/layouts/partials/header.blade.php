@@ -1,12 +1,12 @@
-<header class="bg-bg-white dark:bg-bg-dark sticky top-0 z-[9999999]">
+<header class="bg-bg-white dark:bg-bg-dark sticky top-0 z-[9999999] shadow-md">
     <div class="container">
         <div class="navbar">
             <div class="navbar-start">
-                <a href="{{ url('/') }}" class=""><img src="{{ asset('frontend/images/logo.png') }}" alt="Logo"
-                        class="w-28"></a>
+                <a href="{{ url('/') }}" class=""><img src="{{ asset('frontend/images/logo.png') }}"
+                        alt="Logo" class="w-28"></a>
             </div>
             <div class="navbar-center hidden tablet:flex">
-                <div class="flex items-center justify-center gap-2">
+                <div class="flex items-center justify-center">
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear
                     @if (isset($page_slug) && $page_slug == 'home') text-text-secondary dark:text-text-secondary @endif
                     "
@@ -19,6 +19,14 @@
                      @if (isset($page_slug) && $page_slug == 'auctions') text-text-secondary dark:text-text-secondary @endif
                     "
                         href="{{ route('frontend.auctions') }}">{{ __('Auctions') }}</a>
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
+                     @if (isset($page_slug) && $page_slug == 'products') text-text-secondary dark:text-text-secondary @endif
+                    "
+                        href="{{ route('frontend.products') }}">{{ __('Products') }}</a>
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
+                     @if (isset($page_slug) && $page_slug == 'parts-accessories') text-text-secondary dark:text-text-secondary @endif
+                    "
+                        href="{{ route('frontend.parts-accessories') }}">{{ __('Parts & Accessories') }}</a>
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
                     @if (isset($page_slug) && $page_slug == 'contact') text-text-secondary dark:text-text-secondary @endif
                     "

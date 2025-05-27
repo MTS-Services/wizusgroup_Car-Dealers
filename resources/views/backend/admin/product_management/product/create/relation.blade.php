@@ -9,13 +9,14 @@
                             {{ __('Set Product Relations') }}
                     </h4>
                     <x-backend.admin.button :datas="[
-                        'routeName' => 'pm.product.create',
+                        'routeName' => $product->updated_by ? 'pm.product.edit' : 'pm.product.create',
+                        'params' => $product->updated_by ? ['product' => encrypt($product->id)] : [],
                         'label' => 'Back',
-                        'permissions' => ['product-create'],
+                        'permissions' => $product->updated_by ? ['product-update'] : ['product-create'],
                     ]" />
                 </div>
                 <div class="card-body">
-                   <form action="{{ route('pm.product.relation.store', $product_id) }}" method="POST" enctype="multipart/form-data">
+                   <form action="{{ route('pm.product.relation.store', encrypt($product->id)) }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row">
@@ -25,7 +26,7 @@
                                     <select name="company_id" id="company_id" class="form-control">
                                         <option value="" selected disabled>{{ __('Select Company') }}</option>
                                         @foreach ($companies as $company)
-                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                            <option value="{{ $company->id }}" {{ old('company_id', $product?->company?->id) == $company->id ? 'selected' : ''}}>{{ $company->name }}</option>
                                         @endforeach
                                     </select>
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'company_id']" />
@@ -78,7 +79,7 @@
                                     <select name="category_id" class="form-control" id="category_id">
                                         <option value="" selected disabled>{{ __('Select Category') }}</option>
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <option value="{{ $category->id }}" {{ old('category_id', $product?->category?->id) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                         @endforeach
                                     </select>
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'category_id']" />
@@ -116,23 +117,43 @@
     </div>
 @endsection
 @push('js')
-    <script>
+     <script>
         $(document).ready(function() {
+            let sub_cat_route = "{{ route('axios.get-sub-categories') }}";
             $('#category_id').on('change', function() {
-                let route = "{{ route('axios.get-sub-categories') }}";
-                getSubCategories($(this).val(), route);
+                getSubCategories($(this).val(), sub_cat_route);
             })
+
+            if(`{{$product?->subCategory?->id}}`){
+                getSubCategories($('#category_id').val(), sub_cat_route, `{{$product?->subCategory?->id}}`);
+
+            }
+
+            let brand_route = "{{ route('axios.get-brands') }}";
             $('#company_id').on('change', function() {
-                let route = "{{ route('axios.get-brands') }}";
-                getBrands($(this).val(), route);
+                getBrands($(this).val(), brand_route);
             });
+
+            if(`{{$product?->brand?->id}}`){
+                getBrands($('#company_id').val(), brand_route, `{{$product?->brand?->id}}`);
+            }
+
+
+            let model_route = "{{ route('axios.get-models') }}";
             $('#brand_id').on('change', function() {
-                let route = "{{ route('axios.get-models') }}";
                 getModels({
                     brandId: $(this).val(),
-                    route: route
+                    route: model_route
                 });
             });
+
+            if(`{{$product?->model?->id}}`){
+                getModels({
+                    brandId: `{{$product?->brand?->id}}`,
+                    route: model_route,
+                    modelId: `{{$product?->model?->id}}`
+                });
+            }
         });
     </script>
 @endpush
