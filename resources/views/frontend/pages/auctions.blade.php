@@ -1,22 +1,4 @@
 @extends('frontend.layouts.app', ['page_slug' => 'auctions'])
-@push('css')
-    <style>
-        .filterSidebarhide {
-            /* position: fixed; */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            max-height: 100vh;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 99999;
-            /* transform: translateX(-100%); */
-            transition: all 0.3s ease-in-out;
-            overflow-y: scroll;
-            padding: 20px 10px;
-        }
-    </style>
-@endpush
 @section('title', 'Auctions')
 @section('content')
     <section class="py-15">
@@ -97,6 +79,7 @@
                     </form>
 
                 </div>
+
                 <div class="w-full 2xl:w-3/4">
                     {{-- Products Grid --}}
                     <div class="flex justify-between items-center mb-6">
