@@ -18,7 +18,7 @@ Route::group(['as' => 'frontend.'], function () {
     // Product Page
     Route::controller(ProductPageController::class)->group(function () {
         Route::get('/products/{category_slug?}',  'products')->name('products');
-        Route::post('/products-filter/{category_slug}' , 'productFilter')->name('products.filter');
+        Route::post('/products-filter/{category_slug?}' , 'productFilter')->name('products.filter');
         Route::get('/product-details/{slug}',  'productDetails')->name('product.details');
     });
 

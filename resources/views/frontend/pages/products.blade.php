@@ -55,19 +55,25 @@
             </div>
         </section>
     @endif
-
     {{-- Mid Content --}}
+
     <section class="py-15">
         <div class="container">
-            <div class="flex justify-start gap-10 relative">
-                {{-- @include('frontend.layouts.includes.product_filter_sidebar') --}}
-                <div class="w-full basis-1/4 hidden 2xl:block">
-                    {{-- Sidebar Filter --}}
-                    {{-- <form action="{{ route('frontend.products.filter', isset($category) ? $category->slug : '') }}"
-                        method="POST">
+            <div class="flex justify-start gap-10 overflow-hidden 2xl:overflow-visible p-1">
+                <div
+                    class="w-full filter-sidebar fixed 2xl:sticky 2xl:w-1/4 top-0 2xl:top-24 left-0 h-screen 2xl:h-screen max-h-screen 2xl:max-h-fit bg-bg-black/50 2xl:bg-transparent z-[99999] 2xl:z-0 -translate-x-full 2xl:translate-x-0 transition-all duration-300 ease-in-out overflow-y-auto px-2 2xl:p-0 py-5">
+                    <form action="{{ route('frontend.products.filter', isset($category) ? $category->slug : '') }}"
+                        method="post"
+                        class="w-5/6 sm:w-4/6 md:w-3/6 lg:w-2/5 2xl:w-full h-full 2xl:h-fit flex flex-col gap-2">
                         @csrf
-                        <div class="space-y-6 shadow-card dark:shadow-dark-card rounded-lg dark:bg-bg-dark-tertiary overflow-hidden mt-3">
-   
+                        <div class="bg-bg-light dark:bg-bg-dark-tertiary rounded-lg p-4 flex justify-between items-center">
+                            <h3 class="text-lg md:text-xl font-semibold  capitalize">
+                                {{ __(' Product fillters') }}</h3>
+                            <button type="button" class="closeFilterSidebar btn btn-sm btn-circle btn-ghost 2xl:hidden"><i
+                                    data-lucide="x" class="w-5 h-5"></i></button>
+                        </div>
+                        <div
+                            class="space-y-3 shadow-card dark:shadow-dark-card rounded-lg bg-bg-secondary dark:bg-bg-dark-tertiary overflow-hidden h-full py-3">
                             <div class="p-4 pb-0">
                                 <div data-target="category-filter">
                                     <h3 class="text-xl font-medium">{{ __('Category') }}</h3>
@@ -136,7 +142,8 @@
                                             <option value=" ">{{ __('All') }}</option>
                                             @for ($i = date('Y'); $i >= 1900; $i--)
                                                 <option value="{{ $i }}"
-                                                    {{ request()->year == $i ? 'selected' : '' }}>{{ $i }}
+                                                    {{ request()->year == $i ? 'selected' : '' }}>
+                                                    {{ $i }}
                                                 </option>
                                             @endfor
                                         </select>
@@ -171,19 +178,20 @@
                                     </div>
                                 </div>
                             </details>
-
-                            <button type="submit"
-                                class="w-full btn-primary hover:bg-bg-tertiary py-2 rounded-md transition-all duration-200 flex items-center justify-center group">
-                                <span>{{ __('Sherch') }}</span>
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                </svg>
-                            </button>
+                            <div class="px-4">
+                                <button id="filterBtn" class="w-full btn-primary group">
+                                    <span>{{ __('Filter') }}</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
-                    </form> --}}
+                    </form>
+
                 </div>
                 <div class="w-full 2xl:basis-3/4">
                     {{-- Products Grid --}}
@@ -199,10 +207,11 @@
                             </h2>
                         </div>
                         <div class="flex items-center">
-                            <form action="{{ route('frontend.products.filter', isset($category) ? $category->slug : '') }}"
+                            <form
+                                action="{{ route('frontend.products.filter', isset($category) ? $category->slug : '') }}"
                                 method="POST" id="filter_form">
                                 @csrf
-                                <select name="sort" id="sort-select" class="select">
+                                <select name="sort" id="sort-select" class="select select2">
                                     <option value="" {{ request()->sort == '' ? 'selected' : '' }}>Default</option>
                                     <option value="low_to_high" {{ request()->sort == 'low_to_high' ? 'selected' : '' }}>
                                         {{ __('Price: High to Low') }}</option>
@@ -235,6 +244,21 @@
     </section>
 @endsection
 @push('js')
+    <script>
+        $(document).ready(function() {
+            const $openFilterSidebar = $('.openFilterSidebar');
+            const $filterSidebar = $('.filter-sidebar');
+            const $closeFilterSidebar = $('.closeFilterSidebar');
+
+            $openFilterSidebar.on('click', function() {
+                $filterSidebar.css('transform', 'translateX(0)');
+            });
+
+            $closeFilterSidebar.on('click', function() {
+                $filterSidebar.css('transform', 'translateX(-100%)');
+            });
+        })
+    </script>
     <script type="module">
         import Swiper from '/frontend/js/swiper.min.js';
         // CATEGORY SWIPER

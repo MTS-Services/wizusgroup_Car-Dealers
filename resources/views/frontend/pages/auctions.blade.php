@@ -12,7 +12,6 @@
         </div>
     </section>
     {{-- Mid Content --}}
-    @include('frontend.layouts.includes.auction_side_filter')
     <section class="pb-15">
         <div class="container">
             <div class="flex justify-start gap-10 overflow-hidden 2xl:overflow-visible p-1">
@@ -34,7 +33,7 @@
                             <div class="px-4">
                                 <h3 class="text-sm md:text-base font-medium">{{ __('Category') }}</h3>
 
-                                <select class="select mt-2" name="category">
+                                <select class="select select2 mt-2" name="category">
                                     <option value="" selected>All Category</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->slug }}"
@@ -47,7 +46,7 @@
                             </div>
                             <div class="px-4">
                                 <h3 class="text-sm md:text-base font-medium">{{ __('Make') }}</h3>
-                                <select class="select mt-2" name="company">
+                                <select class="select select2 mt-2" name="company">
                                     <option value="" selected>Select Make</option>
                                     @foreach ($companies as $company)
                                         <option value="{{ $company->slug }}"
@@ -96,7 +95,7 @@
                         <div class="flex items-center">
                             <form action="{{ route('frontend.auctions.filter') }}" method="POST" id="filter_form">
                                 @csrf
-                                <select name="sort" id="sort-select" class="select">
+                                <select name="sort" id="sort-select" class="select select2">
                                     <option value="" {{ request()->sort == '' ? 'selected' : '' }}>Default</option>
                                     <option value="low_to_high" {{ request()->sort == 'low_to_high' ? 'selected' : '' }}>
                                         {{ __('Price: High to Low') }}</option>
