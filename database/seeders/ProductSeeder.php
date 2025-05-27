@@ -35,7 +35,7 @@ class ProductSeeder extends Seeder
             'cost_price' => 27000.00,
             'sale_price' => 31000.00,
             'quantity' => 3,
-            'allow_backorder' => false,
+            // 'allow_backorder' => false,
             'supplier_id' => 1,
             'year'=> "2021",
         ]);
@@ -62,7 +62,7 @@ class ProductSeeder extends Seeder
             'cost_price' => 125000.00,
             'sale_price' => 140000.00,
             'quantity' => 2,
-            'allow_backorder' => false,
+            // 'allow_backorder' => false,
             'supplier_id' => 2,
             'year'=> '2019',
         ]);
@@ -89,7 +89,7 @@ class ProductSeeder extends Seeder
             'cost_price' => 35000.00,
             'sale_price' => 39000.00,
             'quantity' => 4,
-            'allow_backorder' => false,
+            // 'allow_backorder' => false,
             'supplier_id' => 3,
             'year'=> '2022',
         ]);
@@ -116,7 +116,7 @@ class ProductSeeder extends Seeder
             'cost_price' => 9500.00,
             'sale_price' => 11500.00,
             'quantity' => 6,
-            'allow_backorder' => true,
+            // 'allow_backorder' => true,
             'supplier_id' => 1,
             'year'=> '2018',
         ]);
@@ -143,7 +143,7 @@ class ProductSeeder extends Seeder
             'cost_price' => 23000.00,
             'sale_price' => 27000.00,
             'quantity' => 8,
-            'allow_backorder' => false,
+            // 'allow_backorder' => false,
             'supplier_id' => 2,
             'year'=> '2020',
         ]);

@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Traits\AuditColumnsTrait;
 
-return new class extends Migration
-{
+return new class extends Migration {
     use SoftDeletes, AuditColumnsTrait;
     /**
      * Run the migrations.
@@ -48,6 +47,13 @@ return new class extends Migration
             $table->string('drive_system')->nullable();
             $table->year('year')->index();
 
+            //For Container Calculation
+            $table->string('length_cm')->nullable();
+            $table->string('width_cm')->nullable();
+            $table->string('height_cm')->nullable();
+            $table->string('weight_kg')->nullable();
+            $table->string('source_url')->nullable();
+
             $table->tinyInteger('entry_status')->default(Product::ENTRY_STATUS_BASIC)->index();
 
             // Descriptions
@@ -60,15 +66,13 @@ return new class extends Migration
             $table->decimal('sale_price', 10, 2)->index(); // promotional price if any
 
             // Inventory
-            $table->unsignedInteger('quantity')->default(0); // non-negative
-            $table->boolean('allow_backorder')->default(Product::NOTALLOW_BACKORDER)->index(); // indexed for faster backorder queries
+            $table->unsignedInteger('quantity')->default(0); // non-negativequeries
 
-            $table->tinyInteger('product_type')->default(Product::PRODUCT_TYPE_USED)->index();
+            $table->tinyInteger('product_type')->default(Product::PRODUCT_TYPE_NORMAL)->index();
 
             // Flags
             $table->tinyInteger('status')->default(Product::STATUS_ACTIVE)->index();
             $table->boolean('is_featured')->default(Product::NOT_FEATURED)->index();
-            $table->boolean('is_dropshipping')->default(Product::NOTALLOW_DROPSHIPPING)->index();
 
             // Dropshipping supplier relation
             $table->unsignedBigInteger('supplier_id')->nullable();

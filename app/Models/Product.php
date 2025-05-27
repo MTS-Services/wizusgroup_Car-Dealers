@@ -47,12 +47,17 @@ class Product extends BaseModel
         'cost_price',
         'sale_price',
         'quantity',
-        'allow_backorder',
         'status',
         'is_featured',
-        'is_dropshipping',
         'supplier_id',
         'product_type',
+
+        'source_url',
+
+        'length_cm',
+        'width_cm',
+        'height_cm',
+        'weight_kg',
 
         'meta_title',
         'meta_description',
@@ -62,6 +67,11 @@ class Product extends BaseModel
         'updated_by',
         'deleted_by',
     ];
+
+    public function productVolume()
+    {
+        return $this->length_cm * $this->width_cm;
+    }
 
     public function productReserves(): HasMany
     {
@@ -89,19 +99,6 @@ class Product extends BaseModel
             'featured_btn_label',
             'featured_btn_color',
             'featured_labels',
-
-            'dropshipping_label',
-            'dropshipping_color',
-            'dropshipping_btn_label',
-            'dropshipping_btn_color',
-            'dropshipping_labels',
-
-            'backorder_label',
-            'backorder_color',
-            'backorder_btn_label',
-            'backorder_btn_color',
-            'backorder_labels',
-            'product_type_label',
         ]);
     }
 
@@ -313,130 +310,6 @@ class Product extends BaseModel
         return $query->where('is_featured', self::NOT_FEATURED);
     }
 
-    // ========================================Dropshipping labels
-
-    public const ALLOW_DROPSHIPPING = 1;
-    public const NOTALLOW_DROPSHIPPING = 0;
-
-    // Dropshipping labels
-    public static function getDropshippingLabels(): array
-    {
-        return [
-            self::ALLOW_DROPSHIPPING => 'Allow',
-            self::NOTALLOW_DROPSHIPPING => 'Not Allow',
-        ];
-    }
-
-    // Dropshipping btn labels
-    public static function getDropshippingBtnLabels(): array
-    {
-        return [
-            self::ALLOW_DROPSHIPPING => 'Not Allow Dropshipping',
-            self::NOTALLOW_DROPSHIPPING => 'Allow Dropshipping',
-        ];
-    }
-
-    // Accessor for Dropshipping labels
-    public function getDropshippingLabelsAttribute(): array
-    {
-        return self::getDropshippingLabels();
-    }
-
-    // Accessor for Dropshipping label
-    public function getDropshippingLabelAttribute(): string
-    {
-        return self::getDropshippingLabels()[$this->is_dropshipping] ?? 'Unknown';
-    }
-    // Accessor for Dropshipping color
-    public function getDropshippingColorAttribute(): string
-    {
-        return $this->is_dropshipping == self::ALLOW_DROPSHIPPING ? 'bg-primary' : 'bg-info';
-    }
-
-    // Accessor for Dropshipping label
-    public function getDropshippingBtnLabelAttribute(): string
-    {
-        return self::getDropshippingBtnLabels()[$this->is_dropshipping] ?? 'Unknown';
-    }
-
-    // Accessor for Dropshipping btn color
-    public function getDropshippingBtnColorAttribute(): string
-    {
-        return $this->is_dropshipping == self::ALLOW_DROPSHIPPING ? 'btn btn-info' : 'btn btn-primary';
-    }
-
-    public function scopeDropshipping($query): mixed
-    {
-        return $query->where('is_dropshipping', self::ALLOW_DROPSHIPPING);
-    }
-
-    public function scopeNotDropshipping($query): mixed
-    {
-        return $query->where('is_dropshipping', self::NOTALLOW_DROPSHIPPING);
-    }
-
-    // ========================================Backorder labels
-
-    public const ALLOW_BACKORDER = 1;
-    public const NOTALLOW_BACKORDER = 0;
-
-    // Dropshipping labels
-    public static function getBackorderLabels(): array
-    {
-        return [
-            self::ALLOW_BACKORDER => 'Allow',
-            self::NOTALLOW_BACKORDER => 'Not Allow',
-        ];
-    }
-
-    // Dropshipping btn labels
-    public static function getBackorderBtnLabels(): array
-    {
-        return [
-            self::ALLOW_BACKORDER => 'Not Allow Backorder',
-            self::NOTALLOW_BACKORDER => 'ALlow Backorder',
-        ];
-    }
-
-    // Accessor for Dropshipping labels
-    public function getBackorderLabelsAttribute(): array
-    {
-        return self::getBackorderLabels();
-    }
-
-    // Accessor for Dropshipping label
-    public function getBackorderLabelAttribute(): string
-    {
-        return self::getBackorderLabels()[$this->allow_backorder] ?? 'Unknown';
-    }
-    // Accessor for Dropshipping color
-    public function getBackorderColorAttribute(): string
-    {
-        return $this->allow_backorder == self::ALLOW_BACKORDER ? 'bg-primary' : 'bg-info';
-    }
-
-    // Accessor for Dropshipping label
-    public function getBackorderBtnLabelAttribute(): string
-    {
-        return self::getBackorderBtnLabels()[$this->allow_backorder] ?? 'Unknown';
-    }
-
-    // Accessor for Dropshipping btn color
-    public function getBackorderBtnColorAttribute(): string
-    {
-        return $this->allow_backorder == self::ALLOW_BACKORDER ? 'btn btn-info' : 'btn btn-primary';
-    }
-
-    public function scopeBackorder($query): mixed
-    {
-        return $query->where('allow_backorder', self::ALLOW_BACKORDER);
-    }
-
-    public function scopeNotBackorder($query): mixed
-    {
-        return $query->where('allow_backorder', self::NOTALLOW_BACKORDER);
-    }
-
     // Entry Status labels
     public const ENTRY_STATUS_BASIC = 0;
     public const ENTRY_STATUS_RELATION = 1;
@@ -466,29 +339,29 @@ class Product extends BaseModel
     }
 
     // Product Types
-    public const PRODUCT_TYPE_PARTS = 0;
-    public const PRODUCT_TYPE_USED = 1;
-    public const PRODUCT_TYPE_NEW = 2;
+    public const PRODUCT_TYPE_PARTS = 1;
+    public const PRODUCT_TYPE_NORMAL = 2;
+    public const PRODUCT_TYPE_DROPSHIPPING = 3;
 
     public function scopeParts($query): mixed
     {
         return $query->where('product_type', self::PRODUCT_TYPE_PARTS);
     }
-    public function scopeUsed($query): mixed
+    public function scopeNormal($query): mixed
     {
-        return $query->where('product_type', self::PRODUCT_TYPE_USED);
+        return $query->where('product_type', self::PRODUCT_TYPE_NORMAL);
     }
-    public function scopeNew($query): mixed
+    public function scopeDropshipping($query): mixed
     {
-        return $query->where('product_type', self::PRODUCT_TYPE_NEW);
+        return $query->where('product_type', self::PRODUCT_TYPE_DROPSHIPPING);
     }
 
     public static function getProductTypes(): array
     {
         return [
+            self::PRODUCT_TYPE_NORMAL => 'Normal',
             self::PRODUCT_TYPE_PARTS => 'Parts & Accessories',
-            self::PRODUCT_TYPE_USED => 'Used/Damaged',
-            self::PRODUCT_TYPE_NEW => 'Brand New',
+            self::PRODUCT_TYPE_DROPSHIPPING => 'Dropshipping',
         ];
     }
 
