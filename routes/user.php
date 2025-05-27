@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\User\DashboardController as UserDashboardContro
 use App\Http\Controllers\Backend\User\UserProfileController;
 use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Backend\User\AuctionManagement\AuctionBidPlaceController;
+use App\Http\Controllers\Backend\User\ProductReserveInquiryController;
 
 Auth::routes([
   'verify' => true
@@ -35,6 +36,11 @@ Route::middleware(['auth:web', 'verified'])->group(function () {
     // Auction Bid Place Route
     Route::controller(AuctionBidPlaceController::class)->prefix('bid-place')->name('auction.')->group(function () {
       Route::post('/place/{slug}', 'placeBid')->name('bid-place');
+    });
+
+    Route::controller(ProductReserveInquiryController::class)->name('p.')->group(function () {
+      Route::post('/reserve/{slug}', 'reserveStore')->name('reserve-store');
+      Route::post('/inquiry/{slug}', 'inquiryStore')->name('inquiry-store');
     });
   });
 });
