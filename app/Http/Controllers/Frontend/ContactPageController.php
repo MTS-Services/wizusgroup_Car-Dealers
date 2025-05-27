@@ -7,9 +7,9 @@ use App\Http\Requests\Frontend\Contact\ContactRequest;
 use App\Models\Contact;
 use App\Services\Admin\CMSManagement\ContactService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ContactPageController extends Controller
-
 {
 
     protected ContactService $contactService;
@@ -30,6 +30,10 @@ class ContactPageController extends Controller
 
         try {
             $validated = $request->validated();
+            if (Auth::guard('web')->check()) {
+                $validated['creater_id'] = user()->id;
+                $validated['creater_type'] = get_class(user());
+            }
             $this->contactService->createContact($validated);
         } catch (\Throwable $e) {
             session()->flash('error', 'Contact create failed!');
