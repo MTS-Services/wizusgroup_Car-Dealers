@@ -10,42 +10,35 @@
 
 @section('content')
     {{-- ===================== banner Section Start ===================== --}}
-    <section
-        class="xl:max-h-screen max-h-[60vh] md:max-h-[70vh] lg:max-h-[80vh] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative overflow-hidden">
-        <div class="absolute bg-transparent inset-0 z-10">
-            <div class="container flex items-center justify-center h-full px-4 xs:px-2">
-                <div class="text-center w-full">
-                    <h1 class="text-3xl xs:text-3xl sm:text-5xl md:text-5xl lg:text-6xl font-bold pb-3 text-text-white">
-                        {{ __('Affordable Machines,') }} <br class="hidden xs:block">
-                        {{ __('Shipped Worldwide') }}
-                    </h1>
-                    <p class="my-4 text-base xs:text-sm sm:text-lg md:text-xl text-text-white px-4 xs:px-0">
-                        {{ __('Discover amazing content and features.') }}
-                    </p>
-                    <div
-                        class="relative  2xl:max-w-[700px] xl:max-w-[600px] lg:max-w-[500px] max-w-96 mx-auto px-4 xs:px-2">
-                        <input type="search" id="machine-search"
-                            class="block w-full xl:py-4 md:py-3 py-2 px-1 xs:px-2 pl-4 pr-16 text-sm xs:text-xs border-none rounded-lg bg-bg-light-secondary focus:ring-blue-500 focus:border-blue-600"
-                            placeholder="{{ __('Find your machine...') }}">
-                        <button type="submit"
-                            class="text-text-white absolute right-0 top-0 bottom-0 bg-bg-primary hover:bg-bg-primary/90 font-medium rounded-l-none rounded-r-lg text-sm px-4">
-                            <svg class="w-5 h-5 text-text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section class="lg:max-h-screen max-h-[70vh] md:max-h-[80vh] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative">
         <div class="swiper banner h-full">
             <div class="swiper-wrapper h-full">
                 @foreach ($banners as $banner)
                     <div
-                        class="swiper-slide h-full relative after:content-[''] after:w-full after:h-full after:absolute after:top-0 after:left-0 after:bg-bg-dark/40">
+                        class="swiper-slide h-full relative after:content-[''] after:w-full after:h-full after:absolute after:top-0 after:left-0 after:bg-bg-dark/35">
                         <img class="w-full h-full object-cover bg-center" src="{{ storage_url($banner->image) }}"
                             alt="{{ $banner->name }}">
+
+                        <div class="absolute bg-transparent inset-0 z-10">
+                            <div class="container flex items-center justify-center h-full flex-col gap-5">
+                                <div class="max-w-[600px] text-center">
+                                    <h1
+                                        class="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold pb-3 text-text-white dark:text-text-primary">
+                                        {{ $banner->title }}
+                                    </h1>
+                                    <p
+                                        class="text-base xs:text-sm sm:text-lg md:text-xl text-text-light-secondary dark:text-text-primary">
+                                        {{ $banner->subtitle }}
+                                    </p>
+                                </div>
+                                <form action="" class="w-full">
+                                    <div class="join w-full justify-center">
+                                        <input type="search" class="input input-search" placeholder="Search here..." />
+                                        <button class="btn-search">Search</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 @endforeach
             </div>
@@ -66,11 +59,11 @@
                         @foreach ($categories as $category)
                             <div class="swiper-slide px-2">
                                 <a href="{{ route('frontend.products', $category->slug) }}">
-                                     <div class="text-center">
-                                            <img class="w-auto rounded-xl object-cover mx-auto"
-                                                src="{{ $category->modified_image }}" alt="{{ $category?->name }}">
-                                            <p class="py-2">{{ __($category?->name) }} </p>
-                                        </div>
+                                    <div class="text-center">
+                                        <img class="w-auto rounded-xl object-cover mx-auto"
+                                            src="{{ $category->modified_image }}" alt="{{ $category?->name }}">
+                                        <p class="py-2">{{ __($category?->name) }} </p>
+                                    </div>
                                 </a>
                             </div>
                         @endforeach
@@ -229,7 +222,7 @@
                         </div>
                     </div>
 
-                    
+
                 </div>
             </div>
         </div>
@@ -248,7 +241,7 @@
             slidesPerView: 1,
             loop: true,
             autoplay: {
-                delay: 5000000,
+                delay: 5000,
                 disableOnInteraction: true,
             },
             spaceBetween: 20,
