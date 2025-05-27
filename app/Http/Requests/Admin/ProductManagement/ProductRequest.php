@@ -46,7 +46,8 @@ class ProductRequest extends FormRequest
             'steering_wheel' => 'nullable|string',
             'transmission' => 'nullable|string',
             'drive_system' => 'nullable|string',
-            'supplier_id' => 'nullable|integer|exists:suppliers,id',
+            'supplier_id' => 'required|sometimes|integer|exists:suppliers,id',
+            'source_url' => 'required|sometimes|url',
             'meta_title' => 'nullable|string|min:30|max:60',
             'meta_description' => 'nullable|string|min:60|max:160',
             'meta_keywords' => 'nullable|array',
@@ -54,7 +55,12 @@ class ProductRequest extends FormRequest
             'remarks' => 'nullable|string',
             'description' => 'nullable|string',
             'product_type' => 'required|integer',
-            'year'=> 'required|integer',
+            'year' => 'required|integer',
+
+            'length_cm' => 'required|numeric',
+            'width_cm' => 'required|numeric',
+            'height_cm' => 'required|numeric',
+            'weight_kg' => 'nullable|numeric',
         ] + ($this->isMethod('POST') ? $this->store() : $this->update());
     }
 

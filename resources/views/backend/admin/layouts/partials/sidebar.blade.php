@@ -352,7 +352,25 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="@if ($page_slug == 'product') active @endif">
+                            <li class="@if ($page_slug == 'product' && isset($product_type) && $product_type == App\Models\Product::PRODUCT_TYPE_NORMAL) active @endif">
+                                <a
+                                    href="{{ route('pm.product.create', ['product_type' => App\Models\Product::PRODUCT_TYPE_NORMAL]) }}">
+                                    <span class="sub-item">{{ __('Add Product') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'product' && isset($product_type) && $product_type == App\Models\Product::PRODUCT_TYPE_PARTS) active @endif">
+                                <a
+                                    href="{{ route('pm.product.create', ['product_type' => App\Models\Product::PRODUCT_TYPE_PARTS]) }}">
+                                    <span class="sub-item">{{ __('Add Parts & Accessories') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'product' && isset($product_type) && $product_type == App\Models\Product::PRODUCT_TYPE_DROPSHIPPING) active @endif">
+                                <a
+                                    href="{{ route('pm.product.create', ['product_type' => App\Models\Product::PRODUCT_TYPE_DROPSHIPPING]) }}">
+                                    <span class="sub-item">{{ __('Add Dropshipping Product') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'product' && (empty($product_type) || !isset($product_type))) active @endif">
                                 <a href="{{ route('pm.product.index') }}">
                                     <span class="sub-item">{{ __('Product') }}</span>
                                 </a>
@@ -387,14 +405,32 @@
                 </li>
 
                 {{-- CMS Management  --}}
-                <li class="nav-item  @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial'|| $page_slug == 'contact'|| $page_slug == 'region'|| $page_slug == 'region_shipping_timeline') active submenu @endif">
+                <li class="nav-item  @if (
+                    $page_slug == 'banner' ||
+                        $page_slug == 'faq' ||
+                        $page_slug == 'testimonial' ||
+                        $page_slug == 'contact' ||
+                        $page_slug == 'region' ||
+                        $page_slug == 'region_shipping_timeline') active submenu @endif">
                     <a data-bs-toggle="collapse" href="#cms_management"
-                        @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial'|| $page_slug == 'contact'|| $page_slug == 'region'|| $page_slug == 'region_shipping_timeline') aria-expanded="true" @endif>
+                        @if (
+                            $page_slug == 'banner' ||
+                                $page_slug == 'faq' ||
+                                $page_slug == 'testimonial' ||
+                                $page_slug == 'contact' ||
+                                $page_slug == 'region' ||
+                                $page_slug == 'region_shipping_timeline') aria-expanded="true" @endif>
                         <i class="icon-people"></i>
                         <p>{{ __('CMS Management') }}</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse @if ($page_slug == 'banner' || $page_slug == 'faq'|| $page_slug == 'testimonial'|| $page_slug == 'contact'|| $page_slug == 'region'|| $page_slug == 'region_shipping_timeline') show @endif" id="cms_management">
+                    <div class="collapse @if (
+                        $page_slug == 'banner' ||
+                            $page_slug == 'faq' ||
+                            $page_slug == 'testimonial' ||
+                            $page_slug == 'contact' ||
+                            $page_slug == 'region' ||
+                            $page_slug == 'region_shipping_timeline') show @endif" id="cms_management">
                         <ul class="nav nav-collapse">
                             <li class="@if ($page_slug == 'banner') active @endif">
                                 <a href="{{ route('cms.banner.index') }}">

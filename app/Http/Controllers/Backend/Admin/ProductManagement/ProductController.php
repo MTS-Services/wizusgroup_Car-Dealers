@@ -48,8 +48,8 @@ class ProductController extends Controller
         $this->middleware('permission:product-delete', ['only' => ['destroy']]);
         $this->middleware('permission:product-status', ['only' => ['status']]);
         $this->middleware('permission:product-feature', ['only' => ['feature']]);
-        $this->middleware('permission:product-backorder', ['only' => ['backorder']]);
-        $this->middleware('permission:product-dropshipping', ['only' => ['dropshipping']]);
+        // $this->middleware('permission:product-backorder', ['only' => ['backorder']]);
+        // $this->middleware('permission:product-dropshipping', ['only' => ['dropshipping']]);
         $this->middleware('permission:product-recycle-bin', ['only' => ['recycleBin']]);
         $this->middleware('permission:product-restore', ['only' => ['restore']]);
         $this->middleware('permission:product-permanent-delete', ['only' => ['permanentDelete']]);
@@ -70,12 +70,6 @@ class ProductController extends Controller
                 ->editColumn('is_featured', function ($product) {
                     return "<span class='badge " . $product->featured_color . "'>" . $product->featured_label . "</span>";
                 })
-                ->editColumn('allow_backorder', function ($product) {
-                    return "<span class='badge " . $product->backorder_color . "'>" . $product->backorder_label . "</span>";
-                })
-                ->editColumn('is_dropshipping', function ($product) {
-                    return "<span class='badge " . $product->dropshipping_color . "'>" . $product->dropshipping_label . "</span>";
-                })
                 ->editColumn('created_by', function ($product) {
                     return $product->creater_name;
                 })
@@ -86,7 +80,7 @@ class ProductController extends Controller
                     $menuItems = $this->menuItems($product);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['status', 'is_featured', 'allow_backorder', 'is_dropshipping', 'created_by', 'created_at', 'action'])
+                ->rawColumns(['status', 'is_featured', 'created_by', 'created_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.product_management.product.index');
@@ -121,20 +115,6 @@ class ProductController extends Controller
                 'permissions' => ['product-feature']
             ],
             [
-                'routeName' => 'pm.product.backorder',
-                'params' => [encrypt($model->id)],
-                'label' => $model->backorder_btn_label,
-                'restore' => true,
-                'permissions' => ['product-backorder']
-            ],
-            [
-                'routeName' => 'pm.product.dropshipping',
-                'params' => [encrypt($model->id)],
-                'label' => $model->dropshipping_btn_label,
-                'restore' => true,
-                'permissions' => ['product-dropshipping']
-            ],
-            [
                 'routeName' => 'pm.product.destroy',
                 'params' => [encrypt($model->id)],
                 'label' => 'Delete',
@@ -164,14 +144,6 @@ class ProductController extends Controller
                     // The featured status of the product is shown as a badge
                     return "<span class='badge " . $product->featured_color . "'>" . $product->featured_label . "</span>";
                 })
-                ->editColumn('allow_backorder', function ($product) {
-                    // The backorder status of the product is shown as a badge
-                    return "<span class='badge " . $product->backorder_color . "'>" . $product->backorder_label . "</span>";
-                })
-                ->editColumn('is_dropshipping', function ($product) {
-                    // The dropshipping status of the product is shown as a badge
-                    return "<span class='badge " . $product->dropshipping_color . "'>" . $product->dropshipping_label . "</span>";
-                })
                 ->editColumn('deleted_by', function ($category) {
                     // The name of the user who deleted the product is shown
                     return $category->deleter_name;
@@ -184,7 +156,7 @@ class ProductController extends Controller
                     $menuItems = $this->trashedMenuItems($category);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['status', 'is_featured', 'allow_backorder', 'is_dropshipping', 'deleted_by', 'deleted_at', 'action'])
+                ->rawColumns(['status', 'is_featured', 'deleted_by', 'deleted_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.product_management.product.recycle-bin');
@@ -213,8 +185,9 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
+        $data['product_type'] = $request->product_type;
         $data['suppliers'] = Supplier::select('id', 'first_name')->get();
         return view('backend.admin.product_management.product.create.basic_info', $data);
     }
@@ -237,7 +210,7 @@ class ProductController extends Controller
     public function relation(string $pid): View
     {
         $data['product'] = $this->productService->getProduct($pid);
-        $data['product']->load(['brand','model','category','company','subCategory']);
+        $data['product']->load(['brand', 'model', 'category', 'company', 'subCategory']);
         $data['companies'] = $this->companyService->getCompanies()->active()->select(['id', 'name'])->get();
         $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->active()->select(['id', 'name'])->get();
         return view('backend.admin.product_management.product.create.relation', $data);
@@ -260,7 +233,7 @@ class ProductController extends Controller
     public function images(string $pid): View
     {
         $data['product'] = $this->productService->getProduct($pid);
-        $data['product']->load(['images','primaryImage']);
+        $data['product']->load(['images', 'primaryImage']);
         return view('backend.admin.product_management.product.create.image', $data);
     }
 
@@ -310,7 +283,8 @@ class ProductController extends Controller
             $validated = $request->validated();
             $this->productService->infoCreate($product, $validated);
             session()->flash('success', 'Product information added successfully!');
-            return redirect()->route('pm.product.info', $pid);;
+            return redirect()->route('pm.product.info', $pid);
+            ;
         } catch (\Throwable $e) {
             session()->flash('error', 'Product information added failed!');
             throw $e;
@@ -335,7 +309,7 @@ class ProductController extends Controller
         try {
             $product = $this->productService->getProduct($pid);
             $validated = $request->validated();
-             $file = $request->validated('file') &&  $request->hasFile('file') ? $request->file('file') : null;
+            $file = $request->validated('file') && $request->hasFile('file') ? $request->file('file') : null;
             $this->productService->infoFileCreate($product, $validated, $file);
             session()->flash('success', 'Product files added successfully!');
             return redirect()->route('pm.product.info', $pid);
@@ -380,7 +354,7 @@ class ProductController extends Controller
     {
         $data['supplier'] = Supplier::select('id', 'first_name')->get();
         $data['product'] = $this->productService->getProduct($id);
-        $data['product']->load(['creater_admin','images','primaryImage']);
+        $data['product']->load(['creater_admin', 'images', 'primaryImage']);
         return view('backend.admin.product_management.product.details', $data);
     }
 
@@ -432,29 +406,29 @@ class ProductController extends Controller
         return redirect()->route('pm.product.index');
     }
 
-    public function backorder(string $id): RedirectResponse
-    {
-        try {
-            $this->productService->toggleBackOrder($id);
-            session()->flash('success', 'Product back order updated successfully!');
-        } catch (\Throwable $e) {
-            session()->flash('error', 'Product back order update failed!');
-            throw $e;
-        }
-        return redirect()->route('pm.product.index');
-    }
+    // public function backorder(string $id): RedirectResponse
+    // {
+    //     try {
+    //         $this->productService->toggleBackOrder($id);
+    //         session()->flash('success', 'Product back order updated successfully!');
+    //     } catch (\Throwable $e) {
+    //         session()->flash('error', 'Product back order update failed!');
+    //         throw $e;
+    //     }
+    //     return redirect()->route('pm.product.index');
+    // }
 
-    public function dropshipping(string $id): RedirectResponse
-    {
-        try {
-            $this->productService->toggleDropshipping($id);
-            session()->flash('success', 'Product dropshipping updated successfully!');
-        } catch (\Throwable $e) {
-            session()->flash('error', 'Product dropshipping update failed!');
-            throw $e;
-        }
-        return redirect()->route('pm.product.index');
-    }
+    // public function dropshipping(string $id): RedirectResponse
+    // {
+    //     try {
+    //         $this->productService->toggleDropshipping($id);
+    //         session()->flash('success', 'Product dropshipping updated successfully!');
+    //     } catch (\Throwable $e) {
+    //         session()->flash('error', 'Product dropshipping update failed!');
+    //         throw $e;
+    //     }
+    //     return redirect()->route('pm.product.index');
+    // }
 
     /**
      * Remove the specified resource from storage.
