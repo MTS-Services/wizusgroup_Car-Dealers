@@ -22,7 +22,7 @@ class HomePageController extends Controller
     public function home()
     {
         $data['banners'] = $this->bannerService->getBanners()->active()->get();
-        $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->active()->get();
+        $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->select(['id', 'name', 'slug'])->active()->get();
         $data['testimonials'] = $this->testimonialService->getTestimonials()->active()->get();
         return view('frontend.pages.home', $data);
     }

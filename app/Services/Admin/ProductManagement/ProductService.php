@@ -38,11 +38,14 @@ class ProductService
         return Product::create($data);
     }
 
-    public function relationCreate(Product $product, array $data, $type = 'create'): ProductRelation
+    public function relationCreateOrUpdate(Product $product, array $data): ProductRelation
     {
-        return DB::transaction(function () use ($data, $product, $type) {
-            $product->update(['entry_status' => Product::ENTRY_STATUS_IMAGE]);
-            $type == 'create' ? $data['created_by'] = admin()->id : $data['updated_by'] = admin()->id;
+        return DB::transaction(function () use ($data, $product) {
+            if($product->updated_by == null){
+                $product->update(['entry_status' => Product::ENTRY_STATUS_IMAGE]);
+            }
+
+            $product->updated_by ?  $data['updated_by'] = admin()->id : $data['created_by'] = admin()->id;
             return ProductRelation::updateOrCreate(['product_id' => $product->id], $data);
         });
     }
@@ -51,7 +54,7 @@ class ProductService
     {
         return DB::transaction(function () use ($data, $product) {
 
-            $data['created_by'] = admin()->id;
+            $product->updated_by ?  $data['updated_by'] = admin()->id : $data['created_by'] = admin()->id;
             $data['product_id'] = $product->id;
             if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
                 $images = ProductImage::where('product_id', $product->id)->get();
@@ -68,25 +71,28 @@ class ProductService
                     if ($image instanceof UploadedFile) {
                         $file = $image;
                         $data['image'] = $this->handleFileUpload($file, 'products');
+                        $data['is_primary'] = ProductImage::NOT_PRIMARY;
                         ProductImage::create($data);
                     }
                 }
             }
-            $product->update(['entry_status' => Product::ENTRY_STATUS_INFORMATION]);
+            if($product->updated_by == null){
+                $product->update(['entry_status' => Product::ENTRY_STATUS_INFORMATION]);
+            }
 
         });
     }
 
-    public function infoCreate(Product $product, array $data, $type = 'create')
+    public function infoCreate(Product $product, array $data)
     {
-        ($type == 'create' ? $data['created_by'] = admin()->id : $data['updated_by'] = admin()->id);
+        $data['created_by'] = admin()->id;
         return ProductInformation::updateOrCreate(['product_id' => $product->id, 'product_info_cat_id' => $data['product_info_cat_id'], 'product_info_cat_type_id' => $data['product_info_cat_type_id']], ['product_info_cat_type_feature_id' => $data['product_info_cat_type_feature_id'], 'description' => $data['description']]);
 
     }
 
-    public function infoRemarkCreate(Product $product, array $data, $type = 'create')
+    public function infoRemarkCreate(Product $product, array $data)
     {
-        ($type == 'create' ? $data['created_by'] = admin()->id : $data['updated_by'] = admin()->id);
+        $data['created_by'] = admin()->id;
         $record = ProductInformation::where('product_id', $product->id)
             ->where('product_info_cat_id', $data['product_info_cat'])
             ->whereNotNull('remarks')
@@ -104,9 +110,9 @@ class ProductService
 
     }
 
-    public function infoFileCreate(Product $product, array $data, $file = null, $type = 'create')
+    public function infoFileCreate(Product $product, array $data, $file = null)
     {
-        ($type == 'create' ? $data['created_by'] = admin()->id : $data['updated_by'] = admin()->id);
+        $data['created_by'] = admin()->id;
         $record = ProductInformation::where('product_id', $product->id)
             ->where('product_info_cat_id', $data['product_info_cat'])
             ->whereNotNull('file')
@@ -166,39 +172,6 @@ class ProductService
         $data['updated_by'] = admin()->id;
         $product->update($data);
         return $product;
-    }
-
-    public function relationUpdate(Product $product, array $data)
-    {
-        $data['updated_by'] = admin()->id;
-        $product->update($data);
-    }
-
-    public function imageUpdate(Product $product, array $data, $file = null)
-    {
-        $data['updated_by'] = admin()->id;
-        $data['product_id'] = $product->id;
-        if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
-            $images = ProductImage::where('product_id', $product->id)->get();
-            foreach ($images as $image) {
-                $this->fileDelete($image->image);
-                $image->forceDelete();
-            }
-            $file = $data['image'];
-            $data['image'] = $this->handleFileUpload($file, 'products');
-            ProductImage::create(array_merge($data, ['is_primary' => ProductImage::IS_PRIMARY]));
-        }
-        if (isset($data['images'])) {
-            foreach ($data['images'] as $image) {
-                if ($image instanceof UploadedFile) {
-                    $file = $image;
-                    $data['image'] = $this->handleFileUpload($file, 'products');
-                    ProductImage::create($data);
-                }
-            }
-        }
-
-        $product->update($data);
     }
 
      public function toggleStatus(string $encryptedId): void
