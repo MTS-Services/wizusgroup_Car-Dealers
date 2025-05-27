@@ -1,14 +1,14 @@
 
-// fileTypes = [
-//     "application/pdf",
-//     "application/msword",
-//     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-//     "application/vnd.ms-excel",
-//     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-//     "image/jpeg",
-//     "image/png",
-//     "image/gif",
-// ];
+fileTypes = [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "application/vnd.ms-excel",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "image/jpeg",
+    "image/png",
+    "image/gif",
+];
 
 function file_upload(
     selectors,
@@ -19,7 +19,7 @@ function file_upload(
 ) {
     $.each(selectors.reverse(), function (index, selector) {
         const inputElement = document.querySelector(selector);
-        const fileUrl = existingFiles[selector];
+        const fileUrls = existingFiles[selector];
 
         const pondOptions = {
             acceptedFileTypes: fileTypes,
@@ -27,20 +27,64 @@ function file_upload(
             storeAsFile: true,
         };
 
-        if (fileUrl && fileUrl.trim() !== "") {
-            pondOptions.files = [
-                {
-                    source: fileUrl,
-                    options: {
-                        type: "remote", // ✅ try this instead of "local"
-                    },
-                },
-            ];
+         if (multipleFile) {
+            if (Array.isArray(fileUrls) && fileUrls.length) {
+                pondOptions.files = fileUrls.map(url => ({
+                    source: url,
+                    options: { type: "remote" }
+                }));
+            }
+        } else {
+            if (typeof fileUrls === "string" && fileUrls.trim() !== "") {
+                pondOptions.files = [
+                    {
+                        source: fileUrls,
+                        options: { type: "remote" }
+                    }
+                ];
+            }
         }
+
 
         FilePond.create(inputElement, pondOptions);
     });
 }
+
+// function file_upload(selectors, fileTypes = ["image/*"], existingFiles = {}, multipleConfig = {}) {
+//     $.each(selectors, function (index, selector) {
+//         const inputElement = document.querySelector(selector);
+//         const fileUrls = existingFiles[selector] || [];
+//         const allowMultiple = multipleConfig[selector] === true;
+
+//         const pondOptions = {
+//             acceptedFileTypes: fileTypes,
+//             allowMultiple: allowMultiple,
+//             storeAsFile: true,
+//         };
+
+//         // Setup files if exist
+//         if (allowMultiple) {
+//             if (Array.isArray(fileUrls) && fileUrls.length) {
+//                 pondOptions.files = fileUrls.map(url => ({
+//                     source: url,
+//                     options: { type: "remote" }
+//                 }));
+//             }
+//         } else {
+//             if (typeof fileUrls === "string" && fileUrls.trim() !== "") {
+//                 pondOptions.files = [
+//                     {
+//                         source: fileUrls,
+//                         options: { type: "remote" }
+//                     }
+//                 ];
+//             }
+//         }
+
+//         // Create FilePond instance
+//         FilePond.create(inputElement, pondOptions);
+//     });
+// }
 
 
 

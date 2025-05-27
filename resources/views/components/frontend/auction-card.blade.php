@@ -128,7 +128,7 @@ javascript:void(0)
                     document.getElementById('place-bid-form-{{ $auction->id }}').reset();
 
                     toastr.success('Bid Placed Successfully');
-                    console.log(response.data);
+                    // console.log(response.data);
 
                 })
                 .catch(error => {

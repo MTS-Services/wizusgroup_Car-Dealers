@@ -53,6 +53,13 @@
     {{-- Custom CSS --}}
     @stack('css')
 
+    <style>
+        #toast-container {
+            z-index: 99999999999 !important;
+        }
+    </style>
+
+
 </head>
 
 <body>
@@ -185,14 +192,18 @@
             // Determine current slidesPerView
             let currentSlidesPerView = typeof getSlidesPerView === 'function' ? getSlidesPerView() : getSlidesPerView;
 
-            if (realSlideCount <= currentSlidesPerView) {
-                const navNext = swiperEl.querySelector('.swiper-button-next');
-                const navPrev = swiperEl.querySelector('.swiper-button-prev');
-                const pagination = swiperEl.querySelector('.swiper-pagination');
+            const swiperWrapper = swiperEl.querySelector('.swiper-wrapper');
+            const navNext = swiperEl.querySelector('.swiper-button-next');
+            const navPrev = swiperEl.querySelector('.swiper-button-prev');
+            const pagination = swiperEl.querySelector('.swiper-pagination');
 
+            if (realSlideCount <= currentSlidesPerView) {
                 if (navNext) navNext.style.display = 'none';
                 if (navPrev) navPrev.style.display = 'none';
                 if (pagination) pagination.style.display = 'none';
+                if (swiperWrapper) swiperWrapper.classList.add('justify-center');
+            } else {
+                if (swiperWrapper) swiperWrapper.classList.remove('justify-center');
             }
         }
     </script>
