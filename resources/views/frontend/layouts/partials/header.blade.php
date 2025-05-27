@@ -2,8 +2,8 @@
     <div class="container">
         <div class="navbar">
             <div class="navbar-start">
-                <a href="{{ url('/') }}" class=""><img src="{{ asset('frontend/images/logo.png') }}" alt="Logo"
-                        class="w-28"></a>
+                <a href="{{ url('/') }}" class=""><img src="{{ asset('frontend/images/logo.png') }}"
+                        alt="Logo" class="w-28"></a>
             </div>
             <div class="navbar-center hidden tablet:flex">
                 <div class="flex items-center justify-center">

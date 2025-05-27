@@ -2,7 +2,8 @@
 <div
     class="sidebar fixed top-0 right-0 min-h-screen h-full w-full translate-x-full transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-dark-secondary bg-opacity-30 dark:bg-opacity-30 z-[99999999999]">
 
-    <div class="h-full overflow-y-auto max-h-screen bg-bg-light dark:bg-bg-dark-secondary w-5/6 xs:w-3/4 md:w-1/2 lg:w-1/3 ml-auto shadow-xl rounded-l-md">
+    <div
+        class="h-full overflow-y-auto max-h-screen bg-bg-light dark:bg-bg-dark-secondary w-5/6 xs:w-3/4 md:w-1/2 lg:w-1/3 ml-auto shadow-xl rounded-l-md">
         <div class="h-full p-5">
             <div class="flex justify-end items-center pb-2">
                 {{-- <a href="{{ url('/') }}" class="">
@@ -30,11 +31,19 @@
                 <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
                     href="{{ url('/') }}">{{ __('Home') }}</a>
                 <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
-                    href="">{{ __('About Us') }}</a>
+                    href="{{ route('frontend.about') }}">{{ __('About Us') }}</a>
                 <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
-                    href="">{{ __('Products') }}</a>
+                    href="{{ route('frontend.auctions') }}">{{ __('Auctions') }}</a>
                 <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
-                    href="">{{ __('Auctions') }}</a>
+                    href="{{ route('frontend.dropshipping') }}">{{ __('Deals') }}</a>
+                <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
+                    href="{{ route('frontend.parts-accessories') }}">{{ __('Parts & Accessories') }}</a>
+                <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
+                    href="{{ route('frontend.regions') }}">{{ __('Regions') }}</a>
+                <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
+                    href="{{ route('frontend.group_shipping') }}">{{ __('Shipping') }}</a>
+                <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
+                    href="{{ route('frontend.contact') }}">{{ __('Contact') }}</a>
             </div>
 
             <div class="divider my-2"></div>
@@ -43,17 +52,14 @@
 
                 {{-- General Settings --}}
 
-                <span
-                    class="block text-text-primary dark:text-text-white pb-3">{{ __('Settings') }}</span>
+                <span class="block text-text-primary dark:text-text-white pb-3">{{ __('Settings') }}</span>
                 <div class="pl-5">
                     <div class="flex items-center justify-between gap-2">
-                        <span
-                            class="text-text-primary dark:text-text-white">{{ __('Theme') }}</span>
+                        <span class="text-text-primary dark:text-text-white">{{ __('Theme') }}</span>
                         <x-frontend.theme />
                     </div>
                     <div class="flex items-center justify-between gap-2">
-                        <span
-                            class="text-text-primary dark:text-text-white">{{ __('Language') }}</span>
+                        <span class="text-text-primary dark:text-text-white">{{ __('Language') }}</span>
                         <x-frontend.language />
                     </div>
                 </div>
@@ -61,26 +67,22 @@
                 <div class="divider my-2"></div>
 
                 {{-- Account Settings  --}}
-                <span
-                    class="block text-text-primary dark:text-text-white pb-3">{{ __('Account') }}</span>
+                <span class="block text-text-primary dark:text-text-white pb-3">{{ __('Account') }}</span>
                 <div class="pl-5">
                     @auth('web')
                         <a href="" class="flex items-center justify-between gap-2">
-                            <span
-                                class="text-text-primary dark:text-text-white">{{ __('Profile') }}</span>
+                            <span class="text-text-primary dark:text-text-white">{{ __('Profile') }}</span>
                             <i data-lucide="user"
                                 class="hover:text-text-secondary transition-all duration-300 ease-linear"></i>
                         </a>
                         <a href="" class="flex items-center justify-between gap-2">
-                            <span
-                                class="text-text-primary dark:text-text-white">{{ __('Password') }}</span>
+                            <span class="text-text-primary dark:text-text-white">{{ __('Password') }}</span>
                             <i data-lucide="key-round"
                                 class="hover:text-text-secondary transition-all duration-300 ease-linear"></i>
                         </a>
                     @else
                         <a href="{{ route('login') }}" class="flex items-center justify-between gap-2">
-                            <span
-                                class="text-text-primary dark:text-text-white">{{ __('Profile') }}</span>
+                            <span class="text-text-primary dark:text-text-white">{{ __('Profile') }}</span>
                             <i data-lucide="user"
                                 class="hover:text-text-secondary transition-all duration-300 ease-linear"></i>
                         </a>
