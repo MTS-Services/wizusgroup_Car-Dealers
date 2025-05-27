@@ -52,6 +52,7 @@ return new class extends Migration {
             $table->string('width_cm')->nullable();
             $table->string('height_cm')->nullable();
             $table->string('weight_kg')->nullable();
+            $table->string('source_url')->nullable();
 
             $table->tinyInteger('entry_status')->default(Product::ENTRY_STATUS_BASIC)->index();
 
