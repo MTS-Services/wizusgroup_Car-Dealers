@@ -229,7 +229,7 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
                         @foreach ($products as $product)
-                            <x-frontend.parts-accessories :product="$product" />
+                            <x-frontend.parts-accessories :product="$product" /> 
                         @endforeach
 
                     </div>
