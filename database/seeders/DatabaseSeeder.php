@@ -60,6 +60,8 @@ class DatabaseSeeder extends Seeder
 
             AuctionSeeder::class,
             TestimonialSeeder::class,
+            RegionSeeder::class,
+            RegionShippingTimelineSeeder::class,
         ]);
     }
 }
