@@ -229,13 +229,7 @@
                         </div>
                     </div>
 
-                    <!-- WhatsApp Floating Icon -->
-                    <div
-                        class="md:right-10  md:bottom-10 bottom-24 right-10 z-10 fixed shadow-lg md:w-16 md:h-16 w-10 h-10 flex items-center justify-center bg-gradient-primary rounded-full">
-                        <a href="#">
-                            <i class="fa-brands fa-whatsapp text-5xl text-text-light"></i>
-                        </a>
-                    </div>
+                    
                 </div>
             </div>
         </div>
