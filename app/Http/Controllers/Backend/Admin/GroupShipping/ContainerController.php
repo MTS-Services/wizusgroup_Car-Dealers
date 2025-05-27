@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Backend\Admin\GroupShipping;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\GroupShipping\ContainerRequest;
+use App\Models\Documentation;
+use App\Services\Admin\GroupShipping\ContainerService;
+use App\Services\Admin\GroupShipping\ShippingLocationService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -11,42 +15,118 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ContainerController extends Controller
 {
-    public function __construct()
+    protected ContainerService $containerService;
+    protected ShippingLocationService $shippingLocationService;
+
+    public function __construct(ContainerService $containerService, ShippingLocationService $shippingLocationService)
     {
+        $this->containerService = $containerService;
+        $this->shippingLocationService = $shippingLocationService;
+
         $this->middleware('auth:admin');
-        $this->middleware('permission:product-list', ['only' => ['index']]);
-        $this->middleware('permission:product-details', ['only' => ['show']]);
-        $this->middleware('permission:product-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:product-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:product-delete', ['only' => ['destroy']]);
-        $this->middleware('permission:product-status', ['only' => ['status']]);
-        $this->middleware('permission:product-recycle-bin', ['only' => ['recycleBin']]);
-        $this->middleware('permission:product-restore', ['only' => ['restore']]);
-        $this->middleware('permission:product-permanent-delete', ['only' => ['permanentDelete']]);
+        $this->middleware('permission:container-list', ['only' => ['index']]);
+        $this->middleware('permission:container-details', ['only' => ['show']]);
+        $this->middleware('permission:container-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:container-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:container-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:container-status', ['only' => ['status']]);
+        $this->middleware('permission:container-recycle-bin', ['only' => ['recycleBin']]);
+        $this->middleware('permission:container-restore', ['only' => ['restore']]);
+        $this->middleware('permission:container-permanent-delete', ['only' => ['permanentDelete']]);
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index()
+     public function index(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $query = $this->containerService->getContainers()->with(['creater_admin','shippingPort', 'destinationPort']);
+            return DataTables::eloquent($query)
+                ->editColumn('shipping_port', function ($container) {
+                    return $container->shippingPort->name ?? '';
+                })
+                ->editColumn('destination_port', function ($container) {
+                    return $container->destinationPort->name ?? '';
+                })
+                ->editColumn('status', function ($container) {
+                    return "<span class='badge " . $container->status_color . "'>$container->status_label</span>";
+                })
+                ->editColumn('created_by', function ($container) {
+                    return $container->creater_name;
+                })
+                ->editColumn('created_at', function ($container) {
+                    return $container->created_at_formatted;
+                })
+                ->editColumn('action', function ($container) {
+                    $menuItems = $this->menuItems($container);
+                    return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
+                })
+                ->rawColumns(['status', 'shipping_port', 'destination_port', 'created_by', 'created_at', 'action'])
+                ->make(true);
+        }
+        return view('backend.admin.group_shipping.container.index');
     }
 
+
+    protected function menuItems($model): array
+    {
+        return [
+            [
+                'routeName' => 'javascript:void(0)',
+                'data-id' => encrypt($model->id),
+                'className' => 'view',
+                'label' => 'Details',
+                'permissions' => ['container-details']
+            ],
+            [
+                'routeName' => 'gs.container.edit',
+                'params' => [encrypt($model->id)],
+                'label' => 'Edit',
+                'permissions' => ['container-edit']
+            ],
+            [
+                'routeName' => 'gs.container.status',
+                'params' => [encrypt($model->id)],
+                'label' => $model->status_btn_label,
+                'permissions' => ['container-status']
+            ],
+            [
+                'routeName' => 'gs.container.destroy',
+                'params' => [encrypt($model->id)],
+                'label' => 'Delete',
+                'delete' => true,
+                'permissions' => ['container-delete']
+            ]
+
+        ];
+    }
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        $data['shippingLocations'] = $this->shippingLocationService->getShippingLocations()->active()->select(['id', 'name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'shipping-location'], ['type', 'create']])->first();
+        return view('backend.admin.group_shipping.container.create', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+   public function store(ContainerRequest $request)
     {
-        //
+        try {
+            $validated = $request->validated();
+            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->containerService->createContainer($validated, $file);
+            session()->flash('success', 'Container created successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Container create failed!');
+            throw $e;
+        }
+
+        return redirect()->route('gs.container.index');
     }
 
     /**
@@ -54,15 +134,20 @@ class ContainerController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $container = $this->containerService->getContainer($id);
+        $container->load(['creater_admin', 'updater_admin','shippingPort', 'destinationPort']);
+        return response()->json($container);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+     public function edit(string $id)
     {
-        //
+        $data['container'] = $this->containerService->getContainer($id);
+        $data['shipping_locations'] = $this->shippingLocationService->getShippingLocations()->active()->select(['id', 'name'])->get();
+        $data['document'] = Documentation::where([['module_key', 'container'], ['type', 'update']])->first();
+        return view('backend.admin.group_shipping.container.edit', $data);
     }
 
     /**
@@ -70,7 +155,17 @@ class ContainerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+         try {
+            $validated = $request->validated();
+             $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $this->containerService->updateContainer($id, $validated, $file);
+            session()->flash('success', 'Container updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Container update failed!');
+            throw $e;
+        }
+
+        return redirect()->route('gs.container.index');
     }
 
     /**
@@ -78,6 +173,56 @@ class ContainerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $this->containerService->deleteContainer($id);
+            session()->flash('success', 'Container deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Container delete failed!');
+            throw $e;
+        }
+        return redirect()->route('gs.container.index');
+    }
+
+
+    public function status(string $id): RedirectResponse
+    {
+        try {
+            $this->containerService->toggleStatus($id);
+            session()->flash('success', 'Container status updated successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Container status update failed!');
+            throw $e;
+        }
+        return redirect()->route('gs.container.index');
+    }
+
+    public function restore(string $id): RedirectResponse
+    {
+        try {
+            $this->containerService->restore($id);
+            session()->flash('success', 'Container restored successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Container restore failed!');
+            throw $e;
+        }
+        return redirect()->route('gs.container.recycle-bin');
+    }
+
+    /**
+     * Remove the specified resource from storage permanently.
+     *
+     * @param string $id
+     * @return RedirectResponse
+     */
+    public function permanentDelete(string $id): RedirectResponse
+    {
+        try {
+            $this->containerService->permanentDelete($id);
+            session()->flash('success', 'Container permanently deleted successfully!');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Container permanent delete failed!');
+            throw $e;
+        }
+        return redirect()->route('gs.container.recycle-bin');
     }
 }

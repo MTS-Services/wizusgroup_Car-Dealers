@@ -43,6 +43,7 @@ use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerif
 use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminResetPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\ForgotPasswordController as AdminForgotPasswordController;
 use App\Http\Controllers\Backend\Admin\CMSManagement\ContactController;
+use App\Http\Controllers\Backend\Admin\GroupShipping\ContainerController;
 use App\Http\Controllers\Backend\Admin\GroupShipping\ShippingLocationController;
 
 // Admin Auth Routes
@@ -435,11 +436,21 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
 
     // group shipping
     Route::group(['as' => 'gs.', 'prefix' => 'shipping'], function () {
+        // shipping location
         Route::resource('shipping-location', ShippingLocationController::class);
         
         Route::get('shipping-location/status/{shipping_location}', [ShippingLocationController::class, 'status'])->name('shipping-location.status');
         Route::get('shipping-location/recycle/bin', [ShippingLocationController::class, 'recycleBin'])->name('shipping-location.recycle-bin');
         Route::get('shipping-location/restore/{shipping_location}', [ShippingLocationController::class, 'restore'])->name('shipping-location.restore');
         Route::delete('shipping-location/permanent-delete/{shipping_location}', [ShippingLocationController::class, 'permanentDelete'])->name('shipping-location.permanent-delete');
+
+
+        // container
+        Route::resource('container', ContainerController::class);
+        
+        Route::get('container/status/{container}', [ContainerController::class, 'status'])->name('container.status');
+        Route::get('container/recycle/bin', [ContainerController::class, 'recycleBin'])->name('container.recycle-bin');
+        Route::get('container/restore/{container}', [ContainerController::class, 'restore'])->name('container.restore');
+        Route::delete('container/permanent-delete/{container}', [ContainerController::class, 'permanentDelete'])->name('container.permanent-delete');
     });
 });
