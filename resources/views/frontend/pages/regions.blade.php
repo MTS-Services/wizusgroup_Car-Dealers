@@ -22,26 +22,12 @@
                     🚢 {{ __('Shipping Timelines & Port Listings') }}
                 </h3>
                 <ul class="text-text-primary text-base leading-relaxed items-center gap-4 justify-between grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-                    <li class="flex items-start gap-3">
-                        <span class="text-xl text-bg-primary">🌍</span>
-                        <span><strong>{{ __('Africa') }}:</strong> {{ __('15-30 days') }}<br><span class="text-sm text-text-secondary">{{ __('Ports: Lagos, Mombasa') }}</span></span>
-                    </li>
+                  @foreach ($region_shipping_timelines as $timeline)
                     <li class="flex items-start gap-3">
                         <span class="text-xl text-bg-primary">🕌</span>
-                        <span><strong>{{ __('Middle East') }}:</strong> {{ __('10-20 days') }}<br><span class="text-sm text-text-secondary">{{ __('Ports: Jebel Ali, Dammam') }}</span></span>
+                        <span><strong>{{ $timeline->region_name }}:</strong> {{ $timeline->min_days }}-{{ $timeline->max_days }} {{ __('days') }}<br><span class="text-sm text-text-secondary">{{ __('Ports: ') }}{{ $timeline->ports }}</span></span>
                     </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-xl text-bg-primary">🌏</span>
-                        <span><strong>{{ __('Asia') }}:</strong> {{ __('7-15 days') }}<br><span class="text-sm text-text-secondary">{{ __('Ports: Shanghai, Chittagong') }}</span></span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-xl text-bg-primary">🌍</span>
-                        <span><strong>{{ __('Europe') }}:</strong> {{ __('20-35 days') }}<br><span class="text-sm text-text-secondary">{{ __('Ports: Rotterdam, Hamburg') }}</span></span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-xl text-bg-primary">🌎</span>
-                        <span><strong>{{ __('North America') }}:</strong> {{ __('25-40 days') }}<br><span class="text-sm text-text-secondary">{{ __('Ports: New York, Los Angeles') }}</span></span>
-                    </li>
+                  @endforeach
                 </ul>
             </div>
 

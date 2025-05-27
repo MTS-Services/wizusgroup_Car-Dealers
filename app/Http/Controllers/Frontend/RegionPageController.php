@@ -21,6 +21,7 @@ class RegionPageController extends Controller
 
     public function region(){
         $data['regions'] = $this->regionService->getRegions()->active()->get();
+        $data['region_shipping_timelines'] = $this->regionShippingTimelineService->getRegionShippingTimelines()->with('region')->get();
         return view('frontend.pages.regions', $data);
     }
 

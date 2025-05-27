@@ -40,7 +40,7 @@ class RegionShippingTimelineRequest extends FormRequest
     protected function update(): array
     {
         return [
-            'region_id' => 'required|unique:region_shipping_timelines,region_id,' . decrypt($this->route('id')),
+            'region_id' => 'required|unique:region_shipping_timelines,region_id,' . decrypt($this->route('region_shipping_timeline')),
         ];
     }
 }
