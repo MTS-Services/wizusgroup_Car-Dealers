@@ -1,4 +1,4 @@
-<footer class="bg-bg-light dark:bg-bg-dark-secondary pt-10 pb-5">
+<footer class="bg-bg-light dark:bg-bg-dark-secondary pt-10 pb-5 ">
     <div class="container">
         <div class="flex flex-wrap space-y-5 xl:space-y-0">
             <div class="basis-full xl:basis-[45%] xl:pr-10">
@@ -184,7 +184,7 @@
     </div>
     <div class="divider mx-5 mt-10"></div>
     <div class="container">
-        <div class="flex flex-wrap justify-center">
+        <div class="flex flex-wrap justify-center text-center">
             <p class="text-sm text-text-primary dark:text-text-light">{{ __('Copyright') }} &copy;
                 {{ date('Y') }}
                 {{ config('app.name') }}. {{ __('All rights reserved.') }}</p>
@@ -194,4 +194,12 @@
             </p>
         </div>
     </div>
+
+    <div
+        class="fixed z-50 bottom-6 right-6 md:bottom-10 md:right-10 shadow-lg rounded-full bg-gradient-primary flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
+        <a href="#" aria-label="Chat on WhatsApp">
+            <i class="fa-brands fa-whatsapp text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-light"></i>
+        </a>
+    </div>
+
 </footer>

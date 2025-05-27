@@ -4,17 +4,31 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\ProductFilterRequest;
+use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Model;
 use App\Models\Product;
+use App\Services\Admin\ProductManagement\BrandService;
 use App\Services\Admin\ProductManagement\CategoryService;
+use App\Services\Admin\ProductManagement\ModelService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class ProductPageController extends Controller
 {
+    protected CategoryService $categoryService;
+    protected BrandService $brandService;
+    protected ModelService $modelService;
 
-    public function productFilter(ProductFilterRequest $request, $category_slug): RedirectResponse
+    public function __construct(CategoryService $categoryService, BrandService $brandService, ModelService $modelService)
+    {
+        $this->categoryService = $categoryService;
+        $this->brandService = $brandService;
+        $this->modelService = $modelService;
+    }
+
+    public function productFilter(ProductFilterRequest $request, $category_slug = false): RedirectResponse
     {
         $data['category_slug'] = $category_slug;
         if (!empty($request->input("sort"))) {
@@ -40,12 +54,15 @@ class ProductPageController extends Controller
         }
         return redirect()->route('frontend.products', $data);
     }
-    public function products(Request $request, $category_slug): View
+    public function products(Request $request, $category_slug = false): View
     {
-        $query = Product::with(['category', 'company', 'brand', 'model', 'primaryImage', 'subCategory'])->whereHas('category', function ($query) use ($category_slug) {
-            $query->where('slug', $category_slug);
-        });
+        $query = Product::with(['category', 'company', 'brand', 'model', 'primaryImage', 'subCategory'])->active();
 
+        if ($category_slug) {
+            $query->whereHas('category', function ($query) use ($category_slug) {
+                $query->where('slug', $category_slug);
+            });
+        }
         if ($request->input("sort")) {
             if ($request->input("sort") == "high_to_low") {
                 $query->orderBy('price', 'asc');
@@ -81,8 +98,19 @@ class ProductPageController extends Controller
         if ($request->input("start_price") && $request->input("end_price")) {
             $query->whereBetween('price', [$request->input('start_price'), $request->input('end_price')]);
         }
-        $data['category'] = Category::with(['brands', 'models'])->where('slug', $category_slug)->first();
         $data['products'] = $query->get();
+        if ($category_slug) {
+            $data['category'] = Category::with(['brands', 'models', 'childrens'])->where('slug', $category_slug)->first();
+            $data['subcategories'] = $data['category']->childrens;
+            $data['brands'] = $data['category']->brands;
+            $data['models'] = $data['category']->models;
+        } else {
+            $data['subcategories'] = $this->categoryService->getCategories()->isSubCategory()->active()->select(['id', 'name', 'slug'])->get();
+            $data['brands'] = $this->brandService->getBrands()->active()->select(['id', 'name', 'slug'])->get();
+            $data['models'] = $this->modelService->getModels()->active()->select(['id', 'name', 'slug'])->get();
+            $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->active()->select(['id', 'name', 'slug'])->get();
+
+        }
         return view('frontend.pages.products', $data);
     }
     public function productDetails($slug)

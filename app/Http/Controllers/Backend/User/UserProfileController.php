@@ -32,8 +32,9 @@ class UserProfileController extends Controller
     }
     public function profile()
     {
-        $data['user'] = $this->userService->getUsers()->with('personalInformation')->first();
-        $data['address'] = $this->addressService->getAddresses()->userAddresses()->first();
+        $data['user'] = $this->userService->getUser(encrypt(user()->id));
+        $data['user']->load(['personalInformation']);
+        $data['address'] = $this->addressService->getAddresses()->userAddresses()->personal()->first();
         $data['countries'] = $this->countryService->getCountrys()->active()->get();
         return view('backend.user.dashboard', $data);
     }

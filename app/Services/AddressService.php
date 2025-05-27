@@ -12,7 +12,7 @@ class AddressService
 
     public function getAddresses($orderby = 'sort_order', $order = 'asc')
     {
-        return Address::orderBy($orderby, $order)->personal()->latest();
+        return Address::orderBy($orderby, $order)->latest();
     }
 
     public function getAddress(string $encryptedId): Address | Collection
