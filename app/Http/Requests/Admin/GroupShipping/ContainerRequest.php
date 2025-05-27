@@ -33,6 +33,10 @@ class ContainerRequest extends FormRequest
             'max_weight_kg' => 'required|numeric|min:0',
             'shipping_port' => 'required|exists:shipping_locations,id',
             'destination_port' => 'required|exists:shipping_locations,id|different:shipping_port',
+            'container_products.*.product_id' => 'required|exists:products,id',
+            'container_products.*.quantity' => 'required|numeric|min:0',
+            'container_products.*.price' => 'required|numeric|min:0',
+            'container_products.*.reserve_price' => 'required|numeric|min:0',
         ]
             +
             ($this->isMethod('POST') ? $this->store() : $this->update());
@@ -50,6 +54,16 @@ class ContainerRequest extends FormRequest
     {
         return [
             'slug' => 'required|unique:containers,slug,' . decrypt($this->route('container')) . ',id',
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'container_products.*.product_id' => 'Product',
+            'container_products.*.quantity' => 'Quantity',
+            'container_products.*.price' => 'Price',
+            'container_products.*.reserve_price' => 'Reserve Price',
         ];
     }
 }
