@@ -20,6 +20,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {{-- {{ dd($infos) }} --}}
                             @forelse ($infos as $info)
                                 <tr>
                                     <td>{{ $info->infoCategory?->name ?? 'N/A' }}</td>
@@ -63,8 +64,7 @@
                                     <td>{{ $info_remark->infoCategory?->name ?? 'N/A' }}</td>
                                     <td class="text-center">
                                         <a href="javascript:void(0)" data-id="{{ encrypt($info_remark->id) }}"
-                                            class="btn btn-dark btn-sm remark_view"><i
-                                                class="fas fa-eye"></i></a>
+                                            class="btn btn-dark btn-sm remark_view"><i class="fas fa-eye"></i></a>
 
                                         <a href="{{ route('pm.product.delete_info', encrypt($info_remark->id)) }}"
                                             class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
@@ -99,7 +99,7 @@
                         <tbody>
                             @forelse ($info_files as $info_file)
                                 <tr>
-                                    <td>{{ $info_file->infoCategory?->name}}</td>
+                                    <td>{{ $info_file->infoCategory?->name }}</td>
                                     <td class="text-center">
                                         <a href="{{ route('pm.product.info.file.download', encrypt($info_file->id)) }}"
                                             class="btn btn-dark btn-sm">

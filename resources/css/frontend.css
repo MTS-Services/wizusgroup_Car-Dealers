@@ -315,6 +315,7 @@ input[type="range"]::-webkit-slider-thumb {
         transform: scale(1);
     }
 }
+
 /* Extra-small screens (mobile, < 360px) */
 @media (max-width: 360px) {
     .countdown_section .time-value {

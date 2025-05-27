@@ -107,7 +107,8 @@
                                      {{ __('Basic Info') }}
                                  </button>
 
-                                 <button @click="tab = 'airbag'"
+
+                                 {{-- <button @click="tab = 'airbag'"
                                      :class="tab === 'airbag' ?
                                          'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
                                          'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
@@ -137,7 +138,7 @@
                                          'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
                                      class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
                                      {{ __('Documents') }}
-                                 </button>
+                                 </button> --}}
                              </div>
                              <!-- Tab Content -->
                              <div
@@ -150,87 +151,175 @@
                                              <tr class=" border-border-gray dark:border-bg-dark-secondary">
                                                  <td class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
                                                      {{ __('Stock No.') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('No.1287864') }}
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->stock_no ?? 'N/A' }}
                                                  </td>
                                              </tr>
                                              <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                  <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
                                                      {{ __('Maker') }}
                                                  </td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('TOYOTA') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->company?->name ?? 'N/A' }}</td>
                                              </tr>
                                              <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                  <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
                                                      {{ __('Model') }}
                                                  </td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('SOARER') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->model?->name ?? 'N/A' }}</td>
                                              </tr>
                                              <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                  <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
                                                      {{ __('Grade') }}
                                                  </td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('Unknown') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->grade ?? 'N/A' }}</td>
                                              </tr>
                                              <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                  <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
                                                      {{ __('Body Type') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('Open') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->body ?? 'N/A' }}</td>
                                              </tr>
                                              <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                  <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
                                                      {{ __('First Registration') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('03/1987') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->first_registration ?? 'N/A' }}</td>
+                                             </tr>
+                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                     {{ __('Type') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->type ?? 'N/A' }}</td>
                                              </tr>
                                              <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                  <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
                                                      {{ __('Displacement') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('2950 cc') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->displacement ?? 'N/A' }}</td>
+                                             </tr>
+                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                     {{ __('Specification No') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->specification_no ?? 'N/A' }}</td>
+                                             </tr>
+                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                     {{ __('Classification No') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->classification_no ?? 'N/A' }}</td>
+                                             </tr>
+                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                     {{ __('Chassis No') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->chassis_no ?? 'N/A' }}</td>
+                                             </tr>
+                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                     {{ __('Serial No') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->serial_no ?? 'N/A' }}</td>
                                              </tr>
                                              <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                  <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
                                                      {{ __('Engine Type') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('7M') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->engine_type ?? 'N/A' }}</td>
                                              </tr>
                                              <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                  <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
                                                      {{ __('Fuel') }}
                                                  </td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('Gasoline') }}
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->fuel_type ?? 'N/A' }}
                                                  </td>
                                              </tr>
                                              <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                  <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
                                                      {{ __('Mileage') }}
                                                  </td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('79540 km') }}
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->mileage ?? 'N/A' }}
                                                  </td>
                                              </tr>
                                              <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                  <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
                                                      {{ __('Color') }}
                                                  </td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('White') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->color ?? 'N/A' }}</td>
                                              </tr>
                                              <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                  <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
                                                      {{ __('Drive System') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('2WD') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->drive_system ?? 'N/A' }}</td>
                                              </tr>
                                              <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                  <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
                                                      {{ __('Transmission') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('AT') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->transmission ?? 'N/A' }}</td>
                                              </tr>
                                              <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                  <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
                                                      {{ __('Capacity') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('5') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->capacity ?? 'N/A' }}</td>
+                                             </tr>
+                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                     {{ __('Odometer') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->odometer_replacement ?? 'N/A' }}</td>
+                                             </tr>
+                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                     {{ __('Steering Wheel') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->steering_wheel ?? 'N/A' }}</td>
+                                             </tr>
+                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                     {{ __('Length (cm)') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->length_cm ?? 'N/A' }}</td>
+                                             </tr>
+                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                     {{ __('Width (cm)') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->width_cm ?? 'N/A' }}</td>
+                                             </tr>
+                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                     {{ __('Height (cm)') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->height_cm ?? 'N/A' }}</td>
+                                             </tr>
+                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                     {{ __('Weight (Kg)') }}</td>
+                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     {{ $product->weight_kg ?? 'N/A' }}</td>
                                              </tr>
                                          </tbody>
+                                         <tfoot class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                             <tr>
+                                                 <td colspan="2" class="font-semibold py-2 sm:py-3 dark:text-text-light">{{ __('Remarks') }}</td>
+                                             </tr>
+                                             <tr>
+                                                 <td colspan="2">{{ $product->remarks ?? 'N/A' }}</td>
+                                             </tr>
+                                         </tfoot>
                                      </table>
                                  </div>
 
-                                 <!-- Airbag Info -->
+                                 {{-- <!-- Airbag Info -->
                                  <div x-show="tab === 'airbag'" x-cloak>
                                      <p class="text-text-secondary dark:text-text-secondary text-lg">
                                          {{ __('No airbag data available.') }}</p>
@@ -251,37 +340,37 @@
                                  <!-- Documents -->
                                  <div x-show="tab === 'docs'" x-cloak>
                                      <p class="text-text-secondary dark:text-text-secondary text-lg">
-                                         {{ __('No documents attached.') }}</p>
-                                 </div>
+                                         {{ __('No documents attached.') }}</p> --}}
                              </div>
-                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-2">
-                                 <a href="@auth('web')
+                         </div>
+                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-2">
+                             <a href="@auth('web')
                                      javascript:void(0)
                                  @else
                                      {{ route('login') }}
                                  @endauth"
-                                     @auth('web')
+                                 @auth('web')
                                          onclick="document.getElementById('reserve-{{ $product->slug }}').showModal()"
                                     @endauth
-                                     class="btn-primary w-full">{{ __('Reserve & Inquiry') }}</a>
+                                 class="btn-primary w-full">{{ __('Reserve & Inquiry') }}</a>
 
-                                 <x-backend.user.reserve :product="$product" />
+                             <x-backend.user.reserve :product="$product" />
 
-                                 <a href="@auth('web')
+                             <a href="@auth('web')
                                      javascript:void(0)
                                  @else
                                      {{ route('login') }}
                                  @endauth"
-                                     @auth('web')
+                                 @auth('web')
                                          onclick="document.getElementById('inquiry-{{ $product->slug }}').showModal()"
                                     @endauth
-                                     class="btn-primary w-full">{{ __('WhatsApp Inquiry') }}</a>
-                             </div>
-                             <x-backend.user.inquiry :product="$product" />
+                                 class="btn-primary w-full">{{ __('WhatsApp Inquiry') }}</a>
                          </div>
+                         <x-backend.user.inquiry :product="$product" />
                      </div>
                  </div>
              </div>
+         </div>
          </div>
      </section>
 
@@ -294,14 +383,12 @@
                  <h2 class="text-2xl font-bold text-text-white ">{{ __('Related Products') }}</h2>
              </div>
              <div class="relative">
-                 {{-- Product 1 --}}
                  <div class="swiper related_product static">
-                     <div class="swiper-wrapper">
-                         <!-- Slide 1 -->
+                     <div class="swiper-wrapper p-2">
                          @foreach ($related_products as $r_product)
                              <div class="swiper-slide">
                                  <a href="{{ route('frontend.product.details', $r_product->slug) }}">
-                                     <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                                     <div class="product-card hover:shadow-md transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                                          data-product="1">
                                          <div class="max-h-80 w-full overflow-hidden">
                                              <img src="{{ storage_url($r_product->primaryImage->first()?->image) }}"
@@ -326,8 +413,6 @@
                                  </a>
                              </div>
                          @endforeach
-
-                         <!-- Repeat swiper-slide for other products -->
                      </div>
 
                      <div class="hidden xl:block">
