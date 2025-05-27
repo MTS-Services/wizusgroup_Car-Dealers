@@ -24,7 +24,7 @@
                 </div>
                 <div class="relative">
                     <div class="swiper categories static">
-                        <div class="swiper-wrapper p-5">
+                        <div class="swiper-wrapper py-5">
                             @foreach ($categories as $cat)
                                 <div class="swiper-slide">
                                     <a href="{{ route('frontend.products', $cat->slug) }}">
@@ -249,7 +249,8 @@
     </section>
 @endsection
 @push('js')
-    <script>
+    <script type="module">
+        import Swiper from '/frontend/js/swiper.min.js';
         // CATEGORY SWIPER
         const categorySwiperEl = document.querySelector('.categories');
         new Swiper(categorySwiperEl, {
@@ -270,7 +271,7 @@
             },
             breakpoints: {
                 0: {
-                    slidesPerView: 1
+                    slidesPerView: 2
                 },
                 450: {
                     slidesPerView: 2
