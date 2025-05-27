@@ -8,7 +8,7 @@
             <div class="product_tabs col-lg-12">
                 <div class="d-flex justify-content-around align-items-center gap-5 py-5 text-center">
                     <p class="btn_item w-100 py-2 m-0 active" data-bs-target="auctions">{{ __('Auctions Details') }}</p>
-                    <p class="btn_item w-100 py-2 m-0" data-bs-target="auction_bits">{{ __('Auction Bids History') }}</p>
+                    <p class="btn_item w-100 py-2 m-0" data-bs-target="auction_bids">{{ __('Auction Bids History') }}</p>
                     <p class="btn_item w-100 py-2 m-0" data-bs-target="auctions_watchers">{{ __('Auctions Watchers') }}</p>
                     <div class="ms-5">
                         <a href="{{ route('auction-m.auction.index') }}" class="btn_item p-2">{{ __('Back') }}</a>
@@ -38,10 +38,6 @@
                                                     <tr>
                                                         <th>Start Price</th>
                                                         <td>{{ $auction->start_price }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>End Price</th>
-                                                        <td>{{ $auction->end_price }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Reserve Price</th>
@@ -82,12 +78,11 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
 
                         {{-- Auction Bids History --}}
-                        <div id="auction_bits" class="tab-pane">
+                        <div id="auction_bids" class="tab-pane">
                             <div class="mb-5">
                                 <div class="card shadow rounded-4">
                                     <div class="card-body">

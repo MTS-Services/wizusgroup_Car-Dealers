@@ -134,7 +134,7 @@ return [
     'prohibited_if_accepted' => 'The :attribute field is prohibited when :other is accepted.',
     'prohibited_if_declined' => 'The :attribute field is prohibited when :other is declined.',
     'prohibited_unless' => 'The :attribute field is prohibited unless :other is in :values.',
-    'prohibits' => 'The :attribute field prohibits :other from being present.',
+    'prohibids' => 'The :attribute field prohibids :other from being present.',
     'regex' => 'The :attribute field format is invalid.',
     'required' => 'The :attribute field is required.',
     'required_array_keys' => 'The :attribute field must contain entries for: :values.',
