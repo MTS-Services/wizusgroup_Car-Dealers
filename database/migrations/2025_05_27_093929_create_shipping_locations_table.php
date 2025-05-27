@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->bigInteger('sort_order')->default(0)->index();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->boolean('status')->index()->comment(ShippingLocation::STATUS_ACTIVE);
+            $table->boolean('status')->index()->default(ShippingLocation::STATUS_ACTIVE);
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
