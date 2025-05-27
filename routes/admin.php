@@ -17,7 +17,9 @@ use App\Http\Controllers\Backend\Admin\Setup\OperationAreaController;
 use App\Http\Controllers\Backend\Admin\UserManagement\UserController;
 use App\Http\Controllers\Backend\Admin\AdminManagement\RoleController;
 use App\Http\Controllers\Backend\Admin\CMSManagement\BannerController;
+use App\Http\Controllers\Backend\Admin\CMSManagement\RegionController;
 use App\Http\Controllers\Backend\Admin\AdminManagement\AdminController;
+use App\Http\Controllers\Backend\Admin\CMSManagement\ContactController;
 use App\Http\Controllers\Backend\Admin\Setup\OperationSubAreaController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\BrandController;
 use App\Http\Controllers\Backend\Admin\ProductManagement\ModelController;
@@ -42,8 +44,8 @@ use App\Http\Controllers\Backend\Admin\ProductManagement\ProInfoCatTypeFeatureCo
 use App\Http\Controllers\Backend\Admin\Auth\VerificationController as AdminVerificationController;
 use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminResetPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\ForgotPasswordController as AdminForgotPasswordController;
-use App\Http\Controllers\Backend\Admin\CMSManagement\ContactController;
 use App\Http\Controllers\Backend\Admin\GroupShipping\ContainerController;
+use App\Http\Controllers\Backend\Admin\CMSManagement\RegionShippingTimelineController;
 use App\Http\Controllers\Backend\Admin\GroupShipping\ShippingLocationController;
 
 // Admin Auth Routes
@@ -258,6 +260,21 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         Route::get('contact/recycle/bin', [ContactController::class, 'recycleBin'])->name('contact.recycle-bin');
         Route::get('contact/restore/{contact}', [ContactController::class, 'restore'])->name('contact.restore');
         Route::delete('contact/permanent-delete/{contact}', [ContactController::class, 'permanentDelete'])->name('contact.permanent-delete');
+
+        // Region Routes
+        Route::resource('region', RegionController::class);
+
+        Route::get('region/status/{region}', [RegionController::class, 'status'])->name('region.status');
+        Route::get('region/recycle/bin', [RegionController::class, 'recycleBin'])->name('region.recycle-bin');
+        Route::get('region/restore/{region}', [RegionController::class, 'restore'])->name('region.restore');
+        Route::delete('region/permanent-delete/{region}', [RegionController::class, 'permanentDelete'])->name('region.permanent-delete');
+
+        // Region Shipping Timeline Routes
+        Route::resource('region-shipping-timeline', RegionShippingTimelineController::class);
+
+        Route::get('region-shipping-timeline/recycle/bin', [RegionShippingTimelineController::class, 'recycleBin'])->name('region-shipping-timeline.recycle-bin');
+        Route::get('region-shipping-timeline/restore/{region_shipping_timeline}', [RegionShippingTimelineController::class, 'restore'])->name('region-shipping-timeline.restore');
+        Route::delete('region-shipping-timeline/permanent-delete/{region_shipping_timeline}', [RegionShippingTimelineController::class, 'permanentDelete'])->name('region-shipping-timeline.permanent-delete');
     });
 
     // Product Management
@@ -310,8 +327,8 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
             Route::get('information/{product}', 'info')->name('info');
             Route::get('status/{product}', 'status')->name('status');
             Route::get('feature/{product}', 'feature')->name('feature');
-            Route::get('backorder/{product}',  'backorder')->name('backorder');
-            Route::get('dropshipping/{product}', 'dropshipping')->name('dropshipping');
+            // Route::get('backorder/{product}',  'backorder')->name('backorder');
+            // Route::get('dropshipping/{product}', 'dropshipping')->name('dropshipping');
             Route::get('recycle/bin', 'recycleBin')->name('recycle-bin');
             Route::get('restore/{product}', 'restore')->name('restore');
             Route::delete('permanent-delete/{product}', 'permanentDelete')->name('permanent-delete');
@@ -422,6 +439,9 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
             Route::delete('permanent-delete/{auction}', 'permanentDelete')->name('permanent-delete');
             Route::post('relation/{auction}', 'relationStore')->name('relation.store');
         });
+
+        // Auction Running Routes
+        Route::get('auction-running', [AuctionController::class, 'auctionRunning'])->name('auction-running');
     });
 
     // Supplier Management
@@ -438,7 +458,7 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
     Route::group(['as' => 'gs.', 'prefix' => 'shipping'], function () {
         // shipping location
         Route::resource('shipping-location', ShippingLocationController::class);
-        
+
         Route::get('shipping-location/status/{shipping_location}', [ShippingLocationController::class, 'status'])->name('shipping-location.status');
         Route::get('shipping-location/recycle/bin', [ShippingLocationController::class, 'recycleBin'])->name('shipping-location.recycle-bin');
         Route::get('shipping-location/restore/{shipping_location}', [ShippingLocationController::class, 'restore'])->name('shipping-location.restore');

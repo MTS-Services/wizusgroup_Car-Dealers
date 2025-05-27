@@ -13,7 +13,8 @@
                     ]" />
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('pm.product.update', encrypt($product->id)) }}" id="productForm') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('pm.product.update', encrypt($product->id)) }}" id="productForm') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
@@ -29,6 +30,42 @@
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'slug']" />
                         </div>
                         <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ __('Length (cm)') }} <span class="text-danger">*</span></label>
+                                    <input type="text" value="{{ $product->length_cm }}" name="length_cm"
+                                        class="form-control" placeholder="Enter length (cm)">
+                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'length_cm']" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ __('Width (cm)') }} <span class="text-danger">*</span></label>
+                                    <input type="text" value="{{ $product->width_cm }}" name="width_cm"
+                                        class="form-control" placeholder="Enter width (cm)">
+                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'width_cm']" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ __('Height (cm)') }} <span class="text-danger">*</span></label>
+                                    <input type="text" value="{{ $product->height_cm }}" name="height_cm"
+                                        class="form-control" placeholder="Enter height (cm)">
+                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'height_cm']" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ __('Weight (kg)') }}</label>
+                                    <input type="text" value="{{ $product->weight_kg }}" name="weight_kg"
+                                        class="form-control" placeholder="Enter weight (kg)">
+                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'weight_kg']" />
+                                </div>
+                            </div>
+
+
+
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>{{ __('SKU') }} <span class="text-danger">*</span></label>
@@ -40,8 +77,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>{{ __('Stock Number') }} <span class="text-danger">*</span></label>
-                                    <input type="text" value="{{ $product->stock_no }}" name="stock_no" class="form-control"
-                                        placeholder="Enter stock number">
+                                    <input type="text" value="{{ $product->stock_no }}" name="stock_no"
+                                        class="form-control" placeholder="Enter stock number">
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'stock_no']" />
                                 </div>
                             </div>
@@ -51,7 +88,8 @@
                                     <select name="year" class="form-control" id="year">
                                         <option value="" selected disabled>{{ __('Select Year') }}</option>
                                         @for ($i = date('Y'); $i >= 1900; $i--)
-                                            <option value="{{ $i }}" {{ $product->year == $i ? 'selected' : '' }}>
+                                            <option value="{{ $i }}"
+                                                {{ $product->year == $i ? 'selected' : '' }}>
                                                 {{ $i }}</option>
                                         @endfor
                                     </select>
@@ -99,24 +137,25 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Grade') }}</label>
-                                    <input type="text" value="{{ $product->grade }}" name="grade" class="form-control"
-                                        placeholder="Enter grade">
+                                    <input type="text" value="{{ $product->grade }}" name="grade"
+                                        class="form-control" placeholder="Enter grade">
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'grade']" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Body') }}</label>
-                                    <input type="text" value="{{ $product->body }}" name="body" class="form-control"
-                                        placeholder="Enter body">
+                                    <input type="text" value="{{ $product->body }}" name="body"
+                                        class="form-control" placeholder="Enter body">
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'body']" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('First Registration') }}</label>
-                                    <input type="text" value="{{ $product->first_registration }}" name="first_registration"
-                                        class="form-control" placeholder="Enter first registration">
+                                    <input type="text" value="{{ $product->first_registration }}"
+                                        name="first_registration" class="form-control"
+                                        placeholder="Enter first registration">
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'first_registration']" />
                                 </div>
                             </div>
@@ -147,8 +186,9 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Specification No') }}</label>
-                                    <input type="text" value="{{ $product->specification_no }}" name="specification_no"
-                                        class="form-control" placeholder="Enter specification no">
+                                    <input type="text" value="{{ $product->specification_no }}"
+                                        name="specification_no" class="form-control"
+                                        placeholder="Enter specification no">
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'specification_no']" />
                                 </div>
                             </div>
@@ -181,8 +221,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Quantity') }} <span class="text-danger">*</span></label>
-                                    <input type="number" min="0" value="{{ $product->quantity }}" name="quantity"
-                                        class="form-control" placeholder="Enter quantity">
+                                    <input type="number" min="0" value="{{ $product->quantity }}"
+                                        name="quantity" class="form-control" placeholder="Enter quantity">
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'quantity']" />
                                 </div>
                             </div>
@@ -251,19 +291,31 @@
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'drive_system']" />
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ __('Supplier Name') }}</label>
-                                    <select name="supplier_id" class="form-control">
-                                        <option value="" selected>{{ $product->supplier?->first_name ?: __('Select Supplier') }}</option>
-                                        @foreach ($suppliers as $supplier)
-                                            <option value="{{ $supplier->id }}">{{ $supplier->first_name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'supplier_id']" />
-                                </div>
-                            </div>
 
+                            @if ($product->product_type == App\Models\Product::PRODUCT_TYPE_DROPSHIPPING)
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>{{ __('Supplier Name') }} <span class="text-danger">*</span></label>
+                                        <select name="supplier_id" class="form-control">
+                                            <option value="" selected>{{ __('Select Supplier') }}</option>
+                                            @foreach ($suppliers as $supplier)
+                                                <option value="{{ $supplier->id }}"
+                                                    {{ $product->supplier_id == $supplier->id ? 'selected' : '' }}>
+                                                    {{ $supplier->first_name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'supplier_id']" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>{{ __('Product Source URL') }} <span class="text-danger">*</span></label>
+                                        <input type="url" value="{{ $product->source_url }}" name="source_url"
+                                            class="form-control" placeholder="Enter product source url">
+                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'source_url']" />
+                                    </div>
+                                </div>
+                            @endif
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ __('Remarks') }}</label>
@@ -288,8 +340,8 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ __('Meta Title') }}</label>
-                                    <input type="text" value="{{ $product->meta_title }}" id="meta_title" name="meta_title"
-                                        class="form-control" placeholder="Enter meta title">
+                                    <input type="text" value="{{ $product->meta_title }}" id="meta_title"
+                                        name="meta_title" class="form-control" placeholder="Enter meta title">
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'meta_title']" />
                                 </div>
                             </div>
@@ -305,9 +357,11 @@
                                 <div class="form-group">
                                     <label>{{ __('Meta Keywords') }}</label>
                                     <select name="meta_keywords[]" class="form-control" multiple>
-                                        @foreach (json_decode($product->meta_keywords, true) as $keyword)
-                                            <option value="{{$keyword}}" selected>{{ $keyword }}</option>
-                                        @endforeach
+                                        @if (isset($product->meta_keywords))
+                                            @foreach (json_decode($product->meta_keywords, true) as $keyword)
+                                                <option value="{{ $keyword }}" selected>{{ $keyword }}</option>
+                                            @endforeach
+                                        @endif
 
                                     </select>
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'meta_keywords.*']" />

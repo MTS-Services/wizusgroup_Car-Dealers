@@ -97,9 +97,13 @@ class User extends AuthBaseModel implements MustVerifyEmail
         return $this->morphOne(PersonalInformation::class, 'profile');
     }
 
-    public function auctions(): HasMany
+    public function auctionBids()
     {
-        return $this->hasMany(Auction::class);
+        return $this->hasMany(AuctionBid::class);
+    }
+    public function auctionWatched()
+    {
+        return $this->hasMany(AuctionWatcher::class);
     }
 
     public function __construct(array $attributes = [])

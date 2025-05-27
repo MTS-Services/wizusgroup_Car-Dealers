@@ -236,3 +236,14 @@
 .product_tabs .active.btn_item {
     background: linear-gradient(to right, #0972C1, #37006d);
 }
+
+/*=============================================================
+                Auction Running List CSS
+ =============================================================*/
+.bg-wiz_orange{
+    background-color: orange;
+}
+
+.text-wiz_red{
+    color: red;
+}

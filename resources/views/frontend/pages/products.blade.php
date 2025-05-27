@@ -55,19 +55,25 @@
             </div>
         </section>
     @endif
-
     {{-- Mid Content --}}
+
     <section class="py-15">
         <div class="container">
-            <div class="flex justify-start gap-10">
-                @include('frontend.layouts.includes.product_filter_sidebar')
-                <div class="w-1/4 hidden xl:block">
-                    {{-- Sidebar Filter --}}
+            <div class="flex justify-start gap-10 overflow-hidden 2xl:overflow-visible p-1">
+                <div
+                    class="w-full filter-sidebar fixed 2xl:sticky 2xl:w-1/4 top-0 2xl:top-24 left-0 h-screen 2xl:h-screen max-h-screen 2xl:max-h-fit bg-bg-black/50 2xl:bg-transparent z-[99999] 2xl:z-0 -translate-x-full 2xl:translate-x-0 transition-all duration-300 ease-in-out overflow-y-auto px-2 2xl:p-0 py-5">
                     <form action="{{ route('frontend.products.filter', isset($category) ? $category->slug : '') }}"
-                        method="POST">
+                        method="post"
+                        class="w-5/6 sm:w-4/6 md:w-3/6 lg:w-2/5 2xl:w-full h-full 2xl:h-fit flex flex-col gap-2">
                         @csrf
-                        <div class="shadow-card rounded-lg dark:bg-bg-dark-tertiary">
-                            <!-- Category Filter -->
+                        <div class="bg-bg-light dark:bg-bg-dark-tertiary rounded-lg p-4 flex justify-between items-center">
+                            <h3 class="text-lg md:text-xl font-semibold  capitalize">
+                                {{ __(' Product fillters') }}</h3>
+                            <button type="button" class="closeFilterSidebar btn btn-sm btn-circle btn-ghost 2xl:hidden"><i
+                                    data-lucide="x" class="w-5 h-5"></i></button>
+                        </div>
+                        <div
+                            class="space-y-3 shadow-card dark:shadow-dark-card rounded-lg bg-bg-secondary dark:bg-bg-dark-tertiary overflow-hidden h-full py-3">
                             <div class="p-4 pb-0">
                                 <div data-target="category-filter">
                                     <h3 class="text-xl font-medium">{{ __('Category') }}</h3>
@@ -75,9 +81,7 @@
 
                                 <div class="filter-content" id="category-filter">
                                     <div class="mt-2">
-                                        <select
-                                            class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2"
-                                            name="subcategory" id="subcategory">
+                                        <select class="select select2" name="subcategory" id="subcategory">
                                             <option value="">{{ __('All') }}</option>
                                             @foreach ($subcategories as $children)
                                                 <option value="{{ $children->slug }}"
@@ -88,8 +92,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Brand Filter -->
                             <div class="p-4 pb-0">
                                 <div data-target="brand-filter">
                                     <h3 class="text-xl font-medium">{{ __('Brand') }}</h3>
@@ -97,8 +99,7 @@
 
                                 <div class="filter-content" id="brand-filter">
                                     <div class="mt-2">
-                                        <select name="brand" id="brand"
-                                            class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
+                                        <select name="brand" id="brand" class="select select2">
                                             <option value="">{{ __('All') }}</option>
                                             @foreach ($brands as $brand)
                                                 <option value="{{ $brand->slug }}"
@@ -110,8 +111,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Model Filter -->
                             <div class="p-4 pb-0">
                                 <div data-target="model-filter">
                                     <h3 class="text-xl font-medium">{{ __('Model') }}</h3>
@@ -119,8 +118,7 @@
 
                                 <div class="filter-content" id="model-filter">
                                     <div class="mt-2">
-                                        <select name="model" id="model"
-                                            class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
+                                        <select name="model" id="model" class="select select2">
                                             <option value="">{{ __('All') }}</option>
 
                                             @foreach ($models as $model)
@@ -133,8 +131,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Year Filter -->
                             <div class="p-4 pb-0">
                                 <div data-target="year-filter">
                                     <h3 class="text-xl font-medium">{{ __('Year') }}</h3>
@@ -142,19 +138,18 @@
 
                                 <div class="filter-content" id="year-filter">
                                     <div class="mt-2">
-                                        <select name="year" id="year"
-                                            class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
+                                        <select name="year" id="year" class="select select2">
                                             <option value=" ">{{ __('All') }}</option>
                                             @for ($i = date('Y'); $i >= 1900; $i--)
                                                 <option value="{{ $i }}"
-                                                    {{ request()->year == $i ? 'selected' : '' }}>{{ $i }}
+                                                    {{ request()->year == $i ? 'selected' : '' }}>
+                                                    {{ $i }}
                                                 </option>
                                             @endfor
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            {{-- Price Filter --}}
                             <details class="collapse collapse-arrow" open>
                                 <summary class="collapse-title text-xl font-medium">{{ __('Price') }}</summary>
                                 <div class="collapse-content">
@@ -172,7 +167,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Price display -->
                                     <div class="pt-8">
                                         <p class="text-sm lg:text-base">
                                             {{ __('Price:') }} <span
@@ -184,21 +178,22 @@
                                     </div>
                                 </div>
                             </details>
-
-                            <button type="submit"
-                                class="w-full btn-primary hover:bg-bg-tertiary py-2 rounded-md transition-all duration-200 flex items-center justify-center group">
-                                <span>{{ __('Sherch') }}</span>
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                </svg>
-                            </button>
+                            <div class="px-4">
+                                <button id="filterBtn" class="w-full btn-primary group">
+                                    <span>{{ __('Filter') }}</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </form>
+
                 </div>
-                <div class="w-full xl:w-3/4">
+                <div class="w-full 2xl:basis-3/4">
                     {{-- Products Grid --}}
                     <div class="flex justify-between items-center mb-6">
                         <div class="flex items-center gap-2 md:gap-3">
@@ -216,7 +211,7 @@
                                 action="{{ route('frontend.products.filter', isset($category) ? $category->slug : '') }}"
                                 method="POST" id="filter_form">
                                 @csrf
-                                <select name="sort" id="sort-select" class="select">
+                                <select name="sort" id="sort-select" class="select select2">
                                     <option value="" {{ request()->sort == '' ? 'selected' : '' }}>Default</option>
                                     <option value="low_to_high" {{ request()->sort == 'low_to_high' ? 'selected' : '' }}>
                                         {{ __('Price: High to Low') }}</option>
@@ -249,6 +244,21 @@
     </section>
 @endsection
 @push('js')
+    <script>
+        $(document).ready(function() {
+            const $openFilterSidebar = $('.openFilterSidebar');
+            const $filterSidebar = $('.filter-sidebar');
+            const $closeFilterSidebar = $('.closeFilterSidebar');
+
+            $openFilterSidebar.on('click', function() {
+                $filterSidebar.css('transform', 'translateX(0)');
+            });
+
+            $closeFilterSidebar.on('click', function() {
+                $filterSidebar.css('transform', 'translateX(-100%)');
+            });
+        })
+    </script>
     <script type="module">
         import Swiper from '/frontend/js/swiper.min.js';
         // CATEGORY SWIPER
@@ -372,6 +382,7 @@
             });
         });
     </script>
+
     {{-- Price Range Slide --}}
     <script>
         $('.price-slider').each(function() {

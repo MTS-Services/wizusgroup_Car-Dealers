@@ -20,10 +20,10 @@
                             <tr>
                                 <th>{{ __('SL') }}</th>
                                 <th>{{ __('Name') }}</th>
+                                <th>{{ __('price') }}</th>
+                                <th>{{ __('cost_price') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Featured') }}</th>
-                                <th>{{ __('Backorder') }}</th>
-                                <th>{{ __('Dropshipping') }}</th>
                                 <th>{{ __('Deleted By') }}</th>
                                 <th>{{ __('Deleted Date') }}</th>
                                 <th>{{ __('Action') }}</th>
@@ -44,10 +44,10 @@
         $(document).ready(function() {
             let table_columns = [
                 ['name', true, true],
+                ['price', true, true],
+                ['cost_price', true, true],
                 ['status', true, true],
                 ['is_featured', true, true],
-                ['allow_backorder', true, true],
-                ['is_dropshipping', true, true],
                 ['deleted_by', true, true],
                 ['deleted_at', false, false],
                 ['action', false, false],
