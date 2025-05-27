@@ -1,7 +1,9 @@
 
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', function () {
+
+
     //Select 2
-    $("select.form-control:not(.no-select)").select2(
+    $("select.form-control:not(.no-select)").Select2(
         {
             tags: true,
             tokenSeparators: [',']

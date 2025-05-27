@@ -43,14 +43,14 @@
             <div class="swiper-wrapper h-full">
                 @foreach ($banners as $banner)
                     <div
-                        class="swiper-slide h-full relative after:content-[''] after:w-full after:h-full after:absolute after:top-0 after:left-0 after:bg-gradient-to-t after:from-bg-dark-tertiary after:to-transparent">
+                        class="swiper-slide h-full relative after:content-[''] after:w-full after:h-full after:absolute after:top-0 after:left-0 after:bg-bg-dark/40">
                         <img class="w-full h-full object-cover bg-center" src="{{ storage_url($banner->image) }}"
                             alt="{{ $banner->name }}">
                     </div>
                 @endforeach
             </div>
         </div>
-    </section> --}}
+    </section>
     {{-- ===================== banner Section End ===================== --}}
     {{-- ===================== Category Section Start ===================== --}}
 
