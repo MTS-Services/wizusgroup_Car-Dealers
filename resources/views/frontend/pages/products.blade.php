@@ -3,17 +3,59 @@
 @section('title', 'Products')
 
 @section('content')
-    <section class="py-15">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1 class="text-3xl font-semibold text-text-primary dark:text-text-light text-center">
-                        {{ $category->name }}
-                    </h1>
+    @if (isset($category))
+        <section class="py-15">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="text-3xl font-semibold text-text-primary dark:text-text-light text-center">
+                            {{ $category->name }}
+                        </h1>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @else
+        <section class="2xl:py-20 xl:py-16 lg:py-12 md:py-10 py-8">
+            <div class="container">
+                <div class="header text-center mb-10">
+                    <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase">
+                        {{ __('Categories') }}</h2>
+                </div>
+                <div class="relative">
+                    <div class="swiper categories static">
+                        <div class="swiper-wrapper p-5">
+                            @foreach ($categories as $cat)
+                                <div class="swiper-slide">
+                                    <a href="{{ route('frontend.products', $cat->slug) }}">
+                                        <div>
+                                            <div class="text-center">
+                                                <img class="w-auto rounded-xl object-cover mx-auto"
+                                                    src="{{ $cat->modified_image }}" alt="{{ $cat?->name }}">
+                                                <p class="py-2">{{ __($cat?->name) }} </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="hidden xl:block">
+                            <div class="swiper-pagination z-10 !-bottom-6 lg:!-bottom-8"></div>
+                            <!-- Navigation buttons -->
+                            <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
+                                <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                            </div>
+
+                            <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9">
+                                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
     {{-- Mid Content --}}
     <section class="py-15">
         <div class="container">
@@ -21,7 +63,7 @@
                 @include('frontend.layouts.includes.product_filter_sidebar')
                 <div class="w-1/4 hidden xl:block">
                     {{-- Sidebar Filter --}}
-                    <form action="{{ route('frontend.products.filter', ['category_slug' => $category->slug]) }}"
+                    <form action="{{ route('frontend.products.filter', isset($category) ? $category->slug : '') }}"
                         method="POST">
                         @csrf
                         <div class="shadow-card rounded-lg dark:bg-bg-dark-tertiary">
@@ -36,8 +78,8 @@
                                         <select
                                             class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2"
                                             name="subcategory" id="subcategory">
-                                            <option value="">{{ __('All Agricultural') }}</option>
-                                            @foreach ($category->childrens as $children)
+                                            <option value="">{{ __('All') }}</option>
+                                            @foreach ($subcategories as $children)
                                                 <option value="{{ $children->slug }}"
                                                     {{ request()->subcategory == $children->slug ? 'selected' : '' }}>
                                                     {{ $children->name }}</option>
@@ -58,7 +100,7 @@
                                         <select name="brand" id="brand"
                                             class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
                                             <option value="">{{ __('All') }}</option>
-                                            @foreach ($category->brands as $brand)
+                                            @foreach ($brands as $brand)
                                                 <option value="{{ $brand->slug }}"
                                                     {{ request()->brand == $brand->slug ? 'selected' : '' }}>
                                                     {{ $brand->name }}</option>
@@ -80,7 +122,8 @@
                                         <select name="model" id="model"
                                             class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
                                             <option value="">{{ __('All') }}</option>
-                                            @foreach ($category->models as $model)
+
+                                            @foreach ($models as $model)
                                                 <option value="{{ $model->slug }}"
                                                     {{ request()->model == $model->slug ? 'selected' : '' }}>
                                                     {{ $model->name }}</option>
@@ -169,8 +212,9 @@
                             </h2>
                         </div>
                         <div class="flex items-center">
-                            <form action="{{ route('frontend.products.filter', $category->slug) }}" method="POST"
-                                id="filter_form">
+                            <form
+                                action="{{ route('frontend.products.filter', isset($category) ? $category->slug : '') }}"
+                                method="POST" id="filter_form">
                                 @csrf
                                 <select name="sort" id="sort-select" class="select">
                                     <option value="" {{ request()->sort == '' ? 'selected' : '' }}>Default</option>
@@ -205,6 +249,53 @@
     </section>
 @endsection
 @push('js')
+    <script>
+        // CATEGORY SWIPER
+        const categorySwiperEl = document.querySelector('.categories');
+        new Swiper(categorySwiperEl, {
+            loop: true,
+            slidesPerView: 6,
+            spaceBetween: 20,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                0: {
+                    slidesPerView: 1
+                },
+                450: {
+                    slidesPerView: 2
+                },
+                768: {
+                    slidesPerView: 3
+                },
+                1024: {
+                    slidesPerView: 4
+                },
+                1280: {
+                    slidesPerView: 5
+                },
+                1536: {
+                    slidesPerView: 6
+                },
+            },
+            on: {
+                init: function() {
+                    hideControlsIfNotEnoughSlides(categorySwiperEl, this, () => this.params.slidesPerView);
+                }
+            }
+
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $("#sort-select").on("change", function() {
