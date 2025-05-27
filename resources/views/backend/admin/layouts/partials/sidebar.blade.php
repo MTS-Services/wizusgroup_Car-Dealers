@@ -363,18 +363,23 @@
                 </li>
 
                 {{-- Auction Management --}}
-                <li class="nav-item  @if ($page_slug == 'auction') active submenu @endif">
+                <li class="nav-item  @if ($page_slug == 'auction' || $page_slug == 'auction_running') active submenu @endif">
                     <a data-bs-toggle="collapse" href="#auction_management"
-                        @if ($page_slug == 'auction') aria-expanded="true" @endif>
+                        @if ($page_slug == 'auction' || $page_slug == 'auction_running') aria-expanded="true" @endif>
                         <i class="fas fa-gavel"></i>
                         <p>{{ __('Auction Management') }}</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse @if ($page_slug == 'auction') show @endif" id="auction_management">
+                    <div class="collapse @if ($page_slug == 'auction' || $page_slug == 'auction_running') show @endif" id="auction_management">
                         <ul class="nav nav-collapse">
                             <li class="@if ($page_slug == 'auction') active @endif">
                                 <a href="{{ route('auction-m.auction.index') }}">
                                     <span class="sub-item">{{ __('Auction') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'auction_running') active @endif">
+                                <a href="{{ route('auction-m.auction-running') }}">
+                                    <span class="sub-item">{{ __('Auction Running') }}</span>
                                 </a>
                             </li>
                         </ul>

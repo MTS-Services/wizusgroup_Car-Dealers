@@ -69,8 +69,8 @@ class AuctionController extends Controller
     {
         return [
             [
-                'routeName' => 'javascript:void(0)',
-                'data-id' => encrypt($model->id),
+                'routeName' => 'auction-m.auction.show',
+                'params' => encrypt($model->id),
                 'className' => 'view',
                 'label' => 'Details',
                 'permissions' => ['auction-details']
@@ -176,10 +176,10 @@ class AuctionController extends Controller
      */
     public function show(string $id)
     {
-        $data = $this->auctionService->getAuction($id);
-        $data->load(['creater_admin', 'updater_admin', 'product']);
-        $data->product_name = $data?->product?->name;
-        return response()->json($data);
+        $data['auction'] = $this->auctionService->getAuction($id);
+        $data['auction']->load(['creater_admin', 'updater_admin', 'product', 'auctionBids.user', 'auctionWatchers.user']);
+        $data['auction']->product_name = $data['auction']?->product?->name;
+        return view('backend.admin.auction_management.auction.details', $data);
     }
 
     /**
@@ -263,5 +263,11 @@ class AuctionController extends Controller
             throw $e;
         }
         return redirect()->route('auction-m.auction.recycle-bin');
+    }
+
+    public function auctionRunning(): View
+    {
+        $data['auctions'] = $this->auctionService->getAuctions('end_date', 'asc')->with(['creater_admin','product.category','auctionBids'])->withCount(['auctionBids','auctionWatchers'])->featured()->get();
+        return view('backend.admin.auction_management.auction_running', $data);
     }
 }

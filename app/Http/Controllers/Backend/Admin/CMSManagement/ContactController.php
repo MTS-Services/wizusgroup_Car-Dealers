@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Admin\CMSManagement;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
 use App\Services\Admin\CMSManagement\ContactService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -60,23 +61,10 @@ class ContactController extends Controller
     {
         return [
             [
-                'routeName' => 'javascript:void(0)',
-                'data-id' => encrypt($model->id),
-                'className' => 'view',
+                'routeName' => 'cms.contact.show',
+                'params' => [encrypt($model->id)],
                 'label' => 'Details',
                 'permissions' => ['contact-details']
-            ],
-            [
-                'routeName' => 'cms.contact.edit',
-                'params' => [encrypt($model->id)],
-                'label' => 'Edit',
-                'permissions' => ['contact-edit']
-            ],
-            [
-                'routeName' => 'cms.contact.status',
-                'params' => [encrypt($model->id)],
-                'label' => $model->status_btn_label,
-                'permissions' => ['contact-status']
             ],
             [
                 'routeName' => 'cms.contact.destroy',
@@ -154,10 +142,13 @@ class ContactController extends Controller
      */
     public function show(string $id)
     {
-        $contact = $this->contactService->getContact($id);
+        $data['contact'] = $this->contactService->getContact($id);
+        if (empty($data['contact']->open_by)) {
+            $data['contact']->update(['open_by' => admin()->id, 'status' => Contact::STATUS_OPEN]);
+        }
+        $data['contact']->load(['creater', 'updater', 'openBy']);
 
-        $contact->load(['creater']);
-        return response()->json($contact);
+        return view('backend.admin.cms_management.contact.show', $data);
     }
 
 
@@ -191,16 +182,9 @@ class ContactController extends Controller
         }
         return redirect()->route('cms.contact.index');
     }
-    public function status(string $id): RedirectResponse
+    public function status(string $id)
     {
-        try {
-            $this->contactService->toggleStatus($id);
-            session()->flash('success', 'Contacat status updated successfully!');
-        } catch (\Throwable $e) {
-            session()->flash('error', 'Contacat status update failed!');
-            throw $e;
-        }
-        return redirect()->route('cms.contact.index');
+
     }
 
     public function restore(string $id): RedirectResponse

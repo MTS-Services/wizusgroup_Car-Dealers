@@ -83,6 +83,10 @@ class Auction extends BaseModel
     {
         return $this->hasMany(AuctionBid::class);
     }
+    public function auctionWatchers()
+    {
+        return $this->hasMany(AuctionWatcher::class);
+    }
 
     public function winner()
     {
