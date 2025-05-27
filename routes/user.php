@@ -31,13 +31,16 @@ Route::middleware(['auth:web', 'verified'])->group(function () {
       Route::put('/profile/update', 'profileUpdate')->name('profile.update');
       Route::put('/address/update', 'addressUpdate')->name('address.update');
       Route::put('/password/update', 'passwordUpdate')->name('password.update');
+
+      Route::get('auction/details/{auction_slug}', 'auctionDetails')->name('auction.details');
+
     });
 
     // Auction Bid Place Route
     Route::controller(AuctionBidPlaceController::class)->prefix('bid-place')->name('auction.')->group(function () {
       Route::post('/place/{slug}', 'placeBid')->name('bid-place');
     });
-
+   
     Route::controller(ProductReserveInquiryController::class)->name('p.')->group(function () {
       Route::post('/reserve/{slug}', 'reserveStore')->name('reserve-store');
       Route::post('/inquiry/{slug}', 'inquiryStore')->name('inquiry-store');

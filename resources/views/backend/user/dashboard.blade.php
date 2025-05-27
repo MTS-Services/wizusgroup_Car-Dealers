@@ -29,10 +29,10 @@
                                 </a>
                             </li>
                             <li class="group nav_item dark:hover:bg-bg-dark-tertiary  transition-all duration-300"
-                                data-target="my_bits">
+                                data-target="my_bids">
                                 <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="dollar-sign"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
-                                        class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('My Bits') }}</span>
+                                        class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('My Bids') }}</span>
                                 </a>
                             </li>
                             <li class="group nav_item dark:hover:bg-bg-dark-tertiary  transition-all duration-300"
@@ -112,7 +112,7 @@
                                             <span><i data-lucide="dollar-sign"
                                                     class="w-10 h-10 bg-bg-gray dark:bg-opacity-20 rounded-md p-1 "></i></span>
                                             <span
-                                                class="text-2xl font-semibold uppercase text-text-primary dark:text-text-white">{{ __('My Bits') }}</span>
+                                                class="text-2xl font-semibold uppercase text-text-primary dark:text-text-white">{{ __('My Bids') }}</span>
                                         </div>
                                         <h3 class="text-4xl font-semibold text-text-primary dark:text-text-white mt-3 ms-2">
                                             {{ __('$8,200') }}
@@ -567,16 +567,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="my_bits" class="nav-pane hidden">
+                        <div id="my_bids" class="nav-pane block">
                             <div class="bg-bg-gray dark:bg-opacity-20 p-10 pt-0">
                                 <div class="max-w-6xl mx-auto">
-                                    <!-- Containers Panel Header -->
-                                    <div class="pb-4">
-                                        <h2 class="text-xl lg:text-2xl font-medium text-text-primary dark:text-text-white">
-                                            {{ __('My Bits') }}</h2>
-                                    </div>
-                                    {{-- My Bits --}}
-                                    {{-- @include('backend.user.includes.my_bits') --}}
+                                    {{-- My Bids --}}
+                                    @include('backend.user.includes.my_bids')
                                 </div>
                             </div>
                         </div>
@@ -585,7 +580,7 @@
                                 <h3 class="text-xl font-semibold">My Inquiries</h3>
                             </div>
                         </div>
-                        <div id="update-profile" class="nav-pane block @if (isset($page_slug) && $page_slug == 'dashboard') active @endif">
+                        <div id="update-profile" class="nav-pane hidden @if (isset($page_slug) && $page_slug == 'dashboard') active @endif">
                             <div class="bg-bg-gray dark:bg-opacity-20 p-10 pt-0">
                                 <div class="w-full">
                                     <div
