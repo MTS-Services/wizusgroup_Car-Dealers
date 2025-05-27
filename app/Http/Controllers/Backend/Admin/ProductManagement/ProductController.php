@@ -185,8 +185,9 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
+        $data['product_type'] = $request->product_type;
         $data['suppliers'] = Supplier::select('id', 'first_name')->get();
         return view('backend.admin.product_management.product.create.basic_info', $data);
     }

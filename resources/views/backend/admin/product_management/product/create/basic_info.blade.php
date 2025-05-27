@@ -1,4 +1,4 @@
-@extends('backend.admin.layouts.master', ['page_slug' => 'product'])
+@extends('backend.admin.layouts.master', ['page_slug' => 'product', 'product_type' => $product_type ?? ''])
 @section('title', 'Create Product')
 @section('content')
     <div class="row">
@@ -66,7 +66,7 @@
 
 
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ __('SKU') }} <span class="text-danger">*</span></label>
                                     <input type="text" value="{{ old('sku') }}" name="sku" class="form-control"
@@ -74,7 +74,7 @@
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'sku']" />
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ __('Stock Number') }} <span class="text-danger">*</span></label>
                                     <input type="text" value="{{ old('stock_no') }}" name="stock_no"
@@ -82,7 +82,7 @@
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'stock_no']" />
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ __('Year') }} <span class="text-danger">*</span></label>
                                     <select name="year" class="form-control" id="year">
@@ -95,16 +95,24 @@
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'year']" />
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ __('Product Type') }} <span class="text-danger">*</span></label>
                                     <select name="product_type" class="form-control">
-                                        <option value=" " selected hidden>{{ __('Select Product Type') }}</option>
-                                        @foreach (App\Models\Product::getProductTypes() as $key => $value)
-                                            <option value="{{ $key }}"
-                                                {{ old('product_type') == $key ? 'selected' : '' }}>{{ $value }}
+                                        <option value="" selected hidden>{{ __('Select Product Type') }}</option>
+                                        @if ($product_type)
+                                            <option value="{{ $product_type }}" selected>
+                                                {{ App\Models\Product::getProductTypes()["$product_type"] }}
                                             </option>
-                                        @endforeach
+                                        @else
+                                            @foreach (App\Models\Product::getProductTypes() as $key => $value)
+                                                <option value="{{ $key }}"
+                                                    {{ old('product_type') == $key ? 'selected' : '' }}>
+                                                    {{ $value }}
+                                                </option>
+                                            @endforeach
+                                        @endif
+
                                     </select>
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'product_type']" />
                                 </div>
@@ -289,18 +297,28 @@
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'drive_system']" />
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ __('Supplier Name') }}</label>
-                                    <select name="supplier_id" class="form-control">
-                                        <option value="" selected>{{ __('Select Supplier') }}</option>
-                                        @foreach ($suppliers as $supplier)
-                                            <option value="{{ $supplier->id }}">{{ $supplier->first_name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'supplier_id']" />
+                            @if (isset($product_type) && $product_type == App\Models\Product::PRODUCT_TYPE_DROPSHIPPING)
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>{{ __('Supplier Name') }} <span class="text-danger">*</span></label>
+                                        <select name="supplier_id" class="form-control">
+                                            <option value="" selected>{{ __('Select Supplier') }}</option>
+                                            @foreach ($suppliers as $supplier)
+                                                <option value="{{ $supplier->id }}">{{ $supplier->first_name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'supplier_id']" />
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>{{ __('Product Source URL') }} <span class="text-danger">*</span></label>
+                                        <input type="url" value="{{ old('source_url') }}" name="source_url"
+                                            class="form-control" placeholder="Enter product source url">
+                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'source_url']" />
+                                    </div>
+                                </div>
+                            @endif
 
                             <div class="col-md-12">
                                 <div class="form-group">

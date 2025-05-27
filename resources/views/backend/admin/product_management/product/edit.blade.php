@@ -291,20 +291,31 @@
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'drive_system']" />
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ __('Supplier Name') }}</label>
-                                    <select name="supplier_id" class="form-control">
-                                        <option value="" selected>
-                                            {{ $product->supplier?->first_name ?: __('Select Supplier') }}</option>
-                                        @foreach ($suppliers as $supplier)
-                                            <option value="{{ $supplier->id }}">{{ $supplier->first_name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'supplier_id']" />
-                                </div>
-                            </div>
 
+                            @if ($product->product_type == App\Models\Product::PRODUCT_TYPE_DROPSHIPPING)
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>{{ __('Supplier Name') }} <span class="text-danger">*</span></label>
+                                        <select name="supplier_id" class="form-control">
+                                            <option value="" selected>{{ __('Select Supplier') }}</option>
+                                            @foreach ($suppliers as $supplier)
+                                                <option value="{{ $supplier->id }}"
+                                                    {{ $product->supplier_id == $supplier->id ? 'selected' : '' }}>
+                                                    {{ $supplier->first_name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'supplier_id']" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>{{ __('Product Source URL') }} <span class="text-danger">*</span></label>
+                                        <input type="url" value="{{ $product->source_url }}" name="source_url"
+                                            class="form-control" placeholder="Enter product source url">
+                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'source_url']" />
+                                    </div>
+                                </div>
+                            @endif
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ __('Remarks') }}</label>

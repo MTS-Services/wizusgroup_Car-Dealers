@@ -52,6 +52,8 @@ class Product extends BaseModel
         'supplier_id',
         'product_type',
 
+        'source_url',
+
         'length_cm',
         'width_cm',
         'height_cm',
@@ -337,9 +339,9 @@ class Product extends BaseModel
     }
 
     // Product Types
-    public const PRODUCT_TYPE_PARTS = 0;
-    public const PRODUCT_TYPE_NORMAL = 1;
-    public const PRODUCT_TYPE_DROPSHIPPING = 2;
+    public const PRODUCT_TYPE_PARTS = 1;
+    public const PRODUCT_TYPE_NORMAL = 2;
+    public const PRODUCT_TYPE_DROPSHIPPING = 3;
 
     public function scopeParts($query): mixed
     {
