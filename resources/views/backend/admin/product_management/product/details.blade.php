@@ -103,19 +103,19 @@
                                                 <div class="mt-4">
                                                     <h4>Product Flags</h4>
                                                     <ul class="list-group list-group-flush">
-                                                        <li class="list-group-item h5">Allow Backorder: <strong
+                                                        {{-- <li class="list-group-item h5">Allow Backorder: <strong
                                                                 class="ms-2 h6">{{ $product->allow_backorder ? 'Allowed' : 'Not Allowed' }}</strong>
-                                                        </li>
+                                                        </li> --}}
                                                         <li class="list-group-item h5">Status: <strong class="ms-2 h6">
                                                                 {{ $product->status ? 'Active' : 'Inactive' }}</strong>
                                                         </li>
                                                         <li class="list-group-item h5">Featured: <strong class="ms-2 h6">
                                                                 {{ $product->is_featured ? 'Yes' : 'No' }}</strong>
                                                         </li>
-                                                        <li class="list-group-item h5">Dropshipping: <strong
+                                                        {{-- <li class="list-group-item h5">Dropshipping: <strong
                                                                 class="ms-2 h6">
                                                                 {{ $product->is_dropshipping ? 'Yes' : 'No' }}</strong>
-                                                        </li>
+                                                        </li> --}}
                                                     </ul>
                                                 </div>
                                             </div>
@@ -180,12 +180,14 @@
                                     <h2 class="text-center m-0 p-2">{{ __('Images Gallery') }}</h2>
                                     <div class="card-body">
                                         <h4>{{ __('Primary Image') }}</h4>
-                                        <img src="{{ $product->primaryImage->first()?->modified_image }}" alt="{{ $image->alt ?? $product->name }}">
+                                        <img src="{{ $product->primaryImage->first()?->modified_image }}"
+                                            alt="{{ $image->alt ?? $product->name }}">
                                     </div>
                                     <div class="card-body">
                                         <h4>{{ __('Images') }}</h4>
                                         @foreach ($product->images as $image)
-                                            <img src="{{ $image->modified_image }}" alt="{{ $image->alt ?? $product->name }}">
+                                            <img src="{{ $image->modified_image }}"
+                                                alt="{{ $image->alt ?? $product->name }}">
                                         @endforeach
 
                                     </div>

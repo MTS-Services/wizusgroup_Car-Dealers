@@ -6,14 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\User\UserPasswordUpdateRequest;
 use App\Http\Requests\User\UserProfileRequest;
-use App\Models\PersonalInformation;
+use App\Models\Auction;
 use App\Models\User;
 use App\Services\AddressService;
+use App\Services\Admin\AuctionManagement\AuctionService;
 use App\Services\Admin\Setup\CountryService;
 use App\Services\Admin\UserManagement\UserService;
 use App\Services\PersonalInformationService;
-use Faker\Provider\ar_EG\Person;
-use Illuminate\Http\Request;
 
 class UserProfileController extends Controller
 {
@@ -21,18 +20,30 @@ class UserProfileController extends Controller
     protected PersonalInformationService $personalInformationService;
     protected CountryService $countryService;
     protected UserService $userService;
+    protected AuctionService $auctionService;
 
-    public function __construct(AddressService $addressService, PersonalInformationService $personalInformationService, CountryService $countryService, UserService $userService)
+    public function __construct(AddressService $addressService, PersonalInformationService $personalInformationService, CountryService $countryService, UserService $userService, AuctionService $auctionService)
     {
         $this->middleware("auth:web");
         $this->addressService = $addressService;
         $this->personalInformationService = $personalInformationService;
         $this->countryService = $countryService;
         $this->userService = $userService;
+        $this->auctionService = $auctionService;
     }
     public function profile()
     {
         $data['user'] = $this->userService->getUser(encrypt(user()->id));
+        $data['auctions'] = $this->auctionService->getAuctions('end_date', 'asc')->withCount('auctionBids')->whereHas('auctionBids', function ($query) {
+            $query->where('user_id', user()->id);
+        })->with([
+            'auctionBids' => function ($q) {
+                $q->where('user_id', user()->id);
+            },
+            'auctionWatchers',
+            'product.category',
+        ])
+        ->get();
         $data['user']->load(['personalInformation']);
         $data['address'] = $this->addressService->getAddresses()->userAddresses()->personal()->first();
         $data['countries'] = $this->countryService->getCountrys()->active()->get();
@@ -75,5 +86,13 @@ class UserProfileController extends Controller
             throw $th;
         }
         return redirect()->back();
+    }
+
+    // Details User Bids
+    public function auctionDetails($auction_slug)
+    {
+
+        $data['auction'] = Auction::withCount('auctionBids')->with(['product.category'])->where('slug', $auction_slug)->firstOrFail();
+        return view('backend.user.details_my_bids', $data);
     }
 }

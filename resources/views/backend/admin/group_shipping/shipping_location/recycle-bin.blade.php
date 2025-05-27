@@ -1,16 +1,16 @@
-@extends('backend.admin.layouts.master', ['page_slug' => 'product'])
-@section('title', 'Product Recycle Bin')
+@extends('backend.admin.layouts.master', ['page_slug' => 'shipping_location'])
+@section('title', 'Shipping Location Recycle Bin')
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Product Recycle Bin') }}</h4>
+                    <h4 class="cart-title">{{ __('Shipping Location Recycle Bin') }}</h4>
                     <div class="buttons">
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'pm.product.index',
+                            'routeName' => 'gs.shipping-location.index',
                             'label' => 'Back',
-                            'permissions' => ['product-list'],
+                            'permissions' => ['shipping-location-list'],
                         ]" />
                     </div>
                 </div>
@@ -20,10 +20,7 @@
                             <tr>
                                 <th>{{ __('SL') }}</th>
                                 <th>{{ __('Name') }}</th>
-                                <th>{{ __('price') }}</th>
-                                <th>{{ __('cost_price') }}</th>
                                 <th>{{ __('Status') }}</th>
-                                <th>{{ __('Featured') }}</th>
                                 <th>{{ __('Deleted By') }}</th>
                                 <th>{{ __('Deleted Date') }}</th>
                                 <th>{{ __('Action') }}</th>
@@ -43,23 +40,21 @@
     <script>
         $(document).ready(function() {
             let table_columns = [
+                //name and data, orderable, searchable
                 ['name', true, true],
-                ['price', true, true],
-                ['cost_price', true, true],
                 ['status', true, true],
-                ['is_featured', true, true],
                 ['deleted_by', true, true],
-                ['deleted_at', false, false],
+                ['deleted_at', true, true],
                 ['action', false, false],
             ];
             const details = {
                 table_columns: table_columns,
                 main_class: '.datatable',
                 displayLength: 10,
-                main_route: "{{ route('pm.product.recycle-bin') }}",
+                main_route: "{{ route('gs.shipping-location.recycle-bin') }}",
                 order_route: "{{ route('update.sort.order') }}",
-                export_columns: [0, 1, 2, 3, 4, 5, 6, 7],
-                model: 'Product',
+                export_columns: [0, 1, 2, 3,4],
+                model: 'ShippingLocation',
             };
             // initializeDataTable(details);
 

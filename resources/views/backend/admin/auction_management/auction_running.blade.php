@@ -51,7 +51,7 @@
                             <span class="lead fw-medium">{{ __('Last Bid Price:') }}</span>
                             <p class="text-wiz_red lead fw-medium m-0">${{ number_format($auction->auctionBids?->last()?->bid_amount ,2) ?? 0.00 }}</p>
                         </div>
-                        <a href="{{ route('auction-m.auction.show', encrypt($auction->id)) }}" class="text-success fs-5 fw-medium text-decoration-underline">
+                        <a href="{{ route('auction-m.auction.show', encrypt($auction->id)) }}" target="_blank" class="text-success fs-5 fw-medium text-decoration-underline">
                             {{ __('View Details') }}
                         </a>
                     </div>
