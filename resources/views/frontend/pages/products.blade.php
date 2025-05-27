@@ -59,15 +59,15 @@
     {{-- Mid Content --}}
     <section class="py-15">
         <div class="container">
-            <div class="flex justify-start gap-10">
-                @include('frontend.layouts.includes.product_filter_sidebar')
-                <div class="w-1/4 hidden xl:block">
+            <div class="flex justify-start gap-10 relative">
+                {{-- @include('frontend.layouts.includes.product_filter_sidebar') --}}
+                <div class="w-full basis-1/4 hidden 2xl:block">
                     {{-- Sidebar Filter --}}
-                    <form action="{{ route('frontend.products.filter', isset($category) ? $category->slug : '') }}"
+                    {{-- <form action="{{ route('frontend.products.filter', isset($category) ? $category->slug : '') }}"
                         method="POST">
                         @csrf
-                        <div class="shadow-card rounded-lg dark:bg-bg-dark-tertiary">
-                            <!-- Category Filter -->
+                        <div class="space-y-6 shadow-card dark:shadow-dark-card rounded-lg dark:bg-bg-dark-tertiary overflow-hidden mt-3">
+   
                             <div class="p-4 pb-0">
                                 <div data-target="category-filter">
                                     <h3 class="text-xl font-medium">{{ __('Category') }}</h3>
@@ -75,9 +75,7 @@
 
                                 <div class="filter-content" id="category-filter">
                                     <div class="mt-2">
-                                        <select
-                                            class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2"
-                                            name="subcategory" id="subcategory">
+                                        <select class="select select2" name="subcategory" id="subcategory">
                                             <option value="">{{ __('All') }}</option>
                                             @foreach ($subcategories as $children)
                                                 <option value="{{ $children->slug }}"
@@ -88,8 +86,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Brand Filter -->
                             <div class="p-4 pb-0">
                                 <div data-target="brand-filter">
                                     <h3 class="text-xl font-medium">{{ __('Brand') }}</h3>
@@ -97,8 +93,7 @@
 
                                 <div class="filter-content" id="brand-filter">
                                     <div class="mt-2">
-                                        <select name="brand" id="brand"
-                                            class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
+                                        <select name="brand" id="brand" class="select select2">
                                             <option value="">{{ __('All') }}</option>
                                             @foreach ($brands as $brand)
                                                 <option value="{{ $brand->slug }}"
@@ -110,8 +105,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Model Filter -->
                             <div class="p-4 pb-0">
                                 <div data-target="model-filter">
                                     <h3 class="text-xl font-medium">{{ __('Model') }}</h3>
@@ -119,8 +112,7 @@
 
                                 <div class="filter-content" id="model-filter">
                                     <div class="mt-2">
-                                        <select name="model" id="model"
-                                            class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
+                                        <select name="model" id="model" class="select select2">
                                             <option value="">{{ __('All') }}</option>
 
                                             @foreach ($models as $model)
@@ -133,8 +125,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Year Filter -->
                             <div class="p-4 pb-0">
                                 <div data-target="year-filter">
                                     <h3 class="text-xl font-medium">{{ __('Year') }}</h3>
@@ -142,8 +132,7 @@
 
                                 <div class="filter-content" id="year-filter">
                                     <div class="mt-2">
-                                        <select name="year" id="year"
-                                            class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2">
+                                        <select name="year" id="year" class="select select2">
                                             <option value=" ">{{ __('All') }}</option>
                                             @for ($i = date('Y'); $i >= 1900; $i--)
                                                 <option value="{{ $i }}"
@@ -154,7 +143,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- Price Filter --}}
                             <details class="collapse collapse-arrow" open>
                                 <summary class="collapse-title text-xl font-medium">{{ __('Price') }}</summary>
                                 <div class="collapse-content">
@@ -172,7 +160,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Price display -->
                                     <div class="pt-8">
                                         <p class="text-sm lg:text-base">
                                             {{ __('Price:') }} <span
@@ -196,9 +183,9 @@
                                 </svg>
                             </button>
                         </div>
-                    </form>
+                    </form> --}}
                 </div>
-                <div class="w-full xl:w-3/4">
+                <div class="w-full 2xl:basis-3/4">
                     {{-- Products Grid --}}
                     <div class="flex justify-between items-center mb-6">
                         <div class="flex items-center gap-2 md:gap-3">
@@ -212,8 +199,7 @@
                             </h2>
                         </div>
                         <div class="flex items-center">
-                            <form
-                                action="{{ route('frontend.products.filter', isset($category) ? $category->slug : '') }}"
+                            <form action="{{ route('frontend.products.filter', isset($category) ? $category->slug : '') }}"
                                 method="POST" id="filter_form">
                                 @csrf
                                 <select name="sort" id="sort-select" class="select">
@@ -372,6 +358,7 @@
             });
         });
     </script>
+
     {{-- Price Range Slide --}}
     <script>
         $('.price-slider').each(function() {

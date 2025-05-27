@@ -12,7 +12,8 @@
             </button>
         </div>
         {{-- Sidebar Filter --}}
-        <div class="space-y-6 dark:border dark:border-border-gray dark:border-opacity-20 shadow-card rounded-lg dark:bg-bg-dark-tertiary mt-4 mx-2">
+        <x-frontend.auction-filter :categories="$categories" :companies="$companies"/>
+        {{-- <div class="space-y-6 dark:border dark:border-border-gray dark:border-opacity-20 shadow-card rounded-lg dark:bg-bg-dark-tertiary mt-4 mx-2">
             <div class="px-4 pt-4">
                 <div data-target="category-filter">
                     <h3 class="text-sm md:text-base font-medium mb-2">{{ __("Category") }}</h3>
@@ -78,6 +79,6 @@
                     </svg>
                 </button>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
