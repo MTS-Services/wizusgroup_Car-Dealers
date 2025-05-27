@@ -184,7 +184,7 @@
     </div>
     <div class="divider mx-5 mt-10"></div>
     <div class="container">
-        <div class="flex flex-wrap justify-center">
+        <div class="flex flex-wrap justify-center text-center">
             <p class="text-sm text-text-primary dark:text-text-light">{{ __('Copyright') }} &copy;
                 {{ date('Y') }}
                 {{ config('app.name') }}. {{ __('All rights reserved.') }}</p>
