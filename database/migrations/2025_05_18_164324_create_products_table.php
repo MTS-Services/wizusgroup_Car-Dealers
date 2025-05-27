@@ -52,6 +52,7 @@ return new class extends Migration {
             $table->string('width_cm')->nullable();
             $table->string('height_cm')->nullable();
             $table->string('weight_kg')->nullable();
+            $table->string('source_url')->nullable();
 
             $table->tinyInteger('entry_status')->default(Product::ENTRY_STATUS_BASIC)->index();
 
@@ -65,15 +66,13 @@ return new class extends Migration {
             $table->decimal('sale_price', 10, 2)->index(); // promotional price if any
 
             // Inventory
-            $table->unsignedInteger('quantity')->default(0); // non-negative
-            $table->boolean('allow_backorder')->default(Product::NOTALLOW_BACKORDER)->index(); // indexed for faster backorder queries
+            $table->unsignedInteger('quantity')->default(0); // non-negativequeries
 
-            $table->tinyInteger('product_type')->default(Product::PRODUCT_TYPE_USED)->index();
+            $table->tinyInteger('product_type')->default(Product::PRODUCT_TYPE_NORMAL)->index();
 
             // Flags
             $table->tinyInteger('status')->default(Product::STATUS_ACTIVE)->index();
             $table->boolean('is_featured')->default(Product::NOT_FEATURED)->index();
-            $table->boolean('is_dropshipping')->default(Product::NOTALLOW_DROPSHIPPING)->index();
 
             // Dropshipping supplier relation
             $table->unsignedBigInteger('supplier_id')->nullable();

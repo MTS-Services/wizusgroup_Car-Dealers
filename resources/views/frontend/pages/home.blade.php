@@ -10,43 +10,8 @@
 
 @section('content')
     {{-- ===================== banner Section Start ===================== --}}
-
-    <section class="lg:max-h-screen max-h-[70vh] md:max-h-[80vh] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative">
-        <div class="swiper banner h-full">
-            <div class="swiper-wrapper h-full">
-                @foreach ($banners as $banner)
-                    <div
-                        class="swiper-slide h-full relative after:content-[''] after:w-full after:h-full after:absolute after:top-0 after:left-0 after:bg-bg-dark/35">
-                        <img class="w-full h-full object-cover bg-center" src="{{ storage_url($banner->image) }}"
-                            alt="{{ $banner->name }}">
-
-                        <div class="absolute bg-transparent inset-0 z-10">
-                            <div class="container flex items-center justify-center h-full flex-col gap-5">
-                                <div class="max-w-[600px] text-center">
-                                    <h1
-                                        class="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold pb-3 text-text-white dark:text-text-primary">
-                                        {{ $banner->title }}
-                                    </h1>
-                                    <p
-                                        class="text-base xs:text-sm sm:text-lg md:text-xl text-text-light-secondary dark:text-text-primary">
-                                        {{ $banner->subtitle }}
-                                    </p>
-                                </div>
-                                <form action="" class="w-full">
-                                    <div class="join w-full justify-center">
-                                        <input type="search" class="input input-search" placeholder="Search here..." />
-                                        <button class="btn-search">Search</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-    {{-- <section
-        class="lg:max-h-screen max-h-[70vh] md:max-h-[80vh] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative overflow-hidden">
+    <section
+        class="xl:max-h-screen max-h-[60vh] md:max-h-[70vh] lg:max-h-[80vh] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative overflow-hidden">
         <div class="absolute bg-transparent inset-0 z-10">
             <div class="container flex items-center justify-center h-full px-4 xs:px-2">
                 <div class="text-center w-full">
@@ -78,14 +43,14 @@
             <div class="swiper-wrapper h-full">
                 @foreach ($banners as $banner)
                     <div
-                        class="swiper-slide h-full relative after:content-[''] after:w-full after:h-full after:absolute after:top-0 after:left-0 after:bg-gradient-to-t after:from-bg-dark-tertiary after:to-transparent">
+                        class="swiper-slide h-full relative after:content-[''] after:w-full after:h-full after:absolute after:top-0 after:left-0 after:bg-bg-dark/40">
                         <img class="w-full h-full object-cover bg-center" src="{{ storage_url($banner->image) }}"
                             alt="{{ $banner->name }}">
                     </div>
                 @endforeach
             </div>
         </div>
-    </section> --}}
+    </section>
     {{-- ===================== banner Section End ===================== --}}
     {{-- ===================== Category Section Start ===================== --}}
 
@@ -97,34 +62,36 @@
             </div>
             <div class="relative">
                 <div class="swiper categories static">
-                    <div class="swiper-wrapper py-5">
+                    <div class="swiper-wrapper py-4 sm:py-5">
                         @foreach ($categories as $category)
-                            <div class="swiper-slide">
+                            <div class="swiper-slide px-2">
                                 <a href="{{ route('frontend.products', $category->slug) }}">
-                                    <div>
-                                        <div class="text-center">
+                                     <div class="text-center">
                                             <img class="w-auto rounded-xl object-cover mx-auto"
                                                 src="{{ $category->modified_image }}" alt="{{ $category?->name }}">
                                             <p class="py-2">{{ __($category?->name) }} </p>
                                         </div>
-                                    </div>
                                 </a>
                             </div>
                         @endforeach
                     </div>
-                    <div class="hidden xl:block">
+
+                    <!-- Controls (Hidden on small screens) -->
+                    <div class="hidden md:block">
                         <div class="swiper-pagination z-10 !-bottom-6 lg:!-bottom-8"></div>
-                        <!-- Navigation buttons -->
-                        <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
+
+                        <div
+                            class="swiper-button swiper-button-prev absolute top-1/2 transform -translate-y-1/2 -left-4 sm:-left-6 2xl:-left-9">
                             <i data-lucide="chevron-left" class="w-5 h-5"></i>
                         </div>
-
-                        <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9">
+                        <div
+                            class="swiper-button swiper-button-next absolute top-1/2 transform -translate-y-1/2 -right-4 sm:-right-6 2xl:-right-9">
                             <i data-lucide="chevron-right" class="w-5 h-5"></i>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="text-center mx-auto xl:mt-10 lg:mt-8 md:mt-6 mt-4">
                 <button>
                     <a href="#" class="btn-primary ">
@@ -262,13 +229,7 @@
                         </div>
                     </div>
 
-                    <!-- WhatsApp Floating Icon -->
-                    <div
-                        class="right-10 bottom-10 z-10 fixed shadow-lg w-16 h-16 flex items-center justify-center bg-gradient-primary rounded-full">
-                        <a href="#">
-                            <i class="fa-brands fa-whatsapp text-5xl text-text-light"></i>
-                        </a>
-                    </div>
+                    
                 </div>
             </div>
         </div>

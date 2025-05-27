@@ -315,6 +315,27 @@ input[type="range"]::-webkit-slider-thumb {
         transform: scale(1);
     }
 }
+/* Extra-small screens (mobile, < 360px) */
+@media (max-width: 360px) {
+    .countdown_section .time-value {
+        font-size: 1.2rem !important;
+    }
+
+    .countdown_section .time-label {
+        font-size: 0.6rem !important;
+    }
+
+    .countdown_section .time-block {
+        padding: 0.5rem 0.25rem;
+        min-height: 60px;
+    }
+
+    .countdown_section .countdown-blocks {
+        gap: 0.5rem;
+        padding: 0 0.25rem;
+    }
+}
+
 
 /* Medium screens (tablets) */
 @media (min-width: 641px) {

@@ -36,6 +36,7 @@ class Admin extends AuthBaseModel implements Auditable, MustVerifyEmail
         'first_name',
         'last_name',
         'username',
+        
         'email',
         'phone',
         'image',
