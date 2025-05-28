@@ -47,6 +47,8 @@ Route::group(['as' => 'frontend.'], function () {
     // group Shipping page
     Route::controller(GroupShippingPageController::class)->group(function () {
         Route::get('/group-shipping', 'group_shipping')->name('group_shipping');
+        Route::get('/join-group-shipping/{id}', 'joinGroupShipping')->name('join-group-shipping');
+
     });
 
     // droopshipping

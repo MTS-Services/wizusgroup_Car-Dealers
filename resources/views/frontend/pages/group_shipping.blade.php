@@ -117,7 +117,7 @@
                                                 </div>
 
                                                 <div class="flex space-x-2">
-                                                    <a href="#"
+                                                    <a href="{{ route('frontend.join-group-shipping', ['id' => $container->id]) }}"
                                                         class="flex-1 py-2 px-3 rounded-md font-semibold bg-bg-wiz_orange text-white hover:bg-bg-wiz_orange/90 shadow-md hover:shadow-lg text-center text-sm">
                                                         Join Shipping
                                                     </a>

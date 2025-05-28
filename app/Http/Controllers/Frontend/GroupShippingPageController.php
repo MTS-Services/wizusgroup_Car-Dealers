@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Container;
 use App\Services\Admin\CMSManagement\FaqService;
 use App\Services\Admin\GroupShipping\ContainerProductService;
 use App\Services\Admin\GroupShipping\ContainerService;
@@ -26,4 +27,11 @@ class GroupShippingPageController extends Controller
         $data['container_produts'] = $this->containerProductService->getContainerProducts()->with(['product', 'container'])->get();
         return view('frontend.pages.group_shipping', $data);
     }
+    public function joinGroupShipping(string $id)
+    {
+        $data['container'] =$this->containerService->getContainers()->with(['destinationPort', 'shippingPort'])->findOrFail($id);
+        return view('frontend.pages.join_group_shipping', $data);
+    }
+
+
 }
