@@ -12,6 +12,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class ContainerController extends Controller
@@ -121,9 +122,16 @@ class ContainerController extends Controller
     public function store(ContainerRequest $request)
     {
         try {
-            $validated = $request->validated();
-            $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
-            $this->containerService->createContainer($validated, $file);
+            DB::transaction(function () use ($request) {
+                $validated = $request->validated();
+                $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
+                $container = $this->containerService->createContainer($validated, $file);
+
+                foreach ($request->validated('container_products') as $key => $value) {
+                    $value['container_id'] = $container->id;
+                    $this->containerService->createContainerProducts($value);
+                }
+            });
             session()->flash('success', 'Container created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Container create failed!');
@@ -149,6 +157,8 @@ class ContainerController extends Controller
     public function edit(string $id)
     {
         $data['container'] = $this->containerService->getContainer($id);
+        $data['container']->load(['containerProducts.product']);
+        $data['products'] = $this->productService->getProducts()->active()->select(['id', 'name'])->get();
         $data['shipping_locations'] = $this->shippingLocationService->getShippingLocations()->active()->select(['id', 'name'])->get();
         $data['document'] = Documentation::where([['module_key', 'container'], ['type', 'update']])->first();
         return view('backend.admin.group_shipping.container.edit', $data);
@@ -157,12 +167,21 @@ class ContainerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ContainerRequest $request, string $id)
     {
         try {
-            $validated = $request->validated();
-            $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
-            $this->containerService->updateContainer($id, $validated, $file);
+
+            DB::transaction(function () use ($request, $id) {
+                $validated = $request->validated();
+                $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
+                $container = $this->containerService->updateContainer($id, $validated, $file);
+                foreach ($request->validated('container_products') as $key => $value) {
+                    $value['container_id'] = $container->id;
+                    $value['key'] = $key;
+                    $this->containerService->createContainerProducts($value);
+                }
+            });
+
             session()->flash('success', 'Container updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Container update failed!');
