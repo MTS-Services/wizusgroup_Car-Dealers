@@ -194,10 +194,14 @@
             </p>
         </div>
     </div>
+     @php
+        $phone = '+8801581088986';
+        $message = urlencode("Hi, I'm interested in your service.");
+    @endphp
 
     <div
         class="fixed z-50 bottom-6 right-6 md:bottom-10 md:right-10 shadow-lg rounded-full bg-gradient-primary flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
-        <a href="#" aria-label="Chat on WhatsApp">
+        <a href="https://wa.me/{{ $phone }}?text={{ $message }}" target="_blank" aria-label="Chat on WhatsApp">
             <i class="fa-brands fa-whatsapp text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-light"></i>
         </a>
     </div>

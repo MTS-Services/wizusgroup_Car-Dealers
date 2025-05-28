@@ -139,7 +139,7 @@
                                                 class="flex-1 py-2 px-3 sm:py-2.5 sm:px-4 rounded-md sm:rounded-lg font-medium sm:font-semibold bg-bg-wiz_orange text-white hover:bg-bg-wiz_orange/90 shadow-md hover:shadow-lg transition-all duration-300 text-center text-xs sm:text-sm">
                                                 Join Shipping
                                             </a>
-                                           
+
                                         </div>
                                     </div>
                                 </div>
@@ -279,7 +279,7 @@
                                                 class="flex-1 py-2 px-3 sm:py-2.5 sm:px-4 rounded-md sm:rounded-lg font-medium sm:font-semibold bg-bg-wiz_orange text-white hover:bg-bg-wiz_orange/90 shadow-md hover:shadow-lg transition-all duration-300 text-center text-xs sm:text-sm">
                                                 Join Shipping
                                             </a>
-                                           
+
                                         </div>
                                     </div>
                                 </div>
@@ -419,7 +419,7 @@
                                                 class="flex-1 py-2 px-3 sm:py-2.5 sm:px-4 rounded-md sm:rounded-lg font-medium sm:font-semibold bg-bg-wiz_orange text-white hover:bg-bg-wiz_orange/90 shadow-md hover:shadow-lg transition-all duration-300 text-center text-xs sm:text-sm">
                                                 Join Shipping
                                             </a>
-                                           
+
                                         </div>
                                     </div>
                                 </div>
@@ -430,6 +430,7 @@
             </div>
         </div>
     </section>
+   
     {{-- Group Shipping steps start --}}
     <section class="py-8 md:py-12 lg:py-14 xl:py-16 2xl:py-20 bg-bg-primary/20 dark:bg-bg-dark">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
