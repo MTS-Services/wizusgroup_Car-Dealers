@@ -73,6 +73,13 @@ class AuctionPageController extends Controller
 
     public function auctionDetails(string $slug)
     {
-        return view('frontend.pages.auction_details');
+        $data['auction'] = Auction::with([
+            'product.category',
+            'product.company',
+            'product.subCategory',
+            'product.images'
+        ])->where('slug', $slug)->firstOrFail();
+        // dd($data['auction']);
+        return view('frontend.pages.auction_details', $data);
     }
 }
