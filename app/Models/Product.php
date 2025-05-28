@@ -170,8 +170,6 @@ class Product extends BaseModel
     {
         return $this->belongsTo(Supplier::class, 'supplier_id', 'id');
     }
-
-
     public function images(): HasMany
     {
         return $this->hasMany(ProductImage::class, 'product_id', 'id');

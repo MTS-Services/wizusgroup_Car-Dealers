@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Container;
+use App\Models\ContainerProduct;
+use App\Models\Product;
 use App\Services\Admin\CMSManagement\FaqService;
 use App\Services\Admin\GroupShipping\ContainerProductService;
 use App\Services\Admin\GroupShipping\ContainerService;
@@ -23,13 +25,14 @@ class GroupShippingPageController extends Controller
     public function group_shipping()
     {
         $data['faqs'] = $this->faqService->getFaqs()->active()->get();
-        $data['containers'] = $this->containerService->getContainers()->active()->with(['destinationPort', 'shippingPort' ])->get();
-        $data['container_produts'] = $this->containerProductService->getContainerProducts()->with(['product', 'container'])->get();
+        $data['containers'] = $this->containerService->getContainers('deadline', 'desc')->active()->with(['destinationPort', 'shippingPort', 'containerProducts'])->get();
         return view('frontend.pages.group_shipping', $data);
     }
-    public function joinGroupShipping(string $id)
+    public function joinGroupShipping(string $container_slug, string $product_slug)
     {
-        $data['container'] =$this->containerService->getContainers()->with(['destinationPort', 'shippingPort'])->findOrFail($id);
+        $container = Container::where('slug', $container_slug)->first();
+        $product = Product::where('slug', $product_slug)->first();
+        $data['container_product'] = ContainerProduct::with(['container', 'product'])->where('container_id', $container->id)->where('product_id', $product->id)->first();
         return view('frontend.pages.join_group_shipping', $data);
     }
 
