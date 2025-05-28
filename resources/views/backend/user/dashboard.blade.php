@@ -44,8 +44,7 @@
                             </li>
                             <li class="group nav_item dark:hover:bg-bg-dark-tertiary  transition-all duration-300 active"
                                 data-target="update-profile">
-                                <a href="{{ route('user.profile') }}" class="flex items-center gap-2 p-3"><i
-                                        data-lucide="user"
+                                <a href="javascript:void(0)" class="flex items-center gap-2 p-3"><i data-lucide="user"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('Update Profile') }}</span>
                                 </a>
@@ -936,7 +935,8 @@
             const existingFiles = {
                 "#image": "{{ $user->modified_image }}"
             };
-            file_upload(["#image"], ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/svg"], existingFiles);
+            file_upload(["#image"], ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/svg"],
+                existingFiles);
         });
     </script>
     {{-- My Orders - Button Filter Styling --}}
