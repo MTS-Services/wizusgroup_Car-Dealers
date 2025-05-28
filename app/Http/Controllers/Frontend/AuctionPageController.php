@@ -80,6 +80,14 @@ class AuctionPageController extends Controller
             'product.images'
         ])->where('slug', $slug)->firstOrFail();
         // dd($data['auction']);
+
+        $relatedProductIds = $data['auction']->product->category
+            ->products()
+            ->where('products.id', '!=', $data['auction']->product->id)
+            ->pluck('products.id');
+        $data['auctions'] = Auction::whereIn('product_id', $relatedProductIds)
+            ->with('product.primaryImage')
+            ->get();
         return view('frontend.pages.auction_details', $data);
     }
 }

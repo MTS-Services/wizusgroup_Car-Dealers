@@ -113,84 +113,259 @@
                                 <div x-show="tab === 'basic'" x-cloak>
                                     <table class="w-full table-auto text-sm sm:text-base">
                                         <tbody>
-                                            <tr class=" border-border-gray dark:border-bg-dark-secondary">
-                                                <td class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
-                                                    {{ __('Stock No.') }}</td>
-                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('No.1287864') }}
-                                                </td>
+                                            @if ($auction->product?->name)
+                                                <tr class=" border-border-gray dark:border-bg-dark-secondary">
+                                                    <td
+                                                        class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Name') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->name }}
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->price)
+                                                <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td
+                                                        class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Price.') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->price }}
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->short_description)
+                                                <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td
+                                                        class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Short Description.') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->short_description }}
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->stock_no)
+                                                <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td
+                                                        class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Stock No.') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->stock_no }}
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->company?->name)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Maker') }}
+                                                    </td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->company?->name }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->model?->name)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Model') }}
+                                                    </td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->model?->name ?? 'N/A' }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->grade)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Grade') }}
+                                                    </td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->grade ?? 'N/A' }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->body)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Body Type') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->body ?? 'N/A' }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->first_registration)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('First Registration') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->first_registration ?? 'N/A' }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->type)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Type') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->type ?? 'N/A' }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->displacement)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Displacement') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->displacement ?? 'N/A' }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->specification_no)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Specification No') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->specification_no ?? 'N/A' }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->classification_no)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Classification No') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->classification_no }}</td>
+                                            @endif
                                             </tr>
-                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                    {{ __('Maker') }}
-                                                </td>
-                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('TOYOTA') }}</td>
-                                            </tr>
-                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                    {{ __('Model') }}
-                                                </td>
-                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('SOARER') }}</td>
-                                            </tr>
-                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                    {{ __('Grade') }}
-                                                </td>
-                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('Unknown') }}</td>
-                                            </tr>
-                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                    {{ __('Body Type') }}</td>
-                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('Open') }}</td>
-                                            </tr>
-                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                    {{ __('First Registration') }}</td>
-                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('03/1987') }}</td>
-                                            </tr>
-                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                    {{ __('Displacement') }}</td>
-                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('2950 cc') }}</td>
-                                            </tr>
-                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                    {{ __('Engine Type') }}</td>
-                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('7M') }}</td>
-                                            </tr>
-                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                    {{ __('Fuel') }}
-                                                </td>
-                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('Gasoline') }}</td>
-                                            </tr>
-                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                    {{ __('Mileage') }}
-                                                </td>
-                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('79540 km') }}</td>
-                                            </tr>
-                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                    {{ __('Color') }}
-                                                </td>
-                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('White') }}</td>
-                                            </tr>
-                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                    {{ __('Drive System') }}</td>
-                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('2WD') }}</td>
-                                            </tr>
-                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                    {{ __('Transmission') }}</td>
-                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('AT') }}</td>
-                                            </tr>
-                                            <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                    {{ __('Capacity') }}</td>
-                                                <td class="py-2 sm:py-3 dark:text-text-secondary">{{ __('5') }}</td>
-                                            </tr>
+                                            @if ($auction->product?->chassis_no)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Chassis No') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->chassis_no }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->serial_no)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Serial No') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->serial_no }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->engine_type)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Engine Type') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->engine_type }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->fuel_type)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Fuel') }}
+                                                    </td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->fuel_type }}
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->mileage)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Mileage') }}
+                                                    </td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->mileage }}
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->color)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Color') }}
+                                                    </td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->color }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->drive_system)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Drive System') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->drive_system }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->transmission)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Transmission') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->transmission }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->classification_no)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Capacity') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->capacity }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->odometer_replacement)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Odometer') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->odometer_replacement }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->steering_wheel)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Steering Wheel') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->steering_wheel }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->length_cm)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Length (cm)') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->length_cm }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->width_cm)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Width (cm)') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->width_cm }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->height_cm)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Height (cm)') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->height_cm }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product?->weight_kg)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Weight (Kg)') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product?->weight_kg }}</td>
+                                                </tr>
+                                            @endif
                                         </tbody>
+                                        <tfoot class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                            @if ($auction->product?->remarks)
+                                                <tr>
+                                                    <td colspan="2"
+                                                        class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Remarks') }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">{!! $auction->product?->remarks !!}</td>
+                                                </tr>
+                                            @endif
+                                        </tfoot>
                                     </table>
                                 </div>
 
@@ -220,14 +395,29 @@
                             </div>
                         </div>
                         <div class="flex justify-between items-center gap-2 mt-2">
-                            <a href="https://wa.me/" target="_blank"
-                                class="btn-primary w-full">{{ __('Whatsapp Inquiry') }}</a>
+                            <a href="@auth('web')
+                                     javascript:void(0)
+                                 @else
+                                     {{ route('login') }}
+                                 @endauth"
+                                @auth('web')
+                                         onclick="document.getElementById('inquiry-{{ $auction->slug }}').showModal()"
+                                    @endauth
+                                class="btn-primary w-full">{{ __('WhatsApp Inquiry') }}</a>
                             @auth('web')
                                 <button onclick="document.getElementById('{{ $auction->id }}-modal').showModal()"
                                     class="btn-primary w-full">{{ __('Place a Bid') }}</button>
                             @endauth
                         </div>
+                        <x-backend.user.inquiry :product="$auction" :label="__('Auction Inquiry')" />
                     </div>
+                </div>
+                {{-- Description --}}
+                <div class="mt-6">
+                    <h2 class="text-text-primary dark:text-text-primary text-lg font-semibold mb-2">
+                        {{ __('Description') }}</h2>
+                    <p class="text-text-gray dark:text-text-light-secondary text-sm lg:text-base">{!! $auction->product?->description !!}
+                    </p>
                 </div>
             </div>
         </div>
@@ -278,372 +468,13 @@
             </div>
             <div class="relative">
                 {{-- Product 1 --}}
-                <div class="swiper related_product static">
-                    <div class="swiper-wrapper p-4">
-                        <div class="swiper-slide">
-                            <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                                data-product="4">
-                                <!-- Car Image -->
-                                <div class="relative">
-                                    <div class="w-full overflow-hidden">
-                                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                            alt="Kubota ZL1-215"
-                                            class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                    </div>
-                                    <!-- Timer Badge -->
-                                    <div
-                                        class="absolute z-50 bottom-[-10px] left-3 bg-bg-orange text-text-white px-3 py-1 rounded-md text-sm font-medium">
-                                        {{ __('2d 04h 15m') }}
-                                    </div>
-                                </div>
-
-                                <!-- Card Content -->
-                                <div class="p-4">
-                                    <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                        {{ __('Honda CR-V') }}</h2>
-                                    <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}
-                                    </p>
-                                    <div
-                                        class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 6h16M4 12h16M4 18h7" />
-                                        </svg>
-                                        {{ __('All Categories') }}
-                                    </div>
-                                    <div
-                                        class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                        {{ __('Chiba') }}
-                                    </div>
-
-                                    <!-- Bid Button -->
-                                    <button onclick="openModal()"
-                                        class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
-                                        {{ __('Place Bid') }}
-                                    </button>
-                                </div>
+                <div class="swiper related_product static py-4">
+                    <div class="swiper-wrapper h-full">
+                        @foreach ($auctions as $auction)
+                            <div class="swiper-slide">
+                                <x-frontend.auction-card :auction="$auction" />
                             </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                                data-product="4">
-                                <!-- Car Image -->
-                                <div class="relative">
-                                    <div class="w-full overflow-hidden">
-                                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                            alt="Kubota ZL1-215"
-                                            class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                    </div>
-                                    <!-- Timer Badge -->
-                                    <div
-                                        class="absolute z-50 bottom-[-10px] left-3 bg-bg-orange text-text-white px-3 py-1 rounded-md text-sm font-medium">
-                                        {{ __('2d 04h 15m') }}
-                                    </div>
-                                </div>
-
-                                <!-- Card Content -->
-                                <div class="p-4">
-                                    <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                        {{ __('Honda CR-V') }}</h2>
-                                    <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}
-                                    </p>
-                                    <div
-                                        class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 6h16M4 12h16M4 18h7" />
-                                        </svg>
-                                        {{ __('All Categories') }}
-                                    </div>
-                                    <div
-                                        class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                        {{ __('Chiba') }}
-                                    </div>
-
-                                    <!-- Bid Button -->
-                                    <button onclick="openModal()"
-                                        class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
-                                        {{ __('Place Bid') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                                data-product="4">
-                                <!-- Car Image -->
-                                <div class="relative">
-                                    <div class="w-full overflow-hidden">
-                                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                            alt="Kubota ZL1-215"
-                                            class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                    </div>
-                                    <!-- Timer Badge -->
-                                    <div
-                                        class="absolute z-50 bottom-[-10px] left-3 bg-bg-orange text-text-white px-3 py-1 rounded-md text-sm font-medium">
-                                        {{ __('2d 04h 15m') }}
-                                    </div>
-                                </div>
-
-                                <!-- Card Content -->
-                                <div class="p-4">
-                                    <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                        {{ __('Honda CR-V') }}</h2>
-                                    <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}
-                                    </p>
-                                    <div
-                                        class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 6h16M4 12h16M4 18h7" />
-                                        </svg>
-                                        {{ __('All Categories') }}
-                                    </div>
-                                    <div
-                                        class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                        {{ __('Chiba') }}
-                                    </div>
-
-                                    <!-- Bid Button -->
-                                    <button onclick="openModal()"
-                                        class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
-                                        {{ __('Place Bid') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                                data-product="4">
-                                <!-- Car Image -->
-                                <div class="relative">
-                                    <div class="w-full overflow-hidden">
-                                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                            alt="Kubota ZL1-215"
-                                            class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                    </div>
-                                    <!-- Timer Badge -->
-                                    <div
-                                        class="absolute z-50 bottom-[-10px] left-3 bg-bg-orange text-text-white px-3 py-1 rounded-md text-sm font-medium">
-                                        {{ __('2d 04h 15m') }}
-                                    </div>
-                                </div>
-
-                                <!-- Card Content -->
-                                <div class="p-4">
-                                    <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                        {{ __('Honda CR-V') }}</h2>
-                                    <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}
-                                    </p>
-                                    <div
-                                        class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 6h16M4 12h16M4 18h7" />
-                                        </svg>
-                                        {{ __('All Categories') }}
-                                    </div>
-                                    <div
-                                        class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                        {{ __('Chiba') }}
-                                    </div>
-
-                                    <!-- Bid Button -->
-                                    <button onclick="openModal()"
-                                        class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
-                                        {{ __('Place Bid') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                                data-product="4">
-                                <!-- Car Image -->
-                                <div class="relative">
-                                    <div class="w-full overflow-hidden">
-                                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                            alt="Kubota ZL1-215"
-                                            class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                    </div>
-                                    <!-- Timer Badge -->
-                                    <div
-                                        class="absolute z-50 bottom-[-10px] left-3 bg-bg-orange text-text-white px-3 py-1 rounded-md text-sm font-medium">
-                                        {{ __('2d 04h 15m') }}
-                                    </div>
-                                </div>
-
-                                <!-- Card Content -->
-                                <div class="p-4">
-                                    <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                        {{ __('Honda CR-V') }}</h2>
-                                    <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}
-                                    </p>
-                                    <div
-                                        class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 6h16M4 12h16M4 18h7" />
-                                        </svg>
-                                        {{ __('All Categories') }}
-                                    </div>
-                                    <div
-                                        class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                        {{ __('Chiba') }}
-                                    </div>
-
-                                    <!-- Bid Button -->
-                                    <button onclick="openModal()"
-                                        class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
-                                        {{ __('Place Bid') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                                data-product="4">
-                                <!-- Car Image -->
-                                <div class="relative">
-                                    <div class="w-full overflow-hidden">
-                                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                            alt="Kubota ZL1-215"
-                                            class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                    </div>
-                                    <!-- Timer Badge -->
-                                    <div
-                                        class="absolute z-50 bottom-[-10px] left-3 bg-bg-orange text-text-white px-3 py-1 rounded-md text-sm font-medium">
-                                        {{ __('2d 04h 15m') }}
-                                    </div>
-                                </div>
-
-                                <!-- Card Content -->
-                                <div class="p-4">
-                                    <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                        {{ __('Honda CR-V') }}</h2>
-                                    <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}
-                                    </p>
-                                    <div
-                                        class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 6h16M4 12h16M4 18h7" />
-                                        </svg>
-                                        {{ __('All Categories') }}
-                                    </div>
-                                    <div
-                                        class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                        {{ __('Chiba') }}
-                                    </div>
-
-                                    <!-- Bid Button -->
-                                    <button onclick="openModal()"
-                                        class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
-                                        {{ __('Place Bid') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                                data-product="4">
-                                <!-- Car Image -->
-                                <div class="relative">
-                                    <div class="w-full overflow-hidden">
-                                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                            alt="Kubota ZL1-215"
-                                            class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                    </div>
-                                    <!-- Timer Badge -->
-                                    <div
-                                        class="absolute z-50 bottom-[-10px] left-3 bg-bg-orange text-text-white px-3 py-1 rounded-md text-sm font-medium">
-                                        {{ __('2d 04h 15m') }}
-                                    </div>
-                                </div>
-
-                                <!-- Card Content -->
-                                <div class="p-4">
-                                    <h2 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                                        {{ __('Honda CR-V') }}</h2>
-                                    <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("US$ 4,500") }}
-                                    </p>
-                                    <div
-                                        class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 6h16M4 12h16M4 18h7" />
-                                        </svg>
-                                        {{ __('All Categories') }}
-                                    </div>
-                                    <div
-                                        class="flex items-center mt-2 text-text-dark dark:text-text-light text-opacity-50 text-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                        {{ __('Chiba') }}
-                                    </div>
-
-                                    <!-- Bid Button -->
-                                    <button onclick="openModal()"
-                                        class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
-                                        {{ __('Place Bid') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                         <!-- Repeat swiper-slide for other products -->
                     </div>
 

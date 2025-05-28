@@ -45,8 +45,6 @@
             </div>
         </div>
     </div>
-    {{-- Details Modal  --}}
-    <x-backend.admin.details-modal :datas="['modal_title' => 'Product Details']" />
 @endsection
 @push('js')
     <script src="{{ asset('custom_litebox/litebox.js') }}"></script>
