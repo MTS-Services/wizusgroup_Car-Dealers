@@ -32,8 +32,6 @@ return new class extends Migration {
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
 
-            $table->unique(['shipping_port', 'destination_port'], 'shipping_port_destination_port_unique');
-
             $table->foreign('shipping_port')->references('id')->on('shipping_locations')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('destination_port')->references('id')->on('shipping_locations')->onDelete('cascade')->onUpdate('cascade');
 

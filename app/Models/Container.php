@@ -40,6 +40,11 @@ class Container extends BaseModel
     {
         return $this->belongsTo(ShippingLocation::class, 'destination_port', 'id');
     }
+    public function containerProducts()
+    {
+        return $this->hasMany(ContainerProduct::class, 'container_id', 'id');
+    }
+
     public function getModifiedImageAttribute(): string
     {
         return storage_url($this->image);

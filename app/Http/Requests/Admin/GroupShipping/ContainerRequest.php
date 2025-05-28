@@ -53,7 +53,7 @@ class ContainerRequest extends FormRequest
     protected function update(): array
     {
         return [
-            'slug' => 'required|unique:containers,slug,' . decrypt($this->route('container')) . ',id',
+            'slug' => 'required|unique:containers,slug,' . decrypt($this->route('container')),
         ];
     }
 
