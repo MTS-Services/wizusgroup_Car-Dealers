@@ -3,7 +3,7 @@
 
 <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
     data-product="1">
-    <a href="{{ route('frontend.parts-accessories.details', $product->slug) }}">
+    <a href="{{ route('frontend.product.details', $product->slug) }}">
         <div class="max-h-80 w-full  overflow-hidden">
             {{-- transition: transform 0.7s ease; --}}
             <img src="{{ storage_url($product->primaryImage->first()?->image) }}"

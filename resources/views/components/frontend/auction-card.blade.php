@@ -23,9 +23,11 @@
             <a href="{{ route('frontend.auction-details', $auction->slug) }}"
                 class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
                 {{ $auction->title }}</a>
-            <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("$") }}
-                {{ $auction->start_price }}
-            </p>
+            @auth('web')
+                <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("$") }}
+                    {{ $auction->start_price }}
+                </p>
+            @endauth
             <div class="flex items-center mt-3 text-text-dark dark:text-text-light text-opacity-50 text-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
