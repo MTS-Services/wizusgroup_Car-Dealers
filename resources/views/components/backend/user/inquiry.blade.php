@@ -1,9 +1,9 @@
-   @props(['product'])
+   @props(['product', 'label'])
    <dialog id="inquiry-{{ $product->slug }}" class="modal">
        <div class="modal-box max-w-screen-xl">
            <form method="dialog" class="flex justify-between items-center mb-3">
                <h3 class="text-xl font-semibold">
-                   {{ __('Product Inquiry') }}</h3>
+                  {{ $label ?? __('WhatApp') }}</h3>
                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"><i data-lucide="x"
                        class="w-5 h-5"></i></button>
            </form>

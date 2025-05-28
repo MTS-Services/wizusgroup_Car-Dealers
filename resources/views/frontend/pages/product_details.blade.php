@@ -117,204 +117,258 @@
                                  <div x-show="tab === 'basic'" x-cloak>
                                      <table class="w-full table-auto text-sm sm:text-base">
                                          <tbody>
-                                             <tr class=" border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Name') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->name ?? 'N/A' }}
-                                                 </td>
+                                             @if ($product->name)
+                                                 <tr class=" border-border-gray dark:border-bg-dark-secondary">
+                                                     <td
+                                                         class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Name') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->name }}
+                                                     </td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->price)
+                                                 <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td
+                                                         class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Price.') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->price }}
+                                                     </td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->short_description)
+                                                 <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td
+                                                         class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Short Description.') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->short_description }}
+                                                     </td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->stock_no)
+                                                 <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td
+                                                         class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Stock No.') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->stock_no }}
+                                                     </td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->company?->name)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Maker') }}
+                                                     </td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->company?->name }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->model?->name)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Model') }}
+                                                     </td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->model?->name ?? 'N/A' }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->grade)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Grade') }}
+                                                     </td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->grade ?? 'N/A' }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->body)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Body Type') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->body ?? 'N/A' }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->first_registration)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('First Registration') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->first_registration ?? 'N/A' }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->type)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Type') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->type ?? 'N/A' }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->displacement)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Displacement') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->displacement ?? 'N/A' }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->specification_no)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Specification No') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->specification_no ?? 'N/A' }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->classification_no)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Classification No') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->classification_no }}</td>
+                                             @endif
                                              </tr>
-                                             <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Price.') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->price ?? 'N/A' }}
-                                                 </td>
-                                             </tr>
-                                             <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Short Description.') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->short_description ?? 'N/A' }}
-                                                 </td>
-                                             </tr>
-                                             <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Stock No.') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->stock_no ?? 'N/A' }}
-                                                 </td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Maker') }}
-                                                 </td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->company?->name ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Model') }}
-                                                 </td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->model?->name ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Grade') }}
-                                                 </td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->grade ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Body Type') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->body ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('First Registration') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->first_registration ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Type') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->type ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Displacement') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->displacement ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Specification No') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->specification_no ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Classification No') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->classification_no ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Chassis No') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->chassis_no ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Serial No') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->serial_no ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Engine Type') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->engine_type ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Fuel') }}
-                                                 </td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->fuel_type ?? 'N/A' }}
-                                                 </td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Mileage') }}
-                                                 </td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->mileage ?? 'N/A' }}
-                                                 </td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Color') }}
-                                                 </td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->color ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Drive System') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->drive_system ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Transmission') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->transmission ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Capacity') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->capacity ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Odometer') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->odometer_replacement ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Steering Wheel') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->steering_wheel ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Length (cm)') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->length_cm ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Width (cm)') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->width_cm ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Height (cm)') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->height_cm ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Weight (Kg)') }}</td>
-                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                     {{ $product->weight_kg ?? 'N/A' }}</td>
-                                             </tr>
+                                             @if ($product->chassis_no)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Chassis No') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->chassis_no }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->serial_no)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Serial No') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->serial_no }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->engine_type)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Engine Type') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->engine_type }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->fuel_type)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Fuel') }}
+                                                     </td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->fuel_type }}
+                                                     </td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->mileage)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Mileage') }}
+                                                     </td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->mileage }}
+                                                     </td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->color)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Color') }}
+                                                     </td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->color }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->drive_system)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Drive System') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->drive_system }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->transmission)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Transmission') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->transmission }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->classification_no)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Capacity') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->capacity }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->odometer_replacement)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Odometer') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->odometer_replacement }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->steering_wheel)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Steering Wheel') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->steering_wheel }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->length_cm)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Length (cm)') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->length_cm }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->width_cm)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Width (cm)') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->width_cm }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->height_cm)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Height (cm)') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->height_cm }}</td>
+                                                 </tr>
+                                             @endif
+                                             @if ($product->weight_kg)
+                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Weight (Kg)') }}</td>
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                         {{ $product->weight_kg }}</td>
+                                                 </tr>
+                                             @endif
                                          </tbody>
                                          <tfoot class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                             <tr>
-                                                 <td colspan="2"
-                                                     class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Description') }}</td>
-                                             </tr>
-                                             <tr>
-                                                 <td colspan="2">{{ $product->description ?? 'N/A' }}</td>
-                                             </tr>
-                                             <tr>
-                                                 <td colspan="2"
-                                                     class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                     {{ __('Remarks') }}</td>
-                                             </tr>
-                                             <tr>
-                                                 <td colspan="2">{{ $product->remarks ?? 'N/A' }}</td>
-                                             </tr>
+                                             @if ($product->remarks)
+                                                 <tr>
+                                                     <td colspan="2"
+                                                         class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Remarks') }}</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td colspan="2">{!! $product->remarks !!}</td>
+                                                 </tr>
+                                             @endif
                                          </tfoot>
                                      </table>
                                  </div>
@@ -328,7 +382,6 @@
                                                  <p>{{ $info->infoCategory->catagoryTypes[$key]->name }}</p>
 
                                                  @foreach ($info->infoCategory->catagoryTypes as $type)
-
                                                      @if (!empty($type->features))
                                                          @foreach ($type->features as $feature)
                                                              <tr class=" border-border-gray dark:border-bg-dark-secondary">
@@ -424,8 +477,15 @@
                                     @endauth
                                  class="btn-primary w-full">{{ __('WhatsApp Inquiry') }}</a>
                          </div>
-                         <x-backend.user.inquiry :product="$product" />
+                         <x-backend.user.inquiry :product="$product" :label="__('Product Inquiry')" />
                      </div>
+                 </div>
+                 {{-- Description --}}
+                 <div class="mt-6">
+                     <h2 class="text-text-primary dark:text-text-primary text-lg font-semibold mb-2">
+                         {{ __('Description') }}</h2>
+                     <p class="text-text-gray dark:text-text-light-secondary text-sm lg:text-base">{!! $product->description !!}
+                     </p>
                  </div>
              </div>
          </div>
