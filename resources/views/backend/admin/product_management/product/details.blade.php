@@ -120,11 +120,15 @@
                                                         <tbody>
                                                             <tr>
                                                                 <th>Status</th>
-                                                                <td>{{ $product->status ? 'Active' : 'Inactive' }}</td>
+                                                                <td>
+                                                                    <span class="badge {{ $product->status_color }}">{{ $product->status_label }}</span>
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Featured</th>
-                                                                <td>{{ $product->is_featured ? 'Yes' : 'No' }}</td>
+                                                                <td>
+                                                                    <span class="badge {{ $product->featured_color }}">{{ $product->featured_btn_label }}</span>
+                                                                </td>
                                                             </tr>
                                                             {{-- Add more flags if needed --}}
                                                         </tbody>

@@ -226,8 +226,8 @@
             </div>
             <div class="relative">
                 {{-- Product 1 --}}
-                <div class="swiper related_product static">
-                    <div class="swiper-wrapper p-4">
+                <div class="swiper related_product static py-4">
+                    <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <div class="product-card bg-bg-light dark:bg-bg-dark-tertiary  w-full hover:translate-y-[-8px] hover:shadow-lg dark:hover:shadow-dark-card transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                                 data-product="4">
