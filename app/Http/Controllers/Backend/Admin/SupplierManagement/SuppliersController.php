@@ -35,12 +35,12 @@ class SuppliersController extends Controller
     /**
      * Display a listing of the resource.
      */
-     public function index(Request $request)
+    public function index(Request $request)
     {
         if ($request->ajax()) {
             $query = $this->supplierService->getSuppliers()->with(['creater_admin']);
             return DataTables::eloquent($query)
-            ->editColumn('first_name', function ($supplier) {
+                ->editColumn('first_name', function ($supplier) {
                     return $supplier->full_name . ($supplier->username ? " (" . $supplier->username . ")" : "");
                 })
                 ->editColumn('status', function ($supplier) {
@@ -65,7 +65,7 @@ class SuppliersController extends Controller
         return view('backend.admin.supplier_management.supplier.index');
     }
 
-     protected function menuItems($model): array
+    protected function menuItems($model): array
     {
         return [
             [
@@ -86,7 +86,7 @@ class SuppliersController extends Controller
                 'params' => [encrypt($model->id)],
                 'label' => $model->status_btn_label,
                 'permissions' => ['supplier-status']
-             ],
+            ],
             [
                 'routeName' => 'sm.supplier.product',
                 'params' => [encrypt($model->id)],
@@ -105,12 +105,11 @@ class SuppliersController extends Controller
     }
 
 
-      public function supplierProducts(Request $request): JsonResponse|View
+    public function supplierProducts(Request $request, string $id): JsonResponse|View
     {
-        
+
         if ($request->ajax()) {
-            $query = $this->supplierService->getSuppliers()
-                ->with(['creater_admin','products']);
+            $query = $this->supplierService->getSupplierProducts($id);
             return DataTables::eloquent($query)
                 ->editColumn('status', function ($product) {
                     return "<span class='badge " . $product->status_color . "'>$product->status_label</span>";
@@ -172,7 +171,7 @@ class SuppliersController extends Controller
 
         ];
     }
-      public function recycleBin(Request $request)
+    public function recycleBin(Request $request)
     {
 
         if ($request->ajax()) {
@@ -230,7 +229,7 @@ class SuppliersController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-   public function create(): View
+    public function create(): View
     {
 
         $data['document'] = Documentation::where([['module_key', 'supplier'], ['type', 'create']])->first();
@@ -240,9 +239,9 @@ class SuppliersController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-     public function store(SupplierRequest $request): RedirectResponse
+    public function store(SupplierRequest $request): RedirectResponse
     {
-         try {
+        try {
             $validated = $request->validated();
             $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
             $this->supplierService->createSupplier($validated, $file);
@@ -277,13 +276,13 @@ class SuppliersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-   public function update(SupplierRequest $request, string $id): RedirectResponse
+    public function update(SupplierRequest $request, string $id): RedirectResponse
     {
         try {
             $supplier = $this->supplierService->getSupplier($id);
             $validated = $request->validated();
             $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
-            $this->supplierService->updateSupplier($supplier,$validated,  $file);
+            $this->supplierService->updateSupplier($supplier, $validated,  $file);
             session()->flash('success', 'Supplier updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Supplier update failed!');
@@ -296,18 +295,18 @@ class SuppliersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-     public function destroy(string $id): RedirectResponse
+    public function destroy(string $id): RedirectResponse
     {
         $admin = $this->supplierService->getSupplier($id);
         if ($admin->role_id == 1) {
             session()->flash('error', 'Can not delete Super Supplier!');
             return redirect()->route('sm.supplier.index');
         }
-        $this->supplierService->delete( $admin);
+        $this->supplierService->delete($admin);
         session()->flash('success', 'Supplier move to recycle bin successfully!');
         return redirect()->route('sm.supplier.index');
     }
-     public function status(string $id): RedirectResponse
+    public function status(string $id): RedirectResponse
     {
         $admin = $this->supplierService->getSupplier($id);
         if ($admin->role_id == 1) {
@@ -319,9 +318,9 @@ class SuppliersController extends Controller
         return redirect()->route('am.admin.index');
     }
 
-     public function restore(string $id): RedirectResponse
+    public function restore(string $id): RedirectResponse
     {
-        $this->supplierService->restore( $id );
+        $this->supplierService->restore($id);
         session()->flash('success', 'Supplier restored successfully!');
         return redirect()->route('sm.supplier.recycle-bin');
     }
@@ -334,7 +333,7 @@ class SuppliersController extends Controller
      */
     public function permanentDelete(string $id): RedirectResponse
     {
-       $this->supplierService->permanentDelete( $id );
+        $this->supplierService->permanentDelete($id);
         session()->flash('success', 'Supplier permanently deleted successfully!');
         return redirect()->route('sm.supplier.recycle-bin');
     }

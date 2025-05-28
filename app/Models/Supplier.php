@@ -51,6 +51,6 @@ class Supplier extends AuthBaseModel
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class, 'supplier_id', 'id');
     }
 }
