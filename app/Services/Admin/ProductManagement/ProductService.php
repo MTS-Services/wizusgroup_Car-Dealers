@@ -137,12 +137,12 @@ class ProductService
     public function getProductEntryComplete($encryptedId)
     {
         $product = $this->getProduct($encryptedId);
-        if ($product->entry_status == Product::ENTRY_STATUS_INFORMATION) {
+        // if ($product->entry_status == Product::ENTRY_STATUS_INFORMATION) {
             $product->update(['entry_status' => Product::ENTRY_STATUS_COMPLETE, 'status' => Product::STATUS_ACTIVE]);
             return true;
-        } else {
-            return false;
-        }
+        // } else {
+        //     return false;
+        // }
 
     }
     public function getInfos(string $encryptedId): ProductInformation|Collection

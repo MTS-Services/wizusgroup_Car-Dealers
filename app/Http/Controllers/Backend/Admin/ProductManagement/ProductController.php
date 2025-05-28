@@ -341,7 +341,7 @@ class ProductController extends Controller
                 return redirect()->route('pm.product.info', $pid);
             }
         } catch (\Throwable $e) {
-            session()->flash('error', 'Product entry completed failed!');
+            session()->flash('error', 'Product entry completed failed!'. $e->getMessage());
             throw $e;
         }
     }
