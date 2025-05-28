@@ -2,13 +2,15 @@
 
 namespace App\Services\Admin\GroupShipping;
 
+use App\Models\ContainerProduct;
+
 class ContainerProductService
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
+  
+        public function getContainerProducts($orderby = 'sort_order', $order = 'asc')
     {
-        //
+        return ContainerProduct::orderBy($orderby, $order)->latest();
     }
+
+    
 }
