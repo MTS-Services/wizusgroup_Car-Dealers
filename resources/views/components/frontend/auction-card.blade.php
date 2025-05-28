@@ -18,11 +18,11 @@
     </div>
 
     <!-- Card Content -->
-    <div class="p-4 relative h-full flex-grow flex flex-col justify-between">
+    <div class="p-4 relative @auth('web') min-h-60 @else min-h-52 @endauth flex-grow flex flex-col justify-between">
+        <a href="{{ route('frontend.auction-details', $auction->slug) }}"
+            class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
+            {{ $auction->title }}</a>
         <div>
-            <a href="{{ route('frontend.auction-details', $auction->slug) }}"
-                class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
-                {{ $auction->title }}</a>
             @auth('web')
                 <p class="text-text-danger text-base lg:text-lg font-bold mt-1">{{ __("$") }}
                     {{ $auction->start_price }}
@@ -46,21 +46,19 @@
                 <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i>
                 {{ $auction->location }}
             </div>
-        </div>
-
-        <!-- Bid Button -->
-
-
-        @auth('web')
+            
+            <!-- Bid Button -->
+            @auth('web')
             <button onclick="document.getElementById('{{ $auction->id }}-modal').showModal()"
                 class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
                 {{ __('Place a Bid') }}
             </button>
-        @else
+            @else
             <a href="{{ route('frontend.auction-details', $auction->slug) }}" class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
                 {{ __('Ask for price') }}
             </a>
-        @endauth
+            @endauth
+        </div>
     </div>
 </div>
 

@@ -72,14 +72,25 @@ class AuctionPageController extends Controller
     }
 
     public function auctionDetails(string $slug)
-    {
-        $data['auction'] = Auction::with([
-            'product.category',
-            'product.company',
-            'product.subCategory',
-            'product.images'
-        ])->where('slug', $slug)->firstOrFail();
-        // dd($data['auction']);
-        return view('frontend.pages.auction_details', $data);
-    }
+{
+    $data['auction'] = Auction::with([
+        'product.category',
+        'product.company',
+        'product.subCategory',
+        'product.images'
+    ])->where('slug', $slug)->firstOrFail();
+
+    $relatedProductIds = $data['auction']->product->category
+        ->products()
+        ->where('products.id', '!=', $data['auction']->product->id)
+        ->pluck('products.id');
+        // dd($relatedProductIds);
+
+    $data['auctions'] = Auction::whereIn('product_id', $relatedProductIds)
+        ->with('product.primaryImage')
+        ->get();
+    // dd($data['auctions']);  
+    return view('frontend.pages.auction_details', $data);
+}
+
 }
