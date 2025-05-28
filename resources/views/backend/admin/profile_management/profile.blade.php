@@ -2,73 +2,9 @@
 
 @section('title', 'Admin Profile')
 
-@push('css')
-    <style>
-        .card {
-            border-radius: 10px;
-            background-color: #1a1a1a;
-            color: #e0e0e0;
-        }
-
-        .form-control {
-            border-radius: 6px;
-            box-shadow: none;
-            background-color: #222222;
-            color: #f1f1f1;
-            border: 1px solid #333;
-        }
-
-        .form-group input,
-        .form-group select {
-            height: 40px;
-        }
-
-        .card-header {
-            background-color: #18181800;
-            border-bottom: 1px solid #2a2a2a;
-            border-radius: 10px 10px 0 0 !important;
-            color: #ffffff;
-        }
-
-        .btn {
-            border-radius: 6px;
-        }
-
-        .text-danger {
-            font-size: 0.875rem;
-            color: #ff4d4f;
-        }
-
-        .btn_item {
-            background: linear-gradient(to right, #1f0036, #37006d);
-            color: white;
-            border: 1px solid #444;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: 500;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .btn_item:hover {
-            background: linear-gradient(to right, #37006d, #1f0036);
-            opacity: 0.9;
-            cursor: pointer;
-        }
-
-        .active.btn_item {
-            background: linear-gradient(to right, #0972C1, #37006d);
-        }
-
-        .card-header {
-            background: linear-gradient(to right, #1f0036, #37006d);
-            color: #ffffff;
-        }
-    </style>
-@endpush
-
 @section('content')
     <div class="container-fluid">
-        <div class="row">
+        <div class="row profile_tabs">
             <div class="col-lg-12">
                 <div class="d-flex justify-content-around align-items-center gap-5 py-5 text-center">
                     <p class="btn_item w-100 py-2 active" data-bs-target="profile">profile</p>

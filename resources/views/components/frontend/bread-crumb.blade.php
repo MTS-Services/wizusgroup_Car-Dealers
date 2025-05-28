@@ -1,15 +1,3 @@
-<style>
-    .bracamb-dot::before {
-        content: "";
-        height: 6px;
-        width: 6px;
-        border-radius: 50%;
-        background-color: #8752FA;
-        display: inline-block;
-        margin-right: 3px;
-    }
-</style>
-
 <div class="bg-bg-lightSecondary dark:bg-bg-darkQuaternary">
     <!-- Breadcrumb -->
     <div class="container mx-auto px-4 py-4 text-sm">
