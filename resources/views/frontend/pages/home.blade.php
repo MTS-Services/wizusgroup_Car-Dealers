@@ -87,7 +87,7 @@
 
             <div class="text-center mx-auto xl:mt-10 lg:mt-8 md:mt-6 mt-4">
                 <button>
-                    <a href="#" class="btn-primary ">
+                    <a href="{{ route('frontend.products') }}" class="btn-primary ">
                         {{ __('Shop Now') }}
                     </a>
                 </button>
@@ -106,9 +106,9 @@
                 <h3 class="text-2xl font-bold mb-2">{{ __('Join Group Container - Save on Shipping') }}</h3>
                 <p class="text-xl mb-5">{{ __('Next Departure to Dakar, Senegal:') }}</p>
                 <div class="countdown-blocks py-2"></div>
-                <button class="btn-primary mx-auto py-3 mt-2 px-10 ">
+                <a href="{{ route('frontend.group_shipping') }}" class="btn-primary mx-auto py-2 mt-2 px-10 ">
                     {{ __('Join Now') }}
-                </button>
+                </a>
             </div>
             <div class="pt-15">
                 <div class="header">

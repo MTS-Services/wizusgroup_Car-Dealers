@@ -11,6 +11,10 @@ function timeFormat($time)
 {
     return date(('d M, Y H:i A'), strtotime($time));
 }
+function dateFormat($time)
+{
+    return date(('d M, Y'), strtotime($time));
+}
 function timeFormatHuman($time)
 {
     return Carbon::parse($time)->diffForHumans();

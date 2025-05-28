@@ -57,9 +57,9 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
     });
 
     Route::controller(AdminVerificationController::class)->group(function () {
-        Route::get('email/verify',  'show')->name('verification.notice');
-        Route::get('email/verify/{id}/{hash}',  'verify')->middleware('signed')->name('verification.verify');
-        Route::post('email/resend',  'resend')->middleware('throttle:6,1')->name('verification.resend');
+        Route::get('email/verify', 'show')->name('verification.notice');
+        Route::get('email/verify/{id}/{hash}', 'verify')->middleware('signed')->name('verification.verify');
+        Route::post('email/resend', 'resend')->middleware('throttle:6,1')->name('verification.resend');
     });
 
 
@@ -204,9 +204,9 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
 
     // Documentation
     Route::resource('documentation', DocumentationController::class);
-        Route::get('documentation/recycle/bin', [documentationController::class, 'recycleBin'])->name('documentation.recycle-bin');
-        Route::get('documentation/restore/{documentation}', [documentationController::class, 'restore'])->name('documentation.restore');
-        Route::delete('documentation/permanent-delete/{documentation}', [documentationController::class, 'permanentDelete'])->name('documentation.permanent-delete');
+    Route::get('documentation/recycle/bin', [documentationController::class, 'recycleBin'])->name('documentation.recycle-bin');
+    Route::get('documentation/restore/{documentation}', [documentationController::class, 'restore'])->name('documentation.restore');
+    Route::delete('documentation/permanent-delete/{documentation}', [documentationController::class, 'permanentDelete'])->name('documentation.permanent-delete');
 
     // Audit Management
     Route::controller(AuditController::class)->prefix('audits')->name('audit.')->group(function () {
@@ -468,8 +468,8 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
 
         // container
         Route::resource('container', ContainerController::class);
-        
-        Route::get('container/status/{container}', [ContainerController::class, 'status'])->name('container.status');
+
+        Route::get('container/status/{container}/{status}', [ContainerController::class, 'status'])->name('container.status');
         Route::get('container/recycle/bin', [ContainerController::class, 'recycleBin'])->name('container.recycle-bin');
         Route::get('container/restore/{container}', [ContainerController::class, 'restore'])->name('container.restore');
         Route::delete('container/permanent-delete/{container}', [ContainerController::class, 'permanentDelete'])->name('container.permanent-delete');
