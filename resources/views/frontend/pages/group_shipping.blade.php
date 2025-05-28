@@ -10,426 +10,131 @@
 @section('content')
 
     {{-- Container Section --}}
-    <section class="py-6 sm:py-8 lg:py-5 bg-bg-light dark:bg-bg-dark-secondary">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Main grid container with responsive adjustments -->
-            <div
-                class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-5 md:gap-6 lg:gap-8 shadow-lg dark:shadow-dark-card  bg-bg-white dark:bg-bg-dark-tertiary p-4 sm:p-5 md:p-6">
-
-                <!-- Left Column (Container Card) - Full width on mobile, 3 cols on md+ -->
-                <div class="xl:col-span-3 md:col-span-12 w-full">
+    <section class="py-6 sm:py-8 lg:py-20">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 gap-6">
+                @foreach ($containers as $container)
                     <div
-                        class="bg-bg-white dark:bg-bg-dark-tertiary rounded-xl shadow-card dark:shadow-dark-card overflow-hidden h-full border border-border-gray dark:border-border-dark-secondary transition-transform duration-300 hover:-translate-y-1">
-                        <div class="p-5 border-b border-border-gray dark:border-border-dark-secondary">
-                            <div class="flex justify-between items-center">
-                                <h3 class="text-lg font-semibold text-text-primary dark:text-text-light">Container #18</h3>
-                                <span class="px-2.5 py-1 bg-bg-wiz_green text-white rounded-full text-xs font-medium">
-                                    Active
-                                </span>
-                            </div>
-                            <p class="text-sm text-text-gray dark:text-text-light mt-1">Destination: Ghana</p>
-                        </div>
+                        class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-5 md:gap-6 lg:gap-8 shadow-lg dark:shadow-dark-card bg-bg-light dark:bg-bg-dark-tertiary p-4 sm:p-5 md:p-6">
 
-                        <div class="p-5">
-                            <div class="">
-                                <div class="flex items-center">
-                                    <i class="far fa-calendar-alt text-text-gray dark:text-text-light mr-3 text-sm"></i>
-                                    <span class="text-sm text-text-gray dark:text-text-light">Departure: May 8, 2025</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <i class="fas fa-calendar-check text-text-gray dark:text-text-light mr-3 text-sm"></i>
-                                    <span class="text-sm text-text-gray dark:text-text-light">Deadline: May 20, 2025</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <i class="fas fa-ship text-text-gray dark:text-text-light mr-3 text-sm"></i>
-                                    <span class="text-sm text-text-gray dark:text-text-light">Carrier: Maersk Line</span>
-                                </div>
-
-                                <div class="pt-2 text-sm text-text-gray dark:text-text-light">
-                                    <div class="flex justify-between">
-                                        <span>Length:</span> <span class="font-medium">200 cm</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Width:</span> <span class="font-medium">100 cm</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Height:</span> <span class="font-medium">120 cm</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Max Weight:</span> <span class="font-medium">5000 kg</span>
-                                    </div>
-                                </div>
-
-                                <div class="pt-2">
-                                    <div class="flex justify-between items-center mb-1">
-                                        <span
-                                            class="text-sm font-medium text-text-gray dark:text-text-light">Capacity</span>
-                                        <span class="text-sm font-medium text-text-primary dark:text-text-light">75%
-                                            filled</span>
-                                    </div>
-                                    <div class="w-full bg-bg-gray dark:bg-bg-dark rounded-full h-2">
-                                        <div class="bg-bg-wiz_orange h-2 rounded-full" style="width: 75%"></div>
-                                    </div>
-                                </div>
-                            </div>
-
+                        <!-- Container Card (Left Column) -->
+                        <div class="2xl:col-span-3 tablet:col-span-4 sm:col-span-6  col-span-6  w-full">
                             <div
-                                class="mt-6 pt-4 border-t border-border-gray dark:border-border-dark-secondary flex justify-between items-center">
-                                <span class="text-sm text-text-gray dark:text-text-light">Your Items: 3</span>
-                                <a href="#"
-                                    class="text-sm font-medium text-bg-wiz_orange hover:text-bg-wiz_orange/80 transition-colors flex items-center">
-                                    View Details <i class="fas fa-chevron-right ml-1 text-xs"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- Right Column (Product Cards) - Full width on mobile, 9 cols on md+ -->
-                <div class="md:col-span-12 xl:col-span-9 w-full">
-                    <!-- Responsive product grid - 1 col mobile, 2 cols sm+, 3 cols lg+ -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
-                        @for ($i = 0; $i < 3; $i++)
-                            <div
-                                class="bg-bg-white dark:bg-bg-dark-tertiary rounded-lg md:rounded-xl shadow-card dark:shadow-dark-card overflow-hidden transition-all duration-300 hover:shadow-xl group h-full border border-border-gray dark:border-border-dark-secondary ">
-                                <!-- Image with responsive height -->
-                                <div class="w-full h-40 xs:h-44 sm:h-48 md:h-56 overflow-hidden relative">
-                                    <img src="https://placehold.co/600x400" alt="Product"
-                                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                                    <div
-                                        class="absolute top-2 right-2 bg-bg-wiz_orange text-white text-2xs xs:text-xs font-semibold px-1.5 xs:px-2 py-0.5 xs:py-1 rounded-md shadow-sm">
-                                        Available
-                                    </div>
-                                </div>
-
-                                <!-- Content with responsive padding -->
-                                <div class="p-3 sm:p-4 flex flex-col">
-                                    <div class="flex-grow">
-                                        <h3
-                                            class="text-sm sm:text-base font-semibold text-text-primary dark:text-text-light group-hover:text-bg-wiz_orange transition-colors line-clamp-2">
-                                            Tractor with Loader
+                                class="bg-bg-white dark:bg-bg-dark-tertiary shadow-card dark:shadow-dark-card overflow-hidden border border-border-gray dark:border-border-dark-secondary transition-transform duration-300 hover:-translate-y-1">
+                                <div class="p-5 border-b border-border-gray dark:border-border-dark-secondary">
+                                    <div class="flex justify-between items-center">
+                                        <h3 class="text-lg font-semibold text-text-primary dark:text-text-light">
+                                            {{ $container->title ?? 'Untitled' }}
                                         </h3>
+                                        <span
+                                            class="px-2.5 py-1 bg-bg-wiz_green text-white rounded-full text-xs font-medium">
+                                            {{ $container->status_label ?? 'Active' }}
+                                        </span>
+                                    </div>
+                                    <p class="text-sm text-text-gray mt-1 py-1">
+                                        Destination: {{ $container->destinationPort?->name ?? 'N/A' }}
+                                    </p>
+                                </div>
 
-                                        <div
-                                            class="flex items-center text-2xs xs:text-xs sm:text-sm text-text-gray dark:text-text-light mt-1 mb-2">
-                                            <i class="fas fa-map-marker-alt mr-1 text-2xs"></i>
-                                            <span>Shipping to Ghana</span>
+                                <div class="p-5 text-sm">
+                                    <div class="flex items-center mb-2">
+                                        <i class="far fa-calendar-alt text-text-gray dark:text-text-light mr-2 text-sm"></i>
+                                        <span>Deadline: {{ $container->deadline }}</span>
+                                    </div>
+
+                                    <div class="space-y-3">
+                                        <div class="flex justify-between"><span>Length:</span>
+                                            <span>{{ $container->length_cm }} cm</span></div>
+                                        <div class="flex justify-between"><span>Width:</span>
+                                            <span>{{ $container->width_cm }} cm</span></div>
+                                        <div class="flex justify-between"><span>Height:</span>
+                                            <span>{{ $container->height_cm }} cm</span></div>
+                                        <div class="flex justify-between"><span>Max Weight:</span>
+                                            <span>{{ $container->max_weight_kg }} kg</span></div>
+                                    </div>
+
+                                    <div class="pt-3">
+                                        <div class="flex justify-between items-center mb-1">
+                                            <span class="font-medium">Capacity</span>
+                                            <span>{{ $container->capacity_percent }}% filled</span>
                                         </div>
-
-                                        <div
-                                            class="text-2xs xs:text-xs text-text-gray dark:text-text-light mb-3 line-clamp-2">
-                                            Heavy-duty tractor with front loader attachment.
+                                        <div class="w-full bg-bg-gray rounded-full h-2">
+                                            <div class="bg-bg-wiz_orange h-2 rounded-full"
+                                                style="width: {{ $container->capacity_percent }}%"></div>
                                         </div>
                                     </div>
 
-                                    <div>
-                                        <div class="flex items-center justify-between mb-2 sm:mb-3">
-                                            <div class="text-lg sm:text-xl font-bold text-text-dark dark:text-white">
-                                                $8,200
-                                            </div>
-                                            <div
-                                                class="text-2xs xs:text-xs text-text-gray dark:text-text-light bg-bg-gray dark:bg-bg-dark-secondary px-1.5 xs:px-2 py-0.5 rounded">
-                                                <i class="fas fa-shipping-fast mr-0.5"></i> Group rate
-                                            </div>
-                                        </div>
-
-                                        <div class="flex space-x-1.5 sm:space-x-2">
-                                            <a href="#"
-                                                class="flex-1 py-2 px-3 sm:py-2.5 sm:px-4 rounded-md sm:rounded-lg font-medium sm:font-semibold bg-bg-wiz_orange text-white hover:bg-bg-wiz_orange/90 shadow-md hover:shadow-lg transition-all duration-300 text-center text-xs sm:text-sm">
-                                                Join Shipping
-                                            </a>
-                                           
-                                        </div>
+                                    <div class="mt-6 pt-4 border-t flex justify-between items-center">
+                                        <span>Your Items: {{ $container->item_count ?? 'N/A' }}</span>
+                                        <a href="#"
+                                            class="text-bg-wiz_orange hover:text-bg-wiz_orange/80 flex items-center text-sm font-medium">
+                                            View Details <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                        @endfor
+                        </div>
+
+                        <!-- Products Card (Right Column spans 2 cols) -->
+                        <div class="2xl:col-span-9 tablet:col-span-8 sm:col-span-6 col-span-6 ">
+                            <div class="grid grid-cols-1 tablet:grid-cols-2 2xl:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+                                @foreach ($container_produts->where('container_id', $container->id) as $product)
+                                    <div
+                                        class="bg-bg-white dark:bg-bg-dark-tertiary shadow-card dark:shadow-dark-card overflow-hidden transition-all duration-300 hover:shadow-xl group border border-border-gray dark:border-border-dark-secondary">
+                                        <div class="w-full h-40 xs:h-44 sm:h-48 md:h-56 overflow-hidden relative">
+                                            <img src="{{ $product->product?->primaryImage->first()?->image }}" alt="{{ $product->product?->name ?? 'Untitled' }}"
+                                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                                        </div>
+
+                                        <div class="p-3 sm:p-4 flex flex-col">
+                                            <div class="flex-grow">
+                                                <h3
+                                                    class="text-sm sm:text-base font-semibold text-text-primary dark:text-text-light group-hover:text-bg-wiz_orange transition-colors line-clamp-2">
+                                                    {{ $product->product?->name ?? 'Untitled' }}
+                                                </h3>
+                                                <div class="flex justify-between">
+                                                    <div
+                                                    class="text-2xs xs:text-xs sm:text-sm text-text-gray dark:text-text-light mt-1 mb-2">
+                                                    <i class="fas fa-map-marker-alt mr-1 text-2xs"></i>
+                                                    {{ $container->shippingPort?->name ?? 'N/A' }}
+                                                </div>
+                                                <div class="text-xs text-text-gray dark:text-text-light mb-3">
+                                                    {{ __('Quantity') }}: {{ $product->quantity }}
+                                                </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <div class="flex items-center justify-between mb-2 sm:mb-3">
+                                                    <div
+                                                        class="text-lg sm:text-xl font-bold text-text-dark dark:text-white">
+                                                        {{ __('$') }} {{ $product->price }}
+                                                    </div>
+                                                    <div
+                                                        class="text-2xs xs:text-xs text-text-gray dark:text-text-light bg-bg-gray dark:bg-bg-dark-secondary px-1.5 py-0.5 rounded">
+                                                        {{ __('Reserve $') }}{{ $product->reserve_price }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="flex space-x-2">
+                                                    <a href="#"
+                                                        class="flex-1 py-2 px-3 rounded-md font-semibold bg-bg-wiz_orange text-white hover:bg-bg-wiz_orange/90 shadow-md hover:shadow-lg text-center text-sm">
+                                                        Join Shipping
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
                     </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
-    <section class="py-6 sm:py-8 lg:py-5 bg-bg-light dark:bg-bg-dark-secondary">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Main grid container with responsive adjustments -->
-            <div
-                class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-5 md:gap-6 lg:gap-8 shadow-lg dark:shadow-dark-card  bg-bg-white dark:bg-bg-dark-tertiary p-4 sm:p-5 md:p-6">
 
-                <!-- Left Column (Container Card) - Full width on mobile, 3 cols on md+ -->
-                <div class="xl:col-span-3 md:col-span-12 w-full">
-                    <div
-                        class="bg-bg-white dark:bg-bg-dark-tertiary rounded-xl shadow-card dark:shadow-dark-card overflow-hidden h-full border border-border-gray dark:border-border-dark-secondary transition-transform duration-300 hover:-translate-y-1">
-                        <div class="p-5 border-b border-border-gray dark:border-border-dark-secondary">
-                            <div class="flex justify-between items-center">
-                                <h3 class="text-lg font-semibold text-text-primary dark:text-text-light">Container #18</h3>
-                                <span class="px-2.5 py-1 bg-bg-wiz_green text-white rounded-full text-xs font-medium">
-                                    Active
-                                </span>
-                            </div>
-                            <p class="text-sm text-text-gray dark:text-text-light mt-1">Destination: Ghana</p>
-                        </div>
-
-                        <div class="p-5">
-                            <div class="">
-                                <div class="flex items-center">
-                                    <i class="far fa-calendar-alt text-text-gray dark:text-text-light mr-3 text-sm"></i>
-                                    <span class="text-sm text-text-gray dark:text-text-light">Departure: May 8, 2025</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <i class="fas fa-calendar-check text-text-gray dark:text-text-light mr-3 text-sm"></i>
-                                    <span class="text-sm text-text-gray dark:text-text-light">Deadline: May 20, 2025</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <i class="fas fa-ship text-text-gray dark:text-text-light mr-3 text-sm"></i>
-                                    <span class="text-sm text-text-gray dark:text-text-light">Carrier: Maersk Line</span>
-                                </div>
-
-                                <div class="pt-2 text-sm text-text-gray dark:text-text-light">
-                                    <div class="flex justify-between">
-                                        <span>Length:</span> <span class="font-medium">200 cm</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Width:</span> <span class="font-medium">100 cm</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Height:</span> <span class="font-medium">120 cm</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Max Weight:</span> <span class="font-medium">5000 kg</span>
-                                    </div>
-                                </div>
-
-                                <div class="pt-2">
-                                    <div class="flex justify-between items-center mb-1">
-                                        <span
-                                            class="text-sm font-medium text-text-gray dark:text-text-light">Capacity</span>
-                                        <span class="text-sm font-medium text-text-primary dark:text-text-light">75%
-                                            filled</span>
-                                    </div>
-                                    <div class="w-full bg-bg-gray dark:bg-bg-dark rounded-full h-2">
-                                        <div class="bg-bg-wiz_orange h-2 rounded-full" style="width: 75%"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div
-                                class="mt-6 pt-4 border-t border-border-gray dark:border-border-dark-secondary flex justify-between items-center">
-                                <span class="text-sm text-text-gray dark:text-text-light">Your Items: 3</span>
-                                <a href="#"
-                                    class="text-sm font-medium text-bg-wiz_orange hover:text-bg-wiz_orange/80 transition-colors flex items-center">
-                                    View Details <i class="fas fa-chevron-right ml-1 text-xs"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- Right Column (Product Cards) - Full width on mobile, 9 cols on md+ -->
-                <div class="md:col-span-12 xl:col-span-9 w-full">
-                    <!-- Responsive product grid - 1 col mobile, 2 cols sm+, 3 cols lg+ -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
-                        @for ($i = 0; $i < 3; $i++)
-                            <div
-                                class="bg-bg-white dark:bg-bg-dark-tertiary rounded-lg md:rounded-xl shadow-card dark:shadow-dark-card overflow-hidden transition-all duration-300 hover:shadow-xl group h-full border border-border-gray dark:border-border-dark-secondary ">
-                                <!-- Image with responsive height -->
-                                <div class="w-full h-40 xs:h-44 sm:h-48 md:h-56 overflow-hidden relative">
-                                    <img src="https://placehold.co/600x400" alt="Product"
-                                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                                    <div
-                                        class="absolute top-2 right-2 bg-bg-wiz_orange text-white text-2xs xs:text-xs font-semibold px-1.5 xs:px-2 py-0.5 xs:py-1 rounded-md shadow-sm">
-                                        Available
-                                    </div>
-                                </div>
-
-                                <!-- Content with responsive padding -->
-                                <div class="p-3 sm:p-4 flex flex-col">
-                                    <div class="flex-grow">
-                                        <h3
-                                            class="text-sm sm:text-base font-semibold text-text-primary dark:text-text-light group-hover:text-bg-wiz_orange transition-colors line-clamp-2">
-                                            Tractor with Loader
-                                        </h3>
-
-                                        <div
-                                            class="flex items-center text-2xs xs:text-xs sm:text-sm text-text-gray dark:text-text-light mt-1 mb-2">
-                                            <i class="fas fa-map-marker-alt mr-1 text-2xs"></i>
-                                            <span>Shipping to Ghana</span>
-                                        </div>
-
-                                        <div
-                                            class="text-2xs xs:text-xs text-text-gray dark:text-text-light mb-3 line-clamp-2">
-                                            Heavy-duty tractor with front loader attachment.
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <div class="flex items-center justify-between mb-2 sm:mb-3">
-                                            <div class="text-lg sm:text-xl font-bold text-text-dark dark:text-white">
-                                                $8,200
-                                            </div>
-                                            <div
-                                                class="text-2xs xs:text-xs text-text-gray dark:text-text-light bg-bg-gray dark:bg-bg-dark-secondary px-1.5 xs:px-2 py-0.5 rounded">
-                                                <i class="fas fa-shipping-fast mr-0.5"></i> Group rate
-                                            </div>
-                                        </div>
-
-                                        <div class="flex space-x-1.5 sm:space-x-2">
-                                            <a href="#"
-                                                class="flex-1 py-2 px-3 sm:py-2.5 sm:px-4 rounded-md sm:rounded-lg font-medium sm:font-semibold bg-bg-wiz_orange text-white hover:bg-bg-wiz_orange/90 shadow-md hover:shadow-lg transition-all duration-300 text-center text-xs sm:text-sm">
-                                                Join Shipping
-                                            </a>
-                                           
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endfor
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="py-6 sm:py-8 lg:py-5 bg-bg-light dark:bg-bg-dark-secondary">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Main grid container with responsive adjustments -->
-            <div
-                class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-5 md:gap-6 lg:gap-8 shadow-lg dark:shadow-dark-card  bg-bg-white dark:bg-bg-dark-tertiary p-4 sm:p-5 md:p-6">
-
-                <!-- Left Column (Container Card) - Full width on mobile, 3 cols on md+ -->
-                <div class="xl:col-span-3 md:col-span-12 w-full">
-                    <div
-                        class="bg-bg-white dark:bg-bg-dark-tertiary rounded-xl shadow-card dark:shadow-dark-card overflow-hidden h-full border border-border-gray dark:border-border-dark-secondary transition-transform duration-300 hover:-translate-y-1">
-                        <div class="p-5 border-b border-border-gray dark:border-border-dark-secondary">
-                            <div class="flex justify-between items-center">
-                                <h3 class="text-lg font-semibold text-text-primary dark:text-text-light">Container #18</h3>
-                                <span class="px-2.5 py-1 bg-bg-wiz_green text-white rounded-full text-xs font-medium">
-                                    Active
-                                </span>
-                            </div>
-                            <p class="text-sm text-text-gray dark:text-text-light mt-1">Destination: Ghana</p>
-                        </div>
-
-                        <div class="p-5">
-                            <div class="">
-                                <div class="flex items-center">
-                                    <i class="far fa-calendar-alt text-text-gray dark:text-text-light mr-3 text-sm"></i>
-                                    <span class="text-sm text-text-gray dark:text-text-light">Departure: May 8, 2025</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <i class="fas fa-calendar-check text-text-gray dark:text-text-light mr-3 text-sm"></i>
-                                    <span class="text-sm text-text-gray dark:text-text-light">Deadline: May 20, 2025</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <i class="fas fa-ship text-text-gray dark:text-text-light mr-3 text-sm"></i>
-                                    <span class="text-sm text-text-gray dark:text-text-light">Carrier: Maersk Line</span>
-                                </div>
-
-                                <div class="pt-2 text-sm text-text-gray dark:text-text-light">
-                                    <div class="flex justify-between">
-                                        <span>Length:</span> <span class="font-medium">200 cm</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Width:</span> <span class="font-medium">100 cm</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Height:</span> <span class="font-medium">120 cm</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Max Weight:</span> <span class="font-medium">5000 kg</span>
-                                    </div>
-                                </div>
-
-                                <div class="pt-2">
-                                    <div class="flex justify-between items-center mb-1">
-                                        <span
-                                            class="text-sm font-medium text-text-gray dark:text-text-light">Capacity</span>
-                                        <span class="text-sm font-medium text-text-primary dark:text-text-light">75%
-                                            filled</span>
-                                    </div>
-                                    <div class="w-full bg-bg-gray dark:bg-bg-dark rounded-full h-2">
-                                        <div class="bg-bg-wiz_orange h-2 rounded-full" style="width: 75%"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div
-                                class="mt-6 pt-4 border-t border-border-gray dark:border-border-dark-secondary flex justify-between items-center">
-                                <span class="text-sm text-text-gray dark:text-text-light">Your Items: 3</span>
-                                <a href="#"
-                                    class="text-sm font-medium text-bg-wiz_orange hover:text-bg-wiz_orange/80 transition-colors flex items-center">
-                                    View Details <i class="fas fa-chevron-right ml-1 text-xs"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- Right Column (Product Cards) - Full width on mobile, 9 cols on md+ -->
-                <div class="md:col-span-12 xl:col-span-9 w-full">
-                    <!-- Responsive product grid - 1 col mobile, 2 cols sm+, 3 cols lg+ -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
-                        @for ($i = 0; $i < 3; $i++)
-                            <div
-                                class="bg-bg-white dark:bg-bg-dark-tertiary rounded-lg md:rounded-xl shadow-card dark:shadow-dark-card overflow-hidden transition-all duration-300 hover:shadow-xl group h-full border border-border-gray dark:border-border-dark-secondary ">
-                                <!-- Image with responsive height -->
-                                <div class="w-full h-40 xs:h-44 sm:h-48 md:h-56 overflow-hidden relative">
-                                    <img src="https://placehold.co/600x400" alt="Product"
-                                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                                    <div
-                                        class="absolute top-2 right-2 bg-bg-wiz_orange text-white text-2xs xs:text-xs font-semibold px-1.5 xs:px-2 py-0.5 xs:py-1 rounded-md shadow-sm">
-                                        Available
-                                    </div>
-                                </div>
-
-                                <!-- Content with responsive padding -->
-                                <div class="p-3 sm:p-4 flex flex-col">
-                                    <div class="flex-grow">
-                                        <h3
-                                            class="text-sm sm:text-base font-semibold text-text-primary dark:text-text-light group-hover:text-bg-wiz_orange transition-colors line-clamp-2">
-                                            Tractor with Loader
-                                        </h3>
-
-                                        <div
-                                            class="flex items-center text-2xs xs:text-xs sm:text-sm text-text-gray dark:text-text-light mt-1 mb-2">
-                                            <i class="fas fa-map-marker-alt mr-1 text-2xs"></i>
-                                            <span>Shipping to Ghana</span>
-                                        </div>
-
-                                        <div
-                                            class="text-2xs xs:text-xs text-text-gray dark:text-text-light mb-3 line-clamp-2">
-                                            Heavy-duty tractor with front loader attachment.
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <div class="flex items-center justify-between mb-2 sm:mb-3">
-                                            <div class="text-lg sm:text-xl font-bold text-text-dark dark:text-white">
-                                                $8,200
-                                            </div>
-                                            <div
-                                                class="text-2xs xs:text-xs text-text-gray dark:text-text-light bg-bg-gray dark:bg-bg-dark-secondary px-1.5 xs:px-2 py-0.5 rounded">
-                                                <i class="fas fa-shipping-fast mr-0.5"></i> Group rate
-                                            </div>
-                                        </div>
-
-                                        <div class="flex space-x-1.5 sm:space-x-2">
-                                            <a href="#"
-                                                class="flex-1 py-2 px-3 sm:py-2.5 sm:px-4 rounded-md sm:rounded-lg font-medium sm:font-semibold bg-bg-wiz_orange text-white hover:bg-bg-wiz_orange/90 shadow-md hover:shadow-lg transition-all duration-300 text-center text-xs sm:text-sm">
-                                                Join Shipping
-                                            </a>
-                                           
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endfor
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     {{-- Group Shipping steps start --}}
     <section class="py-8 md:py-12 lg:py-14 xl:py-16 2xl:py-20 bg-bg-primary/20 dark:bg-bg-dark">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">

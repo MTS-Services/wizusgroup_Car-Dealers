@@ -451,6 +451,7 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         Route::get('supplier/recycle/bin', [SuppliersController::class, 'recycleBin'])->name('supplier.recycle-bin');
         Route::get('supplier/restore/{supplier}', [SuppliersController::class, 'restore'])->name('supplier.restore');
         Route::delete('supplier/permanent-delete/{supplier}', [SuppliersController::class, 'permanentDelete'])->name('supplier.permanent-delete');
+        Route::get('supplier/product/{supplier}', [SuppliersController::class, 'supplierProducts'])->name('supplier.product');
     });
 
 
