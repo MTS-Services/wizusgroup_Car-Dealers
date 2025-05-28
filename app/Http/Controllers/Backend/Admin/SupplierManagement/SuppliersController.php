@@ -29,6 +29,7 @@ class SuppliersController extends Controller
         $this->middleware('permission:supplier-recycle-bin', ['only' => ['recycleBin']]);
         $this->middleware('permission:supplier-restore', ['only' => ['restore']]);
         $this->middleware('permission:supplier-permanent-delete', ['only' => ['permanentDelete']]);
+        $this->middleware('permission:supplier-products', ['only' => ['products']]);
     }
 
     /**
@@ -86,12 +87,12 @@ class SuppliersController extends Controller
                 'label' => $model->status_btn_label,
                 'permissions' => ['supplier-status']
              ],
-            // [
-            //     'routeName' => 'pm.supplier.feature',
-            //     'params' => [encrypt($model->id)],
-            //     'label' => $model->featured_btn_label,
-            //     'permissions' => ['supplier-feature']
-            // ],
+            [
+                'routeName' => 'sm.supplier.product',
+                'params' => [encrypt($model->id)],
+                'label' => 'Products',
+                'permissions' => ['supplier-product']
+            ],
             [
                 'routeName' => 'sm.supplier.destroy',
                 'params' => [encrypt($model->id)],
@@ -103,6 +104,74 @@ class SuppliersController extends Controller
         ];
     }
 
+
+      public function supplierProducts(Request $request): JsonResponse|View
+    {
+        
+        if ($request->ajax()) {
+            $query = $this->supplierService->getSuppliers()
+                ->with(['creater_admin','products']);
+            return DataTables::eloquent($query)
+                ->editColumn('status', function ($product) {
+                    return "<span class='badge " . $product->status_color . "'>$product->status_label</span>";
+                })
+                ->editColumn('is_featured', function ($product) {
+                    return "<span class='badge " . $product->featured_color . "'>" . $product->featured_label . "</span>";
+                })
+                ->editColumn('created_by', function ($product) {
+                    return $product->creater_name;
+                })
+                ->editColumn('created_at', function ($product) {
+                    return $product->created_at_formatted;
+                })
+                ->editColumn('action', function ($product) {
+                    $menuItems = $this->menuItem($product);
+                    return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
+                })
+                ->rawColumns(['status', 'is_featured', 'created_by', 'created_at', 'action'])
+                ->make(true);
+        }
+        return view('backend.admin.supplier_management.supplier.supllier-products');
+    }
+
+
+    protected function menuItem($model): array
+    {
+        return [
+            [
+                'routeName' => 'pm.product.show',
+                'params' => [encrypt($model->id)],
+                'label' => 'Details',
+                'permissions' => ['product-details']
+            ],
+            [
+                'routeName' => 'pm.product.edit',
+                'params' => [encrypt($model->id)],
+                'label' => 'Edit',
+                'permissions' => ['product-edit']
+            ],
+            [
+                'routeName' => 'pm.product.status',
+                'params' => [encrypt($model->id)],
+                'label' => $model->status_btn_label,
+                'permissions' => ['product-status']
+            ],
+            [
+                'routeName' => 'pm.product.feature',
+                'params' => [encrypt($model->id)],
+                'label' => $model->featured_btn_label,
+                'permissions' => ['product-feature']
+            ],
+            [
+                'routeName' => 'pm.product.destroy',
+                'params' => [encrypt($model->id)],
+                'label' => 'Delete',
+                'delete' => true,
+                'permissions' => ['product-delete']
+            ]
+
+        ];
+    }
       public function recycleBin(Request $request)
     {
 
