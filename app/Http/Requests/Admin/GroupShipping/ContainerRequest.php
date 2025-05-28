@@ -11,7 +11,7 @@ class ContainerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,34 @@ class ContainerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+
+            'sort_order' => 'nullable|integer',
+            'title' => 'required|string|max:255',
+            'image' => 'nullable|image',
+            'deadline' => 'required|date',
+            'length_cm' => 'required|numeric|min:0',
+            'width_cm' => 'required|numeric|min:0',
+            'height_cm' => 'required|numeric|min:0',
+            'max_weight_kg' => 'required|numeric|min:0',
+            'shipping_port' => 'required|exists:shipping_locations,id',
+            'destination_port' => 'required|exists:shipping_locations,id|different:shipping_port',
+        ]
+            +
+            ($this->isMethod('POST') ? $this->store() : $this->update());
+    }
+
+    protected function store(): array
+    {
+        return [
+            'slug' => 'required|unique:containers,slug',
+        ];
+    }
+
+
+    protected function update(): array
+    {
+        return [
+            'slug' => 'required|unique:containers,slug,' . decrypt($this->route('container')) . ',id',
         ];
     }
 }

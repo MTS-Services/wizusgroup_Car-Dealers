@@ -11,6 +11,7 @@ class ContainerReservation extends BaseModel
     protected $fillable = [
         'sort_order',
         'container_id',
+        'container_product_id',
         'user_id',
         'product_id',
         'product_name',
@@ -30,6 +31,10 @@ class ContainerReservation extends BaseModel
     public function container()
     {
         return $this->belongsTo(Container::class);
+    }
+    public function containerProduct()
+    {
+        return $this->belongsTo(ContainerProduct::class, 'container_product_id', 'id');
     }
     public function user()
     {

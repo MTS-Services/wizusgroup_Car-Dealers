@@ -96,18 +96,23 @@
                     </div>
                 </li>
                 {{-- Shipping Location Management  --}}
-                <li class="nav-item  @if ($page_slug == 'shipping_location') active submenu @endif">
+                <li class="nav-item  @if ($page_slug == 'shipping_location'|| $page_slug == 'container') active submenu @endif">
                     <a data-bs-toggle="collapse" href="#shipping_location_management"
-                        @if ($page_slug == 'shipping_location') aria-expanded="true" @endif>
+                        @if ($page_slug == 'shipping_location'|| $page_slug == 'container') aria-expanded="true" @endif>
                         <i class="icon-people"></i>
                         <p>{{ __('GS Management') }}</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse @if ($page_slug == 'shipping_location') show @endif" id="shipping_location_management">
+                    <div class="collapse @if ($page_slug == 'shipping_location'|| $page_slug == 'container') show @endif" id="shipping_location_management">
                         <ul class="nav nav-collapse">
                             <li class="@if ($page_slug == 'shipping_location') active @endif">
                                 <a href="{{ route('gs.shipping-location.index') }}">
                                     <span class="sub-item">{{ __('Shipping Location') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if ($page_slug == 'container') active @endif">
+                                <a href="{{ route('gs.container.index') }}">
+                                    <span class="sub-item">{{ __('Container') }}</span>
                                 </a>
                             </li>
                         </ul>
