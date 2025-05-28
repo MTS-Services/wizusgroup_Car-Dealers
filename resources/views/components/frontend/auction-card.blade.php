@@ -120,11 +120,11 @@ javascript:void(0)
 
             axios.post(url, formData)
                 .then(response => {
-                    // Close Modal 
+                    // Close Modal
                     const modal = document.getElementById('{{ $auction->id }}-modal');
                     modal.close()
 
-                    // Clear Everything 
+                    // Clear Everything
                     document.getElementById('whatsapp_number_error_{{ $auction->id }}').textContent =
                         '';
                     document.getElementById('bid_amount_error_{{ $auction->id }}').textContent = '';
