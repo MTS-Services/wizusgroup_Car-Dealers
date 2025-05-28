@@ -1,7 +1,8 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-    <section class="py-6 sm:py-8 lg:py-12 bg-bg-light dark:bg-bg-dark-tertiary">
+    {{-- details section --}}
+    <section class="py-6 sm:py-8 lg:py-12 bg-bg-light dark:bg-bg-dark-tertiary/50">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 {{-- Container Details --}}
@@ -19,13 +20,13 @@
                         <div class="grid
                                 grid-cols-2 gap-2 mt-3">
                             <div>
-                                <p class="text-base text-text-primary uppercase font-medium">From</p>
+                                <p class="text-base text-text-primary dark:text-text-light uppercase font-medium">From</p>
                                 <p class="text-sm text-text-primary dark:text-text-light">
                                     {{ $container_product?->container->shippingPort?->name ?? 'N/A' }}
                                 </p>
                             </div>
                             <div>
-                                <p class="text-base text-text-primary uppercase font-medium">Destination</p>
+                                <p class="text-base text-text-primary dark:text-text-light uppercase font-medium">Destination</p>
                                 <p class="text-sm text-text-primary dark:text-text-light">
                                     {{ $container_product?->container->destinationPort?->name ?? 'N/A' }}
                                 </p>
@@ -41,20 +42,24 @@
                         </div>
 
                         <div class="grid grid-cols-2 gap-4 mb-4">
-                            <div class="bg-bg-gray dark:bg-bg-dark-secondary p-3 rounded-lg flex justify-between items-center py-4">
-                                <p class="text-base text-text-primary uppercase font-medium">Length</p>
+                            <div
+                                class="bg-bg-gray dark:bg-bg-dark-secondary p-3 rounded-lg flex justify-between items-center py-4">
+                                <p class="text-base text-text-primary dark:text-text-light uppercase font-medium">Length</p>
                                 <p class="text-base font-bold">{{ $container_product?->container->length_cm }} cm</p>
                             </div>
-                            <div class="bg-bg-gray dark:bg-bg-dark-secondary p-3 rounded-lg flex justify-between items-center py-4">
-                                <p class="text-base text-text-primary uppercase font-medium">Width</p>
+                            <div
+                                class="bg-bg-gray dark:bg-bg-dark-secondary p-3 rounded-lg flex justify-between items-center py-4">
+                                <p class="text-base text-text-primary dark:text-text-light uppercase font-medium">Width</p>
                                 <p class="text-base font-bold">{{ $container_product?->container->width_cm }} cm</p>
                             </div>
-                            <div class="bg-bg-gray dark:bg-bg-dark-secondary p-3 rounded-lg flex justify-between items-center py-4">
-                                <p class="text-base text-text-primary uppercase font-medium">Height</p>
+                            <div
+                                class="bg-bg-gray dark:bg-bg-dark-secondary p-3 rounded-lg flex justify-between items-center py-4">
+                                <p class="text-base text-text-primary dark:text-text-light uppercase font-medium">Height</p>
                                 <p class="text-base font-bold">{{ $container_product?->container->height_cm }} cm</p>
                             </div>
-                            <div class="bg-bg-gray dark:bg-bg-dark-secondary p-3 rounded-lg flex justify-between items-center py-4">
-                                <p class="text-base text-text-primary uppercase font-medium">Max Weight</p>
+                            <div
+                                class="bg-bg-gray dark:bg-bg-dark-secondary p-3 rounded-lg flex justify-between items-center py-4">
+                                <p class="text-base text-text-primary dark:text-text-light uppercase font-medium">Max Weight</p>
                                 <p class="text-base font-bold">{{ $container_product?->container->max_weight_kg }} kg</p>
                             </div>
                         </div>
@@ -142,5 +147,53 @@
                 </div>
             </div>
         </div>
+    </section>
+
+    {{-- Form Section --}}
+    <section class="py-6 sm:py-8 lg:py-12">
+        <div class="container">
+            <div class="bg-bg-white dark:bg-bg-dark-tertiary  overflow-hidden  rounded-lg">
+                <form action="" method="post" class="space-y-5 p-5">
+                    <div class="grid grid-cols-1 tablet:grid-cols-2 gap-4">
+                        <!-- First Input Field -->
+                        <div class="form-group">
+                            <label for="field1"
+                                class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
+                                Field 1
+                            </label>
+                            <input type="text" id="field1" name="field1"
+                                class="w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light  border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+                        </div>
+
+                        <!-- Second Input Field -->
+                        <div class="form-group">
+                            <label for="field2"
+                                class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
+                                Field 2
+                            </label>
+                            <input type="text" id="field2" name="field2"
+                                class="w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+                        </div>
+                    </div>
+
+                    <!-- Textarea -->
+                    <div class="form-group">
+                        <label for="message"
+                            class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
+                            Message
+                        </label>
+                        <textarea id="message" name="message" rows="4"
+                            class="w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-2">
+                        <button type="submit"
+                            class=" btn-primary !bg-bg-wiz_orange">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
     </section>
 @endsection
