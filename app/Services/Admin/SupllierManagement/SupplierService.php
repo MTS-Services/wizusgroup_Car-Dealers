@@ -12,15 +12,20 @@ class SupplierService
     /**
      * Create a new class instance.
      */
-   use FileManagementTrait;
+    use FileManagementTrait;
 
     public function getSuppliers($orderby = 'sort_order', $order = 'asc')
     {
         return Supplier::orderBy($orderby, $order)->latest();
     }
+    public function getSupplierProducts($supplier_id, $orderby = 'sort_order', $order = 'asc')
+    {
+        $supplier = Supplier::with('products')->findOrFail(decrypt($supplier_id));
+        return $supplier->products()->orderBy($orderby, $order)->latest();
+    }
 
 
-     public function getSupplier(string $encryptedId): Supplier | Collection
+    public function getSupplier(string $encryptedId): Supplier | Collection
     {
         return Supplier::findOrFail(decrypt($encryptedId));
     }
@@ -34,7 +39,7 @@ class SupplierService
         return DB::transaction(function () use ($data, $file) {
             $data['created_by'] = admin()->id;
             if ($file) {
-                $data['image'] = $this->handleFileUpload( $file, 'suppliers');
+                $data['image'] = $this->handleFileUpload($file, 'suppliers');
             }
             $supplier = Supplier::create($data);
             return $supplier;
@@ -47,7 +52,7 @@ class SupplierService
             $data['password'] = $data['password'] ?? $supplier->password;
             $data['updated_by'] = admin()->id;
             if ($file) {
-                $data['image'] = $this->handleFileUpload( $file, 'suppliers');
+                $data['image'] = $this->handleFileUpload($file, 'suppliers');
                 $this->fileDelete($supplier->image);
             }
             $supplier->update($data);
@@ -79,7 +84,7 @@ class SupplierService
 
     public function toggleStatus(Supplier $supplier): void
     {
-        $supplier->update( [
+        $supplier->update([
             'status' => !$supplier->status,
             'updated_by' => admin()->id
         ]);

@@ -48,4 +48,9 @@ class Supplier extends AuthBaseModel
             'username' => 'string',
         ];
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'supplier_id', 'id');
+    }
 }
