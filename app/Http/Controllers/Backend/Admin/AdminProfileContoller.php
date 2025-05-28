@@ -11,14 +11,23 @@ use App\Models\Address;
 use App\Models\Admin;
 use App\Models\Country;
 use App\Models\PersonalInformation;
-use Illuminate\Http\Request;
+use App\Services\Admin\AdminManagement\AdminService;
+use App\Services\PersonalInformationService;
 
 class AdminProfileContoller extends Controller
 {
     use FileManagementTrait;
+
+    protected AdminService $adminService;
+    protected PersonalInformationService $personalInformationService;
+    public function __construct(AdminService $adminService, PersonalInformationService $personalInformationService)
+    {
+        $this->adminService = $adminService;
+        $this->personalInformationService = $personalInformationService;
+    }
     public function profile()
     {
-        $data['admin'] = Admin::with('personalInformation')->findOrFail(admin()->id);
+        $data['admin'] = $this->adminService->getAdmin(encrypt(admin()->id));   
         $data['address'] = Address::personal()->adminAddresses()->first();
         $data['countries'] = Country::active()->select('id', 'name', 'slug')->orderBy('name')->get();
         return view('backend.admin.profile_management.profile', $data);
@@ -26,7 +35,7 @@ class AdminProfileContoller extends Controller
 
     public function profileUpdate(AdminProfileRequest $request)
     {
-        $admin = Admin::findOrFail(admin()->id);
+        $admin = $this->adminService->getAdmin(encrypt(admin()->id));  
         $validated = $request->validated();
         $validated['first_name'] = $request->first_name;
         $validated['last_name'] = $request->last_name;
@@ -40,7 +49,7 @@ class AdminProfileContoller extends Controller
                 $this->fileDelete($admin->image);
         }
 
-        $admin_info = PersonalInformation::findOrFail(admin()->id);
+        $admin_info = $this->personalInformationService->getPersonalInformation(encrypt(admin()->id));
         $validated_info = $request->validated();
         $validated_info['dob'] = $request->dob;
         $validated_info['gender'] = $request->gender;

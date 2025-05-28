@@ -1,8 +1,6 @@
 @extends('frontend.layouts.app', ['page_slug' => 'dropshipping'])
 
 @section('title', 'Dropshipping')
-@push('css')
-@endpush
 @section('content')
     {{-- special deals section start --}}
     <section class="bg-bg-light dark:bg-bg-dark py-10 px-6 lg:px-20 2xl:py-24 font-poppins">

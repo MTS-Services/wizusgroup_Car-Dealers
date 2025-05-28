@@ -115,7 +115,7 @@
                         <div class="loading-spinner"></div>
                         <span class="ml-3 text-text-dark dark:text-text-light text-opacity-50">Loading products...</span>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="products-grid">
                         @foreach ($auctions as $auction)
                             <x-frontend.auction-card :auction="$auction" />
                         @endforeach

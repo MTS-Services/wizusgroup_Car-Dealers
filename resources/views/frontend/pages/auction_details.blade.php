@@ -1,52 +1,11 @@
 @extends('frontend.layouts.app', ['page_slug' => 'auction_details'])
 
 @section('title', 'Auction Details')
-@push('css')
-    <style>
-        .product_carousel_section .product_slider_thumbs .swiper-slide {
-            opacity: 0.6;
-        }
-
-        .product_carousel_section .product_slider_thumbs .swiper-slide-thumb-active {
-            opacity: 1;
-        }
-
-        .hover-wrapper:hover #zoomResult {
-            display: block;
-        }
-
-        #lens {
-            position: absolute;
-            border: 2px solid rgba(52, 158, 226, 0.8);
-            z-index: 100;
-            pointer-events: none;
-            display: none;
-            /* No fixed width/height here — JS will handle it */
-        }
-
-        #zoomResult {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 100%;
-            margin-left: 20px;
-            width: 300px;
-            height: 300px;
-            background-repeat: no-repeat;
-            background-size: 200%;
-            /* To ensure zooming effect */
-            z-index: 99;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            /* Optional: border to see the zoom area */
-        }
-    </style>
-@endpush
 @section('content')
     {{-- ===================== Product Carousel Section Start ===================== --}}
     <!-- Top-level wrapper -->
     <section class="overflow-x-hidden">
-        <div class="product_carousel_section 2xl:py-16 xl:py-12 lg:py-10  py-6  overflow-hidden">
+        <div class="auction_carousel_section 2xl:py-16 xl:py-12 lg:py-10  py-6  overflow-hidden">
             <div class="container mx-auto overflow-hidden">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 dark:bg-bg-dark dark:text-text-light">
                     <!-- Left: Image Slider -->
