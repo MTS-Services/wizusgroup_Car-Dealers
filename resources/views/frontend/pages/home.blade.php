@@ -104,8 +104,14 @@
             <div
                 class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-6 xl:py-12 lg:py-10 md:py-8 py-4 text-center w-11/12 max-w-3xl shadow-md">
                 <h3 class="text-2xl font-bold mb-2">{{ __('Join Group Container - Save on Shipping') }}</h3>
-                <p class="text-xl mb-5">{{ __('Next Departure to Dakar, Senegal:') }}</p>
-                <div class="countdown-blocks py-2"></div>
+                <p class="text-xl mb-5">{{ __('Next Departure: From ') }} {{ $container->shippingPort?->name }}
+                    {{ __(' to ') }}{{ $container->destinationPort?->name }}</p>
+                <div class="countdown-blocks py-2" data-year="{{ date('Y', strtotime($container->deadline)) }}"
+                    data-month="{{ date('m', strtotime($container->deadline)) }}"
+                    data-date="{{ date('d', strtotime($container->deadline)) }}"
+                    data-hour="{{ date('H', strtotime($container->deadline)) }}"
+                    data-minute="{{ date('i', strtotime($container->deadline)) }}"
+                    data-second="{{ date('s', strtotime($container->deadline)) }}"></div>
                 <a href="{{ route('frontend.group_shipping') }}" class="btn-primary mx-auto py-2 mt-2 px-10 ">
                     {{ __('Join Now') }}
                 </a>
@@ -335,71 +341,75 @@
     </script>
     {{-- countdown --}}
     <script>
-        const launchDate = new Date(2025, 12, 31, 0, 0, 0); // YYYY, MM (0-based), DD, HH, MM, SS
-        const countdownElement = document.querySelector(".countdown-blocks");
+        document.addEventListener("DOMContentLoaded", function() {
+            const countdownElement = document.querySelector(".countdown-blocks");
 
-        // Your existing createBlock function
-        const createBlock = (label, value) => {
-            const block = document.createElement("div");
-            block.className = "time-block";
+            // ✅ Safely check if countdown element exists
+            if (!countdownElement) return;
 
-            const valueEl = document.createElement("span");
-            valueEl.className = "time-value";
-            // Add leading zeros for single-digit values
-            valueEl.textContent = value < 10 ? `0${value}` : value;
+            // Read date from data-* attributes
+            const year = parseInt(countdownElement.getAttribute("data-year"));
+            const month = parseInt(countdownElement.getAttribute("data-month")) -
+                1; // JavaScript months are 0-based
+            const date = parseInt(countdownElement.getAttribute("data-date"));
+            const hour = parseInt(countdownElement.getAttribute("data-hour"));
+            const minute = parseInt(countdownElement.getAttribute("data-minute"));
+            const second = parseInt(countdownElement.getAttribute("data-second"));
 
-            const labelEl = document.createElement("p");
-            labelEl.className = "time-label";
-            labelEl.textContent = label;
+            const launchDate = new Date(year, month, date, hour, minute, second);
 
-            // Add pulsing animation to seconds block
-            if (label === "Seconds") {
-                valueEl.style.animation = "pulse 1s infinite";
-            }
+            const createBlock = (label, value) => {
+                const block = document.createElement("div");
+                block.className = "time-block";
 
-            block.appendChild(valueEl);
-            block.appendChild(labelEl);
-            return block;
-        };
+                const valueEl = document.createElement("span");
+                valueEl.className = "time-value";
+                valueEl.textContent = value < 10 ? `0${value}` : value;
 
-        // Modified updateCountdown function
-        const updateCountdown = () => {
-            const now = new Date();
-            const difference = launchDate - now;
+                const labelEl = document.createElement("p");
+                labelEl.className = "time-label";
+                labelEl.textContent = label;
 
-            if (difference > 0) {
-                const timeLeft = {
-                    Days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                    Hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-                    Minutes: Math.floor((difference / 1000 / 60) % 60),
-                    Seconds: Math.floor((difference / 1000) % 60)
-                };
-
-                countdownElement.innerHTML = "";
-                for (const [label, value] of Object.entries(timeLeft)) {
-                    countdownElement.appendChild(createBlock(label, value));
+                if (label === "Seconds") {
+                    valueEl.style.animation = "pulse 1s infinite";
                 }
-            } else {
-                // Handle countdown expiration
+
+                block.appendChild(valueEl);
+                block.appendChild(labelEl);
+                return block;
+            };
+
+            const updateCountdown = () => {
+                const now = new Date();
+                const difference = launchDate - now;
+
                 countdownElement.innerHTML = "";
-                document.querySelector(".countdown-title").textContent = "Launch Day!";
-                document.querySelector(".countdown-description").textContent =
-                    "The day has arrived!";
 
-                const messageBlock = document.createElement("div");
-                messageBlock.className = "time-block expired-message";
-                messageBlock.style.gridColumn = "1 / -1";
-                messageBlock.style.padding = "2rem";
-                messageBlock.textContent = "We're live now!";
+                if (difference > 0) {
+                    const timeLeft = {
+                        Days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                        Hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                        Minutes: Math.floor((difference / 1000 / 60) % 60),
+                        Seconds: Math.floor((difference / 1000) % 60)
+                    };
 
-                countdownElement.appendChild(messageBlock);
-                clearInterval(timer);
-            }
-        };
+                    for (const [label, value] of Object.entries(timeLeft)) {
+                        countdownElement.appendChild(createBlock(label, value));
+                    }
+                } else {
+                    const messageBlock = document.createElement("div");
+                    messageBlock.className = "time-block expired-message text-danger";
+                    messageBlock.style.gridColumn = "1 / -1";
+                    messageBlock.style.padding = "2rem";
+                    messageBlock.textContent = "Closed!";
+                    countdownElement.appendChild(messageBlock);
+                    clearInterval(timer); // ✅ timer is now defined earlier
+                }
+            };
 
-        // Initialize and set the interval
-        updateCountdown();
-        const timer = setInterval(updateCountdown, 1000);
+            const timer = setInterval(updateCountdown, 1000); // ✅ defined before use
+            updateCountdown(); // initial call
+        });
     </script>
     {{-- quote Read more functionality --}}
     <script>

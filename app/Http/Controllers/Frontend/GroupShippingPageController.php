@@ -25,7 +25,7 @@ class GroupShippingPageController extends Controller
     public function group_shipping()
     {
         $data['faqs'] = $this->faqService->getFaqs()->active()->get();
-        $data['containers'] = $this->containerService->getContainers('deadline', 'desc')->active()->with(['destinationPort', 'shippingPort', 'containerProducts'])->get();
+        $data['containers'] = $this->containerService->getContainers('deadline', 'desc')->active()->with(['destinationPort', 'shippingPort', 'containerProducts.product', 'containerReservations.product'])->get();
         return view('frontend.pages.group_shipping', $data);
     }
     public function joinGroupShipping(string $container_slug, string $product_slug)

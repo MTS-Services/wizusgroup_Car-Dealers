@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->bigInteger('sort_order')->default(0)->index();
             $table->unsignedBigInteger('container_id')->index();
             $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedBigInteger('container_product_id')->index();
+            $table->unsignedBigInteger('product_id')->index();
             $table->integer('quantity')->default(1)->index();
             $table->decimal('price', 10, 2)->default(0);
             $table->decimal('reserve_price', 10, 2)->default(0);
@@ -30,7 +30,7 @@ return new class extends Migration {
 
             $table->foreign('container_id')->references('id')->on('containers')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('container_product_id')->references('id')->on('container_products')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
 
 
             // Indexes
