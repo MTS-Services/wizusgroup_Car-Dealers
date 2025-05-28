@@ -14,6 +14,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use App\Models\Container;
 
 class ContainerController extends Controller
 {
@@ -72,10 +73,73 @@ class ContainerController extends Controller
         return view('backend.admin.group_shipping.container.index');
     }
 
+    protected function statusMenu($model): array
+    {
+
+        if ($model->status == Container::STATUS_PENDING) {
+            return [
+                [
+                    'routeName' => 'gs.container.status',
+                    'params' => [encrypt($model->id), encrypt(Container::STATUS_ACTIVE)],
+                    'label' => $model->getStatusBtnLabels()[Container::STATUS_ACTIVE],
+                    'permissions' => ['container-status']
+                ],
+            ];
+        }
+        if ($model->status == Container::STATUS_ACTIVE) {
+            return [
+                [
+                    'routeName' => 'gs.container.status',
+                    'params' => [encrypt($model->id), encrypt(Container::STATUS_PENDING)],
+                    'label' => $model->getStatusBtnLabels()[Container::STATUS_PENDING],
+                    'permissions' => ['container-status']
+                ],
+                [
+                    'routeName' => 'gs.container.status',
+                    'params' => [encrypt($model->id), encrypt(Container::STATUS_SHIPPED)],
+                    'label' => $model->getStatusBtnLabels()[Container::STATUS_SHIPPED],
+                    'permissions' => ['container-status']
+                ],
+            ];
+        }
+        if ($model->status == Container::STATUS_SHIPPED) {
+            return [
+                [
+                    'routeName' => 'gs.container.status',
+                    'params' => [encrypt($model->id), encrypt(Container::STATUS_ACTIVE)],
+                    'label' => $model->getStatusBtnLabels()[Container::STATUS_ACTIVE],
+                    'permissions' => ['container-status']
+                ],
+                [
+                    'routeName' => 'gs.container.status',
+                    'params' => [encrypt($model->id), encrypt(Container::STATUS_DELIVERED)],
+                    'label' => $model->getStatusBtnLabels()[Container::STATUS_DELIVERED],
+                    'permissions' => ['container-status']
+                ],
+            ];
+        }
+
+        if ($model->status == Container::STATUS_DELIVERED) {
+            return [
+                [
+                    'routeName' => 'gs.container.status',
+                    'params' => [encrypt($model->id), encrypt(Container::STATUS_SHIPPED)],
+                    'label' => $model->getStatusBtnLabels()[Container::STATUS_SHIPPED],
+                    'permissions' => ['container-status']
+                ],
+            ];
+        }
+        return [];
+
+
+    }
+
+
+
 
     protected function menuItems($model): array
     {
-        return [
+        $menus = [
             [
                 'routeName' => 'javascript:void(0)',
                 'data-id' => encrypt($model->id),
@@ -89,12 +153,8 @@ class ContainerController extends Controller
                 'label' => 'Edit',
                 'permissions' => ['container-edit']
             ],
-            [
-                'routeName' => 'gs.container.status',
-                'params' => [encrypt($model->id)],
-                'label' => $model->status_btn_label,
-                'permissions' => ['container-status']
-            ],
+        ];
+        $delete_menu = [
             [
                 'routeName' => 'gs.container.destroy',
                 'params' => [encrypt($model->id)],
@@ -104,6 +164,8 @@ class ContainerController extends Controller
             ]
 
         ];
+
+        return array_merge($menus, $this->statusMenu($model), $delete_menu);
     }
     /**
      * Show the form for creating a new resource.
@@ -207,10 +269,10 @@ class ContainerController extends Controller
     }
 
 
-    public function status(string $id): RedirectResponse
+    public function status(string $id, string $status): RedirectResponse
     {
         try {
-            $this->containerService->toggleStatus($id);
+            $this->containerService->toggleStatus($id, $status);
             session()->flash('success', 'Container status updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Container status update failed!');

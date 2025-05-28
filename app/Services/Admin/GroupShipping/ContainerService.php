@@ -84,12 +84,12 @@ class ContainerService
         $container->forceDelete();
     }
 
-    public function toggleStatus(string $encryptedId): void
+    public function toggleStatus(string $encryptedId, string $status): void
     {
         $container = $this->getContainer($encryptedId);
         $container->update([
             'updated_by' => admin()->id,
-            'status' => !$container->status
+            'status' => decrypt($status),
         ]);
     }
 }

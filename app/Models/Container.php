@@ -90,8 +90,8 @@ class Container extends BaseModel
     public static function getStatusBtnLabels(): array
     {
         return [
-            self::STATUS_ACTIVE => 'Pending',
-            self::STATUS_PENDING => 'Active',
+            self::STATUS_ACTIVE => 'Active',
+            self::STATUS_PENDING => 'Pending',
             self::STATUS_DELIVERED => 'Delivered',
             self::STATUS_SHIPPED => 'Shipped',
         ];
