@@ -15,12 +15,13 @@
                             <div
                                 class="swiper static product_slider_image w-full max-w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px] mx-auto bg-bg-light dark:bg-bg-dark-tertiary rounded-lg overflow-hidden">
                                 <div class="swiper-wrapper">
-                                    @for ($i = 1; $i <= 10; $i++)
+                                    @foreach ($auction->product->images as $image)
                                         <div class="swiper-slide flex items-center justify-center">
-                                            <img src="https://swiperjs.com/demos/images/nature-{{ $i }}.jpg"
+                                            <img src="{{ storage_url($image->image) }}"
+                                                alt="{{ $image->alt ?? $auction->name }}"
                                                 class="zoomable block w-full h-full object-cover" />
                                         </div>
-                                    @endfor
+                                    @endforeach
                                 </div>
                                 <div class="swiper-button swiper-button-prev">
                                     <i data-lucide="chevron-left" class="w-5 h-5 text-blue-800"></i>
@@ -37,13 +38,21 @@
                         <div
                             class="swiper product_slider_thumbs h-16 sm:h-20 mt-2 box-border py-1 px-2 bg-bg-light dark:bg-bg-dark-tertiary rounded-lg overflow-hidden">
                             <div class="swiper-wrapper">
-                                @for ($i = 1; $i <= 10; $i++)
+                                @foreach ($auction->product->images as $image)
+                                    <div
+                                        class="swiper-slide w-1/5 sm:w-1/6 md:w-1/8 h-full opacity-40 transition-opacity duration-300 cursor-pointer hover:opacity-70 swiper-slide-thumb-active:opacity-100 dark:swiper-slide-thumb-active:opacity-100">
+                                        <img src="{{ storage_url($image->image) }}"
+                                            alt="{{ $image->alt ?? $auction->name }}"
+                                            class="block w-full h-full object-cover rounded" />
+                                    </div>
+                                @endforeach
+                                {{-- @for ($i = 1; $i <= 10; $i++)
                                     <div
                                         class="swiper-slide w-1/5 sm:w-1/6 md:w-1/8 h-full opacity-40 transition-opacity duration-300 cursor-pointer hover:opacity-70 swiper-slide-thumb-active:opacity-100 dark:swiper-slide-thumb-active:opacity-100">
                                         <img src="https://swiperjs.com/demos/images/nature-{{ $i }}.jpg"
                                             class="block w-full h-full object-cover rounded" />
                                     </div>
-                                @endfor
+                                @endfor --}}
                             </div>
                         </div>
                     </div>
@@ -98,7 +107,7 @@
                             </div>
                             <!-- Tab Content -->
                             <div
-                                class="bg-bg-white dark:bg-bg-tertiary/25 shadow-card dark:shadow-none p-4 sm:p-6 rounded-b-lg border border-border-gray dark:border-bg-dark-secondary overflow-auto max-h-[400px] lg:max-h-[570px] xl:max-h-[720px]">
+                                class="bg-bg-white dark:bg-bg-tertiary/25 shadow-card dark:shadow-none p-4 sm:p-6 rounded-b-lg border border-border-gray dark:border-bg-dark-secondary overflow-auto max-h-[400px] lg:max-h-[520px] xl:max-h-[670px]">
 
                                 <!-- Basic Info -->
                                 <div x-show="tab === 'basic'" x-cloak>
@@ -210,11 +219,54 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="flex justify-between items-center gap-2 mt-2">
+                            <a href="https://wa.me/" target="_blank"
+                                class="btn-primary w-full">{{ __('Whatsapp Inquiry') }}</a>
+                            @auth('web')
+                                <button onclick="document.getElementById('{{ $auction->id }}-modal').showModal()"
+                                    class="btn-primary w-full">{{ __('Place a Bid') }}</button>
+                            @endauth
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    {{-- Auction Bid Place Modal  --}}
+    <dialog id="{{ $auction->id }}-modal" class="modal">
+        <div class="modal-box bg-bg-light dark:bg-bg-dark-tertiary p-6 rounded-lg w-full max-w-sm shadow-lg">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold">{{ __('Place Your Bid') }}</h2>
+                <form method="dialog">
+                    <button onclick="closeModal()"
+                        class="text-text-primary hover:text-text-tertiary text-2xl dark:text-text-light btn btn-sm btn-circle btn-ghost"><i
+                            data-lucide="x" class="w-4 h-4"></i></button>
+                </form>
+            </div>
+            <form id="place-bid-form-{{ $auction->id }}" method="post">
+                @csrf
+                <div class="space-y-2 pb-3">
+                    <label
+                        class="block text-sm font-medium text-text-primary dark:text-text-light text-opacity-50">{{ __('Your Whatsapp Number') }}</label>
+                    <input type="number" name="whatsapp_number"
+                        class="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-bg-primary"
+                        placeholder="Enter your whatsapp number" />
+                    <p class="text-red-500 text-sm mt-1" id="whatsapp_number_error_{{ $auction->id }}"></p>
+                    <label
+                        class="block text-sm font-medium text-text-primary dark:text-text-light text-opacity-50">{{ __('Your Bid (USD)') }}</label>
+                    <input type="number" name="bid_amount"
+                        class="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-bg-primary"
+                        placeholder="Enter your bid" />
+                    <p class="text-red-500 text-sm mt-1" id="bid_amount_error_{{ $auction->id }}"></p>
+                </div>
+
+                <button class="w-full btn-primary py-2 rounded-md hover:bg-bg-tertiary transition">
+                    {{ __('Submit Bid') }}
+                </button>
+            </form>
+        </div>
+    </dialog>
 
     {{-- ===================== End Product Details Section ===================== --}}
     {{-- ===================== Releted Product Section ===================== --}}
@@ -612,6 +664,61 @@
 @endsection
 
 @push('js')
+    <script>
+        (function() {
+            const placeBidForm = document.getElementById(`place-bid-form-{{ $auction->id }}`);
+
+            placeBidForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(this);
+                const route = "{{ route('user.auction.bid-place', ['slug']) }}";
+                const url = route.replace('slug', "{{ $auction->slug }}");
+
+
+                axios.post(url, formData)
+                    .then(response => {
+                        // Close Modal
+                        const modal = document.getElementById('{{ $auction->id }}-modal');
+                        modal.close()
+
+                        // Clear Everything
+                        document.getElementById('whatsapp_number_error_{{ $auction->id }}').textContent =
+                            '';
+                        document.getElementById('bid_amount_error_{{ $auction->id }}').textContent = '';
+                        document.getElementById('place-bid-form-{{ $auction->id }}').reset();
+
+                        toastr.success('Bid Placed Successfully');
+                        // console.log(response.data);
+
+                    })
+                    .catch(error => {
+                        // Clear existing errors
+                        document.getElementById('whatsapp_number_error_{{ $auction->id }}').textContent =
+                            '';
+                        document.getElementById('bid_amount_error_{{ $auction->id }}').textContent = '';
+
+                        if (error.response && error.response.status === 422) {
+                            const errors = error.response.data.errors;
+
+                            if (errors.whatsapp_number) {
+                                document.getElementById('whatsapp_number_error_{{ $auction->id }}')
+                                    .textContent = errors.whatsapp_number[0];
+                            }
+
+                            if (errors.bid_amount) {
+                                document.getElementById('bid_amount_error_{{ $auction->id }}')
+                                    .textContent = errors.bid_amount[0];
+                            }
+                        } else {
+                            toastr.error('Something went wrong');
+                            console.error(error);
+                        }
+                    });
+            });
+        })();
+    </script>
+
     <!-- Alpine.js for tab switching -->
     <script src="//unpkg.com/alpinejs" defer></script>
     <!-- Initialize Swiper JS -->
