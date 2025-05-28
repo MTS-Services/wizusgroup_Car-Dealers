@@ -61,6 +61,7 @@ class DatabaseSeeder extends Seeder
             AuctionSeeder::class,
             TestimonialSeeder::class,
             ShippingLocationSeeder::class,
+            ContainerSeeder::class,
             RegionSeeder::class,
             RegionShippingTimelineSeeder::class,
         ]);
