@@ -11,10 +11,10 @@
                     <div class="p-5 border-b border-border-gray dark:border-border-dark-secondary">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg font-semibold text-text-primary dark:text-text-light">
-                                {{ $container_product?->container->title ?? 'Untitled' }}
+                                {{ $container->title ?? 'Untitled' }}
                             </h3>
                             <span class="px-2.5 py-1 bg-bg-wiz_green text-white rounded-full text-base font-medium">
-                                {{ $container_product?->container->status_label ?? 'Active' }}
+                                {{ $container->status_label ?? 'Active' }}
                             </span>
                         </div>
                         <div class="grid
@@ -22,13 +22,14 @@
                             <div>
                                 <p class="text-base text-text-primary dark:text-text-light uppercase font-medium">From</p>
                                 <p class="text-sm text-text-primary dark:text-text-light">
-                                    {{ $container_product?->container->shippingPort?->name ?? 'N/A' }}
+                                    {{ $container->shippingPort?->name ?? 'N/A' }}
                                 </p>
                             </div>
                             <div>
-                                <p class="text-base text-text-primary dark:text-text-light uppercase font-medium">Destination</p>
+                                <p class="text-base text-text-primary dark:text-text-light uppercase font-medium">
+                                    Destination</p>
                                 <p class="text-sm text-text-primary dark:text-text-light">
-                                    {{ $container_product?->container->destinationPort?->name ?? 'N/A' }}
+                                    {{ $container->destinationPort?->name ?? 'N/A' }}
                                 </p>
                             </div>
                         </div>
@@ -38,40 +39,41 @@
                         <div class="flex items-center mb-4">
                             <i class="far fa-calendar-alt text-text-primary dark:text-text-light mr-2 text-sm"></i>
                             <span class="font-medium text-base">Deadline:
-                                {{ dateFormat($container_product?->container->deadline) }}</span>
+                                {{ dateFormat($container->deadline) }}</span>
                         </div>
 
                         <div class="grid grid-cols-2 gap-4 mb-4">
                             <div
                                 class="bg-bg-gray dark:bg-bg-dark-secondary p-3 rounded-lg flex justify-between items-center py-4">
                                 <p class="text-base text-text-primary dark:text-text-light uppercase font-medium">Length</p>
-                                <p class="text-base font-bold">{{ $container_product?->container->length_cm }} cm</p>
+                                <p class="text-base font-bold">{{ $container->length_cm }} cm</p>
                             </div>
                             <div
                                 class="bg-bg-gray dark:bg-bg-dark-secondary p-3 rounded-lg flex justify-between items-center py-4">
                                 <p class="text-base text-text-primary dark:text-text-light uppercase font-medium">Width</p>
-                                <p class="text-base font-bold">{{ $container_product?->container->width_cm }} cm</p>
+                                <p class="text-base font-bold">{{ $container->width_cm }} cm</p>
                             </div>
                             <div
                                 class="bg-bg-gray dark:bg-bg-dark-secondary p-3 rounded-lg flex justify-between items-center py-4">
                                 <p class="text-base text-text-primary dark:text-text-light uppercase font-medium">Height</p>
-                                <p class="text-base font-bold">{{ $container_product?->container->height_cm }} cm</p>
+                                <p class="text-base font-bold">{{ $container->height_cm }} cm</p>
                             </div>
                             <div
                                 class="bg-bg-gray dark:bg-bg-dark-secondary p-3 rounded-lg flex justify-between items-center py-4">
-                                <p class="text-base text-text-primary dark:text-text-light uppercase font-medium">Max Weight</p>
-                                <p class="text-base font-bold">{{ $container_product?->container->max_weight_kg }} kg</p>
+                                <p class="text-base text-text-primary dark:text-text-light uppercase font-medium">Max Weight
+                                </p>
+                                <p class="text-base font-bold">{{ $container->max_weight_kg }} kg</p>
                             </div>
                         </div>
 
                         <div class="pt-3">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="font-medium text-base">Capacity</span>
-                                <span>{{ $container_product?->container->capacity_percent }}% filled</span>
+                                <span>{{ $container->getFilledPercentageAttribute() }}% filled</span>
                             </div>
                             <div class="w-full bg-bg-gray rounded-full h-2.5">
                                 <div class="bg-bg-wiz_orange h-2.5 rounded-full text-base"
-                                    style="width: {{ $container_product?->container->capacity_percent }}%"></div>
+                                    style="width: {{ $container->getFilledPercentageAttribute() }}%"></div>
                             </div>
                         </div>
                     </div>
@@ -91,8 +93,8 @@
                             <div class="flex flex-col lg:flex-row gap-6">
                                 {{-- Product Image --}}
                                 <div class="w-full lg:w-1/2 h-64 lg:h-auto overflow-hidden rounded-lg shadow-md">
-                                    <img src="{{ $container_product?->product->primaryImage->first()?->image }}"
-                                        alt="{{ $container_product?->product->name }}"
+                                    <img src="{{ storage_url($container_product->product?->primaryImage->first()?->image) }}"
+                                        alt="{{ $container_product->product?->name }}"
                                         class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                                 </div>
 
@@ -108,7 +110,8 @@
                                             <div class="flex justify-between items-center">
                                                 <p class="text-base font-medium text-text-primary dark:text-text-light">
                                                     Quantity</p>
-                                                <p class="text-base font-bold">{{ $container_product?->product->quantity }}
+                                                <p class="text-base font-bold">
+                                                    {{ $container_product->quantity }}/{{ $container->containerReservations()->where('product_id', $container_product->product_id)->sum('quantity') }}
                                                 </p>
                                             </div>
                                         </div>
@@ -117,7 +120,7 @@
                                             <div class="flex justify-between items-center">
                                                 <p class="text-base font-medium text-text-primary dark:text-text-light">
                                                     Price</p>
-                                                <p class="text-base font-bold">${{ $container_product?->product->price }}
+                                                <p class="text-base font-bold">${{ $container_product->price }}
                                                 </p>
                                             </div>
                                         </div>
@@ -127,7 +130,7 @@
                                                 <p class="text-base font-medium text-text-primary dark:text-text-light">
                                                     Reserve Price</p>
                                                 <p class="text-base font-bold">
-                                                    ${{ $container_product?->product->reserve_price }}</p>
+                                                    ${{ $container_product->reserve_price }}</p>
                                             </div>
                                         </div>
 
@@ -188,8 +191,7 @@
 
                     <!-- Submit Button -->
                     <div class="pt-2">
-                        <button type="submit"
-                            class=" btn-primary !bg-bg-wiz_orange">
+                        <button type="submit" class=" btn-primary !bg-bg-wiz_orange">
                             Submit
                         </button>
                     </div>

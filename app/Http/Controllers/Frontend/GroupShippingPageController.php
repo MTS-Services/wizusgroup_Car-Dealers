@@ -25,14 +25,14 @@ class GroupShippingPageController extends Controller
     public function group_shipping()
     {
         $data['faqs'] = $this->faqService->getFaqs()->active()->get();
-        $data['containers'] = $this->containerService->getContainers('deadline', 'desc')->active()->with(['destinationPort', 'shippingPort', 'containerProducts.product', 'containerReservations.product'])->get();
+        $data['containers'] = $this->containerService->getContainers('deadline', 'desc')->active()->with(['destinationPort', 'shippingPort', 'containerProducts.product.primaryImage', 'containerReservations.product'])->get();
         return view('frontend.pages.group_shipping', $data);
     }
     public function joinGroupShipping(string $container_slug, string $product_slug)
     {
-        $container = Container::where('slug', $container_slug)->first();
-        $product = Product::where('slug', $product_slug)->first();
-        $data['container_product'] = ContainerProduct::with(['container', 'product'])->where('container_id', $container->id)->where('product_id', $product->id)->first();
+        $data['product'] = Product::where('slug', $product_slug)->first();
+        $data['container'] = Container::with(['destinationPort', 'shippingPort', 'containerProducts.product.primaryImage', 'containerReservations.product'])->where('slug', $container_slug)->first();
+        $data['container_product'] = $data['container']->containerProducts()->where('product_id', $data['product']->id)->first();
         return view('frontend.pages.join_group_shipping', $data);
     }
 

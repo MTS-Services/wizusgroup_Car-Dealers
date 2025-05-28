@@ -86,7 +86,7 @@
                                     <div
                                         class="bg-bg-white dark:bg-bg-dark-tertiary shadow-card dark:shadow-dark-card overflow-hidden transition-all duration-300 hover:shadow-xl group border border-border-gray dark:border-border-dark-secondary">
                                         <div class="w-full h-40 xs:h-44 sm:h-48 md:h-56 overflow-hidden relative">
-                                            <img src="{{ $product->product?->primaryImage->first()?->image }}"
+                                            <img src="{{ storage_url($product->product?->primaryImage->first()?->image) }}"
                                                 alt="{{ $product->product?->name ?? 'Untitled' }}"
                                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                                         </div>
