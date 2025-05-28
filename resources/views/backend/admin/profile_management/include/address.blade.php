@@ -1,4 +1,4 @@
-<div id="address" class="tab-pane ">
+<div id="address" class="tab-pane profile_management">
     <div class="card shadow-sm border-0">
         <div class="card-header">
             <h4 class="mb-0 py-2 text-white">{{ __('Profile Address') }}</h4>

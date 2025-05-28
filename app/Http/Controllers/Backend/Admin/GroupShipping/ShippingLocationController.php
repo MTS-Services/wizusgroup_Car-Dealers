@@ -40,6 +40,7 @@ class ShippingLocationController extends Controller
         if ($request->ajax()) {
             $query = $this->shippingLocationService->getShippingLocations()->with(['creater_admin']);
             return DataTables::eloquent($query)
+
                 ->editColumn('status', function ($shipping_location) {
                     return "<span class='badge " . $shipping_location->status_color . "'>$shipping_location->status_label</span>";
                 })

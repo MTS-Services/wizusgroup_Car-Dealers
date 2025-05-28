@@ -29,15 +29,24 @@ class Container extends BaseModel
         'deleted_by',
     ];
 
-    public function shippingPort(){
-        return $this->belongsTo(ShippingLocation::class, 'shipping_port');
+
+
+    public function shippingPort()
+    {
+        return $this->belongsTo(ShippingLocation::class, 'shipping_port', 'id');
     }
 
-    public function destinationPort(){
-        return $this->belongsTo(ShippingLocation::class, 'destination_port');
+    public function destinationPort()
+    {
+        return $this->belongsTo(ShippingLocation::class, 'destination_port', 'id');
+    }
+    public function getModifiedImageAttribute(): string
+    {
+        return storage_url($this->image);
     }
 
-        public function __construct(array $attributes = [])
+
+    public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
         $this->appends = array_merge(parent::getAppends(), [
@@ -47,12 +56,14 @@ class Container extends BaseModel
             'status_btn_label',
             'status_btn_color',
             'status_labels',
+
+            'modified_image',
         ]);
     }
 
 
     // ================= Status Functionality Start Here =================
-  
+
     // Status constants
     public const STATUS_ACTIVE = 1;
     public const STATUS_PENDING = 2;
@@ -86,8 +97,8 @@ class Container extends BaseModel
     {
         return [
             self::STATUS_ACTIVE => 'bg-success',
-            self::STATUS_PENDING => 'bg-warning',
-            self::STATUS_DELIVERED => 'bg-primary',
+            self::STATUS_PENDING => 'bg-primary',
+            self::STATUS_DELIVERED => 'bg-warning',
             self::STATUS_SHIPPED => 'bg-info',
         ];
     }

@@ -1,37 +1,8 @@
 @extends('backend.admin.layouts.master', ['page_slug' => 'role'])
 @section('title', 'Create Role')
-@push('css')
-    <style>
-        .groupName {
-            background: #cdcdcd;
-            border-bottom: 2px solid #182456;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .groupName label {
-            color: #000;
-            font-size: 15px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .list-items li {
-            list-style: none;
-            background: #cdcdcd;
-            border-bottom: 2px solid #182456;
-        }
-
-        .list-items li label {
-            color: #000;
-            font-weight: bold;
-            text-transform: capitalize;
-        }
-    </style>
-@endpush
 @section('content')
-    <div class="row">
-   <div class="{{ $document ? 'col-md-8' : 'col-md-12' }}">
+    <div class="row role_management">
+        <div class="{{ $document ? 'col-md-8' : 'col-md-12' }}">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title">{{ __('Create Role') }}</h4>

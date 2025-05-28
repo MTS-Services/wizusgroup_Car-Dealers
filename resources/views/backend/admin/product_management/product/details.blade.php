@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row">
-            <div class="product_tabs col-lg-12">
+        <div class="row product_tabs">
+            <div class="col-lg-12">
                 <div class="d-flex justify-content-around align-items-center gap-5 py-5 text-center">
                     <p class="btn_item w-100 py-2 m-0 active" data-bs-target="basic">{{ __('Basic Information') }}</p>
                     <p class="btn_item w-100 py-2 m-0 " data-bs-target="relations">{{ __('Relations') }}</p>
@@ -25,115 +25,131 @@
                                 <div class="card shadow">
                                     <div class="card-body">
                                         <h1 class="card-title mb-4">{{ $product->name }}</h1>
-
                                         <div class="row">
-                                            <!-- Product Information -->
-                                            <div class="col-md-6 mb-4">
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Slug: </strong>
-                                                        {{ $product->slug }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Stock keeping
-                                                            unit:
-                                                        </strong>
-                                                        {{ $product->sku }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Stock No:
-                                                        </strong>
-                                                        {{ $product->stock_no }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Chassis No:
-                                                        </strong>
-                                                        {{ $product->chassis_no }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Serial No:
-                                                        </strong>
-                                                        {{ $product->serial_no }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Type: </strong>
-                                                        {{ $product->type }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Fuel Type:
-                                                        </strong>
-                                                        {{ $product->fuel_type }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Displacement:
-                                                        </strong>
-                                                        {{ $product->displacement }}cc</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Capacity:
-                                                        </strong>
-                                                        {{ $product->capacity }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Specification
-                                                            No:
-                                                        </strong>
-                                                        {{ $product->specification_no }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Classification:
-                                                        </strong>
-                                                        {{ $product->classification_no }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">First
-                                                            Registration:
-                                                        </strong>
-                                                        {{ $product->first_registration }}</li>
-                                                </ul>
-                                            </div>
-
-                                            <!-- Description and Pricing -->
-                                            <div class="col-md-6 mb-4">
-                                                <h4>Description</h4>
-                                                <p class="border p-3 rounded">
-                                                    {{ $product->description }}</p>
-
-                                                <h4 class="mt-4">Pricing</h4>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Price:
-                                                        </strong>
-                                                        ${{ number_format($product->price, 2) }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Cost Price:
-                                                        </strong>
-                                                        ${{ number_format($product->cost_price, 2) }}
-                                                    </li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Sale Price:
-                                                        </strong>
-                                                        ${{ number_format($product->sale_price, 2) }}
-                                                    </li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Quantity
-                                                            Available:
-                                                        </strong>
-                                                        {{ $product->quantity }}</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-6 mb-4">
-                                                <!-- Status Flags -->
-                                                <div class="mt-4">
-                                                    <h4>Product Flags</h4>
-                                                    <ul class="list-group list-group-flush">
-                                                        {{-- <li class="list-group-item h5">Allow Backorder: <strong
-                                                                class="ms-2 h6">{{ $product->allow_backorder ? 'Allowed' : 'Not Allowed' }}</strong>
-                                                        </li> --}}
-                                                        <li class="list-group-item h5">Status: <strong class="ms-2 h6">
-                                                                {{ $product->status ? 'Active' : 'Inactive' }}</strong>
-                                                        </li>
-                                                        <li class="list-group-item h5">Featured: <strong class="ms-2 h6">
-                                                                {{ $product->is_featured ? 'Yes' : 'No' }}</strong>
-                                                        </li>
-                                                        {{-- <li class="list-group-item h5">Dropshipping: <strong
-                                                                class="ms-2 h6">
-                                                                {{ $product->is_dropshipping ? 'Yes' : 'No' }}</strong>
-                                                        </li> --}}
-                                                    </ul>
+                                            <div class="col-md-6">
+                                                <div class="table-responsive mb-4">
+                                                    <h5 class="mb-3">Product Information</h5>
+                                                    <table class="table table-bordered table-striped align-middle">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Slug</th>
+                                                                <td>{{ $product->slug }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>SKU</th>
+                                                                <td>{{ $product->sku }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Stock No</th>
+                                                                <td>{{ $product->stock_no }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Chassis No</th>
+                                                                <td>{{ $product->chassis_no }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Serial No</th>
+                                                                <td>{{ $product->serial_no }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Type</th>
+                                                                <td>{{ $product->type }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Fuel Type</th>
+                                                                <td>{{ $product->fuel_type }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Displacement</th>
+                                                                <td>{{ $product->displacement }}cc</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Capacity</th>
+                                                                <td>{{ $product->capacity }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Specification No</th>
+                                                                <td>{{ $product->specification_no }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Classification No</th>
+                                                                <td>{{ $product->classification_no }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>First Registration</th>
+                                                                <td>{{ $product->first_registration }}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 mb-4">
-                                                <!-- Meta Info -->
-                                                <div class="mt-4">
-                                                    <h4>Meta Information</h4>
-                                                    <ul class="list-group list-group-flush">
-                                                        <li class="list-group-item"><strong
-                                                                class="me-2 mb-0 h5">Title:</strong>
-                                                            {{ $product->meta_title ?? 'N/A' }}</li>
-                                                        <li class="list-group-item"><strong
-                                                                class="me-2 mb-0 h5">Description:</strong>
-                                                            {{ $product->meta_description ?? 'N/A' }}</li>
-                                                        <li class="list-group-item"><strong
-                                                                class="me-2 mb-0 h5">Keywords:</strong>
-                                                            {{ $product->meta_keywords ?? 'N/A' }}</li>
-                                                    </ul>
+                                            <div class="col-md-6">
+                                                <div class="mb-4">
+                                                    <h5 class="mb-3">Description</h5>
+                                                    <div class="border p-3 rounded">{!! $product->description !!}</div>
+                                                </div>
+
+                                                <div class="table-responsive mb-4">
+                                                    <h5 class="mb-3">Pricing</h5>
+                                                    <table class="table table-bordered table-striped align-middle">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Price</th>
+                                                                <td>${{ number_format($product->price, 2) }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Cost Price</th>
+                                                                <td>${{ number_format($product->cost_price, 2) }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Sale Price</th>
+                                                                <td>${{ number_format($product->sale_price, 2) }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Quantity Available</th>
+                                                                <td>{{ $product->quantity }}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="table-responsive mb-4">
+                                                    <h5 class="mb-3">Product Flags</h5>
+                                                    <table class="table table-bordered table-striped align-middle">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Status</th>
+                                                                <td>{{ $product->status ? 'Active' : 'Inactive' }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Featured</th>
+                                                                <td>{{ $product->is_featured ? 'Yes' : 'No' }}</td>
+                                                            </tr>
+                                                            {{-- Add more flags if needed --}}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="table-responsive">
+                                                    <h5 class="mb-3">Meta Information</h5>
+                                                    <table class="table table-bordered table-striped align-middle">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Meta Title</th>
+                                                                <td>{{ $product->meta_title ?? 'N/A' }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Meta Description</th>
+                                                                <td>{{ $product->meta_description ?? 'N/A' }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Meta Keywords</th>
+                                                                <td>{{ $product->meta_keywords ?? 'N/A' }}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
@@ -141,38 +157,42 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- Profile Address --}}
+                        {{-- Relations --}}
                         <div id="relations" class="tab-pane ">
                             <div class="mb-5">
                                 <div class="card shadow">
                                     <div class="card-body">
-                                        <div class="card-title">{{ __('Relations') }}</div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Company:
-                                                        </strong>
-                                                        {{ $product->company?->name ?? 'N/A' }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Brand:
-                                                        </strong>
-                                                        {{ $product->brand?->name ?? 'N/A' }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Model:
-                                                        </strong>
-                                                        {{ $product->model?->name ?? 'N/A' }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Category:
-                                                        </strong>
-                                                        {{ $product->category?->name ?? 'N/A' }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Sub Category:
-                                                        </strong>
-                                                        {{ $product->sub_category?->name ?? 'N/A' }}</li>
-                                                </ul>
-                                            </div>
+                                        <h5 class="card-title">{{ __('Relations') }}</h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped align-middle mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <th class="w-25">Company</th>
+                                                        <td>{{ $product->company?->name ?? 'N/A' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Brand</th>
+                                                        <td>{{ $product->brand?->name ?? 'N/A' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Model</th>
+                                                        <td>{{ $product->model?->name ?? 'N/A' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Category</th>
+                                                        <td>{{ $product->category?->name ?? 'N/A' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Sub Category</th>
+                                                        <td>{{ $product->sub_category?->name ?? 'N/A' }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         {{-- Images Gallery --}}
                         <div id="images" class="tab-pane">
                             <div class="mb-5">
@@ -199,25 +219,28 @@
                             <div class="mb-5">
                                 <div class="card shadow">
                                     <div class="card-body">
-                                        <div class="card-title">{{ __('Informations') }}</div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Product
-                                                            Information Catigory:
-                                                        </strong>
-                                                        {{ $product->infoCategory->name ?? 'N/A' }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Product
-                                                            Information Catigory Type:
-                                                        </strong>{{ $product->infoCategoryType->name ?? 'N/A' }}</li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Product
-                                                            Information Catigory Type Feature:
-                                                        </strong>{{ $product->infoCategoryTypeFeature->name ?? 'N/A' }}
-                                                    </li>
-                                                    <li class="list-group-item"><strong class="me-2 mb-0 h5">Description:
-                                                        </strong>{{ $product->description ?? 'N/A' }}</li>
-                                                </ul>
-                                            </div>
+                                        <div class="card-title h5">{{ __('Informations') }}</div>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Product Information Category</th>
+                                                        <td>{{ $product->infoCategory->name ?? 'N/A' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Product Information Category Type</th>
+                                                        <td>{{ $product->infoCategoryType->name ?? 'N/A' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Product Information Category Type Feature</th>
+                                                        <td>{{ $product->infoCategoryTypeFeature->name ?? 'N/A' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Description</th>
+                                                        <td>{!! $product->description ?? 'N/A' !!}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -227,20 +250,21 @@
                 </div>
             </div>
         </div>
+    </div>
 
-    @endsection
-    @push('js')
-        <script>
-            $(document).ready(function() {
-                // Handle click on tab items
-                $('.btn_item').on('click', function() {
-                    $('.btn_item').removeClass('active');
-                    $(this).addClass('active');
-                    const target = $(this).data('bs-target');
-                    $('.tab-pane').removeClass('active');
+@endsection
+@push('js')
+    <script>
+        $(document).ready(function() {
+            // Handle click on tab items
+            $('.btn_item').on('click', function() {
+                $('.btn_item').removeClass('active');
+                $(this).addClass('active');
+                const target = $(this).data('bs-target');
+                $('.tab-pane').removeClass('active');
 
-                    $('#' + target).addClass('active');
-                });
+                $('#' + target).addClass('active');
             });
-        </script>
-    @endpush
+        });
+    </script>
+@endpush

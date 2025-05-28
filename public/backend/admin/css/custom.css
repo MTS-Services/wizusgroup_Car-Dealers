@@ -217,7 +217,9 @@
                 Product View Tabs CSS
  =============================================================*/
 
-.product_tabs .btn_item {
+.product_tabs .btn_item,
+.profile_tabs .btn_item
+ {
     background: linear-gradient(to right, #1f0036, #37006d);
     color: white;
     border: 1px solid #444;
@@ -227,23 +229,77 @@
     transition: all 0.3s ease-in-out;
 }
 
-.product_tabs .btn_item:hover {
+.product_tabs .btn_item:hover,
+.profile_tabs .btn_item:hover 
+{
     background: linear-gradient(to right, #37006d, #1f0036);
     opacity: 0.9;
     cursor: pointer;
 }
 
-.product_tabs .active.btn_item {
+.product_tabs .active.btn_item,
+.profile_tabs .active.btn_item 
+{
     background: linear-gradient(to right, #0972C1, #37006d);
 }
 
 /*=============================================================
                 Auction Running List CSS
  =============================================================*/
-.bg-wiz_orange{
+.bg-wiz_orange {
     background-color: orange;
 }
 
-.text-wiz_red{
+.text-wiz_red {
     color: red;
+}
+
+/*=============================================================
+                Role Mangement CSS
+ =============================================================*/
+
+.role_management .groupName {
+    background: #cdcdcd;
+    border-bottom: 2px solid #182456;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.role_management .groupName label {
+    color: #000;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.role_management .list-items li {
+    list-style: none;
+    background: #cdcdcd;
+    border-bottom: 2px solid #182456;
+}
+
+.role_management .list-items li label {
+    color: #000;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+/*=============================================================
+                Profile Management CSS
+ =============================================================*/
+.profile_management .form-group input,
+.profile_management .form-group select {
+    height: 40px;
+}
+
+.profile_management .text-danger {
+    font-size: 0.875rem;
+    color: #ff4d4f;
+}
+
+.profile_management .card-header {
+    background: linear-gradient(to right, #1f0036, #37006d) !important;
+    color: #ffffff;
+    border-bottom: 1px solid #2a2a2a;
+    border-radius: 10px 10px 0 0 !important;
 }
