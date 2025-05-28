@@ -37,6 +37,9 @@
                                     <p class="text-sm text-text-gray mt-1 py-1">
                                         Destination: {{ $container->destinationPort?->name ?? 'N/A' }}
                                     </p>
+                                    <div class="bg-bg-orange text-text-white w-fit px-3 py-1 rounded-md text-sm font-medium"
+                                        id="timer-{{ $container->id ?? 1 }}" data-endDate="{{ $container->deadline }}">
+                                    </div>
                                 </div>
 
                                 <div class="p-5 text-sm">
@@ -63,21 +66,15 @@
                                     <div class="pt-3">
                                         <div class="flex justify-between items-center mb-1">
                                             <span class="font-medium">Capacity</span>
-                                            <span>{{ $container->capacity_percent }}% filled</span>
+                                            <span>{{ $container->getFilledPercentageAttribute() }}% filled</span>
                                         </div>
                                         <div class="w-full bg-bg-gray rounded-full h-2">
                                             <div class="bg-bg-wiz_orange h-2 rounded-full"
-                                                style="width: {{ $container->capacity_percent }}%"></div>
+                                                style="width: {{ $container->getFilledPercentageAttribute() }}%"></div>
                                         </div>
                                     </div>
 
-                                    <div class="mt-6 pt-4 border-t flex justify-between items-center">
-                                        <span>Your Items: {{ $container->item_count ?? 'N/A' }}</span>
-                                        <a href="#"
-                                            class="text-bg-wiz_orange hover:text-bg-wiz_orange/80 flex items-center text-sm font-medium">
-                                            View Details <i class="fas fa-chevron-right ml-1 text-xs"></i>
-                                        </a>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -89,7 +86,7 @@
                                     <div
                                         class="bg-bg-white dark:bg-bg-dark-tertiary shadow-card dark:shadow-dark-card overflow-hidden transition-all duration-300 hover:shadow-xl group border border-border-gray dark:border-border-dark-secondary">
                                         <div class="w-full h-40 xs:h-44 sm:h-48 md:h-56 overflow-hidden relative">
-                                            <img src="{{ $product->product?->primaryImage->first()?->image }}"
+                                            <img src="{{ storage_url($product->product?->primaryImage->first()?->image) }}"
                                                 alt="{{ $product->product?->name ?? 'Untitled' }}"
                                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                                         </div>
@@ -107,7 +104,8 @@
                                                         {{ $container->shippingPort?->name ?? 'N/A' }}
                                                     </div>
                                                     <div class="text-xs text-text-gray dark:text-text-light mb-3">
-                                                        {{ __('Quantity') }}: {{ $product->quantity }}
+                                                        {{ __('Quantity') }}:
+                                                        {{ $product->quantity }}/{{ $container->containerReservations()->where('product_id', $product->product_id)->sum('quantity') }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -608,6 +606,33 @@
     </section>
 @endsection
 @push('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const timer = document.getElementById('timer-{{ $container->id ?? 1 }}');
+            const endDate = moment(timer.dataset.enddate); // Read from data-enddate
+
+            function updateCountdown() {
+                const now = moment();
+                const duration = moment.duration(endDate.diff(now));
+
+                if (duration.asSeconds() <= 0) {
+                    timer.innerText = 'Closed';
+                    clearInterval(interval);
+                    return;
+                }
+
+                const days = Math.floor(duration.asDays());
+                const hours = duration.hours();
+                const minutes = duration.minutes();
+                const seconds = duration.seconds();
+
+                timer.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
+
+            updateCountdown(); // Initial call
+            const interval = setInterval(updateCountdown, 1000);
+        });
+    </script>
     <script>
         function toggleFaq(element) {
             const parent = element.closest('.faq-item');

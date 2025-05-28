@@ -52,6 +52,41 @@ class Container extends BaseModel
         return $this->hasMany(ContainerProduct::class, 'container_id', 'id');
     }
 
+    public function containerReservations()
+    {
+        return $this->hasMany(ContainerReservation::class, 'container_id', 'id');
+    }
+
+    public function calculateFreeSpacePercentage()
+    {
+        $totalQuantity = $this->containerProducts()->sum('quantity');
+
+        $reservedQuantity = $this->containerReservations()->sum('quantity');
+
+        if ($totalQuantity == 0) {
+            return 0; // Avoid division by zero, or return 100 if you prefer
+        }
+
+        $usedPercent = ($reservedQuantity / $totalQuantity) * 100;
+        $freePercent = 100 - $usedPercent;
+
+        return round($freePercent, 2); // You can round to desired precision
+    }
+
+    public function getFilledPercentageAttribute()
+    {
+        $totalAvailable = $this->containerProducts()->sum('quantity');
+        $totalReserved = $this->containerReservations()->sum('quantity');
+
+        if ($totalAvailable == 0) {
+            return 0; // avoid division by zero
+        }
+
+        $filled = ($totalReserved / $totalAvailable) * 100;
+
+        return round($filled, 2); // round to 2 decimal places
+    }
+
 
 
     public function __construct(array $attributes = [])

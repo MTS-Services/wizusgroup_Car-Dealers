@@ -28,4 +28,8 @@ class ContainerProduct extends BaseModel
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
+    public function containerReservations()
+    {
+        return $this->hasMany(ContainerReservation::class, 'container_product_id', 'id');
+    }
 }
