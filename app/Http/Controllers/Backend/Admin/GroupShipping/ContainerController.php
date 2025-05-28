@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\GroupShipping\ContainerRequest;
 use App\Models\Documentation;
 use App\Services\Admin\GroupShipping\ContainerService;
 use App\Services\Admin\GroupShipping\ShippingLocationService;
+use App\Services\Admin\ProductManagement\ProductService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -17,11 +18,13 @@ class ContainerController extends Controller
 {
     protected ContainerService $containerService;
     protected ShippingLocationService $shippingLocationService;
+    protected ProductService $productService;
 
-    public function __construct(ContainerService $containerService, ShippingLocationService $shippingLocationService)
+    public function __construct(ContainerService $containerService, ShippingLocationService $shippingLocationService, ProductService $productService)
     {
         $this->containerService = $containerService;
         $this->shippingLocationService = $shippingLocationService;
+        $this->productService = $productService;
 
         $this->middleware('auth:admin');
         $this->middleware('permission:container-list', ['only' => ['index']]);
@@ -38,10 +41,10 @@ class ContainerController extends Controller
     /**
      * Display a listing of the resource.
      */
-     public function index(Request $request)
+    public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = $this->containerService->getContainers()->with(['creater_admin','shippingPort', 'destinationPort']);
+            $query = $this->containerService->getContainers()->with(['creater_admin', 'shippingPort', 'destinationPort']);
             return DataTables::eloquent($query)
                 ->editColumn('shipping_port', function ($container) {
                     return $container->shippingPort->name ?? '';
@@ -107,6 +110,7 @@ class ContainerController extends Controller
     public function create()
     {
         $data['shippingLocations'] = $this->shippingLocationService->getShippingLocations()->active()->select(['id', 'name'])->get();
+        $data['products'] = $this->productService->getProducts()->active()->select(['id', 'name'])->get();
         $data['document'] = Documentation::where([['module_key', 'shipping-location'], ['type', 'create']])->first();
         return view('backend.admin.group_shipping.container.create', $data);
     }
@@ -114,11 +118,11 @@ class ContainerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-   public function store(ContainerRequest $request)
+    public function store(ContainerRequest $request)
     {
         try {
             $validated = $request->validated();
-            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
             $this->containerService->createContainer($validated, $file);
             session()->flash('success', 'Container created successfully!');
         } catch (\Throwable $e) {
@@ -135,14 +139,14 @@ class ContainerController extends Controller
     public function show(string $id)
     {
         $container = $this->containerService->getContainer($id);
-        $container->load(['creater_admin', 'updater_admin','shippingPort', 'destinationPort']);
+        $container->load(['creater_admin', 'updater_admin', 'shippingPort', 'destinationPort']);
         return response()->json($container);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-     public function edit(string $id)
+    public function edit(string $id)
     {
         $data['container'] = $this->containerService->getContainer($id);
         $data['shipping_locations'] = $this->shippingLocationService->getShippingLocations()->active()->select(['id', 'name'])->get();
@@ -155,9 +159,9 @@ class ContainerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-         try {
+        try {
             $validated = $request->validated();
-             $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
             $this->containerService->updateContainer($id, $validated, $file);
             session()->flash('success', 'Container updated successfully!');
         } catch (\Throwable $e) {
