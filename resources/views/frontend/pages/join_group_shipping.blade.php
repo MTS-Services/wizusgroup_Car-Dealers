@@ -40,8 +40,8 @@
                                 {{ dateFormat($container->deadline) }}</span>
                         </div>
                         <div class="grid grid-cols-5 gap-4">
-                            <div class="col-span-2 max-h-52 h-fit">
-                                <img class="w-full object-cover" src="{{ storage_url($container->image) }}"
+                            <div class="col-span-2 h-fit">
+                                <img class="w-full max-h-80 h-full object-cover" src="{{ storage_url($container->image) }}"
                                     alt="{{ $container->title ?? 'Untitled' }}">
                             </div>
                             <div class="col-span-3">
@@ -328,17 +328,62 @@
     </section>
 @endsection
 @push('js')
-    {{-- <script>
+    <script>
         $(document).ready(function() {
-            $('#quantity').on('change', function() {
-                var quantity = $(this).val();
-                var price = $('#price').val();
-                var reserve_price = $('#reserve_price').val();
-                var total = quantity * @json($container_product->price);
-                var reserve_total = quantity * @json($container_product->reserve_price);
-                $('#price').val(numberFormat(total, 2, false));
-                $('#reserve_price').val(numberFormat(reserve_total, 2, false));
+
+            function getPrice(cbm, weight_kg) {
+                let base_cost = `{{ $container->base_cost }}`;
+                let per_cbm_cost = `{{ $container->per_cbm_cost }}`;
+                let per_kg_cost = `{{ $container->per_kg_cost }}`;
+                let price = base_cost + (cbm * per_cbm_cost);
+                // let price = base_cost + (cbm * per_cbm_cost) + (weight_kg * per_kg_cost);
+                $('#price').val(numberFormat(price, 2, false));
+                $('#reserve_price').val(numberFormat((price / 2), 2, false));
+
+            }
+
+            $('#quantity').on('input', function() {
+
+                let cbm = $('#height_m').val() * $('#width_m').val() * $('#length_m').val();
+                let weight_kg = $('#weight_kg').val();
+                getPrice(cbm, weight_kg);
+
+                if ($('#quantity').val() < 1) {
+                    $('#price').val(0);
+                    $('#reserve_price').val(0);
+                } else {
+                    $('#price').val(numberFormat($('#price').val() * $(this).val(), 2, false));
+                    $('#reserve_price').val(numberFormat($('#reserve_price').val() * $(this).val(), 2,
+                        false));
+                }
+
             });
-        })
-    </script> --}}
+
+            $('#product_id').on('change', async function() {
+                let route = "{{ route('axios.get-product') }}";
+                let product = await getProduct($(this).val(), route);
+                if (product == null) {
+                    $('#product_name').val('');
+                    $('#height_m').val('');
+                    $('#width_m').val('');
+                    $('#length_m').val('');
+                    $('#weight_kg').val('');
+                    return;
+                } else {
+                    $('#product_name').val(product.name);
+                    $('#height_m').val(product.height_m);
+                    $('#width_m').val(product.width_m);
+                    $('#length_m').val(product.length_m);
+                    $('#weight_kg').val(product.weight_kg);
+                    $('#quantity').val(1);
+                    let cbm = product.height_m * product.width_m * product.length_m;
+                    let weight_kg = product.weight_kg;
+                    getPrice(cbm, weight_kg);
+                }
+
+                console.log(product); // Now logs the actual product
+            });
+
+        });
+    </script>
 @endpush
