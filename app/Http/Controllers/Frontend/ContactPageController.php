@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\Contact\ContactRequest;
+use App\Mail\ContactMail;
 use App\Models\Contact;
 use App\Services\Admin\CMSManagement\ContactService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ContactPageController extends Controller
 {
@@ -34,11 +36,15 @@ class ContactPageController extends Controller
                 $validated['creater_id'] = user()->id;
                 $validated['creater_type'] = get_class(user());
             }
-            $this->contactService->createContact($validated);
+            $contact = $this->contactService->createContact($validated);
+            Mail::to('oasiffre@gmail.com')->send(new ContactMail($contact));
         } catch (\Throwable $e) {
             session()->flash('error', 'Contact create failed!');
             throw $e;
         }
+
+
+        session()->flash('success', 'Join request submitted successfully! We will contact you soon.');
         return redirect()->back()->with('success', 'Your message has been sent successfully!');
     }
 }
