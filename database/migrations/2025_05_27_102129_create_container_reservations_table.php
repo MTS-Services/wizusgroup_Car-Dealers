@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->string('product_name');
             $table->string('email');
             $table->string('whatsapp');
+
             $table->string('length_m')->index();
             $table->string('width_m')->index();
             $table->string('height_m')->index();
