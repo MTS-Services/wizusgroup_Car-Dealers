@@ -54,6 +54,7 @@ class GroupShippingPageController extends Controller
         $reservation = ContainerReservation::create($validated);
 
         Mail::to('supperadmin@gmail.com')->send(new ContainerReservationMail($reservation));
+        
         session()->flash('success', 'Join request submitted successfully! We will contact you soon.');
         return redirect()->route('frontend.join-group-shipping', ['container_slug' => $container_slug, 'product_slug' => $product_slug]);
     }
