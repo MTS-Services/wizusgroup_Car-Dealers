@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->string('product_name');
             $table->string('email');
             $table->string('whatsapp');
+
             $table->string('length_m')->index();
             $table->string('width_m')->index();
             $table->string('height_m')->index();
@@ -30,6 +31,7 @@ return new class extends Migration {
             $table->decimal('price', 10, 2)->default(0);
             $table->decimal('reserve_price', 10, 2)->default(0);
             $table->string('status')->index()->default(ContainerReservation::STATUS_PENDING);
+            $table->integer('quantity');
             $table->longText('note')->nullable();
             $table->timestamps();
             $table->softDeletes();
