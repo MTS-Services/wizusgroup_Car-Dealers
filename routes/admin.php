@@ -93,6 +93,8 @@ Route::controller(AxiosRequestController::class)->name('axios.')->group(function
 
     Route::post('get-info-category-types', 'getInfoCatTypes')->name('get-info-cat-types');
     Route::post('get-info-category-type-features', 'getInfoCatTypeFeatures')->name('get-info-cat-type-features');
+
+    Route::post('get-product', 'getProduct')->name('get-product');
 });
 
 Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], function () {

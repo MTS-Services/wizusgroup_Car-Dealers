@@ -31,7 +31,7 @@ return new class extends Migration {
             $table->decimal('price', 10, 2)->default(0);
             $table->decimal('reserve_price', 10, 2)->default(0);
             $table->string('status')->index()->default(ContainerReservation::STATUS_PENDING);
-            $table->integer('quantity');
+            $table->integer('quantity')->index();
             $table->longText('note')->nullable();
             $table->timestamps();
             $table->softDeletes();

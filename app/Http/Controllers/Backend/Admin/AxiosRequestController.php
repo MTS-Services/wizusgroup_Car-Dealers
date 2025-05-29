@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AxiosRequests\GetInfoCatTypeFeatureRequest;
+use App\Http\Requests\AxiosRequests\GetProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\Product;
 use App\Models\ProductInfoCategoryType;
 use App\Models\State;
 use App\Models\Company;
@@ -65,33 +67,35 @@ class AxiosRequestController extends Controller
         ]);
     }
 
-    public function getInfoCatTypes(GetInfoCatTypespeRequest $request): JsonResponse{
+    public function getInfoCatTypes(GetInfoCatTypespeRequest $request): JsonResponse
+    {
         $product_info_cat_id = $request->validated()["product_info_cat_id"];
-        if($product_info_cat_id){
-                $type = ProductInfoCategory::with('activeProductInfoCategoryTypes')->findOrFail($product_info_cat_id);
-                return response()->json([
-                    'product_info_cat_types' => $type->activeProductInfoCategoryTypes,
-                    'message'=> "Product Info Category Types fetched successfully!",
-                ]);
+        if ($product_info_cat_id) {
+            $type = ProductInfoCategory::with('activeProductInfoCategoryTypes')->findOrFail($product_info_cat_id);
+            return response()->json([
+                'product_info_cat_types' => $type->activeProductInfoCategoryTypes,
+                'message' => "Product Info Category Types fetched successfully!",
+            ]);
         }
         return response()->json([
-                'product_info_cat_types' => [],
-                'message'=> "Product Info Category Types not found!",
+            'product_info_cat_types' => [],
+            'message' => "Product Info Category Types not found!",
         ]);
     }
 
-    public function getInfoCatTypeFeatures(GetInfoCatTypeFeatureRequest $request): JsonResponse{
+    public function getInfoCatTypeFeatures(GetInfoCatTypeFeatureRequest $request): JsonResponse
+    {
         $product_info_cat_type_id = $request->validated()["product_info_cat_type_id"];
-        if($product_info_cat_type_id){
-                $feature = ProductInfoCategoryType::with('activeFeatures')->findOrFail($product_info_cat_type_id);
-                return response()->json([
-                    'product_info_cat_type_features' => $feature->activeFeatures,
-                    'message'=> "Product Info Category Type Features fetched successfully!",
-                ]);
+        if ($product_info_cat_type_id) {
+            $feature = ProductInfoCategoryType::with('activeFeatures')->findOrFail($product_info_cat_type_id);
+            return response()->json([
+                'product_info_cat_type_features' => $feature->activeFeatures,
+                'message' => "Product Info Category Type Features fetched successfully!",
+            ]);
         }
         return response()->json([
-                'product_info_cat_type_features' => [],
-                'message'=> "Product Info Category Type Features not found!",
+            'product_info_cat_type_features' => [],
+            'message' => "Product Info Category Type Features not found!",
         ]);
     }
     public function getCities(Request $request): JsonResponse
@@ -212,6 +216,17 @@ class AxiosRequestController extends Controller
         return response()->json([
             'models' => [],
             'message' => "Models not found!",
+        ]);
+    }
+
+    public function getProduct(GetProductRequest $request)
+    {
+        $validated = $request->validated();
+        $product = Product::findOrFail($validated['product_id']);
+        return response()->json([
+            'product' => $product,
+            'success' => true,
+            'message' => "Product fetched successfully!",
         ]);
     }
 }
