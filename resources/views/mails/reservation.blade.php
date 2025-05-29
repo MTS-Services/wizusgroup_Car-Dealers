@@ -37,19 +37,25 @@
     <div class="card">
         <h2>New Container Reservation Request</h2>
 
-        <p><span class="label">User:</span> {{ $reservation->user->name }} ({{ $reservation->user->email }})</p>
+        <p><span class="label">User:</span> {{ $reservation->user->first_name }} {{ $reservation->user->last_name }}</p>
+        <p><span class="label">Contact Email:</span> {{ $reservation->email }}</p>
         <p><span class="label">WhatsApp:</span> {{ $reservation->whatsapp }}</p>
 
         <hr>
 
-        <p><span class="label">Container:</span> {{ optional($reservation->container)->name }}</p>
-        <p><span class="label">Product:</span> {{ optional($reservation->product)->name }}</p>
-        <p><span class="label">Quantity:</span> {{ $reservation->quantity ?? 'N/A' }}</p>
-        <p><span class="label">Preferred Shipping Date:</span> {{ $reservation->preferred_shipping_date ?? 'N/A' }}</p>
+        <p><span class="label">Container:</span> {{ $reservation->container?->title }}</p>
+        <p><span class="label">Product:</span> {{ $reservation->product?->name }}</p>
+        <p><span class="label">Price:</span>
+            {{ $reservation->quantity . ' x ' . $reservation->price / $reservation->quantity }} =
+            {{ $reservation->price }}</p>
+        <p><span class="label">Reserve Price:</span>
+            {{ $reservation->quantity . ' x ' . $reservation->reserve_price / $reservation->quantity }} =
+            {{ $reservation->reserve_price }}</p>
+        <p><span class="label">Quantity:</span> {{ $reservation->quantity }}</p>
+        <p><span class="label">Shipping Date:</span> {{ dateFormat($reservation->container?->deadline) }}</p>
 
         <hr>
-
-        <p><span class="label">Submitted At:</span> {{ $reservation->created_at->format('Y-m-d H:i A') }}</p>
+        <p><span class="label">Submitted At:</span> {{ timeFormat($reservation->created_at) }}</p>
     </div>
 </body>
 

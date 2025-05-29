@@ -122,12 +122,37 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="flex space-x-2">
-                                                    <a href="{{ route('frontend.join-group-shipping', ['container_slug' => $container->slug, 'product_slug' => $product->product?->slug]) }}"
-                                                        class="flex-1 py-2 px-3 rounded-md font-semibold bg-bg-wiz_orange text-white hover:bg-bg-wiz_orange/90 shadow-md hover:shadow-lg text-center text-sm">
-                                                        Join Shipping
-                                                    </a>
-                                                </div>
+                                                @php
+                                                    $container_quantity = (int) $container
+                                                        ->containerProducts()
+                                                        ->where('product_id', $product->id)
+                                                        ->sum('quantity');
+                                                    $reserve_quantity = (int) $container
+                                                        ->containerReservations()
+                                                        ->where('product_id', $product->id)
+                                                        ->where(
+                                                            'status',
+                                                            '!=',
+                                                            App\Models\ContainerReservation::STATUS_DECLINE,
+                                                        )
+                                                        ->sum('quantity');
+                                                @endphp
+                                                @if ($container_quantity <= $reserve_quantity)
+                                                    <div class="flex space-x-2">
+                                                        <button
+                                                            class="flex-1 py-2 px-3 rounded-md font-semibold bg-bg-gray text-red-500 hover:bg-bg-gray/90 shadow-md hover:shadow-lg text-center text-sm">
+                                                            Full
+                                                        </button>
+                                                    </div>
+                                                @else
+                                                    <div class="flex space-x-2">
+                                                        <a href="{{ route('frontend.join-group-shipping', ['container_slug' => $container->slug, 'product_slug' => $product->product?->slug]) }}"
+                                                            class="flex-1 py-2 px-3 rounded-md font-semibold bg-bg-wiz_orange text-white hover:bg-bg-wiz_orange/90 shadow-md hover:shadow-lg text-center text-sm">
+                                                            Join Shipping
+                                                        </a>
+                                                    </div>
+                                                @endif
+
                                             </div>
                                         </div>
                                     </div>
