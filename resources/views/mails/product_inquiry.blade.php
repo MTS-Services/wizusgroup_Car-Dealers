@@ -41,10 +41,6 @@
             margin-bottom: 5px;
         }
 
-        .value {
-            font-size: 18px;
-            color: #111;
-        }
 
         .hidden-info {
             font-size: 16px;
@@ -58,28 +54,20 @@
 
 <body>
     <div class="card">
-        <h2>Product Reserve Details</h2>
+        <h2>Whatsapp Inquiry  Details</h2>
 
         <div class="hidden-info">
-            <p><strong>Contact Name:</strong> {{ $reserve->name }}</p>
-            <p><strong>Contact Email:</strong> {{ $reserve->email }}</p>
-            <p><strong>WhatsApp Number:</strong> {{ $reserve->whatsapp_number }}</p>
+            <p><strong>Contact Name:</strong> {{ $inquiry->in_name }}</p>
+            <p><strong>Contact Email:</strong> {{ $inquiry->in_email }}</p>
+            <p><strong>WhatsApp Number:</strong> {{ $inquiry->in_whatsapp_number }}</p>
         </div>
-        
+
+
 
         <div class="info-row">
-            <span class="label">Reserve Price:</span>
-            <span class="value">{{ $reserve->reserve_price }}</span>
-        </div>
-        <div class="info-row">
-            <span class="label">Product Id:</span> <span class="value">{{ $reserve->product_id }}</span>
-        </div>
-        <div class="info-row">
-            <span class="label">Message:</span>
-            <span class="value">{{ $reserve->note }}</span>
+            <span class="label">Product Id : { {$inquiry->product_id }}</span>
         </div>
     </div>
 </body>
 
 </html>
-

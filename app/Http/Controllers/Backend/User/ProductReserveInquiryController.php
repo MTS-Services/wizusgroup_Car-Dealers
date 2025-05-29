@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\ProductInquiryRequest;
 use App\Http\Requests\User\ProductReserveRequest;
+use App\Mail\InquiryMail;
 use App\Mail\ReserveMail;
 use App\Models\Product;
 use App\Models\ProductInquiry;
@@ -42,7 +43,8 @@ class ProductReserveInquiryController extends Controller
         $validated = $request->validated();
         $validated['product_id'] = Product::where('slug', $slug)->firstOrFail()->id;
         $validated['user_id'] = user()->id;
-        ProductInquiry::create($validated);
+        $inquiry= ProductInquiry::create($validated);
+        Mail::to('oasiffre@gmail.com')->send(new InquiryMail($inquiry));
         session()->flash('success', 'Product inquiry successfully!');
         return $this->RedirectPath($slug);
     }

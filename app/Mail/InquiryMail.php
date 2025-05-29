@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\ProductInquiry;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,41 +12,29 @@ use Illuminate\Queue\SerializesModels;
 
 class InquiryMail extends Mailable
 {
-    use Queueable, SerializesModels;
+   use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
+      public ProductInquiry $inquiry;
+    public function __construct(ProductInquiry $inquiry)
     {
-        //
+        $this->inquiry = $inquiry;
     }
 
-    /**
-     * Get the message envelope.
-     */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Inquiry Mail',
+            subject: 'WhatsApp Inquiry  - ' . $this->inquiry->in_name
         );
     }
 
-    /**
-     * Get the message content definition.
-     */
+
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'mails.product_inquiry',
         );
     }
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
     public function attachments(): array
     {
         return [];
