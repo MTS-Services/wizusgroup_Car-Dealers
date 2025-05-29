@@ -20,13 +20,16 @@ return new class extends Migration {
             $table->unsignedBigInteger('container_id')->index();
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('product_id')->index();
+            $table->string('email');
+            $table->string('whatsapp');
             $table->integer('quantity')->default(1)->index();
             $table->decimal('price', 10, 2)->default(0);
             $table->decimal('reserve_price', 10, 2)->default(0);
             $table->string('status')->index()->default(ContainerReservation::STATUS_PENDING);
+            $table->longText('note')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $this->addAdminAuditColumns($table);
+            $this->addMorphedAuditColumns($table);
 
             $table->foreign('container_id')->references('id')->on('containers')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

@@ -37,8 +37,8 @@
                                     <p class="text-sm text-text-gray mt-1 py-1">
                                         Destination: {{ $container->destinationPort?->name ?? 'N/A' }}
                                     </p>
-                                    <div class="bg-bg-orange text-text-white w-fit px-3 py-1 rounded-md text-sm font-medium"
-                                        id="timer-{{ $container->id ?? 1 }}" data-endDate="{{ $container->deadline }}">
+                                    <div class="bg-bg-orange text-text-white w-fit px-3 py-1 rounded-md text-sm font-medium timer_countdown"
+                                        data-endDate="{{ $container->deadline }}">
                                     </div>
                                 </div>
 
@@ -608,29 +608,32 @@
 @push('js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const timer = document.getElementById('timer-{{ $container->id ?? 1 }}');
-            const endDate = moment(timer.dataset.enddate); // Read from data-enddate
+            const timers = document.querySelectorAll('.timer_countdown');
 
-            function updateCountdown() {
-                const now = moment();
-                const duration = moment.duration(endDate.diff(now));
+            timers.forEach(timer => {
+                const endDate = moment(timer.dataset.enddate); // Use moment.js to parse the deadline
 
-                if (duration.asSeconds() <= 0) {
-                    timer.innerText = 'Closed';
-                    clearInterval(interval);
-                    return;
+                function updateCountdown() {
+                    const now = moment();
+                    const duration = moment.duration(endDate.diff(now));
+
+                    if (duration.asSeconds() <= 0) {
+                        timer.innerText = 'Closed';
+                        clearInterval(timer._interval);
+                        return;
+                    }
+
+                    const days = Math.floor(duration.asDays());
+                    const hours = duration.hours();
+                    const minutes = duration.minutes();
+                    const seconds = duration.seconds();
+
+                    timer.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
                 }
 
-                const days = Math.floor(duration.asDays());
-                const hours = duration.hours();
-                const minutes = duration.minutes();
-                const seconds = duration.seconds();
-
-                timer.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-            }
-
-            updateCountdown(); // Initial call
-            const interval = setInterval(updateCountdown, 1000);
+                updateCountdown(); // Initial render
+                timer._interval = setInterval(updateCountdown, 1000); // Store interval on the element
+            });
         });
     </script>
     <script>

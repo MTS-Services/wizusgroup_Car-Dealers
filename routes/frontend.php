@@ -48,6 +48,7 @@ Route::group(['as' => 'frontend.'], function () {
     Route::controller(GroupShippingPageController::class)->group(function () {
         Route::get('/group-shipping', 'group_shipping')->name('group_shipping');
         Route::get('/join-group-shipping/{container_slug}/{product_slug}', 'joinGroupShipping')->name('join-group-shipping');
+        Route::post('/group-shipping/join-request/{container_slug}/{product_slug}', 'joinRequest')->name('group-shipping.join-request')->middleware('auth:web');
 
     });
 

@@ -21,10 +21,10 @@ return new class extends Migration {
             $table->string('slug')->unique();
             $table->string('image')->nullable();
             $table->dateTime('deadline')->index();
-            $table->string('length_cm')->index();
-            $table->string('width_cm')->index();
-            $table->string('height_cm')->index();
-            $table->string('max_weight_kg')->nullable();
+            $table->string('length_cm')->index()->nullable();
+            $table->string('width_cm')->index()->nullable();
+            $table->string('height_cm')->index()->nullable();
+            $table->string('max_weight_kg')->nullable()->index();
             $table->unsignedBigInteger('shipping_port')->index();
             $table->unsignedBigInteger('destination_port')->index();
             $table->boolean('status')->index()->default(Container::STATUS_PENDING);

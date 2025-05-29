@@ -157,50 +157,74 @@
     <section class="py-6 sm:py-8 lg:py-12">
         <div class="container">
             <div class="bg-bg-white dark:bg-bg-dark-tertiary overflow-hidden rounded-lg">
-                <form action="" method="post" class="space-y-5 p-5">
-                    <div class="grid grid-cols-1 tablet:grid-cols-3 gap-4">
-                        <!-- Quantity -->
+                <form
+                    action="{{ route('frontend.group-shipping.join-request', ['container_slug' => $container->slug, 'product_slug' => $container_product->product?->slug]) }}"
+                    method="post" class="space-y-5 p-5">
+                    @csrf
+                    <div class="grid grid-cols-2 tablet:grid-cols-3 gap-4">
                         <div class="form-group">
-                            <label for="field1"
+                            <label for="email"
                                 class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
-                                {{ __('Quantity') }}
-                            </label>
-                            <input type="text" id="field1" name="field1"
+                                {{ __('Email') }} <span class="text-red-500">*</span> </label>
+                            <input type="text" id="email" name="email" placeholder="{{ __('Enter your email') }}"
                                 class="w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'email']" />
                         </div>
-
-                        <!-- Price -->
                         <div class="form-group">
-                            <label for="field2"
+                            <label for="whatsapp"
                                 class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
-                                {{ __('Price') }}
+                                {{ __('Whatsapp') }}<span class="text-red-500">*</span>
                             </label>
-                            <input type="text" id="field2" name="field2"
+                            <input type="text" id="whatsapp" name="whatsapp"
+                                placeholder="{{ __('Enter your whatsapp') }}"
                                 class="w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
-                        </div>
-
-                        <!-- Reserve Price -->
-                        <div class="form-group">
-                            <label for="field3"
-                                class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
-                                {{ __('Reserve Price') }}
-                            </label>
-                            <input type="text" id="field3" name="field3"
-                                class="w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'whatsapp']" />
                         </div>
                     </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="form-group">
+                            <label for="quantity"
+                                class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
+                                {{ __('Quantity') }}<span class="text-red-500">*</span>
+                            </label>
+                            <select name="quantity" id="quantity"
+                                class="w-full select px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+                                @for ($i = 1; $i <= $container_product->quantity - $container->containerReservations()->where('product_id', $container_product->product_id)->sum('quantity'); $i++)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
+                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'quantity']" />
+                        </div>
 
-                    <!-- Message -->
+                        <div class="form-group">
+                            <label for="price"
+                                class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
+                                {{ __('Price (USD)') }}<span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="price" name="price" value="{{ $container_product->price }}"
+                                class="w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'price']" />
+                        </div>
+                        <div class="form-group">
+                            <label for="reserve_price"
+                                class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
+                                {{ __('Reserve Price (USD)') }}<span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="reserve_price" name="reserve_price"
+                                value="{{ $container_product->reserve_price }}"
+                                class="w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'reserve_price']" />
+                        </div>
+                    </div>
                     <div class="form-group">
-                        <label for="message"
+                        <label for="note"
                             class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
-                            {{ __('Message') }}
+                            {{ __('Note (optional)') }}
                         </label>
-                        <textarea id="message" name="message" rows="4"
+                        <textarea id="note" name="note" rows="4" placeholder="{{ __('Enter your note') }}"
                             class="w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"></textarea>
+                        <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'note']" />
                     </div>
-
-                    <!-- Submit -->
                     <div class="pt-2">
                         <button type="submit" class="btn-primary !bg-bg-wiz_orange">
                             {{ __('Submit') }}
@@ -210,3 +234,18 @@
             </div>
     </section>
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('#quantity').on('change', function() {
+                var quantity = $(this).val();
+                var price = $('#price').val();
+                var reserve_price = $('#reserve_price').val();
+                var total = quantity * @json($container_product->price);
+                var reserve_total = quantity * @json($container_product->reserve_price);
+                $('#price').val(numberFormat(total, 2, false));
+                $('#reserve_price').val(numberFormat(reserve_total, 2, false));
+            });
+        })
+    </script>
+@endpush

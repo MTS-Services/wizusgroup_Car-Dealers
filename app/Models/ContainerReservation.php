@@ -11,20 +11,24 @@ class ContainerReservation extends BaseModel
     protected $fillable = [
         'sort_order',
         'container_id',
-        'container_product_id',
         'user_id',
         'product_id',
-        'product_name',
-        'length_cm',
-        'width_cm',
-        'height_cm',
-        'weight_kg',
+        'email',
+        'whatsapp',
+        'quantity',
+        'price',
+        'reserve_price',
+        'note',
         'status',
 
 
-        'created_by',
-        'updated_by',
-        'deleted_by',
+        'creater_id',
+        'updater_id',
+        'deleter_id',
+
+        'creater_type',
+        'updater_type',
+        'deleter_type',
     ];
 
     // relationships
@@ -45,7 +49,7 @@ class ContainerReservation extends BaseModel
         return $this->belongsTo(Product::class);
     }
 
-     // ✅ Status constants
+    // ✅ Status constants
     public const STATUS_PENDING = 1;
     public const STATUS_ACCEPT = 2;
     public const STATUS_DECLINE = 3;

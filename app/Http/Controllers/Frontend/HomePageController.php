@@ -26,7 +26,7 @@ class HomePageController extends Controller
     {
         $data['banners'] = $this->bannerService->getBanners()->active()->get();
         $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->select(['id', 'name', 'slug'])->active()->get();
-        $data['container'] = $this->containerService->getContainers('deadline', 'desc')->active()->with(['destinationPort', 'shippingPort'])->first();
+        $data['container'] = $this->containerService->getContainers('deadline', 'asc')->active()->with(['destinationPort', 'shippingPort'])->first();
         $data['testimonials'] = $this->testimonialService->getTestimonials()->active()->get();
         return view('frontend.pages.home', $data);
     }

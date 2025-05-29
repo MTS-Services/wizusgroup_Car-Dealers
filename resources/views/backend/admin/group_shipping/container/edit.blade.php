@@ -75,14 +75,14 @@
                                     </div>
                                     {{-- Length --}}
                                     <div class="form-group col-md-6">
-                                        <label>{{ __('Length (cm)') }} <span class="text-danger">*</span></label>
+                                        <label>{{ __('Length (cm)') }} </label>
                                         <input type="number" name="length_cm" value="{{ $container->length_cm }}"
                                             class="form-control" placeholder="Enter length in cm">
                                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'length_cm']" />
                                     </div>
                                     {{-- Width --}}
                                     <div class="form-group col-md-6">
-                                        <label>{{ __('Width (cm)') }} <span class="text-danger">*</span></label>
+                                        <label>{{ __('Width (cm)') }} </label>
                                         <input type="number" name="width_cm" value="{{ $container->width_cm }}"
                                             class="form-control" placeholder="Enter width in cm">
                                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'width_cm']" />
@@ -90,14 +90,14 @@
 
                                     {{-- Height --}}
                                     <div class="form-group col-md-6">
-                                        <label>{{ __('Height (cm)') }} <span class="text-danger">*</span></label>
+                                        <label>{{ __('Height (cm)') }} </label>
                                         <input type="number" name="height_cm" value="{{ $container->height_cm }}"
                                             class="form-control" placeholder="Enter height in cm">
                                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'height_cm']" />
                                     </div>
                                     {{-- Max Weight --}}
                                     <div class="form-group col-12">
-                                        <label>{{ __('Max Weight (kg)') }} <span class="text-danger">*</span></label>
+                                        <label>{{ __('Max Weight (kg)') }} </label>
                                         <input type="number" name="max_weight_kg" value="{{ $container->max_weight_kg }}"
                                             class="form-control" placeholder="Enter max weight in kg">
                                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'max_weight_kg']" />
@@ -107,7 +107,7 @@
                             </div>
                             {{-- Image --}}
                             <div class="form-group col-md-4">
-                                <label>{{ __('Container Image') }} <span class="text-danger">*</span></label>
+                                <label>{{ __('Container Image') }} </label>
                                 <input type="file" name="image" class="form-control filepond" id="image"
                                     accept="image/jpg, image/jpeg, image/png, image/webp, image/svg">
                                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'image']" />

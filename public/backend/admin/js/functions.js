@@ -6,6 +6,19 @@ function generateSlug(str) {
         .replace(/--+/g, "-")
         .replace(/^-+|-+$/g, "");
 }
+
+function numberFormat(value, decimals, comma = true) {
+    if (decimals != null && decimals >= 0) {
+        value = parseFloat(value).toFixed(decimals);
+    } else {
+        value = Math.round(parseFloat(value)).toString();
+    }
+    if (!comma) {
+        return value;
+    }
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function getStates(countryId, route, stateId = null) {
     axios.get(route, {
         params: { country_id: countryId }
