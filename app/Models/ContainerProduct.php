@@ -12,7 +12,6 @@ class ContainerProduct extends BaseModel
         'sort_order',
         'container_id',
         'product_id',
-        'quantity',
         'price',
         'reserve_price',
 

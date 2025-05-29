@@ -114,16 +114,16 @@
                     color: "status_color",
                 },
                 {
-                    label: "Length (cm)",
-                    key: "length_cm"
+                    label: "Length (m)",
+                    key: "length_m"
                 },
                 {
-                    label: "Width (cm)",
-                    key: "width_cm"
+                    label: "Width (m)",
+                    key: "width_m"
                 },
                 {
-                    label: "Height (cm)",
-                    key: "height_cm"
+                    label: "Height (m)",
+                    key: "height_m"
                 },
                 {
                     label: "Max Weight (kg)",

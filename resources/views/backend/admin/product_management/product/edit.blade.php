@@ -33,26 +33,26 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label>{{ __('Length (cm)') }} <span class="text-danger">*</span></label>
-                                    <input type="text" value="{{ $product->length_cm }}" name="length_cm"
-                                        class="form-control" placeholder="Enter length (cm)">
-                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'length_cm']" />
+                                    <label>{{ __('Length (m)') }} <span class="text-danger">*</span></label>
+                                    <input type="text" value="{{ $product->length_m }}" name="length_m"
+                                        class="form-control" placeholder="Enter length (m)">
+                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'length_m']" />
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label>{{ __('Width (cm)') }} <span class="text-danger">*</span></label>
-                                    <input type="text" value="{{ $product->width_cm }}" name="width_cm"
-                                        class="form-control" placeholder="Enter width (cm)">
-                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'width_cm']" />
+                                    <label>{{ __('Width (m)') }} <span class="text-danger">*</span></label>
+                                    <input type="text" value="{{ $product->width_m }}" name="width_m"
+                                        class="form-control" placeholder="Enter width (m)">
+                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'width_m']" />
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label>{{ __('Height (cm)') }} <span class="text-danger">*</span></label>
-                                    <input type="text" value="{{ $product->height_cm }}" name="height_cm"
-                                        class="form-control" placeholder="Enter height (cm)">
-                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'height_cm']" />
+                                    <label>{{ __('Height (m)') }} <span class="text-danger">*</span></label>
+                                    <input type="text" value="{{ $product->height_m }}" name="height_m"
+                                        class="form-control" placeholder="Enter height (m)">
+                                    <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'height_m']" />
                                 </div>
                             </div>
                             <div class="col-md-3">

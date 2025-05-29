@@ -188,11 +188,13 @@ class ContainerController extends Controller
                 $validated = $request->validated();
                 $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
                 $container = $this->containerService->createContainer($validated, $file);
-
-                foreach ($request->validated('container_products') as $key => $value) {
-                    $value['container_id'] = $container->id;
-                    $this->containerService->createContainerProducts($value);
+                if (collect($request->validated('container_products')[0])->filter()->isNotEmpty()) {
+                    foreach ($request->validated('container_products') as $key => $value) {
+                        $value['container_id'] = $container->id;
+                        $this->containerService->createContainerProducts($value);
+                    }
                 }
+
             });
             session()->flash('success', 'Container created successfully!');
         } catch (\Throwable $e) {
