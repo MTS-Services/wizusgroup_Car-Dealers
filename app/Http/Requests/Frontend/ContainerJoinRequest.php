@@ -27,7 +27,6 @@ class ContainerJoinRequest extends FormRequest
         return [
             'email' => 'required|email',
             'whatsapp' => 'required|numeric',
-            'quantity' => 'required|numeric|min:1|max:' . $this->maxQuantity(),
             'price' => 'required|numeric|min:' . $this->minPrice(),
             'reserve_price' => 'required|numeric|min:' . $this->minReservePrice(),
             'note' => 'nullable|string',

@@ -73,33 +73,27 @@
                                     </div>
                                     {{-- Length --}}
                                     <div class="form-group col-md-6">
-                                        <label>{{ __('Length (cm)') }}</label>
-                                        <input type="number" name="length_cm" value="{{ old('length_cm') }}"
-                                            class="form-control" placeholder="Enter length in cm">
-                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'length_cm']" />
+                                        <label>{{ __('Length (m)') }}</label>
+                                        <input type="number" name="length_m" value="{{ old('length_m') }}"
+                                            class="form-control" placeholder="Enter length in meter">
+                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'length_m']" />
                                     </div>
                                     {{-- Width --}}
                                     <div class="form-group col-md-6">
-                                        <label>{{ __('Width (cm)') }}</label>
-                                        <input type="number" name="width_cm" value="{{ old('width_cm') }}"
-                                            class="form-control" placeholder="Enter width in cm">
-                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'width_cm']" />
+                                        <label>{{ __('Width (m)') }}</label>
+                                        <input type="number" name="width_m" value="{{ old('width_m') }}"
+                                            class="form-control" placeholder="Enter width in meter">
+                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'width_m']" />
                                     </div>
 
                                     {{-- Height --}}
                                     <div class="form-group col-md-6">
-                                        <label>{{ __('Height (cm)') }}</label>
-                                        <input type="number" name="height_cm" value="{{ old('height_cm') }}"
-                                            class="form-control" placeholder="Enter height in cm">
-                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'height_cm']" />
+                                        <label>{{ __('Height (m)') }}</label>
+                                        <input type="number" name="height_m" value="{{ old('height_m') }}"
+                                            class="form-control" placeholder="Enter height in meter">
+                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'height_m']" />
                                     </div>
                                     {{-- Max Weight --}}
-                                    <div class="form-group col-12">
-                                        <label>{{ __('Max Weight (kg)') }}</label>
-                                        <input type="number" name="max_weight_kg" value="{{ old('max_weight_kg') }}"
-                                            class="form-control" placeholder="Enter max weight in kg">
-                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'max_weight_kg']" />
-                                    </div>
                                 </div>
 
                             </div>
@@ -111,9 +105,35 @@
                                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'image']" />
                             </div>
 
+                            {{-- Max Weight --}}
+                            <div class="form-group col-md-3">
+                                <label>{{ __('Max Weight (kg)') }} </label>
+                                <input type="number" name="max_weight_kg" value="{{ old('max_weight_kg') }}"
+                                    class="form-control" placeholder="Enter max weight in kg">
+                                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'max_weight_kg']" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>{{ __('Base Cost') }}</label>
+                                <input type="number" name="base_cost" value="{{ old('base_cost') }}" class="form-control"
+                                    placeholder="Enter base cost">
+                                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'base_cost']" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>{{ __('Per Kg Cost') }}</label>
+                                <input type="number" name="per_kg_cost" value="{{ old('per_kg_cost') }}"
+                                    class="form-control" placeholder="Enter per kilogram cost">
+                                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'per_kg_cost']" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>{{ __('Per Cubic Meter Cost') }}</label>
+                                <input type="number" name="per_cbm_cost" value="{{ old('per_cbm_cost') }}"
+                                    class="form-control" placeholder="Enter per cubic meter cost">
+                                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'per_cbm_cost']" />
+                            </div>
+
 
                             <div class="card-body">
-                                <h4>{{ __('Set Container Eligibility') }}</h4>
+                                <h4>{{ __('Available For Shipping') }}</h4>
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="product_rows_container">
@@ -121,8 +141,7 @@
                                                 <div class="col-11">
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
-                                                            <label>{{ __('Product') }} <span
-                                                                    class="text-danger">*</span></label>
+                                                            <label>{{ __('Product') }} </label>
                                                             <select name="container_products[0][product_id]"
                                                                 class="form-control">
                                                                 <option value=" " selected hidden>
@@ -135,32 +154,21 @@
                                                             </select>
                                                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'product_id']" />
                                                         </div>
-                                                        <div class="form-group col-md-2">
-                                                            <label>{{ __('Price') }} <span
-                                                                    class="text-danger">*</span></label>
+                                                        <div class="form-group col-md-3">
+                                                            <label>{{ __('Price') }} </label>
                                                             <input type="text" name="container_products[0][price]"
                                                                 placeholder="Enter price" class="form-control">
-                                                            <small>{{ __('Per Quantity') }}</small>
                                                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'price']" />
                                                         </div>
-                                                        <div class="form-group col-md-2">
-                                                            <label>{{ __('Reserve Price') }} <span
-                                                                    class="text-danger">*</span></label>
+                                                        <div class="form-group col-md-3">
+                                                            <label>{{ __('Reserve Price') }} </label>
                                                             <input type="text"
                                                                 name="container_products[0][reserve_price]"
                                                                 placeholder="Enter reserve price" class="form-control">
-                                                            <small>{{ __('Per Quantity') }}</small>
                                                             <x-feed-back-alert :datas="[
                                                                 'errors' => $errors,
                                                                 'field' => 'reserve_price',
                                                             ]" />
-                                                        </div>
-                                                        <div class="form-group col-md-2">
-                                                            <label>{{ __('Quantity') }} <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input type="text" name="container_products[0][quantity]"
-                                                                placeholder="Enter quantity" class="form-control">
-                                                            <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'quantity']" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -179,10 +187,6 @@
                                                 <x-feed-back-alert :datas="[
                                                     'errors' => $errors,
                                                     'field' => 'container_products.*.reserve_price',
-                                                ]" />
-                                                <x-feed-back-alert :datas="[
-                                                    'errors' => $errors,
-                                                    'field' => 'container_products.*.quantity',
                                                 ]" />
                                             </div>
                                         </div>
