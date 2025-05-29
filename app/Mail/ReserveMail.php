@@ -2,28 +2,27 @@
 
 namespace App\Mail;
 
-use App\Models\AuctionBid;
+use App\Models\ProductReserve;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class AuctionBidMail extends Mailable
+class ReserveMail extends Mailable
 {
-    use Queueable, SerializesModels;
+     use Queueable, SerializesModels;
 
-      public AuctionBid $auctionBid;
-    public function __construct(AuctionBid $auctionBid)
+      public ProductReserve $reserve;
+    public function __construct(ProductReserve $reserve)
     {
-        $this->auctionBid = $auctionBid;
+        $this->reserve = $reserve;
     }
 
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Auction Place Bid - ' . userFullName()
+            subject: 'Reserve Product - ' . $this->reserve->name
         );
     }
 
@@ -31,7 +30,7 @@ class AuctionBidMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mails.auction_bid',
+            view: 'mails.product_reserve',
         );
     }
 

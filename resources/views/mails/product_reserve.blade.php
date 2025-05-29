@@ -61,19 +61,23 @@
         <h2>Auction Bid Details</h2>
 
         <div class="hidden-info">
-            <p><strong>Auction ID:</strong> {{ $auctionBid?->id }}</p>
-            <p><strong>User Name:</strong> {{ userFullName() }}</p>
+            <p><strong>Contact Name:</strong> {{ $reserve->name }}</p>
+            <p><strong>Contact Email:</strong> {{ $reserve->email }}</p>
+            <p><strong>WhatsApp Number:</strong> {{ $reserve->whatsapp_number }}</p>
         </div>
-        <div class="info-row">
-            <span class="label">Bid Amount (USD):</span>
-            <span class="value">${{ number_format($auctionBid?->bid_amount) }}</span>
-        </div>
+        
 
         <div class="info-row">
-            <span class="label">WhatsApp Number:</span>
-            <span class="value">{{ $auctionBid?->whatsapp_number }}</span>
+            <span class="label">Reserve Price:</span>
+            <span class="value">{{ $reserve->reserve_price }}</span>
         </div>
-
+        <div class="info-row">
+            <span class="label">Product Id:</span> <span class="value">{{ $reserve->product_id }}</span>
+        </div>
+        <div class="info-row">
+            <span class="label">Message:</span>
+            <span class="value">{{ $reserve->note }}</span>
+        </div>
     </div>
 </body>
 

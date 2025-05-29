@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use App\Models\AuctionBid;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -10,31 +9,43 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class AuctionBidMail extends Mailable
+class InquiryMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-      public AuctionBid $auctionBid;
-    public function __construct(AuctionBid $auctionBid)
+    /**
+     * Create a new message instance.
+     */
+    public function __construct()
     {
-        $this->auctionBid = $auctionBid;
+        //
     }
 
+    /**
+     * Get the message envelope.
+     */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Auction Place Bid - ' . userFullName()
+            subject: 'Inquiry Mail',
         );
     }
 
-
+    /**
+     * Get the message content definition.
+     */
     public function content(): Content
     {
         return new Content(
-            view: 'mails.auction_bid',
+            view: 'view.name',
         );
     }
 
+    /**
+     * Get the attachments for the message.
+     *
+     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     */
     public function attachments(): array
     {
         return [];
