@@ -114,7 +114,7 @@
                                         <div
                                             class="text-2xs xs:text-xs sm:text-sm text-text-gray dark:text-text-light mt-1 mb-2">
                                             <i class="fas fa-map-marker-alt mr-1 text-2xs"></i>
-                                            {{ $container->shippingPort?->name ?? 'N/A' }}
+                                            {{ $product->container->shippingPort?->name ?? 'N/A' }}
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@
                                         </div>
                                     @else --}}
                                     <div class="flex space-x-2">
-                                        <a href="{{ route('frontend.join-group-shipping', ['container_slug' => $container->slug, 'product_slug' => $product->product?->slug]) }}"
+                                        <a href="{{ route('frontend.join-group-shipping', ['container_slug' => $product->container->slug, 'product_slug' => $product->product?->slug]) }}"
                                             class="flex-1 py-2 px-3 rounded-md font-semibold bg-bg-wiz_orange text-white hover:bg-bg-wiz_orange/90 shadow-md hover:shadow-lg text-center text-sm">
                                             Reserve Now
                                         </a>
