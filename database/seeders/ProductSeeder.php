@@ -37,7 +37,7 @@ class ProductSeeder extends Seeder
             'quantity' => 3,
             // 'allow_backorder' => false,
             'supplier_id' => 1,
-            'year'=> "2021",
+            'year' => "2021",
         ]);
 
         Product::create([
@@ -64,7 +64,11 @@ class ProductSeeder extends Seeder
             'quantity' => 2,
             // 'allow_backorder' => false,
             'supplier_id' => 2,
-            'year'=> '2019',
+            'year' => '2019',
+            'height_m' => '44',
+            'width_m' => '33',
+            'length_m' => '44',
+            'weight_kg' => '22',
         ]);
 
         Product::create([
@@ -91,7 +95,11 @@ class ProductSeeder extends Seeder
             'quantity' => 4,
             // 'allow_backorder' => false,
             'supplier_id' => 3,
-            'year'=> '2022',
+            'year' => '2022',
+            'height_m' => '64',
+            'width_m' => '66',
+            'length_m' => '54',
+            'weight_kg' => '54',
         ]);
 
         Product::create([
@@ -118,7 +126,11 @@ class ProductSeeder extends Seeder
             'quantity' => 6,
             // 'allow_backorder' => true,
             'supplier_id' => 1,
-            'year'=> '2018',
+            'year' => '2018',
+            'height_m' => '23',
+            'width_m' => '324',
+            'length_m' => '234',
+            'weight_kg' => '2254',
         ]);
 
         Product::create([
@@ -145,7 +157,11 @@ class ProductSeeder extends Seeder
             'quantity' => 8,
             // 'allow_backorder' => false,
             'supplier_id' => 2,
-            'year'=> '2020',
+            'year' => '2020',
+            'height_m' => '34',
+            'width_m' => '234',
+            'length_m' => '324',
+            'weight_kg' => '234',
         ]);
     }
 }

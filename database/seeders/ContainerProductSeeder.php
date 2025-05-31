@@ -19,7 +19,6 @@ class ContainerProductSeeder extends Seeder
                 'product_id' => 1,
                 'price' => 2000,
                 'reserve_price' => 1000,
-                'quantity' => 5,
             ]
         );
         ContainerProduct::create(
@@ -28,7 +27,6 @@ class ContainerProductSeeder extends Seeder
                 'product_id' => 2,
                 'price' => 4400,
                 'reserve_price' => 2200,
-                'quantity' => 5,
             ]
         );
         ContainerProduct::create(
@@ -37,7 +35,6 @@ class ContainerProductSeeder extends Seeder
                 'product_id' => 3,
                 'price' => 6600,
                 'reserve_price' => 3300,
-                'quantity' => 5,
             ]
         );
 
@@ -47,7 +44,6 @@ class ContainerProductSeeder extends Seeder
                 'product_id' => 4,
                 'price' => 5500,
                 'reserve_price' => 3000,
-                'quantity' => 10,
             ]
         );
         ContainerProduct::create(
@@ -56,7 +52,6 @@ class ContainerProductSeeder extends Seeder
                 'product_id' => 5,
                 'price' => 4000,
                 'reserve_price' => 2000,
-                'quantity' => 10,
             ]
         );
     }

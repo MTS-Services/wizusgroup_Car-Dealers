@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Traits\AuditColumnsTrait;
 
-return new class extends Migration
-{
+return new class extends Migration {
     use SoftDeletes, AuditColumnsTrait;
     /**
      * Run the migrations.
@@ -19,7 +18,6 @@ return new class extends Migration
             $table->bigInteger('sort_order')->default(0)->index();
             $table->unsignedBigInteger('container_id')->index();
             $table->unsignedBigInteger('product_id')->index();
-            $table->integer('quantity')->default(0);
             $table->decimal('price', 10, 2)->default(0);
             $table->decimal('reserve_price', 10, 2)->default(0);
             $table->timestamps();

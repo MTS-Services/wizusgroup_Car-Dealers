@@ -1,5 +1,5 @@
-@extends('backend.admin.layouts.master', ['page_slug' => 'container'])
-@section('title', 'Container List')
+@extends('backend.admin.layouts.master', ['page_slug' => 'container_reservation'])
+@section('title', 'Container Reservation List')
 @push('css')
     <link rel="stylesheet" href="{{ asset('custom_litebox/litebox.css') }}">
 @endpush
@@ -8,18 +8,18 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Container List') }}</h4>
+                    <h4 class="cart-title">{{ __('Container Reservation List') }}</h4>
                     <div class="buttons">
-                        <x-backend.admin.button :datas="[
-                            'routeName' => 'gs.container.recycle-bin',
+                        {{-- <x-backend.admin.button :datas="[
+                            'routeName' => 'gs.container-reserve.recycle-bin',
                             'label' => 'Recycle Bin',
                             'className' => 'btn-danger',
-                            'permissions' => ['container-restore'],
-                        ]" />
+                            'permissions' => ['container-reserve-restore'],
+                        ]" /> --}}
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'gs.container.create',
+                            'routeName' => 'gs.container-reserve.create',
                             'label' => 'Add New',
-                            'permissions' => ['container-create'],
+                            'permissions' => ['container-reserve-create'],
                         ]" />
                     </div>
                 </div>
@@ -27,10 +27,12 @@
                     <table class="table table-responsive table-striped datatable">
                         <thead>
                             <tr>
-                                <th>{{ __('SL') }}</th>
-                                <th>{{ __('Title') }}</th>
-                                <th>{{ __('Shipping Port') }}</th>
-                                <th>{{ __('Destination Port') }}</th>
+                               <th>{{ __('SL') }}</th>
+                                <th>{{ __('Container Name') }}</th>
+                                <th>{{ __('Product Name') }}</th>
+                                <th>{{ __('Product Quantity') }}</th>
+                                <th>{{ __('Price') }}</th>
+                                <th>{{ __('Reserve Price') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Created By') }}</th>
                                 <th>{{ __('Created Date') }}</th>
@@ -46,7 +48,7 @@
         </div>
     </div>
     {{-- Admin Details Modal  --}}
-    <x-backend.admin.details-modal :datas="['modal_title' => 'Container Details']" />
+    <x-backend.admin.details-modal :datas="['modal_title' => 'Brand Details']" />
 @endsection
 @push('js')
     <script src="{{ asset('custom_litebox/litebox.js') }}"></script>
@@ -54,9 +56,12 @@
     <script>
         $(document).ready(function() {
             let table_columns = [
-                ['title', true, true],
-                ['shipping_port', true, true],
-                ['destination_port', true, true],
+
+                ['container_id', true, true],
+                ['product_name', true, true],
+                ['quantity', true, true],
+                ['price', true, true],
+                ['reserve_price', true, true],
                 ['status', true, true],
                 ['created_by', true, true],
                 ['created_at', false, false],
@@ -66,10 +71,10 @@
                 table_columns: table_columns,
                 main_class: '.datatable',
                 displayLength: 10,
-                main_route: "{{ route('gs.container.index') }}",
+                main_route: "{{ route('gs.container-reserve.index') }}",
                 order_route: "{{ route('update.sort.order') }}",
-                export_columns: [0, 1, 2, 3, 4, 5, 6],
-                model: 'Container',
+                export_columns: [0, 1, 2, 3, 4, 5],
+                model: 'Brand',
             };
             initializeDataTable(details);
         })
@@ -81,32 +86,20 @@
     <script>
         $(document).on("click", ".view", function() {
             let id = $(this).data("id");
-            let route = "{{ route('gs.shipping-location.show', ['id']) }}";
+            let route = "{{ route('gs.container-reserve.show', ['id']) }}";
             const detailsUrl = route.replace("id", id);
-            const headers = [{
-                    label: "Title",
-                    key: "title"
+            const headers = [
+                {
+                    label: "Company",
+                    key: "company_name",
+                },
+                {
+                    label: "Name",
+                    key: "name"
                 },
                 {
                     label: "Slug",
                     key: "slug"
-                },
-                {
-                    label: "Shipping Port",
-                    key: "shippingPort.name"
-                },
-                {
-                    label: "Destination Port",
-                    key: "destinationPort.name"
-                },
-                {
-                    label: "Image",
-                    key: "modified_image",
-                    type: "image"
-                },
-                {
-                    label: "Deadline",
-                    key: "deadline"
                 },
                 {
                     label: "Status",
@@ -114,21 +107,28 @@
                     color: "status_color",
                 },
                 {
-                    label: "Length (m)",
-                    key: "length_m"
+                    label: "Featured",
+                    key: "featured_label",
+                    color: "featured_color",
+
                 },
                 {
-                    label: "Width (m)",
-                    key: "width_m"
+                    label: "Image",
+                    key: "modified_image",
+                    type: "image"
                 },
                 {
-                    label: "Height (m)",
-                    key: "height_m"
+                    label: "Description",
+                    key: "description",
                 },
                 {
-                    label: "Max Weight (kg)",
-                    key: "max_weight_kg"
-                }
+                    label: "Meta Title",
+                    key: "meta_title",
+                },
+                {
+                    label: "Meta Description",
+                    key: "meta_description",
+                },
 
 
             ];

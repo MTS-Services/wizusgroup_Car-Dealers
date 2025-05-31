@@ -301,6 +301,23 @@ function getInfoCatTypeFeatures(proInfoCatTypeId, route, proInfoCatTypeFeatureId
         });
 }
 
+async function getProduct(productId, route) {
+    try {
+        let response = await axios.post(route, { product_id: productId });
+
+        if (response.data.success) {
+            return response.data.product;
+        } else {
+            toastr.error('Failed to load product.');
+            return null;
+        }
+    } catch (error) {
+        console.error(error);
+        toastr.error('Failed to load product.');
+        return null;
+    }
+}
+
 
 
 

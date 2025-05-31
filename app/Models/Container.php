@@ -15,10 +15,13 @@ class Container extends BaseModel
         'slug',
         'image',
         'deadline',
-        'length_cm',
-        'width_cm',
-        'height_cm',
+        'length_m',
+        'width_m',
+        'height_m',
         'max_weight_kg',
+        'base_cost',
+        'per_kg_cost',
+        'per_cbm_cost',
         'shipping_port',
         'destination_port',
         'status',
@@ -59,32 +62,26 @@ class Container extends BaseModel
 
     public function calculateFreeSpacePercentage()
     {
-        $totalQuantity = $this->containerProducts()->sum('quantity');
-
-        $reservedQuantity = $this->containerReservations()->sum('quantity');
-
-        if ($totalQuantity == 0) {
-            return 0; // Avoid division by zero, or return 100 if you prefer
-        }
-
-        $usedPercent = ($reservedQuantity / $totalQuantity) * 100;
-        $freePercent = 100 - $usedPercent;
-
-        return round($freePercent, 2); // You can round to desired precision
+        $reservedQuantity = $this->containerReservations();
+        $height_m = $reservedQuantity->sum('height_m');
+        $width_m = $reservedQuantity->sum('width_m');
+        $length_m = $reservedQuantity->sum('length_m');
+        $totalVolume = $height_m * $width_m * $length_m;
+        $totalSpace = $this->length_m * $this->width_m * $this->height_m;
+        $freeSpacePercentage = ($totalSpace - $totalVolume) / $totalSpace * 100;
+        return $freeSpacePercentage;
     }
 
     public function getFilledPercentageAttribute()
     {
-        $totalAvailable = $this->containerProducts()->sum('quantity');
-        $totalReserved = $this->containerReservations()->sum('quantity');
-
-        if ($totalAvailable == 0) {
-            return 0; // avoid division by zero
-        }
-
-        $filled = ($totalReserved / $totalAvailable) * 100;
-
-        return round($filled, 2); // round to 2 decimal places
+        $reservedQuantity = $this->containerReservations();
+        $height_m = $reservedQuantity->sum('height_m');
+        $width_m = $reservedQuantity->sum('width_m');
+        $length_m = $reservedQuantity->sum('length_m');
+        $totalVolume = $height_m * $width_m * $length_m;
+        $totalSpace = $this->length_m * $this->width_m * $this->height_m;
+        $totalFilledPercentage = $totalVolume / $totalSpace * 100;
+        return $totalFilledPercentage;
     }
 
 

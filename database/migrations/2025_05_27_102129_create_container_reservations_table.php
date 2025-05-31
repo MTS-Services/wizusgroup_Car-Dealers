@@ -19,13 +19,19 @@ return new class extends Migration {
             $table->bigInteger('sort_order')->default(0)->index();
             $table->unsignedBigInteger('container_id')->index();
             $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedBigInteger('product_id')->index();
+            $table->unsignedBigInteger('product_id')->index()->nullable();
+            $table->string('product_name');
             $table->string('email');
             $table->string('whatsapp');
-            $table->integer('quantity')->default(1)->index();
+
+            $table->string('length_m')->index();
+            $table->string('width_m')->index();
+            $table->string('height_m')->index();
+            $table->string('weight_kg')->index()->nullable();
             $table->decimal('price', 10, 2)->default(0);
             $table->decimal('reserve_price', 10, 2)->default(0);
             $table->string('status')->index()->default(ContainerReservation::STATUS_PENDING);
+            $table->integer('quantity')->index();
             $table->longText('note')->nullable();
             $table->timestamps();
             $table->softDeletes();

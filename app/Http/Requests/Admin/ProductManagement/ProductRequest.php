@@ -57,9 +57,9 @@ class ProductRequest extends FormRequest
             'product_type' => 'required|integer',
             'year' => 'required|integer',
 
-            'length_cm' => 'required|numeric',
-            'width_cm' => 'required|numeric',
-            'height_cm' => 'required|numeric',
+            'length_m' => 'required|numeric',
+            'width_m' => 'required|numeric',
+            'height_m' => 'required|numeric',
             'weight_kg' => 'nullable|numeric',
         ] + ($this->isMethod('POST') ? $this->store() : $this->update());
     }

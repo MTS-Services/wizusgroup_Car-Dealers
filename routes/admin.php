@@ -46,7 +46,9 @@ use App\Http\Controllers\Backend\Admin\Auth\ResetPasswordController as AdminRese
 use App\Http\Controllers\Backend\Admin\Auth\ForgotPasswordController as AdminForgotPasswordController;
 use App\Http\Controllers\Backend\Admin\GroupShipping\ContainerController;
 use App\Http\Controllers\Backend\Admin\CMSManagement\RegionShippingTimelineController;
+use App\Http\Controllers\Backend\Admin\GroupShipping\ContainerReservationController;
 use App\Http\Controllers\Backend\Admin\GroupShipping\ShippingLocationController;
+use App\Models\ContainerReservation;
 
 // Admin Auth Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -91,6 +93,8 @@ Route::controller(AxiosRequestController::class)->name('axios.')->group(function
 
     Route::post('get-info-category-types', 'getInfoCatTypes')->name('get-info-cat-types');
     Route::post('get-info-category-type-features', 'getInfoCatTypeFeatures')->name('get-info-cat-type-features');
+
+    Route::post('get-product', 'getProduct')->name('get-product');
 });
 
 Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], function () {
@@ -473,5 +477,9 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
         Route::get('container/recycle/bin', [ContainerController::class, 'recycleBin'])->name('container.recycle-bin');
         Route::get('container/restore/{container}', [ContainerController::class, 'restore'])->name('container.restore');
         Route::delete('container/permanent-delete/{container}', [ContainerController::class, 'permanentDelete'])->name('container.permanent-delete');
+
+
+        // Container Reserve
+        Route::resource('container-reserve', ContainerReservationController::class);
     });
 });

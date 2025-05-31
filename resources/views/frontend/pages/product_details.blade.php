@@ -325,28 +325,28 @@
                                                          {{ $product->steering_wheel }}</td>
                                                  </tr>
                                              @endif
-                                             @if ($product->length_cm)
+                                             @if ($product->length_m)
                                                  <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                      <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Length (cm)') }}</td>
+                                                         {{ __('Length (m)') }}</td>
                                                      <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $product->length_cm }}</td>
+                                                         {{ $product->length_m }}</td>
                                                  </tr>
                                              @endif
-                                             @if ($product->width_cm)
+                                             @if ($product->width_m)
                                                  <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                      <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Width (cm)') }}</td>
+                                                         {{ __('Width (m)') }}</td>
                                                      <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $product->width_cm }}</td>
+                                                         {{ $product->width_m }}</td>
                                                  </tr>
                                              @endif
-                                             @if ($product->height_cm)
+                                             @if ($product->height_m)
                                                  <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                      <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Height (cm)') }}</td>
+                                                         {{ __('Height (m)') }}</td>
                                                      <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $product->height_cm }}</td>
+                                                         {{ $product->height_m }}</td>
                                                  </tr>
                                              @endif
                                              @if ($product->weight_kg)

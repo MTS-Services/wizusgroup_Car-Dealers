@@ -48,9 +48,9 @@ return new class extends Migration {
             $table->year('year')->index();
 
             //For Container Calculation
-            $table->string('length_cm')->nullable();
-            $table->string('width_cm')->nullable();
-            $table->string('height_cm')->nullable();
+            $table->string('length_m')->nullable();
+            $table->string('width_m')->nullable();
+            $table->string('height_m')->nullable();
             $table->string('weight_kg')->nullable();
             $table->string('source_url')->nullable();
 

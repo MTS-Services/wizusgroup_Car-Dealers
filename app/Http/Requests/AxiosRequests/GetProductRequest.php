@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Frontend;
+namespace App\Http\Requests\AxiosRequests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\ContainerProduct;
 
-class ContainerJoinRequest extends FormRequest
+class GetProductRequest extends FormRequest
 {
-    protected ?ContainerProduct $containerProduct = null;
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -25,7 +22,7 @@ class ContainerJoinRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+            'product_id' => 'required|exists:products,id',
         ];
     }
 }
