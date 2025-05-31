@@ -33,6 +33,7 @@ Route::middleware(['auth:web', 'verified'])->group(function () {
       Route::put('/password/update', 'passwordUpdate')->name('password.update');
 
       Route::get('auction/details/{auction_slug}', 'auctionDetails')->name('auction.details');
+      Route::get('container/details/{container_slug}', 'containerDetails')->name('container.details');
 
     });
 

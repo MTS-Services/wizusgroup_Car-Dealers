@@ -13,6 +13,7 @@ use App\Services\Admin\AuctionManagement\AuctionService;
 use App\Services\Admin\Setup\CountryService;
 use App\Services\Admin\UserManagement\UserService;
 use App\Services\PersonalInformationService;
+use PhpParser\Node\Expr\FuncCall;
 
 class UserProfileController extends Controller
 {
@@ -47,6 +48,7 @@ class UserProfileController extends Controller
         $data['user']->load(['personalInformation']);
         $data['address'] = $this->addressService->getAddresses()->userAddresses()->personal()->first();
         $data['countries'] = $this->countryService->getCountrys()->active()->get();
+        $data['my_containers'] = $this->userService->getUser(encrypt(user()->id))->containerReservations()->with(['container.destinationPort', 'container.shippingPort'])->get();
         return view('backend.user.dashboard', $data);
     }
 
@@ -91,8 +93,13 @@ class UserProfileController extends Controller
     // Details User Bids
     public function auctionDetails($auction_slug)
     {
-
         $data['auction'] = Auction::withCount('auctionBids')->with(['product.category'])->where('slug', $auction_slug)->firstOrFail();
         return view('backend.user.details_my_bids', $data);
+    }
+
+    public function containerDetails($container_slug)
+    {
+        $data['container'] = $this->userService->getUser(encrypt(user()->container_slug))->containerReservations()->with(['container.destinationPort', 'container.shippingPort'])->findOrFail($container_slug);
+        return view('backend.user.details_my_container', $data);
     }
 }

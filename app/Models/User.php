@@ -72,6 +72,10 @@ class User extends AuthBaseModel implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
+    public function containerReservations(): HasMany
+    {
+        return $this->hasMany(ContainerReservation::class);
+    }
     public function productReserves(): HasMany
     {
         return $this->hasMany(ProductReserve::class);
