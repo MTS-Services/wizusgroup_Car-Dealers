@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 
 use App\Http\Controllers\Backend\FileManagementController;
+use App\Http\Controllers\MailController;
+use Illuminate\Support\Facades\Mail;
 
 Route::post('update/sort/order', [DatatableController::class, 'updateSortOrder'])->name('update.sort.order');
 // File Management

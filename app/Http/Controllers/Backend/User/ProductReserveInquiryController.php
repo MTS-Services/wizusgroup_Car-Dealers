@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Backend\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\ProductInquiryRequest;
 use App\Http\Requests\User\ProductReserveRequest;
+use App\Mail\InquiryMail;
+use App\Mail\ReserveMail;
 use App\Models\Product;
 use App\Models\ProductInquiry;
 use App\Models\ProductReserve;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 
 class ProductReserveInquiryController extends Controller
@@ -30,7 +33,8 @@ class ProductReserveInquiryController extends Controller
         $validated = $request->validated();
         $validated['product_id'] = Product::where('slug', $slug)->firstOrFail()->id;
         $validated['user_id'] = user()->id;
-        ProductReserve::create($validated);
+        $reserve =ProductReserve::create($validated);
+        Mail::to('oasiffre@gmail.com')->send(new ReserveMail($reserve));
         session()->flash('success', 'Product reserve successfully!');
         return $this->RedirectPath($slug);
     }
@@ -39,7 +43,8 @@ class ProductReserveInquiryController extends Controller
         $validated = $request->validated();
         $validated['product_id'] = Product::where('slug', $slug)->firstOrFail()->id;
         $validated['user_id'] = user()->id;
-        ProductInquiry::create($validated);
+        $inquiry= ProductInquiry::create($validated);
+        Mail::to('oasiffre@gmail.com')->send(new InquiryMail($inquiry));
         session()->flash('success', 'Product inquiry successfully!');
         return $this->RedirectPath($slug);
     }

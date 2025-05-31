@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Backend\User\AuctionManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\AuctionBidPlaceRequest;
+use App\Mail\AuctionBidMail;
 use App\Models\Auction;
 use App\Models\AuctionBid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class AuctionBidPlaceController extends Controller
 {
@@ -27,6 +29,8 @@ class AuctionBidPlaceController extends Controller
             $validated['creater_id'] = $user->id;
             $validated['creater_type'] = get_class($user);
             $auctionBid = AuctionBid::create($validated);
+            Mail::to('oasiffre@gmail.com')->send(new AuctionBidMail($auctionBid));
+             session()->flash('success', 'Bid Place submitted successfully! We will contact you soon.');
             return response()->json([
                 'slug' => $slug,
                 'form_data' => $request->all(),
