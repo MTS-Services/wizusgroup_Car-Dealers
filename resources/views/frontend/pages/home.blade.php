@@ -31,12 +31,14 @@
                                         {{ $banner->subtitle }}
                                     </p>
                                 </div>
-                                <form action="" class="w-full">
-                                    <div class="join w-full justify-center">
-                                        <input type="search" class="input input-search" placeholder="Search here..." />
-                                        <button class="btn-search">Search</button>
-                                    </div>
-                                </form>
+                                @if (isset($not_used))
+                                    {{-- <form action="" class="w-full">
+                                        <div class="join w-full justify-center">
+                                            <input type="search" class="input input-search" placeholder="Search here..." />
+                                            <button class="btn-search">Search</button>
+                                        </div>
+                                    </form> --}}
+                                @endif
                             </div>
                         </div>
                     </div>
