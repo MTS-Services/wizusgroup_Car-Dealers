@@ -7,6 +7,7 @@ use App\Http\Requests\AddressRequest;
 use App\Http\Requests\User\UserPasswordUpdateRequest;
 use App\Http\Requests\User\UserProfileRequest;
 use App\Models\Auction;
+use App\Models\ContainerReservation;
 use App\Models\User;
 use App\Services\AddressService;
 use App\Services\Admin\AuctionManagement\AuctionService;
@@ -99,7 +100,8 @@ class UserProfileController extends Controller
 
     public function containerDetails($container_slug)
     {
-        $data['container'] = $this->userService->getUser(encrypt(user()->container_slug))->containerReservations()->with(['container.destinationPort', 'container.shippingPort'])->findOrFail($container_slug);
+        $data['container'] = ContainerReservation::with(['container.destinationPort', 'container.shippingPort'])->where('id', decrypt($container_slug))->firstOrFail();
+        // dd($data['container']);
         return view('backend.user.details_my_container', $data);
     }
 }

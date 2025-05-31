@@ -14,11 +14,14 @@
                 Active
             </a>
             <a href="#" class="btn-item btn-primary hover:bg-bg-tertiary py-2 rounded-md">
-                Completed
+                {{ __('Shipped') }}
+            </a>
+            <a href="#" class="btn-item btn-primary hover:bg-bg-tertiary py-2 rounded-md">
+                {{ __('Delivered') }}
             </a>
             <div class="ml-auto">
                 <a href="#" class="btn-primary py-2 bg-bg-wiz_green rounded-md hover:bg-bg-tertiary">
-                    <i class="fas fa-plus mr-2"></i> Join a Shipment
+                    <i class="fas fa-plus mr-2"></i> {{ __('Join a Shipment') }}
                 </a>
             </div>
         </div>
@@ -33,7 +36,7 @@
                         <div class="p-5 border-b border-border-gray dark:border-border-dark-secondary">
                             <div class="flex justify-between items-center">
                                 <h3 class="text-lg font-semibold text-text-primary dark:text-text-light">
-                                    {{ $container->product_name ?? 'Untitled' }}
+                                    {{ $container->container?->title ?? 'Untitled' }}
                                 </h3>
                                 <span class="px-2.5 py-1 bg-bg-wiz_green text-white rounded-full text-xs font-medium">
                                     {{ $container->status_label ?? 'Active' }}
@@ -74,7 +77,7 @@
                                     </div>
                                     <div>
                                         <span>Max Weight:</span>
-                                        <span>{{ $container->max_weight_kg }} kg</span>
+                                        <span>{{ $container->container?->max_weight_kg }} kg</span>
                                     </div>
                                 </div>
                             </div>
@@ -90,13 +93,11 @@
                                 </div>
                             </div>
                             <div class="flex space-x-2 mt-5">
-                                <a href="{{ route('user.container.details', $container->slug) }}"
+                                <a href="{{ route('user.container.details', encrypt($container->id)) }}"
                                     class="flex-1 py-2 px-3 rounded-md font-semibold bg-bg-wiz_orange text-white hover:bg-bg-wiz_orange/90 shadow-md hover:shadow-lg text-center text-sm">
                                     {{ __('View Details') }}
                                 </a>
                             </div>
-
-
                         </div>
                     </div>
             @endforeach
