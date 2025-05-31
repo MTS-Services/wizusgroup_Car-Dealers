@@ -4,10 +4,10 @@
     {{-- Details Section --}}
     <section class="py-6 sm:py-8 lg:py-12 bg-bg-light dark:bg-bg-dark-tertiary/50">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 gap-6">
+            <div class="grid grid-cols-12 gap-6">
                 {{-- Container Details --}}
                 <div
-                    class="  bg-bg-white dark:bg-bg-dark-tertiary  shadow-card dark:shadow-dark-card overflow-hidden border border-border-gray dark:border-border-dark-secondary rounded-lg">
+                    class="{{ isset($product) ? 'col-span-9' : 'col-span-12' }}  bg-bg-white dark:bg-bg-dark-tertiary  shadow-card dark:shadow-dark-card overflow-hidden border border-border-gray dark:border-border-dark-secondary rounded-lg">
                     <div class="p-5 border-b border-border-gray dark:border-border-dark-secondary">
                         <div class="flex justify-between items-baseline">
                             <h3 class="text-lg font-semibold text-text-primary dark:text-text-light">
@@ -112,61 +112,44 @@
                 </div>
 
                 {{-- Product Details --}}
-                {{-- <div class="lg:col-span-6">
-                    <div
-                        class="bg-bg-white dark:bg-bg-dark-tertiary shadow-card dark:shadow-dark-card overflow-hidden border border-border-gray dark:border-border-dark-secondary rounded-lg h-full">
-                        <div class="p-5 border-b border-border-gray dark:border-border-dark-secondary">
-                            <h3 class="text-lg font-semibold text-text-primary dark:text-text-light">
-                                {{ __('Product Details') }}
-                            </h3>
-                        </div>
+                @if (isset($product))
+                    <div class="col-span-3">
+                        <div
+                            class="bg-bg-white dark:bg-bg-dark-tertiary shadow-card dark:shadow-dark-card overflow-hidden border border-border-gray dark:border-border-dark-secondary rounded-lg h-full">
+                            <div class="p-5 border-b border-border-gray dark:border-border-dark-secondary">
+                                <h3 class="text-lg font-semibold text-text-primary dark:text-text-light">
+                                    {{ __('Product Details') }}
+                                </h3>
+                            </div>
 
-                        <div class="p-5">
-                            <div class="flex flex-col lg:flex-row gap-6">
-                                <div class="w-full lg:w-1/2 h-64 lg:h-auto overflow-hidden rounded-lg shadow-md">
-                                    <img src="{{ storage_url($container_product->product?->primaryImage->first()?->image) }}"
-                                        alt="{{ $container_product->product?->name }}"
-                                        class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
-                                </div>
-                                <div class="w-full lg:w-1/2">
-                                    <h3 class="text-xl font-bold text-text-primary dark:text-white mb-4">
-                                        {{ $container_product?->product->name }}
-                                    </h3>
+                            <div class="p-5">
+                                <div class="flex flex-col gap-6">
+                                    <div class="w-full  h-64 lg:h-auto overflow-hidden rounded-lg shadow-md">
+                                        <img src="{{ isset($product) ? storage_url($product?->primaryImage->first()?->image) : '' }}"
+                                            alt="{{ isset($product) ? $product?->name : '' }}"
+                                            class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                                    </div>
+                                    <div class="w-full ">
+                                        <h3 class="text-xl font-bold text-text-primary dark:text-white mb-4">
+                                            {{ $product->name }}
+                                        </h3>
 
-                                    <div class="space-y-4">
-                                        <div class="w-full bg-bg-gray dark:bg-bg-dark-secondary p-4 rounded-lg">
-                                            <div class="flex justify-between items-center">
-                                                <p class="text-base font-medium text-text-primary dark:text-text-light">
-                                                    {{ __('Quantity') }}</p>
-                                                <p class="text-base font-bold">
-                                                    {{ $container_quantity }}/{{ $reserve_quantity }}
-                                                </p>
+                                        <div class="space-y-4">
+                                            <div class="w-full bg-bg-gray dark:bg-bg-dark-secondary p-4 rounded-lg">
+                                                <div class="flex justify-between items-center">
+                                                    <p class="text-base font-medium text-text-primary dark:text-text-light">
+                                                        {{ __('Price') }}</p>
+                                                    <p class="text-base font-bold">${{ $container_product->price }}</p>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="w-full bg-bg-gray dark:bg-bg-dark-secondary p-4 rounded-lg">
-                                            <div class="flex justify-between items-center">
-                                                <p class="text-base font-medium text-text-primary dark:text-text-light">
-                                                    {{ __('Price') }}</p>
-                                                <p class="text-base font-bold">${{ $container_product->price }}</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="w-full bg-bg-gray dark:bg-bg-dark-secondary p-4 rounded-lg">
-                                            <div class="flex justify-between items-center">
-                                                <p class="text-base font-medium text-text-primary dark:text-text-light">
-                                                    {{ __('Reserve Price') }}</p>
-                                                <p class="text-base font-bold">${{ $container_product->reserve_price }}</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="w-full bg-bg-gray dark:bg-bg-dark-secondary p-4 rounded-lg">
-                                            <div class="flex justify-between items-center">
-                                                <p class="text-base font-medium text-text-primary dark:text-text-light">
-                                                    {{ __('Status') }}</p>
-                                                <p class="text-base font-bold">
-                                                    {{ $container_product?->product->status_label ?? __('Available') }}
-                                                </p>
+                                            <div class="w-full bg-bg-gray dark:bg-bg-dark-secondary p-4 rounded-lg">
+                                                <div class="flex justify-between items-center">
+                                                    <p class="text-base font-medium text-text-primary dark:text-text-light">
+                                                        {{ __('Reserve Price') }}</p>
+                                                    <p class="text-base font-bold">${{ $container_product->reserve_price }}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -174,7 +157,10 @@
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                @endif
+
+
+
             </div>
         </div>
     </section>
@@ -220,13 +206,13 @@
                                 <label for="product_id"
                                     class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
                                     {{ __('Product') }}</label>
-                                <select name="product_id" id="product_id"
+                                <select name="product_id" id="product_id" {{ isset($product) ? 'disabled' : '' }}
                                     class="select w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
                                     <option value="" selected>{{ __('Select a product') }}</option>
-                                    @foreach ($products as $product)
-                                        <option value="{{ $product->id }}"
-                                            {{ old('product_id') == $product->id ? 'selected' : '' }}>
-                                            {{ $product->name }}
+                                    @foreach ($products as $product1)
+                                        <option value="{{ $product1->id }}"
+                                            {{ old('product_id') == $product1->id ? 'selected' : '' }}>
+                                            {{ $product1->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -237,7 +223,8 @@
                                     class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
                                     {{ __('Product Name') }}<span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="product_name" name="product_name" value=""
+                                <input type="text" id="product_name" name="product_name"
+                                    value="{{ isset($product) ? $product?->name : '' }}"
                                     class="w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'product_name']" />
                             </div>
@@ -246,7 +233,8 @@
                                     class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
                                     {{ __('Height (m)') }}<span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="height_m" name="height_m" value=""
+                                <input type="text" id="height_m" name="height_m"
+                                    value="{{ isset($product) ? $product?->height_m : '' }}"
                                     class="w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'height_m']" />
                             </div>
@@ -255,7 +243,8 @@
                                     class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
                                     {{ __('Width (m)') }}<span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="width_m" name="width_m" value=""
+                                <input type="text" id="width_m" name="width_m"
+                                    value="{{ isset($product) ? $product?->width_m : '' }}"
                                     class="w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'width_m']" />
                             </div>
@@ -264,7 +253,8 @@
                                     class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
                                     {{ __('Length (m)') }}<span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="length_m" name="length_m" value=""
+                                <input type="text" id="length_m" name="length_m"
+                                    value="{{ isset($product) ? $product?->length_m : '' }}"
                                     class="w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'length_m']" />
                             </div>
@@ -273,7 +263,8 @@
                                     class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
                                     {{ __('Weight (kg)') }}<span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="weight_kg" name="weight_kg" value=""
+                                <input type="text" id="weight_kg" name="weight_kg"
+                                    value="{{ isset($product) ? $product?->weight_kg : '' }}"
                                     class="w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'weight_kg']" />
                             </div>
@@ -282,7 +273,8 @@
                                     class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
                                     {{ __('Quantity') }}<span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="quantity" name="quantity" value=""
+                                <input type="text" id="quantity" name="quantity"
+                                    value="{{ isset($product) ? 1 : '' }}"
                                     class="w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'quantity']" />
                             </div>
@@ -291,7 +283,8 @@
                                     class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
                                     {{ __('Price (USD)') }}<span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="price" name="price" value=""
+                                <input type="text" id="price" name="price"
+                                    value="{{ isset($container_product) ? $container_product?->price : '' }}"
                                     class="w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'price']" />
                             </div>
@@ -301,7 +294,8 @@
                                     class="block text-sm font-medium text-text-primary dark:text-text-light mb-1.5">
                                     {{ __('Reserve Price (USD)') }}<span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="reserve_price" name="reserve_price" value=""
+                                <input type="text" id="reserve_price" name="reserve_price"
+                                    value="{{ isset($container_product) ? $container_product?->reserve_price : '' }}"
                                     class="w-full px-4 py-2.5 text-sm text-text-primary dark:text-text-light border border-border-gray dark:border-border-dark-secondary rounded-lg shadow-card dark:shadow-dark-card focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'reserve_price']" />
                             </div>

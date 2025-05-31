@@ -40,6 +40,7 @@ class GroupShippingPageController extends Controller
         $data['container'] = Container::with(['destinationPort', 'shippingPort', 'containerReservations.product'])->where('slug', $container_slug)->first();
         if ($product_slug) {
             $data['product'] = Product::where('slug', $product_slug)->first();
+            $data['container_product'] = ContainerProduct::where('container_id', $data['container']->id)->where('product_id', $data['product']->id)->first();
         }
         $data['products'] = Product::where('status', Product::STATUS_ACTIVE)->orderBy('name')->get();
         return view('frontend.pages.join_group_shipping', $data);
