@@ -28,8 +28,8 @@ return new class extends Migration {
             $table->string('width_m')->index();
             $table->string('height_m')->index();
             $table->string('weight_kg')->index()->nullable();
-            $table->decimal('price', 10, 2)->default(0);
-            $table->decimal('reserve_price', 10, 2)->default(0);
+            $table->decimal('price', 15, 2)->default(0);
+            $table->decimal('reserve_price', 15, 2)->default(0);
             $table->string('status')->index()->default(ContainerReservation::STATUS_PENDING);
             $table->integer('quantity')->index();
             $table->longText('note')->nullable();
