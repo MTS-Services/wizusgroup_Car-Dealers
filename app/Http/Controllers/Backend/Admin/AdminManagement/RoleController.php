@@ -20,7 +20,7 @@ class RoleController extends Controller
 {
     protected RoleService $roleService;
     protected PermissionService $permissionService;
-    public function __construct( RoleService $roleService , PermissionService $permissionService)
+    public function __construct(RoleService $roleService, PermissionService $permissionService)
     {
         $this->roleService = $roleService;
         $this->permissionService = $permissionService;
@@ -146,7 +146,7 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request): RedirectResponse
     {
-        try{
+        try {
             $this->roleService->createRole($request->validated());
             session()->flash('success', 'Role created successfully!');
         } catch (\Throwable $e) {
@@ -173,22 +173,23 @@ class RoleController extends Controller
     public function edit(string $id)
     {
 
-        $id = decrypt($id);
-        if ($id == 1) {
+        $decryptedId = decrypt($id);
+        if ($decryptedId == 1) {
             session()->flash('error', 'Cannot edit Super Admin!');
             return redirect()->route('am.role.index');
         }
-       try{
+        try {
             $role = $this->roleService->getRole($id);
             $data['role'] = $role->load(['permissions:id,name,prefix']);
             $data['permissions'] = $this->permissionService->getPermissions('prefix')->select(['id', 'name', 'prefix'])->get();
-        $data['document'] = Documentation::where([['module_key', 'role'], ['type', 'update']])->first();
+            $data['document'] = Documentation::where([['module_key', 'role'], ['type', 'update']])->first();
             $data['groupedPermissions'] = $data['permissions']->groupBy('prefix');
-       } catch (\Throwable $e) {
+            return view('backend.admin.admin_management.role.edit', $data);
+        } catch (\Throwable $e) {
             session()->flash('error', 'Something went wrong, please try again!');
             throw $e;
         }
-        return view('backend.admin.admin_management.role.edit', $data);
+
     }
 
     /**
@@ -202,10 +203,10 @@ class RoleController extends Controller
             session()->flash('error', 'Cannot update Super Admin!');
             return redirect()->route('am.role.index');
         }
-        try{
+        try {
             $role = $this->roleService->getRole($id);
             $this->roleService->updateRole($role, $request->validated());
-            session()->flash('success','Role updated successfully!');
+            session()->flash('success', 'Role updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Role update failed!');
             throw $e;

@@ -18,12 +18,12 @@ class RoleService
         return Role::orderBy($orderBy, $order)->latest();
     }
 
-    public function getRole(string $encryptedId): Role | Collection
+    public function getRole(string $encryptedId): Role|Collection
     {
         return Role::findOrFail(decrypt($encryptedId));
     }
 
-    public function getDeletedRole(string $encryptedId): Role | Collection
+    public function getDeletedRole(string $encryptedId): Role|Collection
     {
         return Role::onlyTrashed()->findOrFail(decrypt($encryptedId));
     }
@@ -34,8 +34,9 @@ class RoleService
             $data['created_by'] = admin()->id;
             $data['guard_name'] = 'admin';
             $role = Role::create($data);
-            if(isset($data['permissions'])){
+            if (isset($data['permissions'])) {
                 $permissions = $this->permissionService->getPermissions()->whereIn('id', $data['permissions'])->pluck('name')->toArray();
+
                 $role->givePermissionTo($permissions);
             }
 
@@ -49,7 +50,7 @@ class RoleService
             $data['updated_by'] = admin()->id;
             $data['guard_name'] = 'admin';
             $role->update($data);
-            if(isset($data['permissions'])){
+            if (isset($data['permissions'])) {
                 $permissions = $this->permissionService->getPermissions()->whereIn('id', $data['permissions'])->pluck('name')->toArray();
                 $role->syncPermissions($permissions);
             }
