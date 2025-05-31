@@ -167,6 +167,58 @@ class ContainerController extends Controller
 
         return array_merge($menus, $this->statusMenu($model), $delete_menu);
     }
+
+
+    public function recycleBin(Request $request)
+    {
+
+        if ($request->ajax()) {
+            $query = $this->containerService->getContainers()->onlyTrashed()->with(['deleter_admin','shippingPort', 'destinationPort']);
+            return DataTables::eloquent($query)
+               ->editColumn('shipping_port', function ($container) {
+                    return $container->shippingPort->name ?? '';
+                })
+                ->editColumn('destination_port', function ($container) {
+                    return $container->destinationPort->name ?? '';
+                })
+                ->editColumn('status', function ($container) {
+                    return "<span class='badge " . $container->status_color . "'>$container->status_label</span>";
+                })
+                ->editColumn('deleted_by', function ($container) {
+                    return $container->deleter_name;
+                })
+                ->editColumn('deleted_at', function ($container) {
+                    return $container->deleted_at_formatted;
+                })
+                ->editColumn('action', function ($container) {
+                    $menuItems = $this->trashedMenuItems($container);
+                    return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
+                })
+                ->rawColumns(['shipping_port', 'destination_port', 'status', 'deleted_by', 'deleted_at', 'action'])
+                ->make(true);
+        }
+        return view('backend.admin.group_shipping.container.recycle-bin');
+    }
+
+    protected function trashedMenuItems($model): array
+    {
+        return [
+            [
+                'routeName' => 'gs.container.restore',
+                'params' => [encrypt($model->id)],
+                'label' => 'Restore',
+                'permissions' => ['container-restore']
+            ],
+            [
+                'routeName' => 'gs.container.permanent-delete',
+                'params' => [encrypt($model->id)],
+                'label' => 'Permanent Delete',
+                'p-delete' => true,
+                'permissions' => ['container-permanent-delete']
+            ]
+
+        ];
+    }
     /**
      * Show the form for creating a new resource.
      */
