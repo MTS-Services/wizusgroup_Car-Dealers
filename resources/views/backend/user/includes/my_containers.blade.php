@@ -2,8 +2,8 @@
     <div class="max-w-6xl mx-auto">
         <!-- My Containers Panel Header -->
         <div class="mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">My Containers</h2>
-            <p class="text-text-gray">Track and manage your container shipments</p>
+            <h2 class="text-2xl font-bold text-gray-800">{{ __('My Containers') }}</h2>
+            <p class="text-text-gray">{{ __('Track and manage your container shipments') }}</p>
         </div>
         <!-- Filters -->
         <div class="mb-6 flex flex-wrap gap-2">
@@ -31,7 +31,6 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Container Card 1 -->
             @foreach ($my_containers as $container)
-                {{-- @dd($container); --}}
                 <!-- Container Card (Left Column) -->
                 <div class="container-card" data-status="{{ $container->container?->status_label }}">
                     <div
@@ -110,9 +109,15 @@
                 </div>
             @endforeach
         </div>
-        @if ($my_containers->count() == 0)
-            <h1 class="text-2xl font-semibold text-text-primary dark:text-text-light text-center uppercase bg-bg-white rounded-lg p-5 shadow-card">No containers found</h1>
-        @endif
+        <div id="no-containers-message"
+            class="hidden text-2xl font-semibold text-text-primary dark:text-text-light text-center uppercase bg-bg-white rounded-lg p-5 shadow-card">
+            {{ __('No Containers Found') }}
+        </div>
+        {{-- @if ($my_containers->count() == 0 )
+            <h1
+                class="text-2xl font-semibold text-text-primary dark:text-text-light text-center uppercase bg-bg-white rounded-lg p-5 shadow-card">
+                No containers found</h1>
+        @endif --}}
 
         <!-- Pagination -->
         <div

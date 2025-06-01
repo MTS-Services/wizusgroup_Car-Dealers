@@ -135,7 +135,7 @@
                     </form>
                 </div>
             </div>
-            <div id="address" class="tab-pane hidden">
+            <div id="address" class="tab-pane block">
                 <div class="rounded-md shadow-card">
                     <div class="px-4 py-3 border border-b border-border-gray">
                         <h4 class="text-text-primary text-lg font-semibold">

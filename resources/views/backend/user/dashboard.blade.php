@@ -421,31 +421,37 @@
     </script>
     {{-- My Containers - Button Filter Styling --}}
     <script>
-        document.querySelectorAll('.btn-item').forEach(button => {
-            button.addEventListener('click', (event) => {
-                event.preventDefault();
-                const dataTab = button.getAttribute('data-tab');
+        $(document).ready(function() {
+            $('.btn-item').on('click', function(e) {
+                e.preventDefault();
+                var dataTab = $(this).data('tab');
 
                 // Toggle button styles
-                document.querySelectorAll('.btn-item').forEach(btn => {
-                    btn.classList.remove('bg-bg-tertiary');
-                    btn.classList.add('bg-bg-primary');
-                });
-                button.classList.remove('bg-bg-primary');
-                button.classList.add('bg-bg-tertiary');
+                $('.btn-item')
+                    .removeClass('bg-bg-tertiary')
+                    .addClass('bg-bg-primary');
+                $(this)
+                    .removeClass('bg-bg-primary')
+                    .addClass('bg-bg-tertiary');
 
                 // Filter containers
-                const containerCards = document.querySelectorAll('.container-card');
-                containerCards.forEach(card => {
-                    const cardStatus = card.getAttribute('data-status');
+                var visibleCount = 0;
+                $('.container-card').each(function() {
+                    var cardStatus = $(this).data('status');
                     if (dataTab === 'all' || dataTab === cardStatus) {
-                        card.classList.remove('block');
-                        card.classList.remove('hidden');
+                        $(this).removeClass('hidden').addClass('block');
+                        visibleCount++;
                     } else {
-                        card.classList.add('hidden');
-                        card.classList.remove('block');
+                        $(this).removeClass('block').addClass('hidden');
                     }
                 });
+
+                // Toggle "No Containers Found" message
+                if (visibleCount === 0) {
+                    $('#no-containers-message').removeClass('hidden').addClass('block');
+                } else {
+                    $('#no-containers-message').removeClass('block').addClass('hidden');
+                }
             });
         });
     </script>
