@@ -19,16 +19,16 @@ class RegionShippingTimeline extends BaseModel
         'created_by',
         'updated_by',
         'deleted_by',
-    ]; 
+    ];
 
     public function region()
-{
-    return $this->belongsTo(Region::class, 'region_id', 'id');
-}
-protected $appends = ['region_name'];
+    {
+        return $this->belongsTo(Region::class, 'region_id', 'id');
+    }
+    protected $appends = ['region_name'];
 
-public function getRegionNameAttribute()
-{
-    return optional($this->region)->name;
-}
+    public function getRegionNameAttribute()
+    {
+        return optional($this->region)->name;
+    }
 }
