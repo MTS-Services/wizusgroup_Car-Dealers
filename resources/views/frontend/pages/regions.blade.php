@@ -11,7 +11,7 @@
                 @foreach ($regions as $region)
                     <div class="bg-bg-white p-6 rounded-2xl shadow-card hover:shadow-lg transition-shadow">
                         <h3 class="text-xl font-semibold text-text-primary mb-2">{{ __($region->name ) }}</h3>
-                        <p class="text-sm !text-text-secondary">{!! $region->description !!}</p>
+                        <div class="text-sm !text-text-secondary">{!! $region->description !!}</div>
                     </div>
                 @endforeach
             </div>
