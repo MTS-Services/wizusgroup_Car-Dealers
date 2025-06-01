@@ -419,19 +419,37 @@
                 existingFiles);
         });
     </script>
-    {{-- My Orders - Button Filter Styling --}}
+    {{-- My Containers - Button Filter Styling --}}
     <script>
         document.querySelectorAll('.btn-item').forEach(button => {
-            button.addEventListener('click', () => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                const dataTab = button.getAttribute('data-tab');
+
+                // Toggle button styles
                 document.querySelectorAll('.btn-item').forEach(btn => {
                     btn.classList.remove('bg-bg-tertiary');
                     btn.classList.add('bg-bg-primary');
                 });
                 button.classList.remove('bg-bg-primary');
                 button.classList.add('bg-bg-tertiary');
+
+                // Filter containers
+                const containerCards = document.querySelectorAll('.container-card');
+                containerCards.forEach(card => {
+                    const cardStatus = card.getAttribute('data-status');
+                    if (dataTab === 'all' || dataTab === cardStatus) {
+                        card.classList.remove('block');
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                        card.classList.remove('block');
+                    }
+                });
             });
         });
     </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const timers = document.querySelectorAll('.timer_countdown');
