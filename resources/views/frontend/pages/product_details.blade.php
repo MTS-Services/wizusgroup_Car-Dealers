@@ -358,8 +358,8 @@
                                                  </tr>
                                              @endif
                                          </tbody>
-                                         <tfoot class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                             @if ($product->remarks)
+                                         @if ($product->remarks && $product->remarks != '<p>&nbsp;</p>')
+                                             <tfoot class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                  <tr>
                                                      <td colspan="2"
                                                          class="font-semibold py-2 sm:py-3 dark:text-text-light">
@@ -368,8 +368,8 @@
                                                  <tr>
                                                      <td colspan="2">{!! $product->remarks !!}</td>
                                                  </tr>
-                                             @endif
-                                         </tfoot>
+                                             </tfoot>
+                                         @endif
                                      </table>
                                  </div>
 
@@ -520,7 +520,7 @@
                                              </h3>
                                              @auth('web')
                                                  <p class="text-xl font-bold text-text-danger">
-                                                 {{ number_format($r_product->price, 2) }}</p>
+                                                     {{ number_format($r_product->price, 2) }}</p>
                                              @endauth
                                              <div
                                                  class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
