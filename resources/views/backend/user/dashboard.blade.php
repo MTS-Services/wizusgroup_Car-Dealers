@@ -6,7 +6,7 @@
             <div class="flex shadow-card dark:shadow-darkCard rounded-xl overflow-hidden">
                 <div class="w-0 bg-bg-light dark:bg-opacity-30 xl:w-1/4 transition-all duration-300 ease-in-out">
                     <div class="bg-bg-tertiary bg-opacity-50">
-                        <a href="#" class="nav_item  @if (isset($page_slug) && $page_slug == '') active @endif"
+                        <a href="#" class="nav_item  @if (isset($page_slug) && $page_slug == '') active @endif active"
                             data-target="client-dashboard">
                             <img src="{{ asset('frontend/images/logo.png') }}" alt="{{ __('Logo') }}"
                                 class="w-48 p-3 mx-auto ">
@@ -21,7 +21,7 @@
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('My Reserves') }}</span>
                                 </a>
                             </li> --}}
-                            <li class="group nav_item active dark:hover:bg-bg-dark-tertiary  transition-all duration-300"
+                            <li class="group nav_item  dark:hover:bg-bg-dark-tertiary  transition-all duration-300"
                                 data-target="my_containers">
                                 <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="container"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
@@ -77,14 +77,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="client-dashboard" class="nav-pane hidden">
+                        <div id="client-dashboard" class="nav-pane block">
                             {{-- Client Dashboard --}}
                             @include('backend.user.includes.client_dashboard')
                         </div>
                         {{-- <div id="my_reserves" class="nav-pane hidden">
                             @include('backend.user.includes.my_reserves')
                         </div> --}}
-                        <div id="my_containers" class="nav-pane block">
+                        <div id="my_containers" class="nav-pane hidden">
                             {{-- My Containers --}}
                             @include('backend.user.includes.my_containers')
                         </div>

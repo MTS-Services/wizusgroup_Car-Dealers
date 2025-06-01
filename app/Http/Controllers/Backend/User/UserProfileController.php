@@ -54,6 +54,8 @@ class UserProfileController extends Controller
 
     public function profileUpdate(UserProfileRequest $request)
     {
+         $value = $request->session()->get('key');
+         dd($value);
         $validated = $request->validated();
         $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
         $this->userService->updateUserProfile(user(), $validated , $file);

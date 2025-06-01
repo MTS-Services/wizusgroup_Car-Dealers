@@ -19,7 +19,7 @@
                         class="text-3xl font-semibold uppercase text-text-primary dark:text-text-white">{{ __('My Containers') }}</span>
                 </div>
                 <h3 class="text-xl md:text-3xl font-semibold text-text-primary dark:text-text-white mt-3 ms-2">
-                    {{ $my_containers->count() }}
+                    {{ $my_containers->count() ?? 0 }}
                 </h3>
             </div>
         </a>
