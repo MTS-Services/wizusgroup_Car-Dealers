@@ -14,7 +14,6 @@ use App\Services\Admin\AuctionManagement\AuctionService;
 use App\Services\Admin\Setup\CountryService;
 use App\Services\Admin\UserManagement\UserService;
 use App\Services\PersonalInformationService;
-use PhpParser\Node\Expr\FuncCall;
 
 class UserProfileController extends Controller
 {
@@ -66,9 +65,8 @@ class UserProfileController extends Controller
     }
     public function addressUpdate(AddressRequest $request)
     {
-        // dd($request->all());
         try {
-            $address = $this->addressService->getAddresses()->userAddresses()->first();
+            $address = $this->addressService->getAddresses()->userAddresses()->personal()->first();
             $validated = $request->validated();
             $this->addressService->updateAddress($address, $validated);
             session()->flash('success', 'Address updated successfully.');

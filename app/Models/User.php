@@ -121,6 +121,7 @@ class User extends AuthBaseModel implements MustVerifyEmail
             // 'know_label',
             // 'receive_promotion_email',
             // 'accept_term'
+            'modified_image',
         ]);
     }
 

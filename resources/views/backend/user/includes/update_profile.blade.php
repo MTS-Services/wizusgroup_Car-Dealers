@@ -1,9 +1,9 @@
 <div class="bg-bg-gray dark:bg-opacity-20 p-10 pt-0">
     <div class="w-full">
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 items-center gap-5 py-5 text-center">
-            <p class="btn-item btn-primary w-full py-2 rounded-md" data-target="profile">
+            <p class="btn-item btn-primary w-full py-2 rounded-md btn_active" data-target="profile">
                 Profile</p>
-            <p class="btn-item btn-primary w-full py-2 rounded-md btn_active" data-target="address">
+            <p class="btn-item btn-primary w-full py-2 rounded-md " data-target="address">
                 Address</p>
             <p class="btn-item btn-primary w-full py-2 rounded-md " data-target="change-password">Change Password</p>
         </div>
@@ -131,11 +131,11 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary mt-5">Update</button>
+                        <button type="submit" class="btn btn-primary mt-5 hover:bg-bg-tertiary">Update</button>
                     </form>
                 </div>
             </div>
-            <div id="address" class="tab-pane block">
+            <div id="address" class="tab-pane hidden">
                 <div class="rounded-md shadow-card">
                     <div class="px-4 py-3 border border-b border-border-gray">
                         <h4 class="text-text-primary text-lg font-semibold">
@@ -227,7 +227,7 @@
 
                             <div class="mt-6 text-left">
                                 <button
-                                    class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded font-semibold">
+                                    class="btn btn-primary hover:bg-bg-tertiary">
                                     {{ __('Update') }}
                                 </button>
                             </div>
@@ -263,7 +263,7 @@
                                     id="password_confirmation">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-5">Change
+                        <button type="submit" class="btn btn-primary mt-5 hover:bg-bg-tertiary">Change
                             Password</button>
                     </form>
                 </div>
