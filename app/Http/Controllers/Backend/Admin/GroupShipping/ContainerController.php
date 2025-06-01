@@ -264,6 +264,8 @@ class ContainerController extends Controller
     {
         $container = $this->containerService->getContainer($id);
         $container->load(['creater_admin', 'updater_admin', 'shippingPort', 'destinationPort']);
+        $container['shipping_port_name'] = $container?->shippingPort?->name ;
+        $container['destination_port_name'] = $container?->destinationPort?->name ;
         return response()->json($container);
     }
 

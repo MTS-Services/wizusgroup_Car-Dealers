@@ -82,7 +82,7 @@
         // Event listener for viewing details
         $(document).on("click", ".view", function() {
             let id = $(this).data("id");
-            let route = "{{ route('documentation.show', ['id']) }}";
+            let route = "{{ route('gs.container.show', ['id']) }}";
             const detailsUrl = route.replace("id", id);
             const headers =[{
                     label: "Title",
@@ -94,11 +94,11 @@
                 },
                 {
                     label: "Shipping Port",
-                    key: "shippingPort.name"
+                    key: "shipping_port_name"
                 },
                 {
                     label: "Destination Port",
-                    key: "destinationPort.name"
+                    key: "destination_port_name"
                 },
                 {
                     label: "Image",
