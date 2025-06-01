@@ -189,11 +189,11 @@ class TestimonialController extends Controller
      */
     public function update(TestimonialRequest $request, string $id): RedirectResponse
     {
+        
         try {
-            $testimonial = $this->testimonialService->getTestimonial($id);
             $validated = $request->validated();
             $file = $request->validated('author_image') &&  $request->hasFile('author_image') ? $request->file('author_image') : null;
-            $this->testimonialService->updateTestimonial($testimonial, $validated, $file);
+            $this->testimonialService->updateTestimonial($id, $validated, $file);
             session()->flash('success', 'Testimonial updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Testimonial update failed!');
