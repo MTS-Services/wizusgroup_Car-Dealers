@@ -7,6 +7,7 @@ use App\Http\Requests\AddressRequest;
 use App\Http\Requests\User\UserPasswordUpdateRequest;
 use App\Http\Requests\User\UserProfileRequest;
 use App\Models\Auction;
+use App\Models\ContainerReservation;
 use App\Models\User;
 use App\Services\AddressService;
 use App\Services\Admin\AuctionManagement\AuctionService;
@@ -47,11 +48,14 @@ class UserProfileController extends Controller
         $data['user']->load(['personalInformation']);
         $data['address'] = $this->addressService->getAddresses()->userAddresses()->personal()->first();
         $data['countries'] = $this->countryService->getCountrys()->active()->get();
+        $data['my_containers'] = $this->userService->getUser(encrypt(user()->id))->containerReservations()->with(['container.destinationPort', 'container.shippingPort'])->get();
         return view('backend.user.dashboard', $data);
     }
 
     public function profileUpdate(UserProfileRequest $request)
     {
+         $value = $request->session()->get('key');
+         dd($value);
         $validated = $request->validated();
         $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
         $this->userService->updateUserProfile(user(), $validated , $file);
@@ -63,9 +67,8 @@ class UserProfileController extends Controller
     }
     public function addressUpdate(AddressRequest $request)
     {
-        // dd($request->all());
         try {
-            $address = $this->addressService->getAddresses()->userAddresses()->first();
+            $address = $this->addressService->getAddresses()->userAddresses()->personal()->first();
             $validated = $request->validated();
             $this->addressService->updateAddress($address, $validated);
             session()->flash('success', 'Address updated successfully.');
@@ -91,8 +94,14 @@ class UserProfileController extends Controller
     // Details User Bids
     public function auctionDetails($auction_slug)
     {
-
         $data['auction'] = Auction::withCount('auctionBids')->with(['product.category'])->where('slug', $auction_slug)->firstOrFail();
         return view('backend.user.details_my_bids', $data);
+    }
+
+    public function containerDetails($container_slug)
+    {
+        $data['container'] = ContainerReservation::with(['container.destinationPort', 'container.shippingPort'])->where('id', decrypt($container_slug))->firstOrFail();
+        // dd($data['container']);
+        return view('backend.user.details_my_container', $data);
     }
 }

@@ -358,8 +358,8 @@
                                                  </tr>
                                              @endif
                                          </tbody>
-                                         <tfoot class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                             @if ($product->remarks)
+                                         @if ($product->remarks && $product->remarks != '<p>&nbsp;</p>')
+                                             <tfoot class="border-t border-border-gray dark:border-bg-dark-secondary">
                                                  <tr>
                                                      <td colspan="2"
                                                          class="font-semibold py-2 sm:py-3 dark:text-text-light">
@@ -368,8 +368,8 @@
                                                  <tr>
                                                      <td colspan="2">{!! $product->remarks !!}</td>
                                                  </tr>
-                                             @endif
-                                         </tfoot>
+                                             </tfoot>
+                                         @endif
                                      </table>
                                  </div>
 
@@ -508,7 +508,7 @@
                                  <a href="{{ route('frontend.product.details', $r_product->slug) }}">
                                      <div class="product-card hover:shadow-md transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                                          data-product="1">
-                                         <div class="max-h-80 w-full overflow-hidden">
+                                         <div class="h-60 w-full overflow-hidden">
                                              <img src="{{ storage_url($r_product->primaryImage->first()?->image) }}"
                                                  alt="{{ $r_product->primaryImage->first()?->alt ?? $r_product->name }}"
                                                  class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
@@ -518,12 +518,16 @@
                                                  class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
                                                  {{ $r_product->model?->name }}
                                              </h3>
-                                             <p class="text-xl font-bold text-text-danger">
-                                                 {{ number_format($r_product->price, 2) }}</p>
+                                             @auth('web')
+                                                 <p class="text-xl font-bold text-text-danger">
+                                                     {{ number_format($r_product->price, 2) }}</p>
+                                             @endauth
                                              <div
                                                  class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
                                                  <span>{{ $r_product->year }}</span>
-                                                 <span class="mx-2">|</span>
+                                                 @if ($r_product->model?->name)
+                                                     <span class="mx-2">|</span>
+                                                 @endif
                                                  <span>{{ $r_product->brand?->name }}</span>
                                              </div>
                                          </div>

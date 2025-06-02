@@ -1,4 +1,4 @@
-<h2 class="font-semibold py-3 text-xl lg:text-2xl">{{ __('Auction Running List') }}</h2>
+<h2 class="font-semibold text-xl lg:text-2xl">{{ __('Auction Running List') }}</h2>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
     {{-- @dd($user->auctionBids) --}}
     @foreach ($auctions as $auction)
@@ -70,3 +70,8 @@
         </div>
     @endforeach
 </div>
+@if ($auctions->count() == 0)
+    <div class="mt-5">
+        <h2 class="text-xl font-semibold text-text-primary dark:text-text-light text-center uppercase bg-bg-white rounded-lg p-5 shadow-card">{{ __('No Data Found') }}</h2>
+    </div>
+@endif

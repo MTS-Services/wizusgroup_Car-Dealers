@@ -1,7 +1,7 @@
 <div class="product-card hover:translate-y-[-8px] hover:shadow-lg transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer min-h-80"
     data-product="1">
     <a href="{{ route('frontend.product.details', $product->slug) }}">
-        <div class="max-h-80 w-full  overflow-hidden">
+        <div class="h-60 w-full  overflow-hidden">
             {{-- transition: transform 0.7s ease; --}}
             <img src="{{ storage_url($product->primaryImage->first()?->image) }}"
                 alt="{{ $product->primaryImage->first()?->alt ?? $product->name }}"
@@ -11,13 +11,17 @@
             <h3
                 class="text-base lg:text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
                 {{ $product->name }}</h3>
-            <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">
-                ${{ number_format($product->price, 2) }}
-            </p>
+            @auth('web')
+                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">
+                    ${{ number_format($product->price, 2) }}
+                </p>
+            @endauth
             <p class="text-text-primary dark:text-text-white mt-2">{{ $product->brand?->name }}</p>
             <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
                 <span>{{ $product->year }}</span>
-                <span class="mx-2">|</span>
+                @if ($product->model?->name)
+                    <span class="mx-2">|</span>
+                @endif
                 <span>{{ $product->model?->name }}</span>
             </div>
         </div>
