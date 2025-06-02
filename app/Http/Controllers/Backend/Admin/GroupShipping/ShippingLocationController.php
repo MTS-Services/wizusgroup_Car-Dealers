@@ -190,7 +190,7 @@ class ShippingLocationController extends Controller
     public function show(string $id)
     {
         $shippingLocation = $this->shippingLocationService->getShippingLocation($id);
-        $shippingLocation->load(['creater_admin', 'updater_admin','country', 'state', 'city',]);
+        $shippingLocation->load(['creater_admin', 'updater_admin', 'country', 'state', 'city',]);
         $shippingLocation['country_name'] = $shippingLocation?->country?->name . ($shippingLocation?->state?->name ? "(" . $shippingLocation?->state?->name . ")" : "");
         $shippingLocation['city_name'] = $shippingLocation?->city?->name;
         return response()->json($shippingLocation);
@@ -202,6 +202,7 @@ class ShippingLocationController extends Controller
     public function edit(string $id)
     {
         $data['shipping_location'] = $this->shippingLocationService->getShippingLocation($id);
+        $data['countries'] = $this->countryService->getCountrys()->active()->select(['id', 'name'])->get();
         $data['document'] = Documentation::where([['module_key', 'shipping-location'], ['type', 'update']])->first();
         return view('backend.admin.group_shipping.shipping_location.edit', $data);
     }
@@ -214,6 +215,9 @@ class ShippingLocationController extends Controller
 
         try {
             $validated = $request->validated();
+            $validated['country_id'] = $request->country;
+            $validated['state_id'] = $request->state;
+            $validated['city_id'] = $request->city;
             $this->shippingLocationService->updateShippingLocation($id, $validated);
             session()->flash('success', 'Shipping Location updated successfully!');
         } catch (\Throwable $e) {
