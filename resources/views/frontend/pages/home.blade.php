@@ -160,41 +160,44 @@
                         @foreach ($testimonials as $testimonial)
                             @php
                                 $isLong = strlen($testimonial->quote) > 200;
-                                $shortQuote = \Illuminate\Support\Str::limit($testimonial->quote, 200, '');
+                                $shortQuote = Str::limit($testimonial->quote, 200, '');
                             @endphp
 
                             <div class="swiper-slide">
                                 <div
-                                    class="bg-bg-light dark:bg-bg-dark rounded-xl shadow-card dark:shadow-dark-card overflow-hidden">
+                                    class="bg-bg-light dark:bg-bg-dark rounded-xl shadow-card dark:shadow-dark-card overflow-hidden min-h-80 lg:min-h-96 flex flex-col justify-between">
+
                                     <!-- Top Gradient Bar -->
-                                    <div
-                                        class="h-1 w-full bg-gradient-to-r from-text-secondary to-text-tertiary dark:from-text-light dark:to-text-light">
+                                    <div>
+                                        <div
+                                            class="h-1 w-full bg-gradient-to-r from-text-secondary to-text-tertiary dark:from-text-light dark:to-text-light">
+                                        </div>
+
+                                        <!-- Testimonial Content -->
+                                        <div class="p-6 pb-0 md:p-8 md:pb-0">
+                                            <div
+                                                class="text-text-secondary dark:text-text-light text-6xl font-serif mb-4 leading-none">
+                                                “</div>
+
+                                            <!-- Message -->
+                                            <p
+                                                class="text-lg md:text-xl font-light leading-relaxed font-montserrat mb-6 text-text-primary dark:text-text-dark-secondary">
+                                                <span class="quote-preview">{{ $shortQuote }}</span>
+                                                @if ($isLong)
+                                                    <span class="quote-full hidden">{{ $testimonial->quote }}</span>
+                                                    <span class="text-blue-600 cursor-pointer read-toggle text-sm items-center">Read more<i data-lucide="chevrons-right" class="w-4 h-4 inline-block "></i></span>
+                                                    @endif
+                                            </p>
+                                        </div>
                                     </div>
 
-                                    <!-- Testimonial Content -->
-                                    <div class="p-6 md:p-8">
-                                        <!-- Quotation Mark -->
+                                    <!-- Author Info -->
+                                    <div>
                                         <div
-                                            class="text-text-secondary dark:text-text-light text-6xl font-serif mb-4 leading-none">
-                                            “</div>
-
-                                        <!-- Message -->
-                                        <p
-                                            class="text-lg md:text-xl font-light leading-relaxed font-montserrat mb-6 text-text-primary dark:text-text-dark-secondary">
-                                            <span
-                                                class="quote-preview">{{ $isLong ? $shortQuote : $testimonial->quote }}</span>
-                                            @if ($isLong)
-                                                <span class="quote-full hidden">{{ $testimonial->quote }}</span>
-                                                <span class="text-blue-600 cursor-pointer read-toggle">Read more</span>
-                                            @endif
-                                        </p>
-
-                                        <!-- Author Info -->
-                                        <div
-                                            class="border-t border-border-gray dark:border-border-dark-secondary pt-6 flex items-center gap-4">
+                                            class="border-t border-border-gray dark:border-border-dark-secondary flex items-center gap-4 p-6 pt-6 md:p-8 md:pt-6">
                                             <img src="{{ $testimonial->modified_image }}"
                                                 alt="{{ $testimonial->author_name }}"
-                                                class="w-18 h-18 rounded-full object-cover">
+                                                class="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover">
 
                                             <div>
                                                 <p
@@ -207,11 +210,11 @@
                                                 </p>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <!-- Bottom Gradient Bar -->
-                                    <div
-                                        class="h-1 w-full bg-gradient-to-r from-text-tertiary to-text-secondary dark:from-text-light dark:to-text-light">
+                                        <!-- Bottom Gradient Bar -->
+                                        <div
+                                            class="h-1 w-full bg-gradient-to-r from-text-tertiary to-text-secondary dark:from-text-light dark:to-text-light">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
