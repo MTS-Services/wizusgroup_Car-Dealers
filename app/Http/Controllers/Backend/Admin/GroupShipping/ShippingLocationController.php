@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Backend\Admin\GroupShipping;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GroupShipping\ShippingLocationRequest;
+use App\Models\Country;
 use App\Models\Documentation;
 use App\Services\Admin\GroupShipping\ShippingLocationService;
+use App\Services\Admin\Setup\CountryService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -14,11 +16,13 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ShippingLocationController extends Controller
 {
+    protected CountryService $countryService;
     protected ShippingLocationService $shippingLocationService;
 
-    public function __construct(ShippingLocationService $shippingLocationService)
+    public function __construct(ShippingLocationService $shippingLocationService, CountryService $countryService)
     {
         $this->shippingLocationService = $shippingLocationService;
+        $this->countryService = $countryService;
 
         $this->middleware('auth:admin');
         $this->middleware('permission:shipping-location-list', ['only' => ['index']]);
@@ -35,12 +39,17 @@ class ShippingLocationController extends Controller
     /**
      * Display a listing of the resource.
      */
-     public function index(Request $request)
+    public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = $this->shippingLocationService->getShippingLocations()->with(['creater_admin']);
+            $query = $this->shippingLocationService->getShippingLocations()->with(['creater_admin', 'country', 'state', 'city']);
             return DataTables::eloquent($query)
-
+                ->editColumn('country_id', function ($shipping_location) {
+                    return $shipping_location?->country?->name . ($shipping_location?->state?->name ? "(" . $shipping_location?->state?->name . ")" : "");
+                })
+                ->editColumn('city_id', function ($shipping_location) {
+                    return  $shipping_location?->city?->name;
+                })
                 ->editColumn('status', function ($shipping_location) {
                     return "<span class='badge " . $shipping_location->status_color . "'>$shipping_location->status_label</span>";
                 })
@@ -54,7 +63,7 @@ class ShippingLocationController extends Controller
                     $menuItems = $this->menuItems($shipping_location);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['status', 'created_by', 'created_at', 'action'])
+                ->rawColumns(['country_id', 'city_id', 'status', 'created_by', 'created_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.group_shipping.shipping_location.index');
@@ -94,12 +103,18 @@ class ShippingLocationController extends Controller
         ];
     }
 
-     public function recycleBin(Request $request)
+    public function recycleBin(Request $request)
     {
 
         if ($request->ajax()) {
-            $query = $this->shippingLocationService->getShippingLocations()->onlyTrashed()->with(['deleter_admin']);
+            $query = $this->shippingLocationService->getShippingLocations()->onlyTrashed()->with(['deleter_admin', 'country', 'state', 'city']);
             return DataTables::eloquent($query)
+                ->editColumn('country_id', function ($shipping_location) {
+                    return $shipping_location?->country?->name . ($shipping_location?->state?->name ? "(" . $shipping_location?->state?->name . ")" : "");
+                })
+                ->editColumn('city_id', function ($shipping_location) {
+                    return  $shipping_location?->city?->name;
+                })
                 ->editColumn('status', function ($shipping_location) {
                     return "<span class='badge " . $shipping_location->status_color . "'>$shipping_location->status_label</span>";
                 })
@@ -113,7 +128,7 @@ class ShippingLocationController extends Controller
                     $menuItems = $this->trashedMenuItems($shipping_location);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['status', 'deleted_by', 'deleted_at', 'action'])
+                ->rawColumns(['country_id', 'city_id', 'status', 'deleted_by', 'deleted_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.group_shipping.shipping_location.recycle-bin');
@@ -142,8 +157,9 @@ class ShippingLocationController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-   public function create()
+    public function create()
     {
+        $data['countries'] = $this->countryService->getCountrys()->active()->select(['id', 'name'])->get();
         $data['document'] = Documentation::where([['module_key', 'shipping-location'], ['type', 'create']])->first();
         return view('backend.admin.group_shipping.shipping_location.create', $data);
     }
@@ -155,7 +171,10 @@ class ShippingLocationController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->shippingLocationService->createShippingLocation($validated);
+            $validated['country_id'] = $request->country;
+            $validated['state_id'] = $request->state;
+            $validated['city_id'] = $request->city;
+            $this->shippingLocationService->createShippingLocation($validated, $request);
             session()->flash('success', 'Shipping Location created successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Shipping Location create failed!');
@@ -168,17 +187,19 @@ class ShippingLocationController extends Controller
     /**
      * Display the specified resource.
      */
-     public function show(string $id)
+    public function show(string $id)
     {
         $shippingLocation = $this->shippingLocationService->getShippingLocation($id);
-        $shippingLocation->load(['creater_admin', 'updater_admin',]);
+        $shippingLocation->load(['creater_admin', 'updater_admin','country', 'state', 'city',]);
+        $shippingLocation['country_name'] = $shippingLocation?->country?->name . ($shippingLocation?->state?->name ? "(" . $shippingLocation?->state?->name . ")" : "");
+        $shippingLocation['city_name'] = $shippingLocation?->city?->name;
         return response()->json($shippingLocation);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-     public function edit(string $id)
+    public function edit(string $id)
     {
         $data['shipping_location'] = $this->shippingLocationService->getShippingLocation($id);
         $data['document'] = Documentation::where([['module_key', 'shipping-location'], ['type', 'update']])->first();
@@ -205,7 +226,7 @@ class ShippingLocationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-   public function destroy(string $id)
+    public function destroy(string $id)
     {
         try {
             $this->shippingLocationService->deleteShippingLocation($id);
