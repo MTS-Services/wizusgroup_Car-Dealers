@@ -96,28 +96,33 @@
                         <div>
                             <input type="text" placeholder="Phone" class="input h-10">
                         </div>
-                        
-                        <div>
-                            <select class="input h-10">
-                                <option value="" disabled selected>Country</option>
+
+                        <div class="">
+                            <select name="country" id="country" class="input h-10">
+                                <option value="" selected hidden>{{ __('Select Country') }}</option>
                                 @foreach ($countries as $country)
-                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    <option value="{{ $country->id }}"
+                                        {{ old('country') == $country->id ? 'selected' : '' }}>
+                                        {{ $country->name }}
+                                    </option>
                                 @endforeach
                             </select>
+                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'country']" />
                         </div>
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
                         <div>
-                            <input type="text" placeholder="City" class="input h-10">
+                            <select name="state" id="state" disabled class="input h-10">
+                                <option value="" selected hidden>{{ __('Select State') }}</option>
+                            </select>
+                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'state']" />
                         </div>
                         <div>
-                            <select class="input h-10">
-                                <option value="" disabled selected>State</option>
-                                <option value="AL">Alabama</option>
-                                <option value="AK">Alaska</option>
-                                <option value="AZ">Arizona</option>
-                                <!-- More states would go here -->
+                            <select name="city" id="city" disabled
+                                class="input h-10">
+                                <option value="" selected hidden>{{ __('Select City') }}</option>
                             </select>
+                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'city']" />
                         </div>
                         <div>
                             <input type="text" placeholder="Zipcode/Postal" class="input h-10">
@@ -125,7 +130,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <textarea name="address" class="input h-20 p-3 no-ckeditor5" id="address" ></textarea>
+                        <textarea name="address" class="input h-20 p-3 no-ckeditor5" id="address"></textarea>
                     </div>
 
                     <!-- Shipping Method -->
@@ -172,14 +177,15 @@
                         <!-- Item 1 -->
                         <div class="flex gap-4 shadow-card dark:bg-bg-dark-secondary rounded-md p-4">
                             <div class="relative">
-                                <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}" alt="Short Sleeve Sweat"
-                                    class="w-20 h-full object-contain rounded">
+                                <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
+                                    alt="Short Sleeve Sweat" class="w-20 h-full object-contain rounded">
                                 <span
                                     class="absolute -top-2 -right-2 bg-bg-primary text-text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">1</span>
                             </div>
                             <div class="flex-1">
                                 <h3 class="font-medium text-base">Mahindra Yuvo 415 DI Heavy Duty Tractor</h3>
-                                <p class="text-sm text-text-gray dark:text-text-white dark:text-opacity-80 mt-2">Mahindra / Yuvo 415 DI</p>
+                                <p class="text-sm text-text-gray dark:text-text-white dark:text-opacity-80 mt-2">Mahindra /
+                                    Yuvo 415 DI</p>
                             </div>
                             <div class="text-right">
                                 <p class="font-medium">$80.00</p>
@@ -225,6 +231,16 @@
 @endsection
 @push('js')
     <script>
-        
+        // Get Country States By Axios
+        $(document).ready(function() {
+            $('#country').on('change', function () {
+                let route1 = "{{ route('axios.get-states-or-cities') }}";
+                getStatesOrCity($(this).val(), route1);
+            });
+            $('#state').on('change', function () {
+                let route2 = "{{ route('axios.get-cities') }}";
+                getCities($(this).val(), route2);
+            });
+        });
     </script>
 @endpush

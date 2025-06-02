@@ -67,24 +67,10 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="flex justify-center mt-10">
+                    <div class="flex justify-end mt-10">
                         {{-- <a href="#" class="btn-primary mt-6 mr-2 rounded-md">{{ __('Continue Shopping') }}</a> --}}
                         <a href="{{ route('frontend.checkout') }}" class="btn-primary rounded-md">{{ __('Proceed to Checkout') }}</a>
                     </div>
-
-                    <!-- Discount Code -->
-                    {{-- <div class="mt-6 flex">
-                        <input type="text" placeholder="Discount code"
-                            class="input w-96">
-                        <button class="btn-primary ml-2 rounded-md">Apply</button>
-                    </div>
-
-                    <!-- Special Instructions -->
-                    <div class="mt-6">
-                        <p class="font-medium mb-2">Special Instructions for seller</p>
-                        <textarea
-                            class="input h-28 border border-border-dark border-opacity-20 dark:border-white dark:border-opacity-50"></textarea>
-                    </div> --}}
                 </div>
             </div>
         </div>
