@@ -31,4 +31,9 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.order_form');
     }
+
+    public function checkout()
+    {
+        return view('frontend.pages.checkout');
+    }
 }

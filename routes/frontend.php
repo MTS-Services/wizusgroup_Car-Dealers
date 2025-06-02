@@ -23,6 +23,8 @@ Route::group(['as' => 'frontend.'], function () {
         Route::get('/product-details/{slug}', 'productDetails')->name('product.details');
     });
 
+    Route::get('/checkout', [FrontendController::class, 'checkout'])->name('checkout');
+
     // Contact Page
     Route::controller(ContactPageController::class)->prefix('contact')->group(function () {
         Route::get('/', 'contact')->name('contact');
