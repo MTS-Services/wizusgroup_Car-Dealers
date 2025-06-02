@@ -14,13 +14,13 @@
                     </div>
                     <div>
                         <ul class="">
-                            {{-- <li class="group nav_item dark:hover:bg-bg-dark-tertiary transition-all duration-300"
-                                data-target="my_reserves">
-                                <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="menu"
+                            <li class="group nav_item dark:hover:bg-bg-dark-tertiary transition-all duration-300"
+                                data-target="my_orders">
+                                <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="shopping-cart"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
-                                        class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('My Reserves') }}</span>
+                                        class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('My Orders') }}</span>
                                 </a>
-                            </li> --}}
+                            </li>
                             <li class="group nav_item  dark:hover:bg-bg-dark-tertiary  transition-all duration-300"
                                 data-target="my_containers">
                                 <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="container"
@@ -37,7 +37,7 @@
                             </li>
                             <li class="group nav_item dark:hover:bg-bg-dark-tertiary  transition-all duration-300"
                                 data-target="my_inquiries">
-                                <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="mail"
+                                <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="info"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('My Inquiries') }}</span>
                                 </a>
@@ -49,8 +49,7 @@
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('Update Profile') }}</span>
                                 </a>
                             </li>
-                            <li class="group nav_item dark:hover:bg-bg-dark-tertiary  transition-all duration-300"
-                                data-target="update-profile">
+                            <li class="group nav_item dark:hover:bg-bg-dark-tertiary  transition-all duration-300">
                                 <a href="javascript:void(0)" onclick="document.getElementById('logout-form').submit()"
                                     class="flex items-center gap-2 p-3"><i data-lucide="log-out"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
@@ -81,9 +80,9 @@
                             {{-- Client Dashboard --}}
                             @include('backend.user.includes.client_dashboard')
                         </div>
-                        {{-- <div id="my_reserves" class="nav-pane hidden">
-                            @include('backend.user.includes.my_reserves')
-                        </div> --}}
+                        <div id="my_orders" class="nav-pane hidden">
+                            @include('backend.user.includes.my_orders')
+                        </div>
                         <div id="my_containers" class="nav-pane hidden">
                             {{-- My Containers --}}
                             @include('backend.user.includes.my_containers')

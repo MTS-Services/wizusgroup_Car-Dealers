@@ -2,7 +2,7 @@
     <div class="max-w-6xl mx-auto">
         <!-- Orders Panel Header -->
         <div class="pb-4">
-            <h2 class="text-xl lg:text-2xl font-medium text-text-primary dark:text-text-white">
+            <h2 class="text-xl lg:text-2xl font-semibold text-text-primary dark:text-text-white">
                 {{ __('My Orders') }}</h2>
         </div>
 

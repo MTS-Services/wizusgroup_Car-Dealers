@@ -111,7 +111,7 @@
         </div>
         <div id="no-containers-message"
             class="hidden text-2xl font-semibold text-text-primary dark:text-text-light text-center uppercase bg-bg-white rounded-lg p-5 shadow-card">
-            {{ __('No Containers Found') }}
+            {{ __('No Data Found') }}
         </div>
         {{-- @if ($my_containers->count() == 0 )
             <h1
