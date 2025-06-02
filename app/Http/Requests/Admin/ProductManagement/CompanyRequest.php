@@ -25,7 +25,7 @@ class CompanyRequest extends FormRequest
             'description' => 'nullable|string',
            'meta_title' => 'nullable|string|min:30|max:60',
             'meta_description' => 'nullable|string|min:60|max:160',
-            'image'=> 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
+            'image'=> 'nullable',
             'website'=> 'nullable|url',
 
         ]

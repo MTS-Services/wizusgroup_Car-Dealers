@@ -28,6 +28,9 @@ class ProInfoCatTypeController extends Controller
         $this->middleware('permission:product-info-category-type-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:product-info-category-type-delete', ['only' => ['destroy']]);
         $this->middleware('permission:product-info-category-type-status', ['only' => ['status']]);
+        $this->middleware('permission:product-info-category-type-recycle-bin', ['only' => ['recycleBin']]);
+        $this->middleware('permission:product-info-category-type-restore', ['only' => ['restore']]);
+        $this->middleware('permission:product-info-category-type-permanent-delete', ['only' => ['permanentDelete']]);
     }
 
     /**

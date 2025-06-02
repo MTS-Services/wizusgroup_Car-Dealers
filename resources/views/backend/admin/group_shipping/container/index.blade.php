@@ -79,11 +79,12 @@
     {{-- Show details scripts --}}
     <script src="{{ asset('modal/details_modal.js') }}"></script>
     <script>
+        // Event listener for viewing details
         $(document).on("click", ".view", function() {
             let id = $(this).data("id");
-            let route = "{{ route('gs.shipping-location.show', ['id']) }}";
+            let route = "{{ route('gs.container.show', ['id']) }}";
             const detailsUrl = route.replace("id", id);
-            const headers = [{
+            const headers =[{
                     label: "Title",
                     key: "title"
                 },
@@ -93,11 +94,11 @@
                 },
                 {
                     label: "Shipping Port",
-                    key: "shippingPort.name"
+                    key: "shipping_port_name"
                 },
                 {
                     label: "Destination Port",
-                    key: "destinationPort.name"
+                    key: "destination_port_name"
                 },
                 {
                     label: "Image",

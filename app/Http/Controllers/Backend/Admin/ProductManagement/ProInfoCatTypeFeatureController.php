@@ -183,8 +183,8 @@ class ProInfoCatTypeFeatureController extends Controller
     {
         $data = $this->proInfoCatTypeFeatureService->getProInfoCatTypeFeature($id);
         $data->load(['creater_admin', 'updater_admin', 'infoCategory','infoCategoryType']);
-        $data['product_info_cat_name'] = $data?->brand?->name;
-        $data['product_info_cat_type_name'] = $data?->company?->name;
+        $data['product_info_cat_name'] = $data?->infoCategory?->name;
+        $data['product_info_cat_type_name'] = $data?->infoCategoryType?->name;
         return response()->json($data);
     }
 

@@ -40,7 +40,7 @@ class TestimonialService
     }
     public function updateTestimonial(string $encryptedId, array $data, $file = null): Testimonial
     {
-         $testimonial = $this->getTestimonial($encryptedId);
+        $testimonial = $this->getTestimonial($encryptedId);
         $data['updater_id'] = admin()->id;
         $data['updater_type'] = get_class(admin());
         if ($file) {

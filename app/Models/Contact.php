@@ -18,6 +18,14 @@ class Contact extends BaseModel
         'email',
         'message',
         'status',
+
+        'creater_id',
+        'updater_id',
+        'deleter_id',
+
+        'creater_type',
+        'updater_type',
+        'deleter_type',
     ];
 
     // Status constants

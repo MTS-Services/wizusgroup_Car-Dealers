@@ -88,8 +88,8 @@
                     key: "product_info_cat_name",
                 },
                 {
-                    label: "Product Info Category Type Feature",
-                    key: "product_info_cat_type_feature_name",
+                    label: "Product Info Category Type",
+                    key: "product_info_cat_type_name",
                 },
                 {
                     label: "Name",

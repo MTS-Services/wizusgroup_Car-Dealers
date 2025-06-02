@@ -153,7 +153,7 @@ class RegionController extends Controller
      */
        public function store(RegionRequest $request): RedirectResponse
     {
-
+      
         try {
             $validated = $request->validated();
             $this->regionService->createRegion($validated);

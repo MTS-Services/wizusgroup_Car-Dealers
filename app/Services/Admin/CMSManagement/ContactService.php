@@ -38,7 +38,7 @@ class ContactService
      public function delete(string $encryptedId): void
     {
         $contacat = $this->getContact($encryptedId);
-        $contacat->update(['deleter_id' => admin()->id]);
+        $contacat->update(['deleter_id' => admin()->id, 'deleter_type' => get_class(admin())]);
         $contacat->delete();
     }
      public function getDeletedContact(string $encryptedId): Contact | Collection
@@ -48,7 +48,7 @@ class ContactService
     public function restore(string $encryptedId): void
     {
         $contacat = $this->getDeletedContact($encryptedId);
-        $contacat->update(['updated_by' => admin()->id]);
+        $contacat->update(['updated_by' => admin()->id, 'updated_type' => get_class(admin())]);
         $contacat->restore();
     }
 
