@@ -17,13 +17,18 @@ return new class extends Migration
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
-
-
-
-
+            $table->unsignedBigInteger('cart_id')->index();
+            $table->unsignedBigInteger('product_id')->index();
+            $table->decimal('price', 10, 2)->default(0);
+            $table->integer('quantity');
+            $table->decimal('total', 15, 2)->default(0);
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
+
+            // Relationships
+            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
 
 
             // Indexes
