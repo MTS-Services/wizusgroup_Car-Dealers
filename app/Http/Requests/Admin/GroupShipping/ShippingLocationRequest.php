@@ -31,6 +31,9 @@ class ShippingLocationRequest extends FormRequest
     protected function store(): array
     {
         return [
+            'country' => 'required|exists:countries,id',
+            'state' => 'nullable|exists:states,id',
+            'city' => 'required|exists:cities,id',
             'name' => 'required|unique:shipping_locations,name',
             'slug' => 'required|unique:shipping_locations,slug',
         ];

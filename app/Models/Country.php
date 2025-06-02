@@ -132,6 +132,10 @@ class Country extends BaseModel
         return $this->hasMany(OperationSubArea::class, 'country_id');
     }
 
+    public function shippingLocations()
+    {
+        return $this->hasMany(ShippingLocation::class);
+    }
     // End Relations
 
     public function activeCities(): HasMany

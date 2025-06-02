@@ -25,9 +25,9 @@
                         <thead>
                             <tr>
                                 <th>{{ __('SL') }}</th>
+                                <th>{{ __('Name') }}</th>
                                 <th>{{ __('Country') }}</th>
                                 <th>{{ __('City') }}</th>
-                                <th>{{ __('Name') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Created By') }}</th>
                                 <th>{{ __('Created Date') }}</th>
@@ -50,9 +50,9 @@
     <script>
         $(document).ready(function() {
             let table_columns = [
+                ['name', true, true],
                 ['country_id', true, true],
                 ['city_id', true, true],
-                ['name', true, true],
                 ['status', true, true],
                 ['created_by', true, true],
                 ['created_at', false, false],

@@ -463,7 +463,7 @@
                                  @auth('web')
                                          onclick="document.getElementById('reserve-{{ $product->slug }}').showModal()"
                                     @endauth
-                                 class="btn-primary w-full">{{ __('Reserve & Inquiry') }}</a>
+                                 class="btn-primary w-full">{{ __('Buy Now') }}</a>
 
                              <x-backend.user.reserve :product="$product" />
 

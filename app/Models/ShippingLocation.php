@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ShippingLocation extends BaseModel
 {
@@ -14,13 +15,16 @@ class ShippingLocation extends BaseModel
         'name',
         'slug',
         'status',
+        'country_id',
+        'state_id',
+        'city_id',
 
         'created_by',
         'updated_by',
         'deleted_by',
     ];
 
-        public function __construct(array $attributes = [])
+    public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
         $this->appends = array_merge(parent::getAppends(), [
@@ -31,6 +35,18 @@ class ShippingLocation extends BaseModel
             'status_btn_color',
             'status_labels',
         ]);
+    }
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
+    public function state(): BelongsTo
+    {
+        return $this->belongsTo(State::class, 'state_id', 'id');
+    }
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class, 'city_id', 'id');
     }
 
 
@@ -81,10 +97,10 @@ class ShippingLocation extends BaseModel
     // Accessor for status btn color
     public function getStatusBtnColorAttribute(): string
     {
-        return $this->status == self::STATUS_ACTIVE ? 'btn btn-warning': 'btn btn-success';
+        return $this->status == self::STATUS_ACTIVE ? 'btn btn-warning' : 'btn btn-success';
     }
 
-      public function scopeActive($query)
+    public function scopeActive($query)
     {
         return $query->where('status', self::STATUS_ACTIVE);
     }
@@ -92,5 +108,4 @@ class ShippingLocation extends BaseModel
     {
         return $query->where('status', self::STATUS_DEACTIVE);
     }
-
 }

@@ -18,6 +18,31 @@
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+                        <div class="form-group">
+                            <label>{{ __('Country') }} <span class="text-danger">*</span></label>
+                            <select name="country" id="country" class="form-control">
+                                <option value="" selected hidden>{{__('Select Country')}}</option>
+                                @foreach ($countries as $country)
+                                    <option value="{{$country->id}}" {{ $shipping_location->country_id == $country->id ? 'selected' : ''}}>{{ $country->name }}</option>
+                                @endforeach
+                            </select>
+                            <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'country']" />
+                        </div>
+                        <div class="form-group">
+                            <label>{{ __('State') }}</label>
+                            <select name="state" id="state" class="form-control" disabled>
+                                <option value="" selected hidden>{{__('Select State')}}</option>
+                            </select>
+                            <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'state']" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{ __('City') }} <span class="text-danger">*</span></label>
+                            <select name="city" id="city" class="form-control" disabled>
+                                <option value="" selected hidden>{{__('Select City')}}</option>
+                            </select>
+                            <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'city']" />
+                        </div>
                         {{-- Name --}}
                         <div class="form-group">
                             <label>{{ __('Name') }} <span class="text-danger">*</span></label>
@@ -45,3 +70,27 @@
         <x-backend.admin.documentation :document="$document" />
     </div>
 @endsection
+@push('js')
+    <script src="{{ asset('ckEditor5/main.js') }}"></script>
+
+    <script>
+         // Get Country States By Axios
+        $(document).ready(function() {
+            let route1 = "{{ route('axios.get-states-or-cities') }}";
+            $('#country').on('change', function () {
+                getStatesOrCity($(this).val(), route1);
+            });
+            let route2 = "{{ route('axios.get-cities') }}";
+            $('#state').on('change', function () {
+                getCities($(this).val(), route2);
+            });
+            let data_id = `{{ $shipping_location->state_id ? $shipping_location->state_id : $shipping_location->city_id }}`;
+            if(data_id){
+                getStatesOrCity($('#country').val(), route1, data_id);
+            }
+            if(`{{$shipping_location->state_id}}`){
+                getCities(`{{$shipping_location->state_id}}`, route2, `{{ $shipping_location->city_id }}`);
+            }
+        });
+    </script>
+@endpush

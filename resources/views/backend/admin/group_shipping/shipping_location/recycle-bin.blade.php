@@ -20,6 +20,8 @@
                             <tr>
                                 <th>{{ __('SL') }}</th>
                                 <th>{{ __('Name') }}</th>
+                                <th>{{ __('Country') }}</th>
+                                <th>{{ __('City') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Deleted By') }}</th>
                                 <th>{{ __('Deleted Date') }}</th>
@@ -42,6 +44,8 @@
             let table_columns = [
                 //name and data, orderable, searchable
                 ['name', true, true],
+                ['country_id', true, true],
+                ['city_id', true, true],
                 ['status', true, true],
                 ['deleted_by', true, true],
                 ['deleted_at', true, true],
@@ -53,7 +57,7 @@
                 displayLength: 10,
                 main_route: "{{ route('gs.shipping-location.recycle-bin') }}",
                 order_route: "{{ route('update.sort.order') }}",
-                export_columns: [0, 1, 2, 3,4],
+                export_columns: [0, 1, 2, 3, 4],
                 model: 'ShippingLocation',
             };
             // initializeDataTable(details);

@@ -149,4 +149,9 @@ class State extends BaseModel
     {
         return $this->operationSubAreass()->active();
     }
+
+    public function shippingLocations()
+    {
+        return $this->hasMany(ShippingLocation::class);
+    }
 }
