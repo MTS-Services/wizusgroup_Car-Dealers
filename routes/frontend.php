@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Frontend\AuctionPageController;
 use App\Http\Controllers\Frontend\AuctionDetailsPageController;
+use App\Http\Controllers\Frontend\CartPageController;
+use App\Http\Controllers\Frontend\CheckoutPageController;
 use App\Http\Controllers\Frontend\ContactPageController;
 use App\Http\Controllers\Frontend\HomePageController;
 use App\Http\Controllers\Frontend\ProductPageController;
@@ -22,6 +24,8 @@ Route::group(['as' => 'frontend.'], function () {
         Route::post('/products-filter/{category_slug?}', 'productFilter')->name('products.filter');
         Route::get('/product-details/{slug}', 'productDetails')->name('product.details');
     });
+
+    Route::get('/checkout', [FrontendController::class, 'checkout'])->name('checkout');
 
     // Contact Page
     Route::controller(ContactPageController::class)->prefix('contact')->group(function () {
@@ -57,5 +61,11 @@ Route::group(['as' => 'frontend.'], function () {
 
     //   Region Page
     Route::get('/region', [RegionPageController::class, 'region'])->name('regions');
+
+    // Cart Page
+    Route::get('/cart', [CartPageController::class, 'cart'])->name('cart');
+
+    // Checkout Page
+    Route::get('/checkout', [CheckoutPageController::class, 'checkout'])->name('checkout');
 
 });

@@ -241,7 +241,7 @@ class CountryController extends Controller
             session()->flash('error', 'Country permanent delete failed!');
             throw $e;
         }
-        return redirect()->route('setuo.country.recycle-bin');
+        return redirect()->route('setup.country.recycle-bin');
     }
 
     public function status(string $id): RedirectResponse

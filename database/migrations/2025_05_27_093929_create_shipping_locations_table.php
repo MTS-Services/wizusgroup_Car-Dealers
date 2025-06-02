@@ -17,6 +17,9 @@ return new class extends Migration {
         Schema::create('shipping_locations', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
+            $table->bigInteger('country_id')->unsigned()->index();
+            $table->bigInteger('state_id')->unsigned()->index();
+            $table->bigInteger('city_id')->unsigned()->index();
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->boolean('status')->index()->default(ShippingLocation::STATUS_ACTIVE);
@@ -24,7 +27,10 @@ return new class extends Migration {
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
 
-
+            // Foreign keys
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+            $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
             // Indexes
             $table->index('created_at'); // Index for soft deletes
             $table->index('updated_at'); // Index for soft deletes

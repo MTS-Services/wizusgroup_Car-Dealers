@@ -43,7 +43,6 @@
     <x-backend.admin.details-modal :datas="['modal_title' => 'Region Shipping Timeline Details']" />
 @endsection
 @push('js')
-    <script src="{{ asset('custom_litebox/litebox.js') }}"></script>
     {{-- Datatable Scripts --}}
     <script src="{{ asset('datatable/main.js') }}"></script>
     <script>
@@ -70,7 +69,7 @@
     </script>
 @endpush
 @push('js')
-    {{-- Show details scripts --}}
+    
     <script src="{{ asset('modal/details_modal.js') }}"></script>
     <script>
         // Event listener for viewing details
@@ -95,7 +94,7 @@
                     key: "max_days"
                 },
                 {
-                    label:'Description',
+                    label: 'Description',
                     key: "description"
                 }
             ];

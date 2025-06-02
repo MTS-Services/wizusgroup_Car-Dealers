@@ -73,6 +73,7 @@
                         <div class="form-group">
                             <label>{{ __('Meta Description') }}</label>
                             <textarea name="meta_description" class="form-control no-ckeditor5" id="meta_description" placeholder="Enter meta description">{{ old('meta_description', $brand->meta_description) }}</textarea>
+                            <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'meta_description']" />
                         </div>
 
                         {{-- Description --}}

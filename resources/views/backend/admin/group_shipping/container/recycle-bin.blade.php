@@ -1,16 +1,16 @@
-@extends('backend.admin.layouts.master', ['page_slug' => 'shipping_location'])
-@section('title', 'Shipping Location Recycle Bin')
+@extends('backend.admin.layouts.master', ['page_slug' => 'container'])
+@section('title', 'Container Recycle Bin')
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Shipping Location Recycle Bin') }}</h4>
+                    <h4 class="cart-title">{{ __('Container Recycle Bin') }}</h4>
                     <div class="buttons">
                         <x-backend.admin.button :datas="[
-                            'routeName' => 'gs.shipping-location.index',
+                            'routeName' => 'gs.container.index',
                             'label' => 'Back',
-                            'permissions' => ['shipping-location-list'],
+                            'permissions' => ['container-list'],
                         ]" />
                     </div>
                 </div>
@@ -19,9 +19,9 @@
                         <thead>
                             <tr>
                                 <th>{{ __('SL') }}</th>
-                                <th>{{ __('Name') }}</th>
-                                <th>{{ __('Country') }}</th>
-                                <th>{{ __('City') }}</th>
+                                <th>{{ __('Title') }}</th>
+                                <th>{{ __('Shipping Port') }}</th>
+                                <th>{{ __('Destination Port') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Deleted By') }}</th>
                                 <th>{{ __('Deleted Date') }}</th>
@@ -43,9 +43,9 @@
         $(document).ready(function() {
             let table_columns = [
                 //name and data, orderable, searchable
-                ['name', true, true],
-                ['country_id', true, true],
-                ['city_id', true, true],
+                ['title', true, true],
+                ['shipping_port', true, true],
+                ['destination_port', true, true],
                 ['status', true, true],
                 ['deleted_by', true, true],
                 ['deleted_at', true, true],
@@ -55,10 +55,10 @@
                 table_columns: table_columns,
                 main_class: '.datatable',
                 displayLength: 10,
-                main_route: "{{ route('gs.shipping-location.recycle-bin') }}",
+                main_route: "{{ route('gs.container.recycle-bin') }}",
                 order_route: "{{ route('update.sort.order') }}",
-                export_columns: [0, 1, 2, 3, 4],
-                model: 'ShippingLocation',
+                export_columns: [0, 1, 2, 3, 4, 5],
+                model: 'Documentation',
             };
             // initializeDataTable(details);
 
