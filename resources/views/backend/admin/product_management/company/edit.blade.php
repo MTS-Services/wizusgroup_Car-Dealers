@@ -57,12 +57,14 @@
                     <div class="form-group">
                         <label>{{ __('Meta Description') }}</label>
                         <textarea name="meta_description" class="form-control no-ckeditor5" id="meta_description" placeholder="Enter meta description">{{ old('meta_description', $company->meta_description) }}</textarea>
+                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'meta_description']" />
                     </div>
 
                     {{-- Description --}}
                     <div class="form-group">
                         <label>{{ __('Description') }}</label>
                         <textarea name="description" class="form-control" placeholder="Enter description">{{ old('description', $company->description) }}</textarea>
+
                     </div>
                     {{-- Submit --}}
                     <div class="form-group float-end mt-3">

@@ -7,7 +7,7 @@
     data-product="1">
     <!-- Car Image -->
     <div class="relative">
-        <a href="{{ route('frontend.auction-details', $auction->slug) }}" class="w-full block h-56 overflow-hidden">
+        <a href="{{ route('frontend.auction-details', $auction->slug) }}" class="w-full block h-60 overflow-hidden">
             <img src="{{ storage_url($auction->product?->primaryImage->first()?->image) }}"
                 alt="{{ $auction->product?->primaryImage->first()?->alt ?? ($auction->product?->name ?? $auction->title) }}"
                 class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105">

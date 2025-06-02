@@ -24,6 +24,10 @@ class ProductInfoCatController extends Controller
         $this->middleware('permission:product-info-category-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:product-info-category-delete', ['only' => ['destroy']]);
         $this->middleware('permission:product-info-category-status', ['only' => ['status']]);
+        $this->middleware('permission:product-info-category-recycle-bin', ['only' => ['recycleBin']]);
+        $this->middleware('permission:product-info-category-restore', ['only' => ['restore']]);
+        $this->middleware('permission:product-info-category-permanent-delete', ['only' => ['permanentDelete']]);
+
     }
 
     /**

@@ -315,7 +315,7 @@ class SuppliersController extends Controller
         }
         $this->supplierService->toggleStatus($admin);
         session()->flash('success', 'Admin status updated successfully!');
-        return redirect()->route('am.admin.index');
+        return redirect()->route('sm.supplier.index');
     }
 
     public function restore(string $id): RedirectResponse

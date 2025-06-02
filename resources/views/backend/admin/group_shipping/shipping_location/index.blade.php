@@ -29,6 +29,8 @@
                             <tr>
                                 <th>{{ __('SL') }}</th>
                                 <th>{{ __('Name') }}</th>
+                                <th>{{ __('Country') }}</th>
+                                <th>{{ __('City') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Created By') }}</th>
                                 <th>{{ __('Created Date') }}</th>
@@ -53,6 +55,8 @@
         $(document).ready(function() {
             let table_columns = [
                 ['name', true, true],
+                ['country_id', true, true],
+                ['city_id', true, true],
                 ['status', true, true],
                 ['created_by', true, true],
                 ['created_at', false, false],
@@ -79,10 +83,17 @@
             let id = $(this).data("id");
             let route = "{{ route('gs.shipping-location.show', ['id']) }}";
             const detailsUrl = route.replace("id", id);
-            const headers = [
-                {
+            const headers = [{
                     label: "Name",
                     key: "name"
+                },
+                {
+                    label: "Country",
+                    key: "country_name"
+                },
+                {
+                    label: "City",
+                    key: "city_name"
                 },
                 {
                     label: "Slug",
