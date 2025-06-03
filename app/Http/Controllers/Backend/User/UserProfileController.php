@@ -54,8 +54,6 @@ class UserProfileController extends Controller
 
     public function profileUpdate(UserProfileRequest $request)
     {
-         $value = $request->session()->get('key');
-         dd($value);
         $validated = $request->validated();
         $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
         $this->userService->updateUserProfile(user(), $validated , $file);
@@ -101,7 +99,6 @@ class UserProfileController extends Controller
     public function containerDetails($container_slug)
     {
         $data['container'] = ContainerReservation::with(['container.destinationPort', 'container.shippingPort'])->where('id', decrypt($container_slug))->firstOrFail();
-        // dd($data['container']);
         return view('backend.user.details_my_container', $data);
     }
 }
