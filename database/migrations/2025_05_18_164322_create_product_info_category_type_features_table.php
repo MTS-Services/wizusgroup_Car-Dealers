@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Traits\AuditColumnsTrait;
 
-return new class extends Migration
-{
+return new class extends Migration {
     use SoftDeletes, AuditColumnsTrait;
     /**
      * Run the migrations.
@@ -20,7 +19,7 @@ return new class extends Migration
             $table->bigInteger('sort_order')->default(0)->index();
 
             $table->unsignedBigInteger('product_info_cat_id');
-            $table->unsignedBigInteger('product_info_cat_type_id');
+            $table->unsignedBigInteger('product_info_cat_type_id')->nullable();
 
             $table->string('name');
             $table->string('slug')->unique();

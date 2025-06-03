@@ -2,7 +2,7 @@
 @section('title', 'Create Product Information Category Type Feature')
 @section('content')
     <div class="row">
-         <div class="{{ $document ? 'col-md-8' : 'col-md-12' }}">
+        <div class="{{ $document ? 'col-md-8' : 'col-md-12' }}">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="cart-title">{{ __('Create Product Information Category Type Feature') }}</h4>
@@ -19,17 +19,17 @@
                         <div class="form-group">
                             <label>{{ __('Product Info Category') }} <span class="text-danger">*</span></label>
                             <select name="product_info_cat_id" class="form-control" id="product_info_cat_id">
-                                <option value="" selected hidden>{{ __('Select product_info_cat_id') }}</option>
-                                @foreach ($features as $feature)
-                                    <option value="{{ $feature->id }}"
-                                        {{ old('product_info_cat_id') == $feature->id ? 'selected' : '' }}>
-                                        {{ $feature->name }}</option>
+                                <option value="" selected hidden>{{ __('Select Product Info Category') }}</option>
+                                @foreach ($pro_info_cats as $cat)
+                                    <option value="{{ $cat->id }}"
+                                        {{ old('product_info_cat_id') == $cat->id ? 'selected' : '' }}>
+                                        {{ $cat->name }}</option>
                                 @endforeach
                             </select>
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'product_info_cat_id']" />
                         </div>
                         <div class="form-group">
-                            <label>{{ __('Product Info Category Type') }} <span class="text-danger">*</span></label>
+                            <label>{{ __('Product Info Category Type') }}</label>
                             <select name="product_info_cat_type_id" class="form-control" id="product_info_cat_type_id"
                                 disabled>
                                 <option value="" selected hidden>{{ __('Select Product Info Category Type') }}

@@ -20,11 +20,11 @@ class ProInfoCatTypeFeatureRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-   public function rules(): array
+    public function rules(): array
     {
         return [
             'product_info_cat_id' => 'required|exists:product_info_categories,id',
-            'product_info_cat_type_id' => 'required|exists:product_info_category_types,id',
+            'product_info_cat_type_id' => 'nullable|exists:product_info_category_types,id',
 
         ]
             +
