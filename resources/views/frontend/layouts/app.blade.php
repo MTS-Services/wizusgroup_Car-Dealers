@@ -180,6 +180,152 @@
 
     {{-- Side Bar --}}
     <script src="{{ asset('frontend/js/sidebar.js') }}"></script>
+    {{-- Cart Sidebar --}}
+    <script src="{{ asset('frontend/js/cartSidebar.js') }}"></script>
+    {{-- Cart Page js --}}
+    <script>
+        // Cart data
+        const cartItems = [{
+                id: 1,
+                name: '	Mahindra 575 DI Tractor',
+                variant: 'Mahindra / 575 DI',
+                price: 100.00,
+                quantity: 1,
+                image: '{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}'
+            },
+            {
+                id: 2,
+                name: 'New Holland 3630 TX Plus Super Tractor',
+                variant: 'New Holland / 3630 TX Plus',
+                price: 120.00,
+                quantity: 1,
+                image: '{{ asset('frontend/images/products/tractor-2.avif') }}'
+            }
+        ];
+
+        // Render cart items
+        function renderCartItems() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = '';
+
+            cartItems.forEach(item => {
+                const row = document.createElement('tr');
+                row.className = 'border-b border-border-dark border-opacity-20 dark:border-white dark:border-opacity-50';
+                row.innerHTML = `
+                <td class="py-4">
+                    <div class="flex items-center">
+                        <img src="${item.image}" alt="${item.name}" class="w-20 h-24 object-cover mr-4">
+                        <div>
+                            <h3 class="font-medium">${item.name}</h3>
+                            <p class="text-sm text-text-gray">${item.variant}</p>
+                            <button class="text-sm text-text-gray mt-1 remove-item hover:text-text-danger hover:underline transition-all duration-300" data-id="${item.id}">Remove</button>
+                        </div>
+                    </div>
+                </td>
+                <td class="py-4">$${item.price.toFixed(2)}</td>
+                <td class="py-4">
+                    <div class="flex items-center shadow-sm rounded-full w-24 p-1 bg-bg-primary bg-opacity-60 dark:bg-opacity-50 text-text-white">
+                        <button class=" px-2 py-1 decrease-quantity" data-id="${item.id}">-</button>
+                        <input type="text" value="${item.quantity}" class="p-0 w-8 h-4 text-center border-x bg-transparent" readonly>
+                        <button class="px-2 py-1 increase-quantity" data-id="${item.id}">+</button>
+                    </div>
+                </td>
+                <td class="py-4">$${(item.price * item.quantity).toFixed(2)}</td>
+            `;
+                cartItemsContainer.appendChild(row);
+            });
+            
+            updateCartTotal();
+        }
+        // Render cart items
+        function renderCheckoutCartItems() {
+            const checkoutCartItemsContainer = document.getElementById('checkout-cart-items');
+            checkoutCartItemsContainer.innerHTML = '';
+
+            cartItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className =
+                    'flex gap-3 p-2 mt-3 bg-bg-gray dark:bg-bg-darkSecondary rounded-md shadow-card mx-5';
+                div.innerHTML = `
+                <div class="w-[25%] h-full shrink-0 rounded-sm overflow-hidden">
+                    <img src="${item.image}" class="w-24 h-full object-cover mr-5" alt="${item.name}">
+                </div>
+                <div class="w-[75%] flex flex-col">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-md font-medium">${item.name}</h4>
+                        <p class="remove-item hover:text-text-danger" data-id="${item.id}"><i data-lucide="x" class="text-sm"></i></p>
+                    </div>
+                    <p class="text-sm mt-2">${item.variant}</p>
+                    
+                </div>
+            </div>
+            `;
+                checkoutCartItemsContainer.appendChild(div);
+            });
+
+            // Add event listeners
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', function() {
+                    const itemId = parseInt(this.getAttribute('data-id'));
+                    removeItem(itemId);
+                });
+            });
+
+            document.querySelectorAll('.decrease-quantity').forEach(button => {
+                button.addEventListener('click', function() {
+                    const itemId = parseInt(this.getAttribute('data-id'));
+                    updateQuantity(itemId, -1);
+                });
+            });
+
+            document.querySelectorAll('.increase-quantity').forEach(button => {
+                button.addEventListener('click', function() {
+                    const itemId = parseInt(this.getAttribute('data-id'));
+                    updateQuantity(itemId, 1);
+                });
+            });
+
+            updateCartTotal();
+        }
+
+        // Remove item from cart
+        function removeItem(itemId) {
+            const index = cartItems.findIndex(item => item.id === itemId);
+            if (index !== -1) {
+                cartItems.splice(index, 1);
+                renderCartItems();
+                renderCheckoutCartItems();
+            }
+        }
+
+        // Update item quantity
+        function updateQuantity(itemId, change) {
+            const item = cartItems.find(item => item.id === itemId);
+            if (item) {
+                const newQuantity = item.quantity + change;
+                if (newQuantity > 0) {
+                    item.quantity = newQuantity;
+                    renderCartItems();
+                    renderCheckoutCartItems();
+                }
+            }
+        }
+
+        // Update cart total
+        function updateCartTotal() {
+            const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.querySelectorAll('.cart-total').forEach(totalValue => {
+                totalValue.textContent = `$${total.toFixed(2)} USD`;
+            });
+        }
+
+
+        // Initialize cart
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCartItems();
+            renderCheckoutCartItems();
+        });
+    </script>
 
     {{-- Toggle search form --}}
     <script src="{{ asset('frontend/js/toggleSearchForm.js') }}"></script>
