@@ -180,7 +180,7 @@ class AdminController extends Controller
      */
     public function create(): View
     {
-        $data['roles'] = $this->roleService->getRoles()->select(['id','name'])->get();
+        $data['roles'] = $this->roleService->getRoles()->select(['id', 'name'])->get();
         $data['document'] = Documentation::where([['module_key', 'admin'], ['type', 'create']])->first();
         return view('backend.admin.admin_management.admin.create', $data);
     }
@@ -190,8 +190,14 @@ class AdminController extends Controller
      */
     public function store(AdminRequest $request): RedirectResponse
     {
-         try {
+        try {
             $validated = $request->validated();
+            $assignedRoleId = $request->role; // Get the role being assigned
+            // New validation: Only Super Admin can assign Super Admin role
+            if ($assignedRoleId == 1 && admin()->role_id != 1) {
+                session()->flash('error', 'You are not authorized to assign Super Admin role.');
+                return redirect()->route('am.admin.index');
+            }
             $validated['role_id'] = $request->role;
             $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
             $this->adminService->createAdmin($validated, $file);
@@ -209,7 +215,7 @@ class AdminController extends Controller
     public function show(string $id): JsonResponse
     {
         $data = $this->adminService->getAdmin($id);
-        $data->load(['creater_admin', 'updater_admin','role']);
+        $data->load(['creater_admin', 'updater_admin', 'role']);
         return response()->json($data);
     }
 
@@ -219,7 +225,7 @@ class AdminController extends Controller
     public function edit(string $id): View
     {
         $data['admin'] = $this->adminService->getAdmin($id);
-        $data['roles'] = $this->roleService->getRoles()->select('id','name')->get();
+        $data['roles'] = $this->roleService->getRoles()->select('id', 'name')->get();
         $data['document'] = Documentation::where([['module_key', 'admin'], ['type', 'update']])->first();
         return view('backend.admin.admin_management.admin.edit', $data);
     }
@@ -231,10 +237,25 @@ class AdminController extends Controller
     {
         try {
             $admin = $this->adminService->getAdmin($id);
+            // Existing validation: Prevent non-Super Admin from updating an existing Super Admin
+            if ($admin->role_id == 1 && admin()->role_id != 1) {
+                session()->flash('error', 'You cannot update Super Admin!');
+                return redirect()->route('am.admin.index');
+            }
             $validated = $request->validated();
-            $validated['role_id'] = $request->role;
+            $assignedRoleId = $request->role; // Get the role being assigned
+
+            // New validation: Only Super Admin can assign Super Admin role during update
+            // This covers changing an admin's role TO Super Admin, and also if the current admin is Super Admin
+            // and tries to keep someone else as Super Admin, but they aren't Super Admin themselves.
+            if ($assignedRoleId == 1 && admin()->role_id != 1) {
+                session()->flash('error', 'You are not authorized to assign Super Admin role.');
+                return redirect()->route('am.admin.index');
+            }
+            $validated['role_id'] = $assignedRoleId; // Use the variable here
+            
             $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
-            $this->adminService->updateAdmin($admin,$validated,  $file);
+            $this->adminService->updateAdmin($admin, $validated,  $file);
             session()->flash('success', 'Admin updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Admin update failed!');
@@ -253,7 +274,7 @@ class AdminController extends Controller
             session()->flash('error', 'Can not delete Super Admin!');
             return redirect()->route('am.admin.index');
         }
-        $this->adminService->delete( $admin);
+        $this->adminService->delete($admin);
         session()->flash('success', 'Admin move to recycle bin successfully!');
         return redirect()->route('am.admin.index');
     }
@@ -284,7 +305,7 @@ class AdminController extends Controller
      */
     public function restore(string $id): RedirectResponse
     {
-        $this->adminService->restore( $id );
+        $this->adminService->restore($id);
         session()->flash('success', 'Admin restored successfully!');
         return redirect()->route('am.admin.recycle-bin');
     }
@@ -297,7 +318,7 @@ class AdminController extends Controller
      */
     public function permanentDelete(string $id): RedirectResponse
     {
-       $this->adminService->permanentDelete( $id );
+        $this->adminService->permanentDelete($id);
         session()->flash('success', 'Admin permanently deleted successfully!');
         return redirect()->route('am.admin.recycle-bin');
     }

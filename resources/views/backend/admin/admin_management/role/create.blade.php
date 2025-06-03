@@ -51,6 +51,7 @@
                                             @endforeach
                                         </div>
                                     @endforeach
+                                      <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'permissions']" />
                                 </div>
                             </div>
                         </div>
