@@ -65,7 +65,7 @@
                                     <div class="card-body">
                                         <div class="office-rows-container">
 
-                                            @forelse (json_decode($contact_info_settings['office_infos'], true) as $key => $office_info)
+                                            @forelse (json_decode($contact_info_settings['office_infos'] ?? '[]', true) as $key => $office_info)
                                                 <div class="row align-items-center office-row pb-3 mb-3">
                                                     <div class="col-11">
                                                         <div class="row">

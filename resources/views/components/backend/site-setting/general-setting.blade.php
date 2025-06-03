@@ -41,20 +41,17 @@
 
                     <div class="form-group{{ $errors->has('site_logo') ? ' has-danger' : '' }}">
                         <label>{{ __('Site Logo') }}</label>
-                        <input type="file" id="site_logo" name="uploadImage" data-actualName="site_logo"
-                            class="form-control {{ $errors->has('site_logo') ? ' is-invalid' : '' }} image-upload"
-                            @if (isset($general_settings['site_logo'])) data-existing-files="{{ storage_url($general_settings['site_logo']) }}" data-delete-url="" @endif
-                            accept="image/*">
+                        <input type="file" name="site_logo" class="form-control filepond" id="site_logo"
+                            accept="image/jpeg, image/png, image/jpg, image/webp, image/svg, image/gif">
                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'site_logo']" />
                     </div>
 
                     <div class="form-group{{ $errors->has('site_favicon') ? ' has-danger' : '' }}">
                         <label>{{ __('Site Favicon 16*16') }}</label>
 
-                        <input type="file" id="site_favicon" name="uploadImage" data-actualName="site_favicon"
-                            class="form-control {{ $errors->has('site_favicon') ? ' is-invalid' : '' }} image-upload"
-                            @if (isset($general_settings['site_favicon'])) data-existing-files="{{ storage_url($general_settings['site_favicon']) }}" data-delete-url="{{ storage_url($general_settings['site_favicon']) }}" @endif
-                            accept="image/*">
+                        <input type="file" name="site_favicon" class="form-control filepond" id="site_favicon"
+                            accept="image/jpeg, image/png, image/jpg, image/webp, image/svg, image/gif">
+
                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'site_favicon']" />
 
                     </div>
@@ -149,11 +146,17 @@
     <script src="{{ asset('filepond/filepond.js') }}"></script>
     <script>
         $(document).ready(function() {
-            const existingFiles = {
-                "#site_logo": "{{ isset($general_settings['site_logo']) ? asset('storage/' . $general_settings['site_logo']) : null }}",
-                "#site_favicon": "{{ isset($general_settings['site_favicon']) ? asset('storage/' . $general_settings['site_favicon']) : null }}",
-            };
-            file_upload(["#site_logo", "#site_favicon"], "uploadImage", "admin", existingFiles, false);
+            file_upload(["#site_logo"], ["image/jpeg", "image/png",
+                "image/jpg, image/webp, image/svg, image/gif"
+            ], {
+                "#site_logo": `{{ isset($general_settings['site_logo']) ? asset('storage/' . $general_settings['site_logo']) : null }}`
+            });
+
+            file_upload(["#site_favicon"], ["image/jpeg", "image/png",
+                "image/jpg, image/webp, image/svg, image/gif"
+            ], {
+                "#site_favicon": `{{ isset($general_settings['site_favicon']) ? asset('storage/' . $general_settings['site_favicon']) : null }}`
+            });
         });
     </script>
     {{-- FilePond  --}}

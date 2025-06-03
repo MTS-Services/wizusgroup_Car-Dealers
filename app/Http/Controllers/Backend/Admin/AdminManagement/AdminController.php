@@ -198,7 +198,7 @@ class AdminController extends Controller
                 session()->flash('error', 'You are not authorized to assign Super Admin role.');
                 return redirect()->route('am.admin.index');
             }
-            $validated['role_id'] = $request->role;
+            $validated['role_id'] = $assignedRoleId;
             $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
             $this->adminService->createAdmin($validated, $file);
             session()->flash('success', 'Admin created successfully!');
