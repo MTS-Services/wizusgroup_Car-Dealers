@@ -17,7 +17,7 @@
         <div class="flex-1 overflow-auto p-4 space-y-4">
             {{-- Item 1 --}}
 
-            @foreach (session('cart') as $item)
+            @forelse (session('cart') as $item)
                 <div
                     class="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-lg shadow-md dark:bg-bg-dark-secondary transition-all duration-200 hover:shadow-lg">
                     <div class="relative flex-shrink-0">
@@ -64,7 +64,9 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <p class="text-center text-text-gray dark:text-text-white">Your cart is empty.</p>
+            @endforelse
         </div>
 
         {{-- Checkout Card --}}
