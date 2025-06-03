@@ -53,7 +53,7 @@
         <div class="container">
             <div class="relative">
                 <div class="swiper categories static">
-                    <div class="swiper-wrapper py-4 sm:py-5">
+                    <div class="swiper-wrapper pt-4 sm:pt-5">
                         @foreach ($categories as $category)
                             <div class="swiper-slide px-2">
                                 <a href="{{ route('frontend.products', $category->slug) }}">
@@ -69,7 +69,7 @@
 
                     <!-- Controls (Hidden on small screens) -->
                     <div class="hidden md:block">
-                        <div class="swiper-pagination z-10 !-bottom-6 lg:!-bottom-8"></div>
+                        <div class="swiper-pagination z-10 !-bottom-6 lg:!-bottom-5"></div>
 
                         <div
                             class="swiper-button swiper-button-prev absolute top-1/2 transform -translate-y-1/2 -left-4 sm:-left-6 2xl:-left-9">
@@ -83,7 +83,7 @@
                 </div>
             </div>
 
-            <div class="text-center mx-auto xl:mt-10 lg:mt-8 md:mt-6 mt-4">
+            <div class="text-center mx-auto xl:mt-15 lg:mt-11 md:mt-9 mt-7">
                 <button>
                     <a href="{{ route('frontend.products') }}" class="btn-primary ">
                         {{ __('Shop Now') }}
@@ -110,7 +110,8 @@
                     data-hour="{{ date('H', strtotime($container->deadline)) }}"
                     data-minute="{{ date('i', strtotime($container->deadline)) }}"
                     data-second="{{ date('s', strtotime($container->deadline)) }}"></div>
-                <a href="{{ route('frontend.group_shipping') }}" class="btn-primary mx-auto py-2 mt-2 px-10 ">
+                <a href="{{ route('frontend.group_shipping') }}"
+                    class="btn-primary mx-auto py-2 xl:mt-9 lg:mt-7 md:mt-5 mt-3 px-10 ">
                     {{ __('Join Now') }}
                 </a>
             </div>
@@ -181,8 +182,11 @@
                                                 <span class="quote-preview">{{ $shortQuote }}</span>
                                                 @if ($isLong)
                                                     <span class="quote-full hidden">{{ $testimonial->quote }}</span>
-                                                    <span class="text-blue-600 cursor-pointer read-toggle text-sm items-center">Read more<i data-lucide="chevrons-right" class="w-4 h-4 inline-block "></i></span>
-                                                    @endif
+                                                    <span
+                                                        class="text-blue-600 cursor-pointer read-toggle text-sm items-center">Read
+                                                        more<i data-lucide="chevrons-right"
+                                                            class="w-4 h-4 inline-block "></i></span>
+                                                @endif
                                             </p>
                                         </div>
                                     </div>

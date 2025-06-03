@@ -24,13 +24,13 @@
                 </div>
                 <div class="relative">
                     <div class="swiper categories static">
-                        <div class="swiper-wrapper py-5">
+                        <div class="swiper-wrapper">
                             @foreach ($categories as $cat)
                                 <div class="swiper-slide">
                                     <a href="{{ route('frontend.products', $cat->slug) }}">
                                         <div>
                                             <div class="text-center">
-                                                <img class="w-auto rounded-xl object-cover mx-auto"
+                                                <img class="w-full h-36 rounded-xl object-cover mx-auto"
                                                     src="{{ $cat->modified_image }}" alt="{{ $cat?->name }}">
                                                 <p class="py-2">{{ __($cat?->name) }} </p>
                                             </div>
@@ -55,6 +55,7 @@
             </div>
         </section>
     @endif
+    
     {{-- Mid Content --}}
 
     <section class="py-15">
