@@ -10,7 +10,7 @@
 
 @section('content')
     {{-- ===================== banner Section Start ===================== --}}
-    <section class="lg:max-h-screen max-h-[70vh] md:max-h-[80vh] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative">
+    <section class=" max-h-[50vh] lg:max-h-[70vh] md:max-h-[60vh] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative">
         <div class="swiper banner h-full">
             <div class="swiper-wrapper h-full">
                 @foreach ($banners as $banner)
@@ -49,20 +49,20 @@
     {{-- ===================== banner Section End ===================== --}}
     {{-- ===================== Category Section Start ===================== --}}
 
-    <section class="2xl:py-20 xl:py-16 lg:py-12 md:py-10 py-8">
+    <section class="2xl:pb-20 2xl:pt-6 xl:pb-16 xl:pt-4 lg:pb-12 lg:pt-4 md:pb-10  pb-8 pt-4">
         <div class="container">
-            <div class="header text-center mb-10">
+            {{-- <div class="header text-center mb-10">
                 <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase">
                     {{ __('Categories') }}</h2>
-            </div>
+            </div> --}}
             <div class="relative">
                 <div class="swiper categories static">
                     <div class="swiper-wrapper py-4 sm:py-5">
                         @foreach ($categories as $category)
                             <div class="swiper-slide px-2">
                                 <a href="{{ route('frontend.products', $category->slug) }}">
-                                    <div class="text-center">
-                                        <img class="w-auto rounded-xl object-cover mx-auto"
+                                    <div class="text-center ">
+                                        <img class="w-full h-36 rounded-xl object-cover mx-auto"
                                             src="{{ $category->modified_image }}" alt="{{ $category?->name }}">
                                         <p class="py-2">{{ __($category?->name) }} </p>
                                     </div>
