@@ -126,7 +126,10 @@ class ProductPageController extends Controller
             'images',
             'productInformations.infoCategory',
         ])->where('slug', $slug)->first();
-        $data['related_products'] = $data['product']->category->products->where('id', '!=', $data['product']->id)->values();
+        if ($data['product']->category) {
+            $data['related_products'] = $data['product']->category->products->where('id', '!=', $data['product']->id)->values();
+        }
+
         return view('frontend.pages.product_details', $data);
     }
 }
