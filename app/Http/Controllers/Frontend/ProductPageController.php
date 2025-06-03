@@ -115,7 +115,8 @@ class ProductPageController extends Controller
     }
     public function productDetails($slug)
     {
-        $data['product'] = Product::with([
+        $query = Product::query();
+        $query->with([
             'category.products.primaryImage',
             'category.products.brand',
             'category.products.model',
@@ -127,10 +128,21 @@ class ProductPageController extends Controller
             'productInformations.infoCategory',
             'productInformations.infoCategoryType',
             'productInformations.infoCategoryTypeFeature',
-        ])->where('slug', $slug)->first();
+        ]);
+        $data['product'] = $query->where('slug', $slug)->first();
         $data['groupedInfo'] = $data['product']->load('productInformations.infoCategory.catagoryTypes')->productInformations->groupBy('infoCategory.name');
         $data['infos'] = $data['product']->load('productInformations.infoCategory.catagoryTypes','productInformations.infoCategory.catagoryTypes.features')->productInformations;
-        $data['related_products'] = $data['product']->category->products->where('id', '!=', $data['product']->id)->values();
+        $data['related_products'] = $data['product']->category->products?->where('id', '!=', $data['product']->id)->values();
+        // $data['related_products'] = $data['related_products'] = Product::whereHas('category', function ($q) use ($data) {
+        //                                 $q->where('categories.id', $data['product']->category_id);
+        //                             })
+        //                             ->where('products.id', '!=', $data['product']->id)
+        //                             ->with([
+        //                                 'primaryImage',
+        //                                 'brand',
+        //                                 'model'
+        //                             ])
+        //                             ->get();
         return view('frontend.pages.product_details', $data);
     }
 }
