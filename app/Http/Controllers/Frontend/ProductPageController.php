@@ -105,7 +105,7 @@ class ProductPageController extends Controller
             $data['brands'] = $data['category']->brands;
             $data['models'] = $data['category']->models;
         } else {
-            $data['subcategories'] = $this->categoryService->getCategories()->isSubCategory()->active()->select(['id', 'name', 'slug'])->get();
+            $data['subcategories'] = $this->categoryService->getCategories()->isSubCategory()->active()->select(['id', 'name', 'slug','image'])->get();
             $data['brands'] = $this->brandService->getBrands()->active()->select(['id', 'name', 'slug'])->get();
             $data['models'] = $this->modelService->getModels()->active()->select(['id', 'name', 'slug'])->get();
             $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->active()->select(['id', 'name', 'slug'])->get();
