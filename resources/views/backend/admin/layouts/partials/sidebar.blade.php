@@ -32,51 +32,63 @@
                     </a>
                 </li>
                 {{-- Admin Management Routes  --}}
-                <li class="nav-item  @if ($page_slug == 'admin' || $page_slug == 'role' || $page_slug == 'permission') active submenu @endif">
-                    <a data-bs-toggle="collapse" href="#admin_management"
-                        @if ($page_slug == 'admin') aria-expanded="true" @endif>
-                        <i class="icon-people"></i>
-                        <p>{{ __('Admin Management') }}</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse @if ($page_slug == 'admin' || $page_slug == 'role' || $page_slug == 'permission') show @endif" id="admin_management">
-                        <ul class="nav nav-collapse">
-                            <li class="@if ($page_slug == 'admin') active @endif">
-                                <a href="{{ route('am.admin.index') }}">
-                                    <span class="sub-item">{{ __('Admin') }}</span>
-                                </a>
-                            </li>
-                            <li class="@if ($page_slug == 'role') active @endif">
-                                <a href="{{ route('am.role.index') }}">
-                                    <span class="sub-item">{{ __('Role') }}</span>
-                                </a>
-                            </li>
-                            <li class="@if ($page_slug == 'permission') active @endif">
-                                <a href="{{ route('am.permission.index') }}">
-                                    <span class="sub-item">{{ __('Permission') }}</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                @canany(['admin-list', 'role-list', 'permission-list'])
+                    <li class="nav-item  @if ($page_slug == 'admin' || $page_slug == 'role' || $page_slug == 'permission') active submenu @endif">
+                        <a data-bs-toggle="collapse" href="#admin_management"
+                            @if ($page_slug == 'admin') aria-expanded="true" @endif>
+                            <i class="icon-people"></i>
+                            <p>{{ __('Admin Management') }}</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse @if ($page_slug == 'admin' || $page_slug == 'role' || $page_slug == 'permission') show @endif" id="admin_management">
+                            <ul class="nav nav-collapse">
+                                @can('admin-list')
+                                    <li class="@if ($page_slug == 'admin') active @endif">
+                                        <a href="{{ route('am.admin.index') }}">
+                                            <span class="sub-item">{{ __('Admin') }}</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('role-list')
+                                    <li class="@if ($page_slug == 'role') active @endif">
+                                        <a href="{{ route('am.role.index') }}">
+                                            <span class="sub-item">{{ __('Role') }}</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('permission-list')
+                                    <li class="@if ($page_slug == 'permission') active @endif">
+                                        <a href="{{ route('am.permission.index') }}">
+                                            <span class="sub-item">{{ __('Permission') }}</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </div>
+                    </li>
+                @endcanany
                 {{-- User Management  --}}
-                <li class="nav-item  @if ($page_slug == 'user') active submenu @endif">
-                    <a data-bs-toggle="collapse" href="#user_management"
-                        @if ($page_slug == 'user') aria-expanded="true" @endif>
-                        <i class="icon-people"></i>
-                        <p>{{ __('User Management') }}</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse @if ($page_slug == 'user') show @endif" id="user_management">
-                        <ul class="nav nav-collapse">
-                            <li class="@if ($page_slug == 'user') active @endif">
-                                <a href="{{ route('um.user.index') }}">
-                                    <span class="sub-item">{{ __('User') }}</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                @canany(['user-list'])
+                    <li class="nav-item  @if ($page_slug == 'user') active submenu @endif">
+                        <a data-bs-toggle="collapse" href="#user_management"
+                            @if ($page_slug == 'user') aria-expanded="true" @endif>
+                            <i class="icon-people"></i>
+                            <p>{{ __('User Management') }}</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse @if ($page_slug == 'user') show @endif" id="user_management">
+                            <ul class="nav nav-collapse">
+                                @can('user-list')
+                                    <li class="@if ($page_slug == 'user') active @endif">
+                                        <a href="{{ route('um.user.index') }}">
+                                            <span class="sub-item">{{ __('User') }}</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </div>
+                    </li>
+                @endcanany
                 {{-- Supplier Management  --}}
                 <li class="nav-item  @if ($page_slug == 'supplier') active submenu @endif">
                     <a data-bs-toggle="collapse" href="#supplier_management"
@@ -96,14 +108,15 @@
                     </div>
                 </li>
                 {{-- Shipping Location Management  --}}
-                <li class="nav-item  @if ($page_slug == 'shipping_location'|| $page_slug == 'container'|| $page_slug == 'container_reservation') active submenu @endif">
+                <li class="nav-item  @if ($page_slug == 'shipping_location' || $page_slug == 'container' || $page_slug == 'container_reservation') active submenu @endif">
                     <a data-bs-toggle="collapse" href="#shipping_location_management"
-                        @if ($page_slug == 'shipping_location'|| $page_slug == 'container'|| $page_slug == 'container_reservation') aria-expanded="true" @endif>
+                        @if ($page_slug == 'shipping_location' || $page_slug == 'container' || $page_slug == 'container_reservation') aria-expanded="true" @endif>
                         <i class="icon-people"></i>
                         <p>{{ __('GS Management') }}</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse @if ($page_slug == 'shipping_location'|| $page_slug == 'container'|| $page_slug == 'container_reservation') show @endif" id="shipping_location_management">
+                    <div class="collapse @if ($page_slug == 'shipping_location' || $page_slug == 'container' || $page_slug == 'container_reservation') show @endif"
+                        id="shipping_location_management">
                         <ul class="nav nav-collapse">
                             <li class="@if ($page_slug == 'shipping_location') active @endif">
                                 <a href="{{ route('gs.shipping-location.index') }}">
