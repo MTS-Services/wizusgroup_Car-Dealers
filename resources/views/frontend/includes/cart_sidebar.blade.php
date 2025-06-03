@@ -17,51 +17,54 @@
         <div class="flex-1 overflow-auto p-4 space-y-4">
             {{-- Item 1 --}}
 
-            <div
-                class="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-lg shadow-md dark:bg-bg-dark-secondary transition-all duration-200 hover:shadow-lg">
-                <div class="relative flex-shrink-0">
-                    {{-- Image: Removed border classes --}}
-                    <img src="{{ storage_url('') }}"
-                        alt="Mahindra Yuvo 415 DI Heavy Duty Tractor" class="w-24 h-24 object-contain rounded-md">
-                </div>
-                <div class="flex-1 flex flex-col justify-between w-full">
-                    <div>
-                        {{-- Product Title: Responsive truncation (truncates on small, normal on sm+) --}}
-                        <h3
-                            class="font-semibold text-base text-text-dark dark:text-text-white leading-snug mb-1 truncate sm:whitespace-normal">
-                            Mahindra Yuvo 415 DI Heavy Duty Tractor
-                        </h3>
-                        <p class="text-xs text-text-gray dark:text-text-white dark:text-opacity-70">Mahindra / Yuvo 415
-                            DI</p>
-                        <p class="font-bold text-lg text-bg-primary whitespace-nowrap">$80,000,000.00</p>
+            @foreach (session('cart') as $item)
+                <div
+                    class="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-lg shadow-md dark:bg-bg-dark-secondary transition-all duration-200 hover:shadow-lg">
+                    <div class="relative flex-shrink-0">
+                        {{-- Image: Removed border classes --}}
+                        <img src="{{ storage_url('') }}" alt="Mahindra Yuvo 415 DI Heavy Duty Tractor"
+                            class="w-24 h-24 object-contain rounded-md">
                     </div>
-                    {{-- Controls & Price: Stack on small, horizontal on sm+ --}}
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-center gap-5 mt-3 w-full">
-                        <div class="flex items-center gap-2 flex-shrink-0">
+                    <div class="flex-1 flex flex-col justify-between w-full">
+                        <div>
+                            {{-- Product Title: Responsive truncation (truncates on small, normal on sm+) --}}
+                            <h3
+                                class="font-semibold text-base text-text-dark dark:text-text-white leading-snug mb-1 truncate sm:whitespace-normal">
+                                Mahindra Yuvo 415 DI Heavy Duty Tractor
+                            </h3>
+                            <p class="text-xs text-text-gray dark:text-text-white dark:text-opacity-70">Mahindra / Yuvo
+                                415
+                                DI</p>
+                            <p class="font-bold text-lg text-bg-primary whitespace-nowrap">$80,000,000.00</p>
+                        </div>
+                        {{-- Controls & Price: Stack on small, horizontal on sm+ --}}
+                        <div
+                            class="flex flex-col sm:flex-row items-start sm:items-center justify-center gap-5 mt-3 w-full">
+                            <div class="flex items-center gap-2 flex-shrink-0">
+                                <button
+                                    class="quantity-increase btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
+                                    title="Increase Quantity">
+                                    <i data-lucide="minus"
+                                        class="w-4 h-4 group-hover:text-text-wiz_orange transition-all duration-300 ease-linear"></i>
+                                </button>
+                                <span
+                                    class="quantity-display px-3 py-1 bg-bg-light dark:bg-bg-darkTertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">100</span>
+                                <button
+                                    class="quantity-increase btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
+                                    title="Increase Quantity">
+                                    <i data-lucide="plus"
+                                        class="w-4 h-4 group-hover:text-text-secondary transition-all duration-300 ease-linear"></i>
+                                </button>
+                            </div>
                             <button
-                                class="quantity-increase btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
-                                title="Increase Quantity">
-                                <i data-lucide="minus"
-                                    class="w-4 h-4 group-hover:text-text-wiz_orange transition-all duration-300 ease-linear"></i>
-                            </button>
-                            <span
-                                class="quantity-display px-3 py-1 bg-bg-light dark:bg-bg-darkTertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">100</span>
-                            <button
-                                class="quantity-increase btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
-                                title="Increase Quantity">
-                                <i data-lucide="plus"
-                                    class="w-4 h-4 group-hover:text-text-secondary transition-all duration-300 ease-linear"></i>
+                                class="btn btn-ghost btn-circle remove-item text-text-gray hover:text-red-600 transition-colors"
+                                title="Remove Item">
+                                <i data-lucide="trash-2" class="w-5 h-5"></i>
                             </button>
                         </div>
-                        <button
-                            class="btn btn-ghost btn-circle remove-item text-text-gray hover:text-red-600 transition-colors"
-                            title="Remove Item">
-                            <i data-lucide="trash-2" class="w-5 h-5"></i>
-                        </button>
                     </div>
                 </div>
-            </div>
-
+            @endforeach
         </div>
 
         {{-- Checkout Card --}}

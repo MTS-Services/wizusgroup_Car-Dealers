@@ -53,7 +53,6 @@ Route::group(['as' => 'frontend.'], function () {
         Route::get('/group-shipping', 'group_shipping')->name('group_shipping');
         Route::get('/join-group-shipping/{container_slug}/{product_slug?}', 'joinGroupShipping')->name('join-group-shipping');
         Route::post('/group-shipping/join-request/{container_slug}', 'joinRequest')->name('group-shipping.join-request')->middleware('auth:web');
-
     });
 
     // droopshipping
@@ -63,10 +62,17 @@ Route::group(['as' => 'frontend.'], function () {
     Route::get('/region', [RegionPageController::class, 'region'])->name('regions');
 
     // Cart Page
-    Route::get('/cart', [CartPageController::class, 'cart'])->name('cart');
-    Route::post('/cart/add', [CartPageController::class, 'addCart'])->name('cart.add');
+    Route::controller(CartPageController::class)->group(function () {
+        Route::get('/cart', 'cart')->name('cart');
+        Route::post('/cart/add', 'addCart')->name('cart.add');
+        Route::get('/cart/items', 'getCartItems')->name('cart.items'); // To fetch initial cart data
+        Route::post('/cart/update', 'updateCart')->name('cart.update'); // For quantity changes
+        Route::post('/cart/remove', 'removeCart')->name('cart.remove'); // To remove an item
+    });
+    
+    // Route::get('/cart', [CartPageController::class, 'cart'])->name('cart');
+    // Route::post('/cart/add', [CartPageController::class, 'addCart'])->name('cart.add');
 
     // Checkout Page
     Route::get('/checkout', [CheckoutPageController::class, 'checkout'])->name('checkout');
-
 });
