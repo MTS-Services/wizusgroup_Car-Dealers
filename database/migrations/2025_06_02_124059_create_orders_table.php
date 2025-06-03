@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Traits\AuditColumnsTrait;
 use App\Models\Order;
 
-return new class extends Migration
-{
+return new class extends Migration {
     use SoftDeletes, AuditColumnsTrait;
     /**
      * Run the migrations.
@@ -21,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->index();
             $table->string('order_number')->unique()->nullable()->index();
             $table->tinyInteger('status')->default(Order::STATUS_PENDING)->index();
-            $table->bigInteger('shipping_id')->nullable()->index();
+            $table->unsignedBigInteger('shipping_id')->nullable()->index();
             $table->decimal('shipping_cost', 15, 2)->default(0);
             $table->decimal('sub_total', 15, 2)->default(0);
             $table->decimal('total', 15, 2)->default(0);
