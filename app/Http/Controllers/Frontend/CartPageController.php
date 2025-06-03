@@ -42,7 +42,8 @@ class CartPageController extends Controller
         session()->put('cart', $cart);
         return response()->json([
             'message' => 'Product added to cart',
-            'cart_count' => count($cart)
+            'cart_count' => count($cart),
+            'data' => $cart
         ]);
     }
 }

@@ -184,7 +184,7 @@
     <script src="{{ asset('frontend/js/cartSidebar.js') }}"></script>
     {{-- Cart Page js --}}
     {{-- Add to cart --}}
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('.add-to-cart').on('click', function() {
                 const productId = $(this).data('id');
@@ -206,7 +206,7 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 
     </script>
 

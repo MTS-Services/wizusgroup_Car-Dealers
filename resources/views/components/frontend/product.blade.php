@@ -29,10 +29,32 @@
             <a href="{{ route('frontend.product.details', $product->slug) }}"
                 class="btn-primary rounded-md w-full hover:bg-bg-tertiary me-2">{{ __('View Details') }}</a>
             <button type="button"
-                class="btn-primary rounded-md w-full bg-bg-tertiary hover:bg-text-secondary ms-2 add-to-cart openCartSidebar"
+                class="btn-primary rounded-md w-full bg-bg-tertiary hover:bg-text-secondary ms-2 add-to-cart {{-- openCartSidebar --}}"
                 data-id="{{ $product->id }}">
                 {{ __('Add to Cart') }}
             </button>
         </div>
     </div>
 </div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        
+
+        $('.add-to-cart').on('click', function() {
+            const productId = $(this).data('id');
+
+            axios.post('{{ route('frontend.cart.add') }}', {
+                product_id: productId
+            }).then(response => {
+                $('.cartSidebar').css('transform', 'translateX(0)');
+                console.log(response.data);
+            }).catch(error => {
+                console.error(error);
+            })
+        })
+
+    })
+</script>
