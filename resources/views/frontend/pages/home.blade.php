@@ -69,7 +69,7 @@
 
                     <!-- Controls (Hidden on small screens) -->
                     <div class="hidden md:block">
-                        <div class="swiper-pagination z-10 !-bottom-6 lg:!-bottom-8"></div>
+                        <div class="swiper-pagination z-10 !-bottom-6 lg:!-bottom-5"></div>
 
                         <div
                             class="swiper-button swiper-button-prev absolute top-1/2 transform -translate-y-1/2 -left-4 sm:-left-6 2xl:-left-9">
