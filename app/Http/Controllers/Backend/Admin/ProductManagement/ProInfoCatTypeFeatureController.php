@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Admin\ProductManagement;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductManagement\ProInfoCatTypeFeatureRequest;
 use App\Models\Documentation;
+use App\Services\Admin\ProductManagement\ProductInfoCategoryService;
 use App\Services\Admin\ProductManagement\ProductInfoCategoryTypeFeatureService;
 use App\Services\Admin\ProductManagement\ProductInfoCategoryTypeService;
 use Illuminate\Http\RedirectResponse;
@@ -14,12 +15,12 @@ use Yajra\DataTables\Facades\DataTables;
 class ProInfoCatTypeFeatureController extends Controller
 {
     protected ProductInfoCategoryTypeFeatureService $proInfoCatTypeFeatureService;
-    protected ProductInfoCategoryTypeService $proInfoCatTypeService;
+    protected ProductInfoCategoryService $proInfoCatService;
 
-    public function __construct(ProductInfoCategoryTypeFeatureService $proInfoCatTypeFeatureService, ProductInfoCategoryTypeService $proInfoCatTypeService)
+    public function __construct(ProductInfoCategoryTypeFeatureService $proInfoCatTypeFeatureService, ProductInfoCategoryService $proInfoCatService)
     {
         $this->proInfoCatTypeFeatureService = $proInfoCatTypeFeatureService;
-        $this->proInfoCatTypeService = $proInfoCatTypeService;
+        $this->proInfoCatService = $proInfoCatService;
 
         $this->middleware('auth:admin');
         $this->middleware('permission:product-info-category-type-feature-list', ['only' => ['index']]);
@@ -60,7 +61,7 @@ class ProInfoCatTypeFeatureController extends Controller
                     $menuItems = $this->menuItems($feature);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['product_info_cat_id', 'product_info_cat_type_id', 'status',  'created_by', 'created_at', 'action'])
+                ->rawColumns(['product_info_cat_id', 'product_info_cat_type_id', 'status', 'created_by', 'created_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.product_management.product_info_category_type_feature.index');
@@ -99,11 +100,11 @@ class ProInfoCatTypeFeatureController extends Controller
         ];
     }
 
-     public function recycleBin(Request $request)
+    public function recycleBin(Request $request)
     {
 
         if ($request->ajax()) {
-            $query = $this->proInfoCatTypeFeatureService->getProInfoCatTypeFeatures()->onlyTrashed()->with(['deleter_admin','infoCategory','infoCategoryType']);
+            $query = $this->proInfoCatTypeFeatureService->getProInfoCatTypeFeatures()->onlyTrashed()->with(['deleter_admin', 'infoCategory', 'infoCategoryType']);
             return DataTables::eloquent($query)
                 ->editColumn('product_info_cat_id', function ($feature) {
                     return $feature?->infoCategory?->name;
@@ -124,7 +125,7 @@ class ProInfoCatTypeFeatureController extends Controller
                     $menuItems = $this->trashedMenuItems($feature);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['product_info_cat_id', 'product_info_cat_type_id','status', 'is_featured', 'deleted_by', 'deleted_at', 'action'])
+                ->rawColumns(['product_info_cat_id', 'product_info_cat_type_id', 'status', 'is_featured', 'deleted_by', 'deleted_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.product_management.product_info_category_type_feature.recycle-bin');
@@ -154,7 +155,7 @@ class ProInfoCatTypeFeatureController extends Controller
      */
     public function create()
     {
-        $data['features'] = $this->proInfoCatTypeFeatureService->getProInfoCatTypeFeatures()->active()->select(['id','name'])->get();
+        $data['pro_info_cats'] = $this->proInfoCatService->getProductInfoCats()->active()->select(['id', 'name'])->get();
         $data['document'] = Documentation::where([['module_key', 'product info category type feature'], ['type', 'create']])->first();
         return view('backend.admin.product_management.product_info_category_type_feature.create', $data);
     }
@@ -182,7 +183,7 @@ class ProInfoCatTypeFeatureController extends Controller
     public function show(string $id)
     {
         $data = $this->proInfoCatTypeFeatureService->getProInfoCatTypeFeature($id);
-        $data->load(['creater_admin', 'updater_admin', 'infoCategory','infoCategoryType']);
+        $data->load(['creater_admin', 'updater_admin', 'infoCategory', 'infoCategoryType']);
         $data['product_info_cat_name'] = $data?->infoCategory?->name;
         $data['product_info_cat_type_name'] = $data?->infoCategoryType?->name;
         return response()->json($data);
@@ -191,10 +192,10 @@ class ProInfoCatTypeFeatureController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-     public function edit(string $id)
+    public function edit(string $id)
     {
         $data['feature'] = $this->proInfoCatTypeFeatureService->getProInfoCatTypeFeature($id);
-        $data['pro_info_cat_types'] = $this->proInfoCatTypeService->getProInfoCatTypes()->active()->select(['id','name'])->get();
+        $data['pro_info_cats'] = $this->proInfoCatService->getProductInfoCats()->active()->select(['id', 'name'])->get();
         $data['document'] = Documentation::where([['module_key', 'product info category type feature'], ['type', 'update']])->first();
         return view('backend.admin.product_management.product_info_category_type_feature.edit', $data);
     }
@@ -202,7 +203,7 @@ class ProInfoCatTypeFeatureController extends Controller
     /**
      * Update the specified resource in storage.
      */
-     public function update(ProInfoCatTypeFeatureRequest $request, string $id)
+    public function update(ProInfoCatTypeFeatureRequest $request, string $id)
     {
 
         try {
@@ -230,7 +231,7 @@ class ProInfoCatTypeFeatureController extends Controller
         }
         return redirect()->route('pm.pro-info-cat-tf.index');
     }
-      public function status(string $id): RedirectResponse
+    public function status(string $id): RedirectResponse
     {
         try {
             $this->proInfoCatTypeFeatureService->toggleStatus($id);
@@ -241,7 +242,7 @@ class ProInfoCatTypeFeatureController extends Controller
         }
         return redirect()->route('pm.pro-info-cat-tf.index');
     }
-      public function restore(string $id): RedirectResponse
+    public function restore(string $id): RedirectResponse
     {
         try {
             $this->proInfoCatTypeFeatureService->restoreModel($id);
