@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="cart-title">
-                            {{ __('Set Product Relations') }}
+                        {{ __('Set Product Relations') }}
                     </h4>
                     <x-backend.admin.button :datas="[
                         'routeName' => $product->updated_by ? 'pm.product.edit' : 'pm.product.create',
@@ -16,7 +16,8 @@
                     ]" />
                 </div>
                 <div class="card-body">
-                   <form action="{{ route('pm.product.relation.store', encrypt($product->id)) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('pm.product.relation.store', encrypt($product->id)) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
 
                         <div class="row">
@@ -26,7 +27,9 @@
                                     <select name="company_id" id="company_id" class="form-control">
                                         <option value="" selected disabled>{{ __('Select Company') }}</option>
                                         @foreach ($companies as $company)
-                                            <option value="{{ $company->id }}" {{ old('company_id', $product?->company?->id) == $company->id ? 'selected' : ''}}>{{ $company->name }}</option>
+                                            <option value="{{ $company->id }}"
+                                                {{ old('company_id', $product?->company?->id) == $company->id ? 'selected' : '' }}>
+                                                {{ $company->name }}</option>
                                         @endforeach
                                     </select>
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'company_id']" />
@@ -50,7 +53,7 @@
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'model_id']" />
                                 </div>
                             </div>
-                            @if(isset($not_used))
+                            @if (isset($not_used))
                                 {{-- <div class="col-md-6">
                                     <div class="form-group">
                                         <label>{{ __('Tax Class') }}</label>
@@ -79,7 +82,9 @@
                                     <select name="category_id" class="form-control" id="category_id">
                                         <option value="" selected disabled>{{ __('Select Category') }}</option>
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}" {{ old('category_id', $product?->category?->id) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                            <option value="{{ $category->id }}"
+                                                {{ old('category_id', $product?->category?->id) == $category->id ? 'selected' : '' }}>
+                                                {{ $category->name }}</option>
                                         @endforeach
                                     </select>
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'category_id']" />
@@ -94,7 +99,7 @@
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'sub_category_id']" />
                                 </div>
                             </div>
-                            @if(isset($not_used))
+                            @if (isset($not_used))
                                 {{-- <div class="col-md-6">
                                     <div class="form-group">
                                         <label>{{ __('Sub Child Category') }}</label>
@@ -117,15 +122,16 @@
     </div>
 @endsection
 @push('js')
-     <script>
+    <script>
         $(document).ready(function() {
             let sub_cat_route = "{{ route('axios.get-sub-categories') }}";
             $('#category_id').on('change', function() {
                 getSubCategories($(this).val(), sub_cat_route);
             })
 
-            if(`{{$product?->subCategory?->id}}`){
-                getSubCategories($('#category_id').val(), sub_cat_route, `{{$product?->subCategory?->id}}`);
+            if (`{{ $product?->subCategory?->id }}`) {
+                getSubCategories(`{{ $product?->category?->id }}`, sub_cat_route,
+                    `{{ $product?->subCategory?->id }}`);
 
             }
 
@@ -134,8 +140,8 @@
                 getBrands($(this).val(), brand_route);
             });
 
-            if(`{{$product?->brand?->id}}`){
-                getBrands($('#company_id').val(), brand_route, `{{$product?->brand?->id}}`);
+            if (`{{ $product?->brand?->id }}`) {
+                getBrands($('#company_id').val(), brand_route, `{{ $product?->brand?->id }}`);
             }
 
 
@@ -147,11 +153,11 @@
                 });
             });
 
-            if(`{{$product?->model?->id}}`){
+            if (`{{ $product?->model?->id }}`) {
                 getModels({
-                    brandId: `{{$product?->brand?->id}}`,
+                    brandId: `{{ $product?->brand?->id }}`,
                     route: model_route,
-                    modelId: `{{$product?->model?->id}}`
+                    modelId: `{{ $product?->model?->id }}`
                 });
             }
         });

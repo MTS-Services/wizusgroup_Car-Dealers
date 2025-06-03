@@ -24,7 +24,7 @@
                 </div>
                 <div class="relative">
                     <div class="swiper categories static">
-                        <div class="swiper-wrapper py-5">
+                        <div class="swiper-wrapper">
                             @foreach ($categories as $cat)
                                 <div class="swiper-slide">
                                     <a href="{{ route('frontend.products', $cat->slug) }}">
