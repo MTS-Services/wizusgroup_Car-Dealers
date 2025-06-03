@@ -129,6 +129,7 @@ class ProductPageController extends Controller
             'productInformations.infoCategoryTypeFeature',
         ])->where('slug', $slug)->first();
         $data['groupedInfo'] = $data['product']->load('productInformations.infoCategory.catagoryTypes')->productInformations->groupBy('infoCategory.name');
+        
         $data['infos'] = $data['product']->load('productInformations.infoCategory.catagoryTypes', 'productInformations.infoCategory.catagoryTypes.features')->productInformations;
         $data['related_products'] = $data['product']->category->products->where('id', '!=', $data['product']->id)->values();
         return view('frontend.pages.product_details', $data);

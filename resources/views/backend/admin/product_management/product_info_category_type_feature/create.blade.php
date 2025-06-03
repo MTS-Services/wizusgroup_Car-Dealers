@@ -29,7 +29,7 @@
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'product_info_cat_id']" />
                         </div>
                         <div class="form-group">
-                            <label>{{ __('Product Info Category Type') }} <span class="text-danger">*</span></label>
+                            <label>{{ __('Product Info Category Type') }}</label>
                             <select name="product_info_cat_type_id" class="form-control" id="product_info_cat_type_id"
                                 disabled>
                                 <option value="" selected hidden>{{ __('Select Product Info Category Type') }}
