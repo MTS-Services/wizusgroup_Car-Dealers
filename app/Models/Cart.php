@@ -10,6 +10,7 @@ class Cart extends BaseModel
     use HasFactory;
 
     protected $fillable = [
+        'sort_order',
         'user_id',
         'session_id',
 
@@ -20,14 +21,6 @@ class Cart extends BaseModel
         'creater_type',
         'updater_type',
         'deleter_type',
-
-        'created_at',
-        'updated_at',
-        'deleted_at',
-        
-        'created_by',
-        'updated_by',
-        'deleted_by',
     ];
 
     public function user()

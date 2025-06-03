@@ -383,7 +383,7 @@
                                  @endforeach
                              </div>
                          </div>
-                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-2">
+                         <div class="flex justify-between items-center gap-5 mt-2">
                              <a href="@auth('web')
                                      javascript:void(0)
                                  @else
@@ -405,6 +405,11 @@
                                          onclick="document.getElementById('inquiry-{{ $product->slug }}').showModal()"
                                     @endauth
                                  class="btn-primary w-full">{{ __('WhatsApp Inquiry') }}</a>
+
+                             @auth('web')
+                                 <a href="javascript:void(0)" onclick=""
+                                     class="btn-primary w-full openCartSidebar">{{ __('Add to Cart') }}</a>
+                             @endauth
                          </div>
                          <x-backend.user.inquiry :product="$product" :label="__('Product Inquiry')" />
                      </div>
@@ -434,10 +439,9 @@
                      <div class="swiper-wrapper p-2">
                          @foreach ($related_products as $r_product)
                              <div class="swiper-slide">
-                                 <a href="{{ route('frontend.product.details', $r_product->slug) }}">
                                      <div class="product-card hover:shadow-md transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                                          data-product="1">
-                                         <div class="h-60 w-full overflow-hidden">
+                                         <div class="h-48 w-full overflow-hidden">
                                              <img src="{{ storage_url($r_product->primaryImage->first()?->image) }}"
                                                  alt="{{ $r_product->primaryImage->first()?->alt ?? $r_product->name }}"
                                                  class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
@@ -459,9 +463,13 @@
                                                  @endif
                                                  <span>{{ $r_product->brand?->name }}</span>
                                              </div>
+                                             <div class="flex flex-col justify-center items-center mt-4 gap-2">
+                                                <a href="{{ route('frontend.product.details', $r_product->slug) }}"
+                                                    class="btn-primary rounded-md w-full hover:bg-bg-tertiary text-sm">{{ __('View Details') }}</a>
+                                                <a href="javascript:void(0)" class="openCartSidebar btn-primary rounded-md w-full bg-bg-tertiary hover:bg-text-secondary text-sm">{{ __('Add to Cart') }}</a>
+                                            </div>
                                          </div>
                                      </div>
-                                 </a>
                              </div>
                          @endforeach
                      </div>
