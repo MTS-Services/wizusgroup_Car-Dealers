@@ -66,7 +66,7 @@
                                      {{ __('Basic Info') }}
                                  </button>
 
-                                 @foreach ($groupedInfo as $category => $type)
+                                 @foreach ($product->productInformations->groupBy('infoCategory.name') as $category => $info)
                                      <button @click="tab = '{{ $category }}'"
                                          :class="tab === 'airbag' ?
                                              'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
@@ -374,84 +374,13 @@
                                  </div>
 
 
-                                 @foreach ($infos as $key => $info)
-                                     <div x-show="tab === '{{ $category }}'" x-cloak>
-                                         <table class="w-full table-auto text-sm sm:text-base">
-                                             <tbody>
-                                                 {{-- @dd($type->toArray()) --}}
-                                                 <p>{{ $info->infoCategory->catagoryTypes[$key]->name }}</p>
-
-                                                 @foreach ($info->infoCategory->catagoryTypes as $type)
-                                                     @if (!empty($type->features))
-                                                         @foreach ($type->features as $feature)
-                                                             <tr class=" border-border-gray dark:border-bg-dark-secondary">
-                                                                 <td
-                                                                     class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
-                                                                     {{ $feature->name }}</td>
-                                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                                     {{ $info->description ?? 'N/A' }}
-
-                                                                 </td>
-                                                             </tr>
-                                                         @endforeach
-                                                     @endif
-                                                 @endforeach
-
-
-
-                                                 {{-- <tr class=" border-border-gray dark:border-bg-dark-secondary">
-                                                     <td
-                                                         class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Name') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $product->name ?? 'N/A' }}
-                                                     </td>
-                                                 </tr> --}}
-                                             </tbody>
-                                             {{-- <tfoot class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <tr>
-                                                     <td colspan="2"
-                                                         class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Description') }}</td>
-                                                 </tr>
-                                                 <tr>
-                                                     <td colspan="2">{{ $product->description ?? 'N/A' }}</td>
-                                                 </tr>
-                                                 <tr>
-                                                     <td colspan="2"
-                                                         class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Remarks') }}</td>
-                                                 </tr>
-                                                 <tr>
-                                                     <td colspan="2">{{ $product->remarks ?? 'N/A' }}</td>
-                                                 </tr>
-                                             </tfoot> --}}
-                                         </table>
+                                 @foreach ($product->productInformations as $key => $info)
+                                     <div x-show="tab === '{{ $info->infoCategory->name }}'" x-cloak>
+                                         {!! $info->description !!}
+                                         <a href="javascript:void(0)" class="btn btn-dark btn-sm">
+                                             <i class="fas fa-download"></i></a>
                                      </div>
                                  @endforeach
-
-                                 {{-- <!-- Airbag Info -->
-                                 <div x-show="tab === 'airbag'" x-cloak>
-                                     <p class="text-text-secondary dark:text-text-secondary text-lg">
-                                         {{ __('No airbag data available.') }}</p>
-                                 </div>
-
-                                 <!-- Other Info -->
-                                 <div x-show="tab === 'other'" x-cloak>
-                                     <p class="text-text-secondary dark:text-text-secondary text-lg">
-                                         {{ __('No additional information provided.') }}</p>
-                                 </div>
-
-                                 <!-- Development -->
-                                 <div x-show="tab === 'development'" x-cloak>
-                                     <p class="text-text-secondary dark:text-text-secondary text-lg">
-                                         {{ __('Development info not available.') }}</p>
-                                 </div>
-
-                                 <!-- Documents -->
-                                 <div x-show="tab === 'docs'" x-cloak>
-                                     <p class="text-text-secondary dark:text-text-secondary text-lg">
-                                         {{ __('No documents attached.') }}</p> --}}
                              </div>
                          </div>
                          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-2">
