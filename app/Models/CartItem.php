@@ -24,4 +24,14 @@ class CartItem extends BaseModel
         'updated_by',
         'deleted_by',
     ];
+
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }
