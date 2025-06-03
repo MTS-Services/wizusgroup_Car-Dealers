@@ -19,6 +19,8 @@
                 onclick="openTab(event, 'tab5')">{{ __('Email Templates') }}</button>
             <button id="tab6Btn" class="tablinks p-3 w-100"
                 onclick="openTab(event, 'tab6')">{{ __('Notification Settings') }}</button>
+            <button id="tab7Btn" class="tablinks p-3 w-100"
+                onclick="openTab(event, 'tab7')">{{ __('Contact Information') }}</button>
         </div>
         <div class="col-md-10 p-0">
             <div id="tab1" class="tabcontent py-3">
@@ -38,6 +40,9 @@
             </div>
             <div id="tab6" class="tabcontent py-3 " style="display: none">
                 <x-backend.site-setting.notification-setting />
+            </div>
+            <div id="tab7" class="tabcontent py-3 " style="display: none">
+                <x-backend.site-setting.contact-information-setting />
             </div>
         </div>
     </div>

@@ -61,6 +61,11 @@ class SiteSettingController extends Controller
                         continue;
                     }
                 }
+
+                if($key == 'office_infos') {
+                    $value = json_encode($value);
+                }
+
                 $site_setting = SiteSetting::updateOrCreate(['key' => $key], ['value' => $value]);
 
 
@@ -75,7 +80,7 @@ class SiteSettingController extends Controller
             session()->flash('success', "Settings added successfully.");
             return redirect()->route('site_setting.index');
         } catch (\Exception $e) {
-            session()->flash('error', "Something went wrong. Please try again.");
+            session()->flash('error', "Something went wrong. Please try again.". $e->getMessage());
             return redirect()->route('site_setting.index');
         }
     }
