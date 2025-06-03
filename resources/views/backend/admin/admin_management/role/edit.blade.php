@@ -23,7 +23,7 @@
                                 value="{{ $role->name }}">
                             <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'name']" />
                         </div>
-                        <div class="card">
+                        <div class="card"> 
                             <div class="card-body">
                                 <div class="row">
                                     @foreach ($groupedPermissions->chunk(1) as $chunks)
@@ -54,6 +54,7 @@
                                                     </div>
                                                 </div>
                                             @endforeach
+                                            <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'permissions']" />
                                         </div>
                                     @endforeach
                                 </div>
