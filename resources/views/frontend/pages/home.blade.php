@@ -51,10 +51,6 @@
 
     <section class="2xl:pb-20 2xl:pt-6 xl:pb-16 xl:pt-4 lg:pb-12 lg:pt-4 md:pb-10  pb-8 pt-4">
         <div class="container">
-            {{-- <div class="header text-center mb-10">
-                <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase">
-                    {{ __('Categories') }}</h2>
-            </div> --}}
             <div class="relative">
                 <div class="swiper categories static">
                     <div class="swiper-wrapper py-4 sm:py-5">
