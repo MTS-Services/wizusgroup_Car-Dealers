@@ -56,13 +56,18 @@
                     <h2 class="text-xl md:text-2xl xl:text-3xl font-semibold capitalize pb-3">{{ __('Our Offices') }}</h2>
                     <div class="h-full shadow-card bg-bg-light dark:bg-opacity-20 p-6">
                         <div class="flex items-center gap-4 mb-10 text-sm lg:text-base text-center lg:text-left mt-2">
+                            @php
+                                $phone = '+8801581088986';
+                                $message = urlencode("Hi, I'm interested in your service.");
+                            @endphp
+
                             <div class="w-1/2">
                                 <a class="btn-primary rounded-md w-full py-2 px-0 hover:bg-bg-tertiary"
-                                    href="#">{{ __('WhatsApp Us') }}</a>
+                                    href="https://wa.me/{{ $phone }}?text={{ $message }}" target="_blank"">{{ __('WhatsApp Us') }}</a>
                             </div>
                             <div class="w-1/2">
                                 <a class="btn-primary rounded-md w-full py-2 px-0 hover:bg-bg-tertiary"
-                                    href="#">{{ __('+1(123) 456-789') }}</a>
+                                    href="tel:+1(123) 456-789">{{ __('+1(123) 456-789') }}</a>
                             </div>
                         </div>
                         <p class="pb-2 text-base lg:me-40 text-text-primary dark:text-text-white font-semibold">
@@ -73,8 +78,8 @@
                                     href="#">{{ __('128 Example Street Tokyo,Japan') }}</a>
                             </p>
                             <p class="mb-2">
-                                <a class="text-text-primary dark:text-text-white"
-                                    href="#">{{ __('example@gmail.com') }}</a>
+                                <a class="text-text-primary dark:text-text-white hover:text-text-secondary hover:underline duration-300 ease-linear"
+                                    href="mailto:example@example.com">{{ __('example@gmail.com') }}</a>
                             </p>
                             <p class="mb-2">
                                 <a class="text-text-primary dark:text-text-white" href="#">{{ __('+1 234 567') }}</a>
