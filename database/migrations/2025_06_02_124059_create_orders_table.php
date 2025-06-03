@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Traits\AuditColumnsTrait;
+use App\Models\Order;
 
 return new class extends Migration
 {
@@ -17,13 +18,23 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
-
-
-
+            $table->unsignedBigInteger('user_id')->index();
+            $table->string('order_number')->unique()->nullable()->index();
+            $table->tinyInteger('status')->default(Order::STATUS_PENDING)->index();
+            $table->bigInteger('shipping_id')->nullable()->index();
+            $table->decimal('shipping_cost', 15, 2)->default(0);
+            $table->decimal('sub_total', 15, 2)->default(0);
+            $table->decimal('total', 15, 2)->default(0);
+            $table->longText('note')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
+
+            // Relationships
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('shipping_id')->references('id')->on('addresses')->onDelete('cascade')->onUpdate('cascade');
+
 
 
             // Indexes
