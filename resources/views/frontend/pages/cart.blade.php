@@ -1,23 +1,5 @@
 @extends('frontend.layouts.app', ['page_slug' => 'cart'])
 @section('title', 'Cart')
-@push('css')
-    <style>
-        .bracamb-dot::before {
-            content: "";
-            height: 6px;
-            width: 6px;
-            border-radius: 50%;
-            background-color: #8752FA;
-            display: inline-block;
-            margin-right: 3px;
-        }
-
-        .swiper-button-next:after,
-        .swiper-button-prev:after {
-            font-size: 16px !important;
-        }
-    </style>
-@endpush
 @section('content')
     <div class="bg-bg-lightSecondary dark:bg-bg-darkQuaternary pb-10">
         <div class="container">
