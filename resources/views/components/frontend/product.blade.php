@@ -6,7 +6,7 @@
             alt="{{ $product->primaryImage->first()?->alt ?? $product->name }}"
             class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
     </div>
-    <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary flex flex-col justify-between min-h-44">
+    <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary flex flex-col justify-between min-h-52">
         <div>
             <h3
                 class="text-base lg:text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
@@ -28,8 +28,11 @@
         <div class="flex justify-center items-center mt-4">
             <a href="{{ route('frontend.product.details', $product->slug) }}"
                 class="btn-primary rounded-md w-full hover:bg-bg-tertiary me-2">{{ __('View Details') }}</a>
-            <a href="#"
-                class="btn-primary rounded-md w-full bg-bg-tertiary hover:bg-text-secondary ms-2 openCartSidebar">{{ __('Add to Cart') }}</a>
+            <button type="button"
+                class="btn-primary rounded-md w-full bg-bg-tertiary hover:bg-text-secondary ms-2 add-to-cart openCartSidebar"
+                data-id="{{ $product->id }}">
+                {{ __('Add to Cart') }}
+            </button>
         </div>
     </div>
 </div>

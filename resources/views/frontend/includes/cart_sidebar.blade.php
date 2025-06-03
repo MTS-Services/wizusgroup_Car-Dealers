@@ -1,6 +1,6 @@
 <!-- Sidebar -->
 <div
-    class="cartSidebar fixed top-0 right-0 min-h-screen h-full w-1/4 translate-x-full transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-darkTertiary shadow-lg z-[99999999999]">
+    class="cartSidebar fixed top-0 right-0 min-h-screen h-full w-5/6 md:w-1/2 lg:w-1/2 xl:w-2/5 2xl:w-1/4 translate-x-full transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-darkTertiary shadow-lg z-[99999999999]">
 
     <div class="h-screen overflow-auto py-5">
         <div class="h-100 overflow-auto">

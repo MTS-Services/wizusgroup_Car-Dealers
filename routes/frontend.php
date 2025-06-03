@@ -64,6 +64,7 @@ Route::group(['as' => 'frontend.'], function () {
 
     // Cart Page
     Route::get('/cart', [CartPageController::class, 'cart'])->name('cart');
+    Route::post('/cart/add', [CartPageController::class, 'addCart'])->name('cart.add');
 
     // Checkout Page
     Route::get('/checkout', [CheckoutPageController::class, 'checkout'])->name('checkout');
