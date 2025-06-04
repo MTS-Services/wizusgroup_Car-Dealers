@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Order;
+use DB;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,23 +19,25 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if (session()->has('cart_session_id')) {
+            $sessionId = Session::getId();
             $cart = Cart::where('session_id', session()->get('cart_session_id'))->first();
-            $order = Order::where('session_id', session()->get('cart_session_id'))->get();
-            if ($cart || $order->count() > 0) {
+
+            DB::transaction(function () use ($sessionId, $cart, $user, $request) {
+                Order::where('session_id', session()->get('cart_session_id'))
+                    ->update([
+                        'user_id' => $user->id,
+                        'session_id' => $sessionId,
+                    ]);
                 if ($cart) {
-                    $cart->update([
-                        'user_id' => $user->id,
-                        'session_id' => Session::getId(),
-                    ]);
+                    if ($cart) {
+                        $cart->update([
+                            'user_id' => $user->id,
+                            'session_id' => $sessionId,
+                        ]);
+                    }
                 }
-                if ($order->count() > 0) {
-                    $order->update([
-                        'user_id' => $user->id,
-                        'session_id' => Session::getId(),
-                    ]);
-                }
-                session()->put('cart_session_id', $cart->session_id);
-            }
+            });
+            session()->put('cart_session_id', $sessionId);
 
         }
     }
