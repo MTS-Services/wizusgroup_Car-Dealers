@@ -254,18 +254,16 @@ class ProductController extends Controller
     public function info(string $pid): View
     {
         $data['infos'] = $this->productService->getInfos($pid);
-        $data['info_remarks'] = $this->productService->getInfoRemarks($pid);
-        $data['info_files'] = $this->productService->getInfoFiles($pid);
         $data['product_id'] = $pid;
         $data['info_categories'] = $this->productInfoCategoryService->getProductInfoCats()->active()->select(['id', 'name'])->get();
         return view('backend.admin.product_management.product.create.information', $data);
     }
-    public function viewRemarks(string $pi_id): JsonResponse
+    public function viewInfoDetails(string $pi_id): JsonResponse
     {
-        $info_remark = $this->productService->getProductInfo($pi_id);
-        $info_remark->remarks = html_entity_decode($info_remark->remarks);
-        $info_remark->load('infoCategory');
-        return response()->json($info_remark);
+        $info = $this->productService->getProductInfo($pi_id);
+        $info->encryptedID = encrypt($info->id);
+        $info->load(['infoCategory', 'product', 'creater_admin']);
+        return response()->json($info);
     }
 
     public function deleteInfo(string $pi_id): RedirectResponse
@@ -281,7 +279,8 @@ class ProductController extends Controller
         try {
             $product = $this->productService->getProduct($pid);
             $validated = $request->validated();
-            $this->productService->infoCreate($product, $validated);
+            $file = $request->validated('file') && $request->hasFile('file') ? $request->file('file') : null;
+            $this->productService->infoCreate($product, $validated, $file);
             session()->flash('success', 'Product information added successfully!');
             return redirect()->route('pm.product.info', $pid);
             ;
@@ -290,34 +289,7 @@ class ProductController extends Controller
             throw $e;
         }
     }
-    public function infoRemarkStore(ProductInfoRemarkRequest $request, string $pid): RedirectResponse
-    {
-        try {
-            $product = $this->productService->getProduct($pid);
-            $validated = $request->validated();
-            $this->productService->infoRemarkCreate($product, $validated);
-            session()->flash('success', 'Product remarks added successfully!');
-            return redirect()->route('pm.product.info', $pid);
-        } catch (\Throwable $e) {
-            session()->flash('error', 'Product remarks added failed!');
-            throw $e;
-        }
-    }
 
-    public function infoFileStore(ProductInfoFileRequest $request, string $pid): RedirectResponse
-    {
-        try {
-            $product = $this->productService->getProduct($pid);
-            $validated = $request->validated();
-            $file = $request->validated('file') && $request->hasFile('file') ? $request->file('file') : null;
-            $this->productService->infoFileCreate($product, $validated, $file);
-            session()->flash('success', 'Product files added successfully!');
-            return redirect()->route('pm.product.info', $pid);
-        } catch (\Throwable $e) {
-            session()->flash('error', 'Product files added failed!');
-            throw $e;
-        }
-    }
 
     public function download(string $id)
     {
@@ -341,7 +313,7 @@ class ProductController extends Controller
                 return redirect()->route('pm.product.info', $pid);
             }
         } catch (\Throwable $e) {
-            session()->flash('error', 'Product entry completed failed!'. $e->getMessage());
+            session()->flash('error', 'Product entry completed failed!' . $e->getMessage());
             throw $e;
         }
     }

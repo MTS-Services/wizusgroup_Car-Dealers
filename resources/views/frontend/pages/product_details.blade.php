@@ -66,7 +66,7 @@
                                      {{ __('Basic Info') }}
                                  </button>
 
-                                 @foreach ($groupedInfo as $category => $type)
+                                 @foreach ($product->productInformations->groupBy('infoCategory.name') as $category => $info)
                                      <button @click="tab = '{{ $category }}'"
                                          :class="tab === 'airbag' ?
                                              'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
@@ -374,87 +374,16 @@
                                  </div>
 
 
-                                 @foreach ($infos as $key => $info)
-                                     <div x-show="tab === '{{ $category }}'" x-cloak>
-                                         <table class="w-full table-auto text-sm sm:text-base">
-                                             <tbody>
-                                                 {{-- @dd($type->toArray()) --}}
-                                                 <p>{{ $info->infoCategory->catagoryTypes[$key]->name }}</p>
-
-                                                 @foreach ($info->infoCategory->catagoryTypes as $type)
-                                                     @if (!empty($type->features))
-                                                         @foreach ($type->features as $feature)
-                                                             <tr class=" border-border-gray dark:border-bg-dark-secondary">
-                                                                 <td
-                                                                     class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
-                                                                     {{ $feature->name }}</td>
-                                                                 <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                                     {{ $info->description ?? 'N/A' }}
-
-                                                                 </td>
-                                                             </tr>
-                                                         @endforeach
-                                                     @endif
-                                                 @endforeach
-
-
-
-                                                 {{-- <tr class=" border-border-gray dark:border-bg-dark-secondary">
-                                                     <td
-                                                         class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Name') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $product->name ?? 'N/A' }}
-                                                     </td>
-                                                 </tr> --}}
-                                             </tbody>
-                                             {{-- <tfoot class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <tr>
-                                                     <td colspan="2"
-                                                         class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Description') }}</td>
-                                                 </tr>
-                                                 <tr>
-                                                     <td colspan="2">{{ $product->description ?? 'N/A' }}</td>
-                                                 </tr>
-                                                 <tr>
-                                                     <td colspan="2"
-                                                         class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Remarks') }}</td>
-                                                 </tr>
-                                                 <tr>
-                                                     <td colspan="2">{{ $product->remarks ?? 'N/A' }}</td>
-                                                 </tr>
-                                             </tfoot> --}}
-                                         </table>
+                                 @foreach ($product->productInformations as $key => $info)
+                                     <div x-show="tab === '{{ $info->infoCategory->name }}'" x-cloak>
+                                         {!! $info->description !!}
+                                         <a href="javascript:void(0)" class="btn btn-dark btn-sm">
+                                             <i class="fas fa-download"></i></a>
                                      </div>
                                  @endforeach
-
-                                 {{-- <!-- Airbag Info -->
-                                 <div x-show="tab === 'airbag'" x-cloak>
-                                     <p class="text-text-secondary dark:text-text-secondary text-lg">
-                                         {{ __('No airbag data available.') }}</p>
-                                 </div>
-
-                                 <!-- Other Info -->
-                                 <div x-show="tab === 'other'" x-cloak>
-                                     <p class="text-text-secondary dark:text-text-secondary text-lg">
-                                         {{ __('No additional information provided.') }}</p>
-                                 </div>
-
-                                 <!-- Development -->
-                                 <div x-show="tab === 'development'" x-cloak>
-                                     <p class="text-text-secondary dark:text-text-secondary text-lg">
-                                         {{ __('Development info not available.') }}</p>
-                                 </div>
-
-                                 <!-- Documents -->
-                                 <div x-show="tab === 'docs'" x-cloak>
-                                     <p class="text-text-secondary dark:text-text-secondary text-lg">
-                                         {{ __('No documents attached.') }}</p> --}}
                              </div>
                          </div>
-                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-2">
+                         <div class="flex justify-between items-center gap-5 mt-2">
                              <a href="@auth('web')
                                      javascript:void(0)
                                  @else
@@ -476,6 +405,11 @@
                                          onclick="document.getElementById('inquiry-{{ $product->slug }}').showModal()"
                                     @endauth
                                  class="btn-primary w-full">{{ __('WhatsApp Inquiry') }}</a>
+
+                             @auth('web')
+                                 <a href="javascript:void(0)" onclick=""
+                                     class="btn-primary w-full openCartSidebar">{{ __('Add to Cart') }}</a>
+                             @endauth
                          </div>
                          <x-backend.user.inquiry :product="$product" :label="__('Product Inquiry')" />
                      </div>
@@ -505,10 +439,9 @@
                      <div class="swiper-wrapper p-2">
                          @foreach ($related_products as $r_product)
                              <div class="swiper-slide">
-                                 <a href="{{ route('frontend.product.details', $r_product->slug) }}">
                                      <div class="product-card hover:shadow-md transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                                          data-product="1">
-                                         <div class="h-60 w-full overflow-hidden">
+                                         <div class="h-48 w-full overflow-hidden">
                                              <img src="{{ storage_url($r_product->primaryImage->first()?->image) }}"
                                                  alt="{{ $r_product->primaryImage->first()?->alt ?? $r_product->name }}"
                                                  class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
@@ -530,9 +463,13 @@
                                                  @endif
                                                  <span>{{ $r_product->brand?->name }}</span>
                                              </div>
+                                             <div class="flex flex-col justify-center items-center mt-4 gap-2">
+                                                <a href="{{ route('frontend.product.details', $r_product->slug) }}"
+                                                    class="btn-primary rounded-md w-full hover:bg-bg-tertiary text-sm">{{ __('View Details') }}</a>
+                                                <a href="javascript:void(0)" class="openCartSidebar btn-primary rounded-md w-full bg-bg-tertiary hover:bg-text-secondary text-sm">{{ __('Add to Cart') }}</a>
+                                            </div>
                                          </div>
                                      </div>
-                                 </a>
                              </div>
                          @endforeach
                      </div>

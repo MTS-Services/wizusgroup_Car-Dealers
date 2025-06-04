@@ -132,7 +132,7 @@
                             </div>
 
 
-                            <div class="card-body">
+                            {{-- <div class="card-body">
                                 <h4>{{ __('Available For Shipping') }}</h4>
                                 <div class="card">
                                     <div class="card-body">
@@ -192,18 +192,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-
-
-
-
-
-
-
-
-
-
+                            </div> --}}
                         </div>
                         <div class="form-group float-end">
                             <input type="submit" class="btn btn-primary" value="Create">
@@ -224,7 +213,7 @@
         });
     </script>
     {{-- FilePond  --}}
-
+    {{--
     <script>
         $(document).ready(function() {
             let index = 1;
@@ -271,5 +260,5 @@
                 index = $('.product-row').length;
             }
         });
-    </script>
+    </script> --}}
 @endpush

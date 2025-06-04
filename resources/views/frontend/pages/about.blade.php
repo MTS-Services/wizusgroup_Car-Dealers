@@ -5,7 +5,7 @@
     {{--  Hero Section --}}
     <section class="relative h-[300px] xl:h-[500px] flex items-center">
         <div class="absolute inset-0 z-0">
-            <img src="{{ asset('frontend/images/about/about-banner.jpg') }}"
+            <img src="{{ asset('frontend/images/about/industrial-container-cargo-freight-ship-habor-logistic-import-export.jpg') }}"
                 alt="Industrial machinery" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-bg-black bg-opacity-40"></div>
         </div>
@@ -33,51 +33,39 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {{--  Service 1 --}}
-                <div class="flex flex-col items-center text-center">
+                <div class="flex flex-col items-center text-center border-2 p-7 rounded-xl ">
                     <div class="w-24 h-24 mb-6 text-text-orange">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="w-full h-full">
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7z" />
-                        </svg>
+                       <img src="{{ asset('frontend/images/about/tractor (1).png') }}" alt="">
                     </div>
                     <h3 class="text-lg xl:text-xl font-semibold mb-2">{{ __("Access to Japanese and Chinese Used Machines") }}</h3>
+                    <p class="text-muted-text">{{ __('We provide you with direct access to a wide selection of high-quality, pre-owned machines from trusted suppliers in Japan and China.')}}</p>
                 </div>
 
                 {{--  Service 2 --}}
-                <div class="flex flex-col items-center text-center">
+                <div class="flex flex-col items-center text-center border-2 p-7 rounded-xl">
                     <div class="w-24 h-24 mb-6 text-text-orange">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="w-full h-full">
-                            <path
-                                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10h12v2H6zm0-4h12v2H6zm0 8h8v2H6z" />
-                        </svg>
+                        <img src="{{ asset('frontend/images/about/storage.png') }}" alt="">
                     </div>
                     <h3 class="text-lg xl:text-xl font-semibold mb-2">{{ __("Storage Services") }}</h3>
+                      <p class="text-muted-text">{{ __('Need time before shipping or consolidating purchases? We offer secure, short- and long-term storage options in Japan and China.')}}</p>
                 </div>
 
                 {{--  Service 3 --}}
-                <div class="flex flex-col items-center text-center">
+                <div class="flex flex-col items-center text-center border-2 p-7 rounded-xl">
                     <div class="w-24 h-24 mb-6 text-text-orange">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="w-full h-full">
-                            <path
-                                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10h12v2H6zm0-4h12v2H6zm0 8h8v2H6z" />
-                        </svg>
+                        <img src="{{ asset('frontend/images/about/groupshipping.png') }}" alt="">
                     </div>
                     <h3 class="text-lg xl:text-xl font-semibold mb-2">{{ __("Group Shipping Containers") }}</h3>
+                      <p class="text-muted-text">{{ __('Cut costs and save space with our container consolidation service. We combine multiple machines into one shipment for better value.')}}</p>
                 </div>
 
                 {{--  Service 4 --}}
-                <div class="flex flex-col items-center text-center">
+                <div class="flex flex-col items-center text-center border-2 p-7 rounded-xl">
                     <div class="w-24 h-24 mb-6 text-text-orange">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="w-full h-full">
-                            <path
-                                d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
-                        </svg>
+                       <img src="{{ asset('frontend/images/about/search.png') }}" alt="">
                     </div>
                     <h3 class="text-lg xl:text-xl font-semibold mb-2">{{ __("Inspection of Machines Before Shipping") }}</h3>
+                      <p class="text-muted-text">{{ __("We conduct detailed inspections of every machine before it's shipped, giving you peace of mind and reducing post-delivery surprises.")}}</p>
                 </div>
             </div>
         </div>

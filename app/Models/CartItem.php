@@ -14,14 +14,35 @@ class CartItem extends BaseModel
         'product_id',
         'price',
         'quantity',
-        'total',
+        'total', // Ensure this is calculated or handled in mutator/accessor if needed
+        'sort_order', // Add if you intend to fill it
 
-        'created_at',
-        'updated_at',
-        'deleted_at',
-
-        'created_by',
-        'updated_by',
-        'deleted_by',
+        'crater_id',
+        'crater_type',
+        'updater_id',
+        'updater_type',
+        'deleter_id',
+        'deleter_type',
     ];
+
+    protected static function booted()
+    {
+        static::creating(function ($item) {
+            $item->total = $item->price * $item->quantity;
+        });
+
+        static::updating(function ($item) {
+            $item->total = $item->price * $item->quantity;
+        });
+    }
+
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

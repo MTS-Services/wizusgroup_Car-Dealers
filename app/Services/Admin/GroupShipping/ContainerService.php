@@ -34,16 +34,16 @@ class ContainerService
         $container = Container::create($data);
         return $container;
     }
-    public function createContainerProducts(array $data): ContainerProduct|Collection
-    {
-        if (isset($data['key']) && $data['key'] == 0) {
-            ContainerProduct::where('container_id', $data['container_id'])->delete();
-        }
-        $data['created_by'] = admin()->id;
-        $container_product = ContainerProduct::updateOrCreate(['container_id' => $data['container_id'], 'product_id' => $data['product_id']], $data);
-        return $container_product;
+    // public function createContainerProducts(array $data): ContainerProduct|Collection
+    // {
+    //     if (isset($data['key']) && $data['key'] == 0) {
+    //         ContainerProduct::where('container_id', $data['container_id'])->delete();
+    //     }
+    //     $data['created_by'] = admin()->id;
+    //     $container_product = ContainerProduct::updateOrCreate(['container_id' => $data['container_id'], 'product_id' => $data['product_id']], $data);
+    //     return $container_product;
 
-    }
+    // }
 
     public function updateContainer(string $encryptedId, array $data, $file = null, ): Container
     {

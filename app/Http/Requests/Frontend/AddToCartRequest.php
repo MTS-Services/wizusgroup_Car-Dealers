@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Admin\ProductManagement;
+namespace App\Http\Requests\Frontend;
 
+use App\Http\Requests\JsonResponceErrors;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductInfoRequest extends FormRequest
+class AddToCartRequest extends JsonResponceErrors
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +23,7 @@ class ProductInfoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "product_info_cat_id" => "required|exists:product_info_categories,id",
-            "description" => "required|string",
-            "file" => "nullable|file|mimes:pdf,doc,docx,xls,xlsx,txt,zip|max:2048",
+            'product_id' => 'required|exists:products,id',
         ];
     }
 }

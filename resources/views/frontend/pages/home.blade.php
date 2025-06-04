@@ -49,7 +49,7 @@
     {{-- ===================== banner Section End ===================== --}}
     {{-- ===================== Category Section Start ===================== --}}
 
-    <section class="2xl:pb-20 2xl:pt-6 xl:pb-16 xl:pt-4 lg:pb-12 lg:pt-4 md:pb-10  pb-8 pt-4">
+    <section class="2xl:pb-10 2xl:pt-6 xl:pb-16 xl:pt-4 lg:pb-12 lg:pt-4 md:pb-10  pb-8 pt-4">
         <div class="container">
             <div class="relative">
                 <div class="swiper categories static">
@@ -82,7 +82,100 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
+    {{-- ===================== Category Section End ===================== --}}
+
+    {{-- ===================== Featured Section Start ===================== --}}
+    <section class="py-15 bg-bg-light dark:bg-bg-dark-tertiary">
+        <div class="container">
+            <div class="header">
+                <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase text-center">
+                    {{ __('Featured Products') }}</h2>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-8">
+                {{-- <div class="card bg-base-100 w-full shadow-card">
+                    <div class="card-image w-full h-60">
+                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
+                            class="w-full h-full object-cover" alt="" />
+                    </div>
+                    <div class="card-body gap-0">
+                        <h2 class="card-title">Caterpillar 320 Excavator</h2>
+                        <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
+                        <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
+                        <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                            <span>2025</span>
+                            <span class="mx-2">|</span>
+                            <span>Tractor</span>
+                        </div>
+                        <div class="card-actions justify-end mt-4">
+                            <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card bg-base-100 w-full shadow-card">
+                    <div class="card-image w-full h-60">
+                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
+                            class="w-full h-full object-cover" alt="" />
+                    </div>
+                    <div class="card-body gap-0">
+                        <h2 class="card-title">Caterpillar 320 Excavator</h2>
+                        <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
+                        <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
+                        <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                            <span>2025</span>
+                            <span class="mx-2">|</span>
+                            <span>Tractor</span>
+                        </div>
+                        <div class="card-actions justify-end mt-4">
+                            <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card bg-base-100 w-full shadow-card">
+                    <div class="card-image w-full h-60">
+                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
+                            class="w-full h-full object-cover" alt="" />
+                    </div>
+                    <div class="card-body gap-0">
+                        <h2 class="card-title">Caterpillar 320 Excavator</h2>
+                        <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
+                        <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
+                        <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                            <span>2025</span>
+                            <span class="mx-2">|</span>
+                            <span>Tractor</span>
+                        </div>
+                        <div class="card-actions justify-end mt-4">
+                            <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card bg-base-100 w-full shadow-card">
+                    <div class="card-image w-full h-60">
+                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
+                            class="w-full h-full object-cover" alt="" />
+                    </div>
+                    <div class="card-body gap-0">
+                        <h2 class="card-title">Caterpillar 320 Excavator</h2>
+                        <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
+                        <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
+                        <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                            <span>2025</span>
+                            <span class="mx-2">|</span>
+                            <span>Tractor</span>
+                        </div>
+                        <div class="card-actions justify-end mt-4">
+                            <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
+                        </div>
+                    </div>
+                </div> --}}
+                @foreach ($featured_products as $product)
+                    <x-frontend.product :product="$product" />
+                @endforeach
+            </div>
             <div class="text-center mx-auto xl:mt-15 lg:mt-11 md:mt-9 mt-7">
                 <button>
                     <a href="{{ route('frontend.products') }}" class="btn-primary ">
@@ -92,46 +185,59 @@
             </div>
         </div>
     </section>
-
-    {{-- ===================== Category Section End ===================== --}}
+    {{-- ===================== Featured Section End ===================== --}}
 
     {{-- ===================== countdown Group Container Section Start ===================== --}}
     <section
         class="countdown_section flex justify-center items-center xl:py-20 lg:py-16 md:py-12 py-8  m-0 bg-gray-100 dark:bg-bg-dark-secondary ">
         <div class="container">
-            <div
-                class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-6 xl:py-12 lg:py-10 md:py-8 py-4 text-center w-11/12 max-w-3xl shadow-md">
-                <h3 class="text-2xl font-bold mb-2">{{ __('Join Group Container - Save on Shipping') }}</h3>
-                <p class="text-xl mb-5">{{ __('Next Departure: From ') }} {{ $container->shippingPort?->name }}
-                    {{ __(' to ') }}{{ $container->destinationPort?->name }}</p>
-                <div class="countdown-blocks py-2" data-year="{{ date('Y', strtotime($container->deadline)) }}"
-                    data-month="{{ date('m', strtotime($container->deadline)) }}"
-                    data-date="{{ date('d', strtotime($container->deadline)) }}"
-                    data-hour="{{ date('H', strtotime($container->deadline)) }}"
-                    data-minute="{{ date('i', strtotime($container->deadline)) }}"
-                    data-second="{{ date('s', strtotime($container->deadline)) }}"></div>
-                <a href="{{ route('frontend.group_shipping') }}"
-                    class="btn-primary mx-auto py-2 xl:mt-9 lg:mt-7 md:mt-5 mt-3 px-10 ">
-                    {{ __('Join Now') }}
-                </a>
-            </div>
+            @if ($container)
+                <div
+                    class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-6 xl:py-12 lg:py-10 md:py-8 py-4 text-center w-11/12 max-w-3xl shadow-md">
+                    <h3 class="text-2xl font-bold mb-2">{{ __('Join Group Container - Save on Shipping') }}</h3>
+                    <p class="text-xl mb-5">{{ __('Next Departure: From ') }} {{ $container?->shippingPort?->name }}
+                        {{ __(' to ') }}{{ $container?->destinationPort?->name }}</p>
+                    <div class="countdown-blocks py-2" data-year="{{ date('Y', strtotime($container->deadline)) }}"
+                        data-month="{{ date('m', strtotime($container->deadline)) }}"
+                        data-date="{{ date('d', strtotime($container->deadline)) }}"
+                        data-hour="{{ date('H', strtotime($container->deadline)) }}"
+                        data-minute="{{ date('i', strtotime($container->deadline)) }}"
+                        data-second="{{ date('s', strtotime($container->deadline)) }}"></div>
+                    <a href="{{ route('frontend.group_shipping') }}"
+                        class="btn-primary mx-auto py-2 xl:mt-9 lg:mt-7 md:mt-5 mt-3 px-10 ">
+                        {{ __('Join Now') }}
+                    </a>
+                </div>
+            @endif
             <div class="pt-15">
                 <div class="header">
                     <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase text-center">
                         {{ __('How it Works') }}</h2>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-                    <div class="bg-bg-light-secondary dark:bg-bg-dark-tertiary py-9 p-2 shadow-lg text-center">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 mt-8">
+                    <div
+                        class="w-11/12 rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary py-9  shadow-lg text-center">
                         <i data-lucide="cpu" class="w-16 h-16 mx-auto text-text-secondary/40 "></i>
                         <p class="py-2 text-2xl font-semibold">{{ __('Select Your Machine') }}</p>
+                        <p class="text-muted-text">
+                            {{ __('Browse our extensive inventory of high-quality machinery from trusted suppliers around the world.') }}
+                        </p>
                     </div>
-                    <div class="bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9 p-2 shadow-lg text-center">
+                    <div
+                        class="w-11/12 rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9  shadow-lg text-center">
                         <i data-lucide="ship" class="w-16 h-16 mx-auto text-text-secondary/40"></i>
                         <p class="py-2 text-2xl font-semibold">{{ __('Arrange for Export') }}</p>
+                        <p class="text-muted-text">
+                            {{ __("Once you've selected your machine, we handle the export process from start to finish.") }}
+                        </p>
                     </div>
-                    <div class="bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9 p-2 shadow-lg text-center">
+                    <div
+                        class="w-11/12 rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9  shadow-lg text-center">
                         <i data-lucide="inbox" class="w-16 h-16 mx-auto text-text-secondary/40"></i>
                         <p class="py-2 text-2xl font-semibold">{{ __('Receive at Port') }}</p>
+                        <p class="text-muted-text">
+                            {{ __("We'll deliver your machine safely to the destination port of your choice — anywhere in the world.") }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -156,8 +262,8 @@
                     <div class="swiper-wrapper">
                         @foreach ($testimonials as $testimonial)
                             @php
-                                $isLong = strlen($testimonial->quote) > 200;
-                                $shortQuote = Str::limit($testimonial->quote, 200, '');
+                                $isLong = strlen($testimonial->quote) > 130;
+                                $shortQuote = Str::limit($testimonial->quote, 130, '');
                             @endphp
 
                             <div class="swiper-slide">
@@ -183,8 +289,9 @@
                                                 @if ($isLong)
                                                     <span class="quote-full hidden">{{ $testimonial->quote }}</span>
                                                     <span
-                                                        class="text-blue-600 cursor-pointer read-toggle text-sm items-center">Read
-                                                        more<i data-lucide="chevrons-right"
+                                                        class="text-blue-600 cursor-pointer read-toggle text-sm items-center">{{ __('Read
+                                                                                                                                                                                                                                more') }}<i
+                                                            data-lucide="chevrons-right"
                                                             class="w-4 h-4 inline-block "></i></span>
                                                 @endif
                                             </p>

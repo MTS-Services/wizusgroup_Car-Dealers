@@ -63,11 +63,11 @@
                     </div>
                 </div>
                 <div class="w-full xl:w-3/4">
-                    <div class=" min-h-[200px] border-none ">
+                    <div class="h-full border-none bg-bg-gray dark:bg-opacity-20">
                         {{-- Mobile Sidebar --}}
                         @include('frontend.includes.user_dashboard_mobile')
                         <div>
-                            <div class="bg-bg-gray dark:bg-opacity-20">
+                            <div class="">
                                 <div class="flex items-center gap-4 ps-10 py-12">
                                     <span class="openUsreDashboardSidebar xl:hidden"><i data-lucide="menu"
                                             class="w-6 h-6 md:w-8 md:h-8 bg-bg-primary text-text-white hover:bg-bg-tertiary transition-all duration-300 rounded-md p-1 "></i></span>
@@ -88,7 +88,7 @@
                             @include('backend.user.includes.my_containers')
                         </div>
                         <div id="my_bids" class="nav-pane hidden">
-                            <div class="bg-bg-gray dark:bg-opacity-20 p-10 pt-0">
+                            <div class=" p-10 pt-0">
                                 <div class="max-w-6xl mx-auto">
                                     {{-- My Bids --}}
                                     @include('backend.user.includes.my_bids')

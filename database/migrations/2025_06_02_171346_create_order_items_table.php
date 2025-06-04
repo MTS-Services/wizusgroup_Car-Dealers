@@ -8,8 +8,7 @@ use App\Http\Traits\AuditColumnsTrait;
 use App\Models\Order;
 use App\Models\OrderItem;
 
-return new class extends Migration
-{
+return new class extends Migration {
     use SoftDeletes, AuditColumnsTrait;
     /**
      * Run the migrations.
@@ -26,14 +25,14 @@ return new class extends Migration
             $table->decimal('sub_total', 15, 2)->default(0);
             $table->decimal('discount', 15, 2)->default(0);
             $table->decimal('total', 15, 2)->default(0);
-            $table->boolean('is_dropshipping')->default(OrderItem::NOT_DROPSHIPPING)->comment(OrderItem::NOT_DROPSHIPPING.' = no, '.OrderItem::DROPSHIPPING.' = yes')->index();
+            $table->boolean('is_dropshipping')->default(OrderItem::NOT_DROPSHIPPING)->comment(OrderItem::NOT_DROPSHIPPING . ' = no, ' . OrderItem::DROPSHIPPING . ' = yes')->index();
             $table->tinyInteger('status')->default(OrderItem::STATUS_PENDING)->index();
             $table->tinyInteger('dropshipping_status')->nullable()->index();
-            
+
 
             $table->timestamps();
             $table->softDeletes();
-            $this->addAdminAuditColumns($table);
+            $this->addMorphedAuditColumns($table);
 
 
             // Relationships

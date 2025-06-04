@@ -173,9 +173,9 @@ class ContainerController extends Controller
     {
 
         if ($request->ajax()) {
-            $query = $this->containerService->getContainers()->onlyTrashed()->with(['deleter_admin','shippingPort', 'destinationPort']);
+            $query = $this->containerService->getContainers()->onlyTrashed()->with(['deleter_admin', 'shippingPort', 'destinationPort']);
             return DataTables::eloquent($query)
-               ->editColumn('shipping_port', function ($container) {
+                ->editColumn('shipping_port', function ($container) {
                     return $container->shippingPort->name ?? '';
                 })
                 ->editColumn('destination_port', function ($container) {
@@ -240,12 +240,12 @@ class ContainerController extends Controller
                 $validated = $request->validated();
                 $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
                 $container = $this->containerService->createContainer($validated, $file);
-                if (collect($request->validated('container_products')[0])->filter()->isNotEmpty()) {
-                    foreach ($request->validated('container_products') as $key => $value) {
-                        $value['container_id'] = $container->id;
-                        $this->containerService->createContainerProducts($value);
-                    }
-                }
+                // if (collect($request->validated('container_products')[0])->filter()->isNotEmpty()) {
+                //     foreach ($request->validated('container_products') as $key => $value) {
+                //         $value['container_id'] = $container->id;
+                //         $this->containerService->createContainerProducts($value);
+                //     }
+                // }
 
             });
             session()->flash('success', 'Container created successfully!');
@@ -264,8 +264,8 @@ class ContainerController extends Controller
     {
         $container = $this->containerService->getContainer($id);
         $container->load(['creater_admin', 'updater_admin', 'shippingPort', 'destinationPort']);
-        $container['shipping_port_name'] = $container?->shippingPort?->name ;
-        $container['destination_port_name'] = $container?->destinationPort?->name ;
+        $container['shipping_port_name'] = $container?->shippingPort?->name;
+        $container['destination_port_name'] = $container?->destinationPort?->name;
         return response()->json($container);
     }
 
@@ -293,11 +293,11 @@ class ContainerController extends Controller
                 $validated = $request->validated();
                 $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
                 $container = $this->containerService->updateContainer($id, $validated, $file);
-                foreach ($request->validated('container_products') as $key => $value) {
-                    $value['container_id'] = $container->id;
-                    $value['key'] = $key;
-                    $this->containerService->createContainerProducts($value);
-                }
+                // foreach ($request->validated('container_products') as $key => $value) {
+                //     $value['container_id'] = $container->id;
+                //     $value['key'] = $key;
+                //     $this->containerService->createContainerProducts($value);
+                // }
             });
 
             session()->flash('success', 'Container updated successfully!');
