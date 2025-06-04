@@ -62,8 +62,7 @@
                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'state']" />
                         </div>
                         <div>
-                            <select name="city" id="city" disabled
-                                class="input h-10">
+                            <select name="city" id="city" disabled class="input h-10">
                                 <option value="" selected hidden>{{ __('Select City') }}</option>
                             </select>
                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'city']" />
@@ -118,26 +117,55 @@
 
                     <!-- Cart Items -->
                     <div class="space-y-6 mb-6">
-                        <!-- Item 1 -->
-                        <div class="flex gap-4 shadow-card dark:bg-bg-dark-secondary rounded-md p-4">
-                            <div class="relative">
-                                <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                    alt="Short Sleeve Sweat" class="w-20 h-full object-contain rounded">
-                                <span
-                                    class="absolute -top-2 -right-2 bg-bg-primary text-text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">1</span>
+                        @foreach ($cartItems as $item)
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-lg shadow-md dark:bg-bg-dark-secondary transition-all duration-200 hover:shadow-lg"
+                                data-item-id="{{ $item->id }}">
+                                <div class="relative flex-shrink-0">
+                                    <img src="{{ $item->product?->primaryImage->first()?->modified_image }}"
+                                        alt="{{ $item->product?->primaryImage->first()?->alt ?? $item->product?->name }}"
+                                        class="w-24 h-24 object-contain rounded-md">
+                                </div>
+                                <div class="flex-1 flex flex-col justify-between w-full">
+                                    <div>
+                                        <h3
+                                            class="font-semibold text-base text-text-dark dark:text-text-white leading-snug mb-1 truncate sm:whitespace-normal">
+                                            {{ $item->product?->name }}
+                                        </h3>
+                                        <p class="text-xs text-text-gray dark:text-text-white dark:text-opacity-70">
+                                            {{ $item->product?->brand?->name }}
+                                            / {{ $item->product?->model?->name }}</p>
+                                        <p class="font-bold text-lg text-bg-primary whitespace-nowrap item-subtotal">
+                                            ${{ number_format($item->product?->price * $item->quantity, 2) }}</p>
+                                    </div>
+                                    <div
+                                        class="flex flex-col sm:flex-row items-start sm:items-center justify-center gap-5 mt-3 w-full">
+                                        <div class="flex items-center gap-2 flex-shrink-0">
+                                            <button
+                                                class="quantity-decrease btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
+                                                title="Decrease Quantity" data-item-id="{{ $item->id }}"
+                                                data-current-quantity="{{ $item->quantity }}">
+                                                <i data-lucide="minus"
+                                                    class="w-4 h-4 group-hover:text-text-wiz_orange transition-all duration-300 ease-linear"></i>
+                                            </button>
+                                            <span
+                                                class="quantity-display px-3 py-1 bg-bg-light dark:bg-bg-darkTertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">{{ $item->quantity }}</span>
+                                            <button
+                                                class="quantity-increase btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
+                                                title="Increase Quantity" data-item-id="{{ $item->id }}"
+                                                data-current-quantity="{{ $item->quantity }}">
+                                                <i data-lucide="plus"
+                                                    class="w-4 h-4 group-hover:text-text-secondary transition-all duration-300 ease-linear"></i>
+                                            </button>
+                                        </div>
+                                        <button
+                                            class="btn btn-ghost btn-circle remove-item text-text-gray hover:text-red-600 transition-colors"
+                                            title="Remove Item" data-item-id="{{ $item->id }}">
+                                            <i data-lucide="trash-2" class="w-5 h-5"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex-1">
-                                <h3 class="font-medium text-base">Mahindra Yuvo 415 DI Heavy Duty Tractor</h3>
-                                <p class="text-sm text-text-gray dark:text-text-white dark:text-opacity-80 mt-2">Mahindra /
-                                    Yuvo 415 DI</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="font-medium">$80.00</p>
-                            </div>
-                        </div>
-                        <div id="checkout-cart-items">
-                            {{-- Cart Items --}}
-                        </div>
+                        @endforeach
                     </div>
 
                     <!-- Order Summary -->
@@ -177,11 +205,11 @@
     <script>
         // Get Country States By Axios
         $(document).ready(function() {
-            $('#country').on('change', function () {
+            $('#country').on('change', function() {
                 let route1 = "{{ route('axios.get-states-or-cities') }}";
                 getStatesOrCity($(this).val(), route1);
             });
-            $('#state').on('change', function () {
+            $('#state').on('change', function() {
                 let route2 = "{{ route('axios.get-cities') }}";
                 getCities($(this).val(), route2);
             });

@@ -17,7 +17,9 @@ return new class extends Migration {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
-            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('user_id')->index()->nullable();
+            $table->string('session_id')->index()->nullable();
+            $table->unsignedBigInteger('container_id')->index()->nullable();
             $table->string('order_number')->unique()->nullable()->index();
             $table->tinyInteger('status')->default(Order::STATUS_PENDING)->index();
             $table->unsignedBigInteger('shipping_id')->nullable()->index();
@@ -33,6 +35,7 @@ return new class extends Migration {
             // Relationships
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('shipping_id')->references('id')->on('addresses')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('container_id')->references('id')->on('containers')->onDelete('cascade')->onUpdate('cascade');
 
 
 
