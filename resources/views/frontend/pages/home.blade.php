@@ -102,8 +102,8 @@
             <div
                 class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-6 xl:py-12 lg:py-10 md:py-8 py-4 text-center w-11/12 max-w-3xl shadow-md">
                 <h3 class="text-2xl font-bold mb-2">{{ __('Join Group Container - Save on Shipping') }}</h3>
-                <p class="text-xl mb-5">{{ __('Next Departure: From ') }} {{ $container->shippingPort?->name }}
-                    {{ __(' to ') }}{{ $container->destinationPort?->name }}</p>
+                <p class="text-xl mb-5">{{ __('Next Departure: From ') }} {{ $container?->shippingPort?->name }}
+                    {{ __(' to ') }}{{ $container?->destinationPort?->name }}</p>
                 <div class="countdown-blocks py-2" data-year="{{ date('Y', strtotime($container->deadline)) }}"
                     data-month="{{ date('m', strtotime($container->deadline)) }}"
                     data-date="{{ date('d', strtotime($container->deadline)) }}"
@@ -121,20 +121,29 @@
                         {{ __('How it Works') }}</h2>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 mt-8">
-                    <div class="w-11/12 rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary py-9  shadow-lg text-center">
+                    <div
+                        class="w-11/12 rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary py-9  shadow-lg text-center">
                         <i data-lucide="cpu" class="w-16 h-16 mx-auto text-text-secondary/40 "></i>
                         <p class="py-2 text-2xl font-semibold">{{ __('Select Your Machine') }}</p>
-                        <p class="text-muted-text">{{ __('Browse our extensive inventory of high-quality machinery from trusted suppliers around the world.') }}</p>
+                        <p class="text-muted-text">
+                            {{ __('Browse our extensive inventory of high-quality machinery from trusted suppliers around the world.') }}
+                        </p>
                     </div>
-                    <div class="w-11/12 rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9  shadow-lg text-center">
+                    <div
+                        class="w-11/12 rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9  shadow-lg text-center">
                         <i data-lucide="ship" class="w-16 h-16 mx-auto text-text-secondary/40"></i>
                         <p class="py-2 text-2xl font-semibold">{{ __('Arrange for Export') }}</p>
-                        <p class="text-muted-text">{{ __("Once you've selected your machine, we handle the export process from start to finish.") }}</p>
+                        <p class="text-muted-text">
+                            {{ __("Once you've selected your machine, we handle the export process from start to finish.") }}
+                        </p>
                     </div>
-                    <div class="w-11/12 rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9  shadow-lg text-center">
+                    <div
+                        class="w-11/12 rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9  shadow-lg text-center">
                         <i data-lucide="inbox" class="w-16 h-16 mx-auto text-text-secondary/40"></i>
                         <p class="py-2 text-2xl font-semibold">{{ __('Receive at Port') }}</p>
-                        <p class="text-muted-text">{{ __("We'll deliver your machine safely to the destination port of your choice — anywhere in the world.") }}</p>
+                        <p class="text-muted-text">
+                            {{ __("We'll deliver your machine safely to the destination port of your choice — anywhere in the world.") }}
+                        </p>
                     </div>
                 </div>
             </div>
