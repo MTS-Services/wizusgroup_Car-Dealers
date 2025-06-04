@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\EmailTemplateRequest;
 use App\Http\Requests\Admin\SiteSettingRequest;
+use App\Http\Traits\FileManagementTrait;
 use App\Models\EmailTemplate;
 use App\Models\SiteSetting;
 use App\Models\TempFile;
@@ -16,6 +17,9 @@ use Illuminate\View\View;
 
 class SiteSettingController extends Controller
 {
+
+    use FileManagementTrait;
+
     public function __construct()
     {
         $this->middleware('auth:admin');
@@ -41,26 +45,14 @@ class SiteSettingController extends Controller
 
             foreach ($data as $key => $value) {
                 if ($key == 'site_logo' || $key == 'site_favicon') {
-                    $temp_file = TempFile::findOrFail($request->$key);
-                    if ($temp_file) {
-                        $from_path = 'public/' . $temp_file->path . '/' . $temp_file->filename;
-                        $to_path = 'site-settings/' . $key . '/' .  time() . '/' . $temp_file->filename;
-                        Storage::move($from_path, 'public/' . $to_path);
-                        $old_image = SiteSetting::where('key', $key)->first();
-                        if ($old_image) {
-                            $temp_create = new TempFile();
-                            $temp_create->path =  dirname($old_image->value);
-                            $temp_create->filename = basename($old_image->value);
-                            $temp_create->from()->associate($old_image);
-                            $temp_create->creater()->associate(admin());
-                            $temp_create->save();
-                        }
-                        $site_setting = SiteSetting::updateOrCreate(['key' => $key], ['value' => $to_path]);
-                        Storage::deleteDirectory('public/' . $temp_file->path);
-                        $temp_file->forceDelete();
-                        continue;
-                    }
+
+                     $value = $this->handleFileUpload($request->$key,  'site-settings', $key);
                 }
+
+                if ($key == 'office_infos') {
+                    $value = json_encode($value);
+                }
+
                 $site_setting = SiteSetting::updateOrCreate(['key' => $key], ['value' => $value]);
 
 
@@ -75,7 +67,7 @@ class SiteSettingController extends Controller
             session()->flash('success', "Settings added successfully.");
             return redirect()->route('site_setting.index');
         } catch (\Exception $e) {
-            session()->flash('error', "Something went wrong. Please try again.");
+            session()->flash('error', "Something went wrong. Please try again." . $e->getMessage());
             return redirect()->route('site_setting.index');
         }
     }
