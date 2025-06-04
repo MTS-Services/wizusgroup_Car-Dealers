@@ -27,7 +27,7 @@
             <a href="{{ route('frontend.product.details', $product->slug) }}"
                 class="btn-primary rounded-md w-full hover:bg-bg-tertiary me-2">{{ __('View Details') }}</a>
             <button type="button"
-                class="btn-primary rounded-md w-full bg-bg-tertiary hover:bg-text-secondary ms-2 add-to-cart"
+                class="btn-primary rounded-md w-full bg-bg-tertiary hover:bg-text-secondary ms-2 add-to-cart-{{ $product->id }}"
                 data-id="{{ $product->id }}">
                 {{ __('Add to Cart') }}
             </button>
@@ -39,7 +39,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
 
-        $('.add-to-cart').on('click', function() {
+        $('.add-to-cart-{{ $product->id }}').on('click', function() {
             const productId = $(this).data('id');
             addToCart(productId);
         })

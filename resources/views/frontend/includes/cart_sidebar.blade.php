@@ -64,7 +64,7 @@
             if (typeof updateCartTotalDisplay === 'function') {
                 updateCartTotalDisplay(cart_total);
             } else {
-                toastr.error("updateCartTotalDisplay function is not defined.");
+                console.error("updateCartTotalDisplay function is not defined.");
             }
 
             if (status === 'success') {
@@ -72,7 +72,7 @@
                 if (typeof appendCartItemHtml === 'function') {
                     appendCartItemHtml(cart_item);
                 } else {
-                    toastr.error("appendCartItemHtml function is not defined.");
+                    console.error("appendCartItemHtml function is not defined.");
                 }
             } else if (status === 'info') {
                 // If item was already in cart, you might want to show a message
@@ -82,12 +82,10 @@
             }
 
         }).catch(error => {
-            toastr.error('Error adding product to cart:', error);
+            console.error('Error adding product to cart:', error);
             // Handle error (e.g., show a user-friendly message)
         })
     }
-
-
 
     // Helper function to format currency
     function formatCurrency(amount) {
@@ -96,18 +94,13 @@
 
     // Function to update the main cart total display
     function updateCartTotalDisplay(total) {
-        const cartTotalDisplay = document.querySelector('.cart-total');
-        if (cartTotalDisplay) {
-            cartTotalDisplay.textContent = formatCurrency(total) + ' USD';
-        }
+        $('.cart-total').text(formatCurrency(total) + ' USD');
     }
 
     // Function to generate HTML for a single cart item
     function generateCartItemHtml(item) {
-  
-
-        const productImageUrl = item.product.primary_image ? item.product.primary_image.image_url :
-            'https://placehold.co/96x96/E0E0E0/333333?text=No+Image';
+        // Corrected: Using 'modified_image' accessor from ProductImage model
+        const productImageUrl = item.product.primary_image[0] ? item.product.primary_image[0].modified_image : 'https://placehold.co/96x96/E0E0E0/333333?text=No+Image';
         const brandName = item.product.brand ? item.product.brand.name : '';
         const modelName = item.product.model ? item.product.model.name : '';
         const subtotal = item.price * item.quantity;
@@ -152,23 +145,23 @@
 
     // Function to append a new item to the cart sidebar
     function appendCartItemHtml(item) {
-        const cartItemsContainer = document.getElementById('cart-items-container');
-        const cartEmptyMessage = document.getElementById('cart-empty-message');
+        const $cartItemsContainer = $('#cart-items-container');
+        const $cartEmptyMessage = $('#cart-empty-message');
 
-        if (!cartItemsContainer || !cartEmptyMessage) {
-            toastr.error("Cart sidebar elements not found for appending.");
+        if (!$cartItemsContainer.length || !$cartEmptyMessage.length) {
+            console.error("Cart sidebar elements not found for appending.");
             return;
         }
 
         // Check if the item already exists in the DOM to avoid duplicates
-        if (cartItemsContainer.querySelector(`[data-item-id="${item.id}"]`)) {
+        if ($cartItemsContainer.find(`[data-item-id="${item.id}"]`).length) {
             console.warn(`Item with ID ${item.id} already exists in sidebar.`);
             return; // Do not append if already present
         }
 
-        cartEmptyMessage.classList.add('hidden'); // Hide empty message if an item is added
+        $cartEmptyMessage.addClass('hidden'); // Hide empty message if an item is added
         const itemHtml = generateCartItemHtml(item);
-        cartItemsContainer.insertAdjacentHTML('beforeend', itemHtml);
+        $cartItemsContainer.append(itemHtml);
 
         // Re-render lucide icons for the newly added item
         if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
@@ -178,66 +171,53 @@
 
     // Function to update an existing item's quantity and subtotal in the sidebar
     function updateCartItemHtml(itemId, newQuantity, newSubtotal) {
-        const itemElement = document.querySelector(`#cart-items-container [data-item-id="${itemId}"]`);
-        if (itemElement) {
-            const quantityDisplay = itemElement.querySelector('.quantity-display');
-            const itemSubtotalDisplay = itemElement.querySelector('.item-subtotal');
-            const increaseBtn = itemElement.querySelector('.quantity-increase');
-            const decreaseBtn = itemElement.querySelector('.quantity-decrease');
+        const $itemElement = $(`#cart-items-container [data-item-id="${itemId}"]`);
+        if ($itemElement.length) {
+            $itemElement.find('.quantity-display').text(newQuantity);
+            $itemElement.find('.item-subtotal').text(formatCurrency(newSubtotal));
 
-            if (quantityDisplay) {
-                quantityDisplay.textContent = newQuantity;
-            }
-            if (itemSubtotalDisplay) {
-                itemSubtotalDisplay.textContent = formatCurrency(newSubtotal);
-            }
             // Update data-current-quantity attributes for buttons
-            if (increaseBtn) {
-                increaseBtn.dataset.currentQuantity = newQuantity;
-            }
-            if (decreaseBtn) {
-                decreaseBtn.dataset.currentQuantity = newQuantity;
-            }
+            $itemElement.find('.quantity-increase, .quantity-decrease').data('currentQuantity', newQuantity);
         }
     }
 
     // Function to remove an item from the sidebar
     function removeCartItemHtml(itemId) {
-        const itemElement = document.querySelector(`#cart-items-container [data-item-id="${itemId}"]`);
-        const cartItemsContainer = document.getElementById('cart-items-container');
-        const cartEmptyMessage = document.getElementById('cart-empty-message');
+        const $itemElement = $(`#cart-items-container [data-item-id="${itemId}"]`);
+        const $cartItemsContainer = $('#cart-items-container');
+        const $cartEmptyMessage = $('#cart-empty-message');
 
-        if (itemElement) {
-            itemElement.remove();
+        if ($itemElement.length) {
+            $itemElement.remove();
         }
 
         // If no items left, show empty message
-        if (cartItemsContainer && cartItemsContainer.children.length === 0) {
-            if (cartEmptyMessage) {
-                cartEmptyMessage.classList.remove('hidden');
+        if ($cartItemsContainer.length && $cartItemsContainer.children().length === 0) {
+            if ($cartEmptyMessage.length) {
+                $cartEmptyMessage.removeClass('hidden');
             }
         }
     }
 
     // Function to render all cart items (used for initial load)
     function renderAllCartItems(cartItems) {
-        const cartItemsContainer = document.getElementById('cart-items-container');
-        const cartEmptyMessage = document.getElementById('cart-empty-message');
+        const $cartItemsContainer = $('#cart-items-container');
+        const $cartEmptyMessage = $('#cart-empty-message');
 
-        if (!cartItemsContainer || !cartEmptyMessage) {
-            toastr.error("Cart sidebar elements not found for initial rendering.");
+        if (!$cartItemsContainer.length || !$cartEmptyMessage.length) {
+            console.error("Cart sidebar elements not found for initial rendering.");
             return;
         }
 
-        cartItemsContainer.innerHTML = ''; // Clear existing content
+        $cartItemsContainer.empty(); // Clear existing content
 
         if (cartItems.length === 0) {
-            cartEmptyMessage.classList.remove('hidden');
+            $cartEmptyMessage.removeClass('hidden');
         } else {
-            cartEmptyMessage.classList.add('hidden');
+            $cartEmptyMessage.addClass('hidden');
             cartItems.forEach(item => {
                 const itemHtml = generateCartItemHtml(item);
-                cartItemsContainer.insertAdjacentHTML('beforeend', itemHtml);
+                $cartItemsContainer.append(itemHtml);
             });
         }
         // Re-render lucide icons for all items
@@ -247,46 +227,46 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        const closeCartSidebarBtn = document.querySelector('.closeCartSidebar');
-        const cartSidebar = document.querySelector('.cartSidebar');
-        const cartItemsContainer = document.getElementById('cart-items-container');
+
+        const $closeCartSidebarBtn = $('.closeCartSidebar');
+        const $cartSidebar = $('.cartSidebar');
+        const $cartItemsContainer = $('#cart-items-container');
 
         // Close sidebar functionality
-        if (closeCartSidebarBtn) {
-            closeCartSidebarBtn.addEventListener('click', function() {
-                if (cartSidebar) {
-                    cartSidebar.style.transform = 'translateX(100%)';
+        if ($closeCartSidebarBtn.length) {
+            $closeCartSidebarBtn.on('click', function() {
+                if ($cartSidebar.length) {
+                    $cartSidebar.css('transform', 'translateX(100%)');
                 }
             });
         }
 
         // Initial fetch of cart items when the page loads
-        if (cartItemsContainer) {
+        // This relies on renderAllCartItems and updateCartTotalDisplay being globally available
+        if ($cartItemsContainer.length && typeof renderAllCartItems === 'function' &&
+            typeof updateCartTotalDisplay === 'function') {
             axios.post('{{ route('frontend.cart.items') }}')
                 .then(response => {
                     renderAllCartItems(response.data.cart_items);
                     updateCartTotalDisplay(response.data.cart_total);
                 })
                 .catch(error => {
-                    toastr.error('Error fetching initial cart items:', error);
+                    console.error('Error fetching initial cart items:', error);
                     // Optionally display a user-friendly error message
                 });
 
             // Event delegation for quantity change and remove buttons
-            cartItemsContainer.addEventListener('click', function(event) {
-                const target = event.target.closest('button');
+            $cartItemsContainer.on('click', 'button', function(event) {
+                const $target = $(this); // The clicked button
 
-                if (!target) return; // Not a button
-
-                const itemId = target.dataset.itemId;
+                const itemId = $target.data('itemId');
                 if (!itemId) return; // Button doesn't have an item ID
 
-                if (target.classList.contains('quantity-increase') || target.classList.contains(
-                        'quantity-decrease')) {
-                    let currentQuantity = parseInt(target.dataset.currentQuantity);
+                if ($target.hasClass('quantity-increase') || $target.hasClass('quantity-decrease')) {
+                    let currentQuantity = parseInt($target.data('currentQuantity'));
                     let newQuantity;
-
-                    if (target.classList.contains('quantity-increase')) {
+                    
+                    if ($target.hasClass('quantity-increase')) {
                         newQuantity = currentQuantity + 1;
                     } else { // quantity-decrease
                         newQuantity = currentQuantity - 1;
@@ -306,20 +286,31 @@
                             cart_total
                         } = response.data;
 
-                        updateCartTotalDisplay(cart_total); // Always update total
+                        if (typeof updateCartTotalDisplay === 'function') {
+                            updateCartTotalDisplay(cart_total); // Always update total
+                        }
 
                         if (status === 'success') {
-                            updateCartItemHtml(item_id, new_quantity, item_subtotal);
+                            if (typeof updateCartItemHtml === 'function') {
+                                updateCartItemHtml(item_id, new_quantity, item_subtotal);
+                            }
                         } else if (status === 'removed') {
-                            removeCartItemHtml(removed_item_id);
+                            if (typeof removeCartItemHtml === 'function') {
+                                removeCartItemHtml(removed_item_id);
+                            }
                         }
-                        console.log(message);
+                        // Assuming toastr is a global jQuery plugin
+                        if (typeof toastr !== 'undefined' && typeof toastr.log === 'function') {
+                            toastr.log(message);
+                        } else {
+                            console.log(message);
+                        }
                     }).catch(error => {
-                        toastr.error('Error updating quantity:', error);
+                        console.error('Error updating quantity:', error);
                         // Handle error (e.g., show a user-friendly message)
                     });
 
-                } else if (target.classList.contains('remove-item')) {
+                } else if ($target.hasClass('remove-item')) {
                     axios.post('{{ route('frontend.cart.remove') }}', {
                         item_id: itemId
                     }).then(response => {
@@ -330,12 +321,21 @@
                             cart_total
                         } = response.data;
                         if (status === 'success') {
-                            removeCartItemHtml(removed_item_id);
-                            updateCartTotalDisplay(cart_total);
+                            if (typeof removeCartItemHtml === 'function') {
+                                removeCartItemHtml(removed_item_id);
+                            }
+                            if (typeof updateCartTotalDisplay === 'function') {
+                                updateCartTotalDisplay(cart_total);
+                            }
                         }
-                        console.log(message);
+                        // Assuming toastr is a global jQuery plugin
+                        if (typeof toastr !== 'undefined' && typeof toastr.log === 'function') {
+                            toastr.log(message);
+                        } else {
+                            console.log(message);
+                        }
                     }).catch(error => {
-                        toastr.error('Error removing item:', error);
+                        console.error('Error removing item:', error);
                         // Handle error
                     });
                 }
