@@ -11,11 +11,9 @@
             <h3
                 class="text-base lg:text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
                 {{ $product->name }}</h3>
-            @auth('web')
                 <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">
                     ${{ number_format($product->price, 2) }}
                 </p>
-            @endauth
             <p class="text-text-primary dark:text-text-white mt-2">{{ $product->brand?->name }}</p>
             <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
                 <span>{{ $product->year }}</span>
