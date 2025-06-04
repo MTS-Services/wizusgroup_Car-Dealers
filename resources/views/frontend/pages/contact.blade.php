@@ -68,10 +68,10 @@
                             </div>
                             <div class="w-1/2">
                                 <a class="btn-primary rounded-md w-full py-2 px-0 hover:bg-bg-tertiary"
-                                    href="tel:+1(123) 456-789">{{settings('phone') }}</a>
+                                    href="tel:+1(123) 456-789">{{ settings('phone') }}</a>
                             </div>
                         </div>
-                        @foreach (json_decode(settings('office_infos'), true) as $office_info)
+                        {{-- @foreach (json_decode(settings('office_infos'), true) as $office_info)
                             <p
                                 class="pb-2 text-base lg:me-40 text-text-primary dark:text-text-white font-semibold capitalize">
                                 {{ $office_info['country'] }}</p>
@@ -90,7 +90,7 @@
                                 </p>
                                 <p class="text-text-primary dark:text-text-white">{{ __('Monday-Friday, 9am-6pm') }}</p>
                             </div>
-                        @endforeach
+                        @endforeach --}}
                     </div>
                 </div>
             </div>
