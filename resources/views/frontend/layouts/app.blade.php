@@ -180,35 +180,6 @@
 
     {{-- Side Bar --}}
     <script src="{{ asset('frontend/js/sidebar.js') }}"></script>
-    {{-- Cart Sidebar --}}
-    <script src="{{ asset('frontend/js/cartSidebar.js') }}"></script>
-    {{-- Cart Page js --}}
-    {{-- Add to cart --}}
-    {{-- <script>
-        $(document).ready(function() {
-            $('.add-to-cart').on('click', function() {
-                const productId = $(this).data('id');
-
-                $.ajax({
-                    url: '{{ route('frontend.cart.add') }}',
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        product_id: productId
-                    },
-                    success: function(response) {
-                        // Optionally update cart count:
-                        $('#cart-count').text(response.cart_count);
-                    },
-                    error: function() {
-                        alert('Something went wrong. Try again!');
-                    }
-                });
-            });
-        });
-    </script> --}}
-
-    </script>
 
     {{-- Toggle search form --}}
     <script src="{{ asset('frontend/js/toggleSearchForm.js') }}"></script>

@@ -44,12 +44,14 @@ class CartPageController extends Controller
     public function fetchCartItems(): JsonResponse
     {
         $cart = $this->getOrCreateCart();
-        // Eager load product details including primaryImage, brand, and model
+        // $cart->load('items.product.brand', 'items.product.model');
+
         $cartItems = $cart->items()->with('product.primaryImage', 'product.brand', 'product.model')->get();
         $cartTotal = $this->calculateCartTotal($cart);
 
         return response()->json([
             'status' => 'success',
+            // 'cart_items' => $cart->items,
             'cart_items' => $cartItems,
             'cart_total' => $cartTotal,
         ]);
@@ -67,12 +69,12 @@ class CartPageController extends Controller
         $productId = $request->input('product_id');
         $quantity = 1; // Default quantity as per your Axios call
 
-        $product = Product::find($productId);
+        $product = Product::findOrFail($productId);
 
         if (!$product) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Product not found.'
+                'message' => 'Product not found. Please try again'
             ], 404);
         }
 
@@ -133,14 +135,20 @@ class CartPageController extends Controller
             ], 404);
         }
 
+        // CHANGED: If new quantity is less than 1, set it to 1 and return an info message
         if ($newQuantity < 1) {
-            // If new quantity is less than 1, remove the item
-            $cartItem->delete();
+            $newQuantity = 1; // Force minimum quantity to 1
+            $cartItem->quantity = $newQuantity;
+            $cartItem->save(); // Save the item with quantity 1
             $cartTotal = $this->calculateCartTotal($cart);
+            $updatedItemSubtotal = $cartItem->total; // Recalculate total after change
+
             return response()->json([
-                'status' => 'removed', // Custom status for item removal
-                'message' => 'Item removed from cart.',
-                'removed_item_id' => $itemId,
+                'status' => 'info', // Changed status to 'info' as it's not an error, but an adjustment
+                'message' => 'Minimum quantity for this item is 1.', // Specific message
+                'item_id' => $itemId, // Return the item ID
+                'new_quantity' => $newQuantity, // Return the adjusted quantity
+                'item_subtotal' => $updatedItemSubtotal, // Return the updated subtotal
                 'cart_total' => $cartTotal,
             ]);
         }

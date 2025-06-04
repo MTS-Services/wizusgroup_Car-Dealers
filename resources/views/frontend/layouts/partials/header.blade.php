@@ -39,10 +39,11 @@
                 </span>
                 {{-- <a href="#" class="hover:text-text-secondary transition-all duration-300 ease-linear"><i
                         data-lucide="heart"></i></a> --}}
-                <a href="#" class="hover:text-text-secondary transition-all duration-300 ease-linear openCartSidebar"><i
+                <a href="javaScript:void(0)"
+                    class="hover:text-text-secondary transition-all duration-300 ease-linear openCartSidebar"><i
                         data-lucide="shopping-basket"></i></a>
-                        {{-- Cart Sidebar --}}
-                        @include('frontend.includes.cart_sidebar')
+                {{-- Cart Sidebar --}}
+                @include('frontend.includes.cart_sidebar')
                 <a href="javaScript:void(0)" onclick="my_modal_1.showModal()"
                     class="hover:text-text-secondary transition-all duration-300 ease-linear"><i
                         data-lucide="user"></i></a>
