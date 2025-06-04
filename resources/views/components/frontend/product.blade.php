@@ -27,7 +27,7 @@
             <a href="{{ route('frontend.product.details', $product->slug) }}"
                 class="btn-primary rounded-md w-full hover:bg-bg-tertiary me-2">{{ __('View Details') }}</a>
             <button type="button"
-                class="btn-primary rounded-md w-full bg-bg-tertiary hover:bg-text-secondary ms-2 add-to-cart-{{ $product->id }} {{-- openCartSidebar --}}"
+                class="btn-primary rounded-md w-full bg-bg-tertiary hover:bg-text-secondary ms-2 add-to-cart-{{ $product->id }}"
                 data-id="{{ $product->id }}">
                 {{ __('Add to Cart') }}
             </button>
@@ -47,8 +47,33 @@
             }).then(response => {
                 $('.cartSidebar').css('transform', 'translateX(0)');
                 console.log(response.data);
+
+                const { status, message, cart_item, cart_total } = response.data;
+
+                // Ensure updateCartSidebar function is globally available or included in a shared script
+                if (typeof updateCartTotalDisplay === 'function') {
+                    updateCartTotalDisplay(cart_total);
+                } else {
+                    console.error("updateCartTotalDisplay function is not defined.");
+                }
+
+                if (status === 'success') {
+                    // Append new item to sidebar
+                    if (typeof appendCartItemHtml === 'function') {
+                        appendCartItemHtml(cart_item);
+                    } else {
+                        console.error("appendCartItemHtml function is not defined.");
+                    }
+                } else if (status === 'info') {
+                    // If item was already in cart, you might want to show a message
+                    // or highlight the existing item if it's visible in the sidebar.
+                    // For now, we just update the total (which is already done).
+                    console.warn(message);
+                }
+
             }).catch(error => {
-                console.error(error);
+                console.error('Error adding product to cart:', error);
+                // Handle error (e.g., show a user-friendly message)
             })
         })
 
