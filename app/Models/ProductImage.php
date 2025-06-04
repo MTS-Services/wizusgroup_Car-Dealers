@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Builder; // Import the Builder class
 
 class ProductImage extends BaseModel
 {
@@ -24,9 +25,6 @@ class ProductImage extends BaseModel
     {
         return $this->belongsTo(Product::class,'product_id','id');
     }
-
-
-
 
     public function __construct(array $attributes = [])
     {
@@ -58,8 +56,6 @@ class ProductImage extends BaseModel
             self::STATUS_DEACTIVE => 'Deactive',
         ];
     }
-
-
 
     // Status colors
     public static function getStatusColors(): array
@@ -116,11 +112,14 @@ class ProductImage extends BaseModel
     {
         return self::getStatusBtnColors()[$this->status] ?? 'btn btn-secondary';
     }
-    public function scopeActive($query)
+
+    // Corrected scope method with Builder type hint
+    public function scopeActive(Builder $query): Builder
     {
         return $query->where('status', self::STATUS_ACTIVE);
     }
-    public function scopeDeactive($query)
+    // Corrected scope method with Builder type hint
+    public function scopeDeactive(Builder $query): Builder
     {
         return $query->where('status', self::STATUS_DEACTIVE);
     }
@@ -136,8 +135,6 @@ class ProductImage extends BaseModel
             self::NOT_PRIMARY => 'Not Primary',
         ];
     }
-
-
 
     // Primary colors
     public static function getPrimaryColors(): array
@@ -194,11 +191,13 @@ class ProductImage extends BaseModel
     {
         return self::getPrimaryBtnColors()[$this->is_primary] ?? 'btn btn-secondary';
     }
-    public function scopePrimary($query)
+    // Corrected scope method with Builder type hint
+    public function scopePrimary(Builder $query): Builder
     {
         return $query->where('is_primary', self::IS_PRIMARY);
     }
-    public function scopeNotPrimary($query)
+    // Corrected scope method with Builder type hint
+    public function scopeNotPrimary(Builder $query): Builder
     {
         return $query->where('is_primary', self::NOT_PRIMARY);
     }

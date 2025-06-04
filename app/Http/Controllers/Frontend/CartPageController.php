@@ -80,7 +80,8 @@ class CartPageController extends Controller
         $cartItem = $cart->items()->where('product_id', $productId)->first();
 
         if ($cartItem) {
-            // Product already in cart, update quantity
+            // Product already in cart, return its details and current total
+            $cartItem->load('product.primaryImage', 'product.brand', 'product.model'); // Ensure relationships are loaded
             $cartTotal = $this->calculateCartTotal($cart);
             return response()->json([
                 'status' => 'info',
@@ -98,7 +99,7 @@ class CartPageController extends Controller
             $cart->items()->save($cartItem);
 
             // Load relationships for the newly created cart item to return full details
-
+            $cartItem->load('product.primaryImage', 'product.brand', 'product.model');
             $cartTotal = $this->calculateCartTotal($cart);
 
             return response()->json([
@@ -145,9 +146,9 @@ class CartPageController extends Controller
         }
 
         $cartItem->quantity = $newQuantity;
-        $cartItem->save();
+        $cartItem->save(); // This will trigger the updating event to recalculate $item->total
 
-        $updatedItemSubtotal = $cartItem->price * $cartItem->quantity;
+        $updatedItemSubtotal = $cartItem->total; // Use the already calculated total from the model
         $cartTotal = $this->calculateCartTotal($cart);
 
         return response()->json([
@@ -197,35 +198,6 @@ class CartPageController extends Controller
      *
      * @return \App\Models\Cart
      */
-    // protected function getOrCreateCart(): Cart
-    // {
-    //     $cart = null;
-
-    //     if (Auth::guard('web')->check()) {
-    //         $userId = Auth::guard('web')->id();
-    //         $cart = Cart::where('user_id', $userId)->first();
-
-    //         if (!$cart) {
-    //             $cart = Cart::create([
-    //                 'user_id' => $userId,
-    //                 'session_id' => Session::getId(),
-    //             ]);
-    //         }
-    //     } else {
-    //         $sessionId = Session::getId();
-    //         $cart = Cart::where('session_id', $sessionId)->first();
-
-    //         if (!$cart) {
-    //             $cart = Cart::create([
-    //                 'session_id' => $sessionId,
-    //                 'user_id' => null,
-    //             ]);
-    //         }
-    //     }
-
-    //     return $cart;
-    // }
-
     protected function getOrCreateCart()
     {
         $cart = null;
@@ -233,19 +205,17 @@ class CartPageController extends Controller
         $sessionId = Session::getId();
         if (Auth::guard('web')->check()) {
             $userId = user()->id;
-            $cart = Cart::updateOrCreate(
-                ['user_id' => $userId],
-                ['session_id' => $sessionId,]
-            );
+            $cart = Cart::updateOrCreate([
+                'user_id' => $userId
+            ], [
+                'session_id' => $sessionId,
+            ]);
         } else {
             if (session()->has('cart_session_id')) {
                 $cart = Cart::where('session_id', session()->get('cart_session_id'))->first();
-                if ($cart) {
-                    $cart->update([
-                        'session_id' => $sessionId
-                    ]);
-                }
-
+                $cart->update([
+                    'session_id' => $sessionId
+                ]);
             } else {
                 $cart = Cart::create([
                     'session_id' => $sessionId
@@ -255,6 +225,7 @@ class CartPageController extends Controller
         session()->put('cart_session_id', $cart->session_id);
         return $cart;
     }
+
     /**
      * Helper method to calculate the total price of the cart.
      *
@@ -263,10 +234,10 @@ class CartPageController extends Controller
      */
     protected function calculateCartTotal(Cart $cart): float
     {
-        // Recalculate total from fresh items to ensure accuracy
-        $total = $cart->items()->sum(function ($item) {
-            return $item->price * $item->quantity;
-        });
+        // Corrected: Sum the 'total' column directly, which is already calculated in CartItem model
+        // Ensure the cart items are reloaded to get the latest 'total' values after updates/deletes
+        $cart->load('items'); // Reload the items collection to ensure 'total' is up-to-date
+        $total = $cart->items->sum('total'); // Sum the 'total' attribute of each CartItem
         return (float) $total;
     }
 }
