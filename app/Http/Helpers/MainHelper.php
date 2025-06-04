@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Permission;
+use App\Models\SiteSetting;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use League\Csv\Writer;
@@ -197,4 +198,13 @@ function isImage($path)
     $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'];
     $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
     return in_array($extension, $imageExtensions);
+}
+
+// Side Settings
+function settings($key)
+{
+    $setting = SiteSetting::where('key', $key)->where('deleted_at', null)->first();
+    if ($setting) {
+        return $setting->value;
+    }
 }

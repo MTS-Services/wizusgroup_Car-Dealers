@@ -7,7 +7,7 @@
                         <img src="{{ asset('frontend/images/logo.png') }}" alt="logo" class="w-48 mx-auto lg:ml-0">
                     </a>
                     <p class="basis-full lg:basis-[70%] xl:basis-full text-center md:text-start">
-                        {{ __('Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi, eveniet saepe delectus iste exercitationem, aspernatur suscipit eligendi iusto earum architecto nam maiores est ad modi quaerat illum rem voluptatibus eum.') }}
+                       {{ settings('sort_description') }}
                     </p>
                 </div>
             </div>
@@ -120,7 +120,7 @@
                                     </div>
                                     <a href="https://www.google.com/maps" target="_blank"
                                         class="w-auto break-all text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-300 ease-linear">
-                                        {{ __('Lorem ipsum dolor sit amet consectetur adipisicing elit.') }}
+                                        {{ settings('address') }}
                                     </a>
                                 </div>
 
@@ -131,9 +131,9 @@
                                             <i data-lucide="mail" class="w-4 text-text-white"></i>
                                         </span>
                                     </div>
-                                    <a href="mailto:example@example.com" target="_blank"
+                                    <a href="mailto:{{ settings('email') }}" target="_blank"
                                         class="w-auto break-all !text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-300 ease-linear">
-                                        {{ __('example@example.com') }}
+                                        {{ settings('email') }}
                                     </a>
                                 </div>
                                 <div class="flex items-start justify-start gap-2 text-sm">
@@ -143,9 +143,9 @@
                                             <i data-lucide="phone" class="w-4 text-text-white"></i>
                                         </span>
                                     </div>
-                                    <a href="tel:000-000-000" target="_blank"
+                                    <a href="tel:{{ settings('phone') }}" target="_blank"
                                         class="w-auto break-all text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-300 ease-linear">
-                                        {{ __('000-000-000') }}
+                                        {{ settings('phone') }}
                                     </a>
                                 </div>
                             </div>
