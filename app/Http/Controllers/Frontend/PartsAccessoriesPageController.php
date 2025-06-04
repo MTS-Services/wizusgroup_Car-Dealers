@@ -21,6 +21,9 @@ class PartsAccessoriesPageController extends Controller
         if (!empty($request->input("category"))) {
             $data["category"] = $request->input("category");
         }
+        if (!empty($request->input("company"))) {
+            $data["company"] = $request->input("company");
+        }
         if (!empty(request()->input("start_price"))) {
             $data["start_price"] = $request->input("start_price");
         }

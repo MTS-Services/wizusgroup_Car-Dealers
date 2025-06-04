@@ -99,7 +99,7 @@
             <div class="flex justify-start gap-10 overflow-hidden 2xl:overflow-visible p-1">
                 <div
                     class="w-full filter-sidebar fixed 2xl:sticky 2xl:w-1/4 top-0 2xl:top-24 left-0 h-screen 2xl:h-screen max-h-screen 2xl:max-h-fit bg-bg-black/50 2xl:bg-transparent z-[99999] 2xl:z-0 -translate-x-full 2xl:translate-x-0 transition-all duration-300 ease-in-out overflow-y-auto px-2 2xl:p-0 py-5">
-                    <form action="" method="post"
+                    <form action="{{ route('frontend.parts-accessories.filter') }}" method="post"
                         class="w-5/6 sm:w-4/6 md:w-3/6 lg:w-2/5 2xl:w-full h-full 2xl:h-fit flex flex-col gap-2">
                         @csrf
                         <div class="bg-bg-light dark:bg-bg-dark-tertiary rounded-lg p-4 flex justify-between items-center">
