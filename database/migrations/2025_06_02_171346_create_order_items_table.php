@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->bigInteger('sort_order')->default(0)->index();
             $table->unsignedBigInteger('order_id')->index();
             $table->unsignedBigInteger('product_id')->index();
-            $table->decimal('quantity', 15, 2)->default(0);
+            $table->integer('quantity')->default(1);
             $table->decimal('unit_price', 15, 2)->default(0);
             $table->decimal('sub_total', 15, 2)->default(0);
             $table->decimal('discount', 15, 2)->default(0);

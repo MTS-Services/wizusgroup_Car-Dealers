@@ -66,51 +66,32 @@ class CartPageController extends Controller
      */
     public function addCart(AddToCartRequest $request): JsonResponse
     {
-        $productId = $request->input('product_id');
-        $quantity = 1; // Default quantity as per your Axios call
-
-        $product = Product::findOrFail($productId);
-
-        if (!$product) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Product not found. Please try again'
-            ], 404);
-        }
-
+        $product = Product::findOrFail($request->product_id);
         $cart = $this->getOrCreateCart();
-        $cartItem = $cart->items()->where('product_id', $productId)->first();
-
+        $cart->load('items');
+        $cartItem = $cart->items->where('product_id', $product->id)->first();
+        $message = 'Something went wrong. Please try again.';
+        $status = 'error';
         if ($cartItem) {
-            // Product already in cart, return its details and current total
-            $cartItem->load('product.primaryImage', 'product.brand', 'product.model'); // Ensure relationships are loaded
-            $cartTotal = $this->calculateCartTotal($cart);
-            return response()->json([
-                'status' => 'info',
-                'message' => 'This product is already in your cart.',
-                'cart_item' => $cartItem, // Return existing cart item details
-                'cart_total' => $cartTotal,
-            ]);
+            $message = 'This product is already in your cart.';
+            $status = 'info';
         } else {
-            // Product not in cart, add new item
-            $cartItem = new CartItem([
-                'product_id' => $productId,
-                'quantity' => $quantity,
-                'price' => $product->price, // Store current price
+            $cartItem = CartItem::create([
+                'product_id' => $product->id,
+                'quantity' => 1,
+                'price' => $product->price,
+                'cart_id' => $cart->id
             ]);
-            $cart->items()->save($cartItem);
-
-            // Load relationships for the newly created cart item to return full details
+            $status = 'success';
             $cartItem->load('product.primaryImage', 'product.brand', 'product.model');
-            $cartTotal = $this->calculateCartTotal($cart);
-
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Product added to cart successfully!',
-                'cart_item' => $cartItem, // Return newly added cart item details
-                'cart_total' => $cartTotal,
-            ]);
+            $message = 'Product added to cart successfully.';
         }
+        return response()->json([
+            'status' => $status,
+            'message' => $message,
+            'cart_item' => $cartItem,
+            'cart_total' => $this->calculateCartTotal($cart),
+        ]);
     }
 
     /**

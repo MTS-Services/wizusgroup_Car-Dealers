@@ -121,7 +121,7 @@
                             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-lg shadow-md dark:bg-bg-dark-secondary transition-all duration-200 hover:shadow-lg"
                                 data-item-id="{{ $item->id }}">
                                 <div class="relative flex-shrink-0">
-                                    <img src="{{ $item->product?->primaryImage->first()?->modified_image }}"
+                                    <img src="{{ storage_url($item->product?->primaryImage->first()?->image) }}"
                                         alt="{{ $item->product?->primaryImage->first()?->alt ?? $item->product?->name }}"
                                         class="w-24 h-24 object-contain rounded-md">
                                 </div>
