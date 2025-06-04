@@ -369,6 +369,8 @@
                 }
             }
         });
+        
+        // On hover stop autoplay
         bannerEl.addEventListener('mouseenter', () => {
             bannerSwiper.autoplay.stop();
         })
@@ -421,7 +423,8 @@
             }
 
         });
-
+        
+        // On hover stop autoplay
          categorySwiperEl.addEventListener('mouseenter', () => {
             categorySwiper.autoplay.stop();
         });
@@ -462,6 +465,8 @@
                 },
             },
         });
+        
+        // On hover stop autoplay
         testimonialSwiperEl.addEventListener('mouseenter', () => {
             testimonialSwiper.autoplay.stop();
         });
