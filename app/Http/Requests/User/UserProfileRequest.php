@@ -28,7 +28,7 @@ class UserProfileRequest extends FormRequest
             'username' => 'nullable|string|min:3',
             // 'email' => 'required|email|unique:users,email,',
             'phone' => 'nullable|string|size:11',
-            'image'=> 'nullable',
+            'image'=> 'nullable|image|mimes:jpg,jpeg,png,webp,svg|max:2048',
             'gender' => 'nullable',
             'dob' => 'nullable|date',
             'father_name' => 'nullable|string|min:3',
