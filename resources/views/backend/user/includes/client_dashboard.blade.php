@@ -1,4 +1,4 @@
-<div class="bg-bg-gray dark:bg-opacity-20">
+<div class="">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-center p-10 pt-0">
         <a href="#" class="nav_item" data-target="my_orders">
             <div class="w-full h-40 lg:max-w-md shadow-card p-5 lg:p-10 bg-bg-white dark:bg-opacity-30 rounded-lg group hover:bg-bg-light transition-all duration-300">

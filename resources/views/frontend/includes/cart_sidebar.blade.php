@@ -1,5 +1,5 @@
 <div
-    class="cartSidebar fixed top-0 right-0 min-h-screen h-full w-5/6 md:w-1/2 lg:w-1/2 xl:w-2/5 2xl:w-1/4 translate-x-full transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-darkTertiary shadow-lg z-[99999999999]">
+    class="cartSidebar fixed top-0 right-0 max-h-screen h-full w-5/6 md:w-1/2 lg:w-1/2 xl:w-2/5 2xl:w-1/4 translate-x-full transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-darkTertiary shadow-lg z-[99999999999]">
 
     <div class="h-screen flex flex-col">
         <div class="p-4 border-b border-b-border-dark border-opacity-20 dark:border-white dark:border-opacity-50">
@@ -86,7 +86,7 @@
                         conditions</a></span>
             </label>
 
-            <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center justify-between gap-3 pb-6">
                 <a href="{{ route('frontend.checkout') }}" class="btn-primary w-full text-center py-1">Checkout</a>
                 <a href="{{ route('frontend.cart') }}"
                     class="btn-secondary w-full text-center py-1 border border-border-dark dark:border-white dark:border-opacity-50 text-text-gray hover:text-text-dark dark:hover:text-white transition-colors">View
