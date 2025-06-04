@@ -19,13 +19,6 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id')->nullable()->index();
             $table->string('session_id')->nullable()->index();
             $table->timestamps();
-
-            $table->unsignedBigInteger('crater_id')->nullable();
-            $table->string('crater_type')->nullable();
-            $table->unsignedBigInteger('updater_id')->nullable();
-            $table->string('updater_type')->nullable();
-            $table->unsignedBigInteger('deleter_id')->nullable();
-            $table->string('deleter_type')->nullable();
             $table->softDeletes();
             $this->addMorphedAuditColumns($table);
 
