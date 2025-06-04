@@ -1,5 +1,5 @@
 <div
-    class="cartSidebar fixed top-0 right-0 max-h-screen h-full w-5/6 md:w-1/2 lg:w-1/2 xl:w-2/5 2xl:w-1/4 translate-x-0 transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-darkTertiary shadow-lg z-[99999999999]">
+    class="cartSidebar fixed top-0 right-0 max-h-screen h-full w-5/6 md:w-1/2 lg:w-1/2 xl:w-2/5 2xl:w-1/4 translate-x-full transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-darkTertiary shadow-lg z-[99999999999]">
 
     <div class="h-screen flex flex-col">
         <div class="p-4 border-b border-b-border-dark border-opacity-20 dark:border-white dark:border-opacity-50">
@@ -107,12 +107,6 @@
         const $cartItemsContainer = $('#cart-items-container');
         const $cartEmptyMessage = $('#cart-empty-message');
 
-        // --- ADD THESE DEBUG CONSOLE LOGS ---
-        console.log('DEBUG: Attempting to append cart item...');
-        console.log('DEBUG: $cartItemsContainer found (length):', $cartItemsContainer.length);
-        console.log('DEBUG: $cartEmptyMessage found (length):', $cartEmptyMessage.length);
-        // --- END DEBUG LOGS ---
-
         if (!$cartItemsContainer.length || !$cartEmptyMessage.length) {
             console.error("Cart sidebar elements not found for appending.");
             return;
@@ -173,33 +167,6 @@
     }
 
     // Function to render all cart items (used for initial load)
-    // function renderAllCartItems(cartItems) {
-    //     const $cartItemsContainer = $('#cart-items-container');
-    //     const $cartEmptyMessage = $('#cart-empty-message');
-
-    //     if (!$cartItemsContainer.length || !$cartEmptyMessage.length) {
-    //         console.error("Cart sidebar elements not found for initial rendering.");
-    //         return;
-    //     }
-
-    //     $cartItemsContainer.empty(); // Clear existing content
-
-    //     if (cartItems.length === 0) {
-    //         $cartEmptyMessage.removeClass('hidden');
-    //     } else {
-    //         $cartEmptyMessage.addClass('hidden');
-    //         cartItems.forEach(item => {
-    //             const itemHtml = generateCartItemHtml(item);
-    //             $cartItemsContainer.append(itemHtml);
-    //         });
-    //     }
-    //     // Re-render lucide icons for all items
-    //     if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
-    //         lucide.createIcons();
-    //     }
-    // }
-
-    // Function to render all cart items (used for initial load)
     function renderAllCartItems(cartItems) {
         const $cartItemsContainer = $('#cart-items-container');
         const $cartEmptyMessage = $('#cart-empty-message'); // Get the reference here
@@ -210,8 +177,6 @@
         }
 
         // NEW LOGIC: Remove ONLY the dynamically generated cart item elements,
-        // preserving the #cart-empty-message paragraph.
-        // Assuming your individual cart item divs have a class like 'cart-item-single'
         $cartItemsContainer.find('.cart-item-single').remove();
 
         if (cartItems.length === 0) {
