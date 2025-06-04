@@ -99,22 +99,24 @@
     <section
         class="countdown_section flex justify-center items-center xl:py-20 lg:py-16 md:py-12 py-8  m-0 bg-gray-100 dark:bg-bg-dark-secondary ">
         <div class="container">
-            <div
-                class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-6 xl:py-12 lg:py-10 md:py-8 py-4 text-center w-11/12 max-w-3xl shadow-md">
-                <h3 class="text-2xl font-bold mb-2">{{ __('Join Group Container - Save on Shipping') }}</h3>
-                <p class="text-xl mb-5">{{ __('Next Departure: From ') }} {{ $container?->shippingPort?->name }}
-                    {{ __(' to ') }}{{ $container?->destinationPort?->name }}</p>
-                <div class="countdown-blocks py-2" data-year="{{ date('Y', strtotime($container->deadline)) }}"
-                    data-month="{{ date('m', strtotime($container->deadline)) }}"
-                    data-date="{{ date('d', strtotime($container->deadline)) }}"
-                    data-hour="{{ date('H', strtotime($container->deadline)) }}"
-                    data-minute="{{ date('i', strtotime($container->deadline)) }}"
-                    data-second="{{ date('s', strtotime($container->deadline)) }}"></div>
-                <a href="{{ route('frontend.group_shipping') }}"
-                    class="btn-primary mx-auto py-2 xl:mt-9 lg:mt-7 md:mt-5 mt-3 px-10 ">
-                    {{ __('Join Now') }}
-                </a>
-            </div>
+            @if ($container)
+                <div
+                    class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-6 xl:py-12 lg:py-10 md:py-8 py-4 text-center w-11/12 max-w-3xl shadow-md">
+                    <h3 class="text-2xl font-bold mb-2">{{ __('Join Group Container - Save on Shipping') }}</h3>
+                    <p class="text-xl mb-5">{{ __('Next Departure: From ') }} {{ $container?->shippingPort?->name }}
+                        {{ __(' to ') }}{{ $container?->destinationPort?->name }}</p>
+                    <div class="countdown-blocks py-2" data-year="{{ date('Y', strtotime($container->deadline)) }}"
+                        data-month="{{ date('m', strtotime($container->deadline)) }}"
+                        data-date="{{ date('d', strtotime($container->deadline)) }}"
+                        data-hour="{{ date('H', strtotime($container->deadline)) }}"
+                        data-minute="{{ date('i', strtotime($container->deadline)) }}"
+                        data-second="{{ date('s', strtotime($container->deadline)) }}"></div>
+                    <a href="{{ route('frontend.group_shipping') }}"
+                        class="btn-primary mx-auto py-2 xl:mt-9 lg:mt-7 md:mt-5 mt-3 px-10 ">
+                        {{ __('Join Now') }}
+                    </a>
+                </div>
+            @endif
             <div class="pt-15">
                 <div class="header">
                     <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase text-center">
