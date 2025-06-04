@@ -44,13 +44,12 @@ class CartPageController extends Controller
     public function fetchCartItems(): JsonResponse
     {
         $cart = $this->getOrCreateCart();
-        // Eager load product details including primaryImage, brand, and model
-        $cartItems = $cart->items()->with('product.primaryImage', 'product.brand', 'product.model')->get();
+        $cart->load('items.product.primaryImage', 'items.product.brand', 'items.product.model');
         $cartTotal = $this->calculateCartTotal($cart);
 
         return response()->json([
             'status' => 'success',
-            'cart_items' => $cartItems,
+            'cart_items' => $cart->items,
             'cart_total' => $cartTotal,
         ]);
     }

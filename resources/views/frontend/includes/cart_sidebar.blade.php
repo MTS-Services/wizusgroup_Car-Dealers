@@ -46,6 +46,49 @@
 </div>
 
 <script>
+    function addToCart(productId) {
+        axios.post('{{ route('frontend.cart.add') }}', {
+            product_id: productId
+        }).then(response => {
+            $('.cartSidebar').css('transform', 'translateX(0)');
+            console.log(response.data);
+
+            const {
+                status,
+                message,
+                cart_item,
+                cart_total
+            } = response.data;
+
+            // Ensure updateCartTotalDisplay function is globally available or included in a shared script
+            if (typeof updateCartTotalDisplay === 'function') {
+                updateCartTotalDisplay(cart_total);
+            } else {
+                toastr.error("updateCartTotalDisplay function is not defined.");
+            }
+
+            if (status === 'success') {
+                // Append new item to sidebar
+                if (typeof appendCartItemHtml === 'function') {
+                    appendCartItemHtml(cart_item);
+                } else {
+                    toastr.error("appendCartItemHtml function is not defined.");
+                }
+            } else if (status === 'info') {
+                // If item was already in cart, you might want to show a message
+                // or highlight the existing item if it's visible in the sidebar.
+                // For now, we just update the total (which is already done).
+                console.warn(message);
+            }
+
+        }).catch(error => {
+            toastr.error('Error adding product to cart:', error);
+            // Handle error (e.g., show a user-friendly message)
+        })
+    }
+
+
+
     // Helper function to format currency
     function formatCurrency(amount) {
         return `$${parseFloat(amount).toFixed(2)}`;
@@ -61,7 +104,10 @@
 
     // Function to generate HTML for a single cart item
     function generateCartItemHtml(item) {
-        const productImageUrl = item.product.primary_image ? item.product.primary_image.image_url : 'https://placehold.co/96x96/E0E0E0/333333?text=No+Image';
+  
+
+        const productImageUrl = item.product.primary_image ? item.product.primary_image.image_url :
+            'https://placehold.co/96x96/E0E0E0/333333?text=No+Image';
         const brandName = item.product.brand ? item.product.brand.name : '';
         const modelName = item.product.model ? item.product.model.name : '';
         const subtotal = item.price * item.quantity;
@@ -110,7 +156,7 @@
         const cartEmptyMessage = document.getElementById('cart-empty-message');
 
         if (!cartItemsContainer || !cartEmptyMessage) {
-            console.error("Cart sidebar elements not found for appending.");
+            toastr.error("Cart sidebar elements not found for appending.");
             return;
         }
 
@@ -179,7 +225,7 @@
         const cartEmptyMessage = document.getElementById('cart-empty-message');
 
         if (!cartItemsContainer || !cartEmptyMessage) {
-            console.error("Cart sidebar elements not found for initial rendering.");
+            toastr.error("Cart sidebar elements not found for initial rendering.");
             return;
         }
 
@@ -222,7 +268,7 @@
                     updateCartTotalDisplay(response.data.cart_total);
                 })
                 .catch(error => {
-                    console.error('Error fetching initial cart items:', error);
+                    toastr.error('Error fetching initial cart items:', error);
                     // Optionally display a user-friendly error message
                 });
 
@@ -235,7 +281,8 @@
                 const itemId = target.dataset.itemId;
                 if (!itemId) return; // Button doesn't have an item ID
 
-                if (target.classList.contains('quantity-increase') || target.classList.contains('quantity-decrease')) {
+                if (target.classList.contains('quantity-increase') || target.classList.contains(
+                        'quantity-decrease')) {
                     let currentQuantity = parseInt(target.dataset.currentQuantity);
                     let newQuantity;
 
@@ -249,7 +296,15 @@
                         item_id: itemId,
                         new_quantity: newQuantity
                     }).then(response => {
-                        const { status, message, item_id, new_quantity, item_subtotal, removed_item_id, cart_total } = response.data;
+                        const {
+                            status,
+                            message,
+                            item_id,
+                            new_quantity,
+                            item_subtotal,
+                            removed_item_id,
+                            cart_total
+                        } = response.data;
 
                         updateCartTotalDisplay(cart_total); // Always update total
 
@@ -260,7 +315,7 @@
                         }
                         console.log(message);
                     }).catch(error => {
-                        console.error('Error updating quantity:', error);
+                        toastr.error('Error updating quantity:', error);
                         // Handle error (e.g., show a user-friendly message)
                     });
 
@@ -268,14 +323,19 @@
                     axios.post('{{ route('frontend.cart.remove') }}', {
                         item_id: itemId
                     }).then(response => {
-                        const { status, message, removed_item_id, cart_total } = response.data;
+                        const {
+                            status,
+                            message,
+                            removed_item_id,
+                            cart_total
+                        } = response.data;
                         if (status === 'success') {
                             removeCartItemHtml(removed_item_id);
                             updateCartTotalDisplay(cart_total);
                         }
                         console.log(message);
                     }).catch(error => {
-                        console.error('Error removing item:', error);
+                        toastr.error('Error removing item:', error);
                         // Handle error
                     });
                 }
