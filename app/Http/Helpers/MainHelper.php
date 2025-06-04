@@ -45,25 +45,25 @@ function adminFullName()
     return Auth::guard('admin')->user()->first_name . ' ' . Auth::guard('admin')->user()->last_name;
 }
 
-function seller()
-{
-    return Auth::guard('seller')->user();
-}
+// function seller()
+// {
+//     return Auth::guard('seller')->user();
+// }
 
-function sellerFirstName()
-{
-    return Auth::guard('seller')->user()->first_name;
-}
+// function sellerFirstName()
+// {
+//     return Auth::guard('seller')->user()->first_name;
+// }
 
-function sellerLastName()
-{
-    return Auth::guard('seller')->user()->last_name;
-}
+// function sellerLastName()
+// {
+//     return Auth::guard('seller')->user()->last_name;
+// }
 
-function sellerFullName()
-{
-    return Auth::guard('seller')->user()->first_name . ' ' . Auth::guard('seller')->user()->last_name;
-}
+// function sellerFullName()
+// {
+//     return Auth::guard('seller')->user()->first_name . ' ' . Auth::guard('seller')->user()->last_name;
+// }
 
 function user()
 {
