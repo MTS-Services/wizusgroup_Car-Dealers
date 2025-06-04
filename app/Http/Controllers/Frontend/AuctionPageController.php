@@ -77,7 +77,8 @@ class AuctionPageController extends Controller
             'product.category',
             'product.company',
             'product.subCategory',
-            'product.images'
+            'product.images',
+            'product.productInformations.infoCategory',
         ])->where('slug', $slug)->firstOrFail();
         // dd($data['auction']);
 
