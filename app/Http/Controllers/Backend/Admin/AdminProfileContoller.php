@@ -35,6 +35,7 @@ class AdminProfileContoller extends Controller
 
     public function profileUpdate(AdminProfileRequest $request)
     {
+     
         $admin = $this->adminService->getAdmin(encrypt(admin()->id));  
         $validated = $request->validated();
         $validated['first_name'] = $request->first_name;
