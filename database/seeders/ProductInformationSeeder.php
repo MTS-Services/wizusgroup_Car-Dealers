@@ -22,7 +22,7 @@ class ProductInformationSeeder extends Seeder
             [
                 'product_id' => 1,
                 'product_info_cat_id' => 2,
-                'remarks' => 'Scratch resistant coating.',
+                'description' => 'Scratch resistant coating.',
             ],
             [
                 'product_id' => 2,
@@ -32,7 +32,7 @@ class ProductInformationSeeder extends Seeder
             [
                 'product_id' => 3,
                 'product_info_cat_id' => 2,
-                'remarks' => 'Slight wear on right corner.',
+                'description' => 'Slight wear on right corner.',
             ],
             [
                 'product_id' => 4,
