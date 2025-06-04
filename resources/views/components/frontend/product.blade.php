@@ -26,13 +26,22 @@
                     <span>{{ $product->model?->name }}</span>
                 </div>
                 <div class="flex justify-center items-center mt-4">
-                    <a href=""
-                        class="btn-primary rounded-md w-full hover:bg-bg-tertiary me-2">{{ __('Buy Now') }}</a>
-                    <button type="button"
-                        class="btn-primary rounded-md w-full bg-bg-tertiary hover:bg-text-secondary ms-2 add-to-cart-{{ $product->id }}"
-                        data-id="{{ $product->id }}">
-                        {{ __('Add to Cart') }}
-                    </button>
+                    <div
+                        class="flex items-center justify-center gap-2 border border-bg-tertiary rounded-md w-full py-2  hover:bg-text-tertiary me-2 text-text-tertiary text-sm hover:text-text-white transition-all duration-300">
+                        <span>
+                            <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                        </span>
+                        <a href="" class="">{{ __('Buy Now') }}</a>
+                    </div>
+                    <div
+                        class="flex items-center justify-center gap-2 border border-bg-tertiary rounded-md w-full py-2 bg-text-tertiary  hover:bg-transparent ms-2 text-text-white text-sm hover:text-text-primary transition-all duration-300">
+                        <span>
+                            <i data-lucide="shopping-basket" class="w-4 h-4"></i>
+                        </span>
+                        <button type="button" class=" add-to-cart-{{ $product->id }}" data-id="{{ $product->id }}">
+                            {{ __('Add to Cart') }}
+                        </button>
+                    </div>
                 </div>
             </div>
 

@@ -174,7 +174,7 @@
                                 </details>
                             </div>
                             <div class="px-4">
-                                <button id="filterBtn" class="w-full btn-primary group">
+                                <button id="filterBtn" class="w-full btn-primary border border-border-tertiary bg-transparent text-text-tertiary hover:bg-bg-tertiary hover:text-text-white group">
                                     <span>{{ __('Filter') }}</span>
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
@@ -229,7 +229,7 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
                         @foreach ($products as $product)
-                            <x-frontend.parts-accessories :product="$product" /> 
+                            <x-frontend.product :product="$product" /> 
                         @endforeach
 
                     </div>

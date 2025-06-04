@@ -50,11 +50,11 @@
             <!-- Bid Button -->
             @auth('web')
             <button onclick="document.getElementById('{{ $auction->id }}-modal').showModal()"
-                class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
+                class="w-full btn-primary rounded-md border border-border-tertiary bg-bg-tertiary text-text-white hover:text-text-tertiary hover:bg-transparent px-4  mt-4">
                 {{ __('Place a Bid') }}
             </button>
             @else
-            <a href="{{ route('frontend.auction-details', $auction->slug) }}" class="w-full btn-primary hover:bg-bg-tertiary px-4 rounded-md mt-4">
+            <a href="{{ route('frontend.auction-details', $auction->slug) }}" class="w-full btn-primary rounded-md border border-border-tertiary bg-bg-tertiary text-text-white hover:text-text-tertiary hover:bg-transparent px-4  mt-4">
                 {{ __('Ask for price') }}
             </a>
             @endauth

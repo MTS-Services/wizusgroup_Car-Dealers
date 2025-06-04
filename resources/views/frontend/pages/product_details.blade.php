@@ -439,7 +439,8 @@
                      <div class="swiper-wrapper p-2">
                          @foreach ($related_products as $r_product)
                              <div class="swiper-slide">
-                                     <div class="product-card hover:shadow-md transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
+                                <x-frontend.product :product="$r_product" />
+                                     {{-- <div class="product-card hover:shadow-md transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
                                          data-product="1">
                                          <div class="h-48 w-full overflow-hidden">
                                              <img src="{{ storage_url($r_product->primaryImage->first()?->image) }}"
@@ -469,7 +470,7 @@
                                                 <a href="javascript:void(0)" class="openCartSidebar btn-primary rounded-md w-full bg-bg-tertiary hover:bg-text-secondary text-sm">{{ __('Add to Cart') }}</a>
                                             </div>
                                          </div>
-                                     </div>
+                                     </div> --}}
                              </div>
                          @endforeach
                      </div>
@@ -624,7 +625,7 @@
                          slidesPerView: 5,
                      },
                      1536: {
-                         slidesPerView: 6,
+                         slidesPerView: 5,
                      },
                  },
                  navigation: {

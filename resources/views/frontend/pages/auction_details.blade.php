@@ -675,7 +675,7 @@
                         slidesPerView: 5,
                     },
                     1536: {
-                        slidesPerView: 6,
+                        slidesPerView: 5,
                     },
                 },
                 navigation: {
