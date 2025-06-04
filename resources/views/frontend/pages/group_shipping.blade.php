@@ -9,14 +9,14 @@
 
 @section('content')
     {{-- Available for Cotainers --}}
+    @if($containers->count() > 0)
     <section class="bg-bg-light dark:bg-bg-dark py-12">
         <div class="container">
             <div class="pb-5">
                 <h1 class="text-xl md:text-2xl lg:text-3xl capitalize font-semibold text-text-primary dark:text-text-light">
                     {{ __('Available Containers') }}</h1>
             </div>
-            <div
-                class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 rounded-lg">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 rounded-lg">
                 @foreach ($containers as $container)
                     <div class="w-full h-full">
                         <div
@@ -89,94 +89,98 @@
             </div>
         </div>
     </section>
+    @endif
     {{-- Available for Group Shipping --}}
-    <section class="py-12">
-        <div class="container ">
-            <div class="pb-6">
-                <h1 class="text-xl md:text-2xl lg:text-3xl capitalize font-semibold text-text-primary dark:text-text-light">
-                    {{ __('Available for Group Shipping') }}</h1>
+    @if (true)
+        <section class="py-12">
+            <div class="container ">
+                <div class="pb-6">
+                    <h1
+                        class="text-xl md:text-2xl lg:text-3xl capitalize font-semibold text-text-primary dark:text-text-light">
+                        {{ __('Available for Group Shipping') }}</h1>
+                </div>
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 bg-bg-light dark:bg-bg-dark p-5 rounded-lg">
+                    <div class="card bg-base-100 w-full shadow-card">
+                        <div class="card-image w-full h-60">
+                            <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
+                                class="w-full h-full object-cover" alt="" />
+                        </div>
+                        <div class="card-body gap-0">
+                            <h2 class="card-title">Caterpillar 320 Excavator</h2>
+                            <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
+                            <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
+                            <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                <span>2025</span>
+                                <span class="mx-2">|</span>
+                                <span>Tractor</span>
+                            </div>
+                            <div class="card-actions justify-end mt-4">
+                                <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-base-100 w-full shadow-card">
+                        <div class="card-image w-full h-60">
+                            <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
+                                class="w-full h-full object-cover" alt="" />
+                        </div>
+                        <div class="card-body gap-0">
+                            <h2 class="card-title">Caterpillar 320 Excavator</h2>
+                            <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
+                            <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
+                            <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                <span>2025</span>
+                                <span class="mx-2">|</span>
+                                <span>Tractor</span>
+                            </div>
+                            <div class="card-actions justify-end mt-4">
+                                <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-base-100 w-full shadow-card">
+                        <div class="card-image w-full h-60">
+                            <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
+                                class="w-full h-full object-cover" alt="" />
+                        </div>
+                        <div class="card-body gap-0">
+                            <h2 class="card-title">Caterpillar 320 Excavator</h2>
+                            <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
+                            <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
+                            <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                <span>2025</span>
+                                <span class="mx-2">|</span>
+                                <span>Tractor</span>
+                            </div>
+                            <div class="card-actions justify-end mt-4">
+                                <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-base-100 w-full shadow-card">
+                        <div class="card-image w-full h-60">
+                            <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
+                                class="w-full h-full object-cover" alt="" />
+                        </div>
+                        <div class="card-body gap-0">
+                            <h2 class="card-title">Caterpillar 320 Excavator</h2>
+                            <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
+                            <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
+                            <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
+                                <span>2025</span>
+                                <span class="mx-2">|</span>
+                                <span>Tractor</span>
+                            </div>
+                            <div class="card-actions justify-end mt-4">
+                                <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div
-                class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 bg-bg-light dark:bg-bg-dark p-5 rounded-lg">
-                <div class="card bg-base-100 w-full shadow-card">
-                    <div class="card-image w-full h-60">
-                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                            class="w-full h-full object-cover" alt="" />
-                    </div>
-                    <div class="card-body gap-0">
-                        <h2 class="card-title">Caterpillar 320 Excavator</h2>
-                        <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
-                        <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
-                        <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                            <span>2025</span>
-                            <span class="mx-2">|</span>
-                            <span>Tractor</span>
-                        </div>
-                        <div class="card-actions justify-end mt-4">
-                            <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card bg-base-100 w-full shadow-card">
-                    <div class="card-image w-full h-60">
-                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                            class="w-full h-full object-cover" alt="" />
-                    </div>
-                    <div class="card-body gap-0">
-                        <h2 class="card-title">Caterpillar 320 Excavator</h2>
-                        <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
-                        <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
-                        <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                            <span>2025</span>
-                            <span class="mx-2">|</span>
-                            <span>Tractor</span>
-                        </div>
-                        <div class="card-actions justify-end mt-4">
-                            <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card bg-base-100 w-full shadow-card">
-                    <div class="card-image w-full h-60">
-                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                            class="w-full h-full object-cover" alt="" />
-                    </div>
-                    <div class="card-body gap-0">
-                        <h2 class="card-title">Caterpillar 320 Excavator</h2>
-                        <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
-                        <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
-                        <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                            <span>2025</span>
-                            <span class="mx-2">|</span>
-                            <span>Tractor</span>
-                        </div>
-                        <div class="card-actions justify-end mt-4">
-                            <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card bg-base-100 w-full shadow-card">
-                    <div class="card-image w-full h-60">
-                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                            class="w-full h-full object-cover" alt="" />
-                    </div>
-                    <div class="card-body gap-0">
-                        <h2 class="card-title">Caterpillar 320 Excavator</h2>
-                        <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
-                        <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
-                        <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                            <span>2025</span>
-                            <span class="mx-2">|</span>
-                            <span>Tractor</span>
-                        </div>
-                        <div class="card-actions justify-end mt-4">
-                            <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    @endif
 
     {{-- Container Section --}}
     {{-- @include('frontend.includes.group_shipping_container') --}}
