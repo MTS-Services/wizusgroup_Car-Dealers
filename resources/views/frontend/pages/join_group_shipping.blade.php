@@ -17,14 +17,14 @@
                                 <p class="text-base text-text-primary dark:text-text-light uppercase font-medium">
                                     {{ __('From') }}</p>
                                 <p class="text-sm text-text-primary dark:text-text-light">
-                                    {{ $container->shippingPort?->name ?? __('N/A') }}
+                                    {{ $container?->shippingPort?->name ?? __('N/A') }}
                                 </p>
                             </div>
                             <div>
                                 <p class="text-base text-text-primary dark:text-text-light uppercase font-medium">
                                     {{ __('Destination') }}</p>
                                 <p class="text-sm text-text-primary dark:text-text-light">
-                                    {{ $container->destinationPort?->name ?? __('N/A') }}
+                                    {{ $container?->destinationPort?->name ?? __('N/A') }}
                                 </p>
                             </div>
                             <span class="px-2.5 py-1 bg-bg-wiz_green text-white rounded-full text-base font-medium">

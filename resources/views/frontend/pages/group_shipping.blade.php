@@ -32,10 +32,10 @@
                                             </span>
                                         </div>
                                         <p class="text-sm text-text-gray mt-1 py-1">
-                                            {{ __(' From:') }} {{ $container->shippingPort?->name ?? 'N/A' }}
+                                            {{ __(' From:') }} {{ $container?->shippingPort?->name ?? 'N/A' }}
                                         </p>
                                         <p class="text-sm text-text-gray mt-1 py-1">
-                                            {{ __('Destination:') }} {{ $container->destinationPort?->name ?? 'N/A' }}
+                                            {{ __('Destination:') }} {{ $container?->destinationPort?->name ?? 'N/A' }}
                                         </p>
                                     </div>
                                     <div>
