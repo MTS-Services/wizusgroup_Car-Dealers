@@ -50,7 +50,11 @@
                             <tbody
                                 class="border-b border-border-dark border-opacity-20 dark:border-white dark:border-opacity-50"
                                 id="cart-table-body">
-                                <tr><td colspan="6"><p id="cart-empty-message">Cart is empty</p></td></tr>
+                                <tr>
+                                    <td colspan="6">
+                                        <p id="cart-empty-message">Cart is empty</p>
+                                    </td>
+                                </tr>
                                 {{-- <tr>
                                     <td>
                                         <img src="${productImageUrl}" alt="${item.product.name}"
@@ -103,8 +107,7 @@
                     </div>
                     <div class="flex justify-end mt-10">
                         {{-- <a href="#" class="btn-primary mt-6 mr-2 rounded-md">{{ __('Continue Shopping') }}</a> --}}
-                        <a href="{{ route('frontend.checkout') }}"
-                            class="btn-primary rounded-md">{{ __('Proceed to Checkout') }}</a>
+                        <a href="" class="btn-primary rounded-md">{{ __('Proceed to Checkout') }}</a>
                     </div>
                 </div>
             </div>
