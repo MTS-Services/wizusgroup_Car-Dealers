@@ -1,5 +1,5 @@
 <div
-    class="cartSidebar fixed top-0 right-0 max-h-screen h-full w-5/6 md:w-1/2 lg:w-1/2 xl:w-2/5 2xl:w-1/4 translate-x-full transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-darkTertiary shadow-lg z-[99999999999]">
+    class="cartSidebar fixed top-0 right-0 max-h-screen h-full w-5/6 md:w-1/2 lg:w-1/2 xl:w-2/5 2xl:w-1/4 translate-x-0 transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-darkTertiary shadow-lg z-[99999999999]">
 
     <div class="h-screen flex flex-col">
         <div class="p-4 border-b border-b-border-dark border-opacity-20 dark:border-white dark:border-opacity-50">
@@ -15,7 +15,8 @@
         </div>
 
         <div class="flex-1 overflow-auto p-4 space-y-4" id="cart-items-container">
-            <p class="text-center text-text-gray dark:text-text-white" id="cart-empty-message">Your cart is empty.</p>
+            <p class="text-center text-text-gray dark:text-text-white" id="cart-empty-message">
+                {{ __('Your cart is empty.') }}</p>
         </div>
 
         {{-- Checkout Card --}}
@@ -106,6 +107,12 @@
         const $cartItemsContainer = $('#cart-items-container');
         const $cartEmptyMessage = $('#cart-empty-message');
 
+        // --- ADD THESE DEBUG CONSOLE LOGS ---
+        console.log('DEBUG: Attempting to append cart item...');
+        console.log('DEBUG: $cartItemsContainer found (length):', $cartItemsContainer.length);
+        console.log('DEBUG: $cartEmptyMessage found (length):', $cartEmptyMessage.length);
+        // --- END DEBUG LOGS ---
+
         if (!$cartItemsContainer.length || !$cartEmptyMessage.length) {
             console.error("Cart sidebar elements not found for appending.");
             return;
@@ -166,26 +173,57 @@
     }
 
     // Function to render all cart items (used for initial load)
+    // function renderAllCartItems(cartItems) {
+    //     const $cartItemsContainer = $('#cart-items-container');
+    //     const $cartEmptyMessage = $('#cart-empty-message');
+
+    //     if (!$cartItemsContainer.length || !$cartEmptyMessage.length) {
+    //         console.error("Cart sidebar elements not found for initial rendering.");
+    //         return;
+    //     }
+
+    //     $cartItemsContainer.empty(); // Clear existing content
+
+    //     if (cartItems.length === 0) {
+    //         $cartEmptyMessage.removeClass('hidden');
+    //     } else {
+    //         $cartEmptyMessage.addClass('hidden');
+    //         cartItems.forEach(item => {
+    //             const itemHtml = generateCartItemHtml(item);
+    //             $cartItemsContainer.append(itemHtml);
+    //         });
+    //     }
+    //     // Re-render lucide icons for all items
+    //     if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+    //         lucide.createIcons();
+    //     }
+    // }
+
+    // Function to render all cart items (used for initial load)
     function renderAllCartItems(cartItems) {
         const $cartItemsContainer = $('#cart-items-container');
-        const $cartEmptyMessage = $('#cart-empty-message');
+        const $cartEmptyMessage = $('#cart-empty-message'); // Get the reference here
 
         if (!$cartItemsContainer.length || !$cartEmptyMessage.length) {
             console.error("Cart sidebar elements not found for initial rendering.");
             return;
         }
 
-        $cartItemsContainer.empty(); // Clear existing content
+        // NEW LOGIC: Remove ONLY the dynamically generated cart item elements,
+        // preserving the #cart-empty-message paragraph.
+        // Assuming your individual cart item divs have a class like 'cart-item-single'
+        $cartItemsContainer.find('.cart-item-single').remove();
 
         if (cartItems.length === 0) {
-            $cartEmptyMessage.removeClass('hidden');
+            $cartEmptyMessage.removeClass('hidden'); // Show "Your cart is empty."
         } else {
-            $cartEmptyMessage.addClass('hidden');
+            $cartEmptyMessage.addClass('hidden'); // Hide "Your cart is empty."
             cartItems.forEach(item => {
                 const itemHtml = generateCartItemHtml(item);
                 $cartItemsContainer.append(itemHtml);
             });
         }
+
         // Re-render lucide icons for all items
         if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
             lucide.createIcons();
@@ -215,13 +253,15 @@
             if (status === 'success') {
                 if (typeof appendCartItemHtml === 'function') {
                     appendCartItemHtml(cart_item);
-                    updateCartItemHtml(cart_item.id, cart_item.quantity, cart_item.price * cart_item.quantity);
+                    updateCartItemHtml(cart_item.id, cart_item.quantity, cart_item.price * cart_item
+                        .quantity);
                 }
                 toastr.success(message);
             } else if (status === 'info') {
                 // If item was already in cart, update its quantity and subtotal
                 if (cart_item && typeof updateCartItemHtml === 'function') {
-                    updateCartItemHtml(cart_item.id, cart_item.quantity, cart_item.price * cart_item.quantity);
+                    updateCartItemHtml(cart_item.id, cart_item.quantity, cart_item.price * cart_item
+                        .quantity);
                 }
                 toastr.info(message);
             }
@@ -279,7 +319,8 @@
 
                 if (!itemId) return; // Button doesn't have an item ID
 
-                if ($target.hasClass('quantity-increase') || $target.hasClass('quantity-decrease')) {
+                if ($target.hasClass('quantity-increase') || $target.hasClass(
+                        'quantity-decrease')) {
                     let currentQuantity = parseInt($target.data('currentQuantity'));
                     let newQuantity;
 
