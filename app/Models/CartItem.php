@@ -25,6 +25,17 @@ class CartItem extends BaseModel
         'deleter_type',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($item) {
+            $item->total = $item->price * $item->quantity;
+        });
+
+        static::updating(function ($item) {
+            $item->total = $item->price * $item->quantity;
+        });
+    }
+
     public function cart()
     {
         return $this->belongsTo(Cart::class);
@@ -32,27 +43,6 @@ class CartItem extends BaseModel
 
     public function product()
     {
-        // Eager load primaryImage and model for convenience when fetching cart items
-        return $this->belongsTo(Product::class)->with(['primaryImage', 'model']);
-    }
-
-    // Optional: Mutator to ensure 'total' is always calculated on save
-    public function setQuantityAttribute($value)
-    {
-        $this->attributes['quantity'] = $value;
-        // Ensure product relationship is loaded before calculating total
-        if ($this->product) {
-            $this->attributes['total'] = $this->price * $value;
-        }
-    }
-
-    // Optional: Mutator to ensure 'price' is set from product if not explicitly provided
-    public function setProductIdAttribute($value)
-    {
-        $this->attributes['product_id'] = $value;
-        // Set the price from the product if it's being set for the first time
-        if (!$this->exists && $product = Product::find($value)) {
-            $this->attributes['price'] = $product->price;
-        }
+        return $this->belongsTo(Product::class);
     }
 }

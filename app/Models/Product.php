@@ -187,6 +187,10 @@ class Product extends BaseModel
         return $this->images()->active();
     }
 
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
 
 
     public const STATUS_ACTIVE = 1;

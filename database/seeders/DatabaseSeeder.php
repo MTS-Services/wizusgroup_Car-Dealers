@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             ProductRelationSeeder::class,
             ProductImageSeeder::class,
-            ProductInformationSeeder::class,
+            // ProductInformationSeeder::class,
             ProductAttributeValueSeeder::class,
             DocumentationSeeder::class,
 
