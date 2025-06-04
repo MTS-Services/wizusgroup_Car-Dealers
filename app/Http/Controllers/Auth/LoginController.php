@@ -3,13 +3,30 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
+
+
+    protected function authenticated(Request $request, $user)
+    {
+        if (session()->has('cart_session_id')) {
+            $cart = Cart::where('session_id', session()->get('cart_session_id'))->first();
+            if ($cart) {
+                $cart->update([
+                    'user_id' => $user->id,
+                    'session_id' => Session::getId(),
+                ]);
+                session()->put('cart_session_id', $cart->session_id);
+            }
+        }
+    }
 
     /**
      * Where to redirect users after login.
