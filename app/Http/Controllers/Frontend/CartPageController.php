@@ -23,6 +23,7 @@ class CartPageController extends Controller
     {
         $this->productService = $productService;
     }
+
     /**
      * Shows the cart page, with all cart items.
      *
@@ -31,27 +32,62 @@ class CartPageController extends Controller
     public function cart(): View
     {
         $cart = $this->getOrCreateCart();
-        // dd($data);
-        return view('frontend.pages.cart', $cart);
+        return view('frontend.pages.cart', ['cart' => $cart]);
     }
 
-    public function addCart(AddToCartRequest $request) // Keeping your method name 'addCart'
+    /**
+     * Fetches all cart items for initial sidebar rendering.
+     * This method is used for the initial load, not for subsequent updates.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function fetchCartItems(): JsonResponse
+    {
+        $cart = $this->getOrCreateCart();
+        // Eager load product details including primaryImage, brand, and model
+        $cartItems = $cart->items()->with('product.primaryImage', 'product.brand', 'product.model')->get();
+        $cartTotal = $this->calculateCartTotal($cart);
+
+        return response()->json([
+            'status' => 'success',
+            'cart_items' => $cartItems,
+            'cart_total' => $cartTotal,
+        ]);
+    }
+
+    /**
+     * Adds a product to the cart or informs if already exists.
+     * Returns details of the added/existing item and the updated cart total.
+     *
+     * @param AddToCartRequest $request
+     * @return JsonResponse
+     */
+    public function addCart(AddToCartRequest $request): JsonResponse
     {
         $productId = $request->input('product_id');
-        $quantity = 1; // Default quantity to 1 as per your Axios call
+        $quantity = 1; // Default quantity as per your Axios call
 
         $product = Product::find($productId);
 
-        // 1. Find or Create the Cart for the User/Session
-        $cart = $this->getOrCreateCart();
+        if (!$product) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Product not found.'
+            ], 404);
+        }
 
-        // 2. Check if item already exists in cart, and DO NOT update quantity
+        $cart = $this->getOrCreateCart();
         $cartItem = $cart->items()->where('product_id', $productId)->first();
 
         if ($cartItem) {
+            // Product already in cart, return its details and current total
+            $cartItem->load('product.primaryImage', 'product.brand', 'product.model'); // Ensure relationships are loaded
+            $cartTotal = $this->calculateCartTotal($cart);
             return response()->json([
-                'status' => 'info', // Using 'info' or 'warning' for 'already added'
-                'message' => 'This product is already in your cart.'
+                'status' => 'info',
+                'message' => 'This product is already in your cart.',
+                'cart_item' => $cartItem, // Return existing cart item details
+                'cart_total' => $cartTotal,
             ]);
         } else {
             // Product not in cart, add new item
@@ -62,26 +98,103 @@ class CartPageController extends Controller
             ]);
             $cart->items()->save($cartItem);
 
-            // Optional: return updated cart count or item details
-            $cartCount = $cart->items()->count();
+            // Load relationships for the newly created cart item to return full details
+            $cartItem->load('product.primaryImage', 'product.brand', 'product.model');
+            $cartTotal = $this->calculateCartTotal($cart);
 
             return response()->json([
                 'status' => 'success',
                 'message' => 'Product added to cart successfully!',
-                'cart_item' => [
-                    'product_name' => $product->name,
-                    'quantity' => $quantity,
-                    'price' => $product->price,
-                    // You might want to return the actual CartItem ID or other relevant data
-                ],
-                'cart_count' => $cartCount
+                'cart_item' => $cartItem, // Return newly added cart item details
+                'cart_total' => $cartTotal,
             ]);
         }
     }
 
     /**
+     * Update cart item quantity.
+     * This method only returns the updated item's subtotal and the new cart total.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateCartQuantity(Request $request): JsonResponse
+    {
+        $itemId = $request->input('item_id');
+        $newQuantity = (int) $request->input('new_quantity');
+
+        $cart = $this->getOrCreateCart();
+        $cartItem = $cart->items()->where('id', $itemId)->first();
+
+        if (!$cartItem) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Cart item not found.'
+            ], 404);
+        }
+
+        if ($newQuantity < 1) {
+            // If new quantity is less than 1, remove the item
+            $cartItem->delete();
+            $cartTotal = $this->calculateCartTotal($cart);
+            return response()->json([
+                'status' => 'removed', // Custom status for item removal
+                'message' => 'Item removed from cart.',
+                'removed_item_id' => $itemId,
+                'cart_total' => $cartTotal,
+            ]);
+        }
+
+        $cartItem->quantity = $newQuantity;
+        $cartItem->save(); // This will trigger the updating event to recalculate $item->total
+
+        $updatedItemSubtotal = $cartItem->total; // Use the already calculated total from the model
+        $cartTotal = $this->calculateCartTotal($cart);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Cart item quantity updated.',
+            'item_id' => $itemId,
+            'new_quantity' => $cartItem->quantity,
+            'item_subtotal' => $updatedItemSubtotal,
+            'cart_total' => $cartTotal,
+        ]);
+    }
+
+    /**
+     * Remove item from cart.
+     * This method only returns the ID of the removed item and the new cart total.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function removeCart(Request $request): JsonResponse
+    {
+        $itemId = $request->input('item_id');
+
+        $cart = $this->getOrCreateCart();
+        $cartItem = $cart->items()->where('id', $itemId)->first();
+
+        if (!$cartItem) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Cart item not found.'
+            ], 404);
+        }
+
+        $cartItem->delete();
+        $cartTotal = $this->calculateCartTotal($cart);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Item removed from cart.',
+            'removed_item_id' => $itemId,
+            'cart_total' => $cartTotal,
+        ]);
+    }
+
+    /**
      * Helper method to get or create the appropriate cart.
-     * (Keep this method as it was in the previous example)
      *
      * @return \App\Models\Cart
      */
@@ -89,28 +202,50 @@ class CartPageController extends Controller
     {
         $cart = null;
 
+        $sessionId = Session::getId();
         if (Auth::guard('web')->check()) {
             $userId = user()->id;
-            $cart = Cart::where('user_id', $userId)->first();
-
-            if (!$cart) {
-                $cart = Cart::create([
-                    'user_id' => $userId,
-                    'session_id' => Session::getId(),
-                ]);
-            }
+            $cart = Cart::updateOrCreate(
+                ['user_id' => $userId],
+                ['session_id' => $sessionId]
+            );
         } else {
-            $sessionId = Session::getId();
-            $cart = Cart::where('session_id', $sessionId)->first();
+            if (session()->has('cart_session_id')) {
+                $cart = Cart::where('session_id', session()->get('cart_session_id'))->first();
 
-            if (!$cart) {
+                if ($cart) {
+                    $cart->update([
+                        'session_id' => $sessionId
+                    ]);
+                } else {
+                    $cart = Cart::create([
+                        'session_id' => $sessionId
+                    ]);
+                }
+            } else {
                 $cart = Cart::create([
-                    'session_id' => $sessionId,
-                    'user_id' => null,
+                    'session_id' => $sessionId
                 ]);
             }
         }
 
+        session()->put('cart_session_id', $cart->session_id);
         return $cart;
+    }
+
+
+    /**
+     * Helper method to calculate the total price of the cart.
+     *
+     * @param \App\Models\Cart $cart
+     * @return float
+     */
+    protected function calculateCartTotal(Cart $cart): float
+    {
+        // Corrected: Sum the 'total' column directly, which is already calculated in CartItem model
+        // Ensure the cart items are reloaded to get the latest 'total' values after updates/deletes
+        $cart->load('items'); // Reload the items collection to ensure 'total' is up-to-date
+        $total = $cart->items->sum('total'); // Sum the 'total' attribute of each CartItem
+        return (float) $total;
     }
 }

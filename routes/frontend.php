@@ -65,13 +65,10 @@ Route::group(['as' => 'frontend.'], function () {
     Route::controller(CartPageController::class)->group(function () {
         Route::get('/cart', 'cart')->name('cart');
         Route::post('/cart/add', 'addCart')->name('cart.add');
-        Route::get('/cart/items', 'getCartItems')->name('cart.items'); // To fetch initial cart data
-        Route::post('/cart/update', 'updateCart')->name('cart.update'); // For quantity changes
+        Route::post('/cart/items', 'fetchCartItems')->name('cart.items'); // For initial fetch
+        Route::post('/cart/update-quantity', 'updateCartQuantity')->name('cart.update-quantity'); // New route for quantity update
         Route::post('/cart/remove', 'removeCart')->name('cart.remove'); // To remove an item
     });
-    
-    // Route::get('/cart', [CartPageController::class, 'cart'])->name('cart');
-    // Route::post('/cart/add', [CartPageController::class, 'addCart'])->name('cart.add');
 
     // Checkout Page
     Route::get('/checkout', [CheckoutPageController::class, 'checkout'])->name('checkout');
