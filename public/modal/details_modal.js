@@ -5,9 +5,9 @@ function fetchAndShowModal(detailsUrl, headers, modalWrapId, modalId) {
         method: "GET",
         dataType: "json",
         success: function (data) {
-            // Define your headers dynamically            
+            // Define your headers dynamically
             console.log(data);
-            
+
             showModalWithData(headers, data, modalWrapId, modalId);
         },
         error: function (xhr, status, error) {
@@ -79,7 +79,7 @@ function showModalWithData(headers, data, modalWrapId, modalId) {
                     </td>
                 </tr>
             `;
-            } else {                
+            } else {
                 return `
                     <tr>
                         <th class="text-nowrap">${header.label}</th>
@@ -93,11 +93,13 @@ function showModalWithData(headers, data, modalWrapId, modalId) {
 
     // Construct the full table HTML
     const result = `
+        <div class="table-responsive">
             <table class="table table-striped">
                 <tbody>
                     ${headerHtml}
                 </tbody>
             </table>
+        </div>
         `;
 
     $(modalWrapId).html(result);
