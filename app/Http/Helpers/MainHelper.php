@@ -2,6 +2,7 @@
 
 use App\Models\Order;
 use App\Models\Permission;
+use App\Models\SiteSetting;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use League\Csv\Writer;
@@ -212,4 +213,12 @@ function generateOrderNumber()
     $number = $latestOrder ? ((int) substr($latestOrder->order_number, -5)) + 1 : 1;
 
     return $prefix . str_pad($number, 5, '0', STR_PAD_LEFT);
+}
+// Side Settings
+function settings($key)
+{
+    $setting = SiteSetting::where('key', $key)->where('deleted_at', null)->first();
+    if ($setting) {
+        return $setting->value;
+    }
 }

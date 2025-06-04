@@ -12,87 +12,6 @@
             </div>
         </div>
     </section>
-
-    {{-- <div class="w-1/4 hidden xl:block">
-
-        <div class="space-y-6 shadow-card dark:shadow-dark-card rounded-lg dark:bg-bg-dark-tertiary overflow-hidden mt-3">
-            <h2
-                class="text-lg md:text-xl font-semibold capitalize border-b bg-bg-light dark:bg-bg-light dark:bg-opacity-20 border-border-gray dark:border-opacity-50 p-4">
-                {{ __(' Auction fillters') }}</h2>
-            <div class="p-4 pb-0">
-                <div data-target="category-filter">
-                    <h3 class="text-xl font-medium">{{ __('Category') }}</h3>
-                </div>
-
-                <div class="filter-content" id="category-filter">
-                    <div class="mt-2">
-                        <select class="w-full border border-border-gray dark:border-opacity-20 rounded-md px-3 py-2"
-                            name="subcategory" id="subcategory">
-                            <option value="">{{ __('All Agricultural') }}</option>
-                            @foreach ($categories as $children)
-                                <option value="{{ $children->slug }}"
-                                    {{ request()->category == $children->slug ? 'selected' : '' }}>
-                                    {{ $children->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="px-4">
-                <h3 class="text-sm md:text-base font-medium">{{ __('Make') }}</h3>
-                <select class="select mt-2" name="company">
-                    <option value="" selected>Select Make</option>
-                    @foreach ($companies as $company)
-                        <option value="{{ $company->slug }}" {{ request()->company == $company->slug ? 'selected' : '' }}>
-                            {{ $company->name }}</option>
-                    @endforeach
-                </select>
-                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'company']" />
-            </div>
-            <div>
-
-                <details class="collapse collapse-arrow" open>
-                    <summary class="collapse-title text-xl font-medium">{{ __('Price') }}</summary>
-                    <div class="collapse-content">
-                        <div class="mb-3">
-                            <div class="relative w-full price-slider">
-                                <div class="absolute w-full h-1 bg-bg-dark bg-opacity-40 z-[1] rounded-full">
-                                </div>
-                                <div class="absolute h-1 z-[2] rounded-full bg-bg-primary slider-range"></div>
-                                <input type="range" name="start_price" min="0" max="500000"
-                                    value="{{ request()->start_price ?? 20 }}"
-                                    class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none min-range">
-                                <input type="range" min="0" name="end_price" max="500000"
-                                    value="{{ request()->end_price ?? 500000 }}"
-                                    class="absolute p-0 top-1/2 -translate-y-1/2 w-full z-[3] pointer-events-none appearance-none max-range">
-                            </div>
-                        </div>
-
-                        <div class="pt-8">
-                            <p class="text-sm lg:text-base">
-                                {{ __('Price:') }} <span
-                                    class="text-text-danger min-price">${{ request()->start_price ?? 20 }}</span>
-                                -
-                                <span class="text-text-danger max-price">${{ request()->end_price ?? 50000 }}</span>
-                            </p>
-                        </div>
-                    </div>
-                </details>
-            </div>
-            <div class="px-4 pb-4">
-                <button
-                    class="w-full btn-primary hover:bg-bg-tertiary py-2 rounded-md transition-all duration-300 flex items-center justify-center group">
-                    <span>Sherch</span>
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </div> --}}
     {{-- Mid Content --}}
     <section class="pb-15">
         <div class="container">
@@ -174,7 +93,8 @@
                                 </details>
                             </div>
                             <div class="px-4">
-                                <button id="filterBtn" class="w-full btn-primary group">
+                                <button id="filterBtn"
+                                    class="w-full btn-primary border border-border-tertiary bg-transparent text-text-tertiary hover:bg-bg-tertiary hover:text-text-white group">
                                     <span>{{ __('Filter') }}</span>
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
@@ -227,12 +147,11 @@
                         <div class="loading-spinner"></div>
                         <span class="ml-3 text-gray-600">{{ __('Loading products...') }}</span>
                     </div>
-                   <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
                         @forelse ($products as $product)
                             <x-frontend.product :product="$product" />
                         @empty
                         @endforelse
-
                     </div>
                 </div>
 

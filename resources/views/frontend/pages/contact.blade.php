@@ -1,6 +1,7 @@
 @extends('frontend.layouts.app', ['page_slug' => 'contact'])
 @section('title', 'Contact')
 @section('content')
+    {{-- @dd(json_decode(settings('office_infos'))); --}}
     <section class="pb-15 pt-10 dark:bg-bg-dark-tertiary">
         <div class="container">
             <div class="flex flex-col lg:flex-row gap-10">
@@ -57,38 +58,39 @@
                     <div class="h-full shadow-card bg-bg-light dark:bg-opacity-20 p-6">
                         <div class="flex items-center gap-4 mb-10 text-sm lg:text-base text-center lg:text-left mt-2">
                             @php
-                                $phone = '+8801581088986';
                                 $message = urlencode("Hi, I'm interested in your service.");
                             @endphp
 
                             <div class="w-1/2">
                                 <a class="btn-primary rounded-md w-full py-2 px-0 hover:bg-bg-tertiary"
-                                    href="https://wa.me/{{ $phone }}?text={{ $message }}" target="_blank"">{{ __('WhatsApp Us') }}</a>
+                                    href="https://wa.me/{{ settings('whatsapp') }}?text={{ $message }}"
+                                    target="_blank">{{ __('WhatsApp Us') }}</a>
                             </div>
                             <div class="w-1/2">
                                 <a class="btn-primary rounded-md w-full py-2 px-0 hover:bg-bg-tertiary"
-                                    href="tel:+1(123) 456-789">{{ __('+1(123) 456-789') }}</a>
+                                    href="tel:+1(123) 456-789">{{settings('phone') }}</a>
                             </div>
                         </div>
-                        <p class="pb-2 text-base lg:me-40 text-text-primary dark:text-text-white font-semibold">
-                            {{ __('Japan') }}</p>
-                        <div class="text-base pb-4">
-                            <p class="mb-2">
-                                <a class="text-text-primary dark:text-text-white"
-                                    href="#">{{ __('128 Example Street Tokyo,Japan') }}</a>
-                            </p>
-                            <p class="mb-2">
-                                <a class="text-text-primary dark:text-text-white hover:text-text-secondary hover:underline duration-300 ease-linear"
-                                    href="mailto:example@example.com">{{ __('example@gmail.com') }}</a>
-                            </p>
-                            <p class="mb-2">
-                                <a class="text-text-primary dark:text-text-white" href="#">{{ __('+1 234 567') }}</a>
-                            </p>
-                            <p class="text-text-primary dark:text-text-white">{{ __('Monday-Friday, 9am-6pm') }}</p>
-                        </div>
-                        <p class="pb-2 text-base lg:me-40 text-text-primary dark:text-text-white font-semibold">
-                            {{ __('Africa') }}</p>
-                        <p>456 Sample Avenue Accra, Ghana</p>
+                        @foreach (json_decode(settings('office_infos'), true) as $office_info)
+                            <p
+                                class="pb-2 text-base lg:me-40 text-text-primary dark:text-text-white font-semibold capitalize">
+                                {{ $office_info['country'] }}</p>
+                            <div class="text-base pb-4">
+                                <p class="mb-2">
+                                    <a class="text-text-primary dark:text-text-white"
+                                        href="#">{{ $office_info['location'] }}</a>
+                                </p>
+                                <p class="mb-2">
+                                    <a class="text-text-primary dark:text-text-white hover:text-text-secondary hover:underline duration-300 ease-linear"
+                                        href="mailto:{{ $office_info['email'] }}">{{ $office_info['email'] }}</a>
+                                </p>
+                                <p class="mb-2">
+                                    <a class="text-text-primary dark:text-text-white"
+                                        href="#">{{ $office_info['phone'] }}</a>
+                                </p>
+                                <p class="text-text-primary dark:text-text-white">{{ __('Monday-Friday, 9am-6pm') }}</p>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
