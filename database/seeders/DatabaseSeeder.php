@@ -64,7 +64,7 @@ class DatabaseSeeder extends Seeder
             ContainerSeeder::class,
             RegionSeeder::class,
             RegionShippingTimelineSeeder::class,
-            ContainerProductSeeder::class,
+            // ContainerProductSeeder::class,
         ]);
     }
 }

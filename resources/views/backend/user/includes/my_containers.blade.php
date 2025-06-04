@@ -1,9 +1,9 @@
-<div class="bg-bg-gray dark:bg-opacity-20 p-10 pt-0">
+<div class="p-10 pt-0">
     <div class="max-w-6xl mx-auto">
         <!-- My Containers Panel Header -->
         <div class="mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">{{ __('My Containers') }}</h2>
-            <p class="text-text-gray">{{ __('Track and manage your container shipments') }}</p>
+            <h2 class="text-2xl font-bold text-text-primary dark:text-text-white">{{ __('My Containers') }}</h2>
+            <p class="text-text-gray dark:text-text-light">{{ __('Track and manage your container shipments') }}</p>
         </div>
         <!-- Filters -->
         <div class="mb-6 flex flex-wrap gap-2">
@@ -110,7 +110,7 @@
             @endforeach
         </div>
         <div id="no-containers-message"
-            class="hidden text-2xl font-semibold text-text-primary dark:text-text-light text-center uppercase bg-bg-white rounded-lg p-5 shadow-card">
+            class="hidden text-2xl font-semibold text-text-primary dark:text-text-light text-center uppercase bg-bg-white dark:bg-opacity-30 rounded-lg p-5 shadow-card">
             {{ __('No Data Found') }}
         </div>
         {{-- @if ($my_containers->count() == 0 )

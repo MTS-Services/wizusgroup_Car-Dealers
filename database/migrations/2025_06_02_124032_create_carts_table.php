@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Traits\AuditColumnsTrait;
 
-return new class extends Migration
-{
+return new class extends Migration {
     use SoftDeletes, AuditColumnsTrait;
     /**
      * Run the migrations.
@@ -28,7 +27,7 @@ return new class extends Migration
             $table->unsignedBigInteger('deleter_id')->nullable();
             $table->string('deleter_type')->nullable();
             $table->softDeletes();
-            $this->addAdminAuditColumns($table);
+            $this->addMorphedAuditColumns($table);
 
             // Relationships
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

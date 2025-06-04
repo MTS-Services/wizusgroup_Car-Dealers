@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('container_id')->index();
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('product_id')->index()->nullable();
-            $table->string('product_name');
+            $table->unsignedBigInteger('order_id');
             $table->string('email');
             $table->string('whatsapp');
 
@@ -40,6 +40,7 @@ return new class extends Migration {
             $table->foreign('container_id')->references('id')->on('containers')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade');
 
 
             // Indexes

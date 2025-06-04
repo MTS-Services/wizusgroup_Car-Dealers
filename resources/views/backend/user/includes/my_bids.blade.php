@@ -72,6 +72,6 @@
 </div>
 @if ($auctions->count() == 0)
     <div class="mt-5">
-        <h2 class="text-xl font-semibold text-text-primary dark:text-text-light text-center uppercase bg-bg-white rounded-lg p-5 shadow-card">{{ __('No Data Found') }}</h2>
+        <h2 class="text-xl font-semibold text-text-primary dark:text-text-light text-center uppercase bg-bg-white dark:bg-opacity-30 rounded-lg p-5 shadow-card">{{ __('No Data Found') }}</h2>
     </div>
 @endif
