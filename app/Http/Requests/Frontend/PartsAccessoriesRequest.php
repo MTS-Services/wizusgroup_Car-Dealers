@@ -22,9 +22,10 @@ class PartsAccessoriesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "category"=> "nullable|exists:categories",
-            "start_price"=> "nullable|min:0|numeric",
-            "end_price"=> "nullable|min:0|numeric",
+            "category" => "nullable|exists:categories,slug",
+            'company' => 'nullable|exists:companies,slug',
+            "start_price" => "nullable|min:0|numeric",
+            "end_price" => "nullable|min:0|numeric",
         ];
     }
 }

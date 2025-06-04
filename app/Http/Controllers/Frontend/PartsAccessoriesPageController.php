@@ -15,7 +15,7 @@ class PartsAccessoriesPageController extends Controller
     public function productFilter(PartsAccessoriesRequest $request): RedirectResponse
     {
         $data = [];
-         if (!empty($request->input("sort"))) {
+        if (!empty($request->input("sort"))) {
             $data["sort"] = $request->input("sort");
         }
         if (!empty($request->input("category"))) {
@@ -34,7 +34,7 @@ class PartsAccessoriesPageController extends Controller
     }
     public function parts(Request $request)
     {
-        $query = Product::with(['category', 'company', 'primaryImage'])->parts();
+        $query = Product::with(['category', 'company', 'brand', 'model', 'primaryImage', 'subCategory'])->active()->parts();
 
         if ($request->input("sort")) {
             if ($request->input("sort") == "high_to_low") {
@@ -60,7 +60,7 @@ class PartsAccessoriesPageController extends Controller
 
         // Filter by company
         if ($request->input("company")) {
-            $query->whereHas("product.company", function ($query) use ($request) {
+            $query->whereHas("company", function ($query) use ($request) {
                 $query->where("slug", $request->input("company"));
             });
         }
@@ -82,7 +82,8 @@ class PartsAccessoriesPageController extends Controller
         return view('frontend.pages.parts_accessories', $data);
     }
 
-    public function partsDetails($slug){
+    public function partsDetails($slug)
+    {
         $data['product'] = Product::with([
             'category.products.primaryImage',
             'category.products.brand',

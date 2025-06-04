@@ -117,7 +117,7 @@
 
                                 <div class="filter-content" id="category-filter">
                                     <div class="mt-2">
-                                        <select class="select select2" name="subcategory" id="subcategory">
+                                        <select class="select select2" name="category" id="category">
                                             <option value="">{{ __('All Agricultural') }}</option>
                                             @foreach ($categories as $children)
                                                 <option value="{{ $children->slug }}"
@@ -227,10 +227,11 @@
                         <div class="loading-spinner"></div>
                         <span class="ml-3 text-gray-600">{{ __('Loading products...') }}</span>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
-                        @foreach ($products as $product)
-                            <x-frontend.parts-accessories :product="$product" /> 
-                        @endforeach
+                   <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
+                        @forelse ($products as $product)
+                            <x-frontend.product :product="$product" />
+                        @empty
+                        @endforelse
 
                     </div>
                 </div>
