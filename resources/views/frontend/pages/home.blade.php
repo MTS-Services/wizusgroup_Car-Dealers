@@ -290,7 +290,7 @@
                                                     <span class="quote-full hidden">{{ $testimonial->quote }}</span>
                                                     <span
                                                         class="text-blue-600 cursor-pointer read-toggle text-sm items-center">{{ __('Read
-                                                                                                                                                                                                                                more') }}<i
+                                                                                                                                                                                                                                                                                        more') }}<i
                                                             data-lucide="chevrons-right"
                                                             class="w-4 h-4 inline-block "></i></span>
                                                 @endif
@@ -355,7 +355,7 @@
     <script type="module">
         import Swiper from '/frontend/js/swiper.min.js';
         const bannerEl = document.querySelector('.banner');
-        new Swiper(bannerEl, {
+        const bannerSwiper = new Swiper(bannerEl, {
             slidesPerView: 1,
             loop: true,
             autoplay: {
@@ -369,10 +369,16 @@
                 }
             }
         });
+        bannerEl.addEventListener('mouseenter', () => {
+            bannerSwiper.autoplay.stop();
+        })
+        bannerEl.addEventListener('mouseleave', () => {
+            bannerSwiper.autoplay.start();
+        })
 
         // CATEGORY SWIPER
         const categorySwiperEl = document.querySelector('.categories');
-        new Swiper(categorySwiperEl, {
+       const categorySwiper = new Swiper(categorySwiperEl, {
             loop: true,
             slidesPerView: 6,
             spaceBetween: 20,
@@ -416,10 +422,16 @@
 
         });
 
+         categorySwiperEl.addEventListener('mouseenter', () => {
+            categorySwiper.autoplay.stop();
+        });
 
+        categorySwiperEl.addEventListener('mouseleave', () => {
+            categorySwiper.autoplay.start();
+        });
         // Testimonial SWIPER
         const testimonialSwiperEl = document.querySelector('.testimonials');
-        new Swiper(testimonialSwiperEl, {
+       const testimonialSwiper = new Swiper(testimonialSwiperEl, {
             loop: true,
             slidesPerView: 3,
             spaceBetween: 20,
@@ -449,6 +461,13 @@
                     spaceBetween: 20,
                 },
             },
+        });
+        testimonialSwiperEl.addEventListener('mouseenter', () => {
+            testimonialSwiper.autoplay.stop();
+        });
+
+        testimonialSwiperEl.addEventListener('mouseleave', () => {
+            testimonialSwiper.autoplay.start();
         });
     </script>
     {{-- countdown --}}

@@ -264,7 +264,7 @@
         import Swiper from '/frontend/js/swiper.min.js';
         // CATEGORY SWIPER
         const categorySwiperEl = document.querySelector('.categories');
-        new Swiper(categorySwiperEl, {
+        const categorySwiper = new Swiper(categorySwiperEl, {
             loop: true,
             slidesPerView: 6,
             spaceBetween: 20,
@@ -306,6 +306,13 @@
                 }
             }
 
+        });
+        categorySwiperEl.addEventListener('mouseenter', () => {
+            categorySwiper.autoplay.stop();
+        });
+
+        categorySwiperEl.addEventListener('mouseleave', () => {
+            categorySwiper.autoplay.start();
         });
     </script>
     <script>
