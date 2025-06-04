@@ -107,6 +107,7 @@
     {{-- <script src="{{ asset('frontend/js/custom.js') }}"></script> --}}
     {{-- Toggle theme --}}
     <script src="{{ asset('frontend/js/themeToggle.js') }}"></script>
+    <script src="{{ asset('frontend/js/cartManager.js') }}"></script>
 
     {{-- Custom Functions --}}
     <script src="{{ asset('backend/admin/js/functions.js') }}"></script>
