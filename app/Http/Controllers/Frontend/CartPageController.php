@@ -205,26 +205,34 @@ class CartPageController extends Controller
         $sessionId = Session::getId();
         if (Auth::guard('web')->check()) {
             $userId = user()->id;
-            $cart = Cart::updateOrCreate([
-                'user_id' => $userId
-            ], [
-                'session_id' => $sessionId,
-            ]);
+            $cart = Cart::updateOrCreate(
+                ['user_id' => $userId],
+                ['session_id' => $sessionId]
+            );
         } else {
             if (session()->has('cart_session_id')) {
                 $cart = Cart::where('session_id', session()->get('cart_session_id'))->first();
-                $cart->update([
-                    'session_id' => $sessionId
-                ]);
+
+                if ($cart) {
+                    $cart->update([
+                        'session_id' => $sessionId
+                    ]);
+                } else {
+                    $cart = Cart::create([
+                        'session_id' => $sessionId
+                    ]);
+                }
             } else {
                 $cart = Cart::create([
                     'session_id' => $sessionId
                 ]);
             }
         }
+
         session()->put('cart_session_id', $cart->session_id);
         return $cart;
     }
+
 
     /**
      * Helper method to calculate the total price of the cart.
