@@ -36,7 +36,10 @@
             </label>
 
             <div class="flex items-center justify-between gap-3 pb-6">
-                <a href="{{ route('frontend.checkout') }}" class="btn-primary w-full text-center py-1">Checkout</a>
+                <form action="{{ route('frontend.checkout.submit') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn-primary w-full text-center py-1">{{ __('Checkout') }}</button>
+                </form>
                 <a href="{{ route('frontend.cart') }}"
                     class="btn-secondary w-full text-center py-1 border border-border-dark dark:border-white dark:border-opacity-50 text-text-gray hover:text-text-dark dark:hover:text-white transition-colors">View
                     Cart</a>
@@ -61,7 +64,8 @@
 
     // Function to generate HTML for a single cart item
     function generateCartItemHtml(item) {
-        const productImageUrl = item.product.primary_image ? item.product.primary_image.image_url : 'https://placehold.co/96x96/E0E0E0/333333?text=No+Image';
+        const productImageUrl = item.product.primary_image ? item.product.primary_image.image_url :
+            'https://placehold.co/96x96/E0E0E0/333333?text=No+Image';
         const brandName = item.product.brand ? item.product.brand.name : '';
         const modelName = item.product.model ? item.product.model.name : '';
         const subtotal = item.price * item.quantity;
@@ -235,7 +239,8 @@
                 const itemId = target.dataset.itemId;
                 if (!itemId) return; // Button doesn't have an item ID
 
-                if (target.classList.contains('quantity-increase') || target.classList.contains('quantity-decrease')) {
+                if (target.classList.contains('quantity-increase') || target.classList.contains(
+                        'quantity-decrease')) {
                     let currentQuantity = parseInt(target.dataset.currentQuantity);
                     let newQuantity;
 
@@ -249,7 +254,15 @@
                         item_id: itemId,
                         new_quantity: newQuantity
                     }).then(response => {
-                        const { status, message, item_id, new_quantity, item_subtotal, removed_item_id, cart_total } = response.data;
+                        const {
+                            status,
+                            message,
+                            item_id,
+                            new_quantity,
+                            item_subtotal,
+                            removed_item_id,
+                            cart_total
+                        } = response.data;
 
                         updateCartTotalDisplay(cart_total); // Always update total
 
@@ -268,7 +281,12 @@
                     axios.post('{{ route('frontend.cart.remove') }}', {
                         item_id: itemId
                     }).then(response => {
-                        const { status, message, removed_item_id, cart_total } = response.data;
+                        const {
+                            status,
+                            message,
+                            removed_item_id,
+                            cart_total
+                        } = response.data;
                         if (status === 'success') {
                             removeCartItemHtml(removed_item_id);
                             updateCartTotalDisplay(cart_total);

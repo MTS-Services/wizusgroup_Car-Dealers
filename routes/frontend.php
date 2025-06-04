@@ -24,9 +24,6 @@ Route::group(['as' => 'frontend.'], function () {
         Route::post('/products-filter/{category_slug?}', 'productFilter')->name('products.filter');
         Route::get('/product-details/{slug}', 'productDetails')->name('product.details');
     });
-
-    Route::get('/checkout', [FrontendController::class, 'checkout'])->name('checkout');
-
     // Contact Page
     Route::controller(ContactPageController::class)->prefix('contact')->group(function () {
         Route::get('/', 'contact')->name('contact');
@@ -71,5 +68,9 @@ Route::group(['as' => 'frontend.'], function () {
     });
 
     // Checkout Page
-    Route::get('/checkout', [CheckoutPageController::class, 'checkout'])->name('checkout');
+    Route::controller(CheckoutPageController::class)->group(function () {
+        Route::post('/checkout/submit', 'checkoutSubmit')->name('checkout.submit');
+        Route::get('/checkout/{orderNumber}', 'checkout')->name('checkout');
+    });
+
 });

@@ -117,7 +117,7 @@
 
                     <!-- Cart Items -->
                     <div class="space-y-6 mb-6">
-                        @foreach ($cartItems as $item)
+                        @foreach ($order->items as $item)
                             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-lg shadow-md dark:bg-bg-dark-secondary transition-all duration-200 hover:shadow-lg"
                                 data-item-id="{{ $item->id }}">
                                 <div class="relative flex-shrink-0">

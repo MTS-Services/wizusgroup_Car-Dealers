@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Order;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,13 +19,23 @@ class LoginController extends Controller
     {
         if (session()->has('cart_session_id')) {
             $cart = Cart::where('session_id', session()->get('cart_session_id'))->first();
-            if ($cart) {
-                $cart->update([
-                    'user_id' => $user->id,
-                    'session_id' => Session::getId(),
-                ]);
+            $order = Order::where('session_id', session()->get('cart_session_id'))->get();
+            if ($cart || $order->count() > 0) {
+                if ($cart) {
+                    $cart->update([
+                        'user_id' => $user->id,
+                        'session_id' => Session::getId(),
+                    ]);
+                }
+                if ($order->count() > 0) {
+                    $order->update([
+                        'user_id' => $user->id,
+                        'session_id' => Session::getId(),
+                    ]);
+                }
                 session()->put('cart_session_id', $cart->session_id);
             }
+
         }
     }
 

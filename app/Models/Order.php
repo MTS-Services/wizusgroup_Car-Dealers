@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends BaseModel
 {
@@ -40,11 +41,12 @@ class Order extends BaseModel
         ]);
     }
 
-    public const STATUS_PENDING = '0';
-    public const STATUS_CONFIRM = '1';
-    public const STATUS_SHIPPED = '2';
-    public const STATUS_DELIVERED = '3';
-    public const STATUS_CANCELED = '4';
+    public const STATUS_INITIATED = '1';
+    public const STATUS_PENDING = '2';
+    public const STATUS_CONFIRM = '3';
+    public const STATUS_SHIPPED = '4';
+    public const STATUS_DELIVERED = '5';
+    public const STATUS_CANCELED = '6';
 
     public function user()
     {
@@ -58,6 +60,7 @@ class Order extends BaseModel
     public function getStatusLabels()
     {
         return [
+            self::STATUS_INITIATED => 'Initiated',
             self::STATUS_PENDING => 'Pending',
             self::STATUS_CONFIRM => 'Confirm',
             self::STATUS_SHIPPED => 'Shipped',
@@ -69,6 +72,7 @@ class Order extends BaseModel
     public function getStatusBtnLabels()
     {
         return [
+            self::STATUS_INITIATED => 'Initiated',
             self::STATUS_PENDING => 'Pending',
             self::STATUS_CONFIRM => 'Confirm',
             self::STATUS_SHIPPED => 'Shipped',
@@ -79,6 +83,7 @@ class Order extends BaseModel
     public function getStatusColors()
     {
         return [
+            self::STATUS_INITIATED => 'btn-secondary',
             self::STATUS_PENDING => 'btn-primary',
             self::STATUS_CONFIRM => 'btn-warning',
             self::STATUS_SHIPPED => 'btn-info',
@@ -100,5 +105,10 @@ class Order extends BaseModel
     public function container(): BelongsTo
     {
         return $this->belongsTo(Container::class, 'container_id', 'id');
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(OrderItem::class, 'order_id', 'id');
     }
 }
