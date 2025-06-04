@@ -120,7 +120,7 @@ class CartPageController extends Controller
     public function updateCartQuantity(Request $request): JsonResponse
     {
         $itemId = $request->input('item_id');
-        $newQuantity = (int)$request->input('new_quantity');
+        $newQuantity = (int) $request->input('new_quantity');
 
         $cart = $this->getOrCreateCart();
         $cartItem = $cart->items()->where('id', $itemId)->first();
@@ -240,9 +240,12 @@ class CartPageController extends Controller
         } else {
             if (session()->has('cart_session_id')) {
                 $cart = Cart::where('session_id', session()->get('cart_session_id'))->first();
-                $cart->update([
-                    'session_id' => $sessionId
-                ]);
+                if ($cart) {
+                    $cart->update([
+                        'session_id' => $sessionId
+                    ]);
+                }
+
             } else {
                 $cart = Cart::create([
                     'session_id' => $sessionId
