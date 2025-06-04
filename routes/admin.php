@@ -342,7 +342,7 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
             Route::post('information/remarks/{product}', 'infoRemarkStore')->name('info.remarks.store');
             Route::post('information/files/{product}', 'infoFileStore')->name('info.files.store');
 
-            Route::get('view-remarks/{product_info_id}', 'viewRemarks')->name('view_remarks');
+            Route::get('view-remarks/{product_info_id}', 'viewInfoDetails')->name('view_info');
             Route::get('delete-info/{product_info_id}', 'deleteInfo')->name('delete_info');
             Route::get('entry-complete/{product}', 'entryComplete')->name('entry_complete');
 

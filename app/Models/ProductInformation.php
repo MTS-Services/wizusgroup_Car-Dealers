@@ -12,9 +12,9 @@ class ProductInformation extends BaseModel
         'sort_order',
         'product_id',
         'product_info_cat_id',
-        'product_info_cat_type_id',
-        'product_info_cat_type_feature_id',
-        'remarks',
+        // 'product_info_cat_type_id',
+        // 'product_info_cat_type_feature_id',
+        // 'remarks',
         'description',
         'file',
         'created_by',
@@ -32,13 +32,13 @@ class ProductInformation extends BaseModel
         return $this->belongsTo(ProductInfoCategory::class, 'product_info_cat_id');
     }
 
-    public function infoCategoryType(): BelongsTo
-    {
-        return $this->belongsTo(ProductInfoCategoryType::class, 'product_info_cat_type_id');
-    }
+    // public function infoCategoryType(): BelongsTo
+    // {
+    //     return $this->belongsTo(ProductInfoCategoryType::class, 'product_info_cat_type_id');
+    // }
 
-    public function infoCategoryTypeFeature(): BelongsTo
-    {
-        return $this->belongsTo(ProductInfoCategoryTypeFeature::class, 'product_info_cat_type_feature_id');
-    }
+    // public function infoCategoryTypeFeature(): BelongsTo
+    // {
+    //     return $this->belongsTo(ProductInfoCategoryTypeFeature::class, 'product_info_cat_type_feature_id');
+    // }
 }

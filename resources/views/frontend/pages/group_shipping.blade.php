@@ -301,7 +301,7 @@
                         </div>
                         <div
                             class="faq-answer max-h-0 overflow-hidden transition-all duration-500 text-text-primary dark:text-text-white text-sm md:text-base  text-opacity-80">
-                            {{ $faq->answer }}
+                            {!! $faq->answer !!}
                         </div>
                     </div>
                 @endforeach

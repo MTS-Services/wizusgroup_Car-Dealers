@@ -22,11 +22,9 @@ class ProductInfoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "product_info_cat_id"=> "required|exists:product_info_categories,id",
-            "product_info_cat_type_id"=> "required|exists:product_info_category_types,id",
-            "product_info_cat_type_feature_id"=> "nullable|exists:product_info_category_type_features,id",
-            "description"=> "required|string",
-            "file"=> "nullable",
+            "product_info_cat_id" => "required|exists:product_info_categories,id",
+            "description" => "required|string",
+            "file" => "nullable|file|mimes:pdf,doc,docx,xls,xlsx,txt,zip|max:2048",
         ];
     }
 }

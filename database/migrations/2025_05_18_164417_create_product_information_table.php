@@ -19,11 +19,11 @@ return new class extends Migration
             $table->bigInteger('sort_order')->default(0)->index();
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('product_info_cat_id');
-            $table->unsignedBigInteger('product_info_cat_type_id')->nullable();
-            $table->unsignedBigInteger('product_info_cat_type_feature_id')->nullable();
+            // $table->unsignedBigInteger('product_info_cat_type_id')->nullable();
+            // $table->unsignedBigInteger('product_info_cat_type_feature_id')->nullable();
             $table->longText('description')->nullable();
             $table->text('file')->nullable();
-            $table->longText('remarks')->nullable();
+            // $table->longText('remarks')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $this->addAdminAuditColumns($table);
@@ -35,17 +35,17 @@ return new class extends Migration
                 ->on('product_info_categories')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-             $table->foreign('product_info_cat_type_id', 'fki_cat_t_id')
-                ->references('id')
-                ->on('product_info_category_types')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+            //  $table->foreign('product_info_cat_type_id', 'fki_cat_t_id')
+            //     ->references('id')
+            //     ->on('product_info_category_types')
+            //     ->onDelete('cascade')
+            //     ->onUpdate('cascade');
 
-             $table->foreign('product_info_cat_type_feature_id', 'fki_cat_t_f_id')
-                ->references('id')
-                ->on('product_info_category_type_features')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+            //  $table->foreign('product_info_cat_type_feature_id', 'fki_cat_t_f_id')
+            //     ->references('id')
+            //     ->on('product_info_category_type_features')
+            //     ->onDelete('cascade')
+            //     ->onUpdate('cascade');
 
             // Indexes
             $table->index('created_at'); // Index for soft deletes
