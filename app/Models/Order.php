@@ -19,13 +19,13 @@ class Order extends BaseModel
         'total',
         'note',
 
-        'created_at',
-        'updated_at',
-        'deleted_at',
+        'creater_id',
+        'updater_id',
+        'deleter_id',
 
-        'created_by',
-        'updated_by',
-        'deleted_by',
+        'creater_type',
+        'updater_type',
+        'deleter_type',
     ];
 
     public function __construct(array $attributes = [])
@@ -79,7 +79,7 @@ class Order extends BaseModel
             self::STATUS_PENDING => 'btn-primary',
             self::STATUS_CONFIRM => 'btn-warning',
             self::STATUS_SHIPPED => 'btn-info',
-            self::STATUS_DELIVERED => 'btn-success',    
+            self::STATUS_DELIVERED => 'btn-success',
             self::STATUS_CANCELED => 'btn-danger',
         ];
     }

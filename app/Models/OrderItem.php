@@ -9,6 +9,29 @@ class OrderItem extends BaseModel
 {
     use HasFactory;
 
+
+    protected $fillable = [
+        'sort_order',
+        'order_id',
+        'product_id',
+        'quantity',
+        'unit_price',
+        'sub_total',
+        'discount',
+        'total',
+        'is_dropshipping',
+        'status',
+        'dropshipping_status',
+
+        'creater_id',
+        'updater_id',
+        'deleter_id',
+
+        'creater_type',
+        'updater_type',
+        'deleter_type',
+    ];
+
     public const STATUS_PENDING = '0';
     public const STATUS_CONFIRM = '1';
     public const STATUS_SHIPPED = '2';
@@ -89,7 +112,7 @@ class OrderItem extends BaseModel
             self::STATUS_DROPSHIPPING_DELIVERED => 'Delivered',
             self::STATUS_DROPSHIPPING_CANCELED => 'Canceled',
         ];
-    } 
+    }
 
     public function getDropshippingStatusColors(): array
     {
