@@ -13,7 +13,7 @@ class ContainerReservation extends BaseModel
         'container_id',
         'user_id',
         'product_id',
-        'product_name',
+        'order_id',
         'email',
         'whatsapp',
         'quantity',
