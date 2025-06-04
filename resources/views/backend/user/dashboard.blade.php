@@ -116,11 +116,15 @@
         $(document).ready(function() {
             // Sidebar Navigation Tabs
             $('.nav_item').on('click', function() {
-                $('.nav_item')
-                    .removeClass('active');
-                $(this).addClass('active');
-
                 const target = $(this).data('target');
+
+                // Remove active from all nav_items
+                $('.nav_item').removeClass('active');
+
+                // Add active to all items with the same target
+                $(`.nav_item[data-target="${target}"]`).addClass('active');
+
+                // Show the target pane
                 $('.nav-pane').removeClass('block').addClass('hidden');
                 $('#' + target).removeClass('hidden').addClass('block');
             });

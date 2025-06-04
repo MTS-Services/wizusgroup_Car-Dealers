@@ -15,7 +15,7 @@
                 {{-- Update Profile --}}
                 {{-- <h3 class="text-xl font-semibold mb-4 uppercase">Update Profile</h3> --}}
                 <div>
-                    <form action="{{ route('user.profile.update', encrypt($user->id)) }}" method="post">
+                    <form action="{{ route('user.profile.update', encrypt($user->id)) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

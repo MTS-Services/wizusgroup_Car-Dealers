@@ -158,13 +158,3 @@
         </div>
     </div>
 </div>
-@push('js')
-    <script>
-        $(document).ready(function() {
-            const existingFiles = {
-                "#image": "{{ $admin->modified_image }}",
-            }
-            file_upload(["#image"], ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg'],existingFiles);
-        });
-    </script>
-@endpush

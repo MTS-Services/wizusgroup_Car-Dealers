@@ -17,6 +17,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="tab-content">
+                    
                     @include('backend.admin.profile_management.include.profile')
                     {{-- Profile Address --}}
                     @include('backend.admin.profile_management.include.address')

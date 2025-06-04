@@ -96,82 +96,6 @@
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-8">
-                {{-- <div class="card bg-base-100 w-full shadow-card">
-                    <div class="card-image w-full h-60">
-                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                            class="w-full h-full object-cover" alt="" />
-                    </div>
-                    <div class="card-body gap-0">
-                        <h2 class="card-title">Caterpillar 320 Excavator</h2>
-                        <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
-                        <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
-                        <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                            <span>2025</span>
-                            <span class="mx-2">|</span>
-                            <span>Tractor</span>
-                        </div>
-                        <div class="card-actions justify-end mt-4">
-                            <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card bg-base-100 w-full shadow-card">
-                    <div class="card-image w-full h-60">
-                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                            class="w-full h-full object-cover" alt="" />
-                    </div>
-                    <div class="card-body gap-0">
-                        <h2 class="card-title">Caterpillar 320 Excavator</h2>
-                        <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
-                        <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
-                        <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                            <span>2025</span>
-                            <span class="mx-2">|</span>
-                            <span>Tractor</span>
-                        </div>
-                        <div class="card-actions justify-end mt-4">
-                            <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card bg-base-100 w-full shadow-card">
-                    <div class="card-image w-full h-60">
-                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                            class="w-full h-full object-cover" alt="" />
-                    </div>
-                    <div class="card-body gap-0">
-                        <h2 class="card-title">Caterpillar 320 Excavator</h2>
-                        <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
-                        <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
-                        <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                            <span>2025</span>
-                            <span class="mx-2">|</span>
-                            <span>Tractor</span>
-                        </div>
-                        <div class="card-actions justify-end mt-4">
-                            <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card bg-base-100 w-full shadow-card">
-                    <div class="card-image w-full h-60">
-                        <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                            class="w-full h-full object-cover" alt="" />
-                    </div>
-                    <div class="card-body gap-0">
-                        <h2 class="card-title">Caterpillar 320 Excavator</h2>
-                        <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
-                        <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
-                        <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                            <span>2025</span>
-                            <span class="mx-2">|</span>
-                            <span>Tractor</span>
-                        </div>
-                        <div class="card-actions justify-end mt-4">
-                            <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
-                        </div>
-                    </div>
-                </div> --}}
                 @foreach ($featured_products as $product)
                     <x-frontend.product :product="$product" />
                 @endforeach
@@ -299,7 +223,7 @@
     <script type="module">
         import Swiper from '/frontend/js/swiper.min.js';
         const bannerEl = document.querySelector('.banner');
-        new Swiper(bannerEl, {
+        const bannerSwiper = new Swiper(bannerEl, {
             slidesPerView: 1,
             loop: true,
             autoplay: {
@@ -314,9 +238,17 @@
             }
         });
 
+        // On hover stop autoplay
+        bannerEl.addEventListener('mouseenter', () => {
+            bannerSwiper.autoplay.stop();
+        })
+        bannerEl.addEventListener('mouseleave', () => {
+            bannerSwiper.autoplay.start();
+        })
+
         // CATEGORY SWIPER
         const categorySwiperEl = document.querySelector('.categories');
-        new Swiper(categorySwiperEl, {
+       const categorySwiper = new Swiper(categorySwiperEl, {
             loop: true,
             slidesPerView: 6,
             spaceBetween: 20,
@@ -360,10 +292,17 @@
 
         });
 
+        // On hover stop autoplay
+         categorySwiperEl.addEventListener('mouseenter', () => {
+            categorySwiper.autoplay.stop();
+        });
 
+        categorySwiperEl.addEventListener('mouseleave', () => {
+            categorySwiper.autoplay.start();
+        });
         // Testimonial SWIPER
         const testimonialSwiperEl = document.querySelector('.testimonials');
-        new Swiper(testimonialSwiperEl, {
+       const testimonialSwiper = new Swiper(testimonialSwiperEl, {
             loop: true,
             slidesPerView: 3,
             spaceBetween: 20,
@@ -393,6 +332,15 @@
                     spaceBetween: 20,
                 },
             },
+        });
+
+        // On hover stop autoplay
+        testimonialSwiperEl.addEventListener('mouseenter', () => {
+            testimonialSwiper.autoplay.stop();
+        });
+
+        testimonialSwiperEl.addEventListener('mouseleave', () => {
+            testimonialSwiper.autoplay.start();
         });
     </script>
     {{-- countdown --}}
