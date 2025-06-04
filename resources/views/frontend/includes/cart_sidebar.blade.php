@@ -216,7 +216,7 @@
 
         // Initial fetch of cart items when the page loads
         if (cartItemsContainer) {
-            axios.get('{{ route('frontend.cart.items') }}')
+            axios.post('{{ route('frontend.cart.items') }}')
                 .then(response => {
                     renderAllCartItems(response.data.cart_items);
                     updateCartTotalDisplay(response.data.cart_total);
