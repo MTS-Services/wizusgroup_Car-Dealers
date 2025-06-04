@@ -170,8 +170,8 @@
                     <div class="swiper-wrapper">
                         @foreach ($testimonials as $testimonial)
                             @php
-                                $isLong = strlen($testimonial->quote) > 150;
-                                $shortQuote = Str::limit($testimonial->quote, 150, '');
+                                $isLong = strlen($testimonial->quote) > 130;
+                                $shortQuote = Str::limit($testimonial->quote, 130, '');
                             @endphp
 
                             <div class="swiper-slide">

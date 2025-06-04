@@ -17,8 +17,8 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('sort_order')->default(0)->index();
-            $table->unsignedBigInteger('user_id')->index();
-            $table->string('session_id')->index();
+            $table->unsignedBigInteger('user_id')->nullable()->index();
+            $table->string('session_id')->nullable()->index();
             $table->timestamps();
 
             $table->unsignedBigInteger('crater_id')->nullable();
