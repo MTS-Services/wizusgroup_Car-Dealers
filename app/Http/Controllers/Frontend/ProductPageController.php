@@ -115,7 +115,8 @@ class ProductPageController extends Controller
     }
     public function productDetails($slug)
     {
-        $data['product'] = Product::with([
+        $query = Product::query();
+        $query->with([
             'category.products.primaryImage',
             'category.products.brand',
             'category.products.model',
@@ -125,7 +126,8 @@ class ProductPageController extends Controller
             'model',
             'images',
             'productInformations.infoCategory',
-        ])->where('slug', $slug)->first();
+        ]);
+        $data['product'] = $query->where('slug', $slug)->first();
         if ($data['product']->category) {
             $data['related_products'] = $data['product']->category->products->where('id', '!=', $data['product']->id)->values();
         }
