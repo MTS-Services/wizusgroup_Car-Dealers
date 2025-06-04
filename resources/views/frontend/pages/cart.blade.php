@@ -39,44 +39,66 @@
                             <thead
                                 class="border-y border-border-dark border-opacity-20 dark:border-white dark:border-opacity-50">
                                 <tr>
-                                    <th class="py-4 text-left font-medium">Product</th>
+                                    <th class="py-4 text-left font-medium">Image</th>
+                                    <th class="py-4 text-left font-medium">Name</th>
                                     <th class="py-4 text-left font-medium">Price</th>
                                     <th class="py-4 text-left font-medium">Quantity</th>
-                                    <th class="py-4 text-left font-medium w-[12%]">Total</th>
+                                    <th class="py-4 text-left font-medium">Total</th>
+                                    <th class="py-4 text-left font-medium w-[5%]">Action</th>
                                 </tr>
                             </thead>
-                            @if (session('cart'))
-                                @foreach (session('cart') as $item)
-                                    <tbody
-                                        class="border-b border-border-dark border-opacity-20 dark:border-white dark:border-opacity-50">
-                                        <td class="py-4">
-                                            <div class="flex items-center">
-                                                <img src="{{storage_url($item['image']) }}" alt="{{ $item['name'] }}"
-                                                    class="w-20 h-24 object-cover mr-4">
-                                                <div>
-                                                    <h3 class="font-medium">{{ $item['name'] }}</h3>
-                                                    <p class="text-sm text-text-gray">{{ $item['model'] ?? '' }}</p>
-                                                    <button
-                                                        class="text-sm text-text-gray mt-1 remove-item hover:text-text-danger hover:underline transition-all duration-300"
-                                                        data-id="${item.id}">Remove</button>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>${{ number_format($item['price'], 2) }}</td>
-                                        <td>{{ $item['quantity'] }}</td>
-                                        <td>${{ number_format($item['price'] * $item['quantity'], 2) }}</td>
-                                    </tbody>
-                                    {{-- <div class="p-4 border-b flex justify-between items-center">
-                                        <div>
-                                            <strong>{{ $item['name'] }}</strong><br>
-                                            ${{ number_format($item['price'], 2) }} x {{ $item['quantity'] }}
+                            <tbody
+                                class="border-b border-border-dark border-opacity-20 dark:border-white dark:border-opacity-50"
+                                id="cart-table-body">
+                                <tr><td colspan="6"><p id="cart-empty-message">Cart is empty</p></td></tr>
+                                {{-- <tr>
+                                    <td>
+                                        <img src="${productImageUrl}" alt="${item.product.name}"
+                                            class="w-24 h-24 object-contain rounded-md">
+                                    </td>
+                                    <td>
+                                        <h3
+                                            class="font-semibold text-base text-text-dark dark:text-text-white leading-snug mb-1 truncate sm:whitespace-normal">
+                                            ${item.product.name}
+                                        </h3>
+                                        <p class="text-xs text-text-gray dark:text-text-white dark:text-opacity-70">
+                                            ${brandName} / ${modelName}</p>
+                                    </td>
+                                    <td>item.price.toFixed(2)</td>
+                                    <td>
+                                        <div class="flex items-center gap-2 flex-shrink-0">
+                                            <button
+                                                class="quantity-decrease btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
+                                                title="Decrease Quantity" data-item-id="${item.id}"
+                                                data-current-quantity="${item.quantity}" ${item.quantity===1 ? 'disabled'
+                                                : '' }>
+                                                <i data-lucide="minus"
+                                                    class="w-4 h-4 group-hover:text-text-wiz_orange transition-all duration-300 ease-linear"></i>
+                                            </button>
+                                            <span
+                                                class="quantity-display px-3 py-1 bg-bg-light dark:bg-bg-darkTertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">${item.quantity}</span>
+                                            <button
+                                                class="quantity-increase btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
+                                                title="Increase Quantity" data-item-id="${item.id}"
+                                                data-current-quantity="${item.quantity}">
+                                                <i data-lucide="plus"
+                                                    class="w-4 h-4 group-hover:text-text-secondary transition-all duration-300 ease-linear"></i>
+                                            </button>
                                         </div>
-                                        <img src="{{ storage_url($item['image']) }}" class="w-20 h-20 object-cover">
-                                    </div> --}}
-                                @endforeach
-                            @else
-                                <p>No items in cart.</p>
-                            @endif
+                                    </td>
+                                    <td>
+                                        <p class="font-bold text-lg text-bg-primary whitespace-nowrap item-subtotal">
+                                            ${numberFormat(subtotal, 2)}</p>
+                                    </td>
+                                    <td>
+                                        <button
+                                            class="btn btn-ghost btn-circle remove-item text-text-gray hover:text-red-600 transition-colors"
+                                            title="Remove Item" data-item-id="${item.id}">
+                                            <i data-lucide="trash-2" class="w-5 h-5"></i>
+                                        </button>
+                                    </td>
+                                </tr> --}}
+                            </tbody>
                         </table>
                     </div>
                     <div class="flex justify-end mt-10">
@@ -89,3 +111,24 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            window.cartManager = new CartManager({
+                uiType: 'table',
+                routes: {
+                    add: '{{ route('frontend.cart.add') }}',
+                    remove: '{{ route('frontend.cart.remove') }}',
+                    update: '{{ route('frontend.cart.update-quantity') }}',
+                    items: '{{ route('frontend.cart.items') }}'
+                },
+                selectors: {
+                    tableBody: '#cart-table-body',
+                    emptyMessage: '#cart-empty-message',
+                    totalDisplay: '.cart-total'
+                }
+            });
+        })
+    </script>
+@endpush
