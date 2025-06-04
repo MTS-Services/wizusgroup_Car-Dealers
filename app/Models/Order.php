@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Order extends BaseModel
 {
@@ -11,6 +12,8 @@ class Order extends BaseModel
 
     protected $fillable = [
         'user_id',
+        'session_id',
+        'container_id',
         'order_number',
         'status',
         'shipping_id',
@@ -92,5 +95,10 @@ class Order extends BaseModel
     public function getStatusColorLabelAttribute(): string
     {
         return $this->getStatusColors()[$this->status] ?? 'btn-secondary';
+    }
+
+    public function container(): BelongsTo
+    {
+        return $this->belongsTo(Container::class, 'container_id', 'id');
     }
 }
