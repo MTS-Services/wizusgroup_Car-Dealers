@@ -67,12 +67,12 @@
             </div>
         </a>
         <div class="w-full h-40 lg:max-w-md shadow-card p-5  lg:p-10 bg-bg-white dark:bg-opacity-30  rounded-lg group hover:bg-bg-light transition-all duration-300">
-            <a href="javascript:void(0)" onclick="document.getElementById('logout-form').submit()"
+            <a href="javascript:void(0)" onclick="document.getElementById('user_logout_form').submit()"
                 class="flex items-center gap-2 p-3"><i data-lucide="log-out"
                     class="w-10 h-10 bg-bg-gray dark:bg-opacity-20 rounded-md p-1 group-hover:text-text-tertiary transition-all duration-300"></i><span
                     class="text-xl md:text-2xl font-semibold uppercase text-text-primary dark:text-text-white group-hover:text-text-tertiary transition-all duration-300">{{ __('Logout') }}</span>
             </a>
-            <form action="{{ route('logout') }}" id="logout-form" method="POST">
+            <form action="{{ route('logout') }}" id="user_logout_form" method="POST">
                 @csrf
             </form>
         </div>
