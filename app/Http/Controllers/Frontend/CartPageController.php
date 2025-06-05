@@ -174,9 +174,7 @@ class CartPageController extends Controller
     public function removeCart(Request $request): JsonResponse
     {
         $itemId = $request->input('item_id');
-
-        $cart = $this->getOrUpdateCart();
-        $cartItem = $cart->items()->where('id', $itemId)->first();
+        $cartItem = CartItem::with('cart')->where('id', $itemId)->first();
 
         if (!$cartItem) {
             return response()->json([
@@ -186,7 +184,7 @@ class CartPageController extends Controller
         }
 
         $cartItem->delete();
-        $cartTotal = $this->calculateCartTotal($cart);
+        $cartTotal = $this->calculateCartTotal($cartItem->cart);
 
         return response()->json([
             'status' => 'success',
@@ -221,13 +219,12 @@ class CartPageController extends Controller
                     $cart->update([
                         'session_id' => $sessionId
                     ]);
-
-                    return $cart;
                 }
             }
         }
-
-        session()->put('cart_session_id', $cart->session_id);
+        if ($cart) {
+            session()->put('cart_session_id', $cart->session_id);
+        }
         return $cart;
     }
 
