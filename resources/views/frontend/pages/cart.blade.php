@@ -51,57 +51,10 @@
                                 class="border-b border-border-dark border-opacity-20 dark:border-white dark:border-opacity-50"
                                 id="cart-table-body">
                                 <tr>
-                                    <td colspan="6">
+                                    <td colspan="6" class="text-center py-8 text-text-gray dark:text-text-white">
                                         <p id="cart-empty-message">Cart is empty</p>
                                     </td>
-                                </tr>
-                                {{-- <tr>
-                                    <td>
-                                        <img src="${productImageUrl}" alt="${item.product.name}"
-                                            class="w-24 h-24 object-contain rounded-md">
-                                    </td>
-                                    <td>
-                                        <h3
-                                            class="font-semibold text-base text-text-dark dark:text-text-white leading-snug mb-1 truncate sm:whitespace-normal">
-                                            ${item.product.name}
-                                        </h3>
-                                        <p class="text-xs text-text-gray dark:text-text-white dark:text-opacity-70">
-                                            ${brandName} / ${modelName}</p>
-                                    </td>
-                                    <td>item.price.toFixed(2)</td>
-                                    <td>
-                                        <div class="flex items-center gap-2 flex-shrink-0">
-                                            <button
-                                                class="quantity-decrease btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
-                                                title="Decrease Quantity" data-item-id="${item.id}"
-                                                data-current-quantity="${item.quantity}" ${item.quantity===1 ? 'disabled'
-                                                : '' }>
-                                                <i data-lucide="minus"
-                                                    class="w-4 h-4 group-hover:text-text-wiz_orange transition-all duration-300 ease-linear"></i>
-                                            </button>
-                                            <span
-                                                class="quantity-display px-3 py-1 bg-bg-light dark:bg-bg-bg-dark-tertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">${item.quantity}</span>
-                                            <button
-                                                class="quantity-increase btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
-                                                title="Increase Quantity" data-item-id="${item.id}"
-                                                data-current-quantity="${item.quantity}">
-                                                <i data-lucide="plus"
-                                                    class="w-4 h-4 group-hover:text-text-secondary transition-all duration-300 ease-linear"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="font-bold text-lg text-bg-primary whitespace-nowrap item-subtotal">
-                                            ${numberFormat(subtotal, 2)}</p>
-                                    </td>
-                                    <td>
-                                        <button
-                                            class="btn btn-ghost btn-circle remove-item text-text-gray hover:text-red-600 transition-colors"
-                                            title="Remove Item" data-item-id="${item.id}">
-                                            <i data-lucide="trash-2" class="w-5 h-5"></i>
-                                        </button>
-                                    </td>
-                                </tr> --}}
+                                </tr>                               
                             </tbody>
                         </table>
                     </div>

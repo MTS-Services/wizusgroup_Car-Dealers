@@ -2,9 +2,8 @@
  * Modern Cart Manager - A reusable and professional cart management system
  * Supports multiple UI layouts (sidebar, table, grid, etc.)
  * Author: Your Name
- * Version: 1.0.0
+ * Version: 1.0.1 - Fixed quantity update issues
  */
-
 
 class CartManager {
     constructor(config = {}) {
@@ -58,6 +57,9 @@ class CartManager {
             total: 0
         };
 
+        // Track if events are already bound to prevent duplicates
+        this.eventsBound = false;
+
         this.init();
     }
 
@@ -74,19 +76,38 @@ class CartManager {
      * Bind all event listeners
      */
     bindEvents() {
+        // Prevent binding events multiple times
+        if (this.eventsBound) {
+            this.log('Events already bound, skipping...');
+            return;
+        }
+
         const { selectors } = this.config;
 
+        // Unbind any existing events first
+        this.unbindEvents();
+
         // Close sidebar functionality
-        $(document).on('click', selectors.closeSidebar, () => {
+        $(document).on('click.cartManager', selectors.closeSidebar, () => {
             this.closeSidebar();
         });
 
-        // Event delegation for cart actions
-        $(document).on('click', `${selectors.itemsContainer} button, ${selectors.tableBody} button`, (event) => {
+        // Event delegation for cart actions - use namespaced events
+        $(document).on('click.cartManager', `${selectors.itemsContainer} button, ${selectors.tableBody} button`, (event) => {
             this.handleCartAction(event);
         });
 
+        this.eventsBound = true;
         this.log('Event listeners bound successfully');
+    }
+
+    /**
+     * Unbind all event listeners
+     */
+    unbindEvents() {
+        $(document).off('.cartManager');
+        this.eventsBound = false;
+        this.log('Event listeners unbound');
     }
 
     /**
@@ -101,12 +122,26 @@ class CartManager {
         event.preventDefault();
         event.stopPropagation();
 
+        // Prevent multiple rapid clicks
+        if ($target.prop('disabled') || $target.hasClass('processing')) {
+            return;
+        }
+
+        // Add processing class to prevent double clicks
+        $target.addClass('processing').prop('disabled', true);
+
         if ($target.hasClass('quantity-increase')) {
-            this.updateQuantity(itemId, 'increase');
+            this.updateQuantity(itemId, 'increase').finally(() => {
+                $target.removeClass('processing').prop('disabled', false);
+            });
         } else if ($target.hasClass('quantity-decrease')) {
-            this.updateQuantity(itemId, 'decrease');
+            this.updateQuantity(itemId, 'decrease').finally(() => {
+                $target.removeClass('processing').prop('disabled', false);
+            });
         } else if ($target.hasClass('remove-item')) {
-            this.removeItem(itemId);
+            this.removeItem(itemId).finally(() => {
+                $target.removeClass('processing').prop('disabled', false);
+            });
         }
     }
 
@@ -127,11 +162,17 @@ class CartManager {
             this.updateCartTotal(cart_total);
 
             if (status === 'success') {
+                // Update local cart data
+                this.updateLocalCartData(cart_item, 'add');
+
                 this.addCartItemToUI(cart_item);
                 this.showNotification(message, 'success');
                 this.openSidebar();
             } else if (status === 'info') {
                 if (cart_item) {
+                    // Update local cart data
+                    this.updateLocalCartData(cart_item, 'update');
+
                     this.updateCartItemInUI(cart_item.id, cart_item.quantity, cart_item.price * cart_item.quantity);
                 }
                 this.showNotification(message, 'info');
@@ -150,7 +191,10 @@ class CartManager {
      */
     async updateQuantity(itemId, action) {
         const currentItem = this.findCartItem(itemId);
-        if (!currentItem) return;
+        if (!currentItem) {
+            this.log(`Item ${itemId} not found in cart data`);
+            return;
+        }
 
         let newQuantity = currentItem.quantity;
 
@@ -160,26 +204,42 @@ class CartManager {
             newQuantity--;
         }
 
+        if (newQuantity > currentItem.product.quantity) {
+            this.log(`Quantity limit reached: ${currentItem.product.quantity}`);
+            this.showNotification(`Quantity limit reached: ${currentItem.product.quantity}`, 'warning');
+            return;
+        }
+
         if (newQuantity < 1) {
-            this.showNotification('Quantity cannot be less than 1. Use the remove button to delete the item.', 'warning');
+            this.log('Minimum quantity is 1.');
+            this.showNotification('Minimum quantity is 1.', 'warning');
             return;
         }
 
         try {
-            this.log(`Updating quantity for item ${itemId} to ${newQuantity}...`);
+            this.log(`Updating quantity for item ${itemId} from ${currentItem.quantity} to ${newQuantity}...`);
 
             const response = await this.makeRequest(this.config.routes.update, {
                 item_id: itemId,
                 new_quantity: newQuantity
             });
 
-            const { status, message, item_id: updatedItemId, new_quantity, item_subtotal, cart_total } = response.data;
+            const { status, message, item_id: updatedItemId, new_quantity: serverQuantity, item_subtotal, cart_total } = response.data;
 
             this.updateCartTotal(cart_total);
 
             if (status === 'success') {
-                this.updateCartItemInUI(updatedItemId, new_quantity, item_subtotal);
+                // Update local cart data first
+                this.updateLocalCartItemQuantity(updatedItemId, serverQuantity, item_subtotal);
+
+                // Then update UI
+                this.updateCartItemInUI(updatedItemId, serverQuantity, item_subtotal);
                 this.showNotification(message, 'success');
+            }
+
+            if (status === 'info') {
+                this.updateCartItemInUI(updatedItemId, serverQuantity, item_subtotal);
+                this.showNotification(message, 'info');
             }
 
             return response.data;
@@ -203,6 +263,9 @@ class CartManager {
             const { status, message, removed_item_id, cart_total } = response.data;
 
             if (status === 'success') {
+                // Update local cart data
+                this.removeFromLocalCartData(removed_item_id);
+
                 this.removeCartItemFromUI(removed_item_id);
                 this.updateCartTotal(cart_total);
                 this.showNotification(message, 'success');
@@ -225,18 +288,63 @@ class CartManager {
             const response = await this.makeRequest(this.config.routes.items, {}, 'POST');
             const { cart_items, cart_total } = response.data;
 
-            this.cartData.items = cart_items;
-            this.cartData.total = cart_total;
+            // Update local cart data
+            this.cartData.items = cart_items || [];
+            this.cartData.total = cart_total || 0;
 
-            this.renderAllCartItems(cart_items);
-            this.updateCartTotal(cart_total);
+            this.renderAllCartItems(this.cartData.items);
+            this.updateCartTotal(this.cartData.total);
 
-            this.log('Cart items loaded successfully');
+            this.log('Cart items loaded successfully', this.cartData);
             return response.data;
         } catch (error) {
             this.handleError(error, 'Failed to load cart items');
             throw error;
         }
+    }
+
+    /**
+     * Update local cart data when item is added
+     */
+    updateLocalCartData(cartItem, action) {
+        if (action === 'add') {
+            const existingIndex = this.cartData.items.findIndex(item => item.id === cartItem.id);
+            if (existingIndex >= 0) {
+                this.cartData.items[existingIndex] = cartItem;
+            } else {
+                this.cartData.items.push(cartItem);
+            }
+        } else if (action === 'update') {
+            const existingIndex = this.cartData.items.findIndex(item => item.id === cartItem.id);
+            if (existingIndex >= 0) {
+                this.cartData.items[existingIndex] = cartItem;
+            }
+        }
+
+        this.log('Local cart data updated:', this.cartData);
+    }
+
+    /**
+     * Update local cart item quantity
+     */
+    updateLocalCartItemQuantity(itemId, newQuantity, newSubtotal) {
+        const itemIndex = this.cartData.items.findIndex(item => item.id == itemId);
+        if (itemIndex >= 0) {
+            this.cartData.items[itemIndex].quantity = newQuantity;
+            // Update price if needed (newSubtotal / newQuantity)
+            if (newQuantity > 0) {
+                this.cartData.items[itemIndex].price = newSubtotal / newQuantity;
+            }
+            this.log(`Local cart item ${itemId} updated to quantity ${newQuantity}`);
+        }
+    }
+
+    /**
+     * Remove item from local cart data
+     */
+    removeFromLocalCartData(itemId) {
+        this.cartData.items = this.cartData.items.filter(item => item.id != itemId);
+        this.log(`Item ${itemId} removed from local cart data`);
     }
 
     /**
@@ -440,14 +548,18 @@ class CartManager {
             <div class="flex items-center gap-2 flex-shrink-0">
                 <button
                     class="quantity-decrease btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
-                    title="Decrease Quantity" data-item-id="${item.id}" data-current-quantity="${item.quantity}" 
+                    title="Decrease Quantity" 
+                    data-item-id="${item.id}" 
+                    data-current-quantity="${item.quantity}" 
                     ${item.quantity === 1 ? 'disabled' : ''}>
                     <i data-lucide="minus" class="w-4 h-4 group-hover:text-text-wiz_orange transition-all duration-300 ease-linear"></i>
                 </button>
-                <span class="quantity-display px-3 py-1 bg-bg-light dark:bg-bg-bg-dark-tertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">${item.quantity}</span>
+                <span class="quantity-display px-3 py-1 bg-bg-light dark:bg-bg-dark-tertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">${item.quantity}</span>
                 <button
-                    class="quantity-increase btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
-                    title="Increase Quantity" data-item-id="${item.id}" data-current-quantity="${item.quantity}">
+                    class="quantity-increase btn btn-ghost btn-circle btn-sm border border-gray-800/10 dark:border-gray-200 text-lg group"
+                    title="Increase Quantity" 
+                    data-item-id="${item.id}" 
+                    data-current-quantity="${item.quantity}">
                     <i data-lucide="plus" class="w-4 h-4 group-hover:text-text-secondary transition-all duration-300 ease-linear"></i>
                 </button>
             </div>
@@ -488,6 +600,8 @@ class CartManager {
             $container.append(itemHtml);
         } else if (uiType === 'table') {
             const $tableBody = $(selectors.tableBody);
+            // Remove empty row if it exists
+            $tableBody.find('tr:has(td[colspan])').remove();
             const itemHtml = this.generateTableItemHtml(item);
             $tableBody.append(itemHtml);
         } else if (uiType === 'grid') {
@@ -506,15 +620,26 @@ class CartManager {
         const $itemElement = $(`[data-item-id="${itemId}"]`);
 
         if ($itemElement.length) {
+            // Update quantity display
             $itemElement.find('.quantity-display').text(newQuantity);
+
+            // Update subtotal
             $itemElement.find('.item-subtotal').text(this.formatCurrency(newSubtotal));
 
-            // Update data attributes
+            // Update ALL data attributes for both buttons
             $itemElement.find('.quantity-increase, .quantity-decrease').attr('data-current-quantity', newQuantity);
 
-            // Manage disabled state
+            // Manage disabled state for decrease button
             const $decreaseButton = $itemElement.find('.quantity-decrease');
-            $decreaseButton.prop('disabled', newQuantity === 1);
+            if (newQuantity <= 1) {
+                $decreaseButton.prop('disabled', true).attr('disabled', 'disabled');
+            } else {
+                $decreaseButton.prop('disabled', false).removeAttr('disabled');
+            }
+
+            this.log(`UI updated for item ${itemId}: quantity=${newQuantity}, subtotal=${newSubtotal}`);
+        } else {
+            this.log(`Warning: Could not find UI element for item ${itemId}`);
         }
     }
 
@@ -590,7 +715,14 @@ class CartManager {
 
     formatCurrency(amount) {
         const { symbol, position, decimals } = this.config.currency;
-        const formatted = parseFloat(amount).toFixed(decimals);
+        const number = parseFloat(amount || 0);
+
+        // Format number with commas and fixed decimals
+        const formatted = number.toLocaleString(undefined, {
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals,
+        });
+
         return position === 'before' ? `${symbol}${formatted}` : `${formatted}${symbol}`;
     }
 
@@ -691,6 +823,13 @@ class CartManager {
             this.handleError(error, 'Failed to clear cart');
             throw error;
         }
+    }
+
+    // Destroy cart manager and cleanup
+    destroy() {
+        this.unbindEvents();
+        this.cartData = { items: [], total: 0 };
+        this.log('Cart Manager destroyed');
     }
 }
 

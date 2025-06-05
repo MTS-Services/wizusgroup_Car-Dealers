@@ -44,14 +44,11 @@ class CartPageController extends Controller
     public function fetchCartItems(): JsonResponse
     {
         $cart = $this->getOrCreateCart();
-        // $cart->load('items.product.brand', 'items.product.model');
-
         $cartItems = $cart->items()->with('product.primaryImage', 'product.brand', 'product.model')->get();
         $cartTotal = $this->calculateCartTotal($cart);
 
         return response()->json([
             'status' => 'success',
-            // 'cart_items' => $cart->items,
             'cart_items' => $cartItems,
             'cart_total' => $cartTotal,
         ]);
@@ -106,14 +103,27 @@ class CartPageController extends Controller
         $itemId = $request->input('item_id');
         $newQuantity = (int) $request->input('new_quantity');
 
+
         $cart = $this->getOrCreateCart();
-        $cartItem = $cart->items()->where('id', $itemId)->first();
+        $cartItem = $cart->items->where('id', $itemId)->first();
 
         if (!$cartItem) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Cart item not found.'
             ], 404);
+        }
+
+        if ($newQuantity > $cartItem->product->quantity) {
+            $newQuantity = $cartItem->product->quantity;
+            return response()->json([
+                'status' => 'info',
+                'message' => 'Quantity limit reached.',
+                'item_id' => $itemId,
+                'new_quantity' => $newQuantity,
+                'item_subtotal' => $cartItem->total,
+                'cart_total' => $this->calculateCartTotal($cart),
+            ]);
         }
 
         // CHANGED: If new quantity is less than 1, set it to 1 and return an info message
@@ -231,10 +241,8 @@ class CartPageController extends Controller
      */
     protected function calculateCartTotal(Cart $cart): float
     {
-        // Corrected: Sum the 'total' column directly, which is already calculated in CartItem model
-        // Ensure the cart items are reloaded to get the latest 'total' values after updates/deletes
-        $cart->load('items'); // Reload the items collection to ensure 'total' is up-to-date
-        $total = $cart->items->sum('total'); // Sum the 'total' attribute of each CartItem
+        $cart->load('items');
+        $total = $cart->items->sum('total');
         return (float) $total;
     }
 }
