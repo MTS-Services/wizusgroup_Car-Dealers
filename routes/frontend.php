@@ -18,7 +18,13 @@ Route::group(['as' => 'frontend.'], function () {
     Route::get('/', [HomePageController::class, 'home'])->name('home');
     // About Page
     Route::get('/about', [FrontendController::class, 'about'])->name('about');
-    Route::get('/orders', [FrontendController::class, 'orders'])->name('orders');
+    Route::get('/orders', [FrontendController::class, 'testContainerPage'])->name('orders');
+
+    Route::controller(FrontendController::class)->group(function () {
+        Route::get('order/group-shipping', 'group_shipping')->name('order.group_shipping');
+        Route::get('order/join-group-shipping/{container_slug}/{product_slug?}', 'joinGroupShipping')->name('order.join-group-shipping');
+        Route::post('order/group-shipping/join-request/{container_slug}', 'joinRequest')->name('group-shipping.join-request')->middleware('auth:web');
+    });
     // Product Page
     Route::controller(ProductPageController::class)->group(function () {
         Route::get('/products/{category_slug?}', 'products')->name('products');

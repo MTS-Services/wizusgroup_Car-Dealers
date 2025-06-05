@@ -137,8 +137,7 @@
                 <div class="2xl:col-span-9 lg:col-span-7">
                     <div
                         class="bg-bg-light dark:bg-bg-dark-secondary rounded-lg shadow-sm dark:shadow-bg-dark-secondary border border-border-gray dark:border-bg-dark-tertiary">
-                        <div
-                            class="p-5 border-b border-border-gray dark:border-border-dark dark:border-dark-tertiary">
+                        <div class="p-5 border-b border-border-gray dark:border-border-dark dark:border-dark-tertiary">
                             <h2 class="text-xl font-semibold text-text-dark dark:text-white">{{ __('Order Items') }}</h2>
                         </div>
                         <div class="p-4 sm:p-6 max-h-[330px]">
@@ -186,74 +185,96 @@
         </div>
     </section>
     <section>
-        <div class="container mx-auto p-6 bg-bg-white dark:bg-bg-dark-secondary">
-            <div class="bg-bg-white dark:bg-bg-dark-tertiary rounded-lg shadow-sm border border-border-gray dark:border-border-dark">
-                <div class="px-6 py-4 border-b border-border-gray dark:border-border-dark">
-                    <h2 class="text-xl font-semibold ">{{ __('Order Information') }}</h2>
+        {{-- Available for Cotainers --}}
+        @if ($containers->count() > 0)
+            <section class="bg-bg-light dark:bg-bg-dark py-12">
+                <div class="container">
+                    <div class="pb-5">
+                        <h1
+                            class="text-xl md:text-2xl lg:text-3xl capitalize font-semibold text-text-primary dark:text-text-light">
+                            {{ __('Available Containers') }}</h1>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 rounded-lg">
+                        @foreach ($containers as $container)
+                            <div class="w-full h-full">
+                                <div
+                                    class="bg-bg-white dark:bg-bg-dark-tertiary shadow-card dark:shadow-dark-card overflow-hidden  transition-transform duration-300 hover:-translate-y-1 rounded-md flex flex-col justify-between">
+                                    <div class="p-5 pb-0">
+                                        <div class="flex justify-between items-center">
+                                            <h3 class="text-lg font-semibold text-text-primary dark:text-text-light">
+                                                {{ $container->title ?? 'Untitled' }}
+                                            </h3>
+                                            <span
+                                                class="px-2.5 py-1 bg-bg-wiz_green text-white rounded-full text-xs font-medium">
+                                                {{ $container->status_label ?? 'Active' }}
+                                            </span>
+                                        </div>
+                                        <p class="text-sm text-text-gray mt-1 py-1">
+                                            {{ __(' From:') }} {{ $container?->shippingPort?->name ?? 'N/A' }}
+                                        </p>
+                                        <p class="text-sm text-text-gray mt-1 py-1">
+                                            {{ __('Destination:') }} {{ $container?->destinationPort?->name ?? 'N/A' }}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <div class="bg-bg-orange text-text-white w-fit px-3 py-1 rounded-md text-sm font-medium timer_countdown m-5 mt-2"
+                                            data-endDate="{{ $container->deadline }}">
+                                        </div>
+                                        <div
+                                            class="p-5 text-sm border-t border-border-gray dark:border-border-dark-secondary">
+                                            <div class="flex items-center mb-2">
+                                                <i
+                                                    class="far fa-calendar-alt text-text-gray dark:text-text-light mr-2 text-sm"></i>
+                                                <span>{{ __('Deadline:') }} {{ dateFormat($container->deadline) }}</span>
+                                            </div>
+
+                                            <div class="space-y-3">
+                                                <div class="flex justify-between">
+                                                    <div>
+                                                        <span>Length:</span>
+                                                        <span>{{ $container->length_m }} m</span>
+                                                    </div>
+                                                    <div>
+                                                        <span>Width:</span>
+                                                        <span>{{ $container->width_m }} m</span>
+                                                    </div>
+                                                </div>
+                                                <div class="flex justify-between">
+                                                    <div>
+                                                        <span>Height:</span>
+                                                        <span>{{ $container->height_m }} m</span>
+                                                    </div>
+                                                    <div>
+                                                        <span>Max Weight:</span>
+                                                        <span>{{ $container->max_weight_kg }} kg</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="pt-3">
+                                                <div class="flex justify-between items-center mb-1">
+                                                    <span class="font-medium">Capacity</span>
+                                                    <span>{{ $container->getFilledPercentageAttribute() }}% filled</span>
+                                                </div>
+                                                <div class="w-full bg-bg-gray rounded-full h-2">
+                                                    <div class="bg-bg-wiz_orange h-2 rounded-full"
+                                                        style="width:{{ $container->getFilledPercentageAttribute() }}%">
+                                                    </div>
+                                                </div>
+                                               <div class="py-3">
+                                                     <x-frontend.primary-button bg="true" onclick="document.getElementById('-modal').showModal()" class="w-full mt-4">{{ __('Join Group Shipping') }} </x-frontend.primary-button>
+                                               </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
+            </section>
+        @endif
 
-                <form class="p-6 space-y-6" method="POST" action="#">
-                    <!-- order information -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="text-xl" for="shipping_port">{{ __('Shipping Port') }}</label>
-                            <select name="shipping_port" disabled
-                                class="w-full px-4 mt-2 py-3 border border-border-gray dark:border-border-dark rounded-md">
-                                <option value="">{{ __('Select Shipping Port') }}</option>
-                                <option value="1">{{ __('Port of LA') }}</option>
-                                <option value="2">{{ __('Port of NY') }}</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="text-xl" for="destination_port">{{ __('Destination Port') }}</label>
-                            <select name="destination_port" disabled
-                                class="w-full px-4 mt-2 py-3 border border-border-gray dark:border-border-dark rounded-md  ">
-                                <option value="">{{ __('Select Destination Port') }}</option>
-                                <option value="1">{{ __('Port of Hamburg') }}</option>
-                                <option value="2">{{ __('Port of Dubai') }}</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="text-xl" for="whatsapp_number">{{ __('Whatsapp Number') }}</label>
-                            <input type="text" name="whatsapp_number" disabled value="{{ __('Whatsapp Number') }}"
-                                class="w-full px-4 mt-2 py-3  border border-border-gray dark:border-border-dark rounded-md  ">
-                        </div>
-
-                        <div>
-                            <label class="text-xl" for="container_selected">{{ __('Container') }}</label>
-                            <select name="container_selected"
-                                class="w-full px-4 py-3 mt-2 border border-border-gray dark:border-border-dark rounded-md">
-                                <option value="">{{ __('Select Container') }}</option>
-                                <option value="1">{{ __('20FT - Small') }}</option>
-                                <option value="2">{{ __('40FT - Large') }}</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="text-xl" for="price">{{ __('Price') }}</label>
-                            <input type="number" name="price" placeholder="{{ __('Price ($)') }}" step="0.01"
-                                min="0" class="w-full px-4 py-3 border border-border-gray dark:border-border-dark rounded-md">
-                        </div>
-                        <div>
-                            <label class="text-xl" for="reserve_price">{{ __('Reserve Price') }}</label>
-                            <input type="number" name="reserve_price" placeholder="{{ __('Reserve Price ($)') }}"
-                                step="0.01" min="0" class="w-full px-4 py-3 border border-border-gray dark:border-border-dark rounded-md">
-                        </div>
-                    </div>
-
-                    <!-- Address Field -->
-                    <div>
-                        <label class="text-xl" for="note">{{ __('Note') }}</label>
-                        <textarea name="note" placeholder="{{ __('Enter your note') }}" rows="4"
-                            class="w-full px-4 py-3 border border-border-gray dark:border-border-dark rounded-md resize-vertical"></textarea>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="flex justify-end pt-4">
-                        <button type="submit" class="btn-primary">{{ __('Finish Order') }}</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </section>
 @endsection
 @push('js')
@@ -291,6 +312,64 @@
             `;
                 document.head.appendChild(style);
             }
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            function getPrice(cbm, weight_kg) {
+                let base_cost = `{{ $container->base_cost }}`;
+                let per_cbm_cost = `{{ $container->per_cbm_cost }}`;
+                let per_kg_cost = `{{ $container->per_kg_cost }}`;
+                let price = base_cost + (cbm * per_cbm_cost);
+                // let price = base_cost + (cbm * per_cbm_cost) + (weight_kg * per_kg_cost);
+                $('#price').val(numberFormat(price, 2, false));
+                $('#reserve_price').val(numberFormat((price / 2), 2, false));
+
+            }
+
+            $('#quantity').on('input', function() {
+
+                let cbm = $('#height_m').val() * $('#width_m').val() * $('#length_m').val();
+                let weight_kg = $('#weight_kg').val();
+                getPrice(cbm, weight_kg);
+
+                if ($('#quantity').val() < 1) {
+                    $('#price').val(0);
+                    $('#reserve_price').val(0);
+                } else {
+                    $('#price').val(numberFormat($('#price').val() * $(this).val(), 2, false));
+                    $('#reserve_price').val(numberFormat($('#reserve_price').val() * $(this).val(), 2,
+                        false));
+                }
+
+            });
+
+            $('#product_id').on('change', async function() {
+                let route = "{{ route('axios.get-product') }}";
+                let product = await getProduct($(this).val(), route);
+                if (product == null) {
+                    $('#product_name').val('');
+                    $('#height_m').val('');
+                    $('#width_m').val('');
+                    $('#length_m').val('');
+                    $('#weight_kg').val('');
+                    return;
+                } else {
+                    $('#product_name').val(product.name);
+                    $('#height_m').val(product.height_m);
+                    $('#width_m').val(product.width_m);
+                    $('#length_m').val(product.length_m);
+                    $('#weight_kg').val(product.weight_kg);
+                    $('#quantity').val(1);
+                    let cbm = product.height_m * product.width_m * product.length_m;
+                    let weight_kg = product.weight_kg;
+                    getPrice(cbm, weight_kg);
+                }
+
+                console.log(product); // Now logs the actual product
+            });
+
         });
     </script>
 @endpush
