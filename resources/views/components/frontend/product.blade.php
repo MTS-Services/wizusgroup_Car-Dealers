@@ -15,9 +15,12 @@
             </h3>
             <div>
                 <div class="flex justify-between items-center">
-                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">${{ number_format($product->price, 2) }}</p>
+                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">
+                        ${{ number_format($product->price, 2) }}</p>
                     {{-- quantity --}}
-                    <p class="text-sm lg:text-base xl:text-lg text-text-danger font-semibold dark:text-text-white">{{ __('Stock: ') }}<span class="font-normal text-text-wiz_orange">{{ $product->quantity }}</span></p>
+                    <p class="text-sm lg:text-base xl:text-lg text-text-danger font-semibold dark:text-text-white">
+                        {{ __('Stock: ') }}<span
+                            class="font-normal text-text-wiz_orange">{{ $product->quantity }}</span></p>
                 </div>
                 <p class="text-text-primary dark:text-text-white mt-2">{{ $product->brand?->name }}</p>
                 <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
@@ -27,15 +30,14 @@
                     @endif
                     <span>{{ $product->model?->name }}</span>
                 </div>
-                <div class="flex justify-center items-center mt-4">
-                    <div class="mr-2 w-full">
-                        <x-frontend.primary-button data-id="{{ $product->id }}"
-                            icon="shopping-cart" class="w-full mt-4">{{ __('Buy Now') }} </x-frontend.primary-button>
-                    </div>
-                    <div class="ml-2 w-full">
-                        <x-frontend.primary-button secondary="true" data-id="{{ $product->id }}"
-                            icon="shopping-basket" class="w-full mt-4">{{ __('Add to Cart') }} </x-frontend.primary-button>
-                    </div>
+                <div class="flex justify-center items-center mt-4 gap-y-4 gap-x-2">
+
+                    @foreach ($buttons as $button)
+                        <x-frontend.primary-button icon="{{ $button['icon'] }}" href="{{ $button['route'] }}"
+                            bg="{{ $button['bg'] }}">{{ __($button['label']) }}
+                        </x-frontend.primary-button>
+                    @endforeach
+
                 </div>
             </div>
 

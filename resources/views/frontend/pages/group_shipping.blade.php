@@ -104,8 +104,18 @@
                 </div>
                 <div
                     class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 bg-bg-light dark:bg-bg-dark p-5 rounded-lg">
-                    @foreach ($matchedProducts as $product)
-                        <x-frontend.product :product="$product" />
+                    @foreach ($matchedProducts as $productItem)
+                        @php
+                            $buttons = [
+                                [
+                                    'route' => 'javascript:void(0)',
+                                    'icon' => 'shopping-cart',
+                                    'label' => 'Reserve Now',
+                                    'bg' => false,
+                                ],
+                            ];
+                        @endphp
+                        <x-frontend.product :product="$productItem" :buttons="$buttons" />
                     @endforeach
                 </div>
             </div>
