@@ -36,6 +36,7 @@ class GroupShippingPageController extends Controller
         // Load containers with essential relationships
         $data['containers'] = $this->containerService
             ->getContainers('deadline', 'asc')
+            ->where('deadline', '>', now())
             ->active()
             ->with(['destinationPort', 'shippingPort', 'containerReservations.product']) // removed 'containerReservations.product' to avoid N+1
             ->get();
