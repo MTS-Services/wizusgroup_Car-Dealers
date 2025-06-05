@@ -266,7 +266,7 @@
                         class="border-t border-border-dark border-opacity-20 dark:border-white dark:border-opacity-30 pt-4 space-y-2">
                         <div class="flex justify-between">
                             <span>{{ __('Subtotal:') }}</span>
-                            <span class="font-medium" id="subtotal"></span>
+                            <span class="font-medium order-subtotal" id="subtotal"></span>
                         </div>
                         <div class="flex justify-between">
                             <span>{{ __('Discount:') }}</span>
@@ -277,8 +277,8 @@
                     <div
                         class="border-t border-border-dark border-opacity-20 dark:border-white dark:border-opacity-30 mt-4 pt-4">
                         <div class="flex justify-between text-lg font-medium">
-                            <span>{{ __('Subtotal:') }}</span>
-                            <span>{{ __('$600.00 USD') }}</span>
+                            <span>{{ __('Total:') }}</span>
+                            <span class="order-total"></span>
                         </div>
                     </div>
                     <x-frontend.primary-button bg="false" form="checkout-form"
@@ -295,63 +295,71 @@
     <script>
         // Get Country States By Axios
         $(document).ready(function() {
+            let route1 = "{{ route('axios.get-states-or-cities') }}";
             $('#country').on('change', function() {
-                let route1 = "{{ route('axios.get-states-or-cities') }}";
                 getStatesOrCity($(this).val(), route1);
             });
+
+            if (`{{ old('country_id') }}`) {
+                getStatesOrCity('{{ old('country_id') }}', route1, '{{ old('state_id') }}');
+            }
+
+            let route2 = "{{ route('axios.get-cities') }}";
             $('#state').on('change', function() {
-                let route2 = "{{ route('axios.get-cities') }}";
                 getCities($(this).val(), route2);
             });
-
-
-            let updateQuantityRoute = "{{ route('frontend.checkout.quantity-update') }}";
-            let subTotal = 0;
-
-            $(document).on('click', '.increase-quantity', function() {
-                let itemId = $(this).data('id');
-                let currentQuantity = $(this).data('current-item-quantity');
-                let quantity = currentQuantity + 1;
-                updateQuantity(itemId, quantity, updateQuantityRoute);
-            });
-
-            $(document).on('click', '.decrease-quantity', function() {
-                let itemId = $(this).data('id');
-                let currentQuantity = $(this).data('current-item-quantity');
-                let quantity = currentQuantity - 1;
-                updateQuantity(itemId, quantity, updateQuantityRoute);
-            });
-
-            $(document).on('click', '.remove', function() {
-                let removeItemRoute = "{{ route('frontend.checkout.remove-item') }}";
-                let itemId = $(this).data('id');
-                axios.post(removeItemRoute, {
-                        item_id: itemId
-                    })
-                    .then(function(response) {
-                        console.log(response.data);
-                        // location.reload();
-                    })
-                    .catch(function(error) {
-                        // Handle error response
-                        console.error(error);
-
-                    });
-            });
-
-            function updateQuantity(itemId, quantity, updateQuantityRoute) {
-                axios.post(updateQuantityRoute, {
-                        item_id: itemId,
-                        quantity: quantity
-                    })
-                    .then(function(response) {
-                        console.log(response.data);
-                    })
-                    .catch(function(error) {
-                        // Handle error response
-                        console.error(error);
-                    });
+            if (`{{ old('state_id') }}`) {
+                getCities('{{ old('state_id') }}', route2, '{{ old('city_id') }}');
             }
+
+
+            // let updateQuantityRoute = "{{ route('frontend.checkout.quantity-update') }}";
+            // let subTotal = 0;
+
+            // $(document).on('click', '.increase-quantity', function() {
+            //     let itemId = $(this).data('id');
+            //     let currentQuantity = $(this).data('current-item-quantity');
+            //     let quantity = currentQuantity + 1;
+            //     updateQuantity(itemId, quantity, updateQuantityRoute);
+            // });
+
+            // $(document).on('click', '.decrease-quantity', function() {
+            //     let itemId = $(this).data('id');
+            //     let currentQuantity = $(this).data('current-item-quantity');
+            //     let quantity = currentQuantity - 1;
+            //     updateQuantity(itemId, quantity, updateQuantityRoute);
+            // });
+
+            // $(document).on('click', '.remove', function() {
+            //     let removeItemRoute = "{{ route('frontend.checkout.remove-item') }}";
+            //     let itemId = $(this).data('id');
+            //     axios.post(removeItemRoute, {
+            //             item_id: itemId
+            //         })
+            //         .then(function(response) {
+            //             console.log(response.data);
+            //             // location.reload();
+            //         })
+            //         .catch(function(error) {
+            //             // Handle error response
+            //             console.error(error);
+
+            //         });
+            // });
+
+            // function updateQuantity(itemId, quantity, updateQuantityRoute) {
+            //     axios.post(updateQuantityRoute, {
+            //             item_id: itemId,
+            //             quantity: quantity
+            //         })
+            //         .then(function(response) {
+            //             console.log(response.data);
+            //         })
+            //         .catch(function(error) {
+            //             // Handle error response
+            //             console.error(error);
+            //         });
+            // }
 
         });
     </script>

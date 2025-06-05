@@ -182,10 +182,8 @@ class CheckoutPageController extends Controller
 
     public function quantityUpdate(Request $request)
     {
-
-        $newQuantity = $request->input('quantity');
-
-        $orderItem = OrderItem::where('id', $request->input('item_id'))->first();
+        $newQuantity = (int) $request->input('quantity');
+        $orderItem = OrderItem::with(['product', 'order'])->where('id', $request->input('item_id'))->first();
 
         // dd($orderItem);
         if (!$orderItem) {
@@ -195,17 +193,36 @@ class CheckoutPageController extends Controller
             ], 404);
         }
 
-        $orderItem->update([
-            'quantity' => $newQuantity,
-            'sub_total' => $orderItem->unit_price * $newQuantity,
-        ]);
+        if ($newQuantity > $orderItem->product->quantity) {
+            $newQuantity = $orderItem->product->quantity;
+            return response()->json([
+                'status' => 'info',
+                'message' => 'Quantity limit reached.',
+                'item_id' => $request->input('item_id'),
+                'quantity' => $newQuantity,
+                'item_subtotal' => $orderItem->sub_total,
+                'order_total' => $orderItem->order->total,
+            ]);
+        }
 
+        DB::transaction(function () use ($orderItem, $newQuantity) {
+            $orderItem->update([
+                'quantity' => $newQuantity,
+                'sub_total' => $orderItem->unit_price * $newQuantity,
+                'total' => $orderItem->unit_price * $newQuantity,
+            ]);
 
-
+            $orderItem->order->update([
+                'sub_total' => $orderItem->order->items->sum('sub_total'),
+                'total' => $orderItem->order->items->sum('total'),
+            ]);
+        });
         return response()->json([
             'status' => 'success',
             'message' => 'Quantity updated successfully.',
             'quantity' => $newQuantity,
+            'item_subtotal' => $orderItem->sub_total,
+            'order_total' => $orderItem->order->total,
         ]);
     }
 
