@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Frontend\CheckoutSubmitRequest;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Services\AddressService;
 use App\Services\Admin\Setup\CountryService;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class CheckoutPageController extends Controller
@@ -22,8 +23,29 @@ class CheckoutPageController extends Controller
         $this->countryService = $countryService;
         $this->addressService = $addressService;
     }
-    public function checkoutSubmit(Request $request)
+
+    protected function getCart()
     {
+        if (!auth()->guard('web')->check() && !session()->get('cart_session_id')) {
+            return null;
+        }
+        $user = auth()->guard('web')->check() ? user() : null;
+        $sessionId = session()->get('cart_session_id');
+        return $user
+            ? Cart::with('items.product')->where('user_id', $user->id)->first()
+            : ($sessionId ? Cart::with('items.product')->where('session_id', $sessionId)->first() : null);
+    }
+
+    public function checkoutSubmit(CheckoutSubmitRequest $request)
+    {
+        if (!$this->getCart()) {
+            // throw new \Exception('Cart not found');
+            dd('Cart not found');
+        }
+
+        dd($request->all());
+        
+
         try {
 
 
@@ -90,8 +112,6 @@ class CheckoutPageController extends Controller
             session()->flash('error', 'Something went wrong: ' . $e->getMessage());
             return redirect()->back();
         }
-
-
     }
 
     public function checkout($orderNumber)

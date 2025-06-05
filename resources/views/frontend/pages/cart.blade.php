@@ -52,7 +52,10 @@
                                 id="cart-table-body">
                                 <tr>
                                     <td colspan="6" class="text-center py-8 text-text-gray dark:text-text-white">
-                                        <p id="cart-empty-message">Cart is empty</p>
+                                        <p id="cart-empty-message">
+                                            {{-- Loader --}}
+                                            <span class=""></span>
+                                        </p>
                                     </td>
                                 </tr>                               
                             </tbody>

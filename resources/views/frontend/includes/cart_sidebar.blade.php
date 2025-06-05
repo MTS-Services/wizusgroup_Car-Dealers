@@ -21,29 +21,33 @@
 
         {{-- Checkout Card --}}
         <form action="{{ route('frontend.checkout.submit') }}" method="POST">
-            <div
-                class="px-6 py-2 border-t border-border-dark border-opacity-20 dark:border-white dark:border-opacity-50 bg-bg-light dark:bg-bg-darkSecondary shadow-card">
+            <div class="px-6 py-2 shadow-card border-t border-border-gray dark:border-bg-dark-secondary">
                 <div class="flex justify-between mb-1">
                     <span class="font-medium">{{ __('Total:') }}</span>
                     <span class="font-medium cart-total text-xl"></span>
                 </div>
                 <p class="text-sm text-text-gray mb-2">{{ __('Taxes and shipping calculated at checkout') }}</p>
 
-                <label class="flex items-center mb-4 border-t border-border-light dark:border-opacity-50">
-                    <input type="checkbox" class="p-0 form-checkbox h-4 w-4 text-text-gray focus:ring-bg-primary">
-                    <span class="ml-2 text-sm">I agree with <a href="#"
-                            class="underline text-text-gray hover:text-bg-primary transition-colors">terms and
-                            conditions</a></span>
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" value="1" name="terms" class="checkbox checkbox-xs checkbox-accent">
+                    <span class="label text-sm">
+                        <span>{{ __('I agree with') }}</span>
+                        <a href="#" class="underline text-text-gray hover:text-bg-primary transition-colors">
+                            {{ __('terms and conditions') }}
+                        </a>
+                    </span>
                 </label>
+                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'terms']" />
 
-                <div class="flex items-center justify-between gap-3 pb-6">
+                <div class="flex items-center justify-between gap-3 mt-2">
 
                     @csrf
                     <button type="submit" class="btn-primary w-full text-center py-1">{{ __('Checkout') }}</button>
 
                     <a href="{{ route('frontend.cart') }}"
-                        class="btn-secondary w-full text-center py-1 border border-border-dark dark:border-white dark:border-opacity-50 text-text-gray hover:text-text-dark dark:hover:text-white transition-colors">View
-                        Cart</a>
+                        class="btn-secondary w-full text-center py-1 border border-border-dark dark:border-white dark:border-opacity-50 text-text-gray hover:text-text-dark dark:hover:text-white transition-colors">
+                        {{ __('View Cart') }}
+                    </a>
                 </div>
             </div>
         </form>
@@ -67,7 +71,7 @@
                 emptyMessage: '#cart-empty-message',
                 totalDisplay: '.cart-total'
             },
-            // debug: true // Enable for development
+            debug: true // Enable for development
         });
     })
 </script>
