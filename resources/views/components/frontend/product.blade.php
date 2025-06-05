@@ -27,14 +27,14 @@
                 </div>
                 <div class="flex justify-center items-center mt-4">
                     <div
-                        class="flex items-center justify-center gap-2 border border-bg-tertiary rounded-md w-full py-2  hover:bg-text-tertiary me-2 text-text-tertiary text-sm hover:text-text-white transition-all duration-300">
+                        class="flex items-center justify-center gap-2 border border-bg-tertiary rounded-md w-full py-2  hover:bg-text-tertiary me-2 text-text-tertiary dark:text-text-light text-sm hover:text-text-white transition-all duration-300">
                         <span>
                             <i data-lucide="shopping-cart" class="w-4 h-4"></i>
                         </span>
                         <a href="" class="">{{ __('Buy Now') }}</a>
                     </div>
                     <div
-                        class="flex items-center justify-center gap-2 border border-bg-tertiary rounded-md w-full py-2 bg-text-tertiary  hover:bg-transparent ms-2 text-text-white text-sm hover:text-text-primary transition-all duration-300">
+                        class="flex items-center justify-center gap-2 border border-bg-tertiary rounded-md w-full py-2 bg-text-tertiary  hover:bg-transparent ms-2 text-text-white text-sm hover:text-text-tertiary hover:dark:text-text-white transition-all duration-300">
                         <span>
                             <i data-lucide="shopping-basket" class="w-4 h-4"></i>
                         </span>

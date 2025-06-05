@@ -180,7 +180,7 @@
                                 </div>
                             </details>
                             <div class="px-4">
-                                <button id="filterBtn" class="w-full btn-primary bg-transparent border border-border-tertiary hover:bg-bg-tertiary text-text-tertiary hover:text-text-white mt-4 group">
+                                <button id="filterBtn" class="w-full btn-primary rounded-md bg-transparent border border-border-tertiary hover:bg-bg-tertiary text-text-tertiary hover:text-text-white mt-4 group">
                                     <span>{{ __('Filter') }}</span>
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"

@@ -54,7 +54,7 @@
                 {{ __('Place a Bid') }}
             </button>
             @else
-            <a href="{{ route('frontend.auction-details', $auction->slug) }}" class="w-full btn-primary rounded-md border border-border-tertiary bg-bg-tertiary text-text-white hover:text-text-tertiary hover:bg-transparent px-4  mt-4">
+            <a href="{{ route('frontend.auction-details', $auction->slug) }}" class="w-full btn-primary rounded-md border border-border-tertiary bg-bg-tertiary text-text-white dark:text-text-light hover:text-text-tertiary hover:bg-transparent px-4  mt-4">
                 {{ __('Ask for price') }}
             </a>
             @endauth
