@@ -33,8 +33,9 @@
                 <div class="flex justify-center items-center mt-4 gap-y-4 gap-x-2">
 
                     @foreach ($buttons as $button)
-                        <x-frontend.primary-button icon="{{ $button['icon'] }}" href="{{ $button['route'] }}"
-                            bg="{{ $button['bg'] }}">{{ __($button['label']) }}
+                        <x-frontend.primary-button class="{{ isset($button['class']) ? $button['class'] : '' }}"
+                            data_id="{{ $button['data_id'] ?? '' }}" icon="{{ $button['icon'] }}"
+                            href="{{ $button['route'] }}" bg="{{ $button['bg'] }}">{{ __($button['label']) }}
                         </x-frontend.primary-button>
                     @endforeach
 
