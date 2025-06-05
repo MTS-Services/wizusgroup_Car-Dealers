@@ -1,5 +1,5 @@
 <div
-    class="cartSidebar fixed top-0 right-0 max-h-screen w-5/6 md:w-1/2 lg:w-1/2 xl:w-2/5 2xl:w-1/4 translate-x-full transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-dark-tertiary shadow-lg z-[99999999999]">
+    class="cartSidebar fixed top-0 right-0 max-h-[calc(100vh-100px)] md:max-h-screen w-5/6 md:w-1/2 lg:w-1/2 xl:w-2/5 2xl:w-1/4 translate-x-full transition-all duration-300 ease-in-out bg-bg-light dark:bg-bg-dark-tertiary shadow-lg z-[99999999999]">
 
     <div class="h-screen flex flex-col">
         <div class="p-4 border-b border-b-border-dark border-opacity-20 dark:border-white dark:border-opacity-50">
@@ -40,13 +40,11 @@
                 </label>
                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'terms']" />
 
-                <div class="flex items-center justify-between gap-3 mt-2">
-                    <button type="submit" class="btn-primary w-full text-center py-1">{{ __('Checkout') }}</button>
-
-                    <a href="{{ route('frontend.cart') }}"
-                        class="btn-secondary w-full text-center py-1 border border-border-dark dark:border-white dark:border-opacity-50 text-text-gray hover:text-text-dark dark:hover:text-white transition-colors">
-                        {{ __('View Cart') }}
-                    </a>
+                <div class="flex items-center justify-between gap-3 pb-6">
+                    <x-frontend.primary-button bg="false" type="submit" class="w-full">{{ __('Checkout') }}
+                    </x-frontend.primary-button>
+                    <x-frontend.primary-button href="{{ route('frontend.cart') }}" class="w-full">{{ __('View Cart') }}
+                    </x-frontend.primary-button>
                 </div>
             </div>
         </form>

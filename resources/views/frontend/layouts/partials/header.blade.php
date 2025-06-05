@@ -2,7 +2,8 @@
     <div class="container">
         <div class="navbar">
             <div class="navbar-start">
-                <a href="{{ url('/') }}" class=""><img src="{{ asset('frontend/images/logo.png') }}"
+                <a href="{{ url('/') }}" class=""><img
+                        src="{{ settings('site_logo') ? storage_url(settings('site_logo')) : asset('frontend/images/logo.png') }}"
                         alt="Logo" class="w-28"></a>
             </div>
             <div class="navbar-center hidden tablet:flex">
@@ -15,14 +16,24 @@
                      @if (isset($page_slug) && $page_slug == 'about') text-text-secondary dark:text-text-secondary @endif
                     "
                         href="{{ route('frontend.about') }}">{{ __('About Us') }}</a>
-                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
+                    {{-- <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
                      @if (isset($page_slug) && $page_slug == 'auctions') text-text-secondary dark:text-text-secondary @endif
                     "
-                        href="{{ route('frontend.auctions') }}">{{ __('Auctions') }}</a>
+                        href="{{ route('frontend.auctions') }}">{{ __('Auctions') }}</a> --}}
+
+
+                    <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
+                     @if (isset($page_slug) && $page_slug == 'group_shipping') text-text-secondary dark:text-text-secondary @endif
+                    "
+                        href="{{ route('frontend.group_shipping') }}">{{ __('Group Shipping') }}</a>
+
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
                      @if (isset($page_slug) && $page_slug == 'products') text-text-secondary dark:text-text-secondary @endif
                     "
                         href="{{ route('frontend.products') }}">{{ __('Products') }}</a>
+
+
+
                     <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear
                      @if (isset($page_slug) && $page_slug == 'parts-accessories') text-text-secondary dark:text-text-secondary @endif
                     "

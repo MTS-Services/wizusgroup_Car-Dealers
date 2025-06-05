@@ -25,11 +25,11 @@
         <div class="flex flex-col lg:flex-row gap-8 my-10">
             <!-- Left Column - Checkout Form -->
             <div class="lg:w-2/3 bg-bg-white p-6 shadow-card rounded-lg dark:bg-bg-dark-tertiary">
-                <div class="mb-8">
-                    <h2 class="text-lg lg:text-xl capitalize font-medium mb-6">
-                        {{ __('Resigtration form') }}
-                    </h2>
-                    <form action="#">
+                <form action="#">
+                    <div class="mb-8">
+                        <h2 class="text-lg lg:text-xl capitalize font-medium mb-6">
+                            {{ __('Resigtration form') }}
+                        </h2>
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
                             <div>
                                 <input type="text" name="first_name" placeholder="First Name" class="input h-10">
@@ -51,7 +51,7 @@
                             </div>
                         </div>
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-                            <div class="flex flex-col lg:flex-row gap-2">
+                            <div class="flex flex-wrap lg:flex-row gap-2">
                                 <div class="flex items-center">
                                     <input type="radio" name="language" id="language1" value="english" checked>
                                     <label for="language1" class="ml-2 text-text-gray">English</label>
@@ -85,13 +85,8 @@
                                     class="input h-10">
                             </div>
                         </div>
-                        <div class="flex justify-end">
-                            <button type="submit" class="btn-primary">{{ __('Submit') }}</button>
-                        </div>
-                    </form>
-                </div>
-                <h2 class="text-lg lg:text-xl capitalize font-medium mb-6">{{ __('Delivery Information') }}</h2>
-                <form id="checkout-form">
+                    </div>
+                    <h2 class="text-lg lg:text-xl capitalize font-medium mb-6">{{ __('Delivery Information') }}</h2>
                     <!-- Personal Information -->
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
                         <div>
@@ -122,7 +117,7 @@
                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'country']" />
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-6">
                         <div>
                             <select name="state" id="state" disabled class="input h-10">
                                 <option value="" selected hidden>{{ __('Select State') }}</option>
@@ -139,16 +134,31 @@
                             <input type="text" placeholder="Zipcode/Postal" class="input h-10">
                         </div>
                     </div>
-
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <select name="shipping_port" class="input" id="shipping_port">
+                                <option value="" selected>{{ __('Select Shipping Port') }}</option>
+                                <option value="">{{ __('Other') }}</option>
+                            </select>
+                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'shipping_port']" />
+                        </div>
+                        <div>
+                            {{-- Detination --}}
+                            <select name="destination" id="destination" class="input">
+                                <option value="" selected hidden>{{ __('Select Destination Port') }}</option>
+                                <option value="">{{ __('Other') }}</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="mb-4">
-                        <textarea name="address" class="input h-20 p-3 no-ckeditor5" id="address"></textarea>
+                        <textarea name="address" class="textarea no-ckeditor5" id="address" placeholder="Address"></textarea>
                     </div>
 
                     <!-- Shipping Method -->
                     <h2 class="text-xl font-medium mb-4">{{ __('Shipping Method') }}</h2>
                     <div class="space-y-4 mb-8">
                         <div
-                            class="payment-option flex justify-center items-center gap-2 border border-border-dark border-opacity-20 dark:border-white  dark:bg-bg-darkTertiary dark:border-opacity-30 focus:outline-primary focus:opacity-50 rounded p-2 text-sm w-full h-15">
+                            class="payment-option flex justify-center items-center gap-2 border border-border-dark border-opacity-20 dark:border-white  dark:bg-bg-primary dark:bg-opacity-10 dark:border-opacity-30 focus:outline-primary focus:opacity-50 rounded p-2 text-sm w-full h-15">
                             <input type="radio" id="free-shipping" name="shipping" class="w-4">
                             <label for="free-shipping" class="w-full">
                                 <div class="flex justify-between">
@@ -158,7 +168,7 @@
                             </label>
                         </div>
                         <div
-                            class="payment-option flex justify-center items-center gap-2 border border-border-dark border-opacity-20 dark:border-white  dark:bg-bg-darkTertiary dark:border-opacity-30 focus:outline-primary focus:opacity-50 rounded p-2 text-sm w-full h-15">
+                            class="payment-option flex justify-center items-center gap-2 border border-border-dark border-opacity-20 dark:border-white  dark:bg-bg-primary dark:bg-opacity-10 dark:border-opacity-30 focus:outline-primary focus:opacity-50 rounded p-2 text-sm w-full h-15">
                             <input type="radio" id="express-shipping" name="shipping" class="w-4">
                             <label for="express-shipping" class="w-full">
                                 <div class="flex justify-between">
@@ -171,8 +181,7 @@
 
                     <!-- Privacy Policy -->
                     <p class="text-sm text-text-primary mb-8">
-                        {{ __('Your personal data will be used to process your order, support your experience throughout this
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        website, and for other purposes described in our') }}
+                        {{ __('Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our') }}
                         <a href="#" class="text-text-accent hover:underline">privacy policy</a>.
                     </p>
                 </form>
@@ -256,11 +265,8 @@
                             <span>{{ __('$600.00 USD') }}</span>
                         </div>
                     </div>
-
-                    <!-- Place Order Button -->
-                    <a href="#" type="submit" form="checkout-form" class="btn-primary mt-6 w-full">
-                        {{ __('Place Order') }}
-                    </a>
+                    <x-frontend.primary-button bg="false" form="checkout-form"
+                        class="w-full mt-6">{{ __('Place Order') }} </x-frontend.primary-button>
                 </div>
             </div>
 

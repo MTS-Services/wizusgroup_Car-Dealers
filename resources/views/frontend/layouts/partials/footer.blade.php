@@ -7,7 +7,7 @@
                         <img src="{{ asset('frontend/images/logo.png') }}" alt="logo" class="w-48 mx-auto lg:ml-0">
                     </a>
                     <p class="basis-full lg:basis-[70%] xl:basis-full text-center md:text-start">
-                       {{ settings('sort_description') }}
+                        {{ settings('sort_description') }}
                     </p>
                 </div>
             </div>
@@ -18,7 +18,7 @@
                             <div class="basis-1/2">
                                 <h4>{{ __('Services') }}</h4>
                                 <div class="flex flex-col pl-3 gap-1">
-                                    <a href="{{ route('frontend.auctions') }}"
+                                    {{-- <a href="{{ route('frontend.auctions') }}"
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm group/service group/service w-fit">
                                         <div>
                                             <span
@@ -27,8 +27,8 @@
                                             </span>
                                         </div>
                                         {{ __('Auctions') }}
-                                    </a>
-                                    <a href="{{ route('frontend.dropshipping') }}"
+                                    </a> --}}
+                                    {{-- <a href="{{ route('frontend.dropshipping') }}"
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm group/service group/service w-fit">
                                         <div>
                                             <span
@@ -37,6 +37,26 @@
                                             </span>
                                         </div>
                                         {{ __('Special Deals') }}
+                                    </a> --}}
+                                    <a href="{{ route('frontend.group_shipping') }}"
+                                        class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm group/service group/service w-fit">
+                                        <div>
+                                            <span
+                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/service:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
+                                                <i data-lucide="truck" class="w-4 text-text-white"></i>
+                                            </span>
+                                        </div>
+                                        {{ __('Group Shipping') }}
+                                    </a>
+                                    <a href="{{ route('frontend.products') }}"
+                                        class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm group/service group/service w-fit">
+                                        <div>
+                                            <span
+                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/service:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
+                                                <i data-lucide="handshake" class="w-4 text-text-white"></i>
+                                            </span>
+                                        </div>
+                                        {{ __('Products') }}
                                     </a>
                                     <a href="{{ route('frontend.parts-accessories') }}"
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm group/service group/service w-fit">
@@ -48,16 +68,7 @@
                                         </div>
                                         {{ __('Parts & Accessories') }}
                                     </a>
-                                    <a href="{{ route('frontend.group_shipping') }}"
-                                        class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm group/service group/service w-fit">
-                                        <div>
-                                            <span
-                                                class="w-6 h-6 flex items-center justify-center bg-bg-primary group-hover/service:bg-bg-tertiary rounded-full transition-all duration-300 ease-linear">
-                                                <i data-lucide="truck" class="w-4 text-text-white"></i>
-                                            </span>
-                                        </div>
-                                        {{ __('Shipping') }}
-                                    </a>
+
                                 </div>
                             </div>
                             <div class="basis-1/2">
@@ -194,14 +205,15 @@
             </p>
         </div>
     </div>
-     @php
+    @php
         $phone = '+8801581088986';
         $message = urlencode("Hi, I'm interested in your service.");
     @endphp
 
     <div
         class="fixed z-50 bottom-6 right-6 md:bottom-10 md:right-10 shadow-lg rounded-full bg-gradient-primary flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
-        <a href="https://wa.me/{{ $phone }}?text={{ $message }}" target="_blank" aria-label="Chat on WhatsApp">
+        <a href="https://wa.me/{{ $phone }}?text={{ $message }}" target="_blank"
+            aria-label="Chat on WhatsApp">
             <i class="fa-brands fa-whatsapp text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-light"></i>
         </a>
     </div>
