@@ -114,22 +114,22 @@
                             'image' =>
                                 'https://images.unsplash.com/photo-1616627982103-1c32275b87b7?auto=format&fit=crop&w=800&q=80',
                         ],
-                        // [
-                        //     'name' => 'CAT 424B2 Backhoe Loader',
-                        //     'brand' => 'Caterpillar / CAT 424B2',
-                        //     'quantity' => 2,
-                        //     'unit_price' => 715.0,
-                        //     'image' =>
-                        //         'https://images.unsplash.com/photo-1616627982103-1c32275b87b7?auto=format&fit=crop&w=800&q=80',
-                        // ],
-                        // [
-                        //     'name' => 'CAT 424B2 Backhoe Loader',
-                        //     'brand' => 'Caterpillar / CAT 424B2',
-                        //     'quantity' => 2,
-                        //     'unit_price' => 715.0,
-                        //     'image' =>
-                        //         'https://images.unsplash.com/photo-1616627982103-1c32275b87b7?auto=format&fit=crop&w=800&q=80',
-                        // ],
+                        [
+                            'name' => 'CAT 424B2 Backhoe Loader',
+                            'brand' => 'Caterpillar / CAT 424B2',
+                            'quantity' => 2,
+                            'unit_price' => 715.0,
+                            'image' =>
+                                'https://images.unsplash.com/photo-1616627982103-1c32275b87b7?auto=format&fit=crop&w=800&q=80',
+                        ],
+                        [
+                            'name' => 'CAT 424B2 Backhoe Loader',
+                            'brand' => 'Caterpillar / CAT 424B2',
+                            'quantity' => 2,
+                            'unit_price' => 715.0,
+                            'image' =>
+                                'https://images.unsplash.com/photo-1616627982103-1c32275b87b7?auto=format&fit=crop&w=800&q=80',
+                        ],
                         // ... other items ...
                     ];
                 @endphp
@@ -261,9 +261,12 @@
                                                         style="width:{{ $container->getFilledPercentageAttribute() }}%">
                                                     </div>
                                                 </div>
-                                               <div class="py-3">
-                                                     <x-frontend.primary-button bg="true" onclick="document.getElementById('-modal').showModal()" class="w-full mt-4">{{ __('Join Group Shipping') }} </x-frontend.primary-button>
-                                               </div>
+                                                <div class="py-3">
+                                                    <x-frontend.primary-button bg="true"
+                                                        onclick="document.getElementById('-modal').showModal()"
+                                                        class="w-full mt-4">{{ __('Join Group Shipping') }}
+                                                    </x-frontend.primary-button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -285,33 +288,42 @@
 
             const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-            if ((isMobile && itemCount > 1) || (!isMobile && itemCount > 4)) {
-                container.style.maxHeight = '286px';
+            const applyScroll = () => {
+                container.style.maxHeight = isMobile ? '200px' : '286px'; // Mobile e aro chhoto height
                 container.style.overflowY = 'auto';
-                container.style.paddingRight = '0.5rem'; // pr-2
+                container.style.paddingRight = '0.5rem';
 
-                // Basic inline scrollbar style (WebKit only)
                 container.style.scrollbarWidth = 'thin'; // Firefox
-                container.style.scrollbarColor = '#a0aec0 transparent'; // gray-400
+                container.style.scrollbarColor = '#a0aec0 transparent';
 
-                // WebKit specific scrollbar styling
                 const style = document.createElement('style');
                 style.innerHTML = `
-                #orderItemsContainer::-webkit-scrollbar {
-                    width: 6px;
-                }
-                #orderItemsContainer::-webkit-scrollbar-thumb {
-                    background-color: #a0aec0; /* gray-400 */
-                    border-radius: 4px;
-                }
-                @media (prefers-color-scheme: dark) {
-                    #orderItemsContainer::-webkit-scrollbar-thumb {
-                        background-color: #4b5563; /* gray-700 */
-                    }
-                }
-            `;
-                document.head.appendChild(style);
+            #orderItemsContainer::-webkit-scrollbar {
+                width: 6px;
             }
+            #orderItemsContainer::-webkit-scrollbar-thumb {
+                background-color: #a0aec0;
+                border-radius: 4px;
+            }
+            @media (prefers-color-scheme: dark) {
+                #orderItemsContainer::-webkit-scrollbar-thumb {
+                    background-color: #4b5563;
+                }
+            }
+        `;
+                document.head.appendChild(style);
+            };
+
+            // Instead of checking itemCount, we rely on actual height to decide scroll behavior
+            // Use setTimeout to ensure rendering complete
+            setTimeout(() => {
+                const containerHeight = container.scrollHeight;
+                const currentHeight = container.clientHeight;
+
+                if ((isMobile && containerHeight > 200) || (!isMobile && containerHeight > 286)) {
+                    applyScroll();
+                }
+            }, 50);
         });
     </script>
     <script>
