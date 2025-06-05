@@ -274,7 +274,7 @@
     </section>
     {{-- end faq --}}
     {{-- eligibility criteria start --}}
-    <section class="2xl:py-15 xl:py-12 lg:py-10 md:py-7 py-5 bg-bg-light-secondary">
+    <section class="2xl:py-15 xl:py-12 lg:py-10 md:py-7 py-5 bg-bg-light-secondary dark:bg-bg-dark-tertiary">
         <div class="container mx-auto">
             <div class=" p-6  ">
                 <h2
@@ -287,14 +287,14 @@
             </div>
             <div class="grid xl:grid-cols-2  gap-6">
                 {{-- Eligibility Criteria --}}
-                <div class="bg-bg-white rounded-lg shadow-md p-6">
+                <div class="bg-bg-white dark:bg-bg-dark-secondary rounded-lg shadow-md p-6">
                     <div class="flex items-center space-x-4">
                         <div class="flex-shrink-0">
                             <div class="w-16 h-16 flex items-center justify-center rounded-full bg-text-secondary/10">
-                                <i class="fa-solid fa-clipboard-check text-4xl text-text-secondary"></i>
+                                <i class="fa-solid fa-clipboard-check text-4xl text-text-secondary dark:text-text-white"></i>
                             </div>
                         </div>
-                        <h3 class="text-xl font-semibold text-text-primary bg-bg-primary/50 px-4 py-2 rounded-md w-full">
+                        <h3 class="text-xl font-semibold text-text-primary dark:text-text-white bg-bg-primary/50 px-4 py-2 rounded-md w-full">
                             {{ __('Eligibility Criteria') }}
                         </h3>
                     </div>
@@ -310,7 +310,7 @@
 
                         <!-- List with custom bullet styling - responsive padding and text -->
                         <ul
-                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 dark:border-border-dark dark:bg-bg-dark-tertiary rounded-xl text-xs sm:text-sm md:text-base">
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span>
@@ -337,7 +337,7 @@
 
                         <!-- List with custom bullet styling - responsive padding and text -->
                         <ul
-                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 dark:border-border-dark dark:bg-bg-dark-tertiary rounded-xl text-xs sm:text-sm md:text-base">
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span>
@@ -364,7 +364,7 @@
 
                         <!-- List with custom bullet styling - responsive padding and text -->
                         <ul
-                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 dark:border-border-dark dark:bg-bg-dark-tertiary rounded-xl text-xs sm:text-sm md:text-base">
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span>
@@ -391,7 +391,7 @@
 
                         <!-- List with custom bullet styling - responsive padding and text -->
                         <ul
-                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 dark:border-border-dark dark:bg-bg-dark-tertiary rounded-xl text-xs sm:text-sm md:text-base">
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span>
@@ -418,7 +418,7 @@
 
                         <!-- List with custom bullet styling - responsive padding and text -->
                         <ul
-                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 dark:border-border-dark dark:bg-bg-dark-tertiary rounded-xl text-xs sm:text-sm md:text-base">
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span>
@@ -435,14 +435,14 @@
 
                 </div>
                 {{-- Documents required --}}
-                <div class="bg-bg-white rounded-lg shadow-md p-6">
+                <div class="bg-bg-white dark:bg-bg-dark-secondary rounded-lg shadow-md p-6">
                     <div class="flex items-center space-x-4">
                         <div class="flex-shrink-0">
                             <div class="w-16 h-16 flex items-center justify-center rounded-full bg-text-tertiary/30">
-                                <i class="fa-solid fa-file-contract text-4xl text-text-secondary"></i>
+                                <i class="fa-solid fa-file-contract text-4xl text-text-secondary dark:text-text-white"></i>
                             </div>
                         </div>
-                        <h3 class="text-xl font-semibold text-text-primary bg-bg-tertiary/50 px-4 py-2 rounded-md w-full">
+                        <h3 class="text-xl font-semibold text-text-primary dark:text-text-white bg-bg-tertiary/50  px-4 py-2 rounded-md w-full">
                             {{ __('Documents Required') }}
                         </h3>
                     </div>
@@ -458,7 +458,7 @@
 
                         <!-- List with custom bullet styling - responsive padding and text -->
                         <ul
-                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 dark:border-border-dark dark:bg-bg-dark-tertiary  rounded-xl text-xs sm:text-sm md:text-base">
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span>
@@ -485,7 +485,7 @@
 
                         <!-- List with custom bullet styling - responsive padding and text -->
                         <ul
-                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 dark:border-border-dark dark:bg-bg-dark-tertiary rounded-xl text-xs sm:text-sm md:text-base">
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span>
@@ -512,7 +512,7 @@
 
                         <!-- List with custom bullet styling - responsive padding and text -->
                         <ul
-                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 dark:border-border-dark dark:bg-bg-dark-tertiary rounded-xl text-xs sm:text-sm md:text-base">
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span>
@@ -539,7 +539,7 @@
 
                         <!-- List with custom bullet styling - responsive padding and text -->
                         <ul
-                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 dark:border-border-dark dark:bg-bg-dark-tertiary rounded-xl text-xs sm:text-sm md:text-base">
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span>
@@ -566,7 +566,7 @@
 
                         <!-- List with custom bullet styling - responsive padding and text -->
                         <ul
-                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 rounded-xl text-xs sm:text-sm md:text-base">
+                            class="space-y-1 pl-2 border-2 w-full p-3 sm:p-4 md:p-5 border-black/40 dark:border-border-dark dark:bg-bg-dark-tertiary rounded-xl text-xs sm:text-sm md:text-base">
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span>
