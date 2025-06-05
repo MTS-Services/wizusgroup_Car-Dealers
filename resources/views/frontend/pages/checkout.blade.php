@@ -234,7 +234,7 @@
                                         class="flex flex-col sm:flex-row items-start sm:items-center justify-center gap-5 mt-3 w-full">
                                         <div class="flex items-center gap-2 flex-shrink-0">
                                             <button
-                                                class="decrease-quantity btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
+                                                class="decrease-quantity quantity-btn btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
                                                 title="Decrease Quantity" data-id="{{ $item->id }}"
                                                 data-current-item-quantity="{{ $item->quantity }}">
                                                 <i data-lucide="minus"
@@ -243,7 +243,7 @@
                                             <span
                                                 class="quantity-show px-3 py-1 bg-bg-light dark:bg-bg-darkTertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">{{ $item->quantity }}</span>
                                             <button
-                                                class="increase-quantity btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
+                                                class="increase-quantity quantity-btn btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
                                                 title="Increase Quantity" data-id="{{ $item->id }}"
                                                 data-current-item-quantity="{{ $item->quantity }}">
                                                 <i data-lucide="plus"
@@ -266,11 +266,12 @@
                         class="border-t border-border-dark border-opacity-20 dark:border-white dark:border-opacity-30 pt-4 space-y-2">
                         <div class="flex justify-between">
                             <span>{{ __('Subtotal:') }}</span>
-                            <span class="font-medium order-subtotal" id="subtotal"></span>
+                            <span class="font-medium order-subtotal"
+                                id="subtotal">{{ number_format($order->sub_total, 2) }}</span>
                         </div>
                         <div class="flex justify-between">
                             <span>{{ __('Discount:') }}</span>
-                            <span class="font-medium">{{ __('-$10 USD') }}</span>
+                            <span class="font-medium">{{ __('-$0 USD') }}</span>
                         </div>
                     </div>
 
@@ -278,7 +279,7 @@
                         class="border-t border-border-dark border-opacity-20 dark:border-white dark:border-opacity-30 mt-4 pt-4">
                         <div class="flex justify-between text-lg font-medium">
                             <span>{{ __('Total:') }}</span>
-                            <span class="order-total"></span>
+                            <span class="order-total">{{ number_format($order->total, 2) }}</span>
                         </div>
                     </div>
                     <x-frontend.primary-button bg="false" form="checkout-form"
@@ -292,6 +293,7 @@
     {{-- Main Content End Here --}}
 @endsection
 @push('js')
+    <script src="{{ asset('frontend/js/checkout.js') }}"></script>
     <script>
         // Get Country States By Axios
         $(document).ready(function() {
@@ -320,7 +322,7 @@
             //     let itemId = $(this).data('id');
             //     let currentQuantity = $(this).data('current-item-quantity');
             //     let quantity = currentQuantity + 1;
-            //     updateQuantity(itemId, quantity, updateQuantityRoute);
+            //     updateQuantity(itemId, quantity, updateQuantityRoute, $(this));
             // });
 
             // $(document).on('click', '.decrease-quantity', function() {
@@ -353,13 +355,33 @@
             //             quantity: quantity
             //         })
             //         .then(function(response) {
-            //             console.log(response.data);
+            //             $('.order-subtotal').text('$' + numberFormat(response.data.order_subtotal, 2));
+            //             $('.order-total').text('$' + numberFormat(response.data.order_total, 2));
+            //             $('.quantity-show').text(response.data.quantity);
+            //             $('.item-subtotal').text('$' + numberFormat(response.data.item_subtotal, 2));
+            //             $(`.quantity-btn[data-id="${itemId}"]`).attr('data-current-item-quantity', response.data
+            //                 .quantity);
             //         })
             //         .catch(function(error) {
             //             // Handle error response
             //             console.error(error);
             //         });
             // }
+
+
+            // Usage Example:
+            // Initialize the cart manager
+            const cartManager = new SimpleCartManager({
+                routes: {
+                    updateQuantity: `{{ route('frontend.checkout.quantity-update') }}`,
+                    removeItem: 'frontend.checkout.remove-item'
+                },
+                debug: true,
+                notifications: {
+                    enabled: true,
+                    type: 'console' // or 'toastr', 'alert', 'custom'
+                }
+            });
 
         });
     </script>

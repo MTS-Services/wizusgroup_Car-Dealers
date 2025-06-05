@@ -414,19 +414,7 @@ class SimpleCartManager {
     }
 }
 
-// Usage Example:
-// Initialize the cart manager
-// const cartManager = new SimpleCartManager({
-//     routes: {
-//         updateQuantity: '/checkout/quantity-update',
-//         removeItem: '/checkout/remove-item'
-//     },
-//     debug: true,
-//     notifications: {
-//         enabled: true,
-//         type: 'console' // or 'toastr', 'alert', 'custom'
-//     }
-// });
+
 
 // Export for module use
 if (typeof module !== 'undefined' && module.exports) {

@@ -182,10 +182,14 @@ class CheckoutPageController extends Controller
 
     public function quantityUpdate(Request $request)
     {
-        $newQuantity = (int) $request->input('quantity');
-        $orderItem = OrderItem::with(['product', 'order'])->where('id', $request->input('item_id'))->first();
+        $request->validate([
+            'item_id' => 'required|integer|exists:order_items,id',
+            'quantity' => 'required|integer|min:1'
+        ]);
 
-        // dd($orderItem);
+        $newQuantity = (int) $request->input('quantity');
+        $orderItem = OrderItem::with(['product', 'order.items'])->where('id', $request->input('item_id'))->first();
+
         if (!$orderItem) {
             return response()->json([
                 'status' => 'error',
@@ -193,37 +197,89 @@ class CheckoutPageController extends Controller
             ], 404);
         }
 
+        // Check if requested quantity exceeds available stock
         if ($newQuantity > $orderItem->product->quantity) {
             $newQuantity = $orderItem->product->quantity;
-            return response()->json([
-                'status' => 'info',
-                'message' => 'Quantity limit reached.',
-                'item_id' => $request->input('item_id'),
-                'quantity' => $newQuantity,
-                'item_subtotal' => $orderItem->sub_total,
-                'order_total' => $orderItem->order->total,
-            ]);
-        }
 
-        DB::transaction(function () use ($orderItem, $newQuantity) {
+            // Update with maximum allowed quantity
             $orderItem->update([
                 'quantity' => $newQuantity,
                 'sub_total' => $orderItem->unit_price * $newQuantity,
                 'total' => $orderItem->unit_price * $newQuantity,
             ]);
 
+            // Refresh the order relationship to get updated totals
+            $orderItem->order->refresh();
+
+            // Recalculate order totals
+            $orderSubTotal = $orderItem->order->items->sum('sub_total');
+            $orderTotal = $orderItem->order->items->sum('total');
+
             $orderItem->order->update([
-                'sub_total' => $orderItem->order->items->sum('sub_total'),
-                'total' => $orderItem->order->items->sum('total'),
+                'sub_total' => $orderSubTotal,
+                'total' => $orderTotal,
             ]);
-        });
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Quantity updated successfully.',
-            'quantity' => $newQuantity,
-            'item_subtotal' => $orderItem->sub_total,
-            'order_total' => $orderItem->order->total,
-        ]);
+
+            return response()->json([
+                'status' => 'info',
+                'message' => 'Quantity limit reached. Maximum available quantity applied.',
+                'item_id' => $request->input('item_id'),
+                'quantity' => $newQuantity,
+                'item_subtotal' => $orderItem->sub_total,
+                'order_subtotal' => $orderSubTotal,
+                'order_total' => $orderTotal,
+            ]);
+        }
+
+        // Don't allow quantity to go below 1
+        if ($newQuantity < 1) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Quantity cannot be less than 1.'
+            ], 400);
+        }
+
+        try {
+            DB::transaction(function () use ($orderItem, $newQuantity) {
+                // Update order item
+                $orderItem->update([
+                    'quantity' => $newQuantity,
+                    'sub_total' => $orderItem->unit_price * $newQuantity,
+                    'total' => $orderItem->unit_price * $newQuantity,
+                ]);
+
+                // Refresh the order relationship to get updated items
+                $orderItem->order->refresh();
+
+                // Recalculate order totals
+                $orderSubTotal = $orderItem->order->items->sum('sub_total');
+                $orderTotal = $orderItem->order->items->sum('total');
+
+                // Update order totals
+                $orderItem->order->update([
+                    'sub_total' => $orderSubTotal,
+                    'total' => $orderTotal,
+                ]);
+            });
+
+            // Refresh to get latest data
+            $orderItem->refresh();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Quantity updated successfully.',
+                'quantity' => $newQuantity,
+                'item_subtotal' => $orderItem->sub_total,
+                'order_subtotal' => $orderItem->order->sub_total,
+                'order_total' => $orderItem->order->total,
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to update quantity. Please try again.'
+            ], 500);
+        }
     }
 
     public function removeItem(Request $request)
