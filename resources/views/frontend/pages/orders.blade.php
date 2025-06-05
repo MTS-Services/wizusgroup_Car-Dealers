@@ -21,7 +21,7 @@
 
                 <div class="2xl:col-span-3 lg:col-span-5">
                     <div
-                        class="bg-bg-light dark:bg-bg-dark-tertiary border border-gray-200 dark:border-border-dark shadow-sm dark:shadow-dark-card rounded-xl p-6">
+                        class="bg-bg-light dark:bg-bg-dark-tertiary border border-border-gray dark:border-border-dark shadow-sm dark:shadow-dark-card rounded-xl p-6">
 
                         <!-- Top: Order number and status -->
                         <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-4 items-center gap-4">
@@ -138,7 +138,7 @@
                     <div
                         class="bg-bg-light dark:bg-bg-dark-secondary rounded-lg shadow-sm dark:shadow-bg-dark-secondary border border-border-gray dark:border-bg-dark-tertiary">
                         <div
-                            class="p-5 border-b border-border-gray dark:border-border-dark-secondary dark:border-dark-tertiary">
+                            class="p-5 border-b border-border-gray dark:border-border-dark dark:border-dark-tertiary">
                             <h2 class="text-xl font-semibold text-text-dark dark:text-white">{{ __('Order Items') }}</h2>
                         </div>
                         <div class="p-4 sm:p-6 max-h-[330px]">
@@ -186,72 +186,70 @@
         </div>
     </section>
     <section>
-        <div class="container mx-auto p-6 bg-white">
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h2 class="text-xl font-semibold text-gray-800">Order Information</h2>
+        <div class="container mx-auto p-6 bg-bg-white dark:bg-bg-dark-secondary">
+            <div class="bg-bg-white dark:bg-bg-dark-tertiary rounded-lg shadow-sm border border-border-gray dark:border-border-dark">
+                <div class="px-6 py-4 border-b border-border-gray dark:border-border-dark">
+                    <h2 class="text-xl font-semibold ">{{ __('Order Information') }}</h2>
                 </div>
 
                 <form class="p-6 space-y-6" method="POST" action="#">
                     <!-- order information -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="text-xl " for="shipping_port">Shipping Port</label>
+                            <label class="text-xl" for="shipping_port">{{ __('Shipping Port') }}</label>
                             <select name="shipping_port" disabled
-                                class="w-full px-4 mt-2 py-3 border border-gray-300 rounded-md bg-gray-100 text-gray-500 cursor-not-allowed">
-                                <option value="">Select Shipping Port</option>
-                                <option value="1">Port of LA</option>
-                                <option value="2">Port of NY</option>
+                                class="w-full px-4 mt-2 py-3 border border-border-gray dark:border-border-dark rounded-md">
+                                <option value="">{{ __('Select Shipping Port') }}</option>
+                                <option value="1">{{ __('Port of LA') }}</option>
+                                <option value="2">{{ __('Port of NY') }}</option>
                             </select>
-
                         </div>
                         <div>
-                            <label class="text-xl " for="destination_port">Destination Port</label>
+                            <label class="text-xl" for="destination_port">{{ __('Destination Port') }}</label>
                             <select name="destination_port" disabled
-                                class="w-full px-4 mt-2 py-3 border border-gray-300 rounded-md bg-gray-100 text-gray-500 cursor-not-allowed">
-                                <option value="">Select Destination Port</option>
-                                <option value="1">Port of Hamburg</option>
-                                <option value="2">Port of Dubai</option>
+                                class="w-full px-4 mt-2 py-3 border border-border-gray dark:border-border-dark rounded-md  ">
+                                <option value="">{{ __('Select Destination Port') }}</option>
+                                <option value="1">{{ __('Port of Hamburg') }}</option>
+                                <option value="2">{{ __('Port of Dubai') }}</option>
                             </select>
                         </div>
                         <div>
-                            <label class="text-xl " for="whatsapp_number">Whatsapp Number</label>
-                            <input type="text" name="whatsapp_number" disabled value="Whatsapp Number"
-                                class="w-full px-4 mt-2 py-3 border border-gray-300 rounded-md bg-gray-100 text-gray-500 cursor-not-allowed">
-
+                            <label class="text-xl" for="whatsapp_number">{{ __('Whatsapp Number') }}</label>
+                            <input type="text" name="whatsapp_number" disabled value="{{ __('Whatsapp Number') }}"
+                                class="w-full px-4 mt-2 py-3  border border-border-gray dark:border-border-dark rounded-md  ">
                         </div>
 
                         <div>
-                             <label class="text-xl " for="container_selected">Container</label>
-                            <select name="container_selected" class="w-full px-4 py-3 mt-2 border border-gray-300 rounded-md">
-                                <option value="">Select Container</option>
-                                <option value="1">20FT - Small</option>
-                                <option value="2">40FT - Large</option>
+                            <label class="text-xl" for="container_selected">{{ __('Container') }}</label>
+                            <select name="container_selected"
+                                class="w-full px-4 py-3 mt-2 border border-border-gray dark:border-border-dark rounded-md">
+                                <option value="">{{ __('Select Container') }}</option>
+                                <option value="1">{{ __('20FT - Small') }}</option>
+                                <option value="2">{{ __('40FT - Large') }}</option>
                             </select>
                         </div>
                         <div>
-                            <label class="text-xl" for="price">Price</label>
-                            <input type="number" name="price" placeholder="Price ($)" step="0.01" min="0"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-md">
+                            <label class="text-xl" for="price">{{ __('Price') }}</label>
+                            <input type="number" name="price" placeholder="{{ __('Price ($)') }}" step="0.01"
+                                min="0" class="w-full px-4 py-3 border border-border-gray dark:border-border-dark rounded-md">
                         </div>
                         <div>
-                            <label class="text-xl" for="reserve_price">Reserve Price</label>
-                            <input type="number" name="reserve_price" placeholder="Reserve Price ($)" step="0.01"
-                                min="0" class="w-full px-4 py-3 border border-gray-300 rounded-md">
+                            <label class="text-xl" for="reserve_price">{{ __('Reserve Price') }}</label>
+                            <input type="number" name="reserve_price" placeholder="{{ __('Reserve Price ($)') }}"
+                                step="0.01" min="0" class="w-full px-4 py-3 border border-border-gray dark:border-border-dark rounded-md">
                         </div>
                     </div>
 
                     <!-- Address Field -->
                     <div>
-                        <label class="text-xl" for="note">Note</label>
-                        <textarea name="note" placeholder="Enter your note" rows="4"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-md resize-vertical"></textarea>
+                        <label class="text-xl" for="note">{{ __('Note') }}</label>
+                        <textarea name="note" placeholder="{{ __('Enter your note') }}" rows="4"
+                            class="w-full px-4 py-3 border border-border-gray dark:border-border-dark rounded-md resize-vertical"></textarea>
                     </div>
 
                     <!-- Submit Button -->
                     <div class="flex justify-end pt-4">
-                        <button type="submit"
-                            class="btn-primary">Finish Order</button>
+                        <button type="submit" class="btn-primary">{{ __('Finish Order') }}</button>
                     </div>
                 </form>
             </div>
