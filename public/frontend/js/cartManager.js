@@ -444,7 +444,7 @@ class CartManager {
                     ${item.quantity === 1 ? 'disabled' : ''}>
                     <i data-lucide="minus" class="w-4 h-4 group-hover:text-text-wiz_orange transition-all duration-300 ease-linear"></i>
                 </button>
-                <span class="quantity-display px-3 py-1 bg-bg-light dark:bg-bg-darkTertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">${item.quantity}</span>
+                <span class="quantity-display px-3 py-1 bg-bg-light dark:bg-bg-bg-dark-tertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">${item.quantity}</span>
                 <button
                     class="quantity-increase btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
                     title="Increase Quantity" data-item-id="${item.id}" data-current-quantity="${item.quantity}">

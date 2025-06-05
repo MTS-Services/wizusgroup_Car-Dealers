@@ -25,11 +25,11 @@
         <div class="flex flex-col lg:flex-row gap-8 my-10">
             <!-- Left Column - Checkout Form -->
             <div class="lg:w-2/3 bg-bg-white p-6 shadow-card rounded-lg dark:bg-bg-dark-tertiary">
-                <div class="mb-8">
-                    <h2 class="text-lg lg:text-xl capitalize font-medium mb-6">
-                        {{ __('Resigtration form') }}
-                    </h2>
-                    <form action="#">
+                <form action="#">
+                    <div class="mb-8">
+                        <h2 class="text-lg lg:text-xl capitalize font-medium mb-6">
+                            {{ __('Resigtration form') }}
+                        </h2>
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
                             <div>
                                 <input type="text" name="first_name" placeholder="First Name" class="input h-10">
@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="flex items-center">
                                     <input type="radio" name="language" id="language3" value="argentina">
-                                    <label for="language2" class="ml-2 text-text-gray">{{ ('Argentina') }}</label>
+                                    <label for="language2" class="ml-2 text-text-gray">{{ 'Argentina' }}</label>
                                 </div>
                             </div>
                             <div>
@@ -81,16 +81,12 @@
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'password']" />
                             </div>
                             <div>
-                                <input type="password" name="password_confirmation" placeholder="Confirm Password" class="input h-10">
+                                <input type="password" name="password_confirmation" placeholder="Confirm Password"
+                                    class="input h-10">
                             </div>
-                        </div>
-                        <div class="flex justify-end">
-                            <button type="submit" class="btn-primary">{{ __('Submit') }}</button>
-                        </div>
-                    </form>
-                </div>
-                <h2 class="text-lg lg:text-xl capitalize font-medium mb-6">{{ __('Delivery Information') }}</h2>
-                <form id="checkout-form">
+                        </div>  
+                    </div>
+                    <h2 class="text-lg lg:text-xl capitalize font-medium mb-6">{{ __('Delivery Information') }}</h2>
                     <!-- Personal Information -->
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
                         <div>
@@ -138,16 +134,31 @@
                             <input type="text" placeholder="Zipcode/Postal" class="input h-10">
                         </div>
                     </div>
-
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <select name="shipping_port" class="input" id="shipping_port">
+                                <option value="" selected>{{ __('Select Shipping Port') }}</option>
+                                <option value="">{{ __('Other') }}</option>
+                            </select>
+                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'shipping_port']" />
+                        </div>
+                        <div>
+                            {{-- Detination --}}
+                            <select name="destination" id="destination" class="input">
+                                <option value="" selected hidden>{{ __('Select Destination Port') }}</option>
+                                <option value="">{{ __('Other') }}</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="mb-4">
-                        <textarea name="address" class="input h-20 p-3 no-ckeditor5" id="address"></textarea>
+                        <textarea name="address" class="textarea no-ckeditor5" id="address" placeholder="Address"></textarea>
                     </div>
 
                     <!-- Shipping Method -->
                     <h2 class="text-xl font-medium mb-4">{{ __('Shipping Method') }}</h2>
                     <div class="space-y-4 mb-8">
                         <div
-                            class="payment-option flex justify-center items-center gap-2 border border-border-dark border-opacity-20 dark:border-white  dark:bg-bg-darkTertiary dark:border-opacity-30 focus:outline-primary focus:opacity-50 rounded p-2 text-sm w-full h-15">
+                            class="payment-option flex justify-center items-center gap-2 border border-border-dark border-opacity-20 dark:border-white  dark:bg-bg-primary dark:bg-opacity-10 dark:border-opacity-30 focus:outline-primary focus:opacity-50 rounded p-2 text-sm w-full h-15">
                             <input type="radio" id="free-shipping" name="shipping" class="w-4">
                             <label for="free-shipping" class="w-full">
                                 <div class="flex justify-between">
@@ -157,7 +168,7 @@
                             </label>
                         </div>
                         <div
-                            class="payment-option flex justify-center items-center gap-2 border border-border-dark border-opacity-20 dark:border-white  dark:bg-bg-darkTertiary dark:border-opacity-30 focus:outline-primary focus:opacity-50 rounded p-2 text-sm w-full h-15">
+                            class="payment-option flex justify-center items-center gap-2 border border-border-dark border-opacity-20 dark:border-white  dark:bg-bg-primary dark:bg-opacity-10 dark:border-opacity-30 focus:outline-primary focus:opacity-50 rounded p-2 text-sm w-full h-15">
                             <input type="radio" id="express-shipping" name="shipping" class="w-4">
                             <label for="express-shipping" class="w-full">
                                 <div class="flex justify-between">
@@ -171,7 +182,7 @@
                     <!-- Privacy Policy -->
                     <p class="text-sm text-text-primary mb-8">
                         {{ __('Your personal data will be used to process your order, support your experience throughout this
-                        website, and for other purposes described in our') }}
+                                                                    website, and for other purposes described in our') }}
                         <a href="#" class="text-text-accent hover:underline">privacy policy</a>.
                     </p>
                 </form>
@@ -215,7 +226,7 @@
                                                     class="w-4 h-4 group-hover:text-text-wiz_orange transition-all duration-300 ease-linear"></i>
                                             </button>
                                             <span
-                                                class="quantity-display px-3 py-1 bg-bg-light dark:bg-bg-darkTertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">{{ $item->quantity }}</span>
+                                                class="quantity-display px-3 py-1 bg-bg-light dark:bg-bg-bg-dark-tertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">{{ $item->quantity }}</span>
                                             <button
                                                 class="quantity-increase btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
                                                 title="Increase Quantity" data-item-id="{{ $item->id }}"
