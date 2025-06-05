@@ -225,7 +225,6 @@ class CartPageController extends Controller
                     return $cart;
                 }
             }
-            return false;
         }
 
         session()->put('cart_session_id', $cart->session_id);
