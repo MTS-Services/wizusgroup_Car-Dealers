@@ -384,6 +384,14 @@
                              </div>
                          </div>
                          <div class="flex justify-between items-center gap-5 mt-2">
+                             <x-frontend.primary-button icon="shopping-cart">{{ __('Buy Now') }}
+                             </x-frontend.primary-button>
+                             <x-frontend.primary-button>{{ __('WhatsApp Inquiry') }} </x-frontend.primary-button>
+                             <x-frontend.primary-button icon="shopping-basket" class="add-to-cart-{{ $product->id }}"
+                                 data_id="{{ $product->id }}">{{ __('Add to Cart') }}
+                             </x-frontend.primary-button>
+                         </div>
+                         {{-- <div class="flex justify-between items-center gap-5 mt-2">
                              <a href="@auth('web')
                                      javascript:void(0)
                                  @else
@@ -411,7 +419,7 @@
                                      class="btn-primary w-full openCartSidebar">{{ __('Add to Cart') }}</a>
                              @endauth
                          </div>
-                         <x-backend.user.inquiry :product="$product" :label="__('Product Inquiry')" />
+                         <x-backend.user.inquiry :product="$product" :label="__('Product Inquiry')" /> --}}
                      </div>
                  </div>
                  {{-- Description --}}
@@ -437,44 +445,31 @@
              <div class="relative">
                  <div class="swiper related_product static">
                      <div class="swiper-wrapper p-2">
-                         @foreach ($related_products as $r_product)
+                         @forelse ($related_products as $product)
+                             @php
+                                 $buttons = [
+                                     [
+                                         'route' => 'javascript:void(0)',
+                                         'icon' => 'shopping-cart',
+                                         'label' => 'Buy Now',
+                                         'bg' => false,
+                                     ],
+                                     [
+                                         'route' => 'javascript:void(0)',
+                                         'icon' => 'shopping-basket',
+                                         'label' => 'Add to Cart',
+                                         'bg' => true,
+                                         'class' => "add-to-cart-$product->id",
+                                         'data_id' => $product->id,
+                                     ],
+                                 ];
+                             @endphp
                              <div class="swiper-slide">
-                                <x-frontend.product :product="$r_product" />
-                                     {{-- <div class="product-card hover:shadow-md transition-all duration-300 ease-in-out group shadow-card rounded-lg overflow-hidden cursor-pointer"
-                                         data-product="1">
-                                         <div class="h-48 w-full overflow-hidden">
-                                             <img src="{{ storage_url($r_product->primaryImage->first()?->image) }}"
-                                                 alt="{{ $r_product->primaryImage->first()?->alt ?? $r_product->name }}"
-                                                 class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                                         </div>
-                                         <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary">
-                                             <h3
-                                                 class="text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
-                                                 {{ $r_product->model?->name }}
-                                             </h3>
-                                             @auth('web')
-                                                 <p class="text-xl font-bold text-text-danger">
-                                                     {{ number_format($r_product->price, 2) }}</p>
-                                             @endauth
-                                             <div
-                                                 class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                                 <span>{{ $r_product->year }}</span>
-                                                 @if ($r_product->model?->name)
-                                                     <span class="mx-2">|</span>
-                                                 @endif
-                                                 <span>{{ $r_product->brand?->name }}</span>
-                                             </div>
-                                             <div class="flex flex-col justify-center items-center mt-4 gap-2">
-                                                <a href="{{ route('frontend.product.details', $r_product->slug) }}"
-                                                    class="btn-primary rounded-md w-full hover:bg-bg-tertiary text-sm">{{ __('View Details') }}</a>
-                                                <a href="javascript:void(0)" class="openCartSidebar btn-primary rounded-md w-full bg-bg-tertiary hover:bg-text-secondary text-sm">{{ __('Add to Cart') }}</a>
-                                            </div>
-                                         </div>
-                                     </div> --}}
+                                 <x-frontend.product :product="$product" :buttons="$buttons" />
                              </div>
-                         @endforeach
+                         @empty
+                         @endforelse
                      </div>
-
                      <div class="hidden xl:block">
                          <div class="swiper-pagination z-10 !-bottom-6 lg:!-bottom-8"></div>
                          <!-- Navigation buttons -->
@@ -488,7 +483,6 @@
                      </div>
                  </div>
              </div>
-
          </div>
      </section>
 

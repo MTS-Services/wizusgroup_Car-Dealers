@@ -58,33 +58,33 @@
                     </div>
 
                     <!-- Right: Product Info -->
-                     <div class="w-full">
-                         <div class="mx-auto" x-data="{ tab: 'basic' }">
-                             <!-- Tabs -->
-                             <div
-                                 class="flex flex-col xs:flex-row flex-wrap items-start sm:items-center gap-1 sm:gap-2 2xl:justify-between border-b border-border-gray dark:border-bg-dark-secondary mb-4 sm:mb-6">
+                    <div class="w-full">
+                        <div class="mx-auto" x-data="{ tab: 'basic' }">
+                            <!-- Tabs -->
+                            <div
+                                class="flex flex-col xs:flex-row flex-wrap items-start sm:items-center gap-1 sm:gap-2 2xl:justify-between border-b border-border-gray dark:border-bg-dark-secondary mb-4 sm:mb-6">
 
 
-                                 <button @click="tab = 'basic'"
-                                     :class="tab === 'basic' ?
-                                         'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
-                                         'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
-                                     class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
-                                     {{ __('Basic Info') }}
-                                 </button>
+                                <button @click="tab = 'basic'"
+                                    :class="tab === 'basic' ?
+                                        'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
+                                        'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
+                                    class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
+                                    {{ __('Basic Info') }}
+                                </button>
 
-                                 @foreach ($auction->product->productInformations->groupBy('infoCategory.name') as $category => $info)
-                                     <button @click="tab = '{{ $category }}'"
-                                         :class="tab === 'airbag' ?
-                                             'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
-                                             'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
-                                         class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
-                                         {{ $category }}
-                                     </button>
-                                 @endforeach
+                                @foreach ($auction->product->productInformations->groupBy('infoCategory.name') as $category => $info)
+                                    <button @click="tab = '{{ $category }}'"
+                                        :class="tab === 'airbag' ?
+                                            'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
+                                            'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
+                                        class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
+                                        {{ $category }}
+                                    </button>
+                                @endforeach
 
 
-                                 {{-- <button @click="tab = 'airbag'"
+                                {{-- <button @click="tab = 'airbag'"
                                      :class="tab === 'airbag' ?
                                          'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
                                          'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
@@ -115,311 +115,292 @@
                                      class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
                                      {{ __('Documents') }}
                                  </button> --}}
-                             </div>
-                             <!-- Tab Content -->
-                             <div
-                                 class="bg-bg-white dark:bg-bg-tertiary/25 shadow-card dark:shadow-none p-4 sm:p-6 rounded-b-lg border border-border-gray dark:border-bg-dark-secondary overflow-auto max-h-[400px] lg:max-h-[520px] xl:max-h-[670px]">
+                            </div>
+                            <!-- Tab Content -->
+                            <div
+                                class="bg-bg-white dark:bg-bg-tertiary/25 shadow-card dark:shadow-none p-4 sm:p-6 rounded-b-lg border border-border-gray dark:border-bg-dark-secondary overflow-auto max-h-[400px] lg:max-h-[520px] xl:max-h-[670px]">
 
-                                 <!-- Basic Info -->
-                                 <div x-show="tab === 'basic'" x-cloak>
-                                     <table class="w-full table-auto text-sm sm:text-base">
-                                         <tbody>
-                                             @if ($auction->product->name)
-                                                 <tr class=" border-border-gray dark:border-bg-dark-secondary">
-                                                     <td
-                                                         class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Name') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->name }}
-                                                     </td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->price)
-                                                 <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td
-                                                         class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Price.') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->price }}
-                                                     </td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->short_description)
-                                                 <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td
-                                                         class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Short Description.') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->short_description }}
-                                                     </td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->stock_no)
-                                                 <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td
-                                                         class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Stock No.') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->stock_no }}
-                                                     </td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->company?->name)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Maker') }}
-                                                     </td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->company?->name }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->model?->name)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Model') }}
-                                                     </td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->model?->name ?? 'N/A' }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->grade)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Grade') }}
-                                                     </td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->grade ?? 'N/A' }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->body)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Body Type') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->body ?? 'N/A' }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->first_registration)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('First Registration') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->first_registration ?? 'N/A' }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->type)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Type') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->type ?? 'N/A' }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->displacement)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Displacement') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->displacement ?? 'N/A' }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->specification_no)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Specification No') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->specification_no ?? 'N/A' }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->classification_no)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Classification No') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->classification_no }}</td>
-                                             @endif
-                                             </tr>
-                                             @if ($auction->product->chassis_no)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Chassis No') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->chassis_no }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->serial_no)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Serial No') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->serial_no }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->engine_type)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Engine Type') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->engine_type }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->fuel_type)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Fuel') }}
-                                                     </td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->fuel_type }}
-                                                     </td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->mileage)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Mileage') }}
-                                                     </td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->mileage }}
-                                                     </td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->color)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Color') }}
-                                                     </td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->color }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->drive_system)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Drive System') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->drive_system }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->transmission)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Transmission') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->transmission }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->classification_no)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Capacity') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->capacity }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->odometer_replacement)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Odometer') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->odometer_replacement }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->steering_wheel)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Steering Wheel') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->steering_wheel }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->length_m)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Length (m)') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->length_m }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->width_m)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Width (m)') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->width_m }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->height_m)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Height (m)') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->height_m }}</td>
-                                                 </tr>
-                                             @endif
-                                             @if ($auction->product->weight_kg)
-                                                 <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Weight (Kg)') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $auction->product->weight_kg }}</td>
-                                                 </tr>
-                                             @endif
-                                         </tbody>
-                                         @if ($auction->product->remarks && $auction->product->remarks != '<p>&nbsp;</p>')
-                                             <tfoot class="border-t border-border-gray dark:border-bg-dark-secondary">
-                                                 <tr>
-                                                     <td colspan="2"
-                                                         class="font-semibold py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Remarks') }}</td>
-                                                 </tr>
-                                                 <tr>
-                                                     <td colspan="2">{!! $auction->product->remarks !!}</td>
-                                                 </tr>
-                                             </tfoot>
-                                         @endif
-                                     </table>
-                                 </div>
+                                <!-- Basic Info -->
+                                <div x-show="tab === 'basic'" x-cloak>
+                                    <table class="w-full table-auto text-sm sm:text-base">
+                                        <tbody>
+                                            @if ($auction->product->name)
+                                                <tr class=" border-border-gray dark:border-bg-dark-secondary">
+                                                    <td
+                                                        class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Name') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->name }}
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->price)
+                                                <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td
+                                                        class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Price.') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->price }}
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->short_description)
+                                                <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td
+                                                        class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Short Description.') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->short_description }}
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->stock_no)
+                                                <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td
+                                                        class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Stock No.') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->stock_no }}
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->company?->name)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Maker') }}
+                                                    </td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->company?->name }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->model?->name)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Model') }}
+                                                    </td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->model?->name ?? 'N/A' }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->grade)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Grade') }}
+                                                    </td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->grade ?? 'N/A' }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->body)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Body Type') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->body ?? 'N/A' }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->first_registration)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('First Registration') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->first_registration ?? 'N/A' }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->type)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Type') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->type ?? 'N/A' }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->displacement)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Displacement') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->displacement ?? 'N/A' }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->specification_no)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Specification No') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->specification_no ?? 'N/A' }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->classification_no)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Classification No') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->classification_no }}</td>
+                                            @endif
+                                            </tr>
+                                            @if ($auction->product->chassis_no)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Chassis No') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->chassis_no }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->serial_no)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Serial No') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->serial_no }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->engine_type)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Engine Type') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->engine_type }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->fuel_type)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Fuel') }}
+                                                    </td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->fuel_type }}
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->mileage)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Mileage') }}
+                                                    </td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->mileage }}
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->color)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Color') }}
+                                                    </td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->color }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->drive_system)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Drive System') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->drive_system }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->transmission)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Transmission') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->transmission }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->classification_no)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Capacity') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->capacity }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->odometer_replacement)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Odometer') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->odometer_replacement }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->steering_wheel)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Steering Wheel') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->steering_wheel }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->length_m)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Length (m)') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->length_m }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->width_m)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Width (m)') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->width_m }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->height_m)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Height (m)') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->height_m }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($auction->product->weight_kg)
+                                                <tr class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                    <td class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Weight (Kg)') }}</td>
+                                                    <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                        {{ $auction->product->weight_kg }}</td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                        @if ($auction->product->remarks && $auction->product->remarks != '<p>&nbsp;</p>')
+                                            <tfoot class="border-t border-border-gray dark:border-bg-dark-secondary">
+                                                <tr>
+                                                    <td colspan="2"
+                                                        class="font-semibold py-2 sm:py-3 dark:text-text-light">
+                                                        {{ __('Remarks') }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">{!! $auction->product->remarks !!}</td>
+                                                </tr>
+                                            </tfoot>
+                                        @endif
+                                    </table>
+                                </div>
 
 
-                                 @foreach ($auction->product->productInformations as $key => $info)
-                                     <div x-show="tab === '{{ $info->infoCategory->name }}'" x-cloak>
-                                         {!! $info->description !!}
-                                         <a href="javascript:void(0)" class="btn btn-dark btn-sm">
-                                             <i class="fas fa-download"></i></a>
-                                     </div>
-                                 @endforeach
-                             </div>
-                         </div>
-                         <div class="flex justify-between items-center gap-5 mt-2">
-                             <a href="@auth('web')
-                                     javascript:void(0)
-                                 @else
-                                     {{ route('login') }}
-                                 @endauth"
-                                 @auth('web')
-                                         onclick="document.getElementById('reserve-{{ $auction->slug }}').showModal()"
-                                    @endauth
-                                 class="btn-primary w-full">{{ __('Buy Now') }}</a>
-
-                             <x-backend.user.reserve :product="$auction" />
-
-                             <a href="@auth('web')
-                                     javascript:void(0)
-                                 @else
-                                     {{ route('login') }}
-                                 @endauth"
-                                 @auth('web')
-                                         onclick="document.getElementById('inquiry-{{ $auction->slug }}').showModal()"
-                                    @endauth
-                                 class="btn-primary w-full">{{ __('WhatsApp Inquiry') }}</a>
-
-                             @auth('web')
-                                 <a href="javascript:void(0)" onclick=""
-                                     class="btn-primary w-full openCartSidebar">{{ __('Add to Cart') }}</a>
-                             @endauth
-                         </div>
-                         <x-backend.user.inquiry :product="$auction" :label="__('Product Inquiry')" />
-                     </div>
+                                @foreach ($auction->product->productInformations as $key => $info)
+                                    <div x-show="tab === '{{ $info->infoCategory->name }}'" x-cloak>
+                                        {!! $info->description !!}
+                                        <a href="javascript:void(0)" class="btn btn-dark btn-sm">
+                                            <i class="fas fa-download"></i></a>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center gap-5 mt-2">
+                            <x-frontend.primary-button icon="shopping-cart">{{ __('Buy Now') }}
+                            </x-frontend.primary-button>
+                            <x-frontend.primary-button>{{ __('WhatsApp Inquiry') }} </x-frontend.primary-button>
+                            <x-frontend.primary-button icon="shopping-basket"
+                                class="add-to-cart-{{ $auction->product->id }}"
+                                data_id="{{ $auction->product->id }}">{{ __('Add to Cart') }}
+                            </x-frontend.primary-button>
+                        </div>
+                        {{-- <x-backend.user.inquiry :product="$auction" :label="__('Product Inquiry')" /> --}}
+                    </div>
                 </div>
                 {{-- Description --}}
                 <div class="mt-6">
