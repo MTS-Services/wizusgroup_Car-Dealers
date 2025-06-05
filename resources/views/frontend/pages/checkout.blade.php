@@ -6,10 +6,10 @@
     <div class="container mx-auto px-4 py-4 text-sm">
         <ul class="flex items-center gap-2 ">
             <li>
-                <a href="#" class="text-text-gray hover:text-text-accent">Home</a>
+                <a href="#" class="text-text-gray hover:text-text-accent">{{ __('Home') }}</a>
             </li>
             <li class="relative bracamb-dot">
-                <span class="font-midium">Checkout</span>
+                <span class="font-midium">{{ __('Checkout') }}</span>
             </li>
         </ul>
     </div>
@@ -17,7 +17,7 @@
     <!-- Header -->
     <div class="container mx-auto px-4 py-8 text-center">
         <div class="flex flex-col items-center justify-center">
-            <h1 class="text-4xl font-semibold">Checkout</h1>
+            <h1 class="text-4xl font-semibold">{{ __('Checkout') }}</h1>
         </div>
     </div>
     {{-- Main Content Start Here --}}
@@ -25,82 +25,90 @@
         <div class="flex flex-col lg:flex-row gap-8 my-10">
             <!-- Left Column - Checkout Form -->
             <div class="lg:w-2/3 bg-bg-white p-6 shadow-card rounded-lg dark:bg-bg-dark-tertiary">
-                <form action="#">
-                    <div class="mb-8">
-                        <h2 class="text-lg lg:text-xl capitalize font-medium mb-6">
-                            {{ __('Resigtration form') }}
-                        </h2>
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-                            <div>
-                                <input type="text" name="first_name" placeholder="First Name" class="input h-10">
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'first_name']" />
-                            </div>
-                            <div>
-                                <input type="text" name="last_name" placeholder="Last Name" class="input h-10">
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'last_name']" />
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-                            <div>
-                                <input type="email" name="email" placeholder="Email" class="input h-10">
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'email']" />
-                            </div>
-                            <div>
-                                <input type="text" name="whatsapp" placeholder="whatsapp" class="input h-10">
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'whatsapp']" />
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-                            <div class="flex flex-wrap lg:flex-row gap-2">
-                                <div class="flex items-center">
-                                    <input type="radio" name="language" id="language1" value="english" checked>
-                                    <label for="language1" class="ml-2 text-text-gray">English</label>
+                <form action="{{ route('frontend.checkout-order.submit') }}" method="POST">
+                    @csrf
+                    @auth('web')
+                    @else
+                        <div class="mb-8">
+                            <h2 class="text-lg lg:text-xl capitalize font-medium mb-6">
+                                {{ __('Resigtration form') }}
+                            </h2>
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+                                <div>
+                                    <input type="text" name="first_name" placeholder="First Name" class="input h-10">
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'first_name']" />
                                 </div>
-                                <div class="flex items-center">
-                                    <input type="radio" name="language" id="language2" value="french">
-                                    <label for="language2" class="ml-2 text-text-gray">{{ __('French') }}</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input type="radio" name="language" id="language3" value="argentina">
-                                    <label for="language2" class="ml-2 text-text-gray">{{ 'Argentina' }}</label>
+                                <div>
+                                    <input type="text" name="last_name" placeholder="Last Name" class="input h-10">
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'last_name']" />
                                 </div>
                             </div>
-                            <div>
-                                <select name="gender" id="gender" class="input">
-                                    <option value="" selected hidden>{{ __('Select Gender') }}</option>
-                                    <option value="male">{{ __('Male') }}</option>
-                                    <option value="female">{{ __('Female') }}</option>
-                                    <option value="other">{{ __('Other') }}</option>
-                                </select>
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'gender']" />
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+                                <div>
+                                    <input type="email" name="email" placeholder="Email" class="input h-10">
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'email']" />
+                                </div>
+                                <div>
+                                    <input type="text" name="whatsapp" placeholder="whatsapp" class="input h-10">
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'whatsapp']" />
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+                                <div class="flex flex-wrap lg:flex-row gap-2">
+                                    <div class="flex items-center">
+                                        <input type="radio" name="language" id="language1" value="english" checked>
+                                        <label for="language1" class="ml-2 text-text-gray">English</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="radio" name="language" id="language2" value="french">
+                                        <label for="language2" class="ml-2 text-text-gray">{{ __('French') }}</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="radio" name="language" id="language3" value="argentina">
+                                        <label for="language2" class="ml-2 text-text-gray">{{ 'Argentina' }}</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <select name="gender" id="gender" class="input">
+                                        <option value="" selected hidden>{{ __('Select Gender') }}</option>
+                                        @foreach (App\Models\AuthBaseModel::getGenderLabels() as $key => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'gender']" />
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+                                <div>
+                                    <input type="password" name="password" placeholder="Password" class="input h-10">
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'password']" />
+                                </div>
+                                <div>
+                                    <input type="password" name="password_confirmation" placeholder="Confirm Password"
+                                        class="input h-10">
+                                </div>
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-                            <div>
-                                <input type="password" name="password" placeholder="Password" class="input h-10">
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'password']" />
-                            </div>
-                            <div>
-                                <input type="password" name="password_confirmation" placeholder="Confirm Password"
-                                    class="input h-10">
-                            </div>
-                        </div>
-                    </div>
+                    @endauth
+
                     <h2 class="text-lg lg:text-xl capitalize font-medium mb-6">{{ __('Delivery Information') }}</h2>
                     <!-- Personal Information -->
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
                         <div>
-                            <input type="text" placeholder="Name" class="input h-10">
+                            <input type="text" placeholder="Name" name="name"
+                                value="{{ user() ? user()->name : old('name') }}" class="input h-10">
                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'name']" />
                         </div>
                         <div>
-                            <input type="email" placeholder="Email" class="input h-10">
+                            <input type="email" placeholder="Email" name="d_email"
+                                value="{{ user() ? user()->email : old('email') }}" class="input h-10">
                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'email']" />
                         </div>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
                         <div>
-                            <input type="text" placeholder="Phone" class="input h-10">
+                            <input type="text" placeholder="Phone" name="phone"
+                                value="{{ user() ? user()->phone : old('phone') }}" class="input h-10">
                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'phone']" />
                         </div>
 
@@ -131,27 +139,37 @@
                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'city']" />
                         </div>
                         <div>
-                            <input type="text" placeholder="Zipcode/Postal" class="input h-10">
+                            <input type="text" name="zipcode" placeholder="Zipcode/Postal" class="input h-10">
                         </div>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
                         <div>
                             <select name="shipping_port" class="input" id="shipping_port">
-                                <option value="" selected>{{ __('Select Shipping Port') }}</option>
-                                <option value="">{{ __('Other') }}</option>
+                                <option value="" selected disabled>{{ __('Select Shipping Port') }}</option>
+                                @foreach ($shipping_locations as $shipping_port)
+                                    <option value="{{ $shipping_port->id }}"
+                                        {{ old('shipping_port') == $shipping_port->id ? 'selected' : '' }}>
+                                        {{ $shipping_port->name }}
+                                    </option>
+                                @endforeach
                             </select>
                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'shipping_port']" />
                         </div>
                         <div>
                             {{-- Detination --}}
                             <select name="destination" id="destination" class="input">
-                                <option value="" selected hidden>{{ __('Select Destination Port') }}</option>
-                                <option value="">{{ __('Other') }}</option>
+                                <option value="" selected disabled>{{ __('Select Destination Port') }}</option>
+                                @foreach ($shipping_locations as $shipping_port)
+                                    <option value="{{ $shipping_port->id }}"
+                                        {{ old('shipping_port') == $shipping_port->id ? 'selected' : '' }}>
+                                        {{ $shipping_port->name }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="mb-4">
-                        <textarea name="address" class="textarea no-ckeditor5" id="address" placeholder="Address"></textarea>
+                        <textarea name="address" class="textarea no-ckeditor5" id="address" placeholder="Address">{{ old('address') }}</textarea>
                     </div>
 
                     <!-- Shipping Method -->
@@ -159,21 +177,19 @@
                     <div class="space-y-4 mb-8">
                         <div
                             class="payment-option flex justify-center items-center gap-2 border border-border-dark border-opacity-20 dark:border-white  dark:bg-bg-primary dark:bg-opacity-10 dark:border-opacity-30 focus:outline-primary focus:opacity-50 rounded p-2 text-sm w-full h-15">
-                            <input type="radio" id="free-shipping" name="shipping" class="w-4">
-                            <label for="free-shipping" class="w-full">
+                            <input type="radio" id="shipping_method" name="shipping_method" class="w-4">
+                            <label for="shipping_method" class="w-full">
                                 <div class="flex justify-between">
                                     <span>{{ __('Group Shipping') }}</span>
-                                    <span class="font-medium">{{ __('$0.00') }}</span>
                                 </div>
                             </label>
                         </div>
                         <div
                             class="payment-option flex justify-center items-center gap-2 border border-border-dark border-opacity-20 dark:border-white  dark:bg-bg-primary dark:bg-opacity-10 dark:border-opacity-30 focus:outline-primary focus:opacity-50 rounded p-2 text-sm w-full h-15">
-                            <input type="radio" id="express-shipping" name="shipping" class="w-4">
+                            <input type="radio" id="express-shipping" name="shipping_method" class="w-4">
                             <label for="express-shipping" class="w-full">
                                 <div class="flex justify-between">
                                     <span>{{ __('Full Container') }}</span>
-                                    <span class="font-medium">{{ __('$10.00') }}</span>
                                 </div>
                             </label>
                         </div>
@@ -182,7 +198,7 @@
                     <!-- Privacy Policy -->
                     <p class="text-sm text-text-primary mb-8">
                         {{ __('Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our') }}
-                        <a href="#" class="text-text-accent hover:underline">privacy policy</a>.
+                        <a href="#" class="text-text-accent hover:underline">{{ __('Privacy Policy') }}</a>.
                     </p>
                 </form>
             </div>

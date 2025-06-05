@@ -97,27 +97,27 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 mt-8">
                 @forelse ($featured_products as $product)
-                            @php
-                                $buttons = [
-                                    [
-                                        'route' => 'javascript:void(0)',
-                                        'icon' => 'shopping-cart',
-                                        'label' => 'Buy Now',
-                                        'bg' => false,
-                                    ],
-                                    [
-                                        'route' => 'javascript:void(0)',
-                                        'icon' => 'shopping-basket',
-                                        'label' => 'Add to Cart',
-                                        'bg' => true,
-                                        'class' => "add-to-cart-$product->id",
-                                        'data_id' => $product->id,
-                                    ],
-                                ];
-                            @endphp
-                            <x-frontend.product :product="$product" :buttons="$buttons" />
-                        @empty
-                        @endforelse
+                    @php
+                        $buttons = [
+                            [
+                                'route' => route('frontend.checkout.single', ['slug' => $product->slug]),
+                                'icon' => 'shopping-cart',
+                                'label' => 'Buy Now',
+                                'bg' => false,
+                            ],
+                            [
+                                'route' => 'javascript:void(0)',
+                                'icon' => 'shopping-basket',
+                                'label' => 'Add to Cart',
+                                'bg' => true,
+                                'class' => "add-to-cart-$product->id",
+                                'data_id' => $product->id,
+                            ],
+                        ];
+                    @endphp
+                    <x-frontend.product :product="$product" :buttons="$buttons" />
+                @empty
+                @endforelse
             </div>
             <div class="text-center mx-auto xl:mt-15 lg:mt-11 md:mt-9 mt-7">
                 <button>
@@ -267,7 +267,7 @@
 
         // CATEGORY SWIPER
         const categorySwiperEl = document.querySelector('.categories');
-       const categorySwiper = new Swiper(categorySwiperEl, {
+        const categorySwiper = new Swiper(categorySwiperEl, {
             loop: true,
             slidesPerView: 6,
             spaceBetween: 20,
@@ -312,7 +312,7 @@
         });
 
         // On hover stop autoplay
-         categorySwiperEl.addEventListener('mouseenter', () => {
+        categorySwiperEl.addEventListener('mouseenter', () => {
             categorySwiper.autoplay.stop();
         });
 
@@ -321,7 +321,7 @@
         });
         // Testimonial SWIPER
         const testimonialSwiperEl = document.querySelector('.testimonials');
-       const testimonialSwiper = new Swiper(testimonialSwiperEl, {
+        const testimonialSwiper = new Swiper(testimonialSwiperEl, {
             loop: true,
             slidesPerView: 3,
             spaceBetween: 20,

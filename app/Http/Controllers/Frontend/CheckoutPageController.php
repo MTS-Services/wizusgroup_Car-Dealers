@@ -8,6 +8,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\ShippingLocation;
 use App\Services\AddressService;
 use App\Services\Admin\Setup\CountryService;
 use Illuminate\Support\Facades\DB;
@@ -173,6 +174,7 @@ class CheckoutPageController extends Controller
         if (!Order::where('order_number', $orderNumber)->exists()) {
             abort(404);
         }
+        $data['shipping_locations'] = ShippingLocation::active()->orderBy('name')->get();
         $data['countries'] = $this->countryService->getCountrys()->active()->get();
         $data['order'] = Order::with('items.product.primaryImage')->where('order_number', $orderNumber)->first();
         return view('frontend.pages.checkout', $data);

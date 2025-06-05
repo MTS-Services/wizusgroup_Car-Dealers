@@ -81,5 +81,10 @@ Route::group(['as' => 'frontend.'], function () {
         Route::get('/checkout/{orderNumber}', 'checkout')->name('checkout');
         Route::post('/checkout/quantity-update', 'quantityUpdate')->name('checkout.quantity-update');
         Route::post('/checkout/remove-item', 'removeItem')->name('checkout.remove-item');
+
+
+        Route::post('/checkout-order/submit', 'orderSubmit')->name('checkout-order.submit');
+
+
     });
 });
