@@ -29,11 +29,11 @@ class HomePageController extends Controller
     {
         $data['banners'] = $this->bannerService->getBanners()->active()->get();
         $data['categories'] = $this->categoryService->getCategories()->isMainCategory()->select(['id', 'name', 'slug', 'image'])->active()->get();
-        $data['container'] = $this->containerService->getContainers('deadline', 'asc')->active()->with(['destinationPort', 'shippingPort'])->first();
+        $data['container'] = $this->containerService->getContainers('deadline', 'asc')->active()->where('deadline', '>', now())->with(['destinationPort', 'shippingPort'])->first();
         $data['testimonials'] = $this->testimonialService->getTestimonials()->active()->get();
         $data['featured_products'] = $this->productService->getProducts()
             ->active()->featured()
-            ->with(['company', 'brand',  'model',  'primaryImage'])->latest()->get();
+            ->with(['company', 'brand', 'model', 'primaryImage'])->latest()->get();
 
         return view('frontend.pages.home', $data);
     }
