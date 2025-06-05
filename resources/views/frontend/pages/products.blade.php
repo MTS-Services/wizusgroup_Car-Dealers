@@ -326,13 +326,15 @@
             }
 
         });
-        categorySwiperEl.addEventListener('mouseenter', () => {
-            categorySwiper.autoplay.stop();
-        });
+        if (categorySwiperEl) {
+            categorySwiperEl.addEventListener('mouseenter', () => {
+                categorySwiper.autoplay.stop();
+            });
 
-        categorySwiperEl.addEventListener('mouseleave', () => {
-            categorySwiper.autoplay.start();
-        });
+            categorySwiperEl.addEventListener('mouseleave', () => {
+                categorySwiper.autoplay.start();
+            });
+        }
     </script>
     <script>
         $(document).ready(function() {

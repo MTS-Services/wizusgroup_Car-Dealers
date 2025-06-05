@@ -46,15 +46,11 @@
     </a>
 </div>
 
-
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-
         $('.add-to-cart-{{ $product->id }}').on('click', function() {
             const productId = $(this).data('id');
             addToCart(productId);
         })
-
     })
 </script>

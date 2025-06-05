@@ -52,9 +52,9 @@
                         </form>
                     </div>
                 </div>
-                <div class="w-full lg:w-1/2 overflow-hidden rounded-md">
+                <div class="w-full lg:w-1/2 overflow-hidden rounded-lg">
                     <h2 class="text-xl md:text-2xl xl:text-3xl font-semibold capitalize pb-3">{{ __('Our Offices') }}</h2>
-                    <div class="h-full shadow-card bg-bg-light dark:bg-opacity-20 p-6">
+                    <div class="h-full shadow-card rounded-md bg-bg-light dark:bg-opacity-20 p-6">
                         <div class="flex items-center gap-4 mb-10 text-sm lg:text-base text-center lg:text-left mt-2">
 
 

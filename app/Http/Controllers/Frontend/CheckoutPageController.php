@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Frontend\CheckoutSubmitRequest;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Services\AddressService;
 use App\Services\Admin\Setup\CountryService;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class CheckoutPageController extends Controller
@@ -22,22 +23,34 @@ class CheckoutPageController extends Controller
         $this->countryService = $countryService;
         $this->addressService = $addressService;
     }
-    public function checkoutSubmit(Request $request)
+
+    protected function getCart()
     {
+        if (!auth()->guard('web')->check() && !session()->get('cart_session_id')) {
+            return null;
+        }
+        $user = auth()->guard('web')->check() ? user() : null;
+        $sessionId = session()->get('cart_session_id');
+        return $user
+            ? Cart::with('items.product')->where('user_id', $user->id)->first()
+            : ($sessionId ? Cart::with('items.product')->where('session_id', $sessionId)->first() : null);
+    }
+
+    public function checkoutSubmit(CheckoutSubmitRequest $request)
+    {
+
+
         try {
-
-
-            $user = auth()->guard('web')->check() ? user() : null;
-            $sessionId = session()->get('cart_session_id');
-            $cart = $user
-                ? Cart::with('items.product')->where('user_id', $user->id)->first()
-                : ($sessionId ? Cart::with('items.product')->where('session_id', $sessionId)->first() : null);
-
+            $cart = $this->getCart();
             if (!$cart) {
-                throw new \Exception('Cart not found');
+                throw new \Exception('You have no items in your cart');
             }
+            
+            $sessionId = session()->get('cart_session_id');
+            $user = auth()->guard('web')->check() ? user() : null;
+
             $orderNumber = generateOrderNumber();
-            DB::transaction(function () use ($request, $user, $sessionId, $cart, $orderNumber) {
+            DB::transaction(function () use ($user, $sessionId, $cart, $orderNumber) {
                 // Create the order
                 $orderData = [
                     'order_number' => $orderNumber,
@@ -66,7 +79,7 @@ class CheckoutPageController extends Controller
                         'unit_price' => $item->price,
                         'sub_total' => $item->price * $item->quantity,
                         'total' => $item->price * $item->quantity,
-                        'creater_id' => $user?->id,
+                        'creater_id' => $user ? $user->id : null,
                         'creater_type' => $user ? get_class($user) : null,
                     ]);
                 }
@@ -87,11 +100,9 @@ class CheckoutPageController extends Controller
             return redirect()->route('frontend.checkout', ['orderNumber' => $orderNumber]);
         } catch (\Throwable $e) {
             report($e); // Log the error
-            session()->flash('error', 'Something went wrong: ' . $e->getMessage());
+            session()->flash('error',  $e->getMessage());
             return redirect()->back();
         }
-
-
     }
 
     public function checkout($orderNumber)
@@ -102,5 +113,42 @@ class CheckoutPageController extends Controller
         $data['countries'] = $this->countryService->getCountrys()->active()->get();
         $data['order'] = Order::with('items.product.primaryImage')->where('order_number', $orderNumber)->first();
         return view('frontend.pages.checkout', $data);
+    }
+
+    public function quantityUpdate(Request $request)
+    {
+
+        $newQuantity = $request->input('quantity');
+
+        $orderItem = OrderItem::where('id', $request->input('item_id'))->select(['id', 'quantity'])->first();
+
+        if (!$orderItem) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Order item not found.'
+            ], 404);
+        }
+
+        $orderItem->quantity = $newQuantity;
+        $orderItem->save();
+
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Quantity updated successfully.',
+            'new_quantity' => $newQuantity,
+            'item_id' => $orderItem->id
+        ]);
+    }
+
+    public function removeItem(Request $request)
+    {
+        $itemId = $request->input('item_id');
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Item removed successfully.',
+            'item_id' => $itemId
+        ]);
     }
 }

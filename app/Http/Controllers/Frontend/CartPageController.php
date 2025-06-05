@@ -31,8 +31,7 @@ class CartPageController extends Controller
      */
     public function cart(): View
     {
-        $cart = $this->getOrCreateCart();
-        return view('frontend.pages.cart', ['cart' => $cart]);
+        return view('frontend.pages.cart');
     }
 
     /**
@@ -43,8 +42,14 @@ class CartPageController extends Controller
      */
     public function fetchCartItems(): JsonResponse
     {
-        $cart = $this->getOrCreateCart();
-        $cartItems = $cart->items()->with('product.primaryImage', 'product.brand', 'product.model')->get();
+        $cart = $this->getOrUpdateCart();
+        if (!$cart) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Cart not found',
+            ]);
+        }
+        $cartItems = $cart ? $cart->items()->with('product.primaryImage', 'product.brand', 'product.model')->get() : [];
         $cartTotal = $this->calculateCartTotal($cart);
 
         return response()->json([
@@ -104,8 +109,7 @@ class CartPageController extends Controller
         $newQuantity = (int) $request->input('new_quantity');
 
 
-        $cart = $this->getOrCreateCart();
-        $cartItem = $cart->items->where('id', $itemId)->first();
+        $cartItem = CartItem::with('cart')->where('id', $itemId)->first();
 
         if (!$cartItem) {
             return response()->json([
@@ -122,7 +126,7 @@ class CartPageController extends Controller
                 'item_id' => $itemId,
                 'new_quantity' => $newQuantity,
                 'item_subtotal' => $cartItem->total,
-                'cart_total' => $this->calculateCartTotal($cart),
+                'cart_total' => $this->calculateCartTotal($cartItem->cart),
             ]);
         }
 
@@ -131,7 +135,7 @@ class CartPageController extends Controller
             $newQuantity = 1; // Force minimum quantity to 1
             $cartItem->quantity = $newQuantity;
             $cartItem->save(); // Save the item with quantity 1
-            $cartTotal = $this->calculateCartTotal($cart);
+            $cartTotal = $this->calculateCartTotal($cartItem->cart);
             $updatedItemSubtotal = $cartItem->total; // Recalculate total after change
 
             return response()->json([
@@ -148,7 +152,7 @@ class CartPageController extends Controller
         $cartItem->save(); // This will trigger the updating event to recalculate $item->total
 
         $updatedItemSubtotal = $cartItem->total; // Use the already calculated total from the model
-        $cartTotal = $this->calculateCartTotal($cart);
+        $cartTotal = $this->calculateCartTotal($cartItem->cart);
 
         return response()->json([
             'status' => 'success',
@@ -171,7 +175,7 @@ class CartPageController extends Controller
     {
         $itemId = $request->input('item_id');
 
-        $cart = $this->getOrCreateCart();
+        $cart = $this->getOrUpdateCart();
         $cartItem = $cart->items()->where('id', $itemId)->first();
 
         if (!$cartItem) {
@@ -197,6 +201,37 @@ class CartPageController extends Controller
      *
      * @return \App\Models\Cart
      */
+    protected function getOrUpdateCart()
+    {
+        $cart = null;
+
+        $sessionId = Session::getId();
+        if (Auth::guard('web')->check()) {
+            $userId = user()->id;
+            $cart = Cart::where('user_id', $userId)->first();
+
+            if ($cart) {
+                $cart = Cart::update(['session_id' => $sessionId]);
+            }
+        } else {
+            if (session()->has('cart_session_id')) {
+                $cart = Cart::where('session_id', session()->get('cart_session_id'))->first();
+
+                if ($cart) {
+                    $cart->update([
+                        'session_id' => $sessionId
+                    ]);
+
+                    return $cart;
+                }
+            }
+            return false;
+        }
+
+        session()->put('cart_session_id', $cart->session_id);
+        return $cart;
+    }
+
     protected function getOrCreateCart()
     {
         $cart = null;
@@ -204,10 +239,7 @@ class CartPageController extends Controller
         $sessionId = Session::getId();
         if (Auth::guard('web')->check()) {
             $userId = user()->id;
-            $cart = Cart::updateOrCreate(
-                ['user_id' => $userId],
-                ['session_id' => $sessionId]
-            );
+            $cart = Cart::updateOrCreate(['user_id' => $userId], ['session_id' => $sessionId]);
         } else {
             if (session()->has('cart_session_id')) {
                 $cart = Cart::where('session_id', session()->get('cart_session_id'))->first();
@@ -217,14 +249,10 @@ class CartPageController extends Controller
                         'session_id' => $sessionId
                     ]);
                 } else {
-                    $cart = Cart::create([
-                        'session_id' => $sessionId
-                    ]);
+                    $cart = Cart::create(['session_id' => $sessionId]);
                 }
             } else {
-                $cart = Cart::create([
-                    'session_id' => $sessionId
-                ]);
+                $cart = Cart::create(['session_id' => $sessionId]);
             }
         }
 
