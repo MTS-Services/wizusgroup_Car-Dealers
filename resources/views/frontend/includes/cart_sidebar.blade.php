@@ -70,7 +70,7 @@
                 emptyMessage: '#cart-empty-message',
                 totalDisplay: '.cart-total'
             },
-            debug: true // Enable for development
+            // debug: true // Enable for development
         });
     })
 </script>

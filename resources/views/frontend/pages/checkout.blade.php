@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="flex items-center">
                                     <input type="radio" name="language" id="language3" value="argentina">
-                                    <label for="language2" class="ml-2 text-text-gray">{{ ('Argentina') }}</label>
+                                    <label for="language2" class="ml-2 text-text-gray">{{ 'Argentina' }}</label>
                                 </div>
                             </div>
                             <div>
@@ -81,7 +81,8 @@
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'password']" />
                             </div>
                             <div>
-                                <input type="password" name="password_confirmation" placeholder="Confirm Password" class="input h-10">
+                                <input type="password" name="password_confirmation" placeholder="Confirm Password"
+                                    class="input h-10">
                             </div>
                         </div>
                         <div class="flex justify-end">
@@ -171,7 +172,7 @@
                     <!-- Privacy Policy -->
                     <p class="text-sm text-text-primary mb-8">
                         {{ __('Your personal data will be used to process your order, support your experience throughout this
-                        website, and for other purposes described in our') }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        website, and for other purposes described in our') }}
                         <a href="#" class="text-text-accent hover:underline">privacy policy</a>.
                     </p>
                 </form>
@@ -183,7 +184,7 @@
                     <h2 class="text-lg font-semibold mb-6">{{ __('In your cart') }}</h2>
 
                     <!-- Cart Items -->
-                    <div class="space-y-6 mb-6">
+                    <div class="space-y-6 mb-6" id="cart-items-container">
                         @foreach ($order->items as $item)
                             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-lg shadow-md dark:bg-bg-dark-secondary transition-all duration-200 hover:shadow-lg"
                                 data-item-id="{{ $item->id }}">
@@ -208,25 +209,25 @@
                                         class="flex flex-col sm:flex-row items-start sm:items-center justify-center gap-5 mt-3 w-full">
                                         <div class="flex items-center gap-2 flex-shrink-0">
                                             <button
-                                                class="quantity-decrease btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
-                                                title="Decrease Quantity" data-item-id="{{ $item->id }}"
-                                                data-current-quantity="{{ $item->quantity }}">
+                                                class="decrease-quantity btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
+                                                title="Decrease Quantity" data-id="{{ $item->id }}"
+                                                data-current-item-quantity="{{ $item->quantity }}">
                                                 <i data-lucide="minus"
                                                     class="w-4 h-4 group-hover:text-text-wiz_orange transition-all duration-300 ease-linear"></i>
                                             </button>
                                             <span
-                                                class="quantity-display px-3 py-1 bg-bg-light dark:bg-bg-darkTertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">{{ $item->quantity }}</span>
+                                                class="quantity-show px-3 py-1 bg-bg-light dark:bg-bg-darkTertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">{{ $item->quantity }}</span>
                                             <button
-                                                class="quantity-increase btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
-                                                title="Increase Quantity" data-item-id="{{ $item->id }}"
-                                                data-current-quantity="{{ $item->quantity }}">
+                                                class="increase-quantity btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
+                                                title="Increase Quantity" data-id="{{ $item->id }}"
+                                                data-current-item-quantity="{{ $item->quantity }}">
                                                 <i data-lucide="plus"
                                                     class="w-4 h-4 group-hover:text-text-secondary transition-all duration-300 ease-linear"></i>
                                             </button>
                                         </div>
                                         <button
-                                            class="btn btn-ghost btn-circle remove-item text-text-gray hover:text-red-600 transition-colors"
-                                            title="Remove Item" data-item-id="{{ $item->id }}">
+                                            class="remove btn btn-ghost btn-circle text-text-gray hover:text-red-600 transition-colors"
+                                            title="Remove Item" data-id="{{ $item->id }}">
                                             <i data-lucide="trash-2" class="w-5 h-5"></i>
                                         </button>
                                     </div>
@@ -240,7 +241,7 @@
                         class="border-t border-border-dark border-opacity-20 dark:border-white dark:border-opacity-30 pt-4 space-y-2">
                         <div class="flex justify-between">
                             <span>{{ __('Subtotal:') }}</span>
-                            <span class="font-medium">{{ __('$590.00 USD') }}</span>
+                            <span class="font-medium" id="subtotal"></span>
                         </div>
                         <div class="flex justify-between">
                             <span>{{ __('Discount:') }}</span>
@@ -280,6 +281,57 @@
                 let route2 = "{{ route('axios.get-cities') }}";
                 getCities($(this).val(), route2);
             });
+
+
+            let updateQuantityRoute = "{{ route('frontend.checkout.quantity-update') }}";
+            let subTotal = 0;
+
+            $(document).on('click', '.increase-quantity', function() {
+                let itemId = $(this).data('id');
+                let currentQuantity = $(this).data('current-item-quantity');
+                let quantity = currentQuantity + 1;
+                updateQuantity(itemId, quantity, updateQuantityRoute);
+            });
+
+            $(document).on('click', '.decrease-quantity', function() {
+                let itemId = $(this).data('id');
+                let currentQuantity = $(this).data('current-item-quantity');
+                let quantity = currentQuantity - 1;
+                updateQuantity(itemId, quantity, updateQuantityRoute);
+            });
+
+            $(document).on('click', '.remove', function() {
+                let removeItemRoute = "{{ route('frontend.checkout.remove-item') }}";
+                let itemId = $(this).data('id');
+                axios.post(removeItemRoute, {
+                        item_id: itemId
+                    })
+                    .then(function(response) {
+                        console.log(response.data);
+                        // location.reload();
+                    })
+                    .catch(function(error) {
+                        // Handle error response
+                        console.error(error);
+
+                    });
+            });
+
+            function updateQuantity(itemId, quantity, updateQuantityRoute) {
+                axios.post(updateQuantityRoute, {
+                        item_id: itemId,
+                        quantity: quantity
+                    })
+                    .then(function(response) {
+                        // $(this).data('current-item-quantity', response.data.quantity);
+                        console.log(response.data);
+                    })
+                    .catch(function(error) {
+                        // Handle error response
+                        console.error(error);
+                    });
+            }
+
         });
     </script>
 @endpush
