@@ -32,16 +32,18 @@
                     href="{{ url('/') }}">{{ __('Home') }}</a>
                 <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
                     href="{{ route('frontend.about') }}">{{ __('About Us') }}</a>
+                {{-- <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
+                    href="{{ route('frontend.auctions') }}">{{ __('Auctions') }}</a> --}}
+                {{-- <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
+                    href="{{ route('frontend.dropshipping') }}">{{ __('Deals') }}</a> --}}
                 <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
-                    href="{{ route('frontend.auctions') }}">{{ __('Auctions') }}</a>
+                    href="{{ route('frontend.group_shipping') }}">{{ __('Group Shipping') }}</a>
                 <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
-                    href="{{ route('frontend.dropshipping') }}">{{ __('Deals') }}</a>
+                    href="{{ route('frontend.products') }}">{{ __('Products') }}</a>
                 <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
                     href="{{ route('frontend.parts-accessories') }}">{{ __('Parts & Accessories') }}</a>
                 <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
                     href="{{ route('frontend.regions') }}">{{ __('Regions') }}</a>
-                <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
-                    href="{{ route('frontend.group_shipping') }}">{{ __('Shipping') }}</a>
                 <a class="px-3 py-1 rounded-md text-text-primary dark:text-text-light hover:text-text-secondary dark:hover:text-text-secondary font-medium capitalize transition-all duration-300 ease-linear"
                     href="{{ route('frontend.contact') }}">{{ __('Contact') }}</a>
             </div>
