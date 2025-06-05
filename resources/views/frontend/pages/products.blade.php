@@ -238,16 +238,18 @@
                             @php
                                 $buttons = [
                                     [
-                                        'route' => 'javascript:void(0);',
+                                        'route' => 'javascript:void(0)',
                                         'icon' => 'shopping-cart',
                                         'label' => 'Buy Now',
                                         'bg' => false,
                                     ],
                                     [
-                                        'route' => 'javascript:void(0);',
+                                        'route' => 'javascript:void(0)',
                                         'icon' => 'shopping-basket',
                                         'label' => 'Add to Cart',
                                         'bg' => true,
+                                        'class' => "add-to-cart-$product->id",
+                                        'data_id' => $product->id,
                                     ],
                                 ];
                             @endphp
