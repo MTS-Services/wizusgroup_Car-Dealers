@@ -25,20 +25,87 @@
         <div class="flex flex-col lg:flex-row gap-8 my-10">
             <!-- Left Column - Checkout Form -->
             <div class="lg:w-2/3 bg-bg-white p-6 shadow-card rounded-lg dark:bg-bg-dark-tertiary">
-                <h2 class="text-xl font-medium mb-6">{{ __('Delivery Information') }}</h2>
+                <div class="mb-8">
+                    <h2 class="text-lg lg:text-xl capitalize font-medium mb-6">
+                        {{ __('Resigtration form') }}
+                    </h2>
+                    <form action="#">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+                            <div>
+                                <input type="text" name="first_name" placeholder="First Name" class="input h-10">
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'first_name']" />
+                            </div>
+                            <div>
+                                <input type="text" name="last_name" placeholder="Last Name" class="input h-10">
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'last_name']" />
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+                            <div>
+                                <input type="email" name="email" placeholder="Email" class="input h-10">
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'email']" />
+                            </div>
+                            <div>
+                                <input type="text" name="whatsapp" placeholder="whatsapp" class="input h-10">
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'whatsapp']" />
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+                            <div class="flex flex-col lg:flex-row gap-2">
+                                <div class="flex items-center">
+                                    <input type="radio" name="language" id="language1" value="english" checked>
+                                    <label for="language1" class="ml-2 text-text-gray">English</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" name="language" id="language2" value="french">
+                                    <label for="language2" class="ml-2 text-text-gray">{{ __('French') }}</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" name="language" id="language3" value="argentina">
+                                    <label for="language2" class="ml-2 text-text-gray">{{ ('Argentina') }}</label>
+                                </div>
+                            </div>
+                            <div>
+                                <select name="gender" id="gender" class="input">
+                                    <option value="" selected hidden>{{ __('Select Gender') }}</option>
+                                    <option value="male">{{ __('Male') }}</option>
+                                    <option value="female">{{ __('Female') }}</option>
+                                    <option value="other">{{ __('Other') }}</option>
+                                </select>
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'gender']" />
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+                            <div>
+                                <input type="password" name="password" placeholder="Password" class="input h-10">
+                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'password']" />
+                            </div>
+                            <div>
+                                <input type="password" name="password_confirmation" placeholder="Confirm Password" class="input h-10">
+                            </div>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="submit" class="btn-primary">{{ __('Submit') }}</button>
+                        </div>
+                    </form>
+                </div>
+                <h2 class="text-lg lg:text-xl capitalize font-medium mb-6">{{ __('Delivery Information') }}</h2>
                 <form id="checkout-form">
                     <!-- Personal Information -->
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
                         <div>
                             <input type="text" placeholder="Name" class="input h-10">
+                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'name']" />
                         </div>
                         <div>
                             <input type="email" placeholder="Email" class="input h-10">
+                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'email']" />
                         </div>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
                         <div>
                             <input type="text" placeholder="Phone" class="input h-10">
+                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'phone']" />
                         </div>
 
                         <div class="">
@@ -77,7 +144,7 @@
                     </div>
 
                     <!-- Shipping Method -->
-                    <h2 class="text-xl font-medium mb-4">Shipping Method</h2>
+                    <h2 class="text-xl font-medium mb-4">{{ __('Shipping Method') }}</h2>
                     <div class="space-y-4 mb-8">
                         <div
                             class="payment-option flex justify-center items-center gap-2 border border-border-dark border-opacity-20 dark:border-white  dark:bg-bg-darkTertiary dark:border-opacity-30 focus:outline-primary focus:opacity-50 rounded p-2 text-sm w-full h-15">
@@ -85,7 +152,7 @@
                             <label for="free-shipping" class="w-full">
                                 <div class="flex justify-between">
                                     <span>{{ __('Group Shipping') }}</span>
-                                    <span class="font-medium">$0.00</span>
+                                    <span class="font-medium">{{ __('$0.00') }}</span>
                                 </div>
                             </label>
                         </div>
@@ -95,7 +162,7 @@
                             <label for="express-shipping" class="w-full">
                                 <div class="flex justify-between">
                                     <span>{{ __('Full Container') }}</span>
-                                    <span class="font-medium">$10.00</span>
+                                    <span class="font-medium">{{ __('$10.00') }}</span>
                                 </div>
                             </label>
                         </div>
@@ -103,8 +170,8 @@
 
                     <!-- Privacy Policy -->
                     <p class="text-sm text-text-primary mb-8">
-                        Your personal data will be used to process your order, support your experience throughout this
-                        website, and for other purposes described in our
+                        {{ __('Your personal data will be used to process your order, support your experience throughout this
+                        website, and for other purposes described in our') }}
                         <a href="#" class="text-text-accent hover:underline">privacy policy</a>.
                     </p>
                 </form>
@@ -113,7 +180,7 @@
             <!-- Right Column - Order Summary -->
             <div class="lg:w-1/3">
                 <div class="sticky top-20 bg-bg-white p-6 shadow-card dark:bg-bg-dark-tertiary rounded-lg">
-                    <h2 class="text-lg font-semibold mb-6">In your cart</h2>
+                    <h2 class="text-lg font-semibold mb-6">{{ __('In your cart') }}</h2>
 
                     <!-- Cart Items -->
                     <div class="space-y-6 mb-6">
@@ -172,20 +239,20 @@
                     <div
                         class="border-t border-border-dark border-opacity-20 dark:border-white dark:border-opacity-30 pt-4 space-y-2">
                         <div class="flex justify-between">
-                            <span>Subtotal:</span>
-                            <span class="font-medium">$590.00 USD</span>
+                            <span>{{ __('Subtotal:') }}</span>
+                            <span class="font-medium">{{ __('$590.00 USD') }}</span>
                         </div>
                         <div class="flex justify-between">
-                            <span>Discount:</span>
-                            <span class="font-medium">-$10 USD</span>
+                            <span>{{ __('Discount:') }}</span>
+                            <span class="font-medium">{{ __('-$10 USD') }}</span>
                         </div>
                     </div>
 
                     <div
                         class="border-t border-border-dark border-opacity-20 dark:border-white dark:border-opacity-30 mt-4 pt-4">
                         <div class="flex justify-between text-lg font-medium">
-                            <span>Subtotal:</span>
-                            <span>$600.00 USD</span>
+                            <span>{{ __('Subtotal:') }}</span>
+                            <span>{{ __('$600.00 USD') }}</span>
                         </div>
                     </div>
 

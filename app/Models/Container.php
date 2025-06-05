@@ -60,28 +60,46 @@ class Container extends BaseModel
         return $this->hasMany(ContainerReservation::class, 'container_id', 'id');
     }
 
-    public function calculateFreeSpacePercentage()
+    public function getReservedDimensions()
     {
-        $reservedQuantity = $this->containerReservations();
-        $height_m = $reservedQuantity->sum('height_m');
-        $width_m = $reservedQuantity->sum('width_m');
-        $length_m = $reservedQuantity->sum('length_m');
-        $totalVolume = $height_m * $width_m * $length_m;
-        $totalSpace = $this->length_m * $this->width_m * $this->height_m;
-        $freeSpacePercentage = ($totalSpace - $totalVolume) / $totalSpace * 100;
-        return $freeSpacePercentage;
+        // Cache on the instance to prevent re-querying
+        if (!isset($this->reservedDimensions)) {
+            $this->reservedDimensions = $this->containerReservations()
+                ->selectRaw('SUM(length_m) as length, SUM(width_m) as width, SUM(height_m) as height')
+                ->whereNull('deleted_at') // optional if soft deletes used
+                ->first();
+        }
+
+        return $this->reservedDimensions;
     }
 
+    public function calculateFreeSpacePercentage()
+    {
+        $reserved = $this->getReservedDimensions();
+
+        $reservedVolume = (float) $reserved->length * (float) $reserved->width * (float) $reserved->height;
+        $totalSpace = (float) $this->length_m * (float) $this->width_m * (float) $this->height_m;
+
+        if ($totalSpace == 0) {
+            return 0;
+        }
+
+        $freeSpacePercentage = ($totalSpace - $reservedVolume) / $totalSpace * 100;
+        return round($freeSpacePercentage, 2);
+    }
     public function getFilledPercentageAttribute()
     {
-        $reservedQuantity = $this->containerReservations();
-        $height_m = $reservedQuantity->sum('height_m');
-        $width_m = $reservedQuantity->sum('width_m');
-        $length_m = $reservedQuantity->sum('length_m');
-        $totalVolume = $height_m * $width_m * $length_m;
-        $totalSpace = $this->length_m * $this->width_m * $this->height_m;
-        $totalFilledPercentage = $totalVolume / $totalSpace * 100;
-        return $totalFilledPercentage;
+        $reserved = $this->getReservedDimensions();
+
+        $reservedVolume = (float) $reserved->length * (float) $reserved->width * (float) $reserved->height;
+        $totalSpace = (float) $this->length_m * (float) $this->width_m * (float) $this->height_m;
+
+        if ($totalSpace == 0) {
+            return 0;
+        }
+
+        $filledPercentage = $reservedVolume / $totalSpace * 100;
+        return round($filledPercentage, 2);
     }
 
 
@@ -203,5 +221,10 @@ class Container extends BaseModel
     public function scopeShipped($query)
     {
         return $query->where('status', self::STATUS_SHIPPED);
+    }
+
+    public function getUsedLengthAttribute()
+    {
+        return $this->containerReservations()->sum('length_m');
     }
 }

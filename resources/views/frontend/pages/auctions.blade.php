@@ -64,7 +64,7 @@
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'date']" />
                             </div>
                             <div class="px-4">
-                                <button id="filterBtn" class="w-full btn-primary border border-border-tertiary bg-transparent text-text-tertiary hover:bg-bg-tertiary hover:text-text-white group">
+                                <button id="filterBtn" class="w-full btn-primary rounded-md border border-border-tertiary bg-transparent text-text-tertiary dark:text-text-light hover:bg-bg-tertiary hover:text-text-white group">
                                     <span>{{ __('Filter') }}</span>
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
