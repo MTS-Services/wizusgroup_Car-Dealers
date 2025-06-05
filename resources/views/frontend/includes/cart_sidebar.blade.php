@@ -40,9 +40,10 @@
                     @csrf
                     <button type="submit" class="btn-secondary bg-bg-tertiary border-opacity-0 hover:border-opacity-100 hover:bg-transparent rounded-md w-full">{{ __('Checkout') }}</button>
                 </form>
-                <a href="{{ route('frontend.cart') }}"
+                {{-- <a href="{{ route('frontend.cart') }}"
                     class="btn-secondary hover:bg-bg-tertiary hover:border-opacity-0 rounded-md w-full">View
-                    Cart</a>
+                    Cart</a> --}}
+                    <x-frontend.primary-button secondary="false" href="{{ route('frontend.cart') }}" class="w-full">{{ __('View Cart') }} </x-frontend.primary-button>
             </div>
         </div>
     </div>
