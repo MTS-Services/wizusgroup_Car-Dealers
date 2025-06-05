@@ -51,7 +51,7 @@
                             </div>
                         </div>
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-                            <div class="flex flex-col lg:flex-row gap-2">
+                            <div class="flex flex-wrap lg:flex-row gap-2">
                                 <div class="flex items-center">
                                     <input type="radio" name="language" id="language1" value="english" checked>
                                     <label for="language1" class="ml-2 text-text-gray">English</label>
@@ -117,7 +117,7 @@
                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'country']" />
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-6">
                         <div>
                             <select name="state" id="state" disabled class="input h-10">
                                 <option value="" selected hidden>{{ __('Select State') }}</option>
@@ -266,11 +266,7 @@
                             <span>{{ __('$600.00 USD') }}</span>
                         </div>
                     </div>
-
-                    <!-- Place Order Button -->
-                    <a href="#" type="submit" form="checkout-form" class="btn-primary mt-6 w-full">
-                        {{ __('Place Order') }}
-                    </a>
+                    <x-frontend.primary-button bg="false" form="checkout-form" class="w-full mt-6">{{ __('Place Order') }} </x-frontend.primary-button>
                 </div>
             </div>
 
