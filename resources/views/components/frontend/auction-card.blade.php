@@ -49,14 +49,9 @@
             
             <!-- Bid Button -->
             @auth('web')
-            <button onclick="document.getElementById('{{ $auction->id }}-modal').showModal()"
-                class="w-full btn-primary rounded-md border border-border-tertiary bg-bg-tertiary text-text-white hover:text-text-tertiary hover:bg-transparent px-4  mt-4">
-                {{ __('Place a Bid') }}
-            </button>
+            <x-frontend.primary-button secondary="false" onclick="document.getElementById('{{ $auction->id }}-modal').showModal()" class="w-full mt-4">{{ __('Place a Bid') }} </x-frontend.primary-button>
             @else
-            <a href="{{ route('frontend.auction-details', $auction->slug) }}" class="w-full btn-primary rounded-md border border-border-tertiary bg-bg-tertiary text-text-white hover:text-text-tertiary hover:bg-transparent px-4  mt-4">
-                {{ __('Ask for price') }}
-            </a>
+             <x-frontend.primary-button secondary="false" href="{{ route('frontend.auction-details', $auction->slug) }}" class="w-full mt-4">{{ __('Ask for price') }} </x-frontend.primary-button>
             @endauth
         </div>
     </div>

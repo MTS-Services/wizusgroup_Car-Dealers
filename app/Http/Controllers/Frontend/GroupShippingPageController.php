@@ -13,6 +13,7 @@ use App\Services\Admin\CMSManagement\FaqService;
 use App\Services\Admin\GroupShipping\ContainerProductService;
 use App\Services\Admin\GroupShipping\ContainerService;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 class GroupShippingPageController extends Controller
 {
@@ -25,13 +26,74 @@ class GroupShippingPageController extends Controller
         $this->containerService = $containerService;
         $this->containerProductService = $containerProductService;
     }
+
+
     public function group_shipping()
     {
+        // Load active FAQs
         $data['faqs'] = $this->faqService->getFaqs()->active()->get();
-        $data['containers'] = $this->containerService->getContainers('deadline', 'asc')->active()->with(['destinationPort', 'shippingPort', 'containerReservations.product'])->get();
-        $data['container_products'] = ContainerProduct::whereHas('container', function ($query) {
-            $query->where('status', Container::STATUS_ACTIVE);
-        })->with(['container', 'product'])->latest()->get();
+
+        // Load containers with essential relationships
+        $data['containers'] = $this->containerService
+            ->getContainers('deadline', 'asc')
+            ->active()
+            ->with(['destinationPort', 'shippingPort', 'containerReservations.product']) // removed 'containerReservations.product' to avoid N+1
+            ->get();
+
+        $rawProducts = Product::select('id', 'length_m', 'width_m', 'height_m')
+            ->whereNotNull('length_m')
+            ->whereNotNull('width_m')
+            ->whereNotNull('height_m')
+            ->get()
+            ->map(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'volume' => (float) $product->length_m * (float) $product->width_m * (float) $product->height_m,
+                ];
+            })
+            ->sortBy('volume')
+            ->values(); // reindex for speed
+
+        $productToContainers = []; // product_id => [container_id]
+        $usedProductIds = [];      // quick lookup for assigned products
+
+        foreach ($data['containers'] as $container) {
+            $containerVolume = (float) $container->length_m * (float) $container->width_m * (float) $container->height_m;
+            $remainingVolume = $containerVolume;
+
+            foreach ($rawProducts as $product) {
+                $productId = $product['id'];
+
+                if (isset($usedProductIds[$productId])) {
+                    continue; // skip already assigned
+                }
+
+                if ($product['volume'] <= $remainingVolume) {
+                    $productToContainers[$productId][] = $container->id;
+                    $usedProductIds[$productId] = true;
+                    $remainingVolume -= $product['volume'];
+                }
+
+                if ($remainingVolume <= 0)
+                    break; // no space left
+            }
+        }
+
+        $matchedProductIds = array_keys($productToContainers);
+
+        $matchedProducts = Product::with(['brand', 'model', 'company', 'primaryImage'])->whereIn('id', $matchedProductIds)->get()->keyBy('id');
+
+        // $containerMatches = [];
+
+        // foreach ($productToContainers as $productId => $containerIds) {
+        //     foreach ($containerIds as $containerId) {
+        //         $containerMatches[$containerId][] = $matchedProducts[$productId];
+        //     }
+        // }
+
+        $data['matchedProducts'] = $matchedProducts;
+
+
 
         return view('frontend.pages.group_shipping', $data);
     }

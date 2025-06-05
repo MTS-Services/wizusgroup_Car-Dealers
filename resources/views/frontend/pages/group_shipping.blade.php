@@ -9,89 +9,92 @@
 
 @section('content')
     {{-- Available for Cotainers --}}
-    @if($containers->count() > 0)
-    <section class="bg-bg-light dark:bg-bg-dark py-12">
-        <div class="container">
-            <div class="pb-5">
-                <h1 class="text-xl md:text-2xl lg:text-3xl capitalize font-semibold text-text-primary dark:text-text-light">
-                    {{ __('Available Containers') }}</h1>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 rounded-lg">
-                @foreach ($containers as $container)
-                    <div class="w-full h-full">
-                        <div
-                            class="bg-bg-white dark:bg-bg-dark-tertiary shadow-card dark:shadow-dark-card overflow-hidden  transition-transform duration-300 hover:-translate-y-1 rounded-md flex flex-col justify-between">
-                            <div class="p-5 pb-0">
-                                <div class="flex justify-between items-center">
-                                    <h3 class="text-lg font-semibold text-text-primary dark:text-text-light">
-                                        {{ $container->title ?? 'Untitled' }}
-                                    </h3>
-                                    <span class="px-2.5 py-1 bg-bg-wiz_green text-white rounded-full text-xs font-medium">
-                                        {{ $container->status_label ?? 'Active' }}
-                                    </span>
-                                </div>
-                                <p class="text-sm text-text-gray mt-1 py-1">
-                                    {{ __(' From:') }} {{ $container?->shippingPort?->name ?? 'N/A' }}
-                                </p>
-                                <p class="text-sm text-text-gray mt-1 py-1">
-                                    {{ __('Destination:') }} {{ $container?->destinationPort?->name ?? 'N/A' }}
-                                </p>
-                            </div>
-                            <div>
-                                <div class="bg-bg-orange text-text-white w-fit px-3 py-1 rounded-md text-sm font-medium timer_countdown m-5 mt-2"
-                                    data-endDate="{{ $container->deadline }}">
-                                </div>
-                                <div class="p-5 text-sm border-t border-border-gray dark:border-border-dark-secondary">
-                                    <div class="flex items-center mb-2">
-                                        <i class="far fa-calendar-alt text-text-gray dark:text-text-light mr-2 text-sm"></i>
-                                        <span>{{ __('Deadline:') }} {{ dateFormat($container->deadline) }}</span>
+    @if ($containers->count() > 0)
+        <section class="bg-bg-light dark:bg-bg-dark py-12">
+            <div class="container">
+                <div class="pb-5">
+                    <h1
+                        class="text-xl md:text-2xl lg:text-3xl capitalize font-semibold text-text-primary dark:text-text-light">
+                        {{ __('Available Containers') }}</h1>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 rounded-lg">
+                    @foreach ($containers as $container)
+                        <div class="w-full h-full">
+                            <div
+                                class="bg-bg-white dark:bg-bg-dark-tertiary shadow-card dark:shadow-dark-card overflow-hidden  transition-transform duration-300 hover:-translate-y-1 rounded-md flex flex-col justify-between">
+                                <div class="p-5 pb-0">
+                                    <div class="flex justify-between items-center">
+                                        <h3 class="text-lg font-semibold text-text-primary dark:text-text-light">
+                                            {{ $container->title ?? 'Untitled' }}
+                                        </h3>
+                                        <span
+                                            class="px-2.5 py-1 bg-bg-wiz_green text-white rounded-full text-xs font-medium">
+                                            {{ $container->status_label ?? 'Active' }}
+                                        </span>
                                     </div>
-
-                                    <div class="space-y-3">
-                                        <div class="flex justify-between">
-                                            <div>
-                                                <span>Length:</span>
-                                                <span>{{ $container->length_m }} m</span>
-                                            </div>
-                                            <div>
-                                                <span>Width:</span>
-                                                <span>{{ $container->width_m }} m</span>
-                                            </div>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <div>
-                                                <span>Height:</span>
-                                                <span>{{ $container->height_m }} m</span>
-                                            </div>
-                                            <div>
-                                                <span>Max Weight:</span>
-                                                <span>{{ $container->max_weight_kg }} kg</span>
-                                            </div>
-                                        </div>
+                                    <p class="text-sm text-text-gray mt-1 py-1">
+                                        {{ __(' From:') }} {{ $container?->shippingPort?->name ?? 'N/A' }}
+                                    </p>
+                                    <p class="text-sm text-text-gray mt-1 py-1">
+                                        {{ __('Destination:') }} {{ $container?->destinationPort?->name ?? 'N/A' }}
+                                    </p>
+                                </div>
+                                <div>
+                                    <div class="bg-bg-orange text-text-white w-fit px-3 py-1 rounded-md text-sm font-medium timer_countdown m-5 mt-2"
+                                        data-endDate="{{ $container->deadline }}">
                                     </div>
-
-                                    <div class="pt-3">
-                                        <div class="flex justify-between items-center mb-1">
-                                            <span class="font-medium">Capacity</span>
-                                            <span>{{ $container->getFilledPercentageAttribute() }}% filled</span>
+                                    <div class="p-5 text-sm border-t border-border-gray dark:border-border-dark-secondary">
+                                        <div class="flex items-center mb-2">
+                                            <i
+                                                class="far fa-calendar-alt text-text-gray dark:text-text-light mr-2 text-sm"></i>
+                                            <span>{{ __('Deadline:') }} {{ dateFormat($container->deadline) }}</span>
                                         </div>
-                                        <div class="w-full bg-bg-gray rounded-full h-2">
-                                            <div class="bg-bg-wiz_orange h-2 rounded-full"
-                                                style="width:{{ $container->getFilledPercentageAttribute() }}%">
+
+                                        <div class="space-y-3">
+                                            <div class="flex justify-between">
+                                                <div>
+                                                    <span>Length:</span>
+                                                    <span>{{ $container->length_m }} m</span>
+                                                </div>
+                                                <div>
+                                                    <span>Width:</span>
+                                                    <span>{{ $container->width_m }} m</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex justify-between">
+                                                <div>
+                                                    <span>Height:</span>
+                                                    <span>{{ $container->height_m }} m</span>
+                                                </div>
+                                                <div>
+                                                    <span>Max Weight:</span>
+                                                    <span>{{ $container->max_weight_kg }} kg</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="pt-3">
+                                            <div class="flex justify-between items-center mb-1">
+                                                <span class="font-medium">Capacity</span>
+                                                <span>{{ $container->getFilledPercentageAttribute() }}% filled</span>
+                                            </div>
+                                            <div class="w-full bg-bg-gray rounded-full h-2">
+                                                <div class="bg-bg-wiz_orange h-2 rounded-full"
+                                                    style="width:{{ $container->getFilledPercentageAttribute() }}%">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
     @endif
     {{-- Available for Group Shipping --}}
-    @if (true)
+    @if ($matchedProducts->count() > 0)
         <section class="py-12">
             <div class="container ">
                 <div class="pb-6">
@@ -101,82 +104,19 @@
                 </div>
                 <div
                     class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 bg-bg-light dark:bg-bg-dark p-5 rounded-lg">
-                    <div class="card bg-base-100 w-full shadow-card">
-                        <div class="card-image w-full h-60">
-                            <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                class="w-full h-full object-cover" alt="" />
-                        </div>
-                        <div class="card-body gap-0">
-                            <h2 class="card-title">Caterpillar 320 Excavator</h2>
-                            <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
-                            <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
-                            <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                <span>2025</span>
-                                <span class="mx-2">|</span>
-                                <span>Tractor</span>
-                            </div>
-                            <div class="card-actions justify-end mt-4">
-                                <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card bg-base-100 w-full shadow-card">
-                        <div class="card-image w-full h-60">
-                            <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                class="w-full h-full object-cover" alt="" />
-                        </div>
-                        <div class="card-body gap-0">
-                            <h2 class="card-title">Caterpillar 320 Excavator</h2>
-                            <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
-                            <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
-                            <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                <span>2025</span>
-                                <span class="mx-2">|</span>
-                                <span>Tractor</span>
-                            </div>
-                            <div class="card-actions justify-end mt-4">
-                                <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card bg-base-100 w-full shadow-card">
-                        <div class="card-image w-full h-60">
-                            <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                class="w-full h-full object-cover" alt="" />
-                        </div>
-                        <div class="card-body gap-0">
-                            <h2 class="card-title">Caterpillar 320 Excavator</h2>
-                            <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
-                            <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
-                            <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                <span>2025</span>
-                                <span class="mx-2">|</span>
-                                <span>Tractor</span>
-                            </div>
-                            <div class="card-actions justify-end mt-4">
-                                <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card bg-base-100 w-full shadow-card">
-                        <div class="card-image w-full h-60">
-                            <img src="{{ asset('frontend/images/products/TAFE-IMT-tractor.png') }}"
-                                class="w-full h-full object-cover" alt="" />
-                        </div>
-                        <div class="card-body gap-0">
-                            <h2 class="card-title">Caterpillar 320 Excavator</h2>
-                            <p class="text-base lg:text-lg xl:text-xl font-semibold text-text-danger">$10,000</p>
-                            <p class="text-text-primary dark:text-text-white mt-2">Ford</p>
-                            <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
-                                <span>2025</span>
-                                <span class="mx-2">|</span>
-                                <span>Tractor</span>
-                            </div>
-                            <div class="card-actions justify-end mt-4">
-                                <a href="#" class="btn-primary rounded-md w-full">{{ __('Join Group Shipping') }}</a>
-                            </div>
-                        </div>
-                    </div>
+                    @foreach ($matchedProducts as $productItem)
+                        @php
+                            $buttons = [
+                                [
+                                    'route' => 'javascript:void(0)',
+                                    'icon' => 'shopping-cart',
+                                    'label' => 'Reserve Now',
+                                    'bg' => false,
+                                ],
+                            ];
+                        @endphp
+                        <x-frontend.product :product="$productItem" :buttons="$buttons" />
+                    @endforeach
                 </div>
             </div>
         </section>

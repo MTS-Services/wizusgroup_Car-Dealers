@@ -55,7 +55,7 @@
             </div>
         </section>
     @endif
-    
+
     {{-- Mid Content --}}
 
     <section class="py-15">
@@ -180,7 +180,8 @@
                                 </div>
                             </details>
                             <div class="px-4">
-                                <button id="filterBtn" class="w-full btn-primary bg-transparent border border-border-tertiary hover:bg-bg-tertiary text-text-tertiary hover:text-text-white mt-4 group">
+                                <button id="filterBtn"
+                                    class="w-full btn-primary rounded-md bg-transparent border border-border-tertiary hover:bg-bg-tertiary text-text-tertiary hover:text-text-white mt-4 group">
                                     <span>{{ __('Filter') }}</span>
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
@@ -234,7 +235,25 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
                         @forelse ($products as $product)
-                            <x-frontend.product :product="$product" />
+                            @php
+                                $buttons = [
+                                    [
+                                        'route' => 'javascript:void(0)',
+                                        'icon' => 'shopping-cart',
+                                        'label' => 'Buy Now',
+                                        'bg' => false,
+                                    ],
+                                    [
+                                        'route' => 'javascript:void(0)',
+                                        'icon' => 'shopping-basket',
+                                        'label' => 'Add to Cart',
+                                        'bg' => true,
+                                        'class' => "add-to-cart-$product->id",
+                                        'data_id' => $product->id,
+                                    ],
+                                ];
+                            @endphp
+                            <x-frontend.product :product="$product" :buttons="$buttons" />
                         @empty
                         @endforelse
 

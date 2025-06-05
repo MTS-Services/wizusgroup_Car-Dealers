@@ -14,9 +14,14 @@
                 {{ $product->name }}
             </h3>
             <div>
-                <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">
-                    ${{ number_format($product->price, 2) }}
-                </p>
+                <div class="flex justify-between items-center">
+                    <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">
+                        ${{ number_format($product->price, 2) }}</p>
+                    {{-- quantity --}}
+                    <p class="text-sm lg:text-base xl:text-lg text-text-danger font-semibold dark:text-text-white">
+                        {{ __('Stock: ') }}<span
+                            class="font-normal text-text-wiz_orange">{{ $product->quantity }}</span></p>
+                </div>
                 <p class="text-text-primary dark:text-text-white mt-2">{{ $product->brand?->name }}</p>
                 <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">
                     <span>{{ $product->year }}</span>
@@ -25,23 +30,15 @@
                     @endif
                     <span>{{ $product->model?->name }}</span>
                 </div>
-                <div class="flex justify-center items-center mt-4">
-                    <div
-                        class="flex items-center justify-center gap-2 border border-bg-tertiary rounded-md w-full py-2  hover:bg-text-tertiary me-2 text-text-tertiary text-sm hover:text-text-white transition-all duration-300">
-                        <span>
-                            <i data-lucide="shopping-cart" class="w-4 h-4"></i>
-                        </span>
-                        <a href="" class="">{{ __('Buy Now') }}</a>
-                    </div>
-                    <div
-                        class="flex items-center justify-center gap-2 border border-bg-tertiary rounded-md w-full py-2 bg-text-tertiary  hover:bg-transparent ms-2 text-text-white text-sm hover:text-text-primary transition-all duration-300">
-                        <span>
-                            <i data-lucide="shopping-basket" class="w-4 h-4"></i>
-                        </span>
-                        <button type="button" class=" add-to-cart-{{ $product->id }}" data-id="{{ $product->id }}">
-                            {{ __('Add to Cart') }}
-                        </button>
-                    </div>
+                <div class="flex justify-center items-center mt-4 gap-y-4 gap-x-2">
+
+                    @foreach ($buttons as $button)
+                        <x-frontend.primary-button class="{{ isset($button['class']) ? $button['class'] : '' }}"
+                            data_id="{{ $button['data_id'] ?? '' }}" icon="{{ $button['icon'] }}"
+                            href="{{ $button['route'] }}" bg="{{ $button['bg'] }}">{{ __($button['label']) }}
+                        </x-frontend.primary-button>
+                    @endforeach
+
                 </div>
             </div>
 

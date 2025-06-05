@@ -11,12 +11,14 @@ use App\Models\Product as ProductModel;
 class Product extends Component
 {
     public ProductModel $product;
+    public array $buttons = [];
     /**
      * Create a new component instance.
      */
-    public function __construct(ProductModel $product)
+    public function __construct(ProductModel $product, array $buttons = [])
     {
         $this->product = $product;
+        $this->buttons = $buttons;
     }
 
     /**
