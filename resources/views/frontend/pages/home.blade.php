@@ -23,11 +23,11 @@
                             <div class="container flex items-center justify-center h-full flex-col gap-5">
                                 <div class="max-w-[600px] text-center">
                                     <h1
-                                        class="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold pb-3 text-text-white dark:text-text-primary">
+                                        class="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold pb-3 text-text-white dark:text-text-white">
                                         {{ $banner->title }}
                                     </h1>
                                     <p
-                                        class="text-base xs:text-sm sm:text-lg md:text-xl text-text-light-secondary dark:text-text-primary">
+                                        class="text-base xs:text-sm sm:text-lg md:text-xl text-text-light-secondary dark:text-text-white">
                                         {{ $banner->subtitle }}
                                     </p>
                                 </div>
