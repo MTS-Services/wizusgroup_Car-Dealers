@@ -329,7 +329,6 @@
                         quantity: quantity
                     })
                     .then(function(response) {
-                        // $(this).data('current-item-quantity', response.data.quantity);
                         console.log(response.data);
                     })
                     .catch(function(error) {

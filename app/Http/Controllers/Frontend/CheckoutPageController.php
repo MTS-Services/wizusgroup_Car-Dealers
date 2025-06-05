@@ -45,7 +45,7 @@ class CheckoutPageController extends Controller
             if (!$cart) {
                 throw new \Exception('You have no items in your cart');
             }
-            
+
             $sessionId = session()->get('cart_session_id');
             $user = auth()->guard('web')->check() ? user() : null;
 
@@ -120,8 +120,9 @@ class CheckoutPageController extends Controller
 
         $newQuantity = $request->input('quantity');
 
-        $orderItem = OrderItem::where('id', $request->input('item_id'))->select(['id', 'quantity'])->first();
+        $orderItem = OrderItem::where('id', $request->input('item_id'))->first();
 
+        // dd($orderItem);
         if (!$orderItem) {
             return response()->json([
                 'status' => 'error',
@@ -129,15 +130,17 @@ class CheckoutPageController extends Controller
             ], 404);
         }
 
-        $orderItem->quantity = $newQuantity;
-        $orderItem->save();
+        $orderItem->update([
+            'quantity' => $newQuantity,
+            'sub_total' => $orderItem->unit_price * $newQuantity,
+        ]);
+
 
 
         return response()->json([
             'status' => 'success',
             'message' => 'Quantity updated successfully.',
-            'new_quantity' => $newQuantity,
-            'item_id' => $orderItem->id
+            'quantity' => $newQuantity,
         ]);
     }
 

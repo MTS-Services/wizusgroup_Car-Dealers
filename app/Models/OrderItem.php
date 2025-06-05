@@ -53,10 +53,10 @@ class OrderItem extends BaseModel
         $this->appends = array_merge(parent::getAppends(), [
             'status_label',
             'status_color_label',
-            'dropshipping_status_label',
-            'dropshipping_status_color_label',
-            'dropshipping_label',
-            'dropshipping_color_label',
+            // 'dropshipping_status_label',
+            // 'dropshipping_status_color_label',
+            // 'dropshipping_label',
+            // 'dropshipping_color_label',
 
         ]);
     }
@@ -125,15 +125,15 @@ class OrderItem extends BaseModel
         ];
     }
 
-    public function getDropshippingStatusLabelAttribute(): string
-    {
-        return $this->getDropshippingStatusLabels()[$this->dropshipping_status];
-    }
+    // public function getDropshippingStatusLabelAttribute(): string
+    // {
+    //     return $this->getDropshippingStatusLabels()[$this->dropshipping_status];
+    // }
 
-    public function getDropshippingStatusColorLabelAttribute(): string
-    {
-        return $this->getDropshippingStatusColors()[$this->dropshipping_status];
-    }
+    // public function getDropshippingStatusColorLabelAttribute(): string
+    // {
+    //     return $this->getDropshippingStatusColors()[$this->dropshipping_status];
+    // }
 
     // Dropshipping labels
     public function getDropshippingLabels(): array
