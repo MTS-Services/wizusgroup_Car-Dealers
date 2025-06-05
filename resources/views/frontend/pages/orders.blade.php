@@ -106,30 +106,30 @@
                             'image' =>
                                 'https://images.unsplash.com/photo-1616627982103-1c32275b87b7?auto=format&fit=crop&w=800&q=80',
                         ],
-                        // [
-                        //     'name' => 'CAT 424B2 Backhoe Loader',
-                        //     'brand' => 'Caterpillar / CAT 424B2',
-                        //     'quantity' => 2,
-                        //     'unit_price' => 715.0,
-                        //     'image' =>
-                        //         'https://images.unsplash.com/photo-1616627982103-1c32275b87b7?auto=format&fit=crop&w=800&q=80',
-                        // ],
-                        // [
-                        //     'name' => 'CAT 424B2 Backhoe Loader',
-                        //     'brand' => 'Caterpillar / CAT 424B2',
-                        //     'quantity' => 2,
-                        //     'unit_price' => 715.0,
-                        //     'image' =>
-                        //         'https://images.unsplash.com/photo-1616627982103-1c32275b87b7?auto=format&fit=crop&w=800&q=80',
-                        // ],
-                        // [
-                        //     'name' => 'CAT 424B2 Backhoe Loader',
-                        //     'brand' => 'Caterpillar / CAT 424B2',
-                        //     'quantity' => 2,
-                        //     'unit_price' => 715.0,
-                        //     'image' =>
-                        //         'https://images.unsplash.com/photo-1616627982103-1c32275b87b7?auto=format&fit=crop&w=800&q=80',
-                        // ],
+                        [
+                            'name' => 'CAT 424B2 Backhoe Loader',
+                            'brand' => 'Caterpillar / CAT 424B2',
+                            'quantity' => 2,
+                            'unit_price' => 715.0,
+                            'image' =>
+                                'https://images.unsplash.com/photo-1616627982103-1c32275b87b7?auto=format&fit=crop&w=800&q=80',
+                        ],
+                        [
+                            'name' => 'CAT 424B2 Backhoe Loader',
+                            'brand' => 'Caterpillar / CAT 424B2',
+                            'quantity' => 2,
+                            'unit_price' => 715.0,
+                            'image' =>
+                                'https://images.unsplash.com/photo-1616627982103-1c32275b87b7?auto=format&fit=crop&w=800&q=80',
+                        ],
+                        [
+                            'name' => 'CAT 424B2 Backhoe Loader',
+                            'brand' => 'Caterpillar / CAT 424B2',
+                            'quantity' => 2,
+                            'unit_price' => 715.0,
+                            'image' =>
+                                'https://images.unsplash.com/photo-1616627982103-1c32275b87b7?auto=format&fit=crop&w=800&q=80',
+                        ],
                         // ... other items ...
                     ];
                 @endphp
@@ -141,34 +141,34 @@
                             class="p-5 border-b border-border-gray dark:border-border-dark-secondary dark:border-dark-tertiary">
                             <h2 class="text-xl font-semibold text-text-dark dark:text-white">{{ __('Order Items') }}</h2>
                         </div>
-                        <div class="p-6 h-[330px]">
+                        <div class="p-4 sm:p-6 max-h-[330px]">
                             <div id="orderItemsContainer"
                                 class="grid grid-cols-1 2xl:grid-cols-2 gap-4 transition-all duration-300 ">
 
 
                                 @foreach ($orderItems as $item)
                                     <div
-                                        class="bg-bg-light-secondary dark:bg-bg-dark-tertiary flex flex-col sm:flex-row gap-4 p-4 border dark:border-border-dark border-gray-200 dark:border-dark-tertiary rounded-lg">
+                                        class="bg-bg-light-secondary dark:bg-bg-dark-tertiary flex flex-col sm:flex-row gap-4 p-2 sm:p-4 border dark:border-border-dark border-border-gray dark:border-dark-tertiary rounded-lg">
                                         <div
-                                            class="w-full sm:w-24 h-24 bg-gray-100 dark:bg-dark-tertiary rounded-lg flex items-center justify-center">
+                                            class="w-full sm:w-24 sm:h-24 h-36 bg-gray-100 dark:bg-dark-tertiary rounded-lg flex items-center justify-center">
                                             <img src="{{ $item['image'] }}" alt="{{ $item['name'] }}"
                                                 class="w-full h-full object-cover rounded-lg">
                                         </div>
                                         <div class="flex-1">
-                                            <h3 class="font-semibold text-text-dark dark:text-white">{{ $item['name'] }}
+                                            <h3 class="font-semibold text-xl text-text-dark dark:text-white">{{ $item['name'] }}
                                             </h3>
-                                            <p class="text-sm text-text-gray dark:text-white mt-1">{{ $item['brand'] }}</p>
+                                            <p class="sm:text-sm text-xs text-text-gray dark:text-white mt-1">{{ $item['brand'] }}</p>
                                             <div class="flex items-center gap-4 mt-2">
-                                                <span class="text-sm text-text-gray dark:text-white">
+                                                <span class="sm:text-sm text-xs text-text-gray dark:text-white">
                                                     {{ __('Quantity:') }} {{ $item['quantity'] }}
                                                 </span>
-                                                <span class="text-sm text-text-gray dark:text-white">
+                                                <span class="sm:text-sm text-xs text-text-gray dark:text-white">
                                                     {{ __('Unit Price:') }} ${{ number_format($item['unit_price'], 2) }}
                                                 </span>
                                             </div>
                                         </div>
                                         <div class="text-right">
-                                            <p class="text-lg font-semibold text-blue-600 dark:text-blue-400">
+                                            <p class="lg:text-lg sm:text-base text-sm font-semibold text-text-secondary dark:text-text-secondary">
                                                 ${{ number_format($item['quantity'] * $item['unit_price'], 2) }}
                                             </p>
                                         </div>
@@ -191,7 +191,7 @@
 
             const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-            if (isMobile && itemCount > 1) {
+         if ((isMobile && itemCount > 1) || (!isMobile && itemCount > 4)) {
                 container.style.maxHeight = '286px';
                 container.style.overflowY = 'auto';
                 container.style.paddingRight = '0.5rem'; // pr-2
