@@ -12,6 +12,7 @@ use App\Services\AddressService;
 use App\Services\Admin\Setup\CountryService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CheckoutPageController extends Controller
 {
@@ -95,13 +96,75 @@ class CheckoutPageController extends Controller
                 $cart->items()->forceDelete();
                 $cart->forceDelete();
 
-                session()->flash('success', 'Order initiated successfully');
+                session()->flash('success', 'Order checkout successfully');
             });
             return redirect()->route('frontend.checkout', ['orderNumber' => $orderNumber]);
         } catch (\Throwable $e) {
             report($e); // Log the error
-            session()->flash('error',  $e->getMessage());
+            session()->flash('error', $e->getMessage());
             return redirect()->back();
+        }
+    }
+
+    public function singleOrder($slug)
+    {
+
+        try {
+            $user = auth()->guard('web')->check() ? user() : null;
+            $sessionId = session()->has('cart_session_id') ? session()->get('cart_session_id') : Session::getId();
+            $orderNumber = generateOrderNumber();
+            $product = Product::where('slug', $slug)->first();
+            if (!$product) {
+                throw new \Exception('Product not found');
+            }
+            DB::transaction(function () use ($user, $sessionId, $orderNumber, $product) {
+                // Create the order
+                $orderData = [
+                    'order_number' => $orderNumber,
+                    'status' => Order::STATUS_INITIATED,
+                ];
+
+                if ($user) {
+                    $orderData['user_id'] = $user->id;
+                    $orderData['creater_id'] = $user->id;
+                    $orderData['creater_type'] = get_class($user);
+                } else {
+                    $orderData['session_id'] = $sessionId;
+                }
+
+                $order = Order::create($orderData);
+
+                // Create order items
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $product->id,
+                    'is_dropshipping' => $product?->product_type == Product::PRODUCT_TYPE_DROPSHIPPING
+                        ? OrderItem::DROPSHIPPING
+                        : OrderItem::NOT_DROPSHIPPING,
+                    'quantity' => 1,
+                    'unit_price' => $product->price,
+                    'sub_total' => $product->price,
+                    'total' => $product->price,
+                    'creater_id' => $user ? $user->id : null,
+                    'creater_type' => $user ? get_class($user) : null,
+                ]);
+
+
+                // Update order totals
+                $order->load('items');
+                $order->update([
+                    'sub_total' => $order->items->sum('sub_total'),
+                    'total' => $order->items->sum('total'),
+                ]);
+                session()->put('cart_session_id', $sessionId);
+                session()->flash('success', 'Order checkout successfully');
+            });
+            return redirect()->route('frontend.checkout', ['orderNumber' => $orderNumber]);
+        } catch (\Throwable $e) {
+            report($e); // Log the error
+            session()->flash('error', $e->getMessage());
+            return redirect()->back();
+
         }
     }
 

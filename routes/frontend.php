@@ -77,6 +77,7 @@ Route::group(['as' => 'frontend.'], function () {
     // Checkout Page
     Route::controller(CheckoutPageController::class)->group(function () {
         Route::post('/checkout/submit', 'checkoutSubmit')->name('checkout.submit');
+        Route::get('/checkout/single/{slug}', 'singleOrder')->name('checkout.single');
         Route::get('/checkout/{orderNumber}', 'checkout')->name('checkout');
         Route::post('/checkout/quantity-update', 'quantityUpdate')->name('checkout.quantity-update');
         Route::post('/checkout/remove-item', 'removeItem')->name('checkout.remove-item');

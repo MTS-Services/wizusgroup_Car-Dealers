@@ -391,7 +391,7 @@
                             </div>
                         </div>
                         <div class="flex justify-between items-center gap-5 mt-2">
-                            <x-frontend.primary-button icon="shopping-cart">{{ __('Buy Now') }}
+                            <x-frontend.primary-button icon="shopping-cart" >{{ __('Buy Now') }}
                             </x-frontend.primary-button>
                             <x-frontend.primary-button>{{ __('WhatsApp Inquiry') }} </x-frontend.primary-button>
                             <x-frontend.primary-button icon="shopping-basket"
