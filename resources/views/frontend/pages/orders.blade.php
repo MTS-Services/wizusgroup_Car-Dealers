@@ -144,8 +144,8 @@
                         <div class="p-6 h-[330px]">
                             <div id="orderItemsContainer"
                                 class="grid grid-cols-1 2xl:grid-cols-2 gap-4 transition-all duration-300 ">
-                              
-                                    
+
+
                                 @foreach ($orderItems as $item)
                                     <div
                                         class="bg-bg-light-secondary dark:bg-bg-dark-tertiary flex flex-col sm:flex-row gap-4 p-4 border dark:border-border-dark border-gray-200 dark:border-dark-tertiary rounded-lg">
@@ -173,8 +173,6 @@
                                             </p>
                                         </div>
                                     </div>
-
-                                   
                                 @endforeach
                             </div>
                         </div>
@@ -191,7 +189,9 @@
             const container = document.getElementById('orderItemsContainer');
             const itemCount = container.children.length;
 
-            if (itemCount > 4) {
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+            if (isMobile && itemCount > 1) {
                 container.style.maxHeight = '286px';
                 container.style.overflowY = 'auto';
                 container.style.paddingRight = '0.5rem'; // pr-2
