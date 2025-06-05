@@ -3,7 +3,7 @@
 @section('title', 'Orders')
 
 @section('content')
-    <section class="py-15 bg-light dark:bg-darky">
+    <section class="xl:py-20 lg:py-16 md:py-12 py-8 bg-light dark:bg-dark">
         <div class="container">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 <!-- Order Summary Card -->
@@ -114,22 +114,22 @@
                             'image' =>
                                 'https://images.unsplash.com/photo-1616627982103-1c32275b87b7?auto=format&fit=crop&w=800&q=80',
                         ],
-                        [
-                            'name' => 'CAT 424B2 Backhoe Loader',
-                            'brand' => 'Caterpillar / CAT 424B2',
-                            'quantity' => 2,
-                            'unit_price' => 715.0,
-                            'image' =>
-                                'https://images.unsplash.com/photo-1616627982103-1c32275b87b7?auto=format&fit=crop&w=800&q=80',
-                        ],
-                        [
-                            'name' => 'CAT 424B2 Backhoe Loader',
-                            'brand' => 'Caterpillar / CAT 424B2',
-                            'quantity' => 2,
-                            'unit_price' => 715.0,
-                            'image' =>
-                                'https://images.unsplash.com/photo-1616627982103-1c32275b87b7?auto=format&fit=crop&w=800&q=80',
-                        ],
+                        // [
+                        //     'name' => 'CAT 424B2 Backhoe Loader',
+                        //     'brand' => 'Caterpillar / CAT 424B2',
+                        //     'quantity' => 2,
+                        //     'unit_price' => 715.0,
+                        //     'image' =>
+                        //         'https://images.unsplash.com/photo-1616627982103-1c32275b87b7?auto=format&fit=crop&w=800&q=80',
+                        // ],
+                        // [
+                        //     'name' => 'CAT 424B2 Backhoe Loader',
+                        //     'brand' => 'Caterpillar / CAT 424B2',
+                        //     'quantity' => 2,
+                        //     'unit_price' => 715.0,
+                        //     'image' =>
+                        //         'https://images.unsplash.com/photo-1616627982103-1c32275b87b7?auto=format&fit=crop&w=800&q=80',
+                        // ],
                         // ... other items ...
                     ];
                 @endphp
@@ -155,9 +155,11 @@
                                                 class="w-full h-full object-cover rounded-lg">
                                         </div>
                                         <div class="flex-1">
-                                            <h3 class="font-semibold text-xl text-text-dark dark:text-white">{{ $item['name'] }}
+                                            <h3 class="font-semibold text-xl text-text-dark dark:text-white">
+                                                {{ $item['name'] }}
                                             </h3>
-                                            <p class="sm:text-sm text-xs text-text-gray dark:text-white mt-1">{{ $item['brand'] }}</p>
+                                            <p class="sm:text-sm text-xs text-text-gray dark:text-white mt-1">
+                                                {{ $item['brand'] }}</p>
                                             <div class="flex items-center gap-4 mt-2">
                                                 <span class="sm:text-sm text-xs text-text-gray dark:text-white">
                                                     {{ __('Quantity:') }} {{ $item['quantity'] }}
@@ -168,7 +170,8 @@
                                             </div>
                                         </div>
                                         <div class="text-right">
-                                            <p class="lg:text-lg sm:text-base text-sm font-semibold text-text-secondary dark:text-text-secondary">
+                                            <p
+                                                class="lg:text-lg sm:text-base text-sm font-semibold text-text-secondary dark:text-text-secondary">
                                                 ${{ number_format($item['quantity'] * $item['unit_price'], 2) }}
                                             </p>
                                         </div>
@@ -182,6 +185,78 @@
             </div>
         </div>
     </section>
+    <section>
+        <div class="container mx-auto p-6 bg-white">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-xl font-semibold text-gray-800">Order Information</h2>
+                </div>
+
+                <form class="p-6 space-y-6" method="POST" action="#">
+                    <!-- order information -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xl " for="shipping_port">Shipping Port</label>
+                            <select name="shipping_port" disabled
+                                class="w-full px-4 mt-2 py-3 border border-gray-300 rounded-md bg-gray-100 text-gray-500 cursor-not-allowed">
+                                <option value="">Select Shipping Port</option>
+                                <option value="1">Port of LA</option>
+                                <option value="2">Port of NY</option>
+                            </select>
+
+                        </div>
+                        <div>
+                            <label class="text-xl " for="destination_port">Destination Port</label>
+                            <select name="destination_port" disabled
+                                class="w-full px-4 mt-2 py-3 border border-gray-300 rounded-md bg-gray-100 text-gray-500 cursor-not-allowed">
+                                <option value="">Select Destination Port</option>
+                                <option value="1">Port of Hamburg</option>
+                                <option value="2">Port of Dubai</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-xl " for="whatsapp_number">Whatsapp Number</label>
+                            <input type="text" name="whatsapp_number" disabled value="Whatsapp Number"
+                                class="w-full px-4 mt-2 py-3 border border-gray-300 rounded-md bg-gray-100 text-gray-500 cursor-not-allowed">
+
+                        </div>
+
+                        <div>
+                             <label class="text-xl " for="container_selected">Container</label>
+                            <select name="container_selected" class="w-full px-4 py-3 mt-2 border border-gray-300 rounded-md">
+                                <option value="">Select Container</option>
+                                <option value="1">20FT - Small</option>
+                                <option value="2">40FT - Large</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-xl" for="price">Price</label>
+                            <input type="number" name="price" placeholder="Price ($)" step="0.01" min="0"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-md">
+                        </div>
+                        <div>
+                            <label class="text-xl" for="reserve_price">Reserve Price</label>
+                            <input type="number" name="reserve_price" placeholder="Reserve Price ($)" step="0.01"
+                                min="0" class="w-full px-4 py-3 border border-gray-300 rounded-md">
+                        </div>
+                    </div>
+
+                    <!-- Address Field -->
+                    <div>
+                        <label class="text-xl" for="note">Note</label>
+                        <textarea name="note" placeholder="Enter your note" rows="4"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-md resize-vertical"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="flex justify-end pt-4">
+                        <button type="submit"
+                            class="btn-primary">Finish Order</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 @endsection
 @push('js')
     <script>
@@ -191,7 +266,7 @@
 
             const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-         if ((isMobile && itemCount > 1) || (!isMobile && itemCount > 4)) {
+            if ((isMobile && itemCount > 1) || (!isMobile && itemCount > 4)) {
                 container.style.maxHeight = '286px';
                 container.style.overflowY = 'auto';
                 container.style.paddingRight = '0.5rem'; // pr-2
