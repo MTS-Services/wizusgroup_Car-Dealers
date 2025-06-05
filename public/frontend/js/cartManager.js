@@ -164,7 +164,7 @@ class CartManager {
             if (status === 'success') {
                 // Update local cart data
                 this.updateLocalCartData(cart_item, 'add');
-                
+
                 this.addCartItemToUI(cart_item);
                 this.showNotification(message, 'success');
                 this.openSidebar();
@@ -172,7 +172,7 @@ class CartManager {
                 if (cart_item) {
                     // Update local cart data
                     this.updateLocalCartData(cart_item, 'update');
-                    
+
                     this.updateCartItemInUI(cart_item.id, cart_item.quantity, cart_item.price * cart_item.quantity);
                 }
                 this.showNotification(message, 'info');
@@ -204,8 +204,15 @@ class CartManager {
             newQuantity--;
         }
 
+        if (newQuantity > currentItem.product.quantity) {
+            this.log(`Quantity limit reached: ${currentItem.product.quantity}`);
+            this.showNotification(`Quantity limit reached: ${currentItem.product.quantity}`, 'warning');
+            return;
+        }
+
         if (newQuantity < 1) {
-            // this.showNotification('Quantity cannot be less than 1. Use the remove button to delete the item.', 'warning');
+            this.log('Minimum quantity is 1.');
+            this.showNotification('Minimum quantity is 1.', 'warning');
             return;
         }
 
@@ -224,10 +231,15 @@ class CartManager {
             if (status === 'success') {
                 // Update local cart data first
                 this.updateLocalCartItemQuantity(updatedItemId, serverQuantity, item_subtotal);
-                
+
                 // Then update UI
                 this.updateCartItemInUI(updatedItemId, serverQuantity, item_subtotal);
                 this.showNotification(message, 'success');
+            }
+
+            if (status === 'info') {
+                this.updateCartItemInUI(updatedItemId, serverQuantity, item_subtotal);
+                this.showNotification(message, 'info');
             }
 
             return response.data;
@@ -253,7 +265,7 @@ class CartManager {
             if (status === 'success') {
                 // Update local cart data
                 this.removeFromLocalCartData(removed_item_id);
-                
+
                 this.removeCartItemFromUI(removed_item_id);
                 this.updateCartTotal(cart_total);
                 this.showNotification(message, 'success');
@@ -308,7 +320,7 @@ class CartManager {
                 this.cartData.items[existingIndex] = cartItem;
             }
         }
-        
+
         this.log('Local cart data updated:', this.cartData);
     }
 
@@ -542,9 +554,9 @@ class CartManager {
                     ${item.quantity === 1 ? 'disabled' : ''}>
                     <i data-lucide="minus" class="w-4 h-4 group-hover:text-text-wiz_orange transition-all duration-300 ease-linear"></i>
                 </button>
-                <span class="quantity-display px-3 py-1 bg-bg-light dark:bg-bg-darkTertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">${item.quantity}</span>
+                <span class="quantity-display px-3 py-1 bg-bg-light dark:bg-bg-dark-tertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">${item.quantity}</span>
                 <button
-                    class="quantity-increase btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
+                    class="quantity-increase btn btn-ghost btn-circle btn-sm border border-gray-800/10 dark:border-gray-200 text-lg group"
                     title="Increase Quantity" 
                     data-item-id="${item.id}" 
                     data-current-quantity="${item.quantity}">
@@ -610,7 +622,7 @@ class CartManager {
         if ($itemElement.length) {
             // Update quantity display
             $itemElement.find('.quantity-display').text(newQuantity);
-            
+
             // Update subtotal
             $itemElement.find('.item-subtotal').text(this.formatCurrency(newSubtotal));
 
@@ -703,7 +715,14 @@ class CartManager {
 
     formatCurrency(amount) {
         const { symbol, position, decimals } = this.config.currency;
-        const formatted = parseFloat(amount || 0).toFixed(decimals);
+        const number = parseFloat(amount || 0);
+
+        // Format number with commas and fixed decimals
+        const formatted = number.toLocaleString(undefined, {
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals,
+        });
+
         return position === 'before' ? `${symbol}${formatted}` : `${formatted}${symbol}`;
     }
 

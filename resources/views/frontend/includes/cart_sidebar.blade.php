@@ -20,31 +20,33 @@
         </div>
 
         {{-- Checkout Card --}}
-        <div
-            class="px-6 py-2 border-t border-border-dark border-opacity-20 dark:border-white dark:border-opacity-50 bg-bg-light dark:bg-bg-darkSecondary shadow-card">
-            <div class="flex justify-between mb-1">
-                <span class="font-medium">{{ __('Total:') }}</span>
-                <span class="font-medium cart-total text-xl"></span>
-            </div>
-            <p class="text-sm text-text-gray mb-2">{{ __('Taxes and shipping calculated at checkout') }}</p>
+        <form action="{{ route('frontend.checkout.submit') }}" method="POST">
+            <div
+                class="px-6 py-2 border-t border-border-dark border-opacity-20 dark:border-white dark:border-opacity-50 bg-bg-light dark:bg-bg-darkSecondary shadow-card">
+                <div class="flex justify-between mb-1">
+                    <span class="font-medium">{{ __('Total:') }}</span>
+                    <span class="font-medium cart-total text-xl"></span>
+                </div>
+                <p class="text-sm text-text-gray mb-2">{{ __('Taxes and shipping calculated at checkout') }}</p>
 
-            <label class="flex items-center mb-4 border-t border-border-light dark:border-opacity-50">
-                <input type="checkbox" class="p-0 form-checkbox h-4 w-4 text-text-gray focus:ring-bg-primary">
-                <span class="ml-2 text-sm">I agree with <a href="#"
-                        class="underline text-text-gray hover:text-bg-primary transition-colors">terms and
-                        conditions</a></span>
-            </label>
+                <label class="flex items-center mb-4 border-t border-border-light dark:border-opacity-50">
+                    <input type="checkbox" class="p-0 form-checkbox h-4 w-4 text-text-gray focus:ring-bg-primary">
+                    <span class="ml-2 text-sm">I agree with <a href="#"
+                            class="underline text-text-gray hover:text-bg-primary transition-colors">terms and
+                            conditions</a></span>
+                </label>
 
-            <div class="flex items-center justify-between gap-3 pb-6">
-                <form action="{{ route('frontend.checkout.submit') }}" method="POST">
+                <div class="flex items-center justify-between gap-3 pb-6">
+
                     @csrf
                     <button type="submit" class="btn-primary w-full text-center py-1">{{ __('Checkout') }}</button>
-                </form>
-                <a href="{{ route('frontend.cart') }}"
-                    class="btn-secondary w-full text-center py-1 border border-border-dark dark:border-white dark:border-opacity-50 text-text-gray hover:text-text-dark dark:hover:text-white transition-colors">View
-                    Cart</a>
+
+                    <a href="{{ route('frontend.cart') }}"
+                        class="btn-secondary w-full text-center py-1 border border-border-dark dark:border-white dark:border-opacity-50 text-text-gray hover:text-text-dark dark:hover:text-white transition-colors">View
+                        Cart</a>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 
