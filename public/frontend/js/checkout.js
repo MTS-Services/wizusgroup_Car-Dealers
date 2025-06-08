@@ -402,15 +402,15 @@ class CheckoutManager {
                 <div class="relative flex-shrink-0">
                     <img src="${productImageUrl}" alt="${item.product.name}" class="w-24 h-24 object-contain rounded-md">
                 </div>
-                <div class="flex-1 flex flex-col justify-between w-full">
-                    <div>
-                        <h3 class="font-semibold text-base text-text-dark dark:text-text-white leading-snug mb-1 truncate sm:whitespace-normal">
+                <div class="flex-1 min-w-0 flex flex-col justify-between w-full">
+                    <div class='min-w-0'>
+                        <h3 class="font-semibold text-base text-text-dark dark:text-text-white leading-snug mb-1 break-words line-clamp-2 sm:whitespace-normal">
                             ${item.product.name}
                         </h3>
                         <p class="text-xs text-text-gray dark:text-text-white dark:text-opacity-70">${brandName} / ${modelName}</p>
                         <p class="font-bold text-lg text-bg-primary whitespace-nowrap item-subtotal">${this.formatCurrency(subtotal)}</p>
                     </div>
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-center gap-5 mt-3 w-full">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 mt-3 w-full">
                         ${this.generateQuantityControls(item)}
                         ${this.generateRemoveButton(item.id)}
                     </div>

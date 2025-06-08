@@ -10,7 +10,7 @@
         </div>
         <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary flex flex-col flex-1 justify-between">
             <h3
-                class="text-base lg:text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                class="text-base lg:text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200 break-words line-clamp-2">
                 {{ $product->name }}
             </h3>
             <div>

@@ -215,10 +215,10 @@
                             <span>{{ __('Subtotal:') }}</span>
                             <span class="font-medium order-subtotal" id="order-subtotal"></span>
                         </div>
-                        <div class="flex justify-between">
+                        {{-- <div class="flex justify-between">
                             <span>{{ __('Discount:') }}</span>
-                            <span class="font-medium">{{ __('-$0 USD') }}</span>
-                        </div>
+                            <span class="font-medium">{{ __('-$0') }}</span>
+                        </div> --}}
                     </div>
 
                     <div

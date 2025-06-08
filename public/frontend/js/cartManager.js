@@ -454,7 +454,7 @@ class CartManager {
                 </div>
                 <div class="flex-1 flex flex-col justify-between w-full">
                     <div>
-                        <h3 class="font-semibold text-base text-text-dark dark:text-text-white leading-snug mb-1 truncate sm:whitespace-normal">
+                        <h3 class="font-semibold text-base text-text-dark dark:text-text-white leading-snug mb-1 break-words line-clamp-2 sm:whitespace-normal">
                             ${item.product.name}
                         </h3>
                         <p class="text-xs text-text-gray dark:text-text-white dark:text-opacity-70">${brandName} / ${modelName}</p>
