@@ -27,6 +27,7 @@ class User extends AuthBaseModel implements MustVerifyEmail
         'status',
         'image',
         'email_verified_at',
+        'whatsapp',
 
         'company_name',
         'business_type',

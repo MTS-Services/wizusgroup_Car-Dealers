@@ -12,7 +12,13 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->tinyInteger('container_type')->nullable()->index()->comment(Order::GROUP_SHIPPING . ': Group Shipping, ' . Order::FULL_CONTAINER . ': Full Container, ');
+            $table->tinyInteger('container_type')->nullable()->index()->nullable()->comment(Order::GROUP_SHIPPING . ': Group Shipping, ' . Order::FULL_CONTAINER . ': Full Container, ');
+
+            $table->unsignedBigInteger('shipping_port')->index()->nullable();
+            $table->unsignedBigInteger('destination_port')->index()->nullable();
+
+            $table->foreign('shipping_port')->references('id')->on('shipping_locations')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('destination_port')->references('id')->on('shipping_locations')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -23,6 +29,12 @@ return new class extends Migration {
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->dropColumn('container_type');
+
+            $table->dropForeign(['shipping_port']);
+            $table->dropForeign(['destination_port']);
+
+            $table->dropColumn('shipping_port');
+            $table->dropColumn('destination_port');
         });
     }
 };

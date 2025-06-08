@@ -23,6 +23,10 @@ class Order extends BaseModel
         'total',
         'note',
 
+        'shipping_port',
+        'destination_port',
+        'container_type',
+
         'creater_id',
         'updater_id',
         'deleter_id',
@@ -126,5 +130,15 @@ class Order extends BaseModel
     public function getContainerTypeLabelAttribute(): string
     {
         return $this->getContainerTypeLabels()[$this->container_type] ?? 'Unknown';
+    }
+
+    public function shippingPort()
+    {
+        return $this->belongsTo(ShippingLocation::class, 'shipping_port', 'id');
+    }
+
+    public function destinationPort()
+    {
+        return $this->belongsTo(ShippingLocation::class, 'destination_port', 'id');
     }
 }

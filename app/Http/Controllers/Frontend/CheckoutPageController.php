@@ -4,20 +4,26 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\CheckoutSubmitRequest;
+use App\Http\Requests\Frontend\OrderSubmitRequest;
+use App\Models\Address;
 use App\Models\Cart;
+use App\Models\Container;
+use App\Models\ContainerReservation;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\ShippingLocation;
+use App\Models\User;
 use App\Services\AddressService;
 use App\Services\Admin\Setup\CountryService;
-use Exception;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
@@ -52,7 +58,7 @@ class CheckoutPageController extends Controller
                 ? Cart::with('items.product')->where('user_id', $user->id)->first()
                 : ($sessionId ? Cart::with('items.product')->where('session_id', $sessionId)->first() : null);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             Log::error('Error getting cart: ' . $e->getMessage());
             return null;
         }
@@ -142,7 +148,7 @@ class CheckoutPageController extends Controller
             session()->flash('success', 'Order checkout successfully');
             return redirect()->route('frontend.checkout', ['orderNumber' => $orderNumber]);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             Log::error('Error in checkout submit: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
                 'user_id' => auth()->id(),
@@ -252,7 +258,7 @@ class CheckoutPageController extends Controller
         $data = [
             'shipping_locations' => ShippingLocation::active()->orderBy('name')->get(),
             'countries' => $this->countryService->getCountrys()->active()->get(),
-            'order' => Order::with('items.product.primaryImage')->where('order_number', $orderNumber)->first(),
+            'order' => Order::where('order_number', $orderNumber)->first(),
         ];
 
         return view('frontend.pages.checkout', $data);
@@ -477,4 +483,176 @@ class CheckoutPageController extends Controller
 
         return response()->json($response, $statusCode);
     }
+
+
+    public function orderSubmit(OrderSubmitRequest $request, $orderNumber): RedirectResponse
+    {
+        try {
+            return DB::transaction(function () use ($request, $orderNumber) {
+                $user = Auth::guard('web')->check() ? user() : false;
+                $order = Order::where('order_number', $orderNumber)->firstOrFail();
+                $validated = $request->validated();
+
+                // Authorization check for logged in user
+                if ($user && $order->user_id !== $user->id) {
+                    throw ValidationException::withMessages([
+                        'auth' => 'You are not authorized to submit this order',
+                    ]);
+                }
+
+                // Authorization check for guest user
+                if (!$user) {
+                    if (!session()->has('cart_session_id') || $order->session_id !== session()->get('cart_session_id')) {
+                        throw ValidationException::withMessages([
+                            'auth' => 'You are not authorized to submit this order',
+                        ]);
+                    }
+
+                    // Create guest user
+                    $user = User::create($validated);
+                }
+
+                $user->whatsapp ?: $user->update(['whatsapp' => $validated['phone']]);
+
+                // Create shipping address
+                $address = Address::create(array_merge($validated, [
+                    'profile_id' => $user->id,
+                    'email' => $request->d_email,
+                    'profile_type' => get_class($user),
+                    'creater_id' => $user->id,
+                    'creater_type' => get_class($user),
+                    'type' => Address::TYPE_SHIPPING,
+                ]));
+
+                // Update order
+                $order->update([
+                    'user_id' => $user->id,
+                    'shipping_id' => $address->id,
+                    'status' => Order::STATUS_PENDING,
+                    'container_type' => $validated['container_type'],
+                    'shipping_port' => $validated['shipping_port'],
+                    'destination_port' => $validated['destination_port'],
+                ]);
+
+                $data['containers'] = Container::active()
+                    ->with(['destinationPort', 'shippingPort', 'containerReservations.product'])
+                    ->where('shipping_port', $order->shipping_port)
+                    ->where('destination_port', $order->destination_port)
+                    ->where('deadline', '>=', now())
+                    ->get();
+
+                session()->flash('success', 'Order submitted successfully');
+                return redirect()->route('frontend.container-order', $orderNumber);
+            });
+        } catch (ValidationException $e) {
+            // Flash validation error
+            session()->flash('warning', $e->getMessage());
+            return redirect()->back()->withInput();
+        } catch (\Throwable $e) {
+            // Catch all other exceptions
+            Log::error('Order submission failed', [
+                'error' => $e->getMessage(),
+                'order_number' => $orderNumber,
+                'user_id' => Auth::id(),
+            ]);
+
+            session()->flash('error', 'Something went wrong while submitting the order. Please try again.' . $e->getMessage());
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function containerOrder($orderNumber)
+    {
+        $order = Order::with([
+            'user',
+            'shippingPort',
+            'destinationPort',
+            'items.product.primaryImage',
+            'items.product.brand'
+        ])->where('order_number', $orderNumber)->firstOrFail();
+
+        $data['totalHeight'] = $order->items->sum(fn($item) => optional($item->product)->height_m ? $item->product?->height_m * $item->quantity : 0);
+        $data['totalWidth'] = $order->items->sum(fn($item) => optional($item->product)->width_m ? $item->product?->width_m * $item->quantity : 0);
+        $data['totalLength'] = $order->items->sum(fn($item) => optional($item->product)->length_m ? $item->product?->length_m * $item->quantity : 0);
+
+        $data['order'] = $order;
+
+        $data['containers'] = Container::active()
+            ->with(['destinationPort', 'shippingPort', 'containerReservations.product'])
+            ->where('shipping_port', $order->shipping_port)
+            ->where('destination_port', $order->destination_port)
+            ->where('height_m', '>=', $data['totalHeight'])
+            ->where('width_m', '>=', $data['totalWidth'])
+            ->where('length_m', '>=', $data['totalLength'])
+            ->where('deadline', '>=', now())
+            ->get();
+
+        return view('frontend.pages.order_container', $data);
+    }
+
+
+    public function joinContainer($orderNumber, $containerSlug)
+    {
+
+        try {
+            $order = Order::with(['items.product', 'user'])->where('order_number', $orderNumber)->first();
+            $container = Container::with('containerReservations')->where('slug', $containerSlug)->first();
+
+            if (!$order || !$container) {
+                throw new \Exception('Order or container not found');
+            }
+
+            if ($order->status != Order::STATUS_PENDING) {
+                throw new \Exception('Something went wrong, please try again');
+            }
+
+            $containerReservations = $container->containerReservations()->where('order_id', $order->id)->get();
+            if ($containerReservations->count() > 0) {
+                throw new \Exception('You have already joined this container');
+            }
+
+            return DB::transaction(function () use ($order, $container) {
+                $totalHeight = $order->items->sum(fn($item) => optional($item->product)->height_m ? $item->product?->height_m * $item->quantity : 0);
+                $totalWidth = $order->items->sum(fn($item) => optional($item->product)->width_m ? $item->product?->width_m * $item->quantity : 0);
+                $totalLength = $order->items->sum(fn($item) => optional($item->product)->length_m ? $item->product?->length_m * $item->quantity : 0);
+                $totalWeight = $order->items->sum(fn($item) => optional($item->product)->weight_kg ? $item->product?->weight_kg * $item->quantity : 0);
+
+
+                $total_price = $container->per_cbm_cost * ($totalHeight + $totalWidth + $totalLength) + $container->base_cost;
+                $reserve_price = $total_price / 2;
+
+                ContainerReservation::create([
+                    'order_id' => $order->id,
+                    'container_id' => $container->id,
+                    'user_id' => $order->user_id,
+                    'status' => ContainerReservation::STATUS_PENDING,
+                    'email' => $order->shipping?->email,
+                    'whatsapp' => $order->user?->whatsapp,
+                    'quantity' => $order->items->sum('quantity'),
+                    'length_m' => $totalLength,
+                    'width_m' => $totalWidth,
+                    'height_m' => $totalHeight,
+                    'weight_kg' => $totalWeight,
+                    'price' => $total_price,
+                    'reserve_price' => $reserve_price,
+                    'note' => null,
+                    'creater_id' => $order->creater_id,
+                    'creater_type' => $order->creater_type
+                ]);
+
+
+
+                $order->update([
+                    'container_id' => $container->id
+                ]);
+
+                session()->flash('success', 'Order finished successfully!');
+                return view('frontend.pages.order_finished', compact('order', 'container'));
+            });
+        } catch (\Throwable $e) {
+            session()->flash('error', $e->getMessage());
+            return redirect()->back();
+        }
+    }
+
 }

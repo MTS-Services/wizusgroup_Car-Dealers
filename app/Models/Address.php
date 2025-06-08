@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Address extends BaseModel
 {
 
+    protected $table = 'addresses';
+
     protected $fillable = [
         'sort_order',
         'profile_id',
@@ -51,13 +53,13 @@ class Address extends BaseModel
     {
         return $this->belongsTo(Country::class, 'country_id');
     }
-    
-    
+
+
     public function state(): BelongsTo
     {
         return $this->belongsTo(State::class, 'state_id');
     }
-    
+
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class, 'city_id');
@@ -230,15 +232,18 @@ class Address extends BaseModel
     //     return $query->where('profile_id', staff()->id)->where('profile_type', get_class(staff()));
     // }
 
-    public function scopePersonal(){
+    public function scopePersonal()
+    {
         return $this->where('type', self::TYPE_PERSONAL);
     }
 
-    public function scopeBilling(){
+    public function scopeBilling()
+    {
         return $this->where('type', self::TYPE_BILLING);
     }
 
-    public function scopeShipping(){
+    public function scopeShipping()
+    {
         return $this->where('type', self::TYPE_SHIPPING);
     }
 }

@@ -9,6 +9,8 @@ class Supplier extends AuthBaseModel
 {
     use HasFactory;
 
+    protected $table = 'suppliers';
+
     protected $fillable = [
         'sort_order',
         'first_name',

@@ -85,7 +85,9 @@ Route::group(['as' => 'frontend.'], function () {
         Route::post('/checkout/order-items', 'fetchOrderItems')->name('checkout.items');
 
 
-        Route::post('/checkout-order/submit', 'orderSubmit')->name('checkout-order.submit');
+        Route::post('/checkout-order/submit/{orderNumber}', 'orderSubmit')->name('checkout-order.submit');
+        Route::get('container-order/{orderNumber}', 'containerOrder')->name('container-order');
+        Route::get('order/join-container/{orderNumber}/{containerSlug}', 'joinContainer')->name('order.join-container');
 
 
     });
