@@ -175,24 +175,18 @@
                     <!-- Shipping Method -->
                     <h2 class="text-xl font-medium mb-4">{{ __('Shipping Method') }}</h2>
                     <div class="space-y-4 mb-8">
-                        <div
-                            class="payment-option flex justify-center items-center gap-2 border border-border-dark border-opacity-20 dark:border-white  dark:bg-bg-primary dark:bg-opacity-10 dark:border-opacity-30 focus:outline-primary focus:opacity-50 rounded p-2 text-sm w-full h-15">
-                            <input type="radio" id="shipping_method" name="shipping_method" class="w-4">
-                            <label for="shipping_method" class="w-full">
-                                <div class="flex justify-between">
-                                    <span>{{ __('Group Shipping') }}</span>
-                                </div>
-                            </label>
-                        </div>
-                        <div
-                            class="payment-option flex justify-center items-center gap-2 border border-border-dark border-opacity-20 dark:border-white  dark:bg-bg-primary dark:bg-opacity-10 dark:border-opacity-30 focus:outline-primary focus:opacity-50 rounded p-2 text-sm w-full h-15">
-                            <input type="radio" id="express-shipping" name="shipping_method" class="w-4">
-                            <label for="express-shipping" class="w-full">
-                                <div class="flex justify-between">
-                                    <span>{{ __('Full Container') }}</span>
-                                </div>
-                            </label>
-                        </div>
+                        @foreach (App\Models\Order::getContainerTypeLabels() as $key => $value)
+                            <div
+                                class="payment-option flex justify-center items-center gap-2 border border-border-dark border-opacity-20 dark:border-white  dark:bg-bg-primary dark:bg-opacity-10 dark:border-opacity-30 focus:outline-primary focus:opacity-50 rounded p-2 text-sm w-full h-15">
+                                <input type="radio" id="shipping_method_{{ $key }}" name="shipping_method"
+                                    class="w-4">
+                                <label for="shipping_method_{{ $key }}" class="w-full">
+                                    <div class="flex justify-between">
+                                        <span>{{ $value }}</span>
+                                    </div>
+                                </label>
+                            </div>
+                        @endforeach
                     </div>
 
                     <!-- Privacy Policy -->
@@ -206,59 +200,12 @@
             <!-- Right Column - Order Summary -->
             <div class="lg:w-1/3">
                 <div class="sticky top-20 bg-bg-white p-6 shadow-card dark:bg-bg-dark-tertiary rounded-lg">
-                    <h2 class="text-lg font-semibold mb-6">{{ __('In your cart') }}</h2>
+                    <h2 class="text-lg font-semibold mb-6">{{ __('Order Items') }}</h2>
 
-                    <!-- Cart Items -->
-                    <div class="space-y-6 mb-6" id="cart-items-container">
-                        @foreach ($order->items as $item)
-                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-lg shadow-md dark:bg-bg-dark-secondary transition-all duration-200 hover:shadow-lg"
-                                data-item-id="{{ $item->id }}">
-                                <div class="relative flex-shrink-0">
-                                    <img src="{{ storage_url($item->product?->primaryImage->first()?->image) }}"
-                                        alt="{{ $item->product?->primaryImage->first()?->alt ?? $item->product?->name }}"
-                                        class="w-24 h-24 object-contain rounded-md">
-                                </div>
-                                <div class="flex-1 flex flex-col justify-between w-full">
-                                    <div>
-                                        <h3
-                                            class="font-semibold text-base text-text-dark dark:text-text-white leading-snug mb-1 truncate sm:whitespace-normal">
-                                            {{ $item->product?->name }}
-                                        </h3>
-                                        <p class="text-xs text-text-gray dark:text-text-white dark:text-opacity-70">
-                                            {{ $item->product?->brand?->name }}
-                                            / {{ $item->product?->model?->name }}</p>
-                                        <p class="font-bold text-lg text-bg-primary whitespace-nowrap item-subtotal">
-                                            ${{ number_format($item->product?->price * $item->quantity, 2) }}</p>
-                                    </div>
-                                    <div
-                                        class="flex flex-col sm:flex-row items-start sm:items-center justify-center gap-5 mt-3 w-full">
-                                        <div class="flex items-center gap-2 flex-shrink-0">
-                                            <button
-                                                class="decrease-quantity quantity-btn btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
-                                                title="Decrease Quantity" data-id="{{ $item->id }}"
-                                                data-current-item-quantity="{{ $item->quantity }}">
-                                                <i data-lucide="minus"
-                                                    class="w-4 h-4 group-hover:text-text-wiz_orange transition-all duration-300 ease-linear"></i>
-                                            </button>
-                                            <span
-                                                class="quantity-show px-3 py-1 bg-bg-light dark:bg-bg-darkTertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">{{ $item->quantity }}</span>
-                                            <button
-                                                class="increase-quantity quantity-btn btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
-                                                title="Increase Quantity" data-id="{{ $item->id }}"
-                                                data-current-item-quantity="{{ $item->quantity }}">
-                                                <i data-lucide="plus"
-                                                    class="w-4 h-4 group-hover:text-text-secondary transition-all duration-300 ease-linear"></i>
-                                            </button>
-                                        </div>
-                                        <button
-                                            class="remove btn btn-ghost btn-circle text-text-gray hover:text-red-600 transition-colors"
-                                            title="Remove Item" data-id="{{ $item->id }}">
-                                            <i data-lucide="trash-2" class="w-5 h-5"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
+                    <!-- Order Items -->
+                    <div class="space-y-6 mb-6" id="order-items-container">
+                        <p class="text-center text-text-gray dark:text-text-white" id="checkout-empty-message">
+                            {{ __('Order is empty.') }}</p>
                     </div>
 
                     <!-- Order Summary -->
@@ -266,8 +213,7 @@
                         class="border-t border-border-dark border-opacity-20 dark:border-white dark:border-opacity-30 pt-4 space-y-2">
                         <div class="flex justify-between">
                             <span>{{ __('Subtotal:') }}</span>
-                            <span class="font-medium order-subtotal"
-                                id="subtotal">{{ number_format($order->sub_total, 2) }}</span>
+                            <span class="font-medium order-subtotal" id="order-subtotal"></span>
                         </div>
                         <div class="flex justify-between">
                             <span>{{ __('Discount:') }}</span>
@@ -279,7 +225,7 @@
                         class="border-t border-border-dark border-opacity-20 dark:border-white dark:border-opacity-30 mt-4 pt-4">
                         <div class="flex justify-between text-lg font-medium">
                             <span>{{ __('Total:') }}</span>
-                            <span class="order-total">{{ number_format($order->total, 2) }}</span>
+                            <span class="order-total"></span>
                         </div>
                     </div>
                     <x-frontend.primary-button bg="false" form="checkout-form"
@@ -315,74 +261,41 @@
             }
 
 
-            // let updateQuantityRoute = "{{ route('frontend.checkout.quantity-update') }}";
-            // let subTotal = 0;
-
-            // $(document).on('click', '.increase-quantity', function() {
-            //     let itemId = $(this).data('id');
-            //     let currentQuantity = $(this).data('current-item-quantity');
-            //     let quantity = currentQuantity + 1;
-            //     updateQuantity(itemId, quantity, updateQuantityRoute, $(this));
-            // });
-
-            // $(document).on('click', '.decrease-quantity', function() {
-            //     let itemId = $(this).data('id');
-            //     let currentQuantity = $(this).data('current-item-quantity');
-            //     let quantity = currentQuantity - 1;
-            //     updateQuantity(itemId, quantity, updateQuantityRoute);
-            // });
-
-            // $(document).on('click', '.remove', function() {
-            //     let removeItemRoute = "{{ route('frontend.checkout.remove-item') }}";
-            //     let itemId = $(this).data('id');
-            //     axios.post(removeItemRoute, {
-            //             item_id: itemId
-            //         })
-            //         .then(function(response) {
-            //             console.log(response.data);
-            //             // location.reload();
-            //         })
-            //         .catch(function(error) {
-            //             // Handle error response
-            //             console.error(error);
-
-            //         });
-            // });
-
-            // function updateQuantity(itemId, quantity, updateQuantityRoute) {
-            //     axios.post(updateQuantityRoute, {
-            //             item_id: itemId,
-            //             quantity: quantity
-            //         })
-            //         .then(function(response) {
-            //             $('.order-subtotal').text('$' + numberFormat(response.data.order_subtotal, 2));
-            //             $('.order-total').text('$' + numberFormat(response.data.order_total, 2));
-            //             $('.quantity-show').text(response.data.quantity);
-            //             $('.item-subtotal').text('$' + numberFormat(response.data.item_subtotal, 2));
-            //             $(`.quantity-btn[data-id="${itemId}"]`).attr('data-current-item-quantity', response.data
-            //                 .quantity);
-            //         })
-            //         .catch(function(error) {
-            //             // Handle error response
-            //             console.error(error);
-            //         });
-            // }
 
 
-            // Usage Example:
-            // Initialize the cart manager
-            const cartManager = new SimpleCartManager({
+
+
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function() {
+            const checkoutManager = new CheckoutManager({
+                orderId: `{{ encrypt($order->id) }}`,
+                uiType: 'sidebar', // Using sidebar layout as shown in your original template
                 routes: {
-                    updateQuantity: `{{ route('frontend.checkout.quantity-update') }}`,
-                    removeItem: 'frontend.checkout.remove-item'
+                    remove: `{{ route('frontend.checkout.remove-item') }}`,
+                    update: `{{ route('frontend.checkout.quantity-update') }}`,
+                    items: `{{ route('frontend.checkout.items') }}`
                 },
-                debug: true,
+                selectors: {
+                    itemsContainer: '#order-items-container',
+                    emptyMessage: '#checkout-empty-message',
+                    totalDisplay: '.order-total',
+                    subtotalDisplay: '.order-subtotal'
+                },
+                currency: {
+                    symbol: '$',
+                    position: 'before',
+                    decimals: 2
+                },
                 notifications: {
                     enabled: true,
-                    type: 'console' // or 'toastr', 'alert', 'custom'
-                }
+                    type: 'toastr' // Assuming you're using toastr for notifications
+                },
+                debug: {{ config('app.debug') ? 'false' : 'false' }}
             });
-
         });
     </script>
 @endpush

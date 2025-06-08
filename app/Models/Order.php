@@ -111,4 +111,20 @@ class Order extends BaseModel
     {
         return $this->hasMany(OrderItem::class, 'order_id', 'id');
     }
+
+    public const GROUP_SHIPPING = 1;
+    public const FULL_CONTAINER = 2;
+
+
+    public static function getContainerTypeLabels()
+    {
+        return [
+            self::GROUP_SHIPPING => 'Group Shipping',
+            self::FULL_CONTAINER => 'Full Container',
+        ];
+    }
+    public function getContainerTypeLabelAttribute(): string
+    {
+        return $this->getContainerTypeLabels()[$this->container_type] ?? 'Unknown';
+    }
 }

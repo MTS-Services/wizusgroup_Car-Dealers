@@ -183,7 +183,7 @@ class CartPageController extends Controller
             ], 404);
         }
 
-        $cartItem->delete();
+        $cartItem->forceDelete();
         $cartTotal = $this->calculateCartTotal($cartItem->cart);
 
         return response()->json([
