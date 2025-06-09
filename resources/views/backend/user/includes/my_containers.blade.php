@@ -144,8 +144,8 @@
                     </div>
                 </div>
             @empty
-                <div id="no-containers-message"
-                    class="hidden text-2xl font-semibold text-text-primary dark:text-text-light text-center uppercase bg-bg-white dark:bg-opacity-30 rounded-lg p-5 shadow-card">
+                <div
+                    class="col-span-full text-2xl font-semibold w-full text-text-primary dark:text-text-light text-center uppercase bg-bg-white dark:bg-opacity-30 rounded-lg p-5 shadow-card">
                     {{ __('Containers Not Found') }}
                 </div>
             @endforelse
