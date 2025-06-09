@@ -224,14 +224,18 @@
                                                 <div class="flex justify-between">
                                                     <div>
                                                         <span class="font-bold">{{ __('Total Cost:') }}</span>
-                                                        <span
-                                                            class="font-bold">${{ number_format($container->per_cbm_cost * ($totalHeight + $totalWidth + $totalLength) + $container->base_cost, 2) }}
+                                                        @php
+                                                            $total_price =
+                                                                $container->per_cbm_cost *
+                                                                ($totalHeight + $totalWidth + $totalLength);
+                                                            $total_price += $container->base_cost;
+                                                        @endphp
+                                                        <span class="font-bold">${{ number_format($total_price, 2) }}
                                                         </span>
                                                     </div>
                                                     <div>
                                                         <span class="font-bold">{{ __('Reserve Price:') }}</span>
-                                                        <span
-                                                            class="font-bold">${{ number_format(($container->per_cbm_cost * ($totalHeight + $totalWidth + $totalLength) + $container->base_cost) / 2, 2) }}
+                                                        <span class="font-bold">${{ number_format($total_price / 2, 2) }}
                                                         </span>
                                                     </div>
                                                 </div>

@@ -140,31 +140,6 @@
     {{-- jQuery Functionality --}}
     <script>
         $(document).ready(function() {
-            // Sidebar Navigation Tabs
-            $('.nav_item').on('click', function() {
-                const target = $(this).data('target');
-
-                // Remove active from all nav_items
-                $('.nav_item').removeClass('active');
-
-                // Add active to all items with the same target
-                $(`.nav_item[data-target="${target}"]`).addClass('active');
-
-                // Show the target pane
-                $('.nav-pane').removeClass('block').addClass('hidden');
-                $('#' + target).removeClass('hidden').addClass('block');
-            });
-
-            // Update Profile Button Tabs
-            $('.btn-item').on('click', function() {
-                $('.btn-item').removeClass('btn_active');
-                $(this).addClass('btn_active');
-
-                const target = $(this).data('target');
-                $('.tab-pane').removeClass('block').addClass('hidden');
-                $('#' + target).removeClass('hidden').addClass('block');
-            });
-
             // Sidebar Toggle
             const $sidebar = $('.userDashboardSidebar');
 
@@ -179,43 +154,6 @@
 
         });
     </script>
-    {{-- My Containers - Button Filter Styling --}}
-    {{-- <script>
-        $(document).ready(function() {
-            $('.btn-item').on('click', function(e) {
-                e.preventDefault();
-                var dataTab = $(this).data('tab');
-
-                // Toggle button styles
-                $('.btn-item')
-                    .removeClass('bg-bg-tertiary')
-                    .addClass('bg-bg-primary');
-                $(this)
-                    .removeClass('bg-bg-primary')
-                    .addClass('bg-bg-tertiary');
-
-                // Filter containers
-                var visibleCount = 0;
-                $('.container-card').each(function() {
-                    var cardStatus = $(this).data('status');
-                    if (dataTab === 'all' || dataTab === cardStatus) {
-                        $(this).removeClass('hidden').addClass('block');
-                        visibleCount++;
-                    } else {
-                        $(this).removeClass('block').addClass('hidden');
-                    }
-                });
-
-                // Toggle "No Containers Found" message
-                if (visibleCount === 0) {
-                    $('#no-containers-message').removeClass('hidden').addClass('block');
-                } else {
-                    $('#no-containers-message').removeClass('block').addClass('hidden');
-                }
-            });
-        });
-    </script> --}}
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const timers = document.querySelectorAll('.timer_countdown');

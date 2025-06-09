@@ -6,7 +6,8 @@
         <div class="container">
             <div class="flex justify-between items-center mb-6">
                 <h4 class="text-xl md:text-2xl font-semibold mb-0 ps-2">{{ __('My Container Details') }}</h4>
-                <a href="{{ route('user.profile') }}" class="btn-primary py-2  bg-bg-primary rounded-md hover:bg-bg-tertiary">
+                <a href="{{ route('user.profile', ['slug' => 'containers']) }}"
+                    class="btn-primary py-2  bg-bg-primary rounded-md hover:bg-bg-tertiary">
                     {{ __('Back') }}
                 </a>
             </div>
@@ -16,14 +17,14 @@
                 <div class="p-5 border-b border-gray-200 dark:border-border-dark-secondary">
                     <div class="flex justify-between items-baseline flex-wrap gap-4">
                         <h3 class="text-lg font-semibold text-text-primary dark:text-text-light">
-                            {{ $container->container?->title ?? __('Untitled') }}
+                            {{ $container->title ?? __('Untitled') }}
                         </h3>
                         <div>
                             <p class="text-base uppercase font-medium text-text-primary dark:text-text-light">
                                 {{ __('From') }}
                             </p>
                             <p class="text-sm text-text-primary dark:text-text-light">
-                                {{ $container->container?->shippingPort?->name ?? __('N/A') }}
+                                {{ $container->shippingPort?->name ?? __('N/A') }}
                             </p>
                         </div>
                         <div>
@@ -31,11 +32,11 @@
                                 {{ __('Destination') }}
                             </p>
                             <p class="text-sm text-text-primary dark:text-text-light">
-                                {{ $container->container?->destinationPort?->name ?? __('N/A') }}
+                                {{ $container->destinationPort?->name ?? __('N/A') }}
                             </p>
                         </div>
                         <span class="px-3 py-1 bg-green-600 text-white rounded-full text-sm font-medium">
-                            {{ $container->status_label ?? __('Active') }}
+                            {{ $container->status_label }}
                         </span>
                     </div>
                 </div>
@@ -54,7 +55,7 @@
                     <div class="grid grid-cols-5 gap-4">
                         <!-- Image -->
                         <div class="col-span-2">
-                            <img src="{{ storage_url($container->container?->image) }}" alt="{{ $container->container?->title ?? 'Untitled' }}"
+                            <img src="{{ storage_url($container->image) }}" alt="{{ $container->title ?? 'Untitled' }}"
                                 class="w-full max-h-80 h-full object-cover rounded-md">
                         </div>
 
@@ -62,14 +63,26 @@
                         <div class="col-span-3">
                             <div class="grid grid-cols-2 gap-4">
                                 @php
+                                    $container_volume =
+                                        $container->length_m * $container->width_m * $container->height_m;
+                                    $my_volume =
+                                        $container->containerReservations->sum('length_m') *
+                                        $container->containerReservations->sum('width_m') *
+                                        $container->containerReservations->sum('height_m');
                                     $specs = [
-                                        __('Length') => "{$container->length_m} cm",
-                                        __('Width') => "{$container->width_m} cm",
-                                        __('Height') => "{$container->height_m} cm",
-                                        __('Max Weight') => "{$container->container?->max_weight_kg} kg",
-                                        __('Base Cost') => '$' . number_format($container->container?->base_cost, 2),
-                                        __('Per Kilogram Cost') => '$' . number_format($container->container?->per_kg_cost, 2),
-                                        __('Per Cubic Meter Cost') => '$' . number_format($container->container?->per_cbm_cost, 2),
+                                        'Length' => "{$container->length_m} m",
+                                        'Width' => "{$container->width_m} m",
+                                        'Height' => "{$container->height_m} m",
+                                        'Max Weight' => "{$container->max_weight_kg} kg",
+                                        'Container Volume' => "{$container_volume} m3",
+                                        'Base Cost' => '$' . number_format($container->base_cost, 2),
+                                        'Per Cubic Meter Cost' => '$' . number_format($container->per_cbm_cost, 2),
+                                        'My Volume' => "{$my_volume} m3",
+                                        'Total Cost' =>
+                                            '$' . number_format($container->containerReservations->sum('price'), 2),
+                                        'Reserve Price' =>
+                                            '$' .
+                                            number_format($container->containerReservations->sum('reserve_price'), 2),
                                     ];
                                 @endphp
 
@@ -86,12 +99,12 @@
                             <div class="pt-4">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="font-medium text-base">{{ __('Capacity') }}</span>
-                                    <span>{{ $container->container?->getFilledPercentageAttribute() }}%
+                                    <span>{{ $container->getFilledPercentageAttribute() }}%
                                         {{ __('filled') }}</span>
                                 </div>
                                 <div class="w-full bg-gray-200 rounded-full h-2.5">
                                     <div class="bg-orange-500 h-2.5 rounded-full"
-                                        style="width: {{ $container->container?->getFilledPercentageAttribute() }}%"></div>
+                                        style="width: {{ $container->getFilledPercentageAttribute() }}%"></div>
                                 </div>
                             </div>
                         </div>

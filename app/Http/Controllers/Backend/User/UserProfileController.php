@@ -37,7 +37,6 @@ class UserProfileController extends Controller
     }
     public function profile(Request $request)
     {
-        $user = User::findOrFail(user()->id);
         $slug = $request->slug;
         $data['page_slug'] = $slug;
 
@@ -45,13 +44,35 @@ class UserProfileController extends Controller
             case 'orders':
                 $query = Order::self();
                 $data['orders'] = match ($request->tab) {
-                    'pending' => $query->pending()->paginate(2)->withQueryString(),
-                    'submitted' => $query->submitted()->paginate(2)->withQueryString(),
-                    'shipped' => $query->shipped()->paginate(2)->withQueryString(),
-                    'completed' => $query->completed()->paginate(2)->withQueryString(),
-                    default => $query->paginate(2)->withQueryString(),
+                    'pending' => $query->pending()->paginate(10)->withQueryString(),
+                    'submitted' => $query->submitted()->paginate(10)->withQueryString(),
+                    'shipped' => $query->shipped()->paginate(10)->withQueryString(),
+                    'completed' => $query->completed()->paginate(10)->withQueryString(),
+                    default => $query->paginate(10)->withQueryString(),
                 };
                 break;
+            case 'containers':
+                $query = Container::with([
+                    'shippingPort',
+                    'destinationPort',
+                    'containerReservations' => function ($query) {
+                        $query->where('user_id', user()->id);
+                    },
+                ])->whereHas('containerReservations', function ($query) {
+                    $query->self();
+                });
+                $data['containers'] = match ($request->tab) {
+                    'active' => $query->active()->paginate(3)->withQueryString(),
+                    'shipped' => $query->shipped()->paginate(3)->withQueryString(),
+                    'delivered' => $query->delivered()->paginate(3)->withQueryString(),
+                    default => $query->paginate(3)->withQueryString(),
+                };
+                break;
+            case 'profile':
+                $user = $this->userService->getUser(encrypt(user()->id));
+                $data['user'] = $user->load(['personalInformation', 'addresses']);
+                $data['address'] = $user->addresses()->personal()->first();
+                $data['countries'] = $this->countryService->getCountrys()->active()->get();
             default:
                 $data['total_orders'] = Order::self()->count();
                 $data['total_containers'] = Container::whereHas('containerReservations', function ($query) {
@@ -59,24 +80,6 @@ class UserProfileController extends Controller
                 })->count();
                 break;
         }
-        // $data['user'] = $this->userService->getUser(encrypt(user()->id));
-        // $data['auctions'] = $this->auctionService->getAuctions('end_date', 'asc')->withCount('auctionBids')->whereHas('auctionBids', function ($query) {
-        //     $query->where('user_id', user()->id);
-        // })->with([
-        //             'auctionBids' => function ($q) {
-        //                 $q->where('user_id', user()->id);
-        //             },
-        //             'auctionWatchers',
-        //             'product.category',
-        //         ])
-        //     ->get();
-        // $data['user']->load(['personalInformation']);
-        // $data['address'] = $this->addressService->getAddresses()->userAddresses()->personal()->first();
-        // $data['countries'] = $this->countryService->getCountrys()->active()->get();
-        // $data['my_containers'] = $this->userService->getUser(encrypt(user()->id))->containerReservations()->with(['container.destinationPort', 'container.shippingPort'])->get();
-
-
-
         return view('backend.user.dashboard', $data);
     }
 
@@ -126,7 +129,14 @@ class UserProfileController extends Controller
 
     public function containerDetails($container_slug)
     {
-        $data['container'] = ContainerReservation::with(['container.destinationPort', 'container.shippingPort'])->where('id', decrypt($container_slug))->firstOrFail();
+        $data['container'] = Container::with([
+            'destinationPort',
+            'shippingPort',
+            'containerReservations.product',
+            'containerReservations' => function ($query) {
+                $query->where('user_id', user()->id);
+            },
+        ])->where('slug', $container_slug)->firstOrFail();
         return view('backend.user.details_my_container', $data);
     }
 }

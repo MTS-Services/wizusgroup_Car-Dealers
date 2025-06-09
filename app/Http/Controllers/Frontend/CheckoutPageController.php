@@ -638,7 +638,8 @@ class CheckoutPageController extends Controller
                 $totalWeight = $order->items->sum(fn($item) => optional($item->product)->weight_kg ? $item->product?->weight_kg * $item->quantity : 0);
 
 
-                $total_price = $container->per_cbm_cost * ($totalHeight + $totalWidth + $totalLength) + $container->base_cost;
+                $total_price = $container->per_cbm_cost * ($totalHeight + $totalWidth + $totalLength);
+                $total_price += $container->base_cost;
                 $reserve_price = $total_price / 2;
 
                 ContainerReservation::create([

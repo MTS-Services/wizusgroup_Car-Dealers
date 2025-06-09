@@ -274,28 +274,43 @@
 
 @push('js')
     <script>
-        // Get Country States By Axios
-        let route1 = "{{ route('axios.get-states-or-cities') }}";
-        $('#country').on('change', function() {
-            getStatesOrCity($(this).val(), route1);
-        });
-        let route2 = "{{ route('axios.get-cities') }}";
-        $('#state').on('change', function() {
-            getCities($(this).val(), route2);
-        });
-        let data_id = `{{ $address?->state_id ? $address?->state_id : $address?->city_id }}`;
-        if (data_id) {
-            getStatesOrCity($('#country').val(), route1, data_id);
-        }
-        if (`{{ $address?->state_id }}`) {
-            getCities(`{{ $address?->state_id }}`, route2, `{{ $address?->city_id }}`);
-        }
+        document.addEventListener('DOMContentLoaded', function() {
 
-        // FilePond Upload
-        const existingFiles = {
-            "#image": "{{ $user->modified_image }}"
-        };
-        file_upload(["#image"], ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/svg"],
-            existingFiles);
+            $('.btn-item').on('click', function() {
+                $('.btn-item').removeClass('btn_active');
+                $(this).addClass('btn_active');
+
+                const target = $(this).data('target');
+                $('.tab-pane').removeClass('block').addClass('hidden');
+                $('#' + target).removeClass('hidden').addClass('block');
+            });
+
+
+
+
+            // Get Country States By Axios
+            let route1 = "{{ route('axios.get-states-or-cities') }}";
+            $('#country').on('change', function() {
+                getStatesOrCity($(this).val(), route1);
+            });
+            let route2 = "{{ route('axios.get-cities') }}";
+            $('#state').on('change', function() {
+                getCities($(this).val(), route2);
+            });
+            let data_id = `{{ $address?->state_id ? $address?->state_id : $address?->city_id }}`;
+            if (data_id) {
+                getStatesOrCity($('#country').val(), route1, data_id);
+            }
+            if (`{{ $address?->state_id }}`) {
+                getCities(`{{ $address?->state_id }}`, route2, `{{ $address?->city_id }}`);
+            }
+
+            // FilePond Upload
+            const existingFiles = {
+                "#image": "{{ $user->modified_image }}"
+            };
+            file_upload(["#image"], ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/svg"],
+                existingFiles);
+        })
     </script>
 @endpush
