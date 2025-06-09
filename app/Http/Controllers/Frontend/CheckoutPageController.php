@@ -8,6 +8,7 @@ use App\Http\Requests\Frontend\OrderSubmitRequest;
 use App\Jobs\SendContainerJoinEmail;
 use App\Jobs\SendContainerRequestEmail;
 use App\Jobs\SendOrderSubmittedEmail;
+use App\Jobs\SendUserRegistrationMail;
 use App\Mail\OrderSubmitted;
 use App\Models\Address;
 use App\Models\Cart;
@@ -501,7 +502,7 @@ class CheckoutPageController extends Controller
                 // Authorization check for logged in user
                 if ($user && $order->user_id !== $user->id) {
                     throw ValidationException::withMessages([
-                        'auth' => 'You are not authorized to submit this order',
+                        'auth' => 'You are not authorized to submit this order 1',
                     ]);
                 }
 
@@ -516,6 +517,7 @@ class CheckoutPageController extends Controller
                     // Create guest user
                     $user = User::create($validated);
                     Auth::login($user);
+                    SendUserRegistrationMail::dispatch($user, $validated['password']);
 
                 }
 
