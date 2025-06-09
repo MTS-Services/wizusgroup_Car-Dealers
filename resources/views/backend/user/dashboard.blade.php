@@ -16,44 +16,50 @@
                         <ul class="">
                             <li class="group nav_item dark:hover:bg-bg-dark-tertiary transition-all duration-300"
                                 data-target="my_dashboard">
-                                <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="home"
-                                        class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
-                                        class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('Dashboard') }}</span>
+                                <a href="{{ route('user.profile', ['slug' => 'dashboard']) }}"
+                                    class="flex items-center gap-2 p-3"><i data-lucide="home"
+                                        class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect {{ !isset($page_slug) || (isset($page_slug) && $page_slug == 'dashboard') ? 'text-text-tertiary' : '' }}"></i><span
+                                        class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect {{ !isset($page_slug) || (isset($page_slug) && $page_slug == 'dashboard') ? 'text-text-tertiary' : '' }}">{{ __('Dashboard') }}</span>
                                 </a>
                             </li>
                             <li class="group nav_item dark:hover:bg-bg-dark-tertiary transition-all duration-300"
                                 data-target="my_orders">
-                                <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="shopping-cart"
-                                        class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
-                                        class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('My Orders') }}</span>
+                                <a href="{{ route('user.profile', ['slug' => 'orders']) }}"
+                                    class="flex items-center gap-2 p-3"><i data-lucide="shopping-cart"
+                                        class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect {{ isset($page_slug) && $page_slug == 'orders' ? 'text-text-tertiary' : '' }}"></i><span
+                                        class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect {{ isset($page_slug) && $page_slug == 'orders' ? 'text-text-tertiary' : '' }}">{{ __('My Orders') }}</span>
                                 </a>
                             </li>
                             <li class="group nav_item  dark:hover:bg-bg-dark-tertiary  transition-all duration-300"
                                 data-target="my_containers">
-                                <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="container"
-                                        class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
-                                        class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('My Containers') }}</span>
+                                <a href="{{ route('user.profile', ['slug' => 'containers']) }}"
+                                    class="flex items-center gap-2 p-3"><i data-lucide="container"
+                                        class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect {{ isset($page_slug) && $page_slug == 'containers' ? 'text-text-tertiary' : '' }}"></i><span
+                                        class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect {{ isset($page_slug) && $page_slug == 'containers' ? 'text-text-tertiary' : '' }}">{{ __('My Containers') }}</span>
                                 </a>
                             </li>
-                            <li class="group nav_item dark:hover:bg-bg-dark-tertiary  transition-all duration-300"
+                            @if (isset($not_use))
+                                {{-- <li class="group nav_item dark:hover:bg-bg-dark-tertiary  transition-all duration-300"
                                 data-target="my_bids">
                                 <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="dollar-sign"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('My Bids') }}</span>
                                 </a>
-                            </li>
-                            <li class="group nav_item dark:hover:bg-bg-dark-tertiary  transition-all duration-300"
+                            </li> --}}
+                                {{-- <li class="group nav_item dark:hover:bg-bg-dark-tertiary  transition-all duration-300"
                                 data-target="my_inquiries">
                                 <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="info"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
                                         class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('My Inquiries') }}</span>
                                 </a>
-                            </li>
+                            </li> --}}
+                            @endif
                             <li class="group nav_item dark:hover:bg-bg-dark-tertiary  transition-all duration-300"
                                 data-target="update_profile">
-                                <a href="javascript:void(0)" class="flex items-center gap-2 p-3"><i data-lucide="user"
-                                        class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
-                                        class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('Update Profile') }}</span>
+                                <a href="{{ route('user.profile', ['slug' => 'profile']) }}"
+                                    class="flex items-center gap-2 p-3"><i data-lucide="user"
+                                        class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect {{ isset($page_slug) && $page_slug == 'profile' ? 'text-text-tertiary' : '' }}"></i><span
+                                        class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect {{ isset($page_slug) && $page_slug == 'profile' ? 'text-text-tertiary' : '' }}">{{ __('Update Profile') }}</span>
                                 </a>
                             </li>
                             <li class="group nav_item dark:hover:bg-bg-dark-tertiary  transition-all duration-300">
@@ -83,32 +89,45 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="my_dashboard" class="nav-pane block">
-                            {{-- Client Dashboard --}}
-                            @include('backend.user.includes.client_dashboard')
-                        </div>
-                        <div id="my_orders" class="nav-pane hidden">
-                            @include('backend.user.includes.my_orders')
-                        </div>
-                        <div id="my_containers" class="nav-pane hidden">
-                            {{-- My Containers --}}
-                            @include('backend.user.includes.my_containers')
-                        </div>
-                        <div id="my_bids" class="nav-pane hidden">
-                            <div class=" p-10 pt-0">
-                                <div class="max-w-6xl mx-auto">
-                                    {{-- My Bids --}}
-                                    @include('backend.user.includes.my_bids')
+                        @if (!isset($page_slug) || (isset($page_slug) && $page_slug == 'dashboard'))
+                            <div id="my_dashboard" class="nav-pane block">
+                                {{-- Client Dashboard --}}
+                                @include('backend.user.includes.client_dashboard')
+                            </div>
+                        @endif
+                        @if (isset($page_slug) && $page_slug == 'orders')
+                            <div id="my_orders" class="nav-pane block">
+                                @include('backend.user.includes.my_orders')
+                            </div>
+                        @endif
+                        @if (isset($page_slug) && $page_slug == 'containers')
+                            <div id="my_containers" class="nav-pane block">
+                                {{-- My Containers --}}
+                                @include('backend.user.includes.my_containers')
+                            </div>
+                        @endif
+                        @if (isset($page_slug) && $page_slug == 'bids')
+                            <div id="my_bids" class="nav-pane block">
+                                <div class=" p-10 pt-0">
+                                    <div class="max-w-6xl mx-auto">
+                                        {{-- My Bids --}}
+                                        @include('backend.user.includes.my_bids')
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div id="my_inquiries" class="nav-pane hidden">
-                            @include('backend.user.includes.my_inquiries')
-                        </div>
-                        <div id="update_profile" class="nav-pane hidden @if (isset($page_slug) && $page_slug == 'dashboard') active @endif">
-                            {{-- Update Profile --}}
-                            @include('backend.user.includes.update_profile')
-                        </div>
+                        @endif
+
+                        @if (isset($page_slug) && $page_slug == 'inquiries')
+                            <div id="my_inquiries" class="nav-pane block">
+                                @include('backend.user.includes.my_inquiries')
+                            </div>
+                        @endif
+                        @if (isset($page_slug) && $page_slug == 'profile')
+                            <div id="update_profile" class="nav-pane block">
+                                {{-- Update Profile --}}
+                                @include('backend.user.includes.update_profile')
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -157,33 +176,11 @@
                 $sidebar.css('transform', 'translateX(-100%)');
             });
 
-            // Get Country States By Axios
-            let route1 = "{{ route('axios.get-states-or-cities') }}";
-            $('#country').on('change', function() {
-                getStatesOrCity($(this).val(), route1);
-            });
-            let route2 = "{{ route('axios.get-cities') }}";
-            $('#state').on('change', function() {
-                getCities($(this).val(), route2);
-            });
-            let data_id = `{{ $address?->state_id ? $address?->state_id : $address?->city_id }}`;
-            if (data_id) {
-                getStatesOrCity($('#country').val(), route1, data_id);
-            }
-            if (`{{ $address?->state_id }}`) {
-                getCities(`{{ $address?->state_id }}`, route2, `{{ $address?->city_id }}`);
-            }
 
-            // FilePond Upload
-            const existingFiles = {
-                "#image": "{{ $user->modified_image }}"
-            };
-            file_upload(["#image"], ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/svg"],
-                existingFiles);
         });
     </script>
     {{-- My Containers - Button Filter Styling --}}
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('.btn-item').on('click', function(e) {
                 e.preventDefault();
@@ -217,7 +214,7 @@
                 }
             });
         });
-    </script>
+    </script> --}}
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

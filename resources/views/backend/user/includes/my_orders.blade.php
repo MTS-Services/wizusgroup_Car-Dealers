@@ -12,23 +12,34 @@
             <div
                 class="p-4 border-b dark:border-b-border-gray dark:border-opacity-50 flex flex-wrap justify-between items-center">
                 <div class="flex space-x-2 mb-2 sm:mb-0">
-                    <a href="#" class="btn-item bg-bg-tertiary btn-primary py-2 rounded-md hover:bg-bg-tertiary">
-                        All Orders
+                    <a href="{{ route('user.profile', ['slug' => 'orders', 'tab' => 'all']) }}"
+                        class="btn-item bg-bg-tertiary btn-primary py-2 rounded-md hover:bg-bg-tertiary">
+                        {{ __('All Orders') }}
                     </a>
-                    <a href="#" class="btn-item btn-primary py-2 rounded-md hover:bg-bg-tertiary">
-                        Pending
+                    <a href="{{ route('user.profile', ['slug' => 'orders', 'tab' => 'pending']) }}"
+                        class="btn-item btn-primary py-2 rounded-md hover:bg-bg-tertiary">
+                        {{ __('Pending') }}
                     </a>
-                    <a href="#" class="btn-item btn-primary py-2 rounded-md hover:bg-bg-tertiary">
-                        Completed
+                    <a href="{{ route('user.profile', ['slug' => 'orders', 'tab' => 'submitted']) }}"
+                        class="btn-item btn-primary py-2 rounded-md hover:bg-bg-tertiary">
+                        {{ __('Submitted') }}
+                    </a>
+                    <a href="{{ route('user.profile', ['slug' => 'orders', 'tab' => 'shipped']) }}"
+                        class="btn-item btn-primary py-2 rounded-md hover:bg-bg-tertiary">
+                        {{ __('Submitted') }}
+                    </a>
+                    <a href="{{ route('user.profile', ['slug' => 'orders', 'tab' => 'completed']) }}"
+                        class="btn-item btn-primary py-2 rounded-md hover:bg-bg-tertiary">
+                        {{ __('Completed') }}
                     </a>
                 </div>
-                <div class="relative">
+                {{-- <div class="relative">
                     <input type="text" placeholder="Search orders..."
                         class="pl-10 pr-4 py-2 border border-border-gray dark:border-opacity-50 rounded-md focus:outline-none focus:ring-1 focus:ring-bg-tertiary">
                     <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-gray">
                         <i class="w-5 h-5" data-lucide="search"></i>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Orders Table -->
@@ -38,50 +49,84 @@
                         <tr>
                             <th
                                 class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
-                                Order ID</th>
+                                {{ __('Order Number') }}</th>
                             <th
                                 class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
-                                Product</th>
+                                {{ __('Date') }}</th>
                             <th
                                 class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
-                                Date</th>
+                                {{ __('Amount') }}</th>
                             <th
                                 class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
-                                Amount</th>
+                                {{ __('Status') }}</th>
                             <th
                                 class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
-                                Status</th>
-                            <th
-                                class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
-                                Actions</th>
+                                {{ __('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-border-gray dark:divide-opacity-50">
-                        <tr class="hover:bg-bg-gray dark:bg-opacity-20 hover:bg-opacity-50">
-                            <td
-                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-gray dark:text-text-light">
-                                #WG-10234</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
-                                Industrial Machinery</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
-                                May
-                                15, 2025</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
-                                $12,500.00</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-800 text-text-white">
-                                    Delivered
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="#"
-                                    class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
-                                    <i data-lucide="eye" class="w-5 h-5"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-bg-gray dark:bg-opacity-20 hover:bg-opacity-50">
+                        @forelse ($orders as $order)
+                            <tr class="hover:bg-bg-gray dark:bg-opacity-20 hover:bg-opacity-50">
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-gray dark:text-text-light">
+                                    {{ $order->order_number }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
+                                    {{ $order->created_at_formatted }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
+                                    ${{ number_format($order->total, 2) }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span
+                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $order->status_tailwind_color }}  text-text-white">
+                                        {{ $order->status_label }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    <a href="#"
+                                        class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
+                                        <i data-lucide="eye" class="w-5 h-5"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr class="hover:bg-bg-gray dark:bg-opacity-20 hover:bg-opacity-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light"
+                                    colspan="5">
+                                    {{ __('No orders found.') }}
+                                </td>
+                            </tr>
+                        @endforelse
+                        @forelse ($orders as $order)
+                            <tr class="hover:bg-bg-gray dark:bg-opacity-20 hover:bg-opacity-50">
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-gray dark:text-text-light">
+                                    {{ $order->order_number }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
+                                    {{ $order->created_at_formatted }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
+                                    ${{ number_format($order->total, 2) }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span
+                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $order->status_tailwind_color }}  text-text-white">
+                                        {{ $order->status_label }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    <a href="#"
+                                        class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
+                                        <i data-lucide="eye" class="w-5 h-5"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr class="hover:bg-bg-gray dark:bg-opacity-20 hover:bg-opacity-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light"
+                                    colspan="5">
+                                    {{ __('No orders found.') }}
+                                </td>
+                            </tr>
+                        @endforelse
+
+                        {{-- <tr class="hover:bg-bg-gray dark:bg-opacity-20 hover:bg-opacity-50">
                             <td
                                 class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-gray dark:text-text-light">
                                 #WG-10233</td>
@@ -128,7 +173,7 @@
                                     <i data-lucide="eye" class="w-5 h-5"></i>
                                 </a>
                             </td>
-                        </tr>
+                        </tr> --}}
                     </tbody>
                 </table>
             </div>

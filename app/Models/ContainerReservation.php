@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\BaseModel;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ContainerReservation extends BaseModel
@@ -150,6 +151,11 @@ class ContainerReservation extends BaseModel
     public function scopeDecline($query)
     {
         return $query->where('status', self::STATUS_DECLINE);
+    }
+
+    public function scopeSelf(Builder $query)
+    {
+        return $query->where('user_id', user()->id);
     }
 
 }

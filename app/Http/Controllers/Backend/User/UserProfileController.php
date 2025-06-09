@@ -7,13 +7,16 @@ use App\Http\Requests\AddressRequest;
 use App\Http\Requests\User\UserPasswordUpdateRequest;
 use App\Http\Requests\User\UserProfileRequest;
 use App\Models\Auction;
+use App\Models\Container;
 use App\Models\ContainerReservation;
+use App\Models\Order;
 use App\Models\User;
 use App\Services\AddressService;
 use App\Services\Admin\AuctionManagement\AuctionService;
 use App\Services\Admin\Setup\CountryService;
 use App\Services\Admin\UserManagement\UserService;
 use App\Services\PersonalInformationService;
+use Illuminate\Http\Request;
 
 class UserProfileController extends Controller
 {
@@ -32,31 +35,56 @@ class UserProfileController extends Controller
         $this->userService = $userService;
         $this->auctionService = $auctionService;
     }
-    public function profile()
+    public function profile(Request $request)
     {
-        $data['user'] = $this->userService->getUser(encrypt(user()->id));
-        $data['auctions'] = $this->auctionService->getAuctions('end_date', 'asc')->withCount('auctionBids')->whereHas('auctionBids', function ($query) {
-            $query->where('user_id', user()->id);
-        })->with([
-            'auctionBids' => function ($q) {
-                $q->where('user_id', user()->id);
-            },
-            'auctionWatchers',
-            'product.category',
-        ])
-        ->get();
-        $data['user']->load(['personalInformation']);
-        $data['address'] = $this->addressService->getAddresses()->userAddresses()->personal()->first();
-        $data['countries'] = $this->countryService->getCountrys()->active()->get();
-        $data['my_containers'] = $this->userService->getUser(encrypt(user()->id))->containerReservations()->with(['container.destinationPort', 'container.shippingPort'])->get();
+        $user = User::findOrFail(user()->id);
+        $slug = $request->slug;
+        $data['page_slug'] = $slug;
+
+        switch ($slug) {
+            case 'orders':
+                $query = Order::self()->with(['container', 'shippingPort', 'destinationPort', 'items.product']);
+                $data['orders'] = match ($request->tab) {
+                    'pending' => $query->pending()->get(),
+                    'submitted' => $query->submitted()->get(),
+                    'shipped' => $query->shipped()->get(),
+                    'completed' => $query->completed()->get(),
+                    default => $query->get(),
+                };
+                break;
+            default:
+                $data['total_orders'] = Order::self()->count();
+                $data['total_containers'] = Container::whereHas('containerReservations', function ($query) {
+                    $query->self();
+                })->count();
+                break;
+        }
+        // $data['user'] = $this->userService->getUser(encrypt(user()->id));
+        // $data['auctions'] = $this->auctionService->getAuctions('end_date', 'asc')->withCount('auctionBids')->whereHas('auctionBids', function ($query) {
+        //     $query->where('user_id', user()->id);
+        // })->with([
+        //             'auctionBids' => function ($q) {
+        //                 $q->where('user_id', user()->id);
+        //             },
+        //             'auctionWatchers',
+        //             'product.category',
+        //         ])
+        //     ->get();
+        // $data['user']->load(['personalInformation']);
+        // $data['address'] = $this->addressService->getAddresses()->userAddresses()->personal()->first();
+        // $data['countries'] = $this->countryService->getCountrys()->active()->get();
+        // $data['my_containers'] = $this->userService->getUser(encrypt(user()->id))->containerReservations()->with(['container.destinationPort', 'container.shippingPort'])->get();
+
+
+
         return view('backend.user.dashboard', $data);
     }
 
     public function profileUpdate(UserProfileRequest $request)
     {
         $validated = $request->validated();
-        $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
-        $this->userService->updateUserProfile(user(), $validated , $file);
+        $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
+        $this->userService->updateUserProfile(user(), $validated, $file);
 
         $this->personalInformationService->updatePersonalInformation(user()->personalInformation, $validated);
 

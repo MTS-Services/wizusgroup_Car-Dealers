@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\BaseModel;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -42,7 +43,8 @@ class Order extends BaseModel
         parent::__construct($attributes);
         $this->appends = array_merge(parent::getAppends(), [
             'status_label',
-            'status_color_label',
+            'status_color',
+            'status_tailwind_color',
         ]);
     }
 
@@ -100,15 +102,31 @@ class Order extends BaseModel
             self::STATUS_CANCELED => 'btn-danger',
         ];
     }
+    public function getStatusTailwindColors()
+    {
+        return [
+            self::STATUS_INITIATED => 'bg-gray-800',
+            self::STATUS_PENDING => 'bg-yellow-800',
+            self::STATUS_SUBMITTED => 'bg-green-800',
+            self::STATUS_CONFIRM => 'bg-blue-800',
+            self::STATUS_SHIPPED => 'bg-indigo-800',
+            self::STATUS_DELIVERED => 'bg-green-800',
+            self::STATUS_CANCELED => 'bg-red-800',
+        ];
+    }
 
     public function getStatuslabelAttribute(): string
     {
         return $this->getStatusLabels()[$this->status] ?? 'Unknown';
     }
 
-    public function getStatusColorLabelAttribute(): string
+    public function getStatusColorAttribute(): string
     {
         return $this->getStatusColors()[$this->status] ?? 'btn-secondary';
+    }
+    public function getStatusTailwindColorAttribute(): string
+    {
+        return $this->getStatusTailwindColors()[$this->status] ?? 'bg-gray-800';
     }
 
     public function container(): BelongsTo
@@ -162,5 +180,26 @@ class Order extends BaseModel
     public function getContainerRequestLabelAttribute(): string
     {
         return $this->getContainerRequestLabels()[$this->container_request] ?? 'Unknown';
+    }
+
+    public function scopeSelf(Builder $query)
+    {
+        return $query->where('user_id', user()->id);
+    }
+    public function scopePending(Builder $query)
+    {
+        return $query->where('status', self::STATUS_PENDING)->orWhere('status', self::STATUS_INITIATED);
+    }
+    public function scopeSubmitted(Builder $query)
+    {
+        return $query->where('status', self::STATUS_SUBMITTED);
+    }
+    public function scopeShipped(Builder $query)
+    {
+        return $query->where('status', self::STATUS_SHIPPED);
+    }
+    public function scopeCompleted(Builder $query)
+    {
+        return $query->where('status', self::STATUS_DELIVERED);
     }
 }

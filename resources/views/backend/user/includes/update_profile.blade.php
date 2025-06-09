@@ -15,7 +15,8 @@
                 {{-- Update Profile --}}
                 {{-- <h3 class="text-xl font-semibold mb-4 uppercase">Update Profile</h3> --}}
                 <div>
-                    <form action="{{ route('user.profile.update', encrypt($user->id)) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('user.profile.update', encrypt($user->id)) }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -226,8 +227,7 @@
                             </div>
 
                             <div class="mt-6 text-left">
-                                <button
-                                    class="btn btn-primary hover:bg-bg-tertiary">
+                                <button class="btn btn-primary hover:bg-bg-tertiary">
                                     {{ __('Update') }}
                                 </button>
                             </div>
@@ -271,3 +271,31 @@
         </div>
     </div>
 </div>
+
+@push('js')
+    <script>
+        // Get Country States By Axios
+        let route1 = "{{ route('axios.get-states-or-cities') }}";
+        $('#country').on('change', function() {
+            getStatesOrCity($(this).val(), route1);
+        });
+        let route2 = "{{ route('axios.get-cities') }}";
+        $('#state').on('change', function() {
+            getCities($(this).val(), route2);
+        });
+        let data_id = `{{ $address?->state_id ? $address?->state_id : $address?->city_id }}`;
+        if (data_id) {
+            getStatesOrCity($('#country').val(), route1, data_id);
+        }
+        if (`{{ $address?->state_id }}`) {
+            getCities(`{{ $address?->state_id }}`, route2, `{{ $address?->city_id }}`);
+        }
+
+        // FilePond Upload
+        const existingFiles = {
+            "#image": "{{ $user->modified_image }}"
+        };
+        file_upload(["#image"], ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/svg"],
+            existingFiles);
+    </script>
+@endpush
