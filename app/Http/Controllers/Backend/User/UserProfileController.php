@@ -43,13 +43,13 @@ class UserProfileController extends Controller
 
         switch ($slug) {
             case 'orders':
-                $query = Order::self()->with(['container', 'shippingPort', 'destinationPort', 'items.product']);
+                $query = Order::self();
                 $data['orders'] = match ($request->tab) {
-                    'pending' => $query->pending()->get(),
-                    'submitted' => $query->submitted()->get(),
-                    'shipped' => $query->shipped()->get(),
-                    'completed' => $query->completed()->get(),
-                    default => $query->get(),
+                    'pending' => $query->pending()->paginate(2)->withQueryString(),
+                    'submitted' => $query->submitted()->paginate(2)->withQueryString(),
+                    'shipped' => $query->shipped()->paginate(2)->withQueryString(),
+                    'completed' => $query->completed()->paginate(2)->withQueryString(),
+                    default => $query->paginate(2)->withQueryString(),
                 };
                 break;
             default:
