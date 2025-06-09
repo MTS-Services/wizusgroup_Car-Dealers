@@ -15,6 +15,13 @@
                     <div>
                         <ul class="">
                             <li class="group nav_item dark:hover:bg-bg-dark-tertiary transition-all duration-300"
+                                data-target="my_dashboard">
+                                <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="home"
+                                        class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
+                                        class="text-lg text-text-primary dark:text-text-white font-semibold capitalize text-hover-effect">{{ __('Dashboard') }}</span>
+                                </a>
+                            </li>
+                            <li class="group nav_item dark:hover:bg-bg-dark-tertiary transition-all duration-300"
                                 data-target="my_orders">
                                 <a href="#" class="flex items-center gap-2 p-3"><i data-lucide="shopping-cart"
                                         class="bg-bg-tertiary text-text-white rounded p-1 icon-hover-effect"></i><span
@@ -76,7 +83,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="client-dashboard" class="nav-pane block">
+                        <div id="my_dashboard" class="nav-pane block">
                             {{-- Client Dashboard --}}
                             @include('backend.user.includes.client_dashboard')
                         </div>
