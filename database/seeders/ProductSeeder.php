@@ -38,6 +38,12 @@ class ProductSeeder extends Seeder
             // 'allow_backorder' => false,
             'supplier_id' => 1,
             'year' => "2021",
+            'height_m' => '44',
+            'width_m' => '33',
+            'length_m' => '44',
+            'weight_kg' => '22',
+            'is_featured' => Product::FEATURED,
+
         ]);
 
         Product::create([
@@ -69,6 +75,7 @@ class ProductSeeder extends Seeder
             'width_m' => '33',
             'length_m' => '44',
             'weight_kg' => '22',
+            'is_featured' => Product::FEATURED,
         ]);
 
         Product::create([
@@ -100,6 +107,7 @@ class ProductSeeder extends Seeder
             'width_m' => '66',
             'length_m' => '54',
             'weight_kg' => '54',
+            'is_featured' => Product::FEATURED,
         ]);
 
         Product::create([

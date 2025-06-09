@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\CheckoutSubmitRequest;
 use App\Http\Requests\Frontend\OrderSubmitRequest;
+use App\Jobs\SendContainerJoinEmail;
+use App\Jobs\SendContainerRequestEmail;
+use App\Jobs\SendOrderSubmittedEmail;
+use App\Mail\OrderSubmitted;
 use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Container;
@@ -27,6 +31,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Mail;
 
 class CheckoutPageController extends Controller
 {
@@ -510,6 +515,8 @@ class CheckoutPageController extends Controller
 
                     // Create guest user
                     $user = User::create($validated);
+                    Auth::login($user);
+
                 }
 
                 $user->whatsapp ?: $user->update(['whatsapp' => $validated['phone']]);
@@ -534,12 +541,9 @@ class CheckoutPageController extends Controller
                     'destination_port' => $validated['destination_port'],
                 ]);
 
-                $data['containers'] = Container::active()
-                    ->with(['destinationPort', 'shippingPort', 'containerReservations.product'])
-                    ->where('shipping_port', $order->shipping_port)
-                    ->where('destination_port', $order->destination_port)
-                    ->where('deadline', '>=', now())
-                    ->get();
+                SendOrderSubmittedEmail::dispatch($order, false); // for user mail notify
+                SendOrderSubmittedEmail::dispatch($order, true);  // for admin mail notify
+
 
                 session()->flash('success', 'Order submitted successfully');
                 return redirect()->route('frontend.container-order', $orderNumber);
@@ -571,22 +575,33 @@ class CheckoutPageController extends Controller
             'items.product.brand'
         ])->where('order_number', $orderNumber)->firstOrFail();
 
+        if ($order->user_id !== user()?->id) {
+            session()->flash('error', 'You are not authorized to view this order');
+            return redirect()->back()->withInput();
+        }
+
         $data['totalHeight'] = $order->items->sum(fn($item) => optional($item->product)->height_m ? $item->product?->height_m * $item->quantity : 0);
         $data['totalWidth'] = $order->items->sum(fn($item) => optional($item->product)->width_m ? $item->product?->width_m * $item->quantity : 0);
         $data['totalLength'] = $order->items->sum(fn($item) => optional($item->product)->length_m ? $item->product?->length_m * $item->quantity : 0);
 
         $data['order'] = $order;
-
-        $data['containers'] = Container::active()
+        $query = Container::active()
             ->with(['destinationPort', 'shippingPort', 'containerReservations.product'])
             ->where('shipping_port', $order->shipping_port)
-            ->where('destination_port', $order->destination_port)
-            ->where('height_m', '>=', $data['totalHeight'])
-            ->where('width_m', '>=', $data['totalWidth'])
-            ->where('length_m', '>=', $data['totalLength'])
-            ->where('deadline', '>=', now())
-            ->get();
+            ->where('destination_port', $order->destination_port);
+        switch ($order->container_type) {
+            case Order::GROUP_SHIPPING:
+                $query->where('height_m', '>=', $data['totalHeight'])
+                    ->where('width_m', '>=', $data['totalWidth'])
+                    ->where('length_m', '>=', $data['totalLength']);
+                break;
+            default:
+                $query->whereDoesntHave('containerReservations');
+                break;
+        }
 
+        $data['containers'] = $query->where('deadline', '>=', now())
+            ->get();
         return view('frontend.pages.order_container', $data);
     }
 
@@ -602,6 +617,9 @@ class CheckoutPageController extends Controller
                 throw new \Exception('Order or container not found');
             }
 
+            if ($order->user_id !== user()?->id) {
+                throw new \Exception('You are not authorized to view this order');
+            }
             if ($order->status != Order::STATUS_PENDING) {
                 throw new \Exception('Something went wrong, please try again');
             }
@@ -645,6 +663,10 @@ class CheckoutPageController extends Controller
                 $order->update([
                     'container_id' => $container->id
                 ]);
+                $order->refresh();
+
+                SendContainerJoinEmail::dispatch($order, false); // for user mail notify
+                SendContainerJoinEmail::dispatch($order, true);  // for admin mail notify
 
                 session()->flash('success', 'Order finished successfully!');
                 return view('frontend.pages.order_finished', compact('order', 'container'));
@@ -653,6 +675,32 @@ class CheckoutPageController extends Controller
             session()->flash('error', $e->getMessage());
             return redirect()->back();
         }
+    }
+
+    public function containerRequest($orderNumber)
+    {
+        try {
+            $order = Order::with(['items.product', 'user'])->where('order_number', $orderNumber)->first();
+            if (!$order) {
+                throw new \Exception('Order not found');
+            }
+
+            if ($order->user_id !== user()?->id) {
+                throw new \Exception('You are not authorized to view this order');
+            }
+
+            $order->update([
+                'container_request' => Order::CONTINER_REQUEST_TRUE
+            ]);
+            $order->refresh();
+            SendContainerRequestEmail::dispatch($order, false); // for user mail notify
+            SendContainerRequestEmail::dispatch($order, true);  // for admin mail notify
+            return view('frontend.pages.order_finished', compact('order'));
+        } catch (\Throwable $e) {
+            session()->flash('error', $e->getMessage());
+            return redirect()->back();
+        }
+
     }
 
 }

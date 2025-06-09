@@ -16,6 +16,7 @@ return new class extends Migration {
 
             $table->unsignedBigInteger('shipping_port')->index()->nullable();
             $table->unsignedBigInteger('destination_port')->index()->nullable();
+            $table->boolean('container_request')->default(Order::CONTINER_REQUEST_FALSE)->index();
 
             $table->foreign('shipping_port')->references('id')->on('shipping_locations')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('destination_port')->references('id')->on('shipping_locations')->onDelete('cascade')->onUpdate('cascade');

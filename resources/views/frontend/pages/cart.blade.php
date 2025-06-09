@@ -93,7 +93,7 @@
                                     </label>
                                     <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'terms']" />
                                 </div>
-                                <x-frontend.primary-button type="submit" button="true" class="w-40">{{ __('Checkout') }}
+                                <x-frontend.primary-button type="submit" button="true" class="w-52">{{ __('Checkout') }}
                                 </x-frontend.primary-button>
                             </div>
                         </form>

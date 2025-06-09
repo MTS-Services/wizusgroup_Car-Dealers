@@ -139,7 +139,8 @@
         <div class="container">
             <div class="pb-5">
                 <h1 class="text-xl md:text-2xl lg:text-3xl capitalize font-semibold text-text-primary dark:text-text-light">
-                    {{ __('Available Containers - Group Shipping') }}</h1>
+                    {{ __('Available Containers - ') }}{{ $order->container_type == App\Models\Order::GROUP_SHIPPING ? 'Group Shipping' : 'Full Container' }}
+                </h1>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-1 xl:grid-cols-3 2xl:grid-cols-3 gap-6 rounded-lg">
                 @forelse ($containers as $container)
@@ -249,6 +250,10 @@
                 @empty
                     <h3 class="text-sm text-text-gray dark:text-text-gray-50">
                         {{ __('Container not available for your delivery location') }}</h3>
+
+
+                    <x-frontend.primary-button
+                        href="{{ route('frontend.order.request-container', ['orderNumber' => $order->order_number]) }}">{{ __('Request a container') }}</x-frontend.primary-button>
                 @endforelse
             </div>
         </div>

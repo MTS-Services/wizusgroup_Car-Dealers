@@ -22,6 +22,7 @@ class Order extends BaseModel
         'sub_total',
         'total',
         'note',
+        'container_request',
 
         'shipping_port',
         'destination_port',
@@ -140,5 +141,22 @@ class Order extends BaseModel
     public function destinationPort()
     {
         return $this->belongsTo(ShippingLocation::class, 'destination_port', 'id');
+    }
+
+
+    public const CONTINER_REQUEST_TRUE = 1;
+    public const CONTINER_REQUEST_FALSE = 2;
+
+
+    public static function getContainerRequestLabels()
+    {
+        return [
+            self::CONTINER_REQUEST_TRUE => 'Yes',
+            self::CONTINER_REQUEST_FALSE => 'No',
+        ];
+    }
+    public function getContainerRequestLabelAttribute(): string
+    {
+        return $this->getContainerRequestLabels()[$this->container_request] ?? 'Unknown';
     }
 }

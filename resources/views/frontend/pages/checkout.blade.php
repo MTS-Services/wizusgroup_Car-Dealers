@@ -48,14 +48,14 @@
                             </div>
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
                                 <div>
-                                    <input type="email" name="email" placeholder="Email" value="{{ old('email') }}"
-                                        class="input h-10">
-                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'email']" />
-                                </div>
-                                <div>
                                     <input type="text" name="whatsapp" placeholder="Whatsapp" value="{{ old('whatsapp') }}"
                                         class="input h-10">
                                     <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'whatsapp']" />
+                                </div>
+                                <div>
+                                    <input type="email" name="email" placeholder="Email" value="{{ old('email') }}"
+                                        class="input h-10">
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'email']" />
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
@@ -103,19 +103,19 @@
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
                         <div>
                             <input type="text" placeholder="Name" name="name"
-                                value="{{ user() ? user()->name : old('name') }}" class="input h-10">
+                                value="{{ user()?->full_name ?? old('name') }}" class="input h-10">
                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'name']" />
                         </div>
                         <div>
                             <input type="email" placeholder="Email" name="d_email"
-                                value="{{ user() ? user()->email : old('email') }}" class="input h-10">
-                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'email']" />
+                                value="{{ user()?->email ?? old('d_email') }}" class="input h-10">
+                            <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'd_email']" />
                         </div>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
                         <div>
                             <input type="text" placeholder="Phone" name="phone"
-                                value="{{ user() ? user()->phone : old('phone') }}" class="input h-10">
+                                value="{{ user()?->phone ?? old('phone') }}" class="input h-10">
                             <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'phone']" />
                         </div>
 
@@ -323,11 +323,17 @@
             }, 200);
 
             const updateEmail = debounce(() => {
-                $('input[name="d_email"]').val($('input[name="email"]').val());
+                if ($('input[name="email"]').val()) {
+                    $('input[name="d_email"]').val($('input[name="email"]').val());
+                }
+
             }, 200);
 
             const updatePhone = debounce(() => {
-                $('input[name="phone"]').val($('input[name="whatsapp"]').val());
+                if ($('input[name="whatsapp"]').val()) {
+                    $('input[name="phone"]').val($('input[name="whatsapp"]').val());
+                }
+
             }, 200);
 
             // Event listeners

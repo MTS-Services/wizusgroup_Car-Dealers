@@ -86,8 +86,9 @@ Route::group(['as' => 'frontend.'], function () {
 
 
         Route::post('/checkout-order/submit/{orderNumber}', 'orderSubmit')->name('checkout-order.submit');
-        Route::get('container-order/{orderNumber}', 'containerOrder')->name('container-order');
-        Route::get('order/join-container/{orderNumber}/{containerSlug}', 'joinContainer')->name('order.join-container');
+        Route::get('container-order/{orderNumber}', 'containerOrder')->name('container-order')->middleware('auth:web');
+        Route::get('order/join-container/{orderNumber}/{containerSlug}', 'joinContainer')->name('order.join-container')->middleware('auth:web');
+        Route::get('order/container-request/{orderNumber}', 'containerRequest')->name('order.request-container')->middleware('auth:web');
 
 
     });
