@@ -663,7 +663,8 @@ class CheckoutPageController extends Controller
 
 
                 $order->update([
-                    'container_id' => $container->id
+                    'container_id' => $container->id,
+                    'status' => Order::STATUS_SUBMITTED
                 ]);
                 $order->refresh();
 
@@ -692,7 +693,8 @@ class CheckoutPageController extends Controller
             }
 
             $order->update([
-                'container_request' => Order::CONTINER_REQUEST_TRUE
+                'container_request' => Order::CONTINER_REQUEST_TRUE,
+                'status' => Order::STATUS_SUBMITTED
             ]);
             $order->refresh();
             SendContainerRequestEmail::dispatch($order, false); // for user mail notify

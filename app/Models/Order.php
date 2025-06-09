@@ -48,10 +48,11 @@ class Order extends BaseModel
 
     public const STATUS_INITIATED = '1';
     public const STATUS_PENDING = '2';
-    public const STATUS_CONFIRM = '3';
-    public const STATUS_SHIPPED = '4';
-    public const STATUS_DELIVERED = '5';
-    public const STATUS_CANCELED = '6';
+    public const STATUS_SUBMITTED = '3';
+    public const STATUS_CONFIRM = '4';
+    public const STATUS_SHIPPED = '5';
+    public const STATUS_DELIVERED = '6';
+    public const STATUS_CANCELED = '7';
 
     public function user()
     {
@@ -67,6 +68,7 @@ class Order extends BaseModel
         return [
             self::STATUS_INITIATED => 'Initiated',
             self::STATUS_PENDING => 'Pending',
+            self::STATUS_SUBMITTED => 'Submitted',
             self::STATUS_CONFIRM => 'Confirm',
             self::STATUS_SHIPPED => 'Shipped',
             self::STATUS_DELIVERED => 'Delivered',
@@ -79,6 +81,7 @@ class Order extends BaseModel
         return [
             self::STATUS_INITIATED => 'Initiated',
             self::STATUS_PENDING => 'Pending',
+            self::STATUS_SUBMITTED => 'Submitted',
             self::STATUS_CONFIRM => 'Confirm',
             self::STATUS_SHIPPED => 'Shipped',
             self::STATUS_DELIVERED => 'Delivered',
@@ -89,8 +92,9 @@ class Order extends BaseModel
     {
         return [
             self::STATUS_INITIATED => 'btn-secondary',
-            self::STATUS_PENDING => 'btn-primary',
-            self::STATUS_CONFIRM => 'btn-warning',
+            self::STATUS_PENDING => 'btn-warning',
+            self::STATUS_SUBMITTED => 'btn-info',
+            self::STATUS_CONFIRM => 'btn-primary',
             self::STATUS_SHIPPED => 'btn-info',
             self::STATUS_DELIVERED => 'btn-success',
             self::STATUS_CANCELED => 'btn-danger',
