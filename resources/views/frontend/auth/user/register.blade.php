@@ -55,7 +55,7 @@
                                                 id="language-{{ $key }}" />  
                                             <span>{{ $language }}</span>
                                         </label>
-                                    @endforeach
+                                    @endforeach  
                                 </div>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'language']" />
                             </div>
@@ -335,7 +335,7 @@
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'dealer_registration_permit']" />
                             </div>
                         </div>
-
+                    
                         {{-- Accept Terms --}}
                         <div class="flex flex-col items-center md:flex-row gap-3">
                             <div class="w-full text-end">
@@ -372,9 +372,9 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </div> 
     </section>
-@endsection
+@endsection  
 @push('js')
     <script src="{{ asset('frontend/js/password.js') }}"></script>
     {{-- FilePond  --}}
@@ -387,7 +387,7 @@
     </script>
     {{-- FilePond  --}}
 
-
+     
     <script>
         $(document).ready(function() {
             //  Business Information
@@ -438,3 +438,4 @@
         })
     </script>
 @endpush
+        

@@ -74,7 +74,7 @@
 
                             {{-- Password Field --}}
 
-                        <div class="flex flex-col md:flex-row gap-3">
+                        <div class="flex flex-col gap-3">   
                             <div class="w-full">
                                 <span class="label">{{ __('Password') }}<span class="text-red-500">*</span></span>
                                 <label class="input relative">
@@ -117,7 +117,7 @@
                                 </label>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'password_confirmation']" />
                             </div>
-                        </div>
+                        </div>   
 
                             <div>
                                 <label class="block pb-2">{{ __('Email') }} <span
@@ -139,57 +139,9 @@
                                     value="{{ $user?->personalInformation?->nationality }}" class="input"
                                     placeholder="Enter nationality">
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'nationality']" />
-                            </div>
+                            </div>                                  
 
-                            {{-- Gender and Country --}}
-                                <div class="flex flex-col md:flex-row gap-3">
-                                    <div class="w-full">
-                                        <span class="label block">{{ __('Gender') }}<span class="text-red-500">*</span></span>
-                                        <div class="input justify-between flex-wrap py-2 px-5 h-fit">
-                                            @foreach (App\Models\User::getGenderLabels() as $key => $gender)
-                                                <label for="gender-{{ $key }}" class="flex items-center gap-2">
-                                                    <input type="radio" name="gender" value="{{ $key }}"
-                                                        class="radio radio-xs radio-info" @checked(old('gender', App\Models\AuthBaseModel::GENDER_OTHERS) == $key)
-                                                        id="gender-{{ $key }}" />
-                                                    <span>{{ $gender }}</span>
-                                                </label>   
-                                            @endforeach
-                                        </div>
-                                        <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'gender']" />
-                                    </div> 
-                                    <div class="w-full">   
-                                        <span class="label">{{ __('Country') }}<span class="text-red-500">*</span></span>
-
-                                        <select name="country_id" class="select" id="country">
-                                            <option value="" disabled selected>{{ __('Select country') }}</option>
-                                            @foreach (App\Models\Country::active()->get() as $country)
-                                                <option value="{{ $country->id }}"
-                                                    {{ old('country_id') == $country->id ? 'selected' : '' }}>
-                                                    {{ $country->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'country_id']" />
-                                    </div>
-                                </div>      
-
-                                 {{-- State and City --}}
-                            <div class="flex flex-col md:flex-row gap-3">
-                                <div class="w-full">
-                                    <span class="label">{{ __('State') }}<span class="text-red-500">*</span></span>
-                                    <select name="state_id" class="select" disabled id="state">
-                                        <option value="" disabled selected>{{ __('Select state') }}</option>
-                                    </select>
-                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'state_id']" />
-                                </div>
-                                <div class="w-full">
-                                    <span class="label">{{ __('City') }}<span class="text-red-500">*</span></span>
-                                    <select name="city_id" class="select" disabled id="city">
-                                        <option value="" disabled selected>{{ __('Select state') }}</option>
-                                    </select>
-                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'city_id']" />
-                                </div>
-                            </div>
-
+                                 
                             <div>
                                 <label class="block pb-2">{{ __('Fathers Name') }}</label>
                                 <input type="text" name="father_name"
@@ -197,7 +149,7 @@
                                     placeholder="Enter your father's name">
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'father_name']" />
                             </div>
-
+                                                
                             <div>
                                 <label class="block pb-2">{{ __('Mothers Name') }}</label>
                                 <input type="text" name="mother_name"
@@ -215,27 +167,12 @@
                                     'errors' => $errors,
                                     'field' => 'emergency_phone',
                                 ]" />
-                            </div>
+                            </div>   
 
-                            {{-- Street Address and Postal Code --}}
-                            <div class="flex flex-col md:flex-row gap-3">
-                                <div class="w-full">
-                                    <span class="label">{{ __('Street Address') }}<span class="text-red-500">*</span></span>
-                                    <input type="text" name="address_line_1" placeholder="Street Address" value="{{ old('address_line_1') }}"
-                                        class="input">
-                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'address_line_1']" />
-                                </div>
-                                <div class="w-full">
-                                    <span class="label">{{ __('Postal or ZIP Code') }}<span
-                                            class="text-red-500">*</span></span>
-                                    <input type="text" class="input" placeholder="000-000"
-                                        value="{{ old('postal_code') }}" name="postal_code" />
-                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'postal_code']" />
-                                </div> 
-                            </div>
+                             
 
                             {{-- Phone Number --}} 
-                            <div class="flex flex-col md:flex-row gap-3">
+                            <div class="flex flex-col gap-3">
                                 <div class="w-full">
                                     <span class="label">{{ __('Tel (first contact)') }}<span
                                             class="text-red-500">*</span></span>
@@ -252,7 +189,7 @@
                             </div>
 
                             {{-- Company name and Occupation --}}
-                            <div class="flex flex-col md:flex-row gap-3">
+                            <div class="flex flex-col   gap-3">
                                 <div class="w-full">
                                     <span class="label">{{ __('Company Name') }}</span>
                                     <input type="text" placeholder="Company name" value="{{ old('company_name') }}"
@@ -261,15 +198,15 @@
                                 </div>
                                 <div class="w-full">
                                     <span class="label">{{ __('Occupation') }} <span class="text-red-500">*</span></span>
-                                    <input type="text" placeholder="Company name" value="{{ old('occupation') }}"
+                                    <input type="text" placeholder="Occupation" value="{{ old('occupation') }}"
                                         name="occupation" class="input" />
 
                                     <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'occupation']" />
                                 </div> 
                             </div>   
-                            
+                                 
                             {{-- Date of birth and Business Type --}}
-                            <div class="flex flex-col md:flex-row gap-3">
+                            <div class="flex flex-col  gap-3">
                                 <div class="w-full">
                                     <span class="label">{{ __('Date of Birth') }}<span class="text-red-500">*</span></span>
                                     <input type="date" placeholder="dd-mm-yyyy" value="{{ old('dob') }}"
@@ -351,7 +288,7 @@
                                     </div>
                                     <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'receive_promotion_email']" />
                                 </div>
-                            </div>
+                            </div>  
 
                             {{-- How did you hear about us and For Friend and Other --}}
                             <div class="flex flex-col  ">
@@ -386,13 +323,14 @@
                                     <input type="file" name="id_registration_info" class="form-control filepond"
                                         id="id_registration_info" accept="application/pdf">
                                     <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'id_registration_info']" />
-                                </div>
-                                <div class="w-full">
+                                </div>                                
+                            </div>
+
+                            <div class="w-full">
                                     <span class="label">{{ __('Dealer Registration Permit') }}</span>
                                     <input type="file" name="dealer_registration_permit" class="form-control filepond"
                                         id="dealer_registration_permit" accept="application/pdf">
                                     <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'dealer_registration_permit']" />
-                                </div>
                             </div>
 
                             <div class="col-span-1 md:col-span-2">
@@ -406,22 +344,7 @@
                 </div>
             </div>
 
-            <div>
-                    <div class="divider">{{ __('Or sign up with') }}</div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <a href="#" class="btn-primary rounded-md w-full gap-3">
-                            <i class='bx bxl-google text-2xl'></i> {{ __('Google') }}
-                        </a>
-                        <a href="#" class="btn-secondary rounded-md w-full gap-3">
-                            <i class='bx bxl-facebook text-2xl'></i> {{ __('Facebook') }}
-                        </a>
-                    </div>
-                    <p class="text-center text-sm mt-4">
-                        {{ __('Already have an account?') }} <a href="{{ route('login') }}"
-                            class="text-text-tertiary font-medium">
-                            {{ __('Sign in') }} </a>
-                    </p>
-                </div>
+             
 
             <div id="address" class="tab-pane hidden">
                 <div class="rounded-md shadow-card">
@@ -453,19 +376,7 @@
                                             'errors' => $errors,
                                             'field' => 'country_id',
                                         ]" />
-                                    </div>
-
-                                    <div>
-                                        <label class="block pb-2">{{ __('State') }}</label>
-                                        <select name="state" id="state" class="input" disabled>
-                                            <option value="" selected hidden>
-                                                {{ __('Select State') }}</option>
-                                        </select>
-                                        <x-frontend.input-error :datas="[
-                                            'errors' => $errors,
-                                            'field' => 'state',
-                                        ]" />
-                                    </div>
+                                    </div>       
                                 </div>
 
                                 <div class="grid md:grid-cols-2 gap-4">
@@ -527,7 +438,7 @@
                 <div class="max-w-lg mx-auto">
                     <form action="{{ route('user.password.update') }}" method="post">
                         @csrf
-                        @method('PUT')
+                        @method('PUT')  
                         <div class="grid grid-cols-1 gap-5">
                             <div>
                                 <label for="current_password"
