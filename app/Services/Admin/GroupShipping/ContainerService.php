@@ -5,7 +5,9 @@ namespace App\Services\Admin\GroupShipping;
 use App\Http\Traits\FileManagementTrait;
 use App\Models\Container;
 use App\Models\ContainerProduct;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class ContainerService
 {
@@ -87,9 +89,26 @@ class ContainerService
     public function toggleStatus(string $encryptedId, string $status): void
     {
         $container = $this->getContainer($encryptedId);
-        $container->update([
-            'updated_by' => admin()->id,
-            'status' => decrypt($status),
-        ]);
+
+        DB::transaction(function () use ($container, $status) {
+            if (decrypt($status) == Container::STATUS_SHIPPED) {
+                $container->load('orders');
+                $container->orders()->update([
+                    'status' => Order::STATUS_SHIPPED
+                ]);
+            }
+            if (decrypt($status) == Container::STATUS_DELIVERED) {
+                $container->load('orders');
+                $container->orders()->update([
+                    'status' => Order::STATUS_DELIVERED
+                ]);
+            }
+            $container->update([
+                'updated_by' => admin()->id,
+                'status' => decrypt($status),
+            ]);
+        });
+
+
     }
 }

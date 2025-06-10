@@ -315,6 +315,12 @@ class ContainerController extends Controller
     public function destroy(string $id)
     {
         try {
+            $container = $this->containerService->getContainer($id);
+            $container->load('containerReservations');
+            if ($container->containerReservations->count()) {
+                session()->flash('error', 'You cannot delete this container. Container has already been reserved!');
+                return redirect()->route('gs.container.index');
+            }
             $this->containerService->deleteContainer($id);
             session()->flash('success', 'Container deleted successfully!');
         } catch (\Throwable $e) {
@@ -328,6 +334,14 @@ class ContainerController extends Controller
     public function status(string $id, string $status): RedirectResponse
     {
         try {
+            if (decrypt($status) == Container::STATUS_PENDING) {
+                $container = $this->containerService->getContainer($id);
+                $container->load('containerReservations');
+                if ($container->containerReservations->count()) {
+                    session()->flash('error', 'You cannot make this container pending. Container has already been reserved!');
+                    return redirect()->route('gs.container.index');
+                }
+            }
             $this->containerService->toggleStatus($id, $status);
             session()->flash('success', 'Container status updated successfully!');
         } catch (\Throwable $e) {

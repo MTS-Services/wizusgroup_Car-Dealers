@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Container extends BaseModel
 {
@@ -236,5 +238,10 @@ class Container extends BaseModel
     public function getUsedLengthAttribute()
     {
         return $this->containerReservations()->sum('length_m');
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'container_id', 'id');
     }
 }
