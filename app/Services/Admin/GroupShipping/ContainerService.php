@@ -6,6 +6,7 @@ use App\Http\Traits\FileManagementTrait;
 use App\Models\Container;
 use App\Models\ContainerProduct;
 use App\Models\Order;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -93,6 +94,10 @@ class ContainerService
         DB::transaction(function () use ($container, $status) {
             if (decrypt($status) == Container::STATUS_SHIPPED) {
                 $container->load('orders');
+                $check = $container->orders()->whereNot('status', Order::STATUS_CONFIRM)->whereNot('status', Order::STATUS_CANCELED)->first();
+                if ($check) {
+                    throw new Exception('Container orders must be confirmed.');
+                }
                 $container->orders()->update([
                     'status' => Order::STATUS_SHIPPED
                 ]);

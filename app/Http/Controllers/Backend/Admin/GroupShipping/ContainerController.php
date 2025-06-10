@@ -345,7 +345,7 @@ class ContainerController extends Controller
             $this->containerService->toggleStatus($id, $status);
             session()->flash('success', 'Container status updated successfully!');
         } catch (\Throwable $e) {
-            session()->flash('error', 'Container status update failed!');
+            session()->flash('error', 'Container status update failed! ' . $e->getMessage());
             throw $e;
         }
         return redirect()->route('gs.container.index');
