@@ -65,6 +65,7 @@ class Container extends BaseModel
         // Cache on the instance to prevent re-querying
         if (!isset($this->reservedDimensions)) {
             $this->reservedDimensions = $this->containerReservations()
+                ->whereNot('status', ContainerReservation::STATUS_DECLINE)
                 ->selectRaw('SUM(length_m) as length, SUM(width_m) as width, SUM(height_m) as height')
                 ->whereNull('deleted_at') // optional if soft deletes used
                 ->first();

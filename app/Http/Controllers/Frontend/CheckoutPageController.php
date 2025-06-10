@@ -542,6 +542,8 @@ class CheckoutPageController extends Controller
                     'container_type' => $validated['container_type'],
                     'shipping_port' => $validated['shipping_port'],
                     'destination_port' => $validated['destination_port'],
+                    'creater_id' => $user->id,
+                    'creater_type' => get_class($user),
                 ]);
 
                 SendOrderSubmittedEmail::dispatch($order, false); // for user mail notify

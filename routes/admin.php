@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Backend\Admin\OrderManagement\OrderController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Backend\Admin\AuditController;
@@ -481,5 +482,15 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
 
         // Container Reserve
         Route::resource('container-reserve', ContainerReservationController::class);
+    });
+
+    // Order Management
+    Route::group(['as' => 'om.', 'prefix' => 'order-management'], function () {
+        // Order Routes
+        Route::controller(OrderController::class)->name('order.')->prefix('order')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/details/{id}', 'show')->name('details');
+            Route::get('/status/{status}/{order}', 'status')->name('status');
+        });
     });
 });

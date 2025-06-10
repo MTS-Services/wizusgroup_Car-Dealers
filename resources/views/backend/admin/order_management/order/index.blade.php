@@ -1,26 +1,23 @@
-@extends('backend.admin.layouts.master', ['page_slug' => 'container_reservation'])
-@section('title', 'Container Reservation List')
-@push('css')
-    <link rel="stylesheet" href="{{ asset('custom_litebox/litebox.css') }}">
-@endpush
+@extends('backend.admin.layouts.master', ['page_slug' => "order_{$status}"])
+@section('title', 'Order List')
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Container Reservation List') }}</h4>
+                    <h4 class="cart-title">{{ __('Order List') }}</h4>
                     <div class="buttons">
                         {{-- <x-backend.admin.button :datas="[
-                            'routeName' => 'gs.container-reserve.recycle-bin',
+                            'routeName' => 'gs.container.recycle-bin',
                             'label' => 'Recycle Bin',
                             'className' => 'btn-danger',
-                            'permissions' => ['container-reserve-restore'],
-                        ]" /> --}}
-                        <x-backend.admin.button :datas="[
-                            'routeName' => 'gs.container-reserve.create',
-                            'label' => 'Add New',
-                            'permissions' => ['container-reserve-create'],
+                            'permissions' => ['container-restore'],
                         ]" />
+                        <x-backend.admin.button :datas="[
+                            'routeName' => 'gs.container.create',
+                            'label' => 'Add New',
+                            'permissions' => ['container-create'],
+                        ]" /> --}}
                     </div>
                 </div>
                 <div class="card-body">
@@ -28,11 +25,10 @@
                         <thead>
                             <tr>
                                 <th>{{ __('SL') }}</th>
-                                <th>{{ __('Container Name') }}</th>
                                 <th>{{ __('Order') }}</th>
-                                <th>{{ __('Quantity') }}</th>
-                                <th>{{ __('Price') }}</th>
-                                <th>{{ __('Reserve Price') }}</th>
+                                <th>{{ __('Shipping Port') }}</th>
+                                <th>{{ __('Destination Port') }}</th>
+                                <th>{{ __('Customer') }}</th>
                                 <th>{{ __('Status') }}</th>
                                 <th>{{ __('Created By') }}</th>
                                 <th>{{ __('Created Date') }}</th>
@@ -48,7 +44,7 @@
         </div>
     </div>
     {{-- Admin Details Modal  --}}
-    <x-backend.admin.details-modal :datas="['modal_title' => 'Brand Details']" />
+    <x-backend.admin.details-modal :datas="['modal_title' => 'Container Details']" />
 @endsection
 @push('js')
     <script src="{{ asset('custom_litebox/litebox.js') }}"></script>
@@ -56,12 +52,10 @@
     <script>
         $(document).ready(function() {
             let table_columns = [
-
-                ['container_id', true, true],
-                ['order_id', true, true],
-                ['quantity', true, true],
-                ['price', true, true],
-                ['reserve_price', true, true],
+                ['order_number', true, true],
+                ['shipping_port', true, true],
+                ['destination_port', true, true],
+                ['user_id', true, true],
                 ['status', true, true],
                 ['created_by', true, true],
                 ['created_at', false, false],
@@ -71,10 +65,10 @@
                 table_columns: table_columns,
                 main_class: '.datatable',
                 displayLength: 10,
-                main_route: "{{ route('gs.container-reserve.index') }}",
+                main_route: "{{ route('om.order.index') }}",
                 order_route: "{{ route('update.sort.order') }}",
-                export_columns: [0, 1, 2, 3, 4, 5],
-                model: 'Brand',
+                export_columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                model: 'Order',
             };
             initializeDataTable(details);
         })
@@ -84,32 +78,26 @@
     {{-- Show details scripts --}}
     <script src="{{ asset('modal/details_modal.js') }}"></script>
     <script>
+        // Event listener for viewing details
         $(document).on("click", ".view", function() {
             let id = $(this).data("id");
-            let route = "{{ route('gs.container-reserve.show', ['id']) }}";
+            let route = "{{ route('gs.container.show', ['id']) }}";
             const detailsUrl = route.replace("id", id);
             const headers = [{
-                    label: "Company",
-                    key: "company_name",
-                },
-                {
-                    label: "Name",
-                    key: "name"
+                    label: "Title",
+                    key: "title"
                 },
                 {
                     label: "Slug",
                     key: "slug"
                 },
                 {
-                    label: "Status",
-                    key: "status_label",
-                    color: "status_color",
+                    label: "Shipping Port",
+                    key: "shipping_port_name"
                 },
                 {
-                    label: "Featured",
-                    key: "featured_label",
-                    color: "featured_color",
-
+                    label: "Destination Port",
+                    key: "destination_port_name"
                 },
                 {
                     label: "Image",
@@ -117,17 +105,30 @@
                     type: "image"
                 },
                 {
-                    label: "Description",
-                    key: "description",
+                    label: "Deadline",
+                    key: "deadline"
                 },
                 {
-                    label: "Meta Title",
-                    key: "meta_title",
+                    label: "Status",
+                    key: "status_label",
+                    color: "status_color",
                 },
                 {
-                    label: "Meta Description",
-                    key: "meta_description",
+                    label: "Length (m)",
+                    key: "length_m"
                 },
+                {
+                    label: "Width (m)",
+                    key: "width_m"
+                },
+                {
+                    label: "Height (m)",
+                    key: "height_m"
+                },
+                {
+                    label: "Max Weight (kg)",
+                    key: "max_weight_kg"
+                }
 
 
             ];

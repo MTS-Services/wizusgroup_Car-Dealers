@@ -45,7 +45,7 @@ class UserProfileController extends Controller
                 $query = Order::self();
                 $data['orders'] = match ($request->tab) {
                     'pending' => $query->pending()->paginate(10)->withQueryString(),
-                    'submitted' => $query->submitted()->paginate(10)->withQueryString(),
+                    'submitted' => $query->submitted()->orWhere('status', Order::STATUS_CONFIRM)->paginate(10)->withQueryString(),
                     'shipped' => $query->shipped()->paginate(10)->withQueryString(),
                     'completed' => $query->completed()->paginate(10)->withQueryString(),
                     default => $query->paginate(10)->withQueryString(),

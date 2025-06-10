@@ -150,6 +150,79 @@
                     </li>
                 @endcanany
 
+                {{-- Initiated
+                Pending
+                Submitted
+                Confirm
+                Shipped
+                Delivered
+                Canceled --}}
+                {{-- Order Management  --}}
+                @canany(['order-list'])
+                    <li class="nav-item  @if (
+                        $page_slug == 'order_pending' ||
+                            $page_slug == 'order_submitted' ||
+                            $page_slug == 'order_confirm' ||
+                            $page_slug == 'order_shipped' ||
+                            $page_slug == 'order_delivered' ||
+                            $page_slug == 'order_canceled') active submenu @endif">
+                        <a data-bs-toggle="collapse" href="#order_management"
+                            @if (
+                                $page_slug == 'order_pending' ||
+                                    $page_slug == 'order_submitted' ||
+                                    $page_slug == 'order_confirm' ||
+                                    $page_slug == 'order_shipped' ||
+                                    $page_slug == 'order_delivered' ||
+                                    $page_slug == 'order_canceled') aria-expanded="true" @endif>
+                            <i class="icon-people"></i>
+                            <p>{{ __('Order Management') }}</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse @if (
+                            $page_slug == 'order_pending' ||
+                                $page_slug == 'order_submitted' ||
+                                $page_slug == 'order_confirm' ||
+                                $page_slug == 'order_shipped' ||
+                                $page_slug == 'order_delivered' ||
+                                $page_slug == 'order_canceled') show @endif" id="order_management">
+                            <ul class="nav nav-collapse">
+                                @can('order-list')
+                                    <li class="@if ($page_slug == 'order_submitted') active @endif">
+                                        <a href="{{ route('om.order.index', ['status' => 'submitted']) }}">
+                                            <span class="sub-item">{{ __('Submitted Orders') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="@if ($page_slug == 'order_confirm') active @endif">
+                                        <a href="{{ route('om.order.index', ['status' => 'confirm']) }}">
+                                            <span class="sub-item">{{ __('Confirm Orders') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="@if ($page_slug == 'order_shipped') active @endif">
+                                        <a href="{{ route('om.order.index', ['status' => 'shipped']) }}">
+                                            <span class="sub-item">{{ __('Shipped Orders') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="@if ($page_slug == 'order_delivered') active @endif">
+                                        <a href="{{ route('om.order.index', ['status' => 'delivered']) }}">
+                                            <span class="sub-item">{{ __('Delivered Orders') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="@if ($page_slug == 'order_pending') active @endif">
+                                        <a href="{{ route('om.order.index', ['status' => 'pending']) }}">
+                                            <span class="sub-item">{{ __('Pending Orders') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="@if ($page_slug == 'order_canceled') active @endif">
+                                        <a href="{{ route('om.order.index', ['status' => 'canceled']) }}">
+                                            <span class="sub-item">{{ __('Canceled Orders') }}</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </div>
+                    </li>
+                @endcanany
+
                 {{-- Setup Management  --}}
                 @canany(['country-list', 'state-list', 'city-list', 'operation-area-list', 'operation-sub-area-list'])
                     <li class="nav-item  @if (

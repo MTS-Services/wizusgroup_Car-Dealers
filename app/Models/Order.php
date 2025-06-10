@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Order extends BaseModel
 {
@@ -201,5 +202,11 @@ class Order extends BaseModel
     public function scopeCompleted(Builder $query)
     {
         return $query->where('status', self::STATUS_DELIVERED);
+    }
+
+
+    public function containerReservation(): HasOne
+    {
+        return $this->hasOne(ContainerReservation::class, 'order_id', 'id');
     }
 }
