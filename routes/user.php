@@ -30,6 +30,7 @@ Route::middleware(['auth:web', 'verified'])->group(function () {
 
             Route::get('auction/details/{auction_slug}', 'auctionDetails')->name('auction.details');
             Route::get('container/details/{container_slug}', 'containerDetails')->name('container.details');
+            Route::get('order/details/{order_number}', 'orderDetails')->name('order.details');
 
         });
 

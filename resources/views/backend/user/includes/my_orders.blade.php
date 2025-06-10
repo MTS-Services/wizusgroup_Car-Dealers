@@ -84,7 +84,7 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    <a href="#"
+                                    <a href="{{ route('user.order.details', $order->order_number) }}"
                                         class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
                                         <i data-lucide="eye" class="w-5 h-5"></i>
                                     </a>
