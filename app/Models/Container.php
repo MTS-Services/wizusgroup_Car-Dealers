@@ -102,6 +102,13 @@ class Container extends BaseModel
         return round($filledPercentage, 2);
     }
 
+    public function getContainerFreeSpaceCbmAttribute()
+    {
+        $reserved = $this->getReservedDimensions();
+        $freeSpace = $this->length_m * $this->width_m * $this->height_m - $reserved->length * $reserved->width * $reserved->height;
+        return round($freeSpace, 2);
+    }
+
 
 
     public function __construct(array $attributes = [])
@@ -116,6 +123,8 @@ class Container extends BaseModel
             'status_labels',
 
             'modified_image',
+            'filled_percentage',
+            'container_free_space_cbm',
         ]);
     }
 

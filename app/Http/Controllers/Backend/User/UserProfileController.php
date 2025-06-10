@@ -153,6 +153,11 @@ class UserProfileController extends Controller
             'items.product.model',
             'container',
         ])->where('order_number', $order_number)->firstOrFail();
+
+        if ($data['order']->user_id !== user()?->id) {
+            session()->flash('error', 'You are not authorized to view this order');
+            return redirect()->back()->withInput();
+        }
         return view('backend.user.order_details', $data);
     }
 }
