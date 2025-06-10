@@ -65,7 +65,7 @@ class CheckoutPageController extends Controller
                 ? Cart::with('items.product')->where('user_id', $user->id)->first()
                 : ($sessionId ? Cart::with('items.product')->where('session_id', $sessionId)->first() : null);
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Error getting cart: ' . $e->getMessage());
             return null;
         }
@@ -155,7 +155,7 @@ class CheckoutPageController extends Controller
             session()->flash('success', 'Order checkout successfully');
             return redirect()->route('frontend.checkout', ['orderNumber' => $orderNumber]);
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Error in checkout submit: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
                 'user_id' => auth()->id(),
@@ -617,32 +617,38 @@ class CheckoutPageController extends Controller
             $container = Container::with('containerReservations')->where('slug', $containerSlug)->first();
 
             if (!$order || !$container) {
-                throw new \Exception('Order or container not found');
+                throw new Exception('Order or container not found');
             }
 
             if ($order->user_id !== user()?->id) {
-                throw new \Exception('You are not authorized to view this order');
+                throw new Exception('You are not authorized to view this order');
             }
             if ($order->status != Order::STATUS_PENDING) {
-                throw new \Exception('Something went wrong, please try again');
+                throw new Exception('Something went wrong, please try again');
             }
+
+            $totalHeight = $order->items->sum(fn($item) => optional($item->product)->height_m ? $item->product?->height_m * $item->quantity : 0);
+            $totalWidth = $order->items->sum(fn($item) => optional($item->product)->width_m ? $item->product?->width_m * $item->quantity : 0);
+            $totalLength = $order->items->sum(fn($item) => optional($item->product)->length_m ? $item->product?->length_m * $item->quantity : 0);
+            $totalWeight = $order->items->sum(fn($item) => optional($item->product)->weight_kg ? $item->product?->weight_kg * $item->quantity : 0);
+            $totalCbm = $totalHeight + $totalWidth + $totalLength;
+
+            if ($container->container_free_space_cbm < $totalCbm) {
+                throw new Exception('Container space is not enough for this order');
+            }
+
+
 
             $containerReservations = $container->containerReservations()->where('order_id', $order->id)->get();
             if ($containerReservations->count() > 0) {
-                throw new \Exception('You have already joined this container');
+                throw new Exception('You have already joined this container');
             }
 
-            return DB::transaction(function () use ($order, $container) {
-                $totalHeight = $order->items->sum(fn($item) => optional($item->product)->height_m ? $item->product?->height_m * $item->quantity : 0);
-                $totalWidth = $order->items->sum(fn($item) => optional($item->product)->width_m ? $item->product?->width_m * $item->quantity : 0);
-                $totalLength = $order->items->sum(fn($item) => optional($item->product)->length_m ? $item->product?->length_m * $item->quantity : 0);
-                $totalWeight = $order->items->sum(fn($item) => optional($item->product)->weight_kg ? $item->product?->weight_kg * $item->quantity : 0);
+            return DB::transaction(function () use ($order, $container, $totalCbm, $totalLength, $totalWidth, $totalHeight, $totalWeight) {
 
-
-                $total_price = $container->per_cbm_cost * ($totalHeight + $totalWidth + $totalLength);
+                $total_price = $container->per_cbm_cost * $totalCbm;
                 $total_price += $container->base_cost;
                 $reserve_price = $total_price / 2;
-
                 ContainerReservation::create([
                     'order_id' => $order->id,
                     'container_id' => $container->id,
@@ -687,11 +693,11 @@ class CheckoutPageController extends Controller
         try {
             $order = Order::with(['items.product', 'user'])->where('order_number', $orderNumber)->first();
             if (!$order) {
-                throw new \Exception('Order not found');
+                throw new Exception('Order not found');
             }
 
             if ($order->user_id !== user()?->id) {
-                throw new \Exception('You are not authorized to view this order');
+                throw new Exception('You are not authorized to view this order');
             }
 
             $order->update([
