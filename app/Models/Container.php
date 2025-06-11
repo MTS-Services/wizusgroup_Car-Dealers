@@ -29,6 +29,7 @@ class Container extends BaseModel
         'status',
         'departure_date',
         'estimated_delivery_days',
+        'full_container_reserved',
 
 
         'created_by',
@@ -66,16 +67,11 @@ class Container extends BaseModel
 
     public function getReservedDimensions()
     {
-        // Cache on the instance to prevent re-querying
-        if (!isset($this->reservedDimensions)) {
-            $this->reservedDimensions = $this->containerReservations()
-                ->whereNot('status', ContainerReservation::STATUS_DECLINE)
-                ->selectRaw('SUM(length_m) as length, SUM(width_m) as width, SUM(height_m) as height')
-                ->whereNull('deleted_at') // optional if soft deletes used
-                ->first();
-        }
-
-        return $this->reservedDimensions;
+        return $this->containerReservations()
+            ->whereNot('status', ContainerReservation::STATUS_DECLINE)
+            ->selectRaw('SUM(length_m) as length, SUM(width_m) as width, SUM(height_m) as height')
+            ->whereNull('deleted_at')
+            ->first();
     }
 
     public function calculateFreeSpacePercentage()
@@ -131,6 +127,7 @@ class Container extends BaseModel
             'filled_percentage',
             'container_free_space_cbm',
             'reserve_status_label',
+            'reserve_status_color',
         ]);
     }
 
@@ -256,8 +253,8 @@ class Container extends BaseModel
     public static function getReserveStatusLabels(): array
     {
         return [
-            self::NOT_FULL_RESERVED => 'Not Full Reserved',
-            self::FULL_RESERVED => 'Full Reserved',
+            self::NOT_FULL_RESERVED => 'Not Full',
+            self::FULL_RESERVED => 'Full',
         ];
     }
 
@@ -265,5 +262,9 @@ class Container extends BaseModel
     public function getReserveStatusLabelAttribute(): string
     {
         return self::getReserveStatusLabels()[$this->full_container_reserved] ?? 'Unknown';
+    }
+    public function getReserveStatusColorAttribute(): string
+    {
+        return self::NOT_FULL_RESERVED == $this->full_container_reserved ? 'bg-info' : 'bg-danger';
     }
 }

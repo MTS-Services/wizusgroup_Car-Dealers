@@ -54,6 +54,9 @@ class ContainerController extends Controller
                 ->editColumn('destination_port', function ($container) {
                     return $container->destinationPort->name ?? '';
                 })
+                ->editColumn('full_container_reserved', function ($container) {
+                    return "<span class='badge " . $container->reserve_status_color . "'>$container->reserve_status_label</span>";
+                })
                 ->editColumn('status', function ($container) {
                     return "<span class='badge " . $container->status_color . "'>$container->status_label</span>";
                 })
@@ -67,7 +70,7 @@ class ContainerController extends Controller
                     $menuItems = $this->menuItems($container);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['status', 'shipping_port', 'destination_port', 'created_by', 'created_at', 'action'])
+                ->rawColumns(['status', 'full_container_reserved', 'shipping_port', 'destination_port', 'created_by', 'created_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.group_shipping.container.index');
@@ -184,6 +187,9 @@ class ContainerController extends Controller
                 ->editColumn('status', function ($container) {
                     return "<span class='badge " . $container->status_color . "'>$container->status_label</span>";
                 })
+                ->editColumn('status', function ($container) {
+                    return "<span class='badge " . $container->status_color . "'>$container->status_label</span>";
+                })
                 ->editColumn('deleted_by', function ($container) {
                     return $container->deleter_name;
                 })
@@ -240,13 +246,6 @@ class ContainerController extends Controller
                 $validated = $request->validated();
                 $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
                 $container = $this->containerService->createContainer($validated, $file);
-                // if (collect($request->validated('container_products')[0])->filter()->isNotEmpty()) {
-                //     foreach ($request->validated('container_products') as $key => $value) {
-                //         $value['container_id'] = $container->id;
-                //         $this->containerService->createContainerProducts($value);
-                //     }
-                // }
-
             });
             session()->flash('success', 'Container created successfully!');
         } catch (\Throwable $e) {

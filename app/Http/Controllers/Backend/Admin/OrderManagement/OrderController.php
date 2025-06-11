@@ -129,16 +129,24 @@ class OrderController extends Controller
                     $totalWidth = $order->items->sum(fn($item) => optional($item->product)->width_m ? $item->product?->width_m * $item->quantity : 0);
                     $totalLength = $order->items->sum(fn($item) => optional($item->product)->length_m ? $item->product?->length_m * $item->quantity : 0);
                     $totalCbm = $totalHeight + $totalWidth + $totalLength;
-                    if ($order->container?->container_free_space_cbm < $totalCbm) {
-                        throw new Exception('Container space is not enough for this order');
-
-                    } else {
-                        $order->containerReservation()->update(['status' => ContainerReservation::STATUS_ACCEPT]);
-                    }
                     if ($order->status == Order::STATUS_CANCELED) {
+                        if ($order->container?->container_free_space_cbm < $totalCbm) {
+                            throw new Exception('Container space is not enough for this order');
+
+                        } elseif ($order->container_type == Order::FULL_CONTAINER && $order->container->filled_percentage != 0) {
+                            throw new Exception('Container is not empty');
+                        }
+
                         foreach ($order->items as $item) {
                             $item->product()->decrement('quantity', $item->quantity);
                         }
+                    }
+                    $order->containerReservation()->update(['status' => ContainerReservation::STATUS_ACCEPT]);
+                    $order->refresh();
+                    if ($order->container->container_free_space_cbm == 0) {
+                        $order->container()->update([
+                            'full_container_reserved' => Container::FULL_RESERVED
+                        ]);
                     }
                 }
                 if (decrypt($status) == Order::STATUS_CANCELED) {
@@ -174,6 +182,7 @@ class OrderController extends Controller
             DB::transaction(function () use ($request, $oid) {
                 $validated = $request->validated();
                 $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
+                $validated['status'] = Container::STATUS_ACTIVE;
                 $container = $this->containerService->createContainer($validated, $file);
                 $order = $this->orderService->getOrder($oid);
 
@@ -207,8 +216,7 @@ class OrderController extends Controller
                     'container_id' => $container->id,
                     'container_request' => Order::CONTINER_REQUEST_FALSE
                 ]);
-
-                if ($order->container_type == Order::FULL_CONTAINER) {
+                if ($order->container_type == Order::FULL_CONTAINER || $container->container_free_space_cbm == 0) {
                     $container->update([
                         'full_container_reserved' => Container::FULL_RESERVED
                     ]);

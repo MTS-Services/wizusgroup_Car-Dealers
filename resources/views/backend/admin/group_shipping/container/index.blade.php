@@ -32,6 +32,7 @@
                                 <th>{{ __('Shipping Port') }}</th>
                                 <th>{{ __('Destination Port') }}</th>
                                 <th>{{ __('Status') }}</th>
+                                <th>{{ __('Reserve Status') }}</th>
                                 <th>{{ __('Created By') }}</th>
                                 <th>{{ __('Created Date') }}</th>
                                 <th>{{ __('Action') }}</th>
@@ -58,6 +59,7 @@
                 ['shipping_port', true, true],
                 ['destination_port', true, true],
                 ['status', true, true],
+                ['full_container_reserved', true, true],
                 ['created_by', true, true],
                 ['created_at', false, false],
                 ['action', false, false],
@@ -121,6 +123,11 @@
                     label: "Status",
                     key: "status_label",
                     color: "status_color",
+                },
+                {
+                    label: "Reserve Status",
+                    key: "reserve_status_abel",
+                    color: "reserve_status_color",
                 },
                 {
                     label: "Length (m)",

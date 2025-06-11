@@ -225,6 +225,14 @@
                                                     <div>
                                                         <span class="font-bold">{{ __('Total Cost:') }}</span>
                                                         @php
+                                                            if (
+                                                                $order->container_type ==
+                                                                App\Models\Order::FULL_CONTAINER
+                                                            ) {
+                                                                $totalHeight = $container->height_m;
+                                                                $totalWidth = $container->width_m;
+                                                                $totalLength = $container->length_m;
+                                                            }
                                                             $total_price =
                                                                 $container->per_cbm_cost *
                                                                 ($totalHeight + $totalWidth + $totalLength);

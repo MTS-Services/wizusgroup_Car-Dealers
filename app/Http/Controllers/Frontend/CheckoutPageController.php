@@ -629,10 +629,10 @@ class CheckoutPageController extends Controller
                 throw new Exception('Something went wrong, please try again');
             }
 
-            $totalHeight = $order->items->sum(fn($item) => optional($item->product)->height_m ? $item->product?->height_m * $item->quantity : 0);
-            $totalWidth = $order->items->sum(fn($item) => optional($item->product)->width_m ? $item->product?->width_m * $item->quantity : 0);
-            $totalLength = $order->items->sum(fn($item) => optional($item->product)->length_m ? $item->product?->length_m * $item->quantity : 0);
-            $totalWeight = $order->items->sum(fn($item) => optional($item->product)->weight_kg ? $item->product?->weight_kg * $item->quantity : 0);
+            $totalHeight = $order->container_type == Order::FULL_CONTAINER ? $container->height_m : $order->items->sum(fn($item) => optional($item->product)->height_m ? $item->product?->height_m * $item->quantity : 0);
+            $totalWidth = $order->container_type == Order::FULL_CONTAINER ? $container->width_m : $order->items->sum(fn($item) => optional($item->product)->width_m ? $item->product?->width_m * $item->quantity : 0);
+            $totalLength = $order->container_type == Order::FULL_CONTAINER ? $container->length_m : $order->items->sum(fn($item) => optional($item->product)->length_m ? $item->product?->length_m * $item->quantity : 0);
+            $totalWeight = $order->container_type == Order::FULL_CONTAINER ? $container->weight_kg : $order->items->sum(fn($item) => optional($item->product)->weight_kg ? $item->product?->weight_kg * $item->quantity : 0);
             $totalCbm = $totalHeight + $totalWidth + $totalLength;
 
             if ($container->container_free_space_cbm < $totalCbm) {
@@ -679,7 +679,7 @@ class CheckoutPageController extends Controller
                 ]);
                 $order->refresh();
 
-                if ($order->container_type == Order::FULL_CONTAINER) {
+                if ($order->container_type == Order::FULL_CONTAINER || $container->container_free_space_cbm == 0) {
                     $container->update([
                         'full_container_reserved' => Container::FULL_RESERVED
                     ]);
