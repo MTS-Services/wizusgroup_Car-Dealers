@@ -22,6 +22,9 @@ class Supplier extends AuthBaseModel
         'phone',
         'image',
         'status',
+        'address',
+        'website',
+
 
         'created_by',
         'update_by',

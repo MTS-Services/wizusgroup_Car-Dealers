@@ -670,8 +670,9 @@ class CheckoutPageController extends Controller
                     'creater_type' => $order->creater_type
                 ]);
 
-
-
+                foreach ($order->items as $item) {
+                    $item->product()->decrement('quantity', $item->quantity);
+                }
                 $order->update([
                     'container_id' => $container->id,
                     'status' => Order::STATUS_SUBMITTED
@@ -693,23 +694,27 @@ class CheckoutPageController extends Controller
     public function containerRequest($orderNumber)
     {
         try {
-            $order = Order::with(['items.product', 'user'])->where('order_number', $orderNumber)->first();
-            if (!$order) {
-                throw new Exception('Order not found');
-            }
+            return DB::transaction(function () use ($orderNumber) {
+                $order = Order::with(['items.product', 'user'])->where('order_number', $orderNumber)->first();
+                if (!$order) {
+                    throw new Exception('Order not found');
+                }
 
-            if ($order->user_id !== user()?->id) {
-                throw new Exception('You are not authorized to view this order');
-            }
-
-            $order->update([
-                'container_request' => Order::CONTINER_REQUEST_TRUE,
-                'status' => Order::STATUS_SUBMITTED
-            ]);
-            $order->refresh();
-            SendContainerRequestEmail::dispatch($order, false); // for user mail notify
-            SendContainerRequestEmail::dispatch($order, true);  // for admin mail notify
-            return view('frontend.pages.order_finished', compact('order'));
+                if ($order->user_id !== user()?->id) {
+                    throw new Exception('You are not authorized to view this order');
+                }
+                foreach ($order->items as $item) {
+                    $item->product()->decrement('quantity', $item->quantity);
+                }
+                $order->update([
+                    'container_request' => Order::CONTINER_REQUEST_TRUE,
+                    'status' => Order::STATUS_SUBMITTED
+                ]);
+                $order->refresh();
+                SendContainerRequestEmail::dispatch($order, false); // for user mail notify
+                SendContainerRequestEmail::dispatch($order, true);  // for admin mail notify
+                return view('frontend.pages.order_finished', compact('order'));
+            });
         } catch (\Throwable $e) {
             session()->flash('error', $e->getMessage());
             return redirect()->back();

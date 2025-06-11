@@ -365,30 +365,48 @@
             <!-- Admin Actions -->
             <div class="card mt-4">
                 <div class="card-body text-center">
+                    @if (!isset($order->container) && $order->container_request == App\Models\Order::CONTINER_REQUEST_TRUE)
+                        <p class="text-danger">Please assign a container to this order (based on minimum requirements)
+                            before confirming this order.</p>
+                    @endif
                     <div class="btn-group" role="group">
                         <a href="{{ route('om.order.index', ['status' => $status]) }}" class="btn btn-secondary">
                             <i class="fas fa-arrow-left"></i> {{ __('Back to Orders') }}
                         </a>
-                        @if ($order->status == App\Models\Order::STATUS_SUBMITTED)
-                            <a href="{{ route('om.order.status', ['status' => encrypt(App\Models\Order::STATUS_CANCELED), 'order' => encrypt($order->id)]) }}"
-                                class="btn btn-danger">
-                                <i class="fas fa-ban"></i> {{ __('Cancel Order') }}
-                            </a>
-                            <a href="{{ route('om.order.status', ['status' => encrypt(App\Models\Order::STATUS_CONFIRM), 'order' => encrypt($order->id)]) }}"
+                        @if (!isset($order->container) && $order->container_request == App\Models\Order::CONTINER_REQUEST_TRUE)
+                            @if ($order->status != App\Models\Order::STATUS_CANCELED)
+                                <a href="{{ route('om.order.status', ['status' => encrypt(App\Models\Order::STATUS_CANCELED), 'order' => encrypt($order->id)]) }}"
+                                    class="btn btn-danger">
+                                    <i class="fas fa-ban"></i> {{ __('Cancel Order') }}
+                                </a>
+                            @endif
+                            <a href="{{ route('om.order.assign-container', encrypt($order->id)) }}"
                                 class="btn btn-success">
-                                <i class="fas fa-check"></i> {{ __('Confirm Order') }}
+                                <i class="fas fa-check"></i> {{ __('Assign Container') }}
                             </a>
-                        @elseif($order->status == App\Models\Order::STATUS_CONFIRM)
-                            <a href="{{ route('om.order.status', ['status' => encrypt(App\Models\Order::STATUS_CANCELED), 'order' => encrypt($order->id)]) }}"
-                                class="btn btn-danger">
-                                <i class="fas fa-ban"></i> {{ __('Cancel Order') }}
-                            </a>
-                        @elseif($order->status == App\Models\Order::STATUS_CANCELED)
-                            <a href="{{ route('om.order.status', ['status' => encrypt(App\Models\Order::STATUS_CONFIRM), 'order' => encrypt($order->id)]) }}"
-                                class="btn btn-success">
-                                <i class="fas fa-check"></i> {{ __('Confirm Order') }}
-                            </a>
+                        @else
+                            @if ($order->status == App\Models\Order::STATUS_SUBMITTED)
+                                <a href="{{ route('om.order.status', ['status' => encrypt(App\Models\Order::STATUS_CANCELED), 'order' => encrypt($order->id)]) }}"
+                                    class="btn btn-danger">
+                                    <i class="fas fa-ban"></i> {{ __('Cancel Order') }}
+                                </a>
+                                <a href="{{ route('om.order.status', ['status' => encrypt(App\Models\Order::STATUS_CONFIRM), 'order' => encrypt($order->id)]) }}"
+                                    class="btn btn-success">
+                                    <i class="fas fa-check"></i> {{ __('Confirm Order') }}
+                                </a>
+                            @elseif($order->status == App\Models\Order::STATUS_CONFIRM)
+                                <a href="{{ route('om.order.status', ['status' => encrypt(App\Models\Order::STATUS_CANCELED), 'order' => encrypt($order->id)]) }}"
+                                    class="btn btn-danger">
+                                    <i class="fas fa-ban"></i> {{ __('Cancel Order') }}
+                                </a>
+                            @elseif($order->status == App\Models\Order::STATUS_CANCELED)
+                                <a href="{{ route('om.order.status', ['status' => encrypt(App\Models\Order::STATUS_CONFIRM), 'order' => encrypt($order->id)]) }}"
+                                    class="btn btn-success">
+                                    <i class="fas fa-check"></i> {{ __('Confirm Order') }}
+                                </a>
+                            @endif
                         @endif
+
 
                     </div>
                 </div>

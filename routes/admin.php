@@ -491,6 +491,7 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin'], 
             Route::get('/', 'index')->name('index');
             Route::get('/details/{id}', 'show')->name('details');
             Route::get('/status/{status}/{order}', 'status')->name('status');
+            Route::get('/assign-container/{order}', 'assignContainer')->name('assign-container');
         });
     });
 });

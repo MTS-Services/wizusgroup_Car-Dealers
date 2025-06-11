@@ -27,6 +27,8 @@ class Container extends BaseModel
         'shipping_port',
         'destination_port',
         'status',
+        'departure_date',
+        'estimated_delivery_days',
 
 
         'created_by',

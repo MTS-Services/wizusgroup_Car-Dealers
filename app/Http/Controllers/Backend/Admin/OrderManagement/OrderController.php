@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\OrderManagement;
 
 use App\Http\Controllers\Controller;
 use App\Models\ContainerReservation;
+use App\Models\Documentation;
 use App\Models\Order;
 use App\Services\Admin\OrderManagement\OrderService;
 use Exception;
@@ -39,7 +40,7 @@ class OrderController extends Controller
         if ($request->ajax()) {
             $query = $this->orderService->getOrders()->with(['creater', 'shippingPort', 'destinationPort', 'user']);
             if ($request->has('status')) {
-                $query = match ($request->status) {
+                $query = match (strtolower($request->status)) {
                     'submitted' => $query->where('status', Order::STATUS_SUBMITTED),
                     'confirm' => $query->where('status', Order::STATUS_CONFIRM),
                     'shipped' => $query->where('status', Order::STATUS_SHIPPED),
@@ -128,10 +129,19 @@ class OrderController extends Controller
                     } else {
                         $order->containerReservation()->update(['status' => ContainerReservation::STATUS_ACCEPT]);
                     }
+                    if ($order->status == Order::STATUS_CANCELED) {
+                        foreach ($order->items as $item) {
+                            $item->product()->decrement('quantity', $item->quantity);
+                        }
+                    }
                 }
                 if (decrypt($status) == Order::STATUS_CANCELED) {
+                    foreach ($order->items as $item) {
+                        $item->product()->increment('quantity', $item->quantity);
+                    }
                     $order->containerReservation()->update(['status' => ContainerReservation::STATUS_DECLINE]);
                 }
+
                 $order->update(['status' => decrypt($status), 'updater_id' => admin()->id, 'updater_type' => get_class(admin())]);
 
                 session()->flash('success', "Order $order->status_label successfully!");
@@ -142,5 +152,13 @@ class OrderController extends Controller
             return redirect()->back();
         }
 
+    }
+
+    public function assignContainer(string $id)
+    {
+        $data['order'] = $this->orderService->getOrder($id);
+        $data['order']->load(['items.product', 'shippingPort', 'destinationPort']);
+        $data['document'] = Documentation::where([['module_key', 'container'], ['type', 'create']])->first();
+        return view('backend.admin.order_management.order.container_assign', $data);
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Order extends BaseModel
@@ -208,5 +209,17 @@ class Order extends BaseModel
     public function containerReservation(): HasOne
     {
         return $this->hasOne(ContainerReservation::class, 'order_id', 'id');
+    }
+
+    public function products(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Product::class,
+            OrderItem::class,
+            'order_id',
+            'id',
+            'id',
+            'product_id'
+        );
     }
 }

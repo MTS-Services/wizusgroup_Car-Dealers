@@ -226,7 +226,7 @@ class ContainerController extends Controller
     {
         $data['shippingLocations'] = $this->shippingLocationService->getShippingLocations()->active()->select(['id', 'name'])->get();
         $data['products'] = $this->productService->getProducts()->active()->select(['id', 'name'])->get();
-        $data['document'] = Documentation::where([['module_key', 'shipping-location'], ['type', 'create']])->first();
+        $data['document'] = Documentation::where([['module_key', 'container'], ['type', 'create']])->first();
         return view('backend.admin.group_shipping.container.create', $data);
     }
 

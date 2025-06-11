@@ -326,7 +326,7 @@ class ProductController extends Controller
     {
         $data['supplier'] = Supplier::select('id', 'first_name')->get();
         $data['product'] = $this->productService->getProduct($id);
-        $data['product']->load(['creater_admin', 'images', 'primaryImage']);
+        $data['product']->load(['creater_admin', 'images', 'primaryImage', 'productInformations']);
         return view('backend.admin.product_management.product.details', $data);
     }
 

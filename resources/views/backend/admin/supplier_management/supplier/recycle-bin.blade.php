@@ -22,7 +22,6 @@
                                 <th>{{ __('Name') }}</th>
                                 <th>{{ __('Email') }}</th>
                                 <th>{{ __('Status') }}</th>
-                                <th>{{ __('Verify Status') }}</th>
                                 <th>{{ __('Deleted By') }}</th>
                                 <th>{{ __('Deleted Date') }}</th>
                                 <th>{{ __('Action') }}</th>
@@ -46,7 +45,6 @@
                 ['first_name', true, true],
                 ['email', true, true],
                 ['status', true, true],
-                ['email_verified_at', true, true],
                 ['deleted_by', true, true],
                 ['deleted_at', true, true],
                 ['action', false, false],

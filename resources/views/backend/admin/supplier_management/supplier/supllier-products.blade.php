@@ -69,7 +69,7 @@
                 table_columns: table_columns,
                 main_class: '.datatable',
                 displayLength: 10,
-                main_route: "{{ route('pm.product.index') }}",
+                main_route: "{{ route('sm.supplier.product', $supplierId) }}",
                 order_route: "{{ route('update.sort.order') }}",
                 export_columns: [0, 1, 2, 3, 4, 5, 6, 7],
                 model: 'Product',

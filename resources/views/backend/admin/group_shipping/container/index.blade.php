@@ -84,7 +84,7 @@
             let id = $(this).data("id");
             let route = "{{ route('gs.container.show', ['id']) }}";
             const detailsUrl = route.replace("id", id);
-            const headers =[{
+            const headers = [{
                     label: "Title",
                     key: "title"
                 },
@@ -108,6 +108,14 @@
                 {
                     label: "Deadline",
                     key: "deadline"
+                },
+                {
+                    label: "Departure Date",
+                    key: "departure_date"
+                },
+                {
+                    label: "Estimated Delivery Days",
+                    key: "estimated_delivery_days"
                 },
                 {
                     label: "Status",
