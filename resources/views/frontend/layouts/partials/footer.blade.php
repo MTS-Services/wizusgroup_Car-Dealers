@@ -14,10 +14,10 @@
             <div class="basis-full xl:basis-[55%]">
                 <div class="flex flex-wrap space-y-5 md:space-y-0">
                     <div class="w-full md:w-4/6">
-                        <div class="flex items-start">
-                            <div class="basis-1/2">
-                                <h4>{{ __('Services') }}</h4>
-                                <div class="flex flex-col pl-3 gap-1">
+                        <div class="flex items-baseline content-between">
+                            <div class="basis-2/3">
+                                <h4 class="mb-5">{{ __('Services') }}</h4>
+                                <div class="flex flex-col gap-5">
                                     {{-- <a href="{{ route('frontend.auctions') }}"
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm group/service group/service w-fit">
                                         <div>
@@ -71,9 +71,9 @@
 
                                 </div>
                             </div>
-                            <div class="basis-1/2">
-                                <h4>{{ __('Quick Links') }}</h4>
-                                <div class="flex flex-col pt-3 pl-3 gap-1">
+                            <div class="basis-1/3">
+                                <h4 class="mb-5">{{ __('Quick Links') }}</h4>
+                                <div class="flex flex-col gap-5">
                                     <a href="{{ url('/') }}"
                                         class="text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary font-medium capitalize transition-all duration-300 ease-linear flex items-center justify-start gap-2 text-sm w-fit group/link">
                                         <div>
@@ -120,8 +120,8 @@
                     </div>
                     <div class="w-full md:w-2/6">
                         <div class="basis-full">
-                            <h4>{{ __('Contact') }}</h4>
-                            <div class="flex flex-col pt-3 pl-3 gap-5">
+                            <h4 class="mb-5">{{ __('Contact') }}</h4>
+                            <div class="flex flex-col gap-5">
                                 <div class="flex items-start justify-start gap-2 text-sm">
                                     <div>
                                         <span

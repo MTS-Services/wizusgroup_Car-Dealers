@@ -110,7 +110,7 @@
                                 'icon' => 'shopping-basket',
                                 'label' => 'Add to Cart',
                                 'bg' => true,
-                                'class' => "add-to-cart-$product->id",
+                                'class' => 'add-to-cart',
                                 'data_id' => $product->id,
                             ],
                         ];
@@ -136,7 +136,7 @@
         <div class="container">
             @if ($container)
                 <div
-                    class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-6 xl:py-12 lg:py-10 md:py-8 py-4 text-center w-11/12 max-w-3xl shadow-md">
+                    class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-3 xl:py-12 lg:py-10 md:py-8 text-center w-full max-w-3xl shadow-md">
                     <h3 class="text-2xl font-bold mb-2">{{ __('Join Group Container - Save on Shipping') }}</h3>
                     <p class="text-xl mb-5">{{ __('Next Departure: From ') }} {{ $container?->shippingPort?->name }}
                         {{ __(' to ') }}{{ $container?->destinationPort?->name }}</p>

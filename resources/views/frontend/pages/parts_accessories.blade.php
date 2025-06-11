@@ -149,7 +149,25 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="products-grid">
                         @forelse ($products as $product)
-                            <x-frontend.product :product="$product" />
+                            @php
+                                $buttons = [
+                                    [
+                                        'route' => route('frontend.checkout.single', ['slug' => $product->slug]),
+                                        'icon' => 'shopping-cart',
+                                        'label' => 'Buy Now',
+                                        'bg' => false,
+                                    ],
+                                    [
+                                        'route' => 'javascript:void(0)',
+                                        'icon' => 'shopping-basket',
+                                        'label' => 'Add to Cart',
+                                        'bg' => true,
+                                        'class' => 'add-to-cart',
+                                        'data_id' => $product->id,
+                                    ],
+                                ];
+                            @endphp
+                            <x-frontend.product :product="$product" :buttons="$buttons" />
                         @empty
                         @endforelse
                     </div>
