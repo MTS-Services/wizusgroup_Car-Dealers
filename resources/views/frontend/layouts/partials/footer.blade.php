@@ -121,7 +121,7 @@
                     <div class="w-full md:w-2/6">
                         <div class="basis-full">
                             <h4>{{ __('Contact') }}</h4>
-                            <div class="flex flex-col pt-3 pl-3 gap-1">
+                            <div class="flex flex-col pt-3 pl-3 gap-5">
                                 <div class="flex items-start justify-start gap-2 text-sm">
                                     <div>
                                         <span
@@ -131,7 +131,7 @@
                                     </div>
                                     <a href="https://www.google.com/maps" target="_blank"
                                         class="w-auto break-all text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-300 ease-linear">
-                                        {{ settings('address') }}
+                                        {{ settings('address') ?? 'Dhaka, Bangladesh' }}
                                     </a>
                                 </div>
 
@@ -142,9 +142,10 @@
                                             <i data-lucide="mail" class="w-4 text-text-white"></i>
                                         </span>
                                     </div>
-                                    <a href="mailto:{{ settings('email') }}" target="_blank"
+                                    <a href="mailto:{{ settings('email') ?? 'support.wizglobal@gmail.com' }}"
+                                        target="_blank"
                                         class="w-auto break-all !text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-300 ease-linear">
-                                        {{ settings('email') }}
+                                        {{ settings('email') ?? 'support.wizglobal@gmail.com' }}
                                     </a>
                                 </div>
                                 <div class="flex items-start justify-start gap-2 text-sm">
@@ -154,9 +155,9 @@
                                             <i data-lucide="phone" class="w-4 text-text-white"></i>
                                         </span>
                                     </div>
-                                    <a href="tel:{{ settings('phone') }}" target="_blank"
+                                    <a href="tel:{{ settings('phone') ?? '+8801581088986' }}" target="_blank"
                                         class="w-auto break-all text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-300 ease-linear">
-                                        {{ settings('phone') }}
+                                        {{ settings('phone') ?? '+8801581088986' }}
                                     </a>
                                 </div>
                             </div>

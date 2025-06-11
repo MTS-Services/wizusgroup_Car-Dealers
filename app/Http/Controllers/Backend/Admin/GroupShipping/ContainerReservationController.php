@@ -69,25 +69,25 @@ class ContainerReservationController extends Controller
                 'label' => 'Details',
                 'permissions' => ['container-reserve-details']
             ],
-            [
-                'routeName' => 'gs.container-reserve.edit',
-                'params' => [encrypt($model->id)],
-                'label' => 'Edit',
-                'permissions' => ['container-reserve-edit']
-            ],
+            // [
+            //     'routeName' => 'gs.container-reserve.edit',
+            //     'params' => [encrypt($model->id)],
+            //     'label' => 'Edit',
+            //     'permissions' => ['container-reserve-edit']
+            // ],
             // [
             //     'routeName' => 'gs.container-reserve.status',
             //     'params' => [encrypt($model->id)],
             //     'label' => $model->status_btn_label,
             //     'permissions' => ['container-reserve-status']
             // ],
-            [
-                'routeName' => 'gs.container-reserve.destroy',
-                'params' => [encrypt($model->id)],
-                'label' => 'Delete',
-                'delete' => true,
-                'permissions' => ['container-reserve-delete']
-            ]
+            // [
+            //     'routeName' => 'gs.container-reserve.destroy',
+            //     'params' => [encrypt($model->id)],
+            //     'label' => 'Delete',
+            //     'delete' => true,
+            //     'permissions' => ['container-reserve-delete']
+            // ]
 
         ];
     }

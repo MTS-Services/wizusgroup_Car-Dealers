@@ -157,9 +157,9 @@
                     <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase text-center">
                         {{ __('How it Works') }}</h2>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 gap-y-5 mt-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8">
                     <div
-                        class="w-11/12 rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary py-9  shadow-lg text-center">
+                        class="w-full rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary py-9  shadow-lg text-center">
                         <i data-lucide="cpu" class="w-16 h-16 mx-auto text-text-secondary/40 "></i>
                         <p class="py-2 text-2xl font-semibold">{{ __('Select Your Machine') }}</p>
                         <p class="text-muted-text">
@@ -167,7 +167,7 @@
                         </p>
                     </div>
                     <div
-                        class="w-11/12 rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9  shadow-lg text-center">
+                        class="w-full rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9  shadow-lg text-center">
                         <i data-lucide="ship" class="w-16 h-16 mx-auto text-text-secondary/40"></i>
                         <p class="py-2 text-2xl font-semibold">{{ __('Arrange for Export') }}</p>
                         <p class="text-muted-text">
@@ -175,7 +175,7 @@
                         </p>
                     </div>
                     <div
-                        class="w-11/12 rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9  shadow-lg text-center">
+                        class="w-full rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9  shadow-lg text-center">
                         <i data-lucide="inbox" class="w-16 h-16 mx-auto text-text-secondary/40"></i>
                         <p class="py-2 text-2xl font-semibold">{{ __('Receive at Port') }}</p>
                         <p class="text-muted-text">

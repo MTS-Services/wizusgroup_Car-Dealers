@@ -516,7 +516,7 @@ class CheckoutPageController extends Controller
                     }
 
                     // Create guest user
-                    $user = User::create($validated);
+                    $user = User::create($validated->except('phone'));
                     Auth::login($user);
                     SendUserRegistrationMail::dispatch($user, $validated['password']);
 
