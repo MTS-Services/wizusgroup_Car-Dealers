@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\GroupShipping;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GroupShipping\ContainerRequest;
+use App\Jobs\ContainerStatusMailSend;
 use App\Models\Documentation;
 use App\Services\Admin\GroupShipping\ContainerService;
 use App\Services\Admin\GroupShipping\ShippingLocationService;
@@ -333,8 +334,9 @@ class ContainerController extends Controller
     public function status(string $id, string $status): RedirectResponse
     {
         try {
+            $container = $this->containerService->getContainer($id);
             if (decrypt($status) == Container::STATUS_PENDING) {
-                $container = $this->containerService->getContainer($id);
+
                 $container->load('containerReservations');
                 if ($container->containerReservations->count()) {
                     session()->flash('error', 'You cannot make this container pending. Container has already been reserved!');
@@ -342,6 +344,11 @@ class ContainerController extends Controller
                 }
             }
             $this->containerService->toggleStatus($id, $status);
+
+            if ($container->status != Container::STATUS_PENDING) {
+                ContainerStatusMailSend::dispatch($container);
+                ContainerStatusMailSend::dispatch($container, true);
+            }
             session()->flash('success', 'Container status updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Container status update failed! ' . $e->getMessage());

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\OrderManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GroupShipping\ContainerRequest;
+use App\Jobs\OrderStatusMailSend;
 use App\Jobs\SendContainerJoinEmail;
 use App\Models\Container;
 use App\Models\ContainerReservation;
@@ -157,7 +158,8 @@ class OrderController extends Controller
                 }
 
                 $order->update(['status' => decrypt($status), 'updater_id' => admin()->id, 'updater_type' => get_class(admin())]);
-
+                OrderStatusMailSend::dispatch($order);
+                OrderStatusMailSend::dispatch($order, true);
                 session()->flash('success', "Order $order->status_label successfully!");
                 return redirect()->back();
             });
