@@ -70,7 +70,7 @@
                 main_route: "{{ route('sm.supplier.index') }}",
                 order_route: "{{ route('update.sort.order') }}",
                 export_columns: [0, 1, 2, 3, 4, 5, 6],
-                model: 'supplier',
+                model: 'Supplier',
             };
             // initializeDataTable(details);
 
@@ -87,8 +87,7 @@
             let id = $(this).data("id");
             let route = "{{ route('sm.supplier.show', ['id']) }}";
             const detailsUrl = route.replace("id", id);
-            const headers = [
-                {
+            const headers = [{
                     label: "First Name",
                     key: "first_name"
                 },
