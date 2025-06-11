@@ -82,7 +82,8 @@
                 ]" />
             </div>
             <div class="card-body">
-                <form action="{{ route('gs.container.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('om.order.assign-container', encrypt($order->id)) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-md-8">
@@ -90,7 +91,7 @@
                                 <div class="form-group col-md-6">
                                     <label>{{ __('Shipping Port') }} <span class="text-danger">*</span></label>
                                     <select name="shipping_port" class="form-control" id="shipping_port">
-                                        <option value="{{ $order->shippingPort?->id }}" selected disabled>
+                                        <option value="{{ $order->shippingPort?->id }}" selected>
                                             {{ $order->shippingPort?->name }}
                                         </option>
                                     </select>
@@ -101,7 +102,7 @@
                                 <div class="form-group col-md-6">
                                     <label>{{ __('Destination Port') }} <span class="text-danger">*</span></label>
                                     <select name="destination_port" class="form-control" id="destination_port">
-                                        <option value="{{ $order->destinationPort?->id }}" selected disabled>
+                                        <option value="{{ $order->destinationPort?->id }}" selected>
                                             {{ $order->destinationPort?->name }}
                                         </option>
                                     </select>

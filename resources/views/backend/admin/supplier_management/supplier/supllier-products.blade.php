@@ -8,7 +8,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Supplier Product List') }}</h4>
+                    <h4 class="cart-title">{{ __("Supplier Product List- ({$supplier->full_name})") }}</h4>
                     <div class="buttons">
                         <x-backend.admin.button :datas="[
                             'routeName' => 'pm.product.recycle-bin',

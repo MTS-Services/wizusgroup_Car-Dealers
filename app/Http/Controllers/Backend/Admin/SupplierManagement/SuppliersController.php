@@ -102,11 +102,11 @@ class SuppliersController extends Controller
     }
 
 
-    public function supplierProducts(Request $request, string $id): JsonResponse|View
+    public function supplierProducts(Request $request, string $sid): JsonResponse|View
     {
-
+        $supplier = $this->supplierService->getSupplier($sid);
         if ($request->ajax()) {
-            $query = $this->supplierService->getSupplierProducts($id);
+            $query = $this->supplierService->getSupplierProducts($sid);
             return DataTables::eloquent($query)
                 ->editColumn('status', function ($product) {
                     return "<span class='badge " . $product->status_color . "'>$product->status_label</span>";
@@ -127,7 +127,7 @@ class SuppliersController extends Controller
                 ->rawColumns(['status', 'is_featured', 'created_by', 'created_at', 'action'])
                 ->make(true);
         }
-        return view('backend.admin.supplier_management.supplier.supllier-products', ['supplierId' => $id]);
+        return view('backend.admin.supplier_management.supplier.supllier-products', ['supplierId' => $sid, 'supplier' => $supplier]);
     }
 
 

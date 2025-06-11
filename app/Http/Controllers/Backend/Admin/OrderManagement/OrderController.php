@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Backend\Admin\OrderManagement;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\GroupShipping\ContainerRequest;
+use App\Jobs\SendContainerJoinEmail;
+use App\Models\Container;
 use App\Models\ContainerReservation;
 use App\Models\Documentation;
 use App\Models\Order;
+use App\Services\Admin\GroupShipping\ContainerService;
 use App\Services\Admin\OrderManagement\OrderService;
 use Exception;
 use Illuminate\Http\Request;
@@ -15,9 +19,11 @@ use Yajra\DataTables\Facades\DataTables;
 class OrderController extends Controller
 {
     protected OrderService $orderService;
-    public function __construct(OrderService $orderService)
+    protected ContainerService $containerService;
+    public function __construct(OrderService $orderService, ContainerService $containerService)
     {
         $this->orderService = $orderService;
+        $this->containerService = $containerService;
 
         $this->middleware('auth:admin');
         $this->middleware('permission:order-list', ['only' => ['index']]);
@@ -160,5 +166,63 @@ class OrderController extends Controller
         $data['order']->load(['items.product', 'shippingPort', 'destinationPort']);
         $data['document'] = Documentation::where([['module_key', 'container'], ['type', 'create']])->first();
         return view('backend.admin.order_management.order.container_assign', $data);
+    }
+
+    public function assignContainerSubmit(ContainerRequest $request, string $oid)
+    {
+        try {
+            DB::transaction(function () use ($request, $oid) {
+                $validated = $request->validated();
+                $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
+                $container = $this->containerService->createContainer($validated, $file);
+                $order = $this->orderService->getOrder($oid);
+
+                $totalHeight = $order->items->sum(fn($item) => optional($item->product)->height_m ? $item->product?->height_m * $item->quantity : 0);
+                $totalWidth = $order->items->sum(fn($item) => optional($item->product)->width_m ? $item->product?->width_m * $item->quantity : 0);
+                $totalLength = $order->items->sum(fn($item) => optional($item->product)->length_m ? $item->product?->length_m * $item->quantity : 0);
+                $totalWeight = $order->items->sum(fn($item) => optional($item->product)->weight_kg ? $item->product?->weight_kg * $item->quantity : 0);
+                $totalCbm = $totalHeight + $totalWidth + $totalLength;
+                $total_price = $container->per_cbm_cost * $totalCbm;
+                $total_price += $container->base_cost;
+                $reserve_price = $total_price / 2;
+                ContainerReservation::create([
+                    'order_id' => $order->id,
+                    'container_id' => $container->id,
+                    'user_id' => $order->user_id,
+                    'status' => ContainerReservation::STATUS_PENDING,
+                    'email' => $order->shipping?->email,
+                    'whatsapp' => $order->user?->whatsapp,
+                    'quantity' => $order->items->sum('quantity'),
+                    'length_m' => $totalLength,
+                    'width_m' => $totalWidth,
+                    'height_m' => $totalHeight,
+                    'weight_kg' => $totalWeight,
+                    'price' => $total_price,
+                    'reserve_price' => $reserve_price,
+                    'note' => null,
+                    'creater_id' => $order->creater_id,
+                    'creater_type' => $order->creater_type
+                ]);
+                $order->update([
+                    'container_id' => $container->id,
+                    'container_request' => Order::CONTINER_REQUEST_FALSE
+                ]);
+
+                if ($order->container_type == Order::FULL_CONTAINER) {
+                    $container->update([
+                        'full_container_reserved' => Container::FULL_RESERVED
+                    ]);
+                }
+
+                SendContainerJoinEmail::dispatch($order, false); // for user mail notify
+                SendContainerJoinEmail::dispatch($order, true);  // for admin mail notify
+
+                session()->flash('success', 'Container assigned successfully!');
+            });
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Container assign failed!');
+            throw $e;
+        }
+        return redirect()->route('om.order.details', $oid);
     }
 }

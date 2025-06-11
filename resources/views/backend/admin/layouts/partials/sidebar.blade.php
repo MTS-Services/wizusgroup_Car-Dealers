@@ -523,35 +523,34 @@
                                         </div>
                                     </li>
                                 @endcanany
-
-                                @can('product-create')
-                                    <li class="@if ($page_slug == 'product' && isset($product_type) && $product_type == App\Models\Product::PRODUCT_TYPE_NORMAL) active @endif">
+                                @can('product-list')
+                                    <li class="@if ($page_slug == 'product' && (isset($product_type) && $product_type == App\Models\Product::PRODUCT_TYPE_NORMAL)) active @endif">
                                         <a
-                                            href="{{ route('pm.product.create', ['product_type' => App\Models\Product::PRODUCT_TYPE_NORMAL]) }}">
-                                            <span class="sub-item">{{ __('Add Product') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('product-create')
-                                    <li class="@if ($page_slug == 'product' && isset($product_type) && $product_type == App\Models\Product::PRODUCT_TYPE_PARTS) active @endif">
-                                        <a
-                                            href="{{ route('pm.product.create', ['product_type' => App\Models\Product::PRODUCT_TYPE_PARTS]) }}">
-                                            <span class="sub-item">{{ __('Add Parts & Accessories') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('product-create')
-                                    <li class="@if ($page_slug == 'product' && isset($product_type) && $product_type == App\Models\Product::PRODUCT_TYPE_DROPSHIPPING) active @endif">
-                                        <a
-                                            href="{{ route('pm.product.create', ['product_type' => App\Models\Product::PRODUCT_TYPE_DROPSHIPPING]) }}">
-                                            <span class="sub-item">{{ __('Add Dropshipping Product') }}</span>
+                                            href="{{ route('pm.product.index', ['product_type' => App\Models\Product::PRODUCT_TYPE_NORMAL]) }}">
+                                            <span class="sub-item">{{ __('Product') }}</span>
                                         </a>
                                     </li>
                                 @endcan
                                 @can('product-list')
-                                    <li class="@if ($page_slug == 'product' && (empty($product_type) || !isset($product_type))) active @endif">
-                                        <a href="{{ route('pm.product.index') }}">
-                                            <span class="sub-item">{{ __('Product') }}</span>
+                                    <li class="@if ($page_slug == 'product' && isset($product_type) && $product_type == App\Models\Product::PRODUCT_TYPE_PARTS) ) active @endif">
+                                        <a
+                                            href="{{ route('pm.product.index', ['product_type' => App\Models\Product::PRODUCT_TYPE_PARTS]) }}">
+                                            <span class="sub-item">{{ __('Parts & Accessories') }}</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('product-list')
+                                    <li class="@if ($page_slug == 'product' && isset($product_type) && $product_type == App\Models\Product::PRODUCT_TYPE_DROPSHIPPING) ) active @endif">
+                                        <a
+                                            href="{{ route('pm.product.index', ['product_type' => App\Models\Product::PRODUCT_TYPE_DROPSHIPPING]) }}">
+                                            <span class="sub-item">{{ __('Dropshipping Product') }}</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('product-list')
+                                    <li class="@if ($page_slug == 'product' && isset($product_type) && $product_type == 'out-of-stock') ) active @endif">
+                                        <a href="{{ route('pm.product.index', ['product_type' => 'out-of-stock']) }}">
+                                            <span class="sub-item">{{ __('Out of Stock') }}</span>
                                         </a>
                                     </li>
                                 @endcan

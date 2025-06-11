@@ -679,6 +679,12 @@ class CheckoutPageController extends Controller
                 ]);
                 $order->refresh();
 
+                if ($order->container_type == Order::FULL_CONTAINER) {
+                    $container->update([
+                        'full_container_reserved' => Container::FULL_RESERVED
+                    ]);
+                }
+
                 SendContainerJoinEmail::dispatch($order, false); // for user mail notify
                 SendContainerJoinEmail::dispatch($order, true);  // for admin mail notify
 

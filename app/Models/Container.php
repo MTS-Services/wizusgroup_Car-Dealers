@@ -130,6 +130,7 @@ class Container extends BaseModel
             'modified_image',
             'filled_percentage',
             'container_free_space_cbm',
+            'reserve_status_label',
         ]);
     }
 
@@ -219,7 +220,7 @@ class Container extends BaseModel
     // Query scopes for each status
     public function scopeActive($query)
     {
-        return $query->where('status', self::STATUS_ACTIVE);
+        return $query->where('status', self::STATUS_ACTIVE)->where('full_container_reserved', self::NOT_FULL_RESERVED);
     }
 
     public function scopePending($query)
@@ -245,5 +246,24 @@ class Container extends BaseModel
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class, 'container_id', 'id');
+    }
+
+
+    public const NOT_FULL_RESERVED = 1;
+    public const FULL_RESERVED = 2;
+
+    // Status labels
+    public static function getReserveStatusLabels(): array
+    {
+        return [
+            self::NOT_FULL_RESERVED => 'Not Full Reserved',
+            self::FULL_RESERVED => 'Full Reserved',
+        ];
+    }
+
+    // Status button labels
+    public function getReserveStatusLabelAttribute(): string
+    {
+        return self::getReserveStatusLabels()[$this->full_container_reserved] ?? 'Unknown';
     }
 }

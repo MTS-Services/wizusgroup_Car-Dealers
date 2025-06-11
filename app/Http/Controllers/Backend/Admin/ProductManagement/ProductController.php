@@ -60,9 +60,18 @@ class ProductController extends Controller
      */
     public function index(Request $request): JsonResponse|View
     {
+        $product_type = $request->product_type;
         if ($request->ajax()) {
             $query = $this->productService->getProducts()
                 ->with(['creater_admin']);
+            switch ($product_type) {
+                case 'out-of-stock':
+                    $query->outOfStock();
+                    break;
+                default:
+                    $query->where('product_type', $product_type)->inStock();
+                    break;
+            }
             return DataTables::eloquent($query)
                 ->editColumn('status', function ($product) {
                     return "<span class='badge " . $product->status_color . "'>$product->status_label</span>";
@@ -83,7 +92,7 @@ class ProductController extends Controller
                 ->rawColumns(['status', 'is_featured', 'created_by', 'created_at', 'action'])
                 ->make(true);
         }
-        return view('backend.admin.product_management.product.index');
+        return view('backend.admin.product_management.product.index', compact('product_type'));
     }
 
 
@@ -127,12 +136,20 @@ class ProductController extends Controller
 
     public function recycleBin(Request $request): JsonResponse|View
     {
+        $product_type = $request->product_type;
         if ($request->ajax()) {
             // Get all the products that are in the recycle bin
             $query = $this->productService->getProducts()
                 ->with(['deleter_admin'])
                 ->onlyTrashed();
-
+            switch ($product_type) {
+                case 'out-of-stock':
+                    $query->outOfStock();
+                    break;
+                default:
+                    $query->where('product_type', $product_type)->inStock();
+                    break;
+            }
             // Define the columns that will be shown in the table
             // The editColumn method is used to customize the values of a column
             return DataTables::eloquent($query)

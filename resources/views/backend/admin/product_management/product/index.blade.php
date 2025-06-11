@@ -1,4 +1,4 @@
-@extends('backend.admin.layouts.master', ['page_slug' => 'product'])
+@extends('backend.admin.layouts.master', ['page_slug' => 'product', 'product_type' => $product_type ?? ''])
 @section('title', 'Product List')
 @push('css')
     <link rel="stylesheet" href="{{ asset('custom_litebox/litebox.css') }}">
@@ -8,19 +8,25 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Product List') }}</h4>
+                    <h4 class="cart-title">
+                        {{ $product_type == App\Models\Product::PRODUCT_TYPE_PARTS ? 'Parts & Accessories List' : ($product_type == App\Models\Product::PRODUCT_TYPE_DROPSHIPPING ? 'Dropshipping Product List' : ($product_type == 'out-of-stock' ? 'Out of Stock Product List' : 'Product List')) }}
+                    </h4>
                     <div class="buttons">
                         <x-backend.admin.button :datas="[
                             'routeName' => 'pm.product.recycle-bin',
+                            'params' => ['product_type' => $product_type],
                             'label' => 'Recycle Bin',
                             'className' => 'btn-danger',
                             'permissions' => ['product-restore'],
                         ]" />
-                        <x-backend.admin.button :datas="[
-                            'routeName' => 'pm.product.create',
-                            'label' => 'Add New',
-                            'permissions' => ['product-create'],
-                        ]" />
+                        @if ($product_type != 'out-of-stock')
+                            <x-backend.admin.button :datas="[
+                                'routeName' => 'pm.product.create',
+                                'params' => ['product_type' => $product_type],
+                                'label' => 'Add New',
+                                'permissions' => ['product-create'],
+                            ]" />
+                        @endif
                     </div>
                 </div>
                 <div class="card-body">
