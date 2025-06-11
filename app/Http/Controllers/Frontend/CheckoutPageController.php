@@ -33,6 +33,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
 use Mail;
 
 class CheckoutPageController extends Controller
@@ -516,7 +517,7 @@ class CheckoutPageController extends Controller
                     }
 
                     // Create guest user
-                    $user = User::create($validated->except('phone'));
+                    $user = User::create(Arr::except($validated, 'phone'));
                     Auth::login($user);
                     SendUserRegistrationMail::dispatch($user, $validated['password']);
 
