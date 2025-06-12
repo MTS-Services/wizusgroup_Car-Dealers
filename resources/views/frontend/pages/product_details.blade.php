@@ -581,13 +581,5 @@
              });
          });
      </script>
-     <script>
-         document.addEventListener('DOMContentLoaded', function() {
-             $('.add-to-cart').on('click', function() {
-                 const productId = $(this).data('id');
-                 addToCart(productId);
-             })
-         })
-     </script>
 
  @endpush
