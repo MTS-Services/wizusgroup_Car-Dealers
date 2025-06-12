@@ -1,33 +1,33 @@
 @extends('frontend.layouts.app')
 @section('content')
     <section class="py-20">
-        <div class="container">
-            <div
+        <div class="container">  
+            <div      
                 class="shadow-shadowPrimary shadow-shadow-dark/10 dark:shadow-shadow-light/10 rounded-2xl w-full overflow-hidden bg-bg-white dark:bg-bg-dark-tertiary p-5">
                 <h2 class="text-3xl font-semibold text-center mb-6">{{ __('Start Your Journey with Us') }}</h2>
                 <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="grid grid-cols-1 gap-5">
-                        {{-- Name Field --}}
-                        <div class="flex flex-col md:flex-row gap-3">
-                            <div class="w-full">
-                                <label class="w-full">
-                                    <span class="label">{{ __('First Name') }} <span class="text-red-500">*</span></span>
-                                    <input type="text" placeholder="First Name" name="first_name"
-                                        value="{{ old('first_name') }}" class="input" />
+                    <div class="grid grid-cols-1 gap-5">   
+                        {{-- Name Field --}} 
+                        <div class="flex flex-col md:flex-row gap-3"> 
+                            <div class="w-full"> 
+                                <label class="w-full"> 
+                                    <span class="label">{{ __('First Name') }} <span class="text-red-500">*</span></span> 
+                                    <input type="text" placeholder="First Name" name="first_name" 
+                                        value="{{ old('first_name') }}" class="input" /> 
                                 </label>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'first_name']" />
-                            </div>
-                            <div class="w-full">
-                                <label class="w-full">
+                            </div>   
+                            <div class="w-full">       
+                                <label class="w-full">      
                                     <span class="label">{{ __('Last Name') }} <span class="text-red-500">*</span></span>
                                     <input type="text" placeholder="Last Name" value="{{ old('last_name') }}"
                                         name="last_name" class="input" />
                                 </label>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'last_name']" />
                             </div>
-                        </div>
-
+                        </div>   
+                                    
                         {{-- Email And Language --}}
                         <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
@@ -45,17 +45,17 @@
                                 </label>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'email']" />
                             </div>
-                            <div class="w-full">
+                            <div class="w-full">   
                                 <span class="label block">{{ __('Language') }}<span class="text-red-500">*</span></span>
                                 <div class="input justify-between flex-wrap py-2 px-5 h-fit">
                                     @foreach (App\Models\PersonalInformation::getLanguages() as $key => $language)
                                         <label for="language-{{ $key }}" class="flex items-center gap-2">
                                             <input type="radio" name="language" value="{{ $key }}"
                                                 class="radio radio-xs radio-info" @checked(old('language', App\Models\PersonalInformation::LANGUAGE_ENGLISH) == $key)
-                                                id="language-{{ $key }}" />
+                                                id="language-{{ $key }}" />  
                                             <span>{{ $language }}</span>
                                         </label>
-                                    @endforeach
+                                    @endforeach  
                                 </div>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'language']" />
                             </div>
@@ -75,14 +75,14 @@
                                             </path>
                                             <circle cx="16.5" cy="7.5" r=".5" fill="currentColor">
                                             </circle>
-                                        </g>
-                                    </svg>
+                                        </g> 
+                                    </svg>   
                                     <input type="password" placeholder="Password" name="password" />
                                     <button type="button"
                                         class="showpassword absolute top-1/2 right-1 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full text-text-primary dark:text-text-light hover:text-text-secondary transition-all duration-300 ease-linear">
                                         <i class="fa-regular fa-eye-slash w-4 h-4"></i>
                                     </button>
-                                </label>
+                                </label>    
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'password']" />
                             </div>
                             <div class="w-full">
@@ -335,7 +335,7 @@
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'dealer_registration_permit']" />
                             </div>
                         </div>
-
+                    
                         {{-- Accept Terms --}}
                         <div class="flex flex-col items-center md:flex-row gap-3">
                             <div class="w-full text-end">
@@ -347,13 +347,13 @@
                                         @checked(old('accept_terms') == App\Models\User::ACCEPT_TERMS) />
                                 </label>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'accept_terms']" />
-                            </div>
+                            </div> 
                             <div class="w-full">
                                 <button type="submit" class="btn-primary">{{ __('Register') }}</button>
                             </div>
-                        </div>
+                        </div> 
                     </div>
-                </form>
+                </form>  
 
                 <div>
                     <div class="divider">{{ __('Or sign up with') }}</div>
@@ -372,9 +372,9 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </div> 
     </section>
-@endsection
+@endsection  
 @push('js')
     <script src="{{ asset('frontend/js/password.js') }}"></script>
     {{-- FilePond  --}}
@@ -387,7 +387,7 @@
     </script>
     {{-- FilePond  --}}
 
-
+     
     <script>
         $(document).ready(function() {
             //  Business Information
@@ -438,3 +438,4 @@
         })
     </script>
 @endpush
+        
