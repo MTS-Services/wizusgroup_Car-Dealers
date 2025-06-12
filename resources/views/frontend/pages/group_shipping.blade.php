@@ -76,11 +76,11 @@
                                         <div class="pt-3">
                                             <div class="flex justify-between items-center mb-1">
                                                 <span class="font-medium">Capacity</span>
-                                                <span>{{ $container->getFilledPercentageAttribute() }}% filled</span>
+                                                <span>{{ $container->filled_percentage }}% filled</span>
                                             </div>
                                             <div class="w-full bg-bg-gray rounded-full h-2">
                                                 <div class="bg-bg-wiz_orange h-2 rounded-full"
-                                                    style="width:{{ $container->getFilledPercentageAttribute() }}%">
+                                                    style="width:{{ $container->filled_percentage }}%">
                                                 </div>
                                             </div>
                                         </div>
@@ -108,7 +108,7 @@
                         @php
                             $buttons = [
                                 [
-                                    'route' => 'javascript:void(0)',
+                                    'route' => route('frontend.checkout.single', ['slug' => $productItem->slug]),
                                     'icon' => 'shopping-cart',
                                     'label' => 'Reserve Now',
                                     'bg' => false,
@@ -291,10 +291,12 @@
                     <div class="flex items-center space-x-4">
                         <div class="flex-shrink-0">
                             <div class="w-16 h-16 flex items-center justify-center rounded-full bg-text-secondary/10">
-                                <i class="fa-solid fa-clipboard-check text-4xl text-text-secondary dark:text-text-white"></i>
+                                <i
+                                    class="fa-solid fa-clipboard-check text-4xl text-text-secondary dark:text-text-white"></i>
                             </div>
                         </div>
-                        <h3 class="text-xl font-semibold text-text-primary dark:text-text-white bg-bg-primary/50 px-4 py-2 rounded-md w-full">
+                        <h3
+                            class="text-xl font-semibold text-text-primary dark:text-text-white bg-bg-primary/50 px-4 py-2 rounded-md w-full">
                             {{ __('Eligibility Criteria') }}
                         </h3>
                     </div>
@@ -442,7 +444,8 @@
                                 <i class="fa-solid fa-file-contract text-4xl text-text-secondary dark:text-text-white"></i>
                             </div>
                         </div>
-                        <h3 class="text-xl font-semibold text-text-primary dark:text-text-white bg-bg-tertiary/50  px-4 py-2 rounded-md w-full">
+                        <h3
+                            class="text-xl font-semibold text-text-primary dark:text-text-white bg-bg-tertiary/50  px-4 py-2 rounded-md w-full">
                             {{ __('Documents Required') }}
                         </h3>
                     </div>

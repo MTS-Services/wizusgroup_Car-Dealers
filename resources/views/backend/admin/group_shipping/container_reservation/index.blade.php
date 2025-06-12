@@ -27,10 +27,10 @@
                     <table class="table table-responsive table-striped datatable">
                         <thead>
                             <tr>
-                               <th>{{ __('SL') }}</th>
+                                <th>{{ __('SL') }}</th>
                                 <th>{{ __('Container Name') }}</th>
-                                <th>{{ __('Product Name') }}</th>
-                                <th>{{ __('Product Quantity') }}</th>
+                                <th>{{ __('Order') }}</th>
+                                <th>{{ __('Quantity') }}</th>
                                 <th>{{ __('Price') }}</th>
                                 <th>{{ __('Reserve Price') }}</th>
                                 <th>{{ __('Status') }}</th>
@@ -58,7 +58,7 @@
             let table_columns = [
 
                 ['container_id', true, true],
-                ['product_name', true, true],
+                ['order_id', true, true],
                 ['quantity', true, true],
                 ['price', true, true],
                 ['reserve_price', true, true],
@@ -88,8 +88,7 @@
             let id = $(this).data("id");
             let route = "{{ route('gs.container-reserve.show', ['id']) }}";
             const detailsUrl = route.replace("id", id);
-            const headers = [
-                {
+            const headers = [{
                     label: "Company",
                     key: "company_name",
                 },

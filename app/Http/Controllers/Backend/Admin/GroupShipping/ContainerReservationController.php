@@ -32,10 +32,13 @@ class ContainerReservationController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = $this->containerReservationService->getContainerReservations()->with(['creater_admin', 'container',]);
+            $query = $this->containerReservationService->getContainerReservations()->with(['creater_admin', 'container', 'order']);
             return DataTables::eloquent($query)
                 ->editColumn('container_id', function ($container_reserve) {
                     return $container_reserve->container?->title ?? '';
+                })
+                ->editColumn('order_id', function ($container_reserve) {
+                    return $container_reserve->order?->order_number ?? '';
                 })
                 ->editColumn('status', function ($container_reserve) {
                     return "<span class='badge " . $container_reserve->status_color . "'>$container_reserve->status_label</span>";
@@ -46,46 +49,45 @@ class ContainerReservationController extends Controller
                 ->editColumn('created_at', function ($container_reserve) {
                     return $container_reserve->created_at_formatted;
                 })
-                ->editColumn('action', function ($container) {
-                    $menuItems = $this->menuItems($container);
+                ->editColumn('action', function ($container_reserve) {
+                    $menuItems = $this->menuItems($container_reserve);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['status', 'container_id', 'created_by', 'created_at', ])
+                ->rawColumns(['status', 'container_id', 'order_id', 'created_by', 'created_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.group_shipping.container_reservation.index');
     }
 
-    
+
     protected function menuItems($model): array
     {
         return [
             [
-                'routeName' => 'javascript:void(0)',
-                'data-id' => encrypt($model->id),
-                'className' => 'view',
+                'routeName' => 'gs.container-reserve.show',
+                'params' => [encrypt($model->id)],
                 'label' => 'Details',
                 'permissions' => ['container-reserve-details']
             ],
-            [
-                'routeName' => 'gs.container-reserve.edit',
-                'params' => [encrypt($model->id)],
-                'label' => 'Edit',
-                'permissions' => ['container-reserve-edit']
-            ],
+            // [
+            //     'routeName' => 'gs.container-reserve.edit',
+            //     'params' => [encrypt($model->id)],
+            //     'label' => 'Edit',
+            //     'permissions' => ['container-reserve-edit']
+            // ],
             // [
             //     'routeName' => 'gs.container-reserve.status',
             //     'params' => [encrypt($model->id)],
             //     'label' => $model->status_btn_label,
             //     'permissions' => ['container-reserve-status']
             // ],
-            [
-                'routeName' => 'gs.container-reserve.destroy',
-                'params' => [encrypt($model->id)],
-                'label' => 'Delete',
-                'delete' => true,
-                'permissions' => ['container-reserve-delete']
-            ]
+            // [
+            //     'routeName' => 'gs.container-reserve.destroy',
+            //     'params' => [encrypt($model->id)],
+            //     'label' => 'Delete',
+            //     'delete' => true,
+            //     'permissions' => ['container-reserve-delete']
+            // ]
 
         ];
     }
@@ -110,7 +112,9 @@ class ContainerReservationController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data['container_reserve'] = $this->containerReservationService->getContainerReservation($id);
+        $data['container_reserve']->load(['container', 'order', 'creater', 'updater', 'user']);
+        return view('backend.admin.group_shipping.container_reservation.details', $data);
     }
 
     /**

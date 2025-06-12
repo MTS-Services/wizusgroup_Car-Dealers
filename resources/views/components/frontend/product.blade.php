@@ -10,7 +10,7 @@
         </div>
         <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary flex flex-col flex-1 justify-between">
             <h3
-                class="text-base lg:text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200">
+                class="text-base lg:text-lg font-semibold hover:text-text-tertiary text-text-primary dark:text-text-white transition-colors duration-200 break-words line-clamp-2">
                 {{ $product->name }}
             </h3>
             <div>
@@ -31,13 +31,20 @@
                     <span>{{ $product->model?->name }}</span>
                 </div>
                 <div class="flex justify-center items-center mt-4 gap-y-4 gap-x-2">
-
-                    @foreach ($buttons as $button)
-                        <x-frontend.primary-button class="{{ isset($button['class']) ? $button['class'] : '' }}"
-                            data_id="{{ $button['data_id'] ?? '' }}" icon="{{ $button['icon'] }}"
-                            href="{{ $button['route'] }}" bg="{{ $button['bg'] }}">{{ __($button['label']) }}
+                    @if ($product->quantity > 0)
+                        @foreach ($buttons as $button)
+                            <x-frontend.primary-button class="{{ isset($button['class']) ? $button['class'] : '' }}"
+                                data_id="{{ $button['data_id'] ?? '' }}" icon="{{ $button['icon'] }}"
+                                href="{{ $button['route'] }}" bg="{{ $button['bg'] }}">{{ __($button['label']) }}
+                            </x-frontend.primary-button>
+                        @endforeach
+                    @else
+                        <x-frontend.primary-button class="w-full !bg-bg-wiz_orange" bg="false" disabled>
+                            {{ __('Out of Stock') }}
                         </x-frontend.primary-button>
-                    @endforeach
+                    @endif
+
+
 
                 </div>
             </div>
@@ -48,7 +55,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        $('.add-to-cart-{{ $product->id }}').on('click', function() {
+        $('.add-to-cart').on('click', function() {
             const productId = $(this).data('id');
             addToCart(productId);
         })

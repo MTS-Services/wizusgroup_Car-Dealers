@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\BaseModel;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -178,7 +179,7 @@ class Product extends BaseModel
     {
         return $this->images()->primary();
     }
-    
+
     public function nonPrimayImages(): HasMany
     {
         return $this->images()->notPrimary();
@@ -371,5 +372,14 @@ class Product extends BaseModel
     public function getProductTypeLabelAttribute(): string
     {
         return self::getProductTypes()[$this->product_type] ?? 'Unknown';
+    }
+
+    public function scopeInStock(Builder $query): Builder
+    {
+        return $query->where('quantity', '>', 0);
+    }
+    public function scopeOutOfStock(Builder $query): Builder
+    {
+        return $query->where('quantity', 0);
     }
 }

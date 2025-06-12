@@ -3,6 +3,7 @@
 namespace App\Services\Admin\SupllierManagement;
 
 use App\Http\Traits\FileManagementTrait;
+use App\Models\Product;
 use App\Models\Supplier;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
@@ -20,16 +21,15 @@ class SupplierService
     }
     public function getSupplierProducts($supplier_id, $orderby = 'sort_order', $order = 'asc')
     {
-        $supplier = Supplier::with('products')->findOrFail(decrypt($supplier_id));
-        return $supplier->products()->orderBy($orderby, $order)->latest();
+        return Product::where('supplier_id', decrypt($supplier_id))->orderBy($orderby, $order)->latest();
     }
 
 
-    public function getSupplier(string $encryptedId): Supplier | Collection
+    public function getSupplier(string $encryptedId): Supplier|Collection
     {
         return Supplier::findOrFail(decrypt($encryptedId));
     }
-    public function getDeletedSupplier(string $encryptedId): Supplier | Collection
+    public function getDeletedSupplier(string $encryptedId): Supplier|Collection
     {
         return Supplier::onlyTrashed()->findOrFail(decrypt($encryptedId));
     }

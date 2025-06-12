@@ -31,7 +31,6 @@
                                 <th>{{ __('Name') }}</th>
                                 <th>{{ __('Email') }}</th>
                                 <th>{{ __('Status') }}</th>
-                                <th>{{ __('Verify Status') }}</th>
                                 <th>{{ __('Created By') }}</th>
                                 <th>{{ __('Created Date') }}</th>
                                 <th>{{ __('Action') }}</th>
@@ -58,7 +57,6 @@
                 ['first_name', true, true],
                 ['email', true, true],
                 ['status', true, true],
-                ['email_verified_at', true, true],
                 ['created_by', true, true],
                 ['created_at', true, true],
                 ['action', false, false],
@@ -70,7 +68,7 @@
                 main_route: "{{ route('sm.supplier.index') }}",
                 order_route: "{{ route('update.sort.order') }}",
                 export_columns: [0, 1, 2, 3, 4, 5, 6],
-                model: 'supplier',
+                model: 'Supplier',
             };
             // initializeDataTable(details);
 
@@ -87,8 +85,7 @@
             let id = $(this).data("id");
             let route = "{{ route('sm.supplier.show', ['id']) }}";
             const detailsUrl = route.replace("id", id);
-            const headers = [
-                {
+            const headers = [{
                     label: "First Name",
                     key: "first_name"
                 },
@@ -119,9 +116,13 @@
                     color: "status_color",
                 },
                 {
-                    label: "Verify Status",
-                    key: "verify_label",
-                    color: "verify_color",
+                    label: "Website",
+                    key: "website"
+                },
+
+                {
+                    label: "Address",
+                    key: "address"
                 },
             ];
             fetchAndShowModal(detailsUrl, headers, "#modal_data", "myModal");

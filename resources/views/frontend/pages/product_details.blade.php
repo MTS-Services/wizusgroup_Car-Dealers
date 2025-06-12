@@ -75,39 +75,6 @@
                                          {{ $category }}
                                      </button>
                                  @endforeach
-
-
-                                 {{-- <button @click="tab = 'airbag'"
-                                     :class="tab === 'airbag' ?
-                                         'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
-                                         'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
-                                     class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
-                                     {{ __('Air-bag') }}
-                                 </button>
-
-                                 <button @click="tab = 'other'"
-                                     :class="tab === 'other' ?
-                                         'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
-                                         'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
-                                     class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
-                                     {{ __('Other Info') }}
-                                 </button>
-
-                                 <button @click="tab = 'development'"
-                                     :class="tab === 'development' ?
-                                         'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
-                                         'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
-                                     class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
-                                     {{ __('Development') }}
-                                 </button>
-
-                                 <button @click="tab = 'docs'"
-                                     :class="tab === 'docs' ?
-                                         'bg-bg-white dark:bg-bg-dark-secondary xs:border-b-2 border-primary dark:border-primary font-semibold text-text-primary dark:text-text-light' :
-                                         'bg-bg-light-secondary dark:bg-bg-dark-tertiary text-text-secondary dark:text-text-secondary hover:bg-bg-light dark:hover:bg-bg-dark-secondary'"
-                                     class="px-3 xs:px-4 xl:px-6 py-2 text-sm sm:text-base xs:rounded-t-md transition-colors text-left xs:text-center border-l-2 xs:border-l-0 border-primary dark:border-primary xs:border-none">
-                                     {{ __('Documents') }}
-                                 </button> --}}
                              </div>
                              <!-- Tab Content -->
                              <div
@@ -119,31 +86,34 @@
                                          <tbody>
                                              @if ($product->name)
                                                  <tr class=" border-border-gray dark:border-bg-dark-secondary">
-                                                     <td
-                                                         class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                     <td class="font-bold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
                                                          {{ __('Name') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
+                                                     <td class="py-2 sm:py-3 dark:text-text-secondary font-bold">
                                                          {{ $product->name }}
                                                      </td>
                                                  </tr>
                                              @endif
                                              @if ($product->price)
                                                  <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td
-                                                         class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Price.') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $product->price }}
+                                                     <td class="font-bold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Price') }}</td>
+                                                     <td>
+                                                         <span
+                                                             class="py-2 sm:py-3 font-bold text-text-secondary dark:text-text-secondary">
+                                                             {{ number_format($product->price, 2) }}
+                                                         </span>
                                                      </td>
                                                  </tr>
                                              @endif
-                                             @if ($product->short_description)
+                                             @if ($product->quantity)
                                                  <tr class=" border-t border-border-gray dark:border-bg-dark-secondary">
-                                                     <td
-                                                         class="font-semibold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
-                                                         {{ __('Short Description.') }}</td>
-                                                     <td class="py-2 sm:py-3 dark:text-text-secondary">
-                                                         {{ $product->short_description }}
+                                                     <td class="font-bold w-32 sm:w-52 py-2 sm:py-3 dark:text-text-light">
+                                                         {{ __('Stock') }}</td>
+                                                     <td>
+                                                         <span
+                                                             class="py-2 sm:py-3 font-bold text-text-secondary dark:text-text-secondary">
+                                                             {{ $product->quantity }}
+                                                         </span>
                                                      </td>
                                                  </tr>
                                              @endif
@@ -383,48 +353,26 @@
                                  @endforeach
                              </div>
                          </div>
-                         <div class="flex justify-between items-center gap-5 mt-2">
-                             <x-frontend.primary-button icon="shopping-cart">{{ __('Buy Now') }}
+                         <div class="flex justify-between items-center gap-5 mt-2 flex-col xl:flex-row">
+                             <x-frontend.primary-button icon="shopping-cart"
+                                 href="{{ route('frontend.checkout.single', ['slug' => $product->slug]) }}">{{ __('Buy Now') }}
                              </x-frontend.primary-button>
-                             <x-frontend.primary-button>{{ __('WhatsApp Inquiry') }} </x-frontend.primary-button>
-                             <x-frontend.primary-button icon="shopping-basket" class="add-to-cart-{{ $product->id }}"
+                             <x-frontend.primary-button icon="phone-call" href="https://wa.me/{{ settings('whatsapp') }}"
+                                 target="_blank">{{ __('WhatsApp Inquiry') }}
+                             </x-frontend.primary-button>
+                             <x-frontend.primary-button icon="shopping-basket" class="add-to-cart"
                                  data_id="{{ $product->id }}">{{ __('Add to Cart') }}
                              </x-frontend.primary-button>
                          </div>
-                         {{-- <div class="flex justify-between items-center gap-5 mt-2">
-                             <a href="@auth('web')
-                                     javascript:void(0)
-                                 @else
-                                     {{ route('login') }}
-                                 @endauth"
-                                 @auth('web')
-                                         onclick="document.getElementById('reserve-{{ $product->slug }}').showModal()"
-                                    @endauth
-                                 class="btn-primary w-full">{{ __('Buy Now') }}</a>
-
-                             <x-backend.user.reserve :product="$product" />
-
-                             <a href="@auth('web')
-                                     javascript:void(0)
-                                 @else
-                                     {{ route('login') }}
-                                 @endauth"
-                                 @auth('web')
-                                         onclick="document.getElementById('inquiry-{{ $product->slug }}').showModal()"
-                                    @endauth
-                                 class="btn-primary w-full">{{ __('WhatsApp Inquiry') }}</a>
-
-                             @auth('web')
-                                 <a href="javascript:void(0)" onclick=""
-                                     class="btn-primary w-full openCartSidebar">{{ __('Add to Cart') }}</a>
-                             @endauth
-                         </div>
-                         <x-backend.user.inquiry :product="$product" :label="__('Product Inquiry')" /> --}}
                      </div>
                  </div>
                  {{-- Description --}}
                  <div class="mt-6">
-                     <h2 class="text-text-primary dark:text-text-primary text-lg font-semibold mb-2">
+                     <h2 class="text-text-primary dark:text-text-primary text-lg font-semibold my-1">
+                         {{ __('Short Description') }}</h2>
+                     <p class="text-text-gray dark:text-text-light-secondary text-sm lg:text-base">{!! $product->short_description !!}
+                     </p>
+                     <h2 class="text-text-primary dark:text-text-primary text-lg font-semibold my-1">
                          {{ __('Description') }}</h2>
                      <p class="text-text-gray dark:text-text-light-secondary text-sm lg:text-base">{!! $product->description !!}
                      </p>
@@ -459,7 +407,7 @@
                                          'icon' => 'shopping-basket',
                                          'label' => 'Add to Cart',
                                          'bg' => true,
-                                         'class' => "add-to-cart-$product->id",
+                                         'class' => 'add-to-cart',
                                          'data_id' => $product->id,
                                      ],
                                  ];
@@ -633,29 +581,13 @@
              });
          });
      </script>
+     <script>
+         document.addEventListener('DOMContentLoaded', function() {
+             $('.add-to-cart').on('click', function() {
+                 const productId = $(this).data('id');
+                 addToCart(productId);
+             })
+         })
+     </script>
 
-
-     {{-- <script type="module">
-        import Swiper from '/frontend/js/swiper.min.js';
-        // Initialize Swiper
-        const swiperThumbs = new Swiper(".product_slider_thumbs", {
-            loop: true,
-            spaceBetween: 10,
-            slidesPerView: 6,
-            freeMode: true,
-            watchSlidesProgress: true,
-        });
-
-        const swiperMain = new Swiper(".product_slider_image", {
-            loop: true,
-            spaceBetween: 10,
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            thumbs: {
-                swiper: swiperThumbs,
-            },
-        });
-    </script> --}}
  @endpush

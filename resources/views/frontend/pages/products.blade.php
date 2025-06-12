@@ -238,7 +238,7 @@
                             @php
                                 $buttons = [
                                     [
-                                        'route' => 'javascript:void(0)',
+                                        'route' => route('frontend.checkout.single', ['slug' => $product->slug]),
                                         'icon' => 'shopping-cart',
                                         'label' => 'Buy Now',
                                         'bg' => false,
@@ -248,7 +248,7 @@
                                         'icon' => 'shopping-basket',
                                         'label' => 'Add to Cart',
                                         'bg' => true,
-                                        'class' => "add-to-cart-$product->id",
+                                        'class' => 'add-to-cart',
                                         'data_id' => $product->id,
                                     ],
                                 ];

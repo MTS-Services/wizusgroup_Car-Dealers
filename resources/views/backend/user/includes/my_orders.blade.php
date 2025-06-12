@@ -12,23 +12,37 @@
             <div
                 class="p-4 border-b dark:border-b-border-gray dark:border-opacity-50 flex flex-wrap justify-between items-center">
                 <div class="flex space-x-2 mb-2 sm:mb-0">
-                    <a href="#" class="btn-item bg-bg-tertiary btn-primary py-2 rounded-md hover:bg-bg-tertiary">
-                        All Orders
+                    <a href="{{ route('user.profile', ['slug' => 'orders', 'tab' => 'all']) }}"
+                        class="btn-item {{ request('tab') == 'all' || request('tab') == null ? ' bg-bg-tertiary ' : '' }} btn-primary py-2 rounded-md hover:bg-bg-tertiary">
+                        {{ __('All Orders') }}
                     </a>
-                    <a href="#" class="btn-item btn-primary py-2 rounded-md hover:bg-bg-tertiary">
-                        Pending
+                    <a href="{{ route('user.profile', ['slug' => 'orders', 'tab' => 'pending']) }}"
+                        class="btn-item {{ request('tab') == 'pending' ? ' bg-bg-tertiary ' : '' }} btn-primary py-2 rounded-md hover:bg-bg-tertiary">
+                        {{ __('Pending') }}
                     </a>
-                    <a href="#" class="btn-item btn-primary py-2 rounded-md hover:bg-bg-tertiary">
-                        Completed
+                    <a href="{{ route('user.profile', ['slug' => 'orders', 'tab' => 'submitted']) }}"
+                        class="btn-item btn-primary py-2 rounded-md hover:bg-bg-tertiary {{ request('tab') == 'submitted' ? ' bg-bg-tertiary ' : '' }}">
+                        {{ __('Submitted') }}
+                    </a>
+                    <a href="{{ route('user.profile', ['slug' => 'orders', 'tab' => 'shipped']) }}"
+                        class="btn-item btn-primary py-2 rounded-md hover:bg-bg-tertiary {{ request('tab') == 'shipped' ? ' bg-bg-tertiary ' : '' }}">
+                        {{ __('Shipped') }}
+                    </a>
+                    <a href="{{ route('user.profile', ['slug' => 'orders', 'tab' => 'completed']) }}"
+                        class="btn-item btn-primary py-2 rounded-md hover:bg-bg-tertiary {{ request('tab') == 'completed' ? ' bg-bg-tertiary ' : '' }}">
+                        {{ __('Completed') }}
                     </a>
                 </div>
-                <div class="relative">
-                    <input type="text" placeholder="Search orders..."
-                        class="pl-10 pr-4 py-2 border border-border-gray dark:border-opacity-50 rounded-md focus:outline-none focus:ring-1 focus:ring-bg-tertiary">
-                    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-gray">
-                        <i class="w-5 h-5" data-lucide="search"></i>
-                    </div>
-                </div>
+                @if (isset($not_use))
+                    {{-- <div class="relative">
+                        <input type="text" placeholder="Search orders..."
+                            class="pl-10 pr-4 py-2 border border-border-gray dark:border-opacity-50 rounded-md focus:outline-none focus:ring-1 focus:ring-bg-tertiary">
+                        <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-gray">
+                            <i class="w-5 h-5" data-lucide="search"></i>
+                        </div>
+                    </div> --}}
+                @endif
+
             </div>
 
             <!-- Orders Table -->
@@ -38,136 +52,130 @@
                         <tr>
                             <th
                                 class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
-                                Order ID</th>
+                                {{ __('Order Number') }}</th>
                             <th
                                 class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
-                                Product</th>
+                                {{ __('Date') }}</th>
                             <th
                                 class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
-                                Date</th>
+                                {{ __('Amount') }}</th>
                             <th
                                 class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
-                                Amount</th>
+                                {{ __('Status') }}</th>
                             <th
                                 class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
-                                Status</th>
-                            <th
-                                class="px-6 py-3 text-sm font-medium text-text-primary dark:text-text-light uppercase tracking-wider">
-                                Actions</th>
+                                {{ __('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-border-gray dark:divide-opacity-50">
-                        <tr class="hover:bg-bg-gray dark:bg-opacity-20 hover:bg-opacity-50">
-                            <td
-                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-gray dark:text-text-light">
-                                #WG-10234</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
-                                Industrial Machinery</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
-                                May
-                                15, 2025</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
-                                $12,500.00</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-800 text-text-white">
-                                    Delivered
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="#"
-                                    class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
-                                    <i data-lucide="eye" class="w-5 h-5"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-bg-gray dark:bg-opacity-20 hover:bg-opacity-50">
-                            <td
-                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-gray dark:text-text-light">
-                                #WG-10233</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
-                                Conveyor System</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
-                                May
-                                10, 2025</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
-                                $8,750.00</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-800 text-text-white">
-                                    In Transit
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="#"
-                                    class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
-                                    <i data-lucide="eye" class="w-5 h-5"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-bg-gray dark:bg-opacity-20 hover:bg-opacity-50">
-                            <td
-                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-gray dark:text-text-light">
-                                #WG-10232</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
-                                Packaging Equipment</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
-                                May
-                                5, 2025</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
-                                $5,200.00</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-bg-tertiary text-text-white">
-                                    Processing
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="#"
-                                    class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
-                                    <i data-lucide="eye" class="w-5 h-5"></i>
-                                </a>
-                            </td>
-                        </tr>
+                        @forelse ($orders as $order)
+                            <tr class="hover:bg-bg-gray dark:bg-opacity-20 hover:bg-opacity-50">
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-gray dark:text-text-light">
+                                    {{ $order->order_number }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
+                                    {{ $order->created_at_formatted }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
+                                    ${{ number_format($order->total, 2) }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span
+                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $order->status_tailwind_color }}  text-text-white">
+                                        {{ $order->status_label }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    @if ($order->status == App\Models\Order::STATUS_INITIATED)
+                                        <a href="{{ route('frontend.checkout', $order->order_number) }}"
+                                            title="Checkout"
+                                            class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
+                                            <i data-lucide="eye" class="w-5 h-5"></i>
+                                        </a>
+                                    @elseif ($order->status == App\Models\Order::STATUS_PENDING)
+                                        <a href="{{ route('frontend.container-order', $order->order_number) }}"
+                                            title="Container Order"
+                                            class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
+                                            <i data-lucide="eye" class="w-5 h-5"></i>
+                                        </a>
+                                    @else
+                                        <a href="{{ route('user.order.details', $order->order_number) }}"
+                                            title="Details"
+                                            class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
+                                            <i data-lucide="eye" class="w-5 h-5"></i>
+                                        </a>
+                                        <a href="{{ route('user.container.details', $order->container?->slug) }}"
+                                            title="Container"
+                                            class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
+                                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                                        </a>
+                                    @endif
+
+
+                                </td>
+                            </tr>
+                        @empty
+                            <tr class="hover:bg-bg-gray dark:bg-opacity-20 hover:bg-opacity-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light"
+                                    colspan="5">
+                                    {{ __('No orders found.') }}
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
 
-            <!-- Pagination -->
-            <div
-                class="px-6 py-4 border-t dark:border-border-gray dark:border-opacity-50 flex items-center justify-between">
-                <div class="text-sm text-text-gray dark:text-text-light">
-                    Showing <span class="font-medium">1</span> to <span class="font-medium">3</span> of <span
-                        class="font-medium">12</span>
-                    orders
+            @if ($orders->hasPages())
+                <div
+                    class="px-6 py-4 border-t dark:border-border-gray dark:border-opacity-50 flex items-center justify-between">
+                    <div class="text-sm text-text-gray dark:text-text-light">
+                        Showing <span class="font-medium">{{ $orders->firstItem() }}</span> to
+                        <span class="font-medium">{{ $orders->lastItem() }}</span> of
+                        <span class="font-medium">{{ $orders->total() }}</span> orders
+                    </div>
+
+                    <div class="flex space-x-2">
+                        {{-- Previous Page Link --}}
+                        @if ($orders->onFirstPage())
+                            <span
+                                class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm opacity-50 cursor-not-allowed">
+                                Previous
+                            </span>
+                        @else
+                            <a href="{{ $orders->previousPageUrl() }}"
+                                class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary hover:text-text-white">
+                                Previous
+                            </a>
+                        @endif
+
+                        {{-- Pagination Elements --}}
+                        @foreach ($orders->getUrlRange(1, $orders->lastPage()) as $page => $url)
+                            @if ($page == $orders->currentPage())
+                                <span class="btn-primary py-1 px-3 rounded-md text-sm bg-bg-tertiary text-text-white">
+                                    {{ $page }}
+                                </span>
+                            @else
+                                <a href="{{ $url }}"
+                                    class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary hover:text-text-white">
+                                    {{ $page }}
+                                </a>
+                            @endif
+                        @endforeach
+
+                        {{-- Next Page Link --}}
+                        @if ($orders->hasMorePages())
+                            <a href="{{ $orders->nextPageUrl() }}"
+                                class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary hover:text-text-white">
+                                Next
+                            </a>
+                        @else
+                            <span
+                                class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm opacity-50 cursor-not-allowed">
+                                Next
+                            </span>
+                        @endif
+                    </div>
                 </div>
-                <div class="flex space-x-2">
-                    <a href="#"
-                        class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm disabled:opacity-50"
-                        disabled>
-                        Previous
-                    </a>
-                    <a href="#" class="btn-primary py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary">
-                        1
-                    </a>
-                    <a href="#"
-                        class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary hover:text-text-white">
-                        2
-                    </a>
-                    <a href="#"
-                        class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary hover:text-text-white">
-                        3
-                    </a>
-                    <a href="#"
-                        class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary hover:text-text-white">
-                        4
-                    </a>
-                    <a href="#"
-                        class="btn-primary bg-bg-white text-text-gray border border-border-gray py-1 px-3 rounded-md text-sm hover:bg-bg-tertiary hover:text-text-white">
-                        Next
-                    </a>
-                </div>
-            </div>
+            @endif
         </div>
     </div>
 </div>

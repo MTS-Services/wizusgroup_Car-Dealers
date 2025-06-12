@@ -39,6 +39,9 @@ class ContainerRequest extends FormRequest
             'container_products.*.product_id' => 'nullable|exists:products,id',
             'container_products.*.price' => 'nullable|numeric|min:0',
             'container_products.*.reserve_price' => 'nullable|numeric|min:0',
+            'departure_date' => "required|date|after_or_equal:{$this->deadline}",
+            'estimated_delivery_days' => 'required|string',
+
         ]
             +
             ($this->isMethod('POST') ? $this->store() : $this->update());

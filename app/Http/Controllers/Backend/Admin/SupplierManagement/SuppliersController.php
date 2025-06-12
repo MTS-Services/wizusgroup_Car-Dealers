@@ -46,9 +46,6 @@ class SuppliersController extends Controller
                 ->editColumn('status', function ($supplier) {
                     return "<span class='badge " . $supplier->status_color . "'>$supplier->status_label</span>";
                 })
-                ->editColumn('email_verified_at', function ($supplier) {
-                    return "<span class='badge " . $supplier->verify_color . "'>" . $supplier->verify_label . "</span>";
-                })
                 ->editColumn('created_by', function ($supplier) {
                     return $supplier->creater_name;
                 })
@@ -59,7 +56,7 @@ class SuppliersController extends Controller
                     $menuItems = $this->menuItems($supplier);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['status', 'email_verified_at', 'created_by', 'created_at', 'action'])
+                ->rawColumns(['status', 'created_by', 'created_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.supplier_management.supplier.index');
@@ -105,11 +102,11 @@ class SuppliersController extends Controller
     }
 
 
-    public function supplierProducts(Request $request, string $id): JsonResponse|View
+    public function supplierProducts(Request $request, string $sid): JsonResponse|View
     {
-
+        $supplier = $this->supplierService->getSupplier($sid);
         if ($request->ajax()) {
-            $query = $this->supplierService->getSupplierProducts($id);
+            $query = $this->supplierService->getSupplierProducts($sid);
             return DataTables::eloquent($query)
                 ->editColumn('status', function ($product) {
                     return "<span class='badge " . $product->status_color . "'>$product->status_label</span>";
@@ -130,7 +127,7 @@ class SuppliersController extends Controller
                 ->rawColumns(['status', 'is_featured', 'created_by', 'created_at', 'action'])
                 ->make(true);
         }
-        return view('backend.admin.supplier_management.supplier.supllier-products');
+        return view('backend.admin.supplier_management.supplier.supllier-products', ['supplierId' => $sid, 'supplier' => $supplier]);
     }
 
 
@@ -183,9 +180,6 @@ class SuppliersController extends Controller
                 ->editColumn('status', function ($supplier) {
                     return "<span class='badge " . $supplier->status_color . "'>$supplier->status_label</span>";
                 })
-                ->editColumn('email_verified_at', function ($user) {
-                    return "<span class='badge " . $user->verify_color . "'>" . $user->verify_label . "</span>";
-                })
                 ->editColumn('deleted_by', function ($supplier) {
                     return $supplier->deleter_name;
                 })
@@ -196,7 +190,7 @@ class SuppliersController extends Controller
                     $menuItems = $this->trashedMenuItems($supplier);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['first_name', 'status', 'email_verified_at', 'deleted_by', 'deleted_at', 'action'])
+                ->rawColumns(['first_name', 'status', 'deleted_by', 'deleted_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.supplier_management.supplier.recycle-bin');
@@ -204,7 +198,7 @@ class SuppliersController extends Controller
     /**
      * Define menu items for trashed items in admin list.
      *
-     * @param Admin $model
+     * @param \App\Models\Supplier $model
      * @return array
      */
     protected function trashedMenuItems($model): array
@@ -243,7 +237,7 @@ class SuppliersController extends Controller
     {
         try {
             $validated = $request->validated();
-            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
             $this->supplierService->createSupplier($validated, $file);
             session()->flash('success', 'Supplier created successfully!');
         } catch (\Throwable $e) {
@@ -281,8 +275,8 @@ class SuppliersController extends Controller
         try {
             $supplier = $this->supplierService->getSupplier($id);
             $validated = $request->validated();
-            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
-            $this->supplierService->updateSupplier($supplier, $validated,  $file);
+            $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
+            $this->supplierService->updateSupplier($supplier, $validated, $file);
             session()->flash('success', 'Supplier updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Supplier update failed!');

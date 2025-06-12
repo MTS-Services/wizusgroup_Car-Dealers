@@ -57,14 +57,46 @@
                                             <span class=""></span>
                                         </p>
                                     </td>
-                                </tr>                               
+                                </tr>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5"
+                                        class="border-t border-border-dark border-opacity-20 dark:border-white dark:border-opacity-50">
+                                        <div class="total_price">
+                                            <p class="text-right text-text-gray dark:text-text-white mr-36 font-bold">
+                                                {{ __('Subtotal: ') }} <span
+                                                    class="font-bold text-lg text-bg-primary whitespace-nowrap cart-total ml-5"></span>
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                     <div class="flex justify-end mt-10">
-                        {{-- <a href="#" class="btn-primary mt-6 mr-2 rounded-md">{{ __('Continue Shopping') }}</a> --}}
-                        {{-- <a href="" class="btn-primary rounded-md">{{ __('Proceed to Checkout') }}</a> --}}
-                        <x-frontend.primary-button bg="true" class="w-56">{{ __('Proceed to Checkout') }} </x-frontend.primary-button>
+
+                        <form action="{{ route('frontend.checkout.submit') }}" method="POST">
+                            @csrf
+                            <div class="flex gap-2 items-center">
+                                <div class="terms">
+                                    <label class="flex items-center gap-2">
+                                        <input type="checkbox" value="1" name="terms"
+                                            class="checkbox checkbox-xs checkbox-accent">
+                                        <span class="label text-sm">
+                                            <span>{{ __('I agree with') }}</span>
+                                            <a href="#"
+                                                class="underline text-text-gray hover:text-bg-primary transition-colors">
+                                                {{ __('terms and conditions') }}
+                                            </a>
+                                        </span>
+                                    </label>
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'terms']" />
+                                </div>
+                                <x-frontend.primary-button type="submit" button="true" class="w-52">{{ __('Checkout') }}
+                                </x-frontend.primary-button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

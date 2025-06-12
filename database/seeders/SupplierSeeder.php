@@ -19,7 +19,9 @@ class SupplierSeeder extends Seeder
             'username' => 'alicej',
             'email' => 'alice.johnson@example.com',
             'email_verified_at' => now(),
-            'password' =>'123456789',
+            'password' => '123456789',
+            'address' => '123 Main St',
+            'website' => 'https://www.example.com',
         ]);
 
         Supplier::create([
@@ -28,7 +30,9 @@ class SupplierSeeder extends Seeder
             'username' => 'bobsmith',
             'email' => 'bob.smith@example.com',
             'email_verified_at' => now(),
-            'password' =>'123456789',
+            'password' => '123456789',
+            'address' => '123 Main St',
+            'website' => 'https://www.example.com',
         ]);
 
         Supplier::create([
@@ -37,7 +41,9 @@ class SupplierSeeder extends Seeder
             'username' => 'carolm',
             'email' => 'carol.miller@example.com',
             'email_verified_at' => now(),
-            'password' =>'123456789',
+            'password' => '123456789',
+            'address' => '123 Main St',
+            'website' => 'https://www.example.com',
         ]);
 
         Supplier::create([
@@ -46,7 +52,9 @@ class SupplierSeeder extends Seeder
             'username' => 'davidlee',
             'email' => 'david.lee@example.com',
             'email_verified_at' => now(),
-            'password' =>'123456789',
+            'password' => '123456789',
+            'address' => '123 Main St',
+            'website' => 'https://www.example.com',
         ]);
 
         Supplier::create([
@@ -55,7 +63,9 @@ class SupplierSeeder extends Seeder
             'username' => 'evawong',
             'email' => 'eva.wong@example.com',
             'email_verified_at' => now(),
-            'password' =>'123456789',
+            'password' => '123456789',
+            'address' => '123 Main St',
+            'website' => 'https://www.example.com',
         ]);
     }
 }

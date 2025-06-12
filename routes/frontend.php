@@ -77,8 +77,19 @@ Route::group(['as' => 'frontend.'], function () {
     // Checkout Page
     Route::controller(CheckoutPageController::class)->group(function () {
         Route::post('/checkout/submit', 'checkoutSubmit')->name('checkout.submit');
+        Route::get('/checkout/single/{slug}', 'singleOrder')->name('checkout.single');
         Route::get('/checkout/{orderNumber}', 'checkout')->name('checkout');
+
         Route::post('/checkout/quantity-update', 'quantityUpdate')->name('checkout.quantity-update');
         Route::post('/checkout/remove-item', 'removeItem')->name('checkout.remove-item');
+        Route::post('/checkout/order-items', 'fetchOrderItems')->name('checkout.items');
+
+
+        Route::post('/checkout-order/submit/{orderNumber}', 'orderSubmit')->name('checkout-order.submit');
+        Route::get('container-order/{orderNumber}', 'containerOrder')->name('container-order')->middleware('auth:web');
+        Route::get('order/join-container/{orderNumber}/{containerSlug}', 'joinContainer')->name('order.join-container')->middleware('auth:web');
+        Route::get('order/container-request/{orderNumber}', 'containerRequest')->name('order.request-container')->middleware('auth:web');
+
+
     });
 });

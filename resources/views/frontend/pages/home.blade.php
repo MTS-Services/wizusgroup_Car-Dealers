@@ -97,27 +97,27 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 mt-8">
                 @forelse ($featured_products as $product)
-                            @php
-                                $buttons = [
-                                    [
-                                        'route' => 'javascript:void(0)',
-                                        'icon' => 'shopping-cart',
-                                        'label' => 'Buy Now',
-                                        'bg' => false,
-                                    ],
-                                    [
-                                        'route' => 'javascript:void(0)',
-                                        'icon' => 'shopping-basket',
-                                        'label' => 'Add to Cart',
-                                        'bg' => true,
-                                        'class' => "add-to-cart-$product->id",
-                                        'data_id' => $product->id,
-                                    ],
-                                ];
-                            @endphp
-                            <x-frontend.product :product="$product" :buttons="$buttons" />
-                        @empty
-                        @endforelse
+                    @php
+                        $buttons = [
+                            [
+                                'route' => route('frontend.checkout.single', ['slug' => $product->slug]),
+                                'icon' => 'shopping-cart',
+                                'label' => 'Buy Now',
+                                'bg' => false,
+                            ],
+                            [
+                                'route' => 'javascript:void(0)',
+                                'icon' => 'shopping-basket',
+                                'label' => 'Add to Cart',
+                                'bg' => true,
+                                'class' => 'add-to-cart',
+                                'data_id' => $product->id,
+                            ],
+                        ];
+                    @endphp
+                    <x-frontend.product :product="$product" :buttons="$buttons" />
+                @empty
+                @endforelse
             </div>
             <div class="text-center mx-auto xl:mt-15 lg:mt-11 md:mt-9 mt-7">
                 <button>
@@ -136,7 +136,7 @@
         <div class="container">
             @if ($container)
                 <div
-                    class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-6 xl:py-12 lg:py-10 md:py-8 py-4 text-center w-11/12 max-w-3xl shadow-md">
+                    class="bg-bg-tertiary/40 dark:bg-bg-dark-tertiary text-text-white mx-auto rounded-lg p-3 xl:py-12 lg:py-10 md:py-8 text-center w-full max-w-3xl shadow-md">
                     <h3 class="text-2xl font-bold mb-2">{{ __('Join Group Container - Save on Shipping') }}</h3>
                     <p class="text-xl mb-5">{{ __('Next Departure: From ') }} {{ $container?->shippingPort?->name }}
                         {{ __(' to ') }}{{ $container?->destinationPort?->name }}</p>
@@ -157,9 +157,9 @@
                     <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase text-center">
                         {{ __('How it Works') }}</h2>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 gap-y-5 mt-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8">
                     <div
-                        class="w-11/12 rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary py-9  shadow-lg text-center">
+                        class="w-full rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary py-9  shadow-lg text-center">
                         <i data-lucide="cpu" class="w-16 h-16 mx-auto text-text-secondary/40 "></i>
                         <p class="py-2 text-2xl font-semibold">{{ __('Select Your Machine') }}</p>
                         <p class="text-muted-text">
@@ -167,7 +167,7 @@
                         </p>
                     </div>
                     <div
-                        class="w-11/12 rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9  shadow-lg text-center">
+                        class="w-full rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9  shadow-lg text-center">
                         <i data-lucide="ship" class="w-16 h-16 mx-auto text-text-secondary/40"></i>
                         <p class="py-2 text-2xl font-semibold">{{ __('Arrange for Export') }}</p>
                         <p class="text-muted-text">
@@ -175,7 +175,7 @@
                         </p>
                     </div>
                     <div
-                        class="w-11/12 rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9  shadow-lg text-center">
+                        class="w-full rounded-xl p-8 bg-bg-light-secondary dark:bg-bg-dark-tertiary  py-9  shadow-lg text-center">
                         <i data-lucide="inbox" class="w-16 h-16 mx-auto text-text-secondary/40"></i>
                         <p class="py-2 text-2xl font-semibold">{{ __('Receive at Port') }}</p>
                         <p class="text-muted-text">
@@ -267,7 +267,7 @@
 
         // CATEGORY SWIPER
         const categorySwiperEl = document.querySelector('.categories');
-       const categorySwiper = new Swiper(categorySwiperEl, {
+        const categorySwiper = new Swiper(categorySwiperEl, {
             loop: true,
             slidesPerView: 6,
             spaceBetween: 20,
@@ -312,7 +312,7 @@
         });
 
         // On hover stop autoplay
-         categorySwiperEl.addEventListener('mouseenter', () => {
+        categorySwiperEl.addEventListener('mouseenter', () => {
             categorySwiper.autoplay.stop();
         });
 
@@ -321,7 +321,7 @@
         });
         // Testimonial SWIPER
         const testimonialSwiperEl = document.querySelector('.testimonials');
-       const testimonialSwiper = new Swiper(testimonialSwiperEl, {
+        const testimonialSwiper = new Swiper(testimonialSwiperEl, {
             loop: true,
             slidesPerView: 3,
             spaceBetween: 20,

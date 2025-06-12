@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -27,6 +28,7 @@ class User extends AuthBaseModel implements MustVerifyEmail
         'status',
         'image',
         'email_verified_at',
+        'whatsapp',
 
         'company_name',
         'business_type',
@@ -86,9 +88,9 @@ class User extends AuthBaseModel implements MustVerifyEmail
         return $this->hasMany(ProductInquiry::class);
     }
 
-    public function addresses(): HasMany
+    public function addresses(): MorphMany
     {
-        return $this->hasMany(Address::class);
+        return $this->morphMany(Address::class, 'profile');
     }
 
     public function products(): HasMany

@@ -376,7 +376,7 @@ class CartManager {
         // Remove existing cart items
         $container.find('.cart-item-single').remove();
 
-        if (cartItems.length === 0) {
+        if (cartItems && cartItems.length === 0) {
             $emptyMessage?.removeClass('hidden');
         } else {
             $emptyMessage?.addClass('hidden');
@@ -398,7 +398,7 @@ class CartManager {
 
         $tableBody.empty();
 
-        if (cartItems.length === 0) {
+        if (cartItems && cartItems.length === 0) {
             $emptyMessage?.removeClass('hidden');
             $tableBody.append(`
                 <tr>
@@ -427,7 +427,7 @@ class CartManager {
 
         $container.find('.cart-item-grid').remove();
 
-        if (cartItems.length === 0) {
+        if (cartItems && cartItems.length === 0) {
             $emptyMessage?.removeClass('hidden');
         } else {
             $emptyMessage?.addClass('hidden');
@@ -454,7 +454,7 @@ class CartManager {
                 </div>
                 <div class="flex-1 flex flex-col justify-between w-full">
                     <div>
-                        <h3 class="font-semibold text-base text-text-dark dark:text-text-white leading-snug mb-1 truncate sm:whitespace-normal">
+                        <h3 class="font-semibold text-base text-text-dark dark:text-text-white leading-snug mb-1 break-words line-clamp-2 sm:whitespace-normal">
                             ${item.product.name}
                         </h3>
                         <p class="text-xs text-text-gray dark:text-text-white dark:text-opacity-70">${brandName} / ${modelName}</p>
@@ -548,17 +548,17 @@ class CartManager {
             <div class="flex items-center gap-2 flex-shrink-0">
                 <button
                     class="quantity-decrease btn btn-ghost btn-circle btn-sm border border-gray-800/10 text-lg group"
-                    title="Decrease Quantity" 
-                    data-item-id="${item.id}" 
-                    data-current-quantity="${item.quantity}" 
+                    title="Decrease Quantity"
+                    data-item-id="${item.id}"
+                    data-current-quantity="${item.quantity}"
                     ${item.quantity === 1 ? 'disabled' : ''}>
                     <i data-lucide="minus" class="w-4 h-4 group-hover:text-text-wiz_orange transition-all duration-300 ease-linear"></i>
                 </button>
                 <span class="quantity-display px-3 py-1 bg-bg-light dark:bg-bg-dark-tertiary rounded-full font-medium text-text-dark dark:text-text-white min-w-[30px] text-center">${item.quantity}</span>
                 <button
                     class="quantity-increase btn btn-ghost btn-circle btn-sm border border-gray-800/10 dark:border-gray-200 text-lg group"
-                    title="Increase Quantity" 
-                    data-item-id="${item.id}" 
+                    title="Increase Quantity"
+                    data-item-id="${item.id}"
                     data-current-quantity="${item.quantity}">
                     <i data-lucide="plus" class="w-4 h-4 group-hover:text-text-secondary transition-all duration-300 ease-linear"></i>
                 </button>

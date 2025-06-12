@@ -9,7 +9,7 @@ class SupplierRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
- public function authorize(): bool
+    public function authorize(): bool
     {
         return true;
     }
@@ -24,7 +24,10 @@ class SupplierRequest extends FormRequest
         return [
             'first_name' => 'required|string|min:4',
             'last_name' => 'required|string|min:4',
-            'image' => 'nullable',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg,svg,webp|max:2048',
+            'phone' => 'nullable|numeric',
+            'website' => 'required|url',
+            'address' => 'required|string',
 
         ]
             +
@@ -35,12 +38,6 @@ class SupplierRequest extends FormRequest
     {
         return [
             'email' => 'required|unique:suppliers,email',
-            'password' => 'required|min:6|confirmed',
-            'username' => [
-                'nullable',
-                'unique:suppliers,username',
-                'regex:/^[a-zA-Z0-9\-]+$/',
-            ],
         ];
     }
 
@@ -49,12 +46,6 @@ class SupplierRequest extends FormRequest
     {
         return [
             'email' => 'required|unique:suppliers,email,' . decrypt($this->route('supplier')),
-            'password' => 'nullable|min:6|confirmed',
-            'username' => [
-                'nullable',
-                'unique:suppliers,username,' . decrypt($this->route('supplier')),
-                'regex:/^[a-zA-Z0-9\-]+$/',
-            ],
         ];
     }
 }

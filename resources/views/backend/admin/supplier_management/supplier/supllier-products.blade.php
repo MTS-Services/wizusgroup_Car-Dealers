@@ -8,7 +8,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="cart-title">{{ __('Supplier Product List') }}</h4>
+                    <h4 class="cart-title">{{ __("Supplier Product List- ({$supplier->full_name})") }}</h4>
                     <div class="buttons">
                         <x-backend.admin.button :datas="[
                             'routeName' => 'pm.product.recycle-bin',
@@ -69,7 +69,7 @@
                 table_columns: table_columns,
                 main_class: '.datatable',
                 displayLength: 10,
-                main_route: "{{ route('pm.product.index') }}",
+                main_route: "{{ route('sm.supplier.product', $supplierId) }}",
                 order_route: "{{ route('update.sort.order') }}",
                 export_columns: [0, 1, 2, 3, 4, 5, 6, 7],
                 model: 'Product',

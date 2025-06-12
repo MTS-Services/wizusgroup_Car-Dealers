@@ -20,7 +20,7 @@
     <!-- Card Content -->
     <div class="p-4 relative @auth('web') min-h-60 @else min-h-52 @endauth flex-grow flex flex-col justify-between">
         <a href="{{ route('frontend.auction-details', $auction->slug) }}"
-            class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light">
+            class="text-base lg:text-lg font-semibold text-text-primary dark:text-text-light break-words line-clamp-2">
             {{ $auction->title }}</a>
         <div>
             @auth('web')
@@ -46,12 +46,15 @@
                 <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i>
                 {{ $auction->location }}
             </div>
-            
+
             <!-- Bid Button -->
             @auth('web')
-            <x-frontend.primary-button bg="false" onclick="document.getElementById('{{ $auction->id }}-modal').showModal()" class="w-full mt-4">{{ __('Place a Bid') }} </x-frontend.primary-button>
+                <x-frontend.primary-button bg="false"
+                    onclick="document.getElementById('{{ $auction->id }}-modal').showModal()"
+                    class="w-full mt-4">{{ __('Place a Bid') }} </x-frontend.primary-button>
             @else
-             <x-frontend.primary-button bg="false" href="{{ route('frontend.auction-details', $auction->slug) }}" class="w-full mt-4">{{ __('Ask for price') }} </x-frontend.primary-button>
+                <x-frontend.primary-button bg="false" href="{{ route('frontend.auction-details', $auction->slug) }}"
+                    class="w-full mt-4">{{ __('Ask for price') }} </x-frontend.primary-button>
             @endauth
         </div>
     </div>

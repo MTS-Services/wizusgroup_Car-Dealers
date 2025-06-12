@@ -99,11 +99,12 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Product Type') }} <span class="text-danger">*</span></label>
-                                    <select name="product_type" class="form-control">
+                                    <select name="product_type" class="form-control product_type">
                                         <option value="" selected disabled>{{ __('Select Product Type') }}</option>
                                         @foreach (App\Models\Product::getProductTypes() as $key => $value)
                                             <option value="{{ $key }}"
-                                                {{ $product->product_type == $key ? 'selected' : '' }}>{{ $value }}
+                                                {{ old('product_type', $product->product_type) == $key ? 'selected' : '' }}>
+                                                {{ $value }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -116,6 +117,37 @@
                                     <input type="text" value="{{ $product->price }}" name="price" class="form-control"
                                         placeholder="Enter price">
                                     <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'price']" />
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row dropshipping">
+                                    @if ($product->product_type == App\Models\Product::PRODUCT_TYPE_DROPSHIPPING)
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>{{ __('Supplier Name') }} <span
+                                                        class="text-danger">*</span></label>
+                                                <select name="supplier_id" class="form-control">
+                                                    <option value="" selected>{{ __('Select Supplier') }}</option>
+                                                    @foreach ($suppliers as $supplier)
+                                                        <option value="{{ $supplier->id }}"
+                                                            {{ $product->supplier_id == $supplier->id ? 'selected' : '' }}>
+                                                            {{ $supplier->first_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'supplier_id']" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>{{ __('Product Source URL') }} <span
+                                                        class="text-danger">*</span></label>
+                                                <input type="url" value="{{ $product->source_url }}"
+                                                    name="source_url" class="form-control"
+                                                    placeholder="Enter product source url">
+                                                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'source_url']" />
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -292,30 +324,10 @@
                                 </div>
                             </div>
 
-                            @if ($product->product_type == App\Models\Product::PRODUCT_TYPE_DROPSHIPPING)
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>{{ __('Supplier Name') }} <span class="text-danger">*</span></label>
-                                        <select name="supplier_id" class="form-control">
-                                            <option value="" selected>{{ __('Select Supplier') }}</option>
-                                            @foreach ($suppliers as $supplier)
-                                                <option value="{{ $supplier->id }}"
-                                                    {{ $product->supplier_id == $supplier->id ? 'selected' : '' }}>
-                                                    {{ $supplier->first_name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'supplier_id']" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>{{ __('Product Source URL') }} <span class="text-danger">*</span></label>
-                                        <input type="url" value="{{ $product->source_url }}" name="source_url"
-                                            class="form-control" placeholder="Enter product source url">
-                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'source_url']" />
-                                    </div>
-                                </div>
-                            @endif
+
+
+
+
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ __('Remarks') }}</label>
@@ -379,4 +391,47 @@
 @endsection
 @push('js')
     <script src="{{ asset('ckEditor5/main.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            function enable_suplier_fields(event) {
+                let html_content = ` <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>{{ __('Supplier Name') }} <span class="text-danger">*</span></label>
+                                            <select name="supplier_id" class="form-control">
+                                                <option value="" selected>{{ __('Select Supplier') }}</option>
+                                                @foreach ($suppliers as $supplier)
+                                                    <option value="{{ $supplier->id }}"
+                                                        {{ $product->supplier_id == $supplier->id ? 'selected' : '' }}>
+                                                        {{ $supplier->first_name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'supplier_id']" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>{{ __('Product Source URL') }} <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="url" value="{{ $product->source_url }}" name="source_url"
+                                                class="form-control" placeholder="Enter product source url">
+                                            <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'source_url']" />
+                                        </div>
+                                    </div>`;
+                if (event.val() == `{{ App\Models\Product::PRODUCT_TYPE_DROPSHIPPING }}`) {
+                    $('.dropshipping').html(html_content);
+                } else {
+                    $('.dropshipping').html('');
+                }
+            }
+
+            $('.product_type').on('change', function() {
+                enable_suplier_fields($(this));
+            });
+
+            enable_suplier_fields($('.product_type'));
+
+        })
+    </script>
 @endpush
