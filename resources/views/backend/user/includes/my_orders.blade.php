@@ -102,11 +102,13 @@
                                             class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
                                             <i data-lucide="eye" class="w-5 h-5"></i>
                                         </a>
-                                        <a href="{{ route('user.container.details', $order->container?->slug) }}"
-                                            title="Container"
-                                            class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
-                                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                                        </a>
+                                        @if($order->container)
+                                            <a href="{{ route('user.container.details', $order->container?->slug) }}"
+                                                title="Container"
+                                                class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
+                                                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                                            </a>
+                                        @endif
                                     @endif
 
 
