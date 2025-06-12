@@ -8,7 +8,7 @@
             <p class="btn-item btn-primary w-full py-2 rounded-md " data-target="change-password">Change Password</p>
         </div>
     </div>
-    
+          
     <div class="w-full">
         <div class="min-h-[200px] rounded-lg  mt-5 p-5">
             <div id="profile" class="tab-pane block">
@@ -240,12 +240,12 @@
                                             <option value="{{ $key }}"
                                                 {{ old('business_name') == $key ? 'selected' : '' }}>
                                                 {{ $type }}</option>
-                                        @endforeach
+                                        @endforeach 
                                     </select>
                                     <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'business_name']" />
                                 </div>
                                 <div class="w-full">
-                                    <span class="label">
+                                    <span class="label mt-3">
                                         {{ __('Additional Information') }}
                                         <span class="text-sm text-gray-500">
                                             ({{ __('Only required if "Other" is selected') }})
@@ -288,7 +288,7 @@
                                     </div>
                                     <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'receive_promotion_email']" />
                                 </div>
-                            </div>  
+                            </div>   
 
                             {{-- How did you hear about us and For Friend and Other --}}
                             <div class="flex flex-col  ">
@@ -307,7 +307,7 @@
                                     <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'how_know']" />
                                 </div>
                                 <div class="w-full">
-                                    <span class="label">{{ __('Please Provide Details for Friend or Other') }} <span
+                                    <span class="label mt-3">{{ __('Please Provide Details for Friend or Other') }} <span
                                             class="text-red-500">*</span></span>
                                     <input type="text" placeholder="Please Enter the Details"
                                         value="{{ old('how_know_detail') }}" name="how_know_detail" class="input"
@@ -325,7 +325,8 @@
                                     <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'id_registration_info']" />
                                 </div>                                
                             </div>
-
+                                     
+                            
                             <div class="w-full">
                                     <span class="label">{{ __('Dealer Registration Permit') }}</span>
                                     <input type="file" name="dealer_registration_permit" class="form-control filepond"
@@ -471,7 +472,58 @@
 </div>
 
 @push('js')
+    <script src="{{ asset('frontend/js/password.js') }}"></script>
+    {{-- FilePond  --}}
+    <script src="{{ asset('filepond/filepond.js') }}"></script>
+
+    <script> 
+        $(document).ready(function() {
+            file_upload(["#id_registration_info"], ["application/pdf"]);
+            file_upload(["#dealer_registration_permit"], ["application/pdf"]);
+        });
+    </script>
+    {{-- FilePond  --}}
+
     <script>
+        $(document).ready(function() {
+            file_upload(["#id_registration_info"], ["application/pdf"]);
+            file_upload(["#dealer_registration_permit"], ["application/pdf"]);
+        });
+
+        $(document).ready(function() {
+            //  Business Information
+            const $businessName = $('select[name="business_name"]');
+            const $businessInfo = $('input[name="business_information"]');
+
+            function toggleBusinessInfo() {
+                if ($businessName.val() === "{{ \App\Models\User::BUSINESS_NAME_OTHER }}") {
+                    $businessInfo.prop('disabled', false);
+                } else {
+                    $businessInfo.prop('disabled', true).val('');
+                }
+            }
+            toggleBusinessInfo();
+            $businessName.on('change', toggleBusinessInfo);
+
+            // How Hear About Us
+            const $howKnow = $('select[name="how_know"]');
+            const $howKnowDetail = $('input[name="how_know_detail"]');
+
+            function toggleHowKnowDetail() {
+                if ($howKnow.val() === "{{ \App\Models\User::KNOW_OTHER }}" || $howKnow.val() ===
+                    "{{ \App\Models\User::KNOW_FRIEND }}") {
+                    $howKnowDetail.prop('disabled', false);
+                } else {
+                    $howKnowDetail.prop('disabled', true).val('');
+                }
+            }
+            toggleHowKnowDetail();
+            $howKnow.on('change', toggleHowKnowDetail);
+        });
+
+    </script>
+            
+    <script>  
         document.addEventListener('DOMContentLoaded', function() {
 
             $('.btn-item').on('click', function() {
@@ -483,22 +535,22 @@
                 $('#' + target).removeClass('hidden').addClass('block');
             });
 
-
-
-
             // Get Country States By Axios
             let route1 = "{{ route('axios.get-states-or-cities') }}";
             $('#country').on('change', function() {
                 getStatesOrCity($(this).val(), route1);
             });
+
             let route2 = "{{ route('axios.get-cities') }}";
             $('#state').on('change', function() {
                 getCities($(this).val(), route2);
             });
+
             let data_id = `{{ $address?->state_id ? $address?->state_id : $address?->city_id }}`;
             if (data_id) {
                 getStatesOrCity($('#country').val(), route1, data_id);
             }
+
             if (`{{ $address?->state_id }}`) {
                 getCities(`{{ $address?->state_id }}`, route2, `{{ $address?->city_id }}`);
             }
@@ -512,3 +564,5 @@
         })
     </script>
 @endpush
+
+

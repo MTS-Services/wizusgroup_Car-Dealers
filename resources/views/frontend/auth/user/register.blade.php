@@ -7,8 +7,8 @@
                 <h2 class="text-3xl font-semibold text-center mb-6">{{ __('Start Your Journey with Us') }}</h2>
                 <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="grid grid-cols-1 gap-5">   
-                        {{-- Name Field --}} 
+                    <div class="grid grid-cols-1 gap-5">           
+                        {{-- Name Field --}}    
                         <div class="flex flex-col md:flex-row gap-3"> 
                             <div class="w-full"> 
                                 <label class="w-full"> 
@@ -217,7 +217,7 @@
                                     name="dob" class="input py-0 px-4" />
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'dob']" />
                             </div>
-                            <div class="w-full">
+                            <div class="w-full">  
                                 <span class="label block">{{ __('Business Type') }}<span
                                         class="text-red-500">*</span></span>
                                 <div class="input justify-between flex-wrap py-2 px-5 h-fit">
@@ -322,21 +322,22 @@
 
                         {{-- ID Registration and Dealer Registration Permit --}}
                         <div class="flex flex-col md:flex-row gap-3">
-                            <div class="w-full">
+                            <div class="w-full">   
                                 <span class="label">{{ __('ID Registration') }}</span>
                                 <input type="file" name="id_registration_info" class="form-control filepond"
                                     id="id_registration_info" accept="application/pdf">
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'id_registration_info']" />
-                            </div>
-                            <div class="w-full">
+                            </div> 
+                            <div class="w-full">  
                                 <span class="label">{{ __('Dealer Registration Permit') }}</span>
                                 <input type="file" name="dealer_registration_permit" class="form-control filepond"
                                     id="dealer_registration_permit" accept="application/pdf">
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'dealer_registration_permit']" />
                             </div>
+
                         </div>
                     
-                        {{-- Accept Terms --}}
+                        {{-- Accept Terms --}} 
                         <div class="flex flex-col items-center md:flex-row gap-3">
                             <div class="w-full text-end">
                                 <label class="flex items-center gap-2 justify-end">
@@ -374,19 +375,21 @@
             </div>
         </div> 
     </section>
+
+
 @endsection  
 @push('js')
     <script src="{{ asset('frontend/js/password.js') }}"></script>
     {{-- FilePond  --}}
     <script src="{{ asset('filepond/filepond.js') }}"></script>
-    <script>
+    <script> 
         $(document).ready(function() {
             file_upload(["#id_registration_info"], ["application/pdf"]);
             file_upload(["#dealer_registration_permit"], ["application/pdf"]);
         });
     </script>
     {{-- FilePond  --}}
-
+    
      
     <script>
         $(document).ready(function() {
@@ -434,8 +437,8 @@
             });
             if (`{{ old('state_id') }}`) {
                 getCities(`{{ old('state_id') }}`, route2, `{{ old('city_id') }}`);
-            }
+            }  
         })
     </script>
-@endpush
-        
+@endpush  
+          
