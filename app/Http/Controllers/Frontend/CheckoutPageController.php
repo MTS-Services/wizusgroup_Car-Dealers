@@ -21,6 +21,7 @@ use App\Models\ShippingLocation;
 use App\Models\User;
 use App\Services\AddressService;
 use App\Services\Admin\Setup\CountryService;
+use Exception;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -32,6 +33,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
 use Mail;
 
 class CheckoutPageController extends Controller
@@ -64,7 +66,7 @@ class CheckoutPageController extends Controller
                 ? Cart::with('items.product')->where('user_id', $user->id)->first()
                 : ($sessionId ? Cart::with('items.product')->where('session_id', $sessionId)->first() : null);
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Error getting cart: ' . $e->getMessage());
             return null;
         }
@@ -154,7 +156,7 @@ class CheckoutPageController extends Controller
             session()->flash('success', 'Order checkout successfully');
             return redirect()->route('frontend.checkout', ['orderNumber' => $orderNumber]);
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Error in checkout submit: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
                 'user_id' => auth()->id(),
@@ -515,7 +517,7 @@ class CheckoutPageController extends Controller
                     }
 
                     // Create guest user
-                    $user = User::create($validated);
+                    $user = User::create(Arr::except($validated, 'phone'));
                     Auth::login($user);
                     SendUserRegistrationMail::dispatch($user, $validated['password']);
 
@@ -541,6 +543,8 @@ class CheckoutPageController extends Controller
                     'container_type' => $validated['container_type'],
                     'shipping_port' => $validated['shipping_port'],
                     'destination_port' => $validated['destination_port'],
+                    'creater_id' => $user->id,
+                    'creater_type' => get_class($user),
                 ]);
 
                 SendOrderSubmittedEmail::dispatch($order, false); // for user mail notify
@@ -616,32 +620,38 @@ class CheckoutPageController extends Controller
             $container = Container::with('containerReservations')->where('slug', $containerSlug)->first();
 
             if (!$order || !$container) {
-                throw new \Exception('Order or container not found');
+                throw new Exception('Order or container not found');
             }
 
             if ($order->user_id !== user()?->id) {
-                throw new \Exception('You are not authorized to view this order');
+                throw new Exception('You are not authorized to view this order');
             }
             if ($order->status != Order::STATUS_PENDING) {
-                throw new \Exception('Something went wrong, please try again');
+                throw new Exception('Something went wrong, please try again');
             }
+
+            $totalHeight = $order->container_type == Order::FULL_CONTAINER ? $container->height_m : $order->items->sum(fn($item) => optional($item->product)->height_m ? $item->product?->height_m * $item->quantity : 0);
+            $totalWidth = $order->container_type == Order::FULL_CONTAINER ? $container->width_m : $order->items->sum(fn($item) => optional($item->product)->width_m ? $item->product?->width_m * $item->quantity : 0);
+            $totalLength = $order->container_type == Order::FULL_CONTAINER ? $container->length_m : $order->items->sum(fn($item) => optional($item->product)->length_m ? $item->product?->length_m * $item->quantity : 0);
+            $totalWeight = $order->container_type == Order::FULL_CONTAINER ? $container->weight_kg : $order->items->sum(fn($item) => optional($item->product)->weight_kg ? $item->product?->weight_kg * $item->quantity : 0);
+            $totalCbm = $totalHeight + $totalWidth + $totalLength;
+
+            if ($container->container_free_space_cbm < $totalCbm) {
+                throw new Exception('Container space is not enough for this order');
+            }
+
+
 
             $containerReservations = $container->containerReservations()->where('order_id', $order->id)->get();
             if ($containerReservations->count() > 0) {
-                throw new \Exception('You have already joined this container');
+                throw new Exception('You have already joined this container');
             }
 
-            return DB::transaction(function () use ($order, $container) {
-                $totalHeight = $order->items->sum(fn($item) => optional($item->product)->height_m ? $item->product?->height_m * $item->quantity : 0);
-                $totalWidth = $order->items->sum(fn($item) => optional($item->product)->width_m ? $item->product?->width_m * $item->quantity : 0);
-                $totalLength = $order->items->sum(fn($item) => optional($item->product)->length_m ? $item->product?->length_m * $item->quantity : 0);
-                $totalWeight = $order->items->sum(fn($item) => optional($item->product)->weight_kg ? $item->product?->weight_kg * $item->quantity : 0);
+            return DB::transaction(function () use ($order, $container, $totalCbm, $totalLength, $totalWidth, $totalHeight, $totalWeight) {
 
-
-                $total_price = $container->per_cbm_cost * ($totalHeight + $totalWidth + $totalLength);
+                $total_price = $container->per_cbm_cost * $totalCbm;
                 $total_price += $container->base_cost;
                 $reserve_price = $total_price / 2;
-
                 ContainerReservation::create([
                     'order_id' => $order->id,
                     'container_id' => $container->id,
@@ -661,13 +671,20 @@ class CheckoutPageController extends Controller
                     'creater_type' => $order->creater_type
                 ]);
 
-
-
+                foreach ($order->items as $item) {
+                    $item->product()->decrement('quantity', $item->quantity);
+                }
                 $order->update([
                     'container_id' => $container->id,
                     'status' => Order::STATUS_SUBMITTED
                 ]);
                 $order->refresh();
+
+                if ($order->container_type == Order::FULL_CONTAINER || $container->container_free_space_cbm == 0) {
+                    $container->update([
+                        'full_container_reserved' => Container::FULL_RESERVED
+                    ]);
+                }
 
                 SendContainerJoinEmail::dispatch($order, false); // for user mail notify
                 SendContainerJoinEmail::dispatch($order, true);  // for admin mail notify
@@ -684,23 +701,27 @@ class CheckoutPageController extends Controller
     public function containerRequest($orderNumber)
     {
         try {
-            $order = Order::with(['items.product', 'user'])->where('order_number', $orderNumber)->first();
-            if (!$order) {
-                throw new \Exception('Order not found');
-            }
+            return DB::transaction(function () use ($orderNumber) {
+                $order = Order::with(['items.product', 'user'])->where('order_number', $orderNumber)->first();
+                if (!$order) {
+                    throw new Exception('Order not found');
+                }
 
-            if ($order->user_id !== user()?->id) {
-                throw new \Exception('You are not authorized to view this order');
-            }
-
-            $order->update([
-                'container_request' => Order::CONTINER_REQUEST_TRUE,
-                'status' => Order::STATUS_SUBMITTED
-            ]);
-            $order->refresh();
-            SendContainerRequestEmail::dispatch($order, false); // for user mail notify
-            SendContainerRequestEmail::dispatch($order, true);  // for admin mail notify
-            return view('frontend.pages.order_finished', compact('order'));
+                if ($order->user_id !== user()?->id) {
+                    throw new Exception('You are not authorized to view this order');
+                }
+                foreach ($order->items as $item) {
+                    $item->product()->decrement('quantity', $item->quantity);
+                }
+                $order->update([
+                    'container_request' => Order::CONTINER_REQUEST_TRUE,
+                    'status' => Order::STATUS_SUBMITTED
+                ]);
+                $order->refresh();
+                SendContainerRequestEmail::dispatch($order, false); // for user mail notify
+                SendContainerRequestEmail::dispatch($order, true);  // for admin mail notify
+                return view('frontend.pages.order_finished', compact('order'));
+            });
         } catch (\Throwable $e) {
             session()->flash('error', $e->getMessage());
             return redirect()->back();

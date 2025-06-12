@@ -45,7 +45,7 @@ class UserProfileController extends Controller
                 $query = Order::self();
                 $data['orders'] = match ($request->tab) {
                     'pending' => $query->pending()->paginate(10)->withQueryString(),
-                    'submitted' => $query->submitted()->paginate(10)->withQueryString(),
+                    'submitted' => $query->submitted()->orWhere('status', Order::STATUS_CONFIRM)->paginate(10)->withQueryString(),
                     'shipped' => $query->shipped()->paginate(10)->withQueryString(),
                     'completed' => $query->completed()->paginate(10)->withQueryString(),
                     default => $query->paginate(10)->withQueryString(),
@@ -123,8 +123,8 @@ class UserProfileController extends Controller
     // Details User Bids
     public function auctionDetails($auction_slug)
     {
-        $data['auction'] = Auction::withCount('auctionBids')->with(['product.category'])->where('slug', $auction_slug)->firstOrFail();
-        return view('backend.user.details_my_bids', $data);
+        // $data['auction'] = Auction::withCount('auctionBids')->with(['product.category'])->where('slug', $auction_slug)->firstOrFail();
+        // return view('backend.user.details_my_bids', $data);
     }
 
     public function containerDetails($container_slug)
@@ -132,11 +132,32 @@ class UserProfileController extends Controller
         $data['container'] = Container::with([
             'destinationPort',
             'shippingPort',
-            'containerReservations.product',
+            'containerReservations.order',
             'containerReservations' => function ($query) {
                 $query->where('user_id', user()->id);
             },
         ])->where('slug', $container_slug)->firstOrFail();
         return view('backend.user.details_my_container', $data);
+    }
+
+
+    public function orderDetails($order_number)
+    {
+        $data['order'] = Order::with([
+            'shippingPort',
+            'destinationPort',
+            'shipping',
+            'items.product',
+            'items.product.brand',
+            'items.product.primaryImage',
+            'items.product.model',
+            'container',
+        ])->where('order_number', $order_number)->firstOrFail();
+
+        if ($data['order']->user_id !== user()?->id) {
+            session()->flash('error', 'You are not authorized to view this order');
+            return redirect()->back()->withInput();
+        }
+        return view('backend.user.order_details', $data);
     }
 }

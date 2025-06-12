@@ -317,8 +317,10 @@
 
             // Auto-fill functions
             const updateName = debounce(() => {
-                const firstName = $('input[name="first_name"]').val().trim();
-                const lastName = $('input[name="last_name"]').val().trim();
+                const firstName = $('input[name="first_name"]').val() ? $('input[name="first_name"]').val()
+                    .trim() : '';
+                const lastName = $('input[name="last_name"]').val() ? $('input[name="last_name"]').val()
+                    .trim() : '';
                 $('input[name="name"]').val([firstName, lastName].filter(n => n).join(' '));
             }, 200);
 

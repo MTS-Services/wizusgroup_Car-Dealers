@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Order extends BaseModel
 {
@@ -105,13 +107,13 @@ class Order extends BaseModel
     public function getStatusTailwindColors()
     {
         return [
-            self::STATUS_INITIATED => 'bg-gray-800',
-            self::STATUS_PENDING => 'bg-yellow-800',
-            self::STATUS_SUBMITTED => 'bg-green-800',
-            self::STATUS_CONFIRM => 'bg-blue-800',
-            self::STATUS_SHIPPED => 'bg-indigo-800',
-            self::STATUS_DELIVERED => 'bg-green-800',
-            self::STATUS_CANCELED => 'bg-red-800',
+            self::STATUS_INITIATED => '!bg-gray-800',
+            self::STATUS_PENDING => '!bg-yellow-800',
+            self::STATUS_SUBMITTED => '!bg-green-800',
+            self::STATUS_CONFIRM => '!bg-blue-800',
+            self::STATUS_SHIPPED => '!bg-indigo-800',
+            self::STATUS_DELIVERED => '!bg-green-800',
+            self::STATUS_CANCELED => '!bg-red-800',
         ];
     }
 
@@ -201,5 +203,23 @@ class Order extends BaseModel
     public function scopeCompleted(Builder $query)
     {
         return $query->where('status', self::STATUS_DELIVERED);
+    }
+
+
+    public function containerReservation(): HasOne
+    {
+        return $this->hasOne(ContainerReservation::class, 'order_id', 'id');
+    }
+
+    public function products(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Product::class,
+            OrderItem::class,
+            'order_id',
+            'id',
+            'id',
+            'product_id'
+        );
     }
 }

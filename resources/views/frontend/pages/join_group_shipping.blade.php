@@ -97,11 +97,11 @@
                                 <div class="pt-3">
                                     <div class="flex justify-between items-center mb-1">
                                         <span class="font-medium text-base">{{ __('Capacity') }}</span>
-                                        <span>{{ $container->getFilledPercentageAttribute() }}% {{ __('filled') }}</span>
+                                        <span>{{ $container->filled_percentage }}% {{ __('filled') }}</span>
                                     </div>
                                     <div class="w-full bg-bg-gray rounded-full h-2.5">
                                         <div class="bg-bg-wiz_orange h-2.5 rounded-full text-base"
-                                            style="width: {{ $container->getFilledPercentageAttribute() }}%"></div>
+                                            style="width: {{ $container->filled_percentage }}%"></div>
                                     </div>
                                 </div>
                             </div>
@@ -168,7 +168,7 @@
     {{-- Form Section --}}
     <section class="py-6 sm:py-8 lg:py-12">
         <div class="container">
-            @if ($container->getFilledPercentageAttribute() >= 100)
+            @if ($container->filled_percentage >= 100)
                 <div class="bg-bg-white dark:bg-bg-dark-tertiary overflow-hidden rounded-lg">
                     <div class="p-5 border-b border-border-gray dark:border-border-dark-secondary">
                         <h3 class="text-lg font-semibold text-text-primary dark:text-text-light">

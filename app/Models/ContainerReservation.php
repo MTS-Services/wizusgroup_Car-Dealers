@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ContainerReservation extends BaseModel
 {
@@ -38,21 +39,26 @@ class ContainerReservation extends BaseModel
     ];
 
     // relationships
-    public function container()
+    public function container(): BelongsTo
     {
         return $this->belongsTo(Container::class);
     }
-    public function containerProduct()
+    public function containerProduct(): BelongsTo
     {
         return $this->belongsTo(ContainerProduct::class, 'container_product_id', 'id');
     }
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-    public function product()
+    public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class, 'order_id', 'id');
     }
 
     // ✅ Status constants

@@ -73,6 +73,22 @@
                                             value="{{ inputDateFormat($container->deadline) }}" class="form-control">
                                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'deadline']" />
                                     </div>
+                                    {{-- Departure Date --}}
+                                    <div class="form-group col-md-6">
+                                        <label>{{ __('Departure Date') }} <span class="text-danger">*</span></label>
+                                        <input type="date" name="departure_date"
+                                            value="{{ inputDateFormat($container->departure_date) }}" class="form-control">
+                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'departure_date']" />
+                                    </div>
+                                    {{-- Estimated Delivery Days --}}
+                                    <div class="form-group col-md-6">
+                                        <label>{{ __('Estimated Delivery Days') }} <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="estimated_delivery_days" placeholder="Ex: 3-5 days"
+                                            value="{{ $container->estimated_delivery_days }}" class="form-control">
+                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'estimated_delivery_days']" />
+
+                                    </div>
                                     {{-- Length --}}
                                     <div class="form-group col-md-6">
                                         <label>{{ __('Length (m)') }} </label>

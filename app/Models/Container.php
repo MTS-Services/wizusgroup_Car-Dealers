@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Container extends BaseModel
 {
@@ -25,6 +27,9 @@ class Container extends BaseModel
         'shipping_port',
         'destination_port',
         'status',
+        'departure_date',
+        'estimated_delivery_days',
+        'full_container_reserved',
 
 
         'created_by',
@@ -62,15 +67,11 @@ class Container extends BaseModel
 
     public function getReservedDimensions()
     {
-        // Cache on the instance to prevent re-querying
-        if (!isset($this->reservedDimensions)) {
-            $this->reservedDimensions = $this->containerReservations()
-                ->selectRaw('SUM(length_m) as length, SUM(width_m) as width, SUM(height_m) as height')
-                ->whereNull('deleted_at') // optional if soft deletes used
-                ->first();
-        }
-
-        return $this->reservedDimensions;
+        return $this->containerReservations()
+            ->whereNot('status', ContainerReservation::STATUS_DECLINE)
+            ->selectRaw('SUM(length_m) as length, SUM(width_m) as width, SUM(height_m) as height')
+            ->whereNull('deleted_at')
+            ->first();
     }
 
     public function calculateFreeSpacePercentage()
@@ -102,6 +103,13 @@ class Container extends BaseModel
         return round($filledPercentage, 2);
     }
 
+    public function getContainerFreeSpaceCbmAttribute()
+    {
+        $reserved = $this->getReservedDimensions();
+        $freeSpace = $this->length_m * $this->width_m * $this->height_m - $reserved->length * $reserved->width * $reserved->height;
+        return round($freeSpace, 2);
+    }
+
 
 
     public function __construct(array $attributes = [])
@@ -116,6 +124,10 @@ class Container extends BaseModel
             'status_labels',
 
             'modified_image',
+            'filled_percentage',
+            'container_free_space_cbm',
+            'reserve_status_label',
+            'reserve_status_color',
         ]);
     }
 
@@ -205,7 +217,7 @@ class Container extends BaseModel
     // Query scopes for each status
     public function scopeActive($query)
     {
-        return $query->where('status', self::STATUS_ACTIVE);
+        return $query->where('status', self::STATUS_ACTIVE)->where('full_container_reserved', self::NOT_FULL_RESERVED);
     }
 
     public function scopePending($query)
@@ -226,5 +238,33 @@ class Container extends BaseModel
     public function getUsedLengthAttribute()
     {
         return $this->containerReservations()->sum('length_m');
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'container_id', 'id');
+    }
+
+
+    public const NOT_FULL_RESERVED = 1;
+    public const FULL_RESERVED = 2;
+
+    // Status labels
+    public static function getReserveStatusLabels(): array
+    {
+        return [
+            self::NOT_FULL_RESERVED => 'Not Full',
+            self::FULL_RESERVED => 'Full',
+        ];
+    }
+
+    // Status button labels
+    public function getReserveStatusLabelAttribute(): string
+    {
+        return self::getReserveStatusLabels()[$this->full_container_reserved] ?? 'Unknown';
+    }
+    public function getReserveStatusColorAttribute(): string
+    {
+        return self::NOT_FULL_RESERVED == $this->full_container_reserved ? 'bg-info' : 'bg-danger';
     }
 }

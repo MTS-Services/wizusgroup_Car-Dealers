@@ -391,11 +391,10 @@
                             </div>
                         </div>
                         <div class="flex justify-between items-center gap-5 mt-2">
-                            <x-frontend.primary-button icon="shopping-cart" >{{ __('Buy Now') }}
+                            <x-frontend.primary-button icon="shopping-cart">{{ __('Buy Now') }}
                             </x-frontend.primary-button>
                             <x-frontend.primary-button>{{ __('WhatsApp Inquiry') }} </x-frontend.primary-button>
-                            <x-frontend.primary-button icon="shopping-basket"
-                                class="add-to-cart-{{ $auction->product->id }}"
+                            <x-frontend.primary-button icon="shopping-basket" class="add-to-cart"
                                 data_id="{{ $auction->product->id }}">{{ __('Add to Cart') }}
                             </x-frontend.primary-button>
                         </div>

@@ -64,11 +64,11 @@
                                         <div class="pt-3">
                                             <div class="flex justify-between items-center mb-1">
                                                 <span class="font-medium">Capacity</span>
-                                                <span>{{ $container->getFilledPercentageAttribute() }}% filled</span>
+                                                <span>{{ $container->filled_percentage }}% filled</span>
                                             </div>
                                             <div class="w-full bg-bg-gray rounded-full h-2">
                                                 <div class="bg-bg-wiz_orange h-2 rounded-full"
-                                                    style="width:{{ $container->getFilledPercentageAttribute() }}%">
+                                                    style="width:{{ $container->filled_percentage }}%">
                                                 </div>
                                             </div>
                                         </div>

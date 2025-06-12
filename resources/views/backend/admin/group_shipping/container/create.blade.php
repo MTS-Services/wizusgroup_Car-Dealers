@@ -71,6 +71,22 @@
                                             class="form-control">
                                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'deadline']" />
                                     </div>
+                                    {{-- Departure Date --}}
+                                    <div class="form-group col-md-6">
+                                        <label>{{ __('Departure Date') }} <span class="text-danger">*</span></label>
+                                        <input type="date" name="departure_date" value="{{ old('departure_date') }}"
+                                            class="form-control">
+                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'departure_date']" />
+                                    </div>
+                                    {{-- Estimated Delivery Days --}}
+                                    <div class="form-group col-md-6">
+                                        <label>{{ __('Estimated Delivery Days') }} <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="estimated_delivery_days" placeholder="Ex: 3-5 days"
+                                            value="{{ old('estimated_delivery_days') }}" class="form-control">
+                                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'estimated_delivery_days']" />
+
+                                    </div>
                                     {{-- Length --}}
                                     <div class="form-group col-md-6">
                                         <label>{{ __('Length (m)') }}</label>
@@ -212,53 +228,4 @@
             file_upload(["#image"], ["image/jpg, image/jpeg, image/png, image/webp, image/svg"]);
         });
     </script>
-    {{-- FilePond  --}}
-    {{--
-    <script>
-        $(document).ready(function() {
-            let index = 1;
-
-            // Add More
-            $('.add_more').on('click', function() {
-                const $originalRow = $('.product-row').first();
-                const $clone = $originalRow.clone();
-
-                // Update names with current index
-                $clone.find('select, input').each(function() {
-                    let name = $(this).attr('name');
-                    name = name.replace(/\[\d+\]/, `[${index}]`);
-                    $(this).attr('name', name).val('');
-                });
-
-                // Re-fill select with original options
-                const originalSelectHTML = $originalRow.find('select').html();
-                $clone.find('select').html(originalSelectHTML);
-
-                $clone.find('.add_more').addClass('remove_row').html('Remove').removeClass('add_more')
-                    .removeClass('btn-primary').addClass('btn-danger'); // show remove button
-                $('.product_rows_container').append($clone);
-                index++;
-            });
-
-            // Remove Row and Rearrange
-            $(document).on('click', '.remove_row', function() {
-                $(this).closest('.product-row').remove();
-                rearrangeIndexes();
-            });
-
-            // Function to rearrange indexes
-            function rearrangeIndexes() {
-                $('.product-row').each(function(i) {
-                    $(this).find('select, input').each(function() {
-                        const name = $(this).attr('name');
-                        const newName = name.replace(/\[\d+\]/, `[${i}]`);
-                        $(this).attr('name', newName);
-                    });
-                });
-
-                // Update index counter
-                index = $('.product-row').length;
-            }
-        });
-    </script> --}}
 @endpush

@@ -61,6 +61,29 @@
 
                         <!-- Specs -->
                         <div class="col-span-3">
+                            <div class="grid grid-cols-1 gap-4 mb-5">
+                                @foreach ($container->containerReservations as $key => $reservation)
+                                    <div
+                                        class="bg-gray-100 dark:bg-bg-dark-secondary p-3 rounded-lg flex justify-between items-center">
+                                        <p class="text-base uppercase font-bold">
+                                            {{ __('Order-') . $key + 1 }}</p>
+                                        <p class="text-base uppercase font-bold">
+                                            #{{ $reservation->order?->order_number }}</p>
+                                        <p class="text-base font-bold">
+                                            {{ $reservation->length_m * $reservation->width_m * $reservation->height_m }}
+                                            m3
+                                        </p>
+                                        <p class="text-base font-bold">
+                                            ${{ number_format($reservation->order->total, 2) }}
+                                        </p>
+                                        <p class="text-base font-bold">
+                                            <a class="text-blue-600"
+                                                href="{{ route('user.order.details', $reservation->order?->order_number) }}">{{ __('Details') }}</a>
+                                        </p>
+                                    </div>
+                                @endforeach
+                            </div>
+
                             <div class="grid grid-cols-2 gap-4">
                                 @php
                                     $container_volume =
@@ -74,22 +97,24 @@
                                         'Width' => "{$container->width_m} m",
                                         'Height' => "{$container->height_m} m",
                                         'Max Weight' => "{$container->max_weight_kg} kg",
-                                        'Container Volume' => "{$container_volume} m3",
                                         'Base Cost' => '$' . number_format($container->base_cost, 2),
+                                        'Container Volume' => "{$container_volume} m3",
                                         'Per Cubic Meter Cost' => '$' . number_format($container->per_cbm_cost, 2),
                                         'My Volume' => "{$my_volume} m3",
-                                        'Total Cost' =>
+                                        'Container Cost' =>
                                             '$' . number_format($container->containerReservations->sum('price'), 2),
-                                        'Reserve Price' =>
+                                        'Reserve Cost' =>
                                             '$' .
                                             number_format($container->containerReservations->sum('reserve_price'), 2),
                                     ];
                                 @endphp
 
+
+
                                 @foreach ($specs as $label => $value)
                                     <div
                                         class="bg-gray-100 dark:bg-bg-dark-secondary p-3 rounded-lg flex justify-between items-center">
-                                        <p class="text-base uppercase font-medium">{{ $label }}</p>
+                                        <p class="text-base uppercase font-medium">{{ __($label) }}</p>
                                         <p class="text-base font-bold">{{ $value }}</p>
                                     </div>
                                 @endforeach
@@ -99,12 +124,12 @@
                             <div class="pt-4">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="font-medium text-base">{{ __('Capacity') }}</span>
-                                    <span>{{ $container->getFilledPercentageAttribute() }}%
+                                    <span>{{ $container->filled_percentage }}%
                                         {{ __('filled') }}</span>
                                 </div>
                                 <div class="w-full bg-gray-200 rounded-full h-2.5">
                                     <div class="bg-orange-500 h-2.5 rounded-full"
-                                        style="width: {{ $container->getFilledPercentageAttribute() }}%"></div>
+                                        style="width: {{ $container->filled_percentage }}%"></div>
                                 </div>
                             </div>
                         </div>

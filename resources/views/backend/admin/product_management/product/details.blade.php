@@ -1,7 +1,12 @@
 @extends('backend.admin.layouts.master', ['page_slug' => 'product'])
 
 @section('title', $product->name)
-
+@push('css')
+    <link rel="stylesheet" href="{{ asset('custom_litebox/litebox.css') }}">
+@endpush
+@push('js')
+    <script src="{{ asset('custom_litebox/litebox.js') }}"></script>
+@endpush
 @section('content')
     <div class="container-fluid">
         <div class="row product_tabs">
@@ -94,19 +99,19 @@
                                                     <table class="table table-bordered table-striped align-middle">
                                                         <tbody>
                                                             <tr>
-                                                                <th>Price</th>
-                                                                <td>${{ number_format($product->price, 2) }}</td>
-                                                            </tr>
-                                                            <tr>
                                                                 <th>Cost Price</th>
                                                                 <td>${{ number_format($product->cost_price, 2) }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Price</th>
+                                                                <td>${{ number_format($product->price, 2) }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Sale Price</th>
                                                                 <td>${{ number_format($product->sale_price, 2) }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th>Quantity Available</th>
+                                                                <th>Stock Quantity</th>
                                                                 <td>{{ $product->quantity }}</td>
                                                             </tr>
                                                         </tbody>
@@ -121,13 +126,15 @@
                                                             <tr>
                                                                 <th>Status</th>
                                                                 <td>
-                                                                    <span class="badge {{ $product->status_color }}">{{ $product->status_label }}</span>
+                                                                    <span
+                                                                        class="badge {{ $product->status_color }}">{{ $product->status_label }}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Featured</th>
                                                                 <td>
-                                                                    <span class="badge {{ $product->featured_color }}">{{ $product->featured_btn_label }}</span>
+                                                                    <span
+                                                                        class="badge {{ $product->featured_color }}">{{ $product->featured_btn_label }}</span>
                                                                 </td>
                                                             </tr>
                                                             {{-- Add more flags if needed --}}
@@ -188,7 +195,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th>Sub Category</th>
-                                                        <td>{{ $product->sub_category?->name ?? 'N/A' }}</td>
+                                                        <td>{{ $product->subCategory?->name ?? 'N/A' }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -204,14 +211,27 @@
                                     <h2 class="text-center m-0 p-2">{{ __('Images Gallery') }}</h2>
                                     <div class="card-body">
                                         <h4>{{ __('Primary Image') }}</h4>
-                                        <img src="{{ $product->primaryImage->first()?->modified_image }}"
-                                            alt="{{ $image->alt ?? $product->name }}">
+                                        <div class="imagePreviewDiv d-inline-block">
+                                            <div id="lightbox" class="lightbox">
+                                                <div class="lightbox-content">
+                                                    <img src="{{ $product->primaryImage?->first()?->modified_image }}"
+                                                        class="lightbox_image">
+                                                </div>
+                                                <div class="close_button fa-beat">X</div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <h4>{{ __('Images') }}</h4>
                                         @foreach ($product->images as $image)
-                                            <img src="{{ $image->modified_image }}"
-                                                alt="{{ $image->alt ?? $product->name }}">
+                                            <div class="imagePreviewDiv d-inline-block">
+                                                <div id="lightbox" class="lightbox">
+                                                    <div class="lightbox-content">
+                                                        <img src="{{ $image->modified_image }}" class="lightbox_image">
+                                                    </div>
+                                                    <div class="close_button fa-beat">X</div>
+                                                </div>
+                                            </div>
                                         @endforeach
 
                                     </div>
@@ -221,33 +241,27 @@
                         {{-- Informations --}}
                         <div id="informations" class="tab-pane">
                             <div class="mb-5">
-                                <div class="card shadow">
-                                    <div class="card-body">
-                                        <div class="card-title h5">{{ __('Informations') }}</div>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered table-striped">
-                                                <tbody>
-                                                    <tr>
-                                                        <th>Product Information Category</th>
-                                                        <td>{{ $product->infoCategory->name ?? 'N/A' }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Product Information Category Type</th>
-                                                        <td>{{ $product->infoCategoryType->name ?? 'N/A' }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Product Information Category Type Feature</th>
-                                                        <td>{{ $product->infoCategoryTypeFeature->name ?? 'N/A' }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Description</th>
-                                                        <td>{!! $product->description ?? 'N/A' !!}</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                @foreach ($product->productInformations as $info)
+                                    <div class="card shadow">
+                                        <div class="card-body">
+                                            <div class="card-title h5">{{ __('Informations') }}</div>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>Information Category</th>
+                                                            <td>{{ $info->infoCategory?->name }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Description</th>
+                                                            <td>{!! $info->description !!}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

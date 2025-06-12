@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\GroupShipping;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GroupShipping\ContainerRequest;
+use App\Jobs\ContainerStatusMailSend;
 use App\Models\Documentation;
 use App\Services\Admin\GroupShipping\ContainerService;
 use App\Services\Admin\GroupShipping\ShippingLocationService;
@@ -54,6 +55,9 @@ class ContainerController extends Controller
                 ->editColumn('destination_port', function ($container) {
                     return $container->destinationPort->name ?? '';
                 })
+                ->editColumn('full_container_reserved', function ($container) {
+                    return "<span class='badge " . $container->reserve_status_color . "'>$container->reserve_status_label</span>";
+                })
                 ->editColumn('status', function ($container) {
                     return "<span class='badge " . $container->status_color . "'>$container->status_label</span>";
                 })
@@ -67,7 +71,7 @@ class ContainerController extends Controller
                     $menuItems = $this->menuItems($container);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
-                ->rawColumns(['status', 'shipping_port', 'destination_port', 'created_by', 'created_at', 'action'])
+                ->rawColumns(['status', 'full_container_reserved', 'shipping_port', 'destination_port', 'created_by', 'created_at', 'action'])
                 ->make(true);
         }
         return view('backend.admin.group_shipping.container.index');
@@ -184,6 +188,9 @@ class ContainerController extends Controller
                 ->editColumn('status', function ($container) {
                     return "<span class='badge " . $container->status_color . "'>$container->status_label</span>";
                 })
+                ->editColumn('status', function ($container) {
+                    return "<span class='badge " . $container->status_color . "'>$container->status_label</span>";
+                })
                 ->editColumn('deleted_by', function ($container) {
                     return $container->deleter_name;
                 })
@@ -226,7 +233,7 @@ class ContainerController extends Controller
     {
         $data['shippingLocations'] = $this->shippingLocationService->getShippingLocations()->active()->select(['id', 'name'])->get();
         $data['products'] = $this->productService->getProducts()->active()->select(['id', 'name'])->get();
-        $data['document'] = Documentation::where([['module_key', 'shipping-location'], ['type', 'create']])->first();
+        $data['document'] = Documentation::where([['module_key', 'container'], ['type', 'create']])->first();
         return view('backend.admin.group_shipping.container.create', $data);
     }
 
@@ -240,13 +247,6 @@ class ContainerController extends Controller
                 $validated = $request->validated();
                 $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
                 $container = $this->containerService->createContainer($validated, $file);
-                // if (collect($request->validated('container_products')[0])->filter()->isNotEmpty()) {
-                //     foreach ($request->validated('container_products') as $key => $value) {
-                //         $value['container_id'] = $container->id;
-                //         $this->containerService->createContainerProducts($value);
-                //     }
-                // }
-
             });
             session()->flash('success', 'Container created successfully!');
         } catch (\Throwable $e) {
@@ -315,6 +315,12 @@ class ContainerController extends Controller
     public function destroy(string $id)
     {
         try {
+            $container = $this->containerService->getContainer($id);
+            $container->load('containerReservations');
+            if ($container->containerReservations->count()) {
+                session()->flash('error', 'You cannot delete this container. Container has already been reserved!');
+                return redirect()->route('gs.container.index');
+            }
             $this->containerService->deleteContainer($id);
             session()->flash('success', 'Container deleted successfully!');
         } catch (\Throwable $e) {
@@ -328,10 +334,24 @@ class ContainerController extends Controller
     public function status(string $id, string $status): RedirectResponse
     {
         try {
+            $container = $this->containerService->getContainer($id);
+            if (decrypt($status) == Container::STATUS_PENDING) {
+
+                $container->load('containerReservations');
+                if ($container->containerReservations->count()) {
+                    session()->flash('error', 'You cannot make this container pending. Container has already been reserved!');
+                    return redirect()->route('gs.container.index');
+                }
+            }
             $this->containerService->toggleStatus($id, $status);
+
+            if ($container->status != Container::STATUS_PENDING) {
+                ContainerStatusMailSend::dispatch($container);
+                ContainerStatusMailSend::dispatch($container, true);
+            }
             session()->flash('success', 'Container status updated successfully!');
         } catch (\Throwable $e) {
-            session()->flash('error', 'Container status update failed!');
+            session()->flash('error', 'Container status update failed! ' . $e->getMessage());
             throw $e;
         }
         return redirect()->route('gs.container.index');

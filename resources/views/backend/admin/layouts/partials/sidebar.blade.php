@@ -27,7 +27,7 @@
 
                 <li class="nav-item  @if ($page_slug == 'dashboard') active @endif">
                     <a href="{{ route('admin.dashboard') }}">
-                        <i class="icon-chart"></i>
+                        <i class="icon-speedometer"></i>
                         <p>{{ __('Dashboard') }}</p>
                     </a>
                 </li>
@@ -36,7 +36,7 @@
                     <li class="nav-item  @if ($page_slug == 'admin' || $page_slug == 'role' || $page_slug == 'permission') active submenu @endif">
                         <a data-bs-toggle="collapse" href="#admin_management"
                             @if ($page_slug == 'admin') aria-expanded="true" @endif>
-                            <i class="icon-people"></i>
+                            <i class="icon-shield"></i>
                             <p>{{ __('Admin Management') }}</p>
                             <span class="caret"></span>
                         </a>
@@ -95,7 +95,7 @@
                     <li class="nav-item  @if ($page_slug == 'supplier') active submenu @endif">
                         <a data-bs-toggle="collapse" href="#supplier_management"
                             @if ($page_slug == 'supplier') aria-expanded="true" @endif>
-                            <i class="icon-people"></i>
+                            <i class="icon-layers"></i>
                             <p>{{ __('Supplier Management') }}</p>
                             <span class="caret"></span>
                         </a>
@@ -117,7 +117,7 @@
                     <li class="nav-item  @if ($page_slug == 'shipping_location' || $page_slug == 'container' || $page_slug == 'container_reservation') active submenu @endif">
                         <a data-bs-toggle="collapse" href="#shipping_location_management"
                             @if ($page_slug == 'shipping_location' || $page_slug == 'container' || $page_slug == 'container_reservation') aria-expanded="true" @endif>
-                            <i class="icon-people"></i>
+                            <i class="icon-location-pin"></i>
                             <p>{{ __('GS Management') }}</p>
                             <span class="caret"></span>
                         </a>
@@ -149,6 +149,71 @@
                         </div>
                     </li>
                 @endcanany
+                {{-- Order Management  --}}
+                @canany(['order-list'])
+                    <li class="nav-item  @if (
+                        $page_slug == 'order_pending' ||
+                            $page_slug == 'order_submitted' ||
+                            $page_slug == 'order_confirm' ||
+                            $page_slug == 'order_shipped' ||
+                            $page_slug == 'order_delivered' ||
+                            $page_slug == 'order_canceled') active submenu @endif">
+                        <a data-bs-toggle="collapse" href="#order_management"
+                            @if (
+                                $page_slug == 'order_pending' ||
+                                    $page_slug == 'order_submitted' ||
+                                    $page_slug == 'order_confirm' ||
+                                    $page_slug == 'order_shipped' ||
+                                    $page_slug == 'order_delivered' ||
+                                    $page_slug == 'order_canceled') aria-expanded="true" @endif>
+                            <i class="icon-basket"></i>
+                            <p>{{ __('Order Management') }}</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse @if (
+                            $page_slug == 'order_pending' ||
+                                $page_slug == 'order_submitted' ||
+                                $page_slug == 'order_confirm' ||
+                                $page_slug == 'order_shipped' ||
+                                $page_slug == 'order_delivered' ||
+                                $page_slug == 'order_canceled') show @endif" id="order_management">
+                            <ul class="nav nav-collapse">
+                                @can('order-list')
+                                    <li class="@if ($page_slug == 'order_submitted') active @endif">
+                                        <a href="{{ route('om.order.index', ['status' => 'submitted']) }}">
+                                            <span class="sub-item">{{ __('Submitted Orders') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="@if ($page_slug == 'order_confirm') active @endif">
+                                        <a href="{{ route('om.order.index', ['status' => 'confirm']) }}">
+                                            <span class="sub-item">{{ __('Confirm Orders') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="@if ($page_slug == 'order_shipped') active @endif">
+                                        <a href="{{ route('om.order.index', ['status' => 'shipped']) }}">
+                                            <span class="sub-item">{{ __('Shipped Orders') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="@if ($page_slug == 'order_delivered') active @endif">
+                                        <a href="{{ route('om.order.index', ['status' => 'delivered']) }}">
+                                            <span class="sub-item">{{ __('Delivered Orders') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="@if ($page_slug == 'order_pending') active @endif">
+                                        <a href="{{ route('om.order.index', ['status' => 'pending']) }}">
+                                            <span class="sub-item">{{ __('Pending Orders') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="@if ($page_slug == 'order_canceled') active @endif">
+                                        <a href="{{ route('om.order.index', ['status' => 'canceled']) }}">
+                                            <span class="sub-item">{{ __('Canceled Orders') }}</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </div>
+                    </li>
+                @endcanany
 
                 {{-- Setup Management  --}}
                 @canany(['country-list', 'state-list', 'city-list', 'operation-area-list', 'operation-sub-area-list'])
@@ -165,7 +230,7 @@
                                     $page_slug == 'city' ||
                                     $page_slug == 'operation_area' ||
                                     $page_slug == 'operation_sub_area') aria-expanded="true" @endif>
-                            <i class="icon-people"></i>
+                            <i class="icon-settings"></i>
                             <p>{{ __('Setup') }}</p>
                             <span class="caret"></span>
                         </a>
@@ -257,7 +322,7 @@
                                     $page_slug == 'pro_info_cat_tf' ||
                                     $page_slug == 'product') aria-expanded="true" @endif>
 
-                            <i class="icon-people"></i>
+                            <i class="icon-layers"></i>
                             <p>{{ __('Product Management') }}</p>
                             <span class="caret"></span>
                         </a>
@@ -458,35 +523,34 @@
                                         </div>
                                     </li>
                                 @endcanany
-
-                                @can('product-create')
-                                    <li class="@if ($page_slug == 'product' && isset($product_type) && $product_type == App\Models\Product::PRODUCT_TYPE_NORMAL) active @endif">
+                                @can('product-list')
+                                    <li class="@if ($page_slug == 'product' && (isset($product_type) && $product_type == App\Models\Product::PRODUCT_TYPE_NORMAL)) active @endif">
                                         <a
-                                            href="{{ route('pm.product.create', ['product_type' => App\Models\Product::PRODUCT_TYPE_NORMAL]) }}">
-                                            <span class="sub-item">{{ __('Add Product') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('product-create')
-                                    <li class="@if ($page_slug == 'product' && isset($product_type) && $product_type == App\Models\Product::PRODUCT_TYPE_PARTS) active @endif">
-                                        <a
-                                            href="{{ route('pm.product.create', ['product_type' => App\Models\Product::PRODUCT_TYPE_PARTS]) }}">
-                                            <span class="sub-item">{{ __('Add Parts & Accessories') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('product-create')
-                                    <li class="@if ($page_slug == 'product' && isset($product_type) && $product_type == App\Models\Product::PRODUCT_TYPE_DROPSHIPPING) active @endif">
-                                        <a
-                                            href="{{ route('pm.product.create', ['product_type' => App\Models\Product::PRODUCT_TYPE_DROPSHIPPING]) }}">
-                                            <span class="sub-item">{{ __('Add Dropshipping Product') }}</span>
+                                            href="{{ route('pm.product.index', ['product_type' => App\Models\Product::PRODUCT_TYPE_NORMAL]) }}">
+                                            <span class="sub-item">{{ __('Product') }}</span>
                                         </a>
                                     </li>
                                 @endcan
                                 @can('product-list')
-                                    <li class="@if ($page_slug == 'product' && (empty($product_type) || !isset($product_type))) active @endif">
-                                        <a href="{{ route('pm.product.index') }}">
-                                            <span class="sub-item">{{ __('Product') }}</span>
+                                    <li class="@if ($page_slug == 'product' && isset($product_type) && $product_type == App\Models\Product::PRODUCT_TYPE_PARTS) ) active @endif">
+                                        <a
+                                            href="{{ route('pm.product.index', ['product_type' => App\Models\Product::PRODUCT_TYPE_PARTS]) }}">
+                                            <span class="sub-item">{{ __('Parts & Accessories') }}</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('product-list')
+                                    <li class="@if ($page_slug == 'product' && isset($product_type) && $product_type == App\Models\Product::PRODUCT_TYPE_DROPSHIPPING) ) active @endif">
+                                        <a
+                                            href="{{ route('pm.product.index', ['product_type' => App\Models\Product::PRODUCT_TYPE_DROPSHIPPING]) }}">
+                                            <span class="sub-item">{{ __('Dropshipping Product') }}</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('product-list')
+                                    <li class="@if ($page_slug == 'product' && isset($product_type) && $product_type == 'out-of-stock') ) active @endif">
+                                        <a href="{{ route('pm.product.index', ['product_type' => 'out-of-stock']) }}">
+                                            <span class="sub-item">{{ __('Out of Stock') }}</span>
                                         </a>
                                     </li>
                                 @endcan
@@ -496,34 +560,37 @@
                 @endcanany
 
                 {{-- Auction Management --}}
-                @canany(['auction-list', 'auction-running-list'])
-                    <li class="nav-item  @if ($page_slug == 'auction' || $page_slug == 'auction_running') active submenu @endif">
-                        <a data-bs-toggle="collapse" href="#auction_management"
-                            @if ($page_slug == 'auction' || $page_slug == 'auction_running') aria-expanded="true" @endif>
-                            <i class="fas fa-gavel"></i>
-                            <p>{{ __('Auction Management') }}</p>
-                            <span class="caret"></span>
-                        </a>
-                        <div class="collapse @if ($page_slug == 'auction' || $page_slug == 'auction_running') show @endif" id="auction_management">
-                            <ul class="nav nav-collapse">
-                                @can('auction-list')
-                                    <li class="@if ($page_slug == 'auction') active @endif">
-                                        <a href="{{ route('auction-m.auction.index') }}">
-                                            <span class="sub-item">{{ __('Auction') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('auction-running-list')
-                                    <li class="@if ($page_slug == 'auction_running') active @endif">
-                                        <a href="{{ route('auction-m.auction-running') }}">
-                                            <span class="sub-item">{{ __('Auction Running') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                            </ul>
-                        </div>
-                    </li>
-                @endcanany
+                @if (isset($not_used))
+                    {{-- @canany(['auction-list', 'auction-running-list'])
+                        <li class="nav-item  @if ($page_slug == 'auction' || $page_slug == 'auction_running') active submenu @endif">
+                            <a data-bs-toggle="collapse" href="#auction_management"
+                                @if ($page_slug == 'auction' || $page_slug == 'auction_running') aria-expanded="true" @endif>
+                                <i class="icon-energy"></i>
+                                <p>{{ __('Auction Management') }}</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse @if ($page_slug == 'auction' || $page_slug == 'auction_running') show @endif" id="auction_management">
+                                <ul class="nav nav-collapse">
+                                    @can('auction-list')
+                                        <li class="@if ($page_slug == 'auction') active @endif">
+                                            <a href="{{ route('auction-m.auction.index') }}">
+                                                <span class="sub-item">{{ __('Auction') }}</span>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('auction-running-list')
+                                        <li class="@if ($page_slug == 'auction_running') active @endif">
+                                            <a href="{{ route('auction-m.auction-running') }}">
+                                                <span class="sub-item">{{ __('Auction Running') }}</span>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </div>
+                        </li>
+                    @endcanany --}}
+                @endif
+
                 {{-- CMS Management  --}}
                 @canany(['banner-list', 'faq-list', 'testimonial-list', 'contact-list', 'region-list',
                     'region-shipping-timeline-list'])
@@ -542,7 +609,7 @@
                                     $page_slug == 'contact' ||
                                     $page_slug == 'region' ||
                                     $page_slug == 'region_shipping_timeline') aria-expanded="true" @endif>
-                            <i class="icon-people"></i>
+                            <i class="icon-doc"></i>
                             <p>{{ __('CMS Management') }}</p>
                             <span class="caret"></span>
                         </a>
@@ -604,7 +671,7 @@
                 @can('audit-list')
                     <li class="nav-item  @if ($page_slug == 'audits') active @endif">
                         <a href="{{ route('audit.index') }}">
-                            <i class="icon-ban"></i>
+                            <i class="icon-note"></i>
                             <p>{{ __('Audits') }}</p>
                         </a>
                     </li>
@@ -612,24 +679,15 @@
                 @can('documentation-list')
                     <li class="nav-item  @if ($page_slug == 'documentation') active @endif">
                         <a href="{{ route('documentation.index') }}">
-                            <i class="icon-docs"></i>
+                            <i class="icon-book-open"></i>
                             <p>{{ __('Documentation') }}</p>
                         </a>
                     </li>
                 @endcan
-                {{-- @can('temp-list')
-                    <li class="nav-item  @if ($page_slug == 'temp_file') active @endif">
-                        <a href="{{ route('temp.index') }}">
-                            <i class="icon-trash"></i>
-                            <p>{{ __('Temporary Files') }}</p>
-                        </a>
-                    </li>
-                @endcan --}}
-
                 @can('application-settings')
                     <li class="nav-item  @if ($page_slug == 'site_setting') active @endif">
                         <a href="{{ route('site_setting.index') }}">
-                            <i class="icon-settings"></i>
+                            <i class="icon-equalizer"></i>
                             <p>{{ __('Application Settings') }}</p>
                         </a>
                     </li>
