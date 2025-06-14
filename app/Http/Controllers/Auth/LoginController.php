@@ -8,6 +8,7 @@ use App\Models\Order;
 use DB;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Session;
 
@@ -38,6 +39,7 @@ class LoginController extends Controller
                 }
             });
             session()->put('cart_session_id', $sessionId);
+            App::setLocale($user->locale);
 
         }
     }
