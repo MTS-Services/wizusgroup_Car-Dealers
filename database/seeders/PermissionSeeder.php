@@ -14,6 +14,9 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
+
+        Permission::truncate();
+
         $csvFile = public_path('csv/permissions.csv');
 
         $csv = Reader::createFromPath($csvFile, 'r');
