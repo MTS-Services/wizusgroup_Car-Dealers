@@ -1,33 +1,33 @@
 @extends('frontend.layouts.app')
 @section('content')
     <section class="py-20">
-        <div class="container">  
-            <div      
+        <div class="container">
+            <div
                 class="shadow-shadowPrimary shadow-shadow-dark/10 dark:shadow-shadow-light/10 rounded-2xl w-full overflow-hidden bg-bg-white dark:bg-bg-dark-tertiary p-5">
                 <h2 class="text-3xl font-semibold text-center mb-6">{{ __('Start Your Journey with Us') }}</h2>
                 <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="grid grid-cols-1 gap-5">           
-                        {{-- Name Field --}}    
-                        <div class="flex flex-col md:flex-row gap-3"> 
-                            <div class="w-full"> 
-                                <label class="w-full"> 
-                                    <span class="label">{{ __('First Name') }} <span class="text-red-500">*</span></span> 
-                                    <input type="text" placeholder="First Name" name="first_name" 
-                                        value="{{ old('first_name') }}" class="input" /> 
+                    <div class="grid grid-cols-1 gap-5">
+                        {{-- Name Field --}}
+                        <div class="flex flex-col md:flex-row gap-3">
+                            <div class="w-full">
+                                <label class="w-full">
+                                    <span class="label">{{ __('First Name') }} <span class="text-red-500">*</span></span>
+                                    <input type="text" placeholder="First Name" name="first_name"
+                                        value="{{ old('first_name') }}" class="input" />
                                 </label>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'first_name']" />
-                            </div>   
-                            <div class="w-full">       
-                                <label class="w-full">      
+                            </div>
+                            <div class="w-full">
+                                <label class="w-full">
                                     <span class="label">{{ __('Last Name') }} <span class="text-red-500">*</span></span>
                                     <input type="text" placeholder="Last Name" value="{{ old('last_name') }}"
                                         name="last_name" class="input" />
                                 </label>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'last_name']" />
                             </div>
-                        </div>   
-                                    
+                        </div>
+
                         {{-- Email And Language --}}
                         <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
@@ -45,17 +45,17 @@
                                 </label>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'email']" />
                             </div>
-                            <div class="w-full">   
+                            <div class="w-full">
                                 <span class="label block">{{ __('Language') }}<span class="text-red-500">*</span></span>
                                 <div class="input justify-between flex-wrap py-2 px-5 h-fit">
                                     @foreach (App\Models\PersonalInformation::getLanguages() as $key => $language)
                                         <label for="language-{{ $key }}" class="flex items-center gap-2">
                                             <input type="radio" name="language" value="{{ $key }}"
                                                 class="radio radio-xs radio-info" @checked(old('language', App\Models\PersonalInformation::LANGUAGE_ENGLISH) == $key)
-                                                id="language-{{ $key }}" />  
+                                                id="language-{{ $key }}" />
                                             <span>{{ $language }}</span>
                                         </label>
-                                    @endforeach  
+                                    @endforeach
                                 </div>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'language']" />
                             </div>
@@ -75,14 +75,14 @@
                                             </path>
                                             <circle cx="16.5" cy="7.5" r=".5" fill="currentColor">
                                             </circle>
-                                        </g> 
-                                    </svg>   
+                                        </g>
+                                    </svg>
                                     <input type="password" placeholder="Password" name="password" />
                                     <button type="button"
                                         class="showpassword absolute top-1/2 right-1 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full text-text-primary dark:text-text-light hover:text-text-secondary transition-all duration-300 ease-linear">
                                         <i class="fa-regular fa-eye-slash w-4 h-4"></i>
                                     </button>
-                                </label>    
+                                </label>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'password']" />
                             </div>
                             <div class="w-full">
@@ -162,8 +162,8 @@
                         <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label">{{ __('Street Address') }}<span class="text-red-500">*</span></span>
-                                <input type="text" name="address_line_1" placeholder="Street Address" value="{{ old('address_line_1') }}"
-                                    class="input">
+                                <input type="text" name="address_line_1" placeholder="Street Address"
+                                    value="{{ old('address_line_1') }}" class="input">
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'address_line_1']" />
                             </div>
                             <div class="w-full">
@@ -175,41 +175,9 @@
                             </div>
                         </div>
 
-                        {{-- Phone Number --}}
-                        <div class="flex flex-col md:flex-row gap-3">
-                            <div class="w-full">
-                                <span class="label">{{ __('Tel (first contact)') }}<span
-                                        class="text-red-500">*</span></span>
-                                <input type="text" class="input" value="{{ old('phone') }}"
-                                    placeholder="000-0000-0000" name="phone" />
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'phone']" />
-                            </div>
-                            <div class="w-full">
-                                <span class="label">{{ __('Tel (second contact)') }}</span>
-                                <input type="text" class="input" value="{{ old('phone_2') }}"
-                                    placeholder="000-0000-0000" name="phone_2" />
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'phone_2']" />
-                            </div>
-                        </div>
 
-                        {{-- Company name and Occupation --}}
-                        <div class="flex flex-col md:flex-row gap-3">
-                            <div class="w-full">
-                                <span class="label">{{ __('Company Name') }}</span>
-                                <input type="text" placeholder="Company name" value="{{ old('company_name') }}"
-                                    name="company_name" class="input" />
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'company_name']" />
-                            </div>
-                            <div class="w-full">
-                                <span class="label">{{ __('Occupation') }} <span class="text-red-500">*</span></span>
-                                <input type="text" placeholder="Company name" value="{{ old('occupation') }}"
-                                    name="occupation" class="input" />
 
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'occupation']" />
-                            </div>
-                        </div>
 
-                        {{-- Date of birth and Business Type --}}
                         <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label">{{ __('Date of Birth') }}<span class="text-red-500">*</span></span>
@@ -217,7 +185,7 @@
                                     name="dob" class="input py-0 px-4" />
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'dob']" />
                             </div>
-                            <div class="w-full">  
+                            <div class="w-full">
                                 <span class="label block">{{ __('Business Type') }}<span
                                         class="text-red-500">*</span></span>
                                 <div class="input justify-between flex-wrap py-2 px-5 h-fit">
@@ -233,9 +201,40 @@
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'business_type']" />
                             </div>
                         </div>
+                        @if (isset($not_use))
+                            {{-- <div class="flex flex-col md:flex-row gap-3">
+                                <div class="w-full">
+                                    <span class="label">{{ __('Tel (first contact)') }}<span
+                                            class="text-red-500">*</span></span>
+                                    <input type="text" class="input" value="{{ old('phone') }}"
+                                        placeholder="000-0000-0000" name="phone" />
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'phone']" />
+                                </div>
+                                <div class="w-full">
+                                    <span class="label">{{ __('Tel (second contact)') }}</span>
+                                    <input type="text" class="input" value="{{ old('phone_2') }}"
+                                        placeholder="000-0000-0000" name="phone_2" />
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'phone_2']" />
+                                </div>
+                            </div>
 
-                        {{-- Business Name and Information --}}
-                        <div class="flex flex-col md:flex-row gap-3">
+                            <div class="flex flex-col md:flex-row gap-3">
+                                <div class="w-full">
+                                    <span class="label">{{ __('Company Name') }}</span>
+                                    <input type="text" placeholder="Company name" value="{{ old('company_name') }}"
+                                        name="company_name" class="input" />
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'company_name']" />
+                                </div>
+                                <div class="w-full">
+                                    <span class="label">{{ __('Occupation') }} <span
+                                            class="text-red-500">*</span></span>
+                                    <input type="text" placeholder="Company name" value="{{ old('occupation') }}"
+                                        name="occupation" class="input" />
+
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'occupation']" />
+                                </div>
+                            </div>
+                            <div class="flex flex-col md:flex-row gap-3">
                             <div class="w-full">
                                 <span class="label">{{ __('Business Name') }} <span class="text-red-500">*</span></span>
                                 <select name="business_name" class="select">
@@ -260,84 +259,85 @@
                                     disabled />
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'business_information']" />
                             </div>
-                        </div>
-
-                        {{-- Business Line and Receive Promotion Emails --}}
-                        <div class="flex flex-col md:flex-row gap-3">
-                            <div class="w-full">
-                                <span class="label">{{ __('Business Line') }} <span class="text-red-500">*</span></span>
-                                <select name="business_line" class="select">
-                                    <option value="" disabled selected>{{ __('Select Business Line') }}</option>
-                                    @foreach (App\Models\User::getBusinessLines() as $key => $line)
-                                        <option value="{{ $key }}"
-                                            {{ old('business_line') == $key ? 'selected' : '' }}>
-                                            {{ $line }}</option>
-                                    @endforeach
-                                </select>
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'business_line']" />
                             </div>
-                            <div class="w-full">
-                                <span class="label block">{{ __('Receive Promotion Emails?') }}<span
-                                        class="text-red-500">*</span></span>
-                                <div class="input justify-between flex-wrap py-2 px-5 h-fit">
-                                    @foreach (App\Models\User::getReceivePromotionEmails() as $key => $promotional_email)
-                                        <label for="promotional_email-{{ $key }}"
-                                            class="flex items-center gap-2">
-                                            <input type="radio" name="receive_promotion_email"
-                                                value="{{ $key }}" class="radio radio-xs radio-info"
-                                                @checked(old('receive_promotion_email') == $key) id="promotional_email-{{ $key }}" />
-                                            <span>{{ $promotional_email }}</span>
-                                        </label>
-                                    @endforeach
+
+
+                            <div class="flex flex-col md:flex-row gap-3">
+                                <div class="w-full">
+                                    <span class="label">{{ __('Business Line') }} <span class="text-red-500">*</span></span>
+                                    <select name="business_line" class="select">
+                                        <option value="" disabled selected>{{ __('Select Business Line') }}</option>
+                                        @foreach (App\Models\User::getBusinessLines() as $key => $line)
+                                            <option value="{{ $key }}"
+                                                {{ old('business_line') == $key ? 'selected' : '' }}>
+                                                {{ $line }}</option>
+                                        @endforeach
+                                    </select>
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'business_line']" />
                                 </div>
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'receive_promotion_email']" />
-                            </div>
-                        </div>
-
-                        {{-- How did you hear about us and For Friend and Other --}}
-                        <div class="flex flex-col md:flex-row gap-3">
-                            <div class="w-full">
-                                <span class="label">{{ __('How did you hear about us') }} <span
-                                        class="text-red-500">*</span></span>
-                                <select name="how_know" class="select">
-                                    <option value="" disabled selected>{{ __('How did you hear about us') }}
-                                    </option>
-                                    @foreach (App\Models\User::getKnows() as $key => $know)
-                                        <option value="{{ $key }}"
-                                            {{ old('how_know') == $key ? 'selected' : '' }}>
-                                            {{ $know }}</option>
-                                    @endforeach
-                                </select>
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'how_know']" />
-                            </div>
-                            <div class="w-full">
-                                <span class="label">{{ __('Please Provide Details for Friend or Other') }} <span
-                                        class="text-red-500">*</span></span>
-                                <input type="text" placeholder="Please Enter the Details"
-                                    value="{{ old('how_know_detail') }}" name="how_know_detail" class="input"
-                                    disabled />
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'how_know_detail']" />
-                            </div>
-                        </div>
-
-                        {{-- ID Registration and Dealer Registration Permit --}}
-                        <div class="flex flex-col md:flex-row gap-3">
-                            <div class="w-full">   
-                                <span class="label">{{ __('ID Registration') }}</span>
-                                <input type="file" name="id_registration_info" class="form-control filepond"
-                                    id="id_registration_info" accept="application/pdf">
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'id_registration_info']" />
-                            </div> 
-                            <div class="w-full">  
-                                <span class="label">{{ __('Dealer Registration Permit') }}</span>
-                                <input type="file" name="dealer_registration_permit" class="form-control filepond"
-                                    id="dealer_registration_permit" accept="application/pdf">
-                                <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'dealer_registration_permit']" />
+                                <div class="w-full">
+                                    <span class="label block">{{ __('Receive Promotion Emails?') }}<span
+                                            class="text-red-500">*</span></span>
+                                    <div class="input justify-between flex-wrap py-2 px-5 h-fit">
+                                        @foreach (App\Models\User::getReceivePromotionEmails() as $key => $promotional_email)
+                                            <label for="promotional_email-{{ $key }}"
+                                                class="flex items-center gap-2">
+                                                <input type="radio" name="receive_promotion_email"
+                                                    value="{{ $key }}" class="radio radio-xs radio-info"
+                                                    @checked(old('receive_promotion_email') == $key) id="promotional_email-{{ $key }}" />
+                                                <span>{{ $promotional_email }}</span>
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'receive_promotion_email']" />
+                                </div>
                             </div>
 
-                        </div>
-                    
-                        {{-- Accept Terms --}} 
+
+                            <div class="flex flex-col md:flex-row gap-3">
+                                <div class="w-full">
+                                    <span class="label">{{ __('How did you hear about us') }} <span
+                                            class="text-red-500">*</span></span>
+                                    <select name="how_know" class="select">
+                                        <option value="" disabled selected>{{ __('How did you hear about us') }}
+                                        </option>
+                                        @foreach (App\Models\User::getKnows() as $key => $know)
+                                            <option value="{{ $key }}"
+                                                {{ old('how_know') == $key ? 'selected' : '' }}>
+                                                {{ $know }}</option>
+                                        @endforeach
+                                    </select>
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'how_know']" />
+                                </div>
+                                <div class="w-full">
+                                    <span class="label">{{ __('Please Provide Details for Friend or Other') }} <span
+                                            class="text-red-500">*</span></span>
+                                    <input type="text" placeholder="Please Enter the Details"
+                                        value="{{ old('how_know_detail') }}" name="how_know_detail" class="input"
+                                        disabled />
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'how_know_detail']" />
+                                </div>
+                            </div>
+
+
+                            <div class="flex flex-col md:flex-row gap-3">
+                                <div class="w-full">
+                                    <span class="label">{{ __('ID Registration') }}</span>
+                                    <input type="file" name="id_registration_info" class="form-control filepond"
+                                        id="id_registration_info" accept="application/pdf">
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'id_registration_info']" />
+                                </div>
+                                <div class="w-full">
+                                    <span class="label">{{ __('Dealer Registration Permit') }}</span>
+                                    <input type="file" name="dealer_registration_permit" class="form-control filepond"
+                                        id="dealer_registration_permit" accept="application/pdf">
+                                    <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'dealer_registration_permit']" />
+                                </div>
+
+                            </div>
+
+                             --}}
+                        @endif
                         <div class="flex flex-col items-center md:flex-row gap-3">
                             <div class="w-full text-end">
                                 <label class="flex items-center gap-2 justify-end">
@@ -348,13 +348,13 @@
                                         @checked(old('accept_terms') == App\Models\User::ACCEPT_TERMS) />
                                 </label>
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'accept_terms']" />
-                            </div> 
+                            </div>
                             <div class="w-full">
                                 <button type="submit" class="btn-primary">{{ __('Register') }}</button>
                             </div>
-                        </div> 
+                        </div>
                     </div>
-                </form>  
+                </form>
 
                 <div>
                     <div class="divider">{{ __('Or sign up with') }}</div>
@@ -373,24 +373,22 @@
                     </p>
                 </div>
             </div>
-        </div> 
+        </div>
     </section>
-
-
-@endsection  
+@endsection
 @push('js')
     <script src="{{ asset('frontend/js/password.js') }}"></script>
     {{-- FilePond  --}}
     <script src="{{ asset('filepond/filepond.js') }}"></script>
-    <script> 
+    <script>
         $(document).ready(function() {
             file_upload(["#id_registration_info"], ["application/pdf"]);
             file_upload(["#dealer_registration_permit"], ["application/pdf"]);
         });
     </script>
     {{-- FilePond  --}}
-    
-     
+
+
     <script>
         $(document).ready(function() {
             //  Business Information
@@ -437,8 +435,7 @@
             });
             if (`{{ old('state_id') }}`) {
                 getCities(`{{ old('state_id') }}`, route2, `{{ old('city_id') }}`);
-            }  
+            }
         })
     </script>
-@endpush  
-          
+@endpush
