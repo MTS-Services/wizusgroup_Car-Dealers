@@ -6,7 +6,7 @@
             <p class="text-text-gray dark:text-text-light">{{ __('Track and manage your container shipments') }}</p>
         </div>
         <!-- Filters -->
-        <div class="mb-6 flex flex-wrap gap-2">
+        <div class="mb-6 flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2">
             <a href="{{ route('user.profile', ['slug' => 'containers', 'tab' => 'all']) }}"
                 class="btn-item {{ request('tab') == 'all' || request('tab') == null ? ' bg-bg-tertiary ' : '' }} btn-primary hover:bg-bg-tertiary py-2 rounded-md"
                 data-tab="all">
@@ -145,7 +145,7 @@
                 </div>
             @empty
                 <div
-                    class="col-span-full text-2xl font-semibold w-full text-text-primary dark:text-text-light text-center uppercase bg-bg-white dark:bg-opacity-30 rounded-lg p-5 shadow-card">
+                    class="col-span-full text-base md:text-lg xl:text-xl font-semibold w-full text-text-primary dark:text-text-light text-center uppercase bg-bg-white dark:bg-opacity-30 rounded-lg p-5 shadow-card">
                     {{ __('Containers Not Found') }}
                 </div>
             @endforelse
