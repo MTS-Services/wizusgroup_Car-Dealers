@@ -7,7 +7,7 @@
                 <div class="w-full lg:w-1/2">
                     <h2 class="text-xl md:text-2xl xl:text-3xl font-semibold capitalize pb-3">{{ __('Contact us') }}</h2>
                     <div class="shadow-card bg-bg-light dark:bg-opacity-20 rounded-md p-6">
-                        <h2 class="text-base md:text-lg xl:text-xl font-bold pb-3">{{ __('Send Us and Iquery') }}</h2>
+                        <h2 class="text-base md:text-lg xl:text-xl font-bold pb-3">{{ __('Send Us and Inquiry') }}</h2>
                         <form action="{{ route('frontend.contact-store') }}" method="POST">
                             @csrf
                             <div class="grid grid-cols-1  gap-4">

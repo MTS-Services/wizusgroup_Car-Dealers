@@ -248,12 +248,7 @@
                                         'icon' => 'shopping-basket',
                                         'label' => 'Add to Cart',
                                         'bg' => true,
-                                        'class' => '
-
-
-
-
-                                        ',
+                                        'class' => 'add-to-cart',
                                         'data_id' => $product->id,
                                     ],
                                 ];
