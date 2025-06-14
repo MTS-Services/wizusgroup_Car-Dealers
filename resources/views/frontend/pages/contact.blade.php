@@ -66,48 +66,47 @@
                                     href="tel:{{ settings('phone') ?? '+8801888888888' }}">{{ settings('phone') ?? '+8801888888888' }}</a>
                             </div>
                         </div>
+                        <p class="pb-2 text-base lg:me-40 text-text-primary dark:text-text-white font-semibold capitalize">
+                            {{ 'Head Office' }}</p>
+                        <div class="text-base pb-4">
+                            <p class="mb-2"><strong>{{ __('Address') }}: </strong>
+                                <a class="text-text-primary dark:text-text-white"
+                                    href="javaScript:void(0)">{{ settings('address') ?? 'Dhaka, Bangladesh' }}</a>
+                            </p>
+                            <p class="mb-2"><strong>{{ __('Email') }}: </strong>
+                                <a class="text-text-primary dark:text-text-white hover:text-text-secondary hover:underline duration-300 ease-linear"
+                                    href="mailto:{{ settings('email') ?? 'support.wizglobal@gmail.com' }}">{{ settings('email') ?? 'support.wizglobal@gmail.com' }}</a>
+                            </p>
+                        </div>
                         @if (settings('office_infos') && is_array(json_decode(settings('office_infos'), true)))
                             @foreach (json_decode(settings('office_infos'), true) as $office_info)
                                 <p
                                     class="pb-2 text-base lg:me-40 text-text-primary dark:text-text-white font-semibold capitalize">
                                     {{ $office_info['country'] }}</p>
                                 <div class="text-base pb-4">
-                                    <p class="mb-2">
-                                        <a class="text-text-primary dark:text-text-white"
-                                            href="#">{{ $office_info['location'] }}</a>
-                                    </p>
-                                    <p class="mb-2">
-                                        <a class="text-text-primary dark:text-text-white hover:text-text-secondary hover:underline duration-300 ease-linear"
-                                            href="mailto:{{ $office_info['email'] }}">{{ $office_info['email'] }}</a>
-                                    </p>
-                                    <p class="mb-2">
-                                        <a class="text-text-primary dark:text-text-white"
-                                            href="#">{{ $office_info['phone'] }}</a>
-                                    </p>
-                                    <p class="text-text-primary dark:text-text-white">{{ __('Monday-Friday, 9am-6pm') }}
-                                    </p>
+                                    @if ($office_info['location'])
+                                        <p class="mb-2">
+                                            <strong>{{ __('Address') }}: </strong>
+                                            <a class="text-text-primary dark:text-text-white"
+                                                href="#">{{ $office_info['location'] }}</a>
+                                        </p>
+                                    @endif
+                                    @if ($office_info['email'])
+                                        <p class="mb-2">
+                                            <strong>{{ __('Email') }}: </strong>
+                                            <a class="text-text-primary dark:text-text-white hover:text-text-secondary hover:underline duration-300 ease-linear"
+                                                href="mailto:{{ $office_info['email'] }}">{{ $office_info['email'] }}</a>
+                                        </p>
+                                    @endif
+                                    @if ($office_info['phone'])
+                                        <p class="mb-2">
+                                            <strong>{{ __('Contact') }}: </strong>
+                                            <a class="text-text-primary dark:text-text-white"
+                                                href="#">{{ $office_info['phone'] }}</a>
+                                        </p>
+                                    @endif
                                 </div>
                             @endforeach
-                        @else
-                            <p
-                                class="pb-2 text-base lg:me-40 text-text-primary dark:text-text-white font-semibold capitalize">
-                                {{ 'Bangladesh' }}</p>
-                            <div class="text-base pb-4">
-                                <p class="mb-2">
-                                    <a class="text-text-primary dark:text-text-white"
-                                        href="#">{{ __('Jamuna, Dhaka, Bangladesh') }}</a>
-                                </p>
-                                <p class="mb-2">
-                                    <a class="text-text-primary dark:text-text-white hover:text-text-secondary hover:underline duration-300 ease-linear"
-                                        href="mailto:{{ 'support.wizglobal@gmail.com' }}">{{ 'support.wizglobal@gmail.com' }}</a>
-                                </p>
-                                <p class="mb-2">
-                                    <a class="text-text-primary dark:text-text-white"
-                                        href="javaScript:void(0)">{{ __('+8801888888888') }}</a>
-                                </p>
-                                <p class="text-text-primary dark:text-text-white">{{ __('Monday-Friday, 9am-6pm') }}
-                                </p>
-                            </div>
                         @endif
                     </div>
                 </div>
@@ -116,7 +115,7 @@
             <section class="pt-15">
                 <div class="rounded-md overflow-hidden">
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d51856.3358057422!2d139.60882750083385!3d35.67648520602899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x605d1b87f02e57e7%3A0x2e01618b22571b89!2sTokyo!3m2!1d35.6764225!2d139.650027!4m5!1s0x605d1b87f02e57e7%3A0x2e01618b22571b89!2sTokyo%2C%20Japan!3m2!1d35.6764225!2d139.650027!5e0!3m2!1sen!2sbd!4v1747217456466!5m2!1sen!2sbd"
+                        src="{{ settings('map_url' ?? 'https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d51856.3358057422!2d139.60882750083385!3d35.67648520602899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x605d1b87f02e57e7%3A0x2e01618b22571b89!2sTokyo!3m2!1d35.6764225!2d139.650027!4m5!1s0x605d1b87f02e57e7%3A0x2e01618b22571b89!2sTokyo%2C%20Japan!3m2!1d35.6764225!2d139.650027!5e0!3m2!1sen!2sbd!4v1747217456466!5m2!1sen!2sbd') }}"
                         width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>

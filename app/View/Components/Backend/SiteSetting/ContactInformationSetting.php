@@ -15,7 +15,7 @@ class ContactInformationSetting extends Component
      */
     public function __construct()
     {
-        $this->contact_info_settings = SiteSetting::whereIn('key', ['email', 'phone', 'whatsapp', 'address', 'office_infos', 'sort_description', 'description'])->pluck('value', 'key')->all();
+        $this->contact_info_settings = SiteSetting::whereIn('key', ['email', 'phone', 'whatsapp', 'address', 'office_infos', 'sort_description', 'description', 'map_url'])->pluck('value', 'key')->all();
     }
 
     /**
