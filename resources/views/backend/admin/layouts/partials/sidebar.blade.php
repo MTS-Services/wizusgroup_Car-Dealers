@@ -507,7 +507,7 @@
                                                         </a>
                                                     </li>
                                                 @endcan
-                                                @if ($not_use)
+                                                @if (isset($not_use))
                                                     {{-- @can('product-info-category-type-list')
                                                         <li class="@if ($page_slug == 'product_info_cat_type') active @endif">
                                                             <a href="{{ route('pm.product-info-category-type.index') }}">
