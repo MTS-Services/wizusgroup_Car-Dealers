@@ -11,14 +11,16 @@
                 onclick="openTab(event, 'tab1')">{{ __('General Settings') }}</button>
             <button id="tab2Btn" class="tablinks p-3 w-100"
                 onclick="openTab(event, 'tab2')">{{ __('Email Settings') }}</button>
-            <button id="tab3Btn" class="tablinks p-3 w-100"
-                onclick="openTab(event, 'tab3')">{{ __('Database Settings') }}</button>
-            <button id="tab4Btn" class="tablinks p-3 w-100"
-                onclick="openTab(event, 'tab4')">{{ __('SMS Settings') }}</button>
-            <button id="tab5Btn" class="tablinks p-3 w-100"
-                onclick="openTab(event, 'tab5')">{{ __('Email Templates') }}</button>
-            <button id="tab6Btn" class="tablinks p-3 w-100"
-                onclick="openTab(event, 'tab6')">{{ __('Notification Settings') }}</button>
+            @if (isset($not_use))
+                {{-- <button id="tab3Btn" class="tablinks p-3 w-100"
+                    onclick="openTab(event, 'tab3')">{{ __('Database Settings') }}</button>
+                <button id="tab4Btn" class="tablinks p-3 w-100"
+                    onclick="openTab(event, 'tab4')">{{ __('SMS Settings') }}</button>
+                <button id="tab5Btn" class="tablinks p-3 w-100"
+                    onclick="openTab(event, 'tab5')">{{ __('Email Templates') }}</button>
+                <button id="tab6Btn" class="tablinks p-3 w-100"
+                    onclick="openTab(event, 'tab6')">{{ __('Notification Settings') }}</button> --}}
+            @endif
             <button id="tab7Btn" class="tablinks p-3 w-100"
                 onclick="openTab(event, 'tab7')">{{ __('Contact Information') }}</button>
         </div>
@@ -29,18 +31,20 @@
             <div id="tab2" class="tabcontent py-3 " style="display: none">
                 <x-backend.site-setting.email-setting />
             </div>
-            <div id="tab3" class="tabcontent py-3 " style="display: none">
-                <x-backend.site-setting.database-setting />
-            </div>
-            <div id="tab4" class="tabcontent py-3 " style="display: none">
-                <x-backend.site-setting.sms-setting />
-            </div>
-            <div id="tab5" class="tabcontent py-3 " style="display: none">
-                <x-backend.site-setting.email-template-setting />
-            </div>
-            <div id="tab6" class="tabcontent py-3 " style="display: none">
-                <x-backend.site-setting.notification-setting />
-            </div>
+            @if (isset($not_use))
+                {{-- <div id="tab3" class="tabcontent py-3 " style="display: none">
+                    <x-backend.site-setting.database-setting />
+                </div>
+                <div id="tab4" class="tabcontent py-3 " style="display: none">
+                    <x-backend.site-setting.sms-setting />
+                </div>
+                <div id="tab5" class="tabcontent py-3 " style="display: none">
+                    <x-backend.site-setting.email-template-setting />
+                </div>
+                <div id="tab6" class="tabcontent py-3 " style="display: none">
+                    <x-backend.site-setting.notification-setting />
+                </div> --}}
+            @endif
             <div id="tab7" class="tabcontent py-3 " style="display: none">
                 <x-backend.site-setting.contact-information-setting />
             </div>

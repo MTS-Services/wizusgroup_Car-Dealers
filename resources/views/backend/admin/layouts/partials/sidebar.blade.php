@@ -56,13 +56,16 @@
                                         </a>
                                     </li>
                                 @endcan
-                                @can('permission-list')
-                                    <li class="@if ($page_slug == 'permission') active @endif">
-                                        <a href="{{ route('am.permission.index') }}">
-                                            <span class="sub-item">{{ __('Permission') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
+                                @if (isset($not_use))
+                                    {{-- @can('permission-list')
+                                        <li class="@if ($page_slug == 'permission') active @endif">
+                                            <a href="{{ route('am.permission.index') }}">
+                                                <span class="sub-item">{{ __('Permission') }}</span>
+                                            </a>
+                                        </li>
+                                    @endcan --}}
+                                @endif
+
                             </ul>
                         </div>
                     </li>
@@ -667,23 +670,26 @@
                         </div>
                     </li>
                 @endcanany
-
-                @can('audit-list')
-                    <li class="nav-item  @if ($page_slug == 'audits') active @endif">
-                        <a href="{{ route('audit.index') }}">
-                            <i class="icon-note"></i>
-                            <p>{{ __('Audits') }}</p>
-                        </a>
-                    </li>
-                @endcan
-                @can('documentation-list')
-                    <li class="nav-item  @if ($page_slug == 'documentation') active @endif">
-                        <a href="{{ route('documentation.index') }}">
-                            <i class="icon-book-open"></i>
-                            <p>{{ __('Documentation') }}</p>
-                        </a>
-                    </li>
-                @endcan
+                @if (isset($not_use))
+                    {{-- @can('audit-list')
+                        <li class="nav-item  @if ($page_slug == 'audits') active @endif">
+                            <a href="{{ route('audit.index') }}">
+                                <i class="icon-note"></i>
+                                <p>{{ __('Audits') }}</p>
+                            </a>
+                        </li>
+                    @endcan --}}
+                @endif
+                @if (isset($not_use))
+                    {{-- @can('documentation-list')
+                        <li class="nav-item  @if ($page_slug == 'documentation') active @endif">
+                            <a href="{{ route('documentation.index') }}">
+                                <i class="icon-book-open"></i>
+                                <p>{{ __('Documentation') }}</p>
+                            </a>
+                        </li>
+                    @endcan --}}
+                @endif
                 @can('application-settings')
                     <li class="nav-item  @if ($page_slug == 'site_setting') active @endif">
                         <a href="{{ route('site_setting.index') }}">
