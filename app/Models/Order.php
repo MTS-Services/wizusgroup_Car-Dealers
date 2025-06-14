@@ -107,13 +107,13 @@ class Order extends BaseModel
     public function getStatusTailwindColors()
     {
         return [
-            self::STATUS_INITIATED => '!bg-gray-800',
-            self::STATUS_PENDING => '!bg-yellow-800',
-            self::STATUS_SUBMITTED => '!bg-green-800',
-            self::STATUS_CONFIRM => '!bg-blue-800',
-            self::STATUS_SHIPPED => '!bg-indigo-800',
-            self::STATUS_DELIVERED => '!bg-green-800',
-            self::STATUS_CANCELED => '!bg-red-800',
+            self::STATUS_INITIATED => 'bg-gray-800',
+            self::STATUS_PENDING => 'bg-yellow-800',
+            self::STATUS_SUBMITTED => 'bg-green-800',
+            self::STATUS_CONFIRM => 'bg-blue-800',
+            self::STATUS_SHIPPED => 'bg-indigo-800',
+            self::STATUS_DELIVERED => 'bg-green-800',
+            self::STATUS_CANCELED => 'bg-red-800',
         ];
     }
 
