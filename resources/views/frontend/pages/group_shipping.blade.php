@@ -322,7 +322,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                    {{ __(' Add text here') }}
+                                    {{ __('Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -349,7 +349,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                    {{ __(' Add text here') }}
+                                    {{ __('Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -376,7 +376,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                    {{ __(' Add text here') }}
+                                    {{ __('Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -403,7 +403,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                    {{ __(' Add text here') }}
+                                    {{ __('Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -429,7 +429,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                    {{ __(' Add text here') }}
+                                    {{ __('Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -471,7 +471,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                    {{ __(' Add text here') }}
+                                    {{ __('Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -498,7 +498,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                    {{ __(' Add text here') }}
+                                    {{ __('Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -525,7 +525,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                    {{ __(' Add text here') }}
+                                    {{ __('Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -552,7 +552,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                    {{ __(' Add text here') }}
+                                    {{ __('Add text here') }}
                                 </span>
                             </li>
                         </ul>
@@ -579,7 +579,7 @@
                             <li class="flex items-center">
                                 <i class="fa-regular fa-square text-[6px] sm:text-[7px] mx-1 sm:mx-2"></i>
                                 <span class="text-text-primary/40 italic">
-                                    {{ __(' Add text here') }}
+                                    {{ __('Add text here') }}
                                 </span>
                             </li>
                         </ul>
