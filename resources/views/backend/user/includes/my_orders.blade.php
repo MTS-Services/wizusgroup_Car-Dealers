@@ -11,7 +11,7 @@
             <!-- Filters and Search -->
             <div
                 class="p-4 border-b dark:border-b-border-gray dark:border-opacity-50 flex flex-wrap justify-between items-center">
-                <div class="flex space-x-2 mb-2 sm:mb-0">
+                <div class="flex flex-wrap gap-2">
                     <a href="{{ route('user.profile', ['slug' => 'orders', 'tab' => 'all']) }}"
                         class="btn-item {{ request('tab') == 'all' || request('tab') == null ? ' bg-bg-tertiary ' : '' }} btn-primary py-2 rounded-md hover:bg-bg-tertiary">
                         {{ __('All Orders') }}
@@ -44,9 +44,8 @@
                 @endif
 
             </div>
-
-            <!-- Orders Table -->
-            <div class="overflow-x-auto">
+            <!-- Desktop Table -->
+            <div class="hidden md:block overflow-x-auto">
                 <table class="w-full">
                     <thead class="bg-bg-gray bg-opacity-50 dark:bg-opacity-20 text-left">
                         <tr>
@@ -68,63 +67,58 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-border-gray dark:divide-opacity-50">
-                        @forelse ($orders as $order)
+                        @foreach ($orders as $order)
                             <tr class="hover:bg-bg-gray dark:bg-opacity-20 hover:bg-opacity-50">
-                                <td
-                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-gray dark:text-text-light">
+                                <td class="px-6 py-4 text-sm font-medium text-text-gray dark:text-text-light">
                                     {{ $order->order_number }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
+                                <td class="px-6 py-4 text-sm text-text-gray dark:text-text-light">
                                     {{ $order->created_at_formatted }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light">
+                                <td class="px-6 py-4 text-sm text-text-gray dark:text-text-light">
                                     ${{ number_format($order->total, 2) }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-6 py-4">
                                     <span
-                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $order->status_tailwind_color }}  text-text-white">
+                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $order->status_tailwind_color }} text-text-white">
                                         {{ $order->status_label }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    @if ($order->status == App\Models\Order::STATUS_INITIATED)
-                                        <a href="{{ route('frontend.checkout', $order->order_number) }}"
-                                            title="Checkout"
-                                            class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
-                                            <i data-lucide="eye" class="w-5 h-5"></i>
-                                        </a>
-                                    @elseif ($order->status == App\Models\Order::STATUS_PENDING)
-                                        <a href="{{ route('frontend.container-order', $order->order_number) }}"
-                                            title="Container Order"
-                                            class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
-                                            <i data-lucide="eye" class="w-5 h-5"></i>
-                                        </a>
-                                    @else
-                                        <a href="{{ route('user.order.details', $order->order_number) }}"
-                                            title="Details"
-                                            class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
-                                            <i data-lucide="eye" class="w-5 h-5"></i>
-                                        </a>
-                                        @if($order->container)
-                                            <a href="{{ route('user.container.details', $order->container?->slug) }}"
-                                                title="Container"
-                                                class="inline-block text-text-secondary hover:text-text-tertiary mr-3">
-                                                <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                                            </a>
-                                        @endif
-                                    @endif
-
-
+                                <td class="px-6 py-4 text-center">
+                                    @include('components.frontend.order-actions', ['order' => $order])
                                 </td>
                             </tr>
-                        @empty
-                            <tr class="hover:bg-bg-gray dark:bg-opacity-20 hover:bg-opacity-50">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-text-gray dark:text-text-light"
-                                    colspan="5">
-                                    {{ __('No orders found.') }}
-                                </td>
-                            </tr>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
             </div>
+
+            <!-- Mobile Card View -->
+            <div class="block md:hidden">
+                @foreach ($orders as $order)
+                    <div class="bg-bg-white dark:bg-bg-dark rounded-lg shadow p-2 m-4">
+                        <div class="text-sm text-text-primary dark:text-text-light font-medium mb-2">
+                            {{ __('Order Number') }}: <span class="text-text-gray">{{ $order->order_number }}</span>
+                        </div>
+                        <div class="text-sm text-text-primary dark:text-text-light">
+                            {{ __('Date') }}: <span
+                                class="text-text-gray">{{ $order->created_at_formatted }}</span>
+                        </div>
+                        <div class="text-sm text-text-primary dark:text-text-light">
+                            {{ __('Amount') }}: <span
+                                class="text-text-gray">${{ number_format($order->total, 2) }}</span>
+                        </div>
+                        <div class="text-sm text-text-primary dark:text-text-light">
+                            {{ __('Status') }}:
+                            <span
+                                class="px-2 py-1 text-xs font-semibold rounded-full {{ $order->status_tailwind_color }} text-white inline-block">
+                                {{ $order->status_label }}
+                            </span>
+                        </div>
+                        <div class="mt-2 flex gap-2">
+                            @include('components.frontend.order-actions', ['order' => $order])
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
 
             @if ($orders->hasPages())
                 <div

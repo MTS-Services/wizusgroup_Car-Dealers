@@ -83,7 +83,7 @@
                             <div class="">
                                 <div class="flex items-center gap-4 ps-10 py-12">
                                     <span class="openUsreDashboardSidebar xl:hidden"><i data-lucide="menu"
-                                            class="w-6 h-6 md:w-8 md:h-8 bg-bg-primary text-text-white hover:bg-bg-tertiary transition-all duration-300 rounded-md p-1 "></i></span>
+                                            class="w-8 h-8 bg-bg-primary text-text-white hover:bg-bg-tertiary transition-all duration-300 rounded-md p-1 "></i></span>
                                     <h2 class="text-2xl  lg:text-4xl uppercase font-bold{{-- bg-bg-light dark:bg-bg-dark-tertiary --}}">
                                         {{ __('Client Dashboard') }}</h2>
                                 </div>
