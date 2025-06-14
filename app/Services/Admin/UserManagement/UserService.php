@@ -82,13 +82,21 @@ class UserService
         ]);
     }
 
-    public function updateUserProfile( User $user, array $data, $file = null) :User
+    public function updateUserProfile(User $user, array $data, $file = null, $registration_info = null, $registration_permit = null): User
     {
         $data['updater_id'] = user()->id;
         $data['updater_type'] = get_class(user());
         if ($file) {
             $data['image'] = $this->handleFileUpload($file, 'users_profile');
             $this->fileDelete($user->image);
+        }
+        if ($registration_info) {
+            $data['id_registration_info'] = $this->handleFileUpload($registration_info, 'users_profile');
+            $this->fileDelete($user->id_registration_info);
+        }
+        if ($registration_permit) {
+            $data['dealer_registration_permit'] = $this->handleFileUpload($registration_permit, 'users_profile');
+            $this->fileDelete($user->dealer_registration_permit);
         }
         $user->update($data);
         return $user;

@@ -53,10 +53,10 @@ class OrderItem extends BaseModel
         $this->appends = array_merge(parent::getAppends(), [
             'status_label',
             'status_color_label',
-            'dropshipping_status_label',
-            'dropshipping_status_color_label',
-            'dropshipping_label',
-            'dropshipping_color_label',
+            // 'dropshipping_status_label',
+            // 'dropshipping_status_color_label',
+            // 'dropshipping_label',
+            // 'dropshipping_color_label',
 
         ]);
     }

@@ -507,21 +507,24 @@
                                                         </a>
                                                     </li>
                                                 @endcan
-                                                @can('product-info-category-type-list')
-                                                    <li class="@if ($page_slug == 'product_info_cat_type') active @endif">
-                                                        <a href="{{ route('pm.product-info-category-type.index') }}">
-                                                            <span class="sub-item">{{ __('Product Info Category Type') }}</span>
-                                                        </a>
-                                                    </li>
-                                                @endcan
-                                                @can('product-info-category-type-feature-list')
-                                                    <li class="@if ($page_slug == 'pro_info_cat_tf') active @endif">
-                                                        <a href="{{ route('pm.pro-info-cat-tf.index') }}">
-                                                            <span
-                                                                class="sub-item">{{ __('Product Info Category Type Feature') }}</span>
-                                                        </a>
-                                                    </li>
-                                                @endcan
+                                                @if (isset($not_use))
+                                                    {{-- @can('product-info-category-type-list')
+                                                        <li class="@if ($page_slug == 'product_info_cat_type') active @endif">
+                                                            <a href="{{ route('pm.product-info-category-type.index') }}">
+                                                                <span class="sub-item">{{ __('Product Info Category Type') }}</span>
+                                                            </a>
+                                                        </li>
+                                                    @endcan
+                                                    @can('product-info-category-type-feature-list')
+                                                        <li class="@if ($page_slug == 'pro_info_cat_tf') active @endif">
+                                                            <a href="{{ route('pm.pro-info-cat-tf.index') }}">
+                                                                <span
+                                                                    class="sub-item">{{ __('Product Info Category Type Feature') }}</span>
+                                                            </a>
+                                                        </li>
+                                                    @endcan --}}
+                                                @endif
+
                                             </ul>
                                         </div>
                                     </li>
