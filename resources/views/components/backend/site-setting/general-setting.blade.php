@@ -93,18 +93,20 @@
                         </select>
                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'debugbar']" />
                     </div>
-                    <div class="form-group {{ $errors->has('audit') ? ' has-danger' : '' }}">
-                        <label>{{ __('Enable Audit') }}
-                            <small>({{ __('Best to keep in true') }})</small></label>
-                        <select name="audit"
-                            class="form-control no-select  {{ $errors->has('audit') ? ' is-invalid' : '' }}">
-                            <option value="1" @if (isset($general_settings['audit']) && $general_settings['audit'] == '1') selected @endif>
-                                {{ __('True') }}</option>
-                            <option value="0" @if (isset($general_settings['audit']) && $general_settings['audit'] == '0') selected @endif>
-                                {{ __('False') }}</option>
-                        </select>
-                        <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'audit']" />
-                    </div>
+                    @if (isset($not_use))
+                        {{-- <div class="form-group {{ $errors->has('audit') ? ' has-danger' : '' }}">
+                            <label>{{ __('Enable Audit') }}
+                                <small>({{ __('Best to keep in true') }})</small></label>
+                            <select name="audit"
+                                class="form-control no-select  {{ $errors->has('audit') ? ' is-invalid' : '' }}">
+                                <option value="1" @if (isset($general_settings['audit']) && $general_settings['audit'] == '1') selected @endif>
+                                    {{ __('True') }}</option>
+                                <option value="0" @if (isset($general_settings['audit']) && $general_settings['audit'] == '0') selected @endif>
+                                    {{ __('False') }}</option>
+                            </select>
+                            <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'audit']" />
+                        </div> --}}
+                    @endif
 
                     <div class="form-group {{ $errors->has('date_format') ? ' has-danger' : '' }} row">
                         <div class="col-md-6">

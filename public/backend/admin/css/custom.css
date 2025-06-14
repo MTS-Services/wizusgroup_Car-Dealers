@@ -230,7 +230,7 @@
 }
 
 .product_tabs .btn_item:hover,
-.profile_tabs .btn_item:hover 
+.profile_tabs .btn_item:hover
 {
     background: linear-gradient(to right, #37006d, #1f0036);
     opacity: 0.9;
@@ -238,7 +238,7 @@
 }
 
 .product_tabs .active.btn_item,
-.profile_tabs .active.btn_item 
+.profile_tabs .active.btn_item
 {
     background: linear-gradient(to right, #0972C1, #37006d);
 }
@@ -303,3 +303,20 @@
     border-bottom: 1px solid #2a2a2a;
     border-radius: 10px 10px 0 0 !important;
 }
+
+
+/* Header CSS  */
+
+/* Enable dropdown on hover */
+.main-header .navbar .dropdown-hover:hover > .dropdown-menu {
+    display: block;
+    margin-top: 0; /* fixes jumpy behavior */
+}
+
+/* Optional: Ensure it doesn't stay open on small screens if toggled */
+.main-header .navbar .dropdown-hover .dropdown-menu {
+    display: none;
+    transition: 0.4s;
+    position: absolute;
+}
+

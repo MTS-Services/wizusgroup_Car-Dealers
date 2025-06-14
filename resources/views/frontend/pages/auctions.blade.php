@@ -23,7 +23,7 @@
                         @csrf
                         <div class="bg-bg-light dark:bg-bg-dark-tertiary rounded-lg p-4 flex justify-between items-center">
                             <h3 class="text-lg md:text-xl font-semibold  capitalize">
-                                {{ __(' Auction fillters') }}</h3>
+                                {{ __(' Auction filters') }}</h3>
                             <button type="button" class="closeFilterSidebar btn btn-sm btn-circle btn-ghost 2xl:hidden"><i
                                     data-lucide="x" class="w-5 h-5"></i></button>
                         </div>
@@ -64,7 +64,8 @@
                                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'date']" />
                             </div>
                             <div class="px-4">
-                                <button id="filterBtn" class="w-full btn-primary rounded-md border border-border-tertiary bg-transparent text-text-tertiary dark:text-text-light hover:bg-bg-tertiary hover:text-text-white group">
+                                <button id="filterBtn"
+                                    class="w-full btn-primary rounded-md border border-border-tertiary bg-transparent text-text-tertiary dark:text-text-light hover:bg-bg-tertiary hover:text-text-white group">
                                     <span>{{ __('Filter') }}</span>
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"

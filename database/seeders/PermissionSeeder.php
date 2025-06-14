@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Permission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use League\Csv\Reader;
 
 class PermissionSeeder extends Seeder
@@ -14,6 +14,8 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
+
+
         $csvFile = public_path('csv/permissions.csv');
 
         $csv = Reader::createFromPath($csvFile, 'r');

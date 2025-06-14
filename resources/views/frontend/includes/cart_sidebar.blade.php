@@ -41,9 +41,9 @@
                 <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'terms']" />
 
                 <div class="flex items-center justify-between gap-3 pb-6 mt-4">
-                    <x-frontend.primary-button bg="false" type="submit" class="w-full">{{ __('Checkout') }}
+                    <x-frontend.primary-button bg="true" type="submit" button="true">{{ __('Checkout') }}
                     </x-frontend.primary-button>
-                    <x-frontend.primary-button href="{{ route('frontend.cart') }}" class="w-full">{{ __('View Cart') }}
+                    <x-frontend.primary-button href="{{ route('frontend.cart') }}" >{{ __('View Cart') }}
                     </x-frontend.primary-button>
                 </div>
             </div>

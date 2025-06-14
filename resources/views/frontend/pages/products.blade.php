@@ -43,11 +43,11 @@
                             <div class="swiper-pagination z-10 !-bottom-6 lg:!-bottom-8"></div>
                             <!-- Navigation buttons -->
                             <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
-                                <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                                <i data-lucide="chevron-left" class="w-5 h-5 dark:text-text-white"></i>
                             </div>
 
                             <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9">
-                                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                                <i data-lucide="chevron-right" class="w-5 h-5 dark:text-text-white"></i>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                         @csrf
                         <div class="bg-bg-light dark:bg-bg-dark-tertiary rounded-lg p-4 flex justify-between items-center">
                             <h3 class="text-lg md:text-xl font-semibold  capitalize">
-                                {{ __(' Product fillters') }}</h3>
+                                {{ __(' Product filters') }}</h3>
                             <button type="button" class="closeFilterSidebar btn btn-sm btn-circle btn-ghost 2xl:hidden"><i
                                     data-lucide="x" class="w-5 h-5"></i></button>
                         </div>

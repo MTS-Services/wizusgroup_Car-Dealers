@@ -86,7 +86,7 @@ class FrontendController extends Controller
             $data['container_product'] = ContainerProduct::where('container_id', $data['container']->id)->where('product_id', $data['product']->id)->first();
         }
         $data['products'] = Product::where('status', Product::STATUS_ACTIVE)->orderBy('name')->get();
-        return view('frontend.pages.orders', $data);
+        return view('frontend.pages.order_finished', $data);
     }
 
     public function joinRequest(ContainerJoinRequest $request, string $container_slug)

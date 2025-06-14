@@ -25,6 +25,7 @@
     "Access to Japanese and Chinese Used Machines": "Access to Japanese and Chinese Used Machines",
     "Storage Services": "Storage Services",
     "Group Shipping Containers": "Group Shipping Containers",
+    "Group Shipping": "Group Shipping",
     "Inspection of Machines Before Shipping": "Inspection of Machines Before Shipping",
     "Our Advantages": "Our Advantages",
     "Real videos of machines before shipment": "Real videos of machines before shipment",
@@ -36,7 +37,7 @@
 
 
     "Auctions": "Auctions",
-    "Auction fillters": "Auction fillters",
+    "Auction filters": "Auction filters",
     "Category": "Category",
     "All Category": "All Category",
     "Make": "Make",
@@ -60,7 +61,7 @@
     "Expired": "Expired",
 
 
-    
+
     "Contact": "Contact",
     "Contact us": "Contact us",
     "Send Us and Iquery": "Send Us and Iquery",
@@ -114,7 +115,7 @@
     "Next Departure to Dakar, Senegal:": "Next Departure to Dakar, Senegal:",
 
 
-    
+
     "Basic Info": "Basic Info",
     "Air-bag": "Air-bag",
     "Other Info": "Other Info",
@@ -153,7 +154,14 @@
     "Development info not available.": "Development info not available.",
     "No documents attached.": "No documents attached.",
     "Related Products": "Related Products",
-
+    "Products": "Products",
+    "Parts & Accessories": "Parts & Accessories",
+    "Featured Products": "Featured Products",
+    "Buy Now": "Buy Now",
+    "Add to Cart": "Add to Cart",
+    "Browse our extensive inventory of high-quality machinery from trusted suppliers around the world.": "Browse our extensive inventory of high-quality machinery from trusted suppliers around the world.",
+    "Once you've selected your machine, we handle the export process from start to finish.": "Once you've selected your machine, we handle the export process from start to finish.",
+    "We'll deliver your machine safely to the destination port of your choice — anywhere in the world.": "We'll deliver your machine safely to the destination port of your choice — anywhere in the world.",
 
 
     "All Agricultural": "All Agricultural",
@@ -162,6 +170,15 @@
     "Year": "Year",
     "Price": "Price",
     "Price:": "Price:",
+
+    "Available Containers": "Available Containers",
+    "Available for Group Shipping": "Available for Group Shipping",
+
+    "We provide you with direct access to a wide selection of high-quality, pre-owned machines from trusted suppliers in Japan and China": "We provide you with direct access to a wide selection of high-quality, pre-owned machines from trusted suppliers in Japan and China",
+    "Need time before shipping or consolidating purchases? We offer secure, short- and long-term storage options in Japan and China.": "Need time before shipping or consolidating purchases? We offer secure, short- and long-term storage options in Japan and China.",
+    "Cut costs and save space with our container consolidation service. We combine multiple machines into one shipment for better value.": "Cut costs and save space with our container consolidation service. We combine multiple machines into one shipment for better value.",
+    "We conduct detailed inspections of every machine before it's shipped, giving you peace of mind and reducing post-delivery surprises.": "We conduct detailed inspections of every machine before it's shipped, giving you peace of mind and reducing post-delivery surprises.",
+
 
 
     "Regions": "Regions",
@@ -195,7 +212,7 @@
 
 
 
-    
+
     "Services": "Services",
     "Service 1": "Service 1",
     "Service 2": "Service 2",

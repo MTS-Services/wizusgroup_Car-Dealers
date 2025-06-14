@@ -24,6 +24,7 @@
     "Access to Japanese and Chinese Used Machines": "Accès aux machines d'occasion japonaises et chinoises",
     "Storage Services": "Services de stockage",
     "Group Shipping Containers": "Conteneurs de groupage",
+    "Group Shipping": "Expédition groupée",
     "Inspection of Machines Before Shipping": "Inspection des machines avant expédition",
     "Our Advantages": "Nos avantages",
     "Real videos of machines before shipment": "Vidéos réelles des machines avant expédition",
@@ -35,13 +36,13 @@
 
 
     "Auctions": "Enchères",
-    "Auction fillters": "Filtres d'enchères",
+    "Auction filters": "Filtres d'enchères",
     "Category": "Catégorie",
     "All Category": "Toutes les catégories",
     "Make": "Marque",
     "Select Make": "Sélectionnez une marque",
     "End Time": "Heure de fin",
-    "Sherch": "Recherche", 
+    "Sherch": "Recherche",
     "Filter": "Filtrer",
     "Sort": "Trier",
     "Price: High to Low": "Prix : du plus élevé au plus bas",
@@ -61,7 +62,7 @@
 
     "Contact": "Contact",
     "Contact us": "Contactez-nous",
-    "Send Us and Iquery": "Envoyez-nous une demande",  
+    "Send Us and Iquery": "Envoyez-nous une demande",
      "name": "nom",
     "Email": "Email",
     "Message": "Message",
@@ -95,13 +96,15 @@
     "Explore Answers to Common Questions": "Découvrez les réponses aux questions fréquentes",
     "Eligibility Criteria and documents required for loan approval": "Critères d’éligibilité et documents requis pour l’approbation du prêt",
     "To be eligible for free shipping, your order must meet the following criteria  your order must meet the following criteria  your order must meet the following criteria  your order must meet the following criteria:": "Pour être éligible à la livraison gratuite, votre commande doit respecter les critères suivants :",
-    "Eligibility Criteria": "Critères d’éligibilité",
+    "Eligibility Criteria": "Critères d'éligibilité",
     "Nationality": "Nationalité",
     "USA": "États-Unis",
     "Add text here": "Ajouter du texte ici",
     "Documents Required": "Documents requis",
     "Proof of business ownership": "Preuve de propriété de l’entreprise",
 
+    "Available Containers": "Conteneurs disponibles",
+    "Available for Group Shipping": "Disponible pour l'expédition groupée",
 
     "Dropshipping": "Dropshipping",
     "SPECIAL ORDER DEALS": "OFFRES SPÉCIALES SUR COMMANDE",
@@ -151,8 +154,12 @@
     "Development info not available.": "Informations de développement non disponibles.",
     "No documents attached.": "Aucun document joint.",
     "Related Products": "Produits connexes",
-
-
+    "Products": "Produits",
+    "Parts & Accessories": "Pièces et accessoires",
+    "Featured Products": "Produits vedettes",
+    "Browse our extensive inventory of high-quality machinery from trusted suppliers around the world.": "Parcourez notre vaste inventaire de machines de haute qualité provenant de fournisseurs de confiance du monde entier.",
+    "Once you've selected your machine, we handle the export process from start to finish.": "Une fois que vous avez sélectionné votre machine, nous gérons le processus d'exportation de A à Z.",
+    "We'll deliver your machine safely to the destination port of your choice — anywhere in the world.": "Nous livrerons votre machine en toute sécurité au port de destination de votre choix, partout dans le monde.",
 
     "All Agricultural": "Tous les matériels agricoles",
     "Brand": "Marque",
@@ -160,10 +167,15 @@
     "Year": "Année",
     "Price": "Prix",
     "Price:": "Prix :",
+    "Buy Now": "Acheter",
+    "Add to Cart": "Ajouter au panier",
 
+    "We provide you with direct access to a wide selection of high-quality, pre-owned machines from trusted suppliers in Japan and China.": "Nous vous offrons un accès direct à une large sélection de machines d'occasion de haute qualité provenant de fournisseurs de confiance au Japon et en Chine.",
+     "Need time before shipping or consolidating purchases? We offer secure, short- and long-term storage options in Japan and China.": "Besoin de temps avant l'expédition ou la consolidation des achats ? Nous proposons des options de stockage sécurisées, à court et à long terme, au Japon et en Chine.",
+    "Cut costs and save space with our container consolidation service. We combine multiple machines into one shipment for better value.": "Réduisez vos coûts et gagnez de l'espace grâce à notre service de consolidation de conteneurs. Nous combinons plusieurs machines en un seul envoi pour un meilleur rapport qualité-prix.",
+    "We conduct detailed inspections of every machine before it's shipped, giving you peace of mind and reducing post-delivery surprises.": "Nous effectuons des inspections détaillées de chaque machine avant son expédition, vous offrant ainsi une tranquillité d'esprit et réduisant les surprises après la livraison.",
 
-
-    "Region": "Régions",  
+    "Region": "Régions",
     "Regions We Serve": "Régions desservies",
     "Middle East": "Moyen-Orient",
     "Asia": "Asie",

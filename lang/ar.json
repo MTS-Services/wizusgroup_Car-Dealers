@@ -1,4 +1,4 @@
-{ 
+{
 
     "Home": "Inicio",
     "Affordable Machines,": "Máquinas Económicas,",
@@ -17,7 +17,7 @@
     "Testimonials": "Testimonios",
     "Country": "País",
 
-    
+
     "About Us": "Sobre Nosotros",
     "Connecting Africa to Japan & China's Best Machines": "Conectando África con las mejores máquinas de Japón y China",
     "Our Story": "Nuestra Historia",
@@ -26,6 +26,7 @@
     "Access to Japanese and Chinese Used Machines": "Acceso a Máquinas Usadas de Japón y China",
     "Storage Services": "Servicios de Almacenamiento",
     "Group Shipping Containers": "Contenedores de Envío Grupales",
+    "Group Shipping": "Envío grupal",
     "Inspection of Machines Before Shipping": "Inspección de Máquinas Antes del Envío",
     "Our Advantages": "Nuestras Ventajas",
     "Real videos of machines before shipment": "Videos reales de las máquinas antes del envío",
@@ -36,7 +37,7 @@
 
 
     "Auctions": "Subastas",
-    "Auction fillters": "Filtros de subastas",
+    "Auction filters": "Filtros de subastas",
     "Category": "Categoría",
     "All Category": "Todas las categorías",
     "Make": "Marca",
@@ -58,7 +59,7 @@
     "Submit Bid": "Enviar oferta",
     "Enter your bid": "Ingresá tu oferta",
     "Expired": "Vencido",
-
+    "Featured Products": "Productos destacados",
 
     "Contact": "Contacto",
     "Contact us": "Contáctanos",
@@ -102,7 +103,7 @@
     "Add text here": "Agregar texto aquí",
     "Documents Required": "Documentos requeridos",
     "Proof of business ownership": "Comprobante de propiedad del negocio",
-
+    "Parts & Accessories":"Repuestos y accesorios",
 
     "Dropshipping": "Dropshipping",
     "SPECIAL ORDER DEALS": "OFERTAS ESPECIALES POR PEDIDO",
@@ -152,7 +153,10 @@
     "Development info not available.": "Información de desarrollo no disponible.",
     "No documents attached.": "No hay documentos adjuntos.",
     "Related Products": "Productos relacionados",
-
+    "Products": "Productos",
+    "Browse our extensive inventory of high-quality machinery from trusted suppliers around the world.": "Explorá nuestro extenso inventario de maquinaria de alta calidad de proveedores confiables de todo el mundo.",
+    "Once you've selected your machine, we handle the export process from start to finish.": "Una vez que hayas seleccionado tu máquina, nos encargamos del proceso de exportación de principio a fin.",
+    "We'll deliver your machine safely to the destination port of your choice — anywhere in the world.": "Entregaremos tu máquina de forma segura en el puerto de destino que elijas, en cualquier parte del mundo.",
 
     "All Agricultural": "Todos los equipos agrícolas",
     "Brand": "Marca",
@@ -160,9 +164,18 @@
     "Year": "Año",
     "Price": "Precio",
     "Price:": "Precio:",
+    "Buy Now": "Comprar Ahora",
+    "Add to Cart": "Agregar al Carrito",
 
+    "We provide you with direct access to a wide selection of high-quality, pre-owned machines from trusted suppliers in Japan and China.": "Te ofrecemos acceso directo a una amplia selección de máquinas de segunda mano de alta calidad de proveedores confiables en Japón y China.",
+     "Need time before shipping or consolidating purchases? We offer secure, short- and long-term storage options in Japan and China.": "Necesitás tiempo antes del envío o para consolidar tus compras? Ofrecemos opciones de almacenamiento seguro a corto y largo plazo en Japón y China.",
+    "Cut costs and save space with our container consolidation service. We combine multiple machines into one shipment for better value.": "Reduce costos y ahorra espacio con nuestro servicio de consolidación de contenedores. Combinamos múltiples máquinas en un solo envío para obtener un mejor valor.",
+    "We conduct detailed inspections of every machine before it's shipped, giving you peace of mind and reducing post-delivery surprises.": "Realizamos inspecciones detalladas de cada máquina antes de su envío, brindándote tranquilidad y reduciendo sorpresas después de la entrega.",
 
-    "Region": "Regiónes",
+    "Available Containers": "Contenedores disponibles",
+    "Available for Group Shipping": "Disponible para envío grupal",
+
+    "Region": "Regiones",
     "Regions We Serve": "Regiones a las que servimos",
     "Middle East": "Medio Oriente",
     "Asia": "Asia",
@@ -230,7 +243,7 @@
     "Facebook": "Facebook",
     "Don't have an account?": "¿No tenés una cuenta?",
     "Sign up": "Registrate",
-    
+
     "Start Your Journey with Us": "Comenzá tu camino con nosotros",
     "First Name": "Nombre",
     "Last Name": "Apellido",

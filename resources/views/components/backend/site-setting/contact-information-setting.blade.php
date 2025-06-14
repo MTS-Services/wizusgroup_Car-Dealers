@@ -16,7 +16,7 @@
                                 <input type="email" name="email"
                                     class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
                                     placeholder="{{ __('Email') }}"
-                                    value="{{ $contact_info_settings['email'] ?? '' }}">
+                                    value="{{ $contact_info_settings['email'] ?? old('email') }}">
                                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'email']" />
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                                 <input type="text" name="phone"
                                     class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
                                     placeholder="{{ __('Phone') }}"
-                                    value="{{ $contact_info_settings['phone'] ?? '' }}">
+                                    value="{{ $contact_info_settings['phone'] ?? old('phone') }}">
                                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'phone']" />
                             </div>
                         </div>
@@ -36,8 +36,18 @@
                                 <input type="text" name="whatsapp"
                                     class="form-control{{ $errors->has('whatsapp') ? ' is-invalid' : '' }}"
                                     placeholder="{{ __('whatsapp') }}"
-                                    value="{{ $contact_info_settings['whatsapp'] ?? '' }}">
+                                    value="{{ $contact_info_settings['whatsapp'] ?? old('whatsapp') }}">
                                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'whatsapp']" />
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group{{ $errors->has('map_url') ? ' has-danger' : '' }}">
+                                <label>{{ __('Map Url') }}</label>
+                                <input type="text" name="map_url"
+                                    class="form-control{{ $errors->has('map_url') ? ' is-invalid' : '' }}"
+                                    placeholder="{{ __('Map Url') }}"
+                                    value="{{ $contact_info_settings['map_url'] ?? old('map_url') }}">
+                                <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'map_url']" />
                             </div>
                         </div>
 
@@ -46,7 +56,7 @@
                                 <label>{{ __('Main Location') }}</label>
                                 <textarea name="address" id="" cols="30" rows="5"
                                     class="form-control {{ $errors->has('address') ? ' is-invalid' : '' }} no-ckeditor5"
-                                    placeholder="{{ __('Location') }}">{{ $contact_info_settings['address'] ?? '' }}</textarea>
+                                    placeholder="{{ __('Location') }}">{{ $contact_info_settings['address'] ?? old('address') }}</textarea>
                                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'address']" />
                             </div>
                         </div>
@@ -90,7 +100,8 @@
                                                                         class="form-label">{{ __('Email') }} </label>
                                                                     <input type="email" name="office_infos[0][email]"
                                                                         id="email_0" placeholder="Enter email"
-                                                                        class="form-control" value="{{ $office_info['email'] ?? '' }}">
+                                                                        class="form-control"
+                                                                        value="{{ $office_info['email'] ?? '' }}">
                                                                     {{-- IMPORTANT CHANGE HERE --}}
                                                                     <x-feed-back-alert :datas="[
                                                                         'errors' => $errors,
@@ -104,7 +115,8 @@
                                                                         class="form-label">{{ __('Phone') }} </label>
                                                                     <input type="text" name="office_infos[0][phone]"
                                                                         id="phone_0" placeholder="Enter phone"
-                                                                        class="form-control" value="{{ $office_info['phone'] ?? '' }}">
+                                                                        class="form-control"
+                                                                        value="{{ $office_info['phone'] ?? '' }}">
                                                                     {{-- IMPORTANT CHANGE HERE --}}
                                                                     <x-feed-back-alert :datas="[
                                                                         'errors' => $errors,
@@ -120,7 +132,8 @@
                                                                     <input type="text"
                                                                         name="office_infos[0][whatsapp]" id="whatsapp_0"
                                                                         placeholder="Enter whatsapp"
-                                                                        class="form-control" value="{{ $office_info['whatsapp'] ?? '' }}">
+                                                                        class="form-control"
+                                                                        value="{{ $office_info['whatsapp'] ?? '' }}">
                                                                     {{-- IMPORTANT CHANGE HERE --}}
                                                                     <x-feed-back-alert :datas="[
                                                                         'errors' => $errors,
@@ -259,7 +272,7 @@
                                 <label>{{ __('Sort Description') }}</label>
                                 <textarea name="sort_description" id="" cols="30" rows="2"
                                     class="form-control {{ $errors->has('sort_description') ? ' is-invalid' : '' }} no-ckeditor5"
-                                    placeholder="{{ __('Sort Description') }}">{{ $contact_info_settings['sort_description'] ?? '' }}</textarea>
+                                    placeholder="{{ __('Sort Description') }}">{{ $contact_info_settings['sort_description'] ?? old('sort_description') }}</textarea>
                                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'sort_description']" />
                             </div>
                         </div>
@@ -268,7 +281,7 @@
                                 <label>{{ __('Description') }}</label>
                                 <textarea name="description" id="" cols="30" rows="5"
                                     class="form-control {{ $errors->has('description') ? ' is-invalid' : '' }} no-ckeditor5"
-                                    placeholder="{{ __('Description') }}">{{ $contact_info_settings['description'] ?? '' }}</textarea>
+                                    placeholder="{{ __('Description') }}">{{ $contact_info_settings['description'] ?? old('description') }}</textarea>
                                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'description']" />
                             </div>
                         </div>
