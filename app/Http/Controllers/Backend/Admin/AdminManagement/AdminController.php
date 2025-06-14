@@ -1,4 +1,4 @@
-admin-list<?php
+<?php
 
 namespace App\Http\Controllers\Backend\Admin\AdminManagement;
 
@@ -199,7 +199,7 @@ class AdminController extends Controller
                 return redirect()->route('am.admin.index');
             }
             $validated['role_id'] = $assignedRoleId;
-            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
+            $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
             $this->adminService->createAdmin($validated, $file);
             session()->flash('success', 'Admin created successfully!');
         } catch (\Throwable $e) {
@@ -253,9 +253,9 @@ class AdminController extends Controller
                 return redirect()->route('am.admin.index');
             }
             $validated['role_id'] = $assignedRoleId; // Use the variable here
-            
-            $file = $request->validated('image') &&  $request->hasFile('image') ? $request->file('image') : null;
-            $this->adminService->updateAdmin($admin, $validated,  $file);
+
+            $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
+            $this->adminService->updateAdmin($admin, $validated, $file);
             session()->flash('success', 'Admin updated successfully!');
         } catch (\Throwable $e) {
             session()->flash('error', 'Admin update failed!');
