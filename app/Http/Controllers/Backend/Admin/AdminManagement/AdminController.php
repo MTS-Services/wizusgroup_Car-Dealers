@@ -1,4 +1,4 @@
-<?php
+admin-list<?php
 
 namespace App\Http\Controllers\Backend\Admin\AdminManagement;
 
