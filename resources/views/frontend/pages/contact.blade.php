@@ -91,7 +91,7 @@
                         @else
                             <p
                                 class="pb-2 text-base lg:me-40 text-text-primary dark:text-text-white font-semibold capitalize">
-                                {{ $office_info['country'] }}</p>
+                                {{ 'Bangladesh' }}</p>
                             <div class="text-base pb-4">
                                 <p class="mb-2">
                                     <a class="text-text-primary dark:text-text-white"
