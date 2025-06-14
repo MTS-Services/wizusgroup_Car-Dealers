@@ -28,14 +28,28 @@ class UserProfileRequest extends FormRequest
             'username' => 'nullable|string|min:3',  
             // 'email' => 'required|email|unique:users,email,',
             'phone' => 'nullable|string|size:11',
+            'phone_2' => 'nullable|string|size:11',
+            'company_name' => 'nullable|string|min:3',
+            'occupation' => 'nullable|string|min:3',
             'image'=> 'nullable|image|mimes:jpg,jpeg,png,webp,svg|max:2048',
             'gender' => 'nullable',
             'dob' => 'nullable|date',
+            'language' => 'nullable',
             'father_name' => 'nullable|string|min:3',
             'mother_name' => 'nullable|string|min:3',
             'emergency_phone' => 'nullable|string|min:3',
             'nationality' => 'nullable|string|min:3',
             'bio' => 'nullable|string|min:3',
+            'business_type' => 'nullable',
+            'business_name' => 'nullable',
+            'business_information' => 'nullable|string|min:3',
+            'business_line' => 'nullable',
+            'receive_promotion_email' => 'nullable',
+            'how_know' => 'nullable',
+            'how_know_detail' => 'nullable',
+            'id_registration_info' => 'nullable',
+            'dealer_registration_permit' => 'nullable',
+
         ];
     }
 }

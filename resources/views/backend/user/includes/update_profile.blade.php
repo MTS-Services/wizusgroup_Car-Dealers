@@ -63,7 +63,7 @@
                                     @foreach (App\Models\PersonalInformation::getLanguages() as $key => $language)
                                         <label for="language-{{ $key }}" class="flex items-center gap-2">
                                             <input type="radio" name="language" value="{{ $key }}"
-                                                class="radio radio-xs radio-info" @checked(old('language', App\Models\PersonalInformation::LANGUAGE_ENGLISH) == $key)
+                                                class="radio radio-xs radio-info" @checked($user?->personalInformation?->language == $key)
                                                 id="language-{{ $key }}" />
                                             <span>{{ $language }}</span>
                                         </label>
@@ -176,7 +176,7 @@
                                     @foreach (App\Models\User::getBusinessTypes() as $key => $type)
                                         <label for="type-{{ $key }}" class="flex items-center gap-2">
                                             <input type="radio" name="business_type" value="{{ $key }}"
-                                                class="radio radio-xs radio-info" @checked(old('business_type') == $key)
+                                                class="radio radio-xs radio-info" @checked($user?->business_type == $key)
                                                 id="type-{{ $key }}" />
                                             <span>{{ $type }}</span>
                                         </label>
@@ -195,7 +195,7 @@
                                     </option>
                                     @foreach (App\Models\User::getBusinessNames() as $key => $type)
                                         <option value="{{ $key }}"
-                                            {{ old('business_name') == $key ? 'selected' : '' }}>
+                                            {{ $user?->business_name == $key ? 'selected' : '' }}>
                                             {{ $type }}</option>
                                     @endforeach
                                 </select>
@@ -224,7 +224,7 @@
                                     </option>
                                     @foreach (App\Models\User::getBusinessLines() as $key => $line)
                                         <option value="{{ $key }}"
-                                            {{ old('business_line') == $key ? 'selected' : '' }}>
+                                            {{ $user?->business_line == $key ? 'selected' : '' }}>
                                             {{ $line }}</option>
                                     @endforeach
                                 </select>
@@ -430,19 +430,16 @@
     <script src="{{ asset('frontend/js/password.js') }}"></script>
     {{-- FilePond  --}}
     <script src="{{ asset('filepond/filepond.js') }}"></script>
-
     <script>
         $(document).ready(function() {
-            file_upload(["#id_registration_info"], ["application/pdf"]);
-            file_upload(["#dealer_registration_permit"], ["application/pdf"]);
-        });
-    </script>
-    {{-- FilePond  --}}
-
-    <script>
-        $(document).ready(function() {
-            file_upload(["#id_registration_info"], ["application/pdf"]);
-            file_upload(["#dealer_registration_permit"], ["application/pdf"]);
+            const existingFiles1 = {
+                "#id_registration_info": "{{ $user->id_registration_info }}",
+            };
+            file_upload(["#id_registration_info"], ["application/pdf"], existingFiles1);
+            const existingFiles2 = {
+                "#dealer_registration_permit": "{{ $user->dealer_registration_permit }}",
+            }
+            file_upload(["#dealer_registration_permit"], ["application/pdf"], existingFiles2);
         });
 
         $(document).ready(function() {

@@ -87,7 +87,9 @@ class UserProfileController extends Controller
     {
         $validated = $request->validated();
         $file = $request->validated('image') && $request->hasFile('image') ? $request->file('image') : null;
-        $this->userService->updateUserProfile(user(), $validated, $file);
+        $registration_info = $request->validated('id_registration_info') && $request->hasFile('id_registration_info') ? $request->file('id_registration_info') : null;
+        $registration_permit = $request->validated('dealer_registration_permit') && $request->hasFile('dealer_registration_permit') ? $request->file('dealer_registration_permit') : null;
+        $this->userService->updateUserProfile(user(), $validated, $file, $registration_info, $registration_permit);
 
         $this->personalInformationService->updatePersonalInformation(user()->personalInformation, $validated);
 
