@@ -24,9 +24,8 @@
     <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
         <div class="container-fluid">
             <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
-                <li class="nav-item topbar-user dropdown hidden-caret">
-                    <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#"
-                        aria-expanded="false">
+                <li class="nav-item topbar-user dropdown hidden-caret dropdown-hover">
+                    <a class="profile-pic">
                         <div class="avatar-sm">
                             <img src="{{ auth_storage_url(admin()->image) }}" alt="..."
                                 class="avatar-img rounded-circle" />
@@ -57,7 +56,6 @@
                                     onclick="document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
-
                                 <form id="logout-form" action="{{ route('admin.logout') }}" method="POST"
                                     class="d-none">
                                     @csrf

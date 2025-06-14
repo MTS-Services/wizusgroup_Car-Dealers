@@ -54,7 +54,7 @@
 
                 {{-- General Settings --}}
 
-                <span class="block text-text-primary dark:text-text-white pb-3">{{ __('Settings') }}</span>
+                <span class="block text-text-primary dark:text-text-white pb-3 px-3">{{ __('Settings') }}</span>
                 <div class="pl-5">
                     <div class="flex items-center justify-between gap-2">
                         <span class="text-text-primary dark:text-text-white">{{ __('Theme') }}</span>
@@ -69,7 +69,7 @@
                 <div class="divider my-2"></div>
 
                 {{-- Account Settings  --}}
-                <span class="block text-text-primary dark:text-text-white pb-3">{{ __('Account') }}</span>
+                <span class="block text-text-primary dark:text-text-white pb-3 px-3">{{ __('Account') }}</span>
                 <div class="pl-5">
                     @auth('web')
                         <a href="" class="flex items-center justify-between gap-2">

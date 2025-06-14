@@ -49,7 +49,7 @@
     {{-- ===================== banner Section End ===================== --}}
     {{-- ===================== Category Section Start ===================== --}}
 
-    <section class="2xl:pb-10 2xl:pt-6 xl:pb-16 xl:pt-4 lg:pb-12 lg:pt-4 md:pb-10  pb-8 pt-4">
+    <section class="2xl:pb-10 2xl:pt-6 xl:pb-16 xl:pt-4 lg:pb-12 lg:pt-4 md:pb-10  pb-8 pt-4 dark:bg-bg-dark-tertiary">
         <div class="container">
             <div class="relative">
                 <div class="swiper categories static">
@@ -73,11 +73,11 @@
 
                         <div
                             class="swiper-button swiper-button-prev absolute top-1/2 transform -translate-y-1/2 -left-4 sm:-left-6 2xl:-left-9">
-                            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                            <i data-lucide="chevron-left" class="w-5 h-5 dark:text-text-white"></i>
                         </div>
                         <div
                             class="swiper-button swiper-button-next absolute top-1/2 transform -translate-y-1/2 -right-4 sm:-right-6 2xl:-right-9">
-                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                            <i data-lucide="chevron-right" class="w-5 h-5 dark:text-text-white"></i>
                         </div>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
     {{-- ===================== Category Section End ===================== --}}
 
     {{-- ===================== Featured Section Start ===================== --}}
-    <section class="py-15 bg-bg-light dark:bg-bg-dark-tertiary">
+    <section class="py-15 bg-bg-light dark:bg-bg-dark">
         <div class="container">
             <div class="header">
                 <h2 class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase text-center">
@@ -219,11 +219,11 @@
                         <div class="swiper-pagination z-10 !-bottom-6 lg:!-bottom-8"></div>
                         <!-- Navigation buttons -->
                         <div class="swiper-button swiper-button-prev 3xl:-left-13 2xl:-left-9">
-                            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                            <i data-lucide="chevron-left" class="w-5 h-5 dark:text-text-white"></i>
                         </div>
 
                         <div class="swiper-button swiper-button-next 3xl:-right-13 2xl:-right-9">
-                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                            <i data-lucide="chevron-right" class="w-5 h-5 dark:text-text-white"></i>
                         </div>
                     </div>
 
