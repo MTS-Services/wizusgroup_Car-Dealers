@@ -432,17 +432,6 @@
     <script src="{{ asset('filepond/filepond.js') }}"></script>
     <script>
         $(document).ready(function() {
-            const existingFiles1 = {
-                "#id_registration_info": "{{ $user->id_registration_info }}",
-            };
-            file_upload(["#id_registration_info"], ["application/pdf"], existingFiles1);
-            const existingFiles2 = {
-                "#dealer_registration_permit": "{{ $user->dealer_registration_permit }}",
-            }
-            file_upload(["#dealer_registration_permit"], ["application/pdf"], existingFiles2);
-        });
-
-        $(document).ready(function() {
             //  Business Information
             const $businessName = $('select[name="business_name"]');
             const $businessInfo = $('input[name="business_information"]');
@@ -508,9 +497,24 @@
 
             // FilePond Upload
             const existingFiles = {
-                "#image": "{{ $user->modified_image }}"
+                "#image": "{{ $user->modified_image }}",
+                "#id_registration_info": "{{ $user->id_registration_info }}",
+                "#dealer_registration_permit": "{{ $user->dealer_registration_permit }}",
             };
-            file_upload(["#image"], ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/svg"],
+
+            // $(document).ready(function() {
+            //     const existingFiles1 = {
+            //         "#id_registration_info": "{{ $user->id_registration_info }}",
+            //     };
+            //     file_upload(["#id_registration_info"], ["application/pdf"], existingFiles1);
+            //     const existingFiles2 = {
+            //         "#dealer_registration_permit": "{{ $user->dealer_registration_permit }}",
+            //     }
+            //     file_upload(["#dealer_registration_permit"], ["application/pdf"], existingFiles2);
+            // });
+            file_upload(["#image", "#id_registration_info", "#dealer_registration_permit"], ["image/jpeg",
+                    "image/png", "image/jpg", "image/webp", "image/svg", "application/pdf"
+                ],
                 existingFiles);
         })
     </script>
