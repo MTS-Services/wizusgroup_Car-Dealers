@@ -159,7 +159,7 @@ class CartManager {
 
             const { status, message, cart_item, cart_total } = response.data;
 
-            this.updateCartTotal(cart_total);
+
 
             if (status === 'success') {
                 // Update local cart data
@@ -178,7 +178,7 @@ class CartManager {
                 this.showNotification(message, 'info');
                 this.openSidebar();
             }
-
+            this.updateCartTotal(cart_total);
             return response.data;
         } catch (error) {
             this.handleError(error, 'Failed to add product to cart');

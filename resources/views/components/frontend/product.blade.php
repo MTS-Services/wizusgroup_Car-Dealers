@@ -32,12 +32,20 @@
                 </div>
                 <div class="flex justify-center items-center mt-4 gap-y-4 gap-x-2">
                     @if ($product->quantity > 0)
-                        @foreach ($buttons as $button)
-                            <x-frontend.primary-button class="{{ isset($button['class']) ? $button['class'] : '' }}"
-                                data_id="{{ $button['data_id'] ?? '' }}" icon="{{ $button['icon'] }}"
-                                href="{{ $button['route'] }}" bg="{{ $button['bg'] }}">{{ __($button['label']) }}
+                        @if ($product->product_type == App\Models\Product::PRODUCT_TYPE_DROPSHIPPING)
+                            <x-frontend.primary-button icon="phone-call"
+                                href="https://wa.me/{{ settings('whatsapp') }}" target="_blank"
+                                bg="false">{{ __('WhatsApp Inquiry') }}
                             </x-frontend.primary-button>
-                        @endforeach
+                        @else
+                            @foreach ($buttons as $button)
+                                <x-frontend.primary-button
+                                    class="{{ isset($button['class']) ? $button['class'] : '' }}"
+                                    data_id="{{ $button['data_id'] ?? '' }}" icon="{{ $button['icon'] }}"
+                                    href="{{ $button['route'] }}" bg="{{ $button['bg'] }}">{{ __($button['label']) }}
+                                </x-frontend.primary-button>
+                            @endforeach
+                        @endif
                     @else
                         <x-frontend.primary-button class="w-full !bg-bg-wiz_orange" bg="false" disabled>
                             {{ __('Out of Stock') }}
@@ -52,12 +60,3 @@
         </div>
     </a>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        $('.add-to-cart').on('click', function() {
-            const productId = $(this).data('id');
-            addToCart(productId);
-        })
-    })
-</script>

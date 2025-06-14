@@ -45,6 +45,8 @@ class GroupShippingPageController extends Controller
             ->whereNotNull('length_m')
             ->whereNotNull('width_m')
             ->whereNotNull('height_m')
+            ->whereNot('product_type', Product::PRODUCT_TYPE_DROPSHIPPING)
+            ->inStock()
             ->get()
             ->map(function ($product) {
                 return [

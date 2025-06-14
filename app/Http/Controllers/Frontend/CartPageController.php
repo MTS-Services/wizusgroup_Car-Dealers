@@ -115,6 +115,7 @@ class CartPageController extends Controller
                 ]);
 
                 $cartItem->load(['product.primaryImage', 'product.brand', 'product.model']);
+                $cart->refresh();
 
                 return $this->successResponse([
                     'message' => 'Product added to cart successfully.',
