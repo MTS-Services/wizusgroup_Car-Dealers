@@ -29,7 +29,7 @@ class User extends AuthBaseModel implements MustVerifyEmail
         'image',
         'email_verified_at',
         'whatsapp',
-
+        'occupation',
         'company_name',
         'business_type',
         'business_name',
@@ -40,7 +40,7 @@ class User extends AuthBaseModel implements MustVerifyEmail
         'dealer_registration_permit',
         'how_know',
         'how_know_detail',
-        'receive_promotions',
+        'receive_promotion_email',
         'accept_terms',
 
         'creater_id',
