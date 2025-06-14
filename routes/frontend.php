@@ -19,6 +19,7 @@ Route::group(['as' => 'frontend.'], function () {
     // About Page
     Route::get('/about', [FrontendController::class, 'about'])->name('about');
     Route::get('/orders', [FrontendController::class, 'testContainerPage'])->name('orders');
+    Route::get('/terms-and-conditions', [FrontendController::class, 'terms'])->name('terms');
 
     Route::controller(FrontendController::class)->group(function () {
         Route::get('order/group-shipping', 'group_shipping')->name('order.group_shipping');
@@ -92,4 +93,6 @@ Route::group(['as' => 'frontend.'], function () {
 
 
     });
+
+
 });

@@ -33,7 +33,7 @@
                     <input type="checkbox" value="1" name="terms" class="checkbox checkbox-xs checkbox-accent">
                     <span class="label text-sm">
                         <span>{{ __('I agree with') }}</span>
-                        <a href="#" class="underline text-text-gray hover:text-bg-primary transition-colors">
+                        <a href="{{ route('frontend.terms') }}" class="underline text-text-gray hover:text-bg-primary transition-colors">
                             {{ __('terms and conditions') }}
                         </a>
                     </span>
