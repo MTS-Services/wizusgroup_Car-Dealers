@@ -93,7 +93,7 @@
                         </select>
                         <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'debugbar']" />
                     </div>
-                    @if ($not_use)
+                    @if (isset($not_use))
                         {{-- <div class="form-group {{ $errors->has('audit') ? ' has-danger' : '' }}">
                             <label>{{ __('Enable Audit') }}
                                 <small>({{ __('Best to keep in true') }})</small></label>
