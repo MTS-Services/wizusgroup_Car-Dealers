@@ -1,9 +1,8 @@
-@extends('backend.admin.layouts.master',['page_slug'=>'dashboard'])
+@extends('backend.admin.layouts.master', ['page_slug' => 'dashboard'])
 @section('content')
-
     <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
         <div>
-            <h3 class="fw-bold mb-3">Dashboard</h3>
+            <h3 class="fw-bold mb-3">{{ __('Dashboard') }}</h3>
         </div>
     </div>
     <div class="row">
@@ -18,8 +17,8 @@
                         </div>
                         <div class="col col-stats ms-3 ms-sm-0">
                             <div class="numbers">
-                                <p class="card-category">Visitors</p>
-                                <h4 class="card-title">1,294</h4>
+                                <p class="card-category">{{ __('Visitors') }}</p>
+                                <h4 class="card-title">{{ number_format($total_visitors) }}</h4>
                             </div>
                         </div>
                     </div>
@@ -37,8 +36,8 @@
                         </div>
                         <div class="col col-stats ms-3 ms-sm-0">
                             <div class="numbers">
-                                <p class="card-category">Subscribers</p>
-                                <h4 class="card-title">1303</h4>
+                                <p class="card-category">{{ __('Today Visitors') }}</p>
+                                <h4 class="card-title">{{ number_format($today_visitors) }}</h4>
                             </div>
                         </div>
                     </div>
@@ -51,13 +50,13 @@
                     <div class="row align-items-center">
                         <div class="col-icon">
                             <div class="icon-big text-center icon-success bubble-shadow-small">
-                                <i class="fas fa-luggage-cart"></i>
+                                <i class="fas fa-users"></i>
                             </div>
                         </div>
                         <div class="col col-stats ms-3 ms-sm-0">
                             <div class="numbers">
-                                <p class="card-category">Sales</p>
-                                <h4 class="card-title">$ 1,345</h4>
+                                <p class="card-category">{{ __('Active Users') }}</p>
+                                <h4 class="card-title">{{ number_format($active_users) }}</h4>
                             </div>
                         </div>
                     </div>
@@ -70,13 +69,92 @@
                     <div class="row align-items-center">
                         <div class="col-icon">
                             <div class="icon-big text-center icon-secondary bubble-shadow-small">
-                                <i class="far fa-check-circle"></i>
+                                <i class="fas fa-users-cog"></i>
                             </div>
                         </div>
                         <div class="col col-stats ms-3 ms-sm-0">
                             <div class="numbers">
-                                <p class="card-category">Order</p>
-                                <h4 class="card-title">576</h4>
+                                <p class="card-category">{{ __('Active Admins') }}</p>
+                                <h4 class="card-title">{{ number_format($active_admins) }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-secondary bubble-shadow-small">
+                                <i class="fas fa-shipping-fast"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">{{ __('Active Orders') }}</p>
+                                <h4 class="card-title">{{ number_format($active_orders) }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-success bubble-shadow-small">
+                                <i class="fas fa-hourglass-half"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">{{ __('Pending Orders') }}</p>
+                                <h4 class="card-title">{{ number_format($pending_orders) }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-info bubble-shadow-small">
+                                <i class="fas fa-ban"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">{{ __('Cancelled Orders') }}</p>
+                                <h4 class="card-title">{{ number_format($cancelled_orders) }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-primary bubble-shadow-small">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">{{ __('Active Containers') }}</p>
+                                <h4 class="card-title">{{ number_format($active_containers) }}</h4>
                             </div>
                         </div>
                     </div>
@@ -90,17 +168,23 @@
                 <div class="card-header">
                     <div class="card-head-row d-flex align-items-center justify-content-between">
                         <div class="card-title">{{ __('Sales Report') }}</div>
-                        <div class="card-title">{{ __('Today Sales: $') }}{{ number_format($today_sales, 2) }}</div>
+                        <<<<<<< HEAD <div class="card-title">
+                            {{ __('Today Sales: $') }}{{ number_format($today_sales, 2) }}
                     </div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container" style="min-height: 375px;">
-                        <canvas id="statisticsChart"></canvas>
-                    </div>
-                    <div id="myChartLegend"></div>
+                    =======
+                    <div class="card-title">{{ __('Today Sales: $') }}{{ number_format($today_sales, 2) }}
+                        {{ __('USD') }}</div>
+                    >>>>>>> 55fa228b1d31287e8738f544eba5c71a5014fd18
                 </div>
             </div>
+            <div class="card-body">
+                <div class="chart-container" style="min-height: 375px;">
+                    <canvas id="statisticsChart"></canvas>
+                </div>
+                <div id="myChartLegend"></div>
+            </div>
         </div>
+    </div>
     </div>
 @endsection
 @push('js_links')
