@@ -58,6 +58,9 @@
                 showAlert('warning', '{{ session('warning') }}');
             @endif
         });
+        session.remove('success');
+        session.remove('error');
+        session.remove('warning');
     </script>
 </head>
 
