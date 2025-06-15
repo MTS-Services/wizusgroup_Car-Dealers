@@ -167,20 +167,20 @@
             <div class="card card-round">
                 <div class="card-header">
                     <div class="card-head-row d-flex align-items-center justify-content-between">
-                        <div class="card-title">{{ __('Sales Report') }}</div>
-                        {{ __('Today Sales: $') }}{{ number_format($today_sales, 2) }}
+                        <div class="card-title">{{ __('Sales Report') }}
+                            {{ __('Today Sales: $') }}{{ number_format($today_sales, 2) }}
+                        </div>
+                        <div class="card-title">{{ __('Today Sales: $') }}{{ number_format($today_sales, 2) }}</div>
                     </div>
-                    <div class="card-title">{{ __('Today Sales: $') }}{{ number_format($today_sales, 2) }}</div>
                 </div>
-            </div>
-            <div class="card-body">
-                <div class="chart-container" style="min-height: 375px;">
-                    <canvas id="statisticsChart"></canvas>
+                <div class="card-body">
+                    <div class="chart-container" style="min-height: 375px;">
+                        <canvas id="statisticsChart"></canvas>
+                    </div>
+                    <div id="myChartLegend"></div>
                 </div>
-                <div id="myChartLegend"></div>
             </div>
         </div>
-    </div>
     </div>
 @endsection
 @push('js_links')
