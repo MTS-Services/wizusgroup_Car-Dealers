@@ -65,7 +65,6 @@ class CheckoutPageController extends Controller
             return $user
                 ? Cart::with('items.product')->where('user_id', $user->id)->first()
                 : ($sessionId ? Cart::with('items.product')->where('session_id', $sessionId)->first() : null);
-
         } catch (Exception $e) {
             Log::error('Error getting cart: ' . $e->getMessage());
             return null;
@@ -155,11 +154,10 @@ class CheckoutPageController extends Controller
 
             session()->flash('success', 'Order checkout successfully');
             return redirect()->route('frontend.checkout', ['orderNumber' => $orderNumber]);
-
         } catch (Exception $e) {
             Log::error('Error in checkout submit: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'user_id' => auth()->id(),
+                'user_id' => user() ? user()->id : null,
             ]);
 
             session()->flash('error', 'Something went wrong during checkout. Please try again.');
@@ -238,12 +236,11 @@ class CheckoutPageController extends Controller
 
             session()->flash('success', 'Order checkout successfully');
             return redirect()->route('frontend.checkout', ['orderNumber' => $orderNumber]);
-
         } catch (Exception $e) {
             Log::error('Error in single order: ' . $e->getMessage(), [
                 'slug' => $slug,
                 'trace' => $e->getTraceAsString(),
-                'user_id' => auth()->id(),
+                'user_id' => user() ? user()->id : null,
             ]);
 
             session()->flash('error', 'Something went wrong. Please try again.');
@@ -346,7 +343,6 @@ class CheckoutPageController extends Controller
                     'order_total' => $orderItem->order->total,
                 ], $newQuantity === 1 && $validated['new_quantity'] < 1 ? 'info' : 'success');
             });
-
         } catch (ValidationException $e) {
             return $this->errorResponse('Invalid input data', 422, $e->errors());
         } catch (Exception $e) {
@@ -400,7 +396,6 @@ class CheckoutPageController extends Controller
                     'order_subtotal' => $order->sub_total,
                 ]);
             });
-
         } catch (ValidationException $e) {
             return $this->errorResponse('Invalid input data', 422, $e->errors());
         } catch (Exception $e) {
@@ -445,7 +440,6 @@ class CheckoutPageController extends Controller
                 'order_total' => $order->total,
                 'order_subtotal' => $order->sub_total,
             ]);
-
         } catch (ValidationException $e) {
             return $this->errorResponse('Invalid input data', 422, $e->errors());
         } catch (Exception $e) {
@@ -520,7 +514,6 @@ class CheckoutPageController extends Controller
                     $user = User::create(Arr::except($validated, 'phone'));
                     Auth::login($user);
                     SendUserRegistrationMail::dispatch($user, $validated['password']);
-
                 }
 
                 $user->whatsapp ?: $user->update(['whatsapp' => $validated['phone']]);
@@ -726,7 +719,5 @@ class CheckoutPageController extends Controller
             session()->flash('error', $e->getMessage());
             return redirect()->back();
         }
-
     }
-
 }
