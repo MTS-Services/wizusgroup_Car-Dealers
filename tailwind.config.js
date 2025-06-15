@@ -88,7 +88,8 @@ module.exports = {
           'light-secondary': '#FBFBFB',
 
           'dark': '#030303',
-          'dark-secondary': '#FBFBFB',
+          'dark-secondary': '#0F0F0F',
+          'dark-tertiary': '#1F1F1F',
 
           white: '#ffffff',
           black: '#000000',
@@ -105,7 +106,8 @@ module.exports = {
           'light-secondary': '#FBFBFB',
 
           'dark': '#030303',
-          'dark-secondary': '#FBFBFB',
+          'dark-secondary': '#0F0F0F',
+          'dark-tertiary': '#1F1F1F',
 
           white: '#ffffff',
           black: '#000000',
@@ -122,7 +124,8 @@ module.exports = {
           'light-secondary': '#FBFBFB',
 
           'dark': '#030303',
-          'dark-secondary': '#FBFBFB',
+          'dark-secondary': '#0F0F0F',
+          'dark-tertiary': '#1F1F1F',
 
           white: '#ffffff',
           black: '#000000',
@@ -139,7 +142,8 @@ module.exports = {
           'light-secondary': '#FBFBFB',
 
           'dark': '#030303',
-          'dark-secondary': '#FBFBFB',
+          'dark-secondary': '#0F0F0F',
+          'dark-tertiary': '#1F1F1F',
 
           white: '#ffffff',
           black: '#000000',

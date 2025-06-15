@@ -1,37 +1,58 @@
-<dialog id="my_modal_1" class="modal">
-    <div class="modal-box max-w-3xl p-6 rounded-2xl shadow-lg bg-white">
-        <div class="flex items-center justify-between mb-4">
-            <h3 class="text-2xl font-bold text-gray-800">Welcome Back!</h3>
+<dialog id="my_modal_1" class="modal backdrop:backdrop-blur-sm">
+    <div
+        class="modal-box max-w-3xl p-0 overflow-hidden rounded-xl shadow-2xl bg-bg-light dark:bg-bg-dark transition-colors duration-300">
+        <!-- Header -->
+        <div class="flex items-center justify-between p-6 pb-2">
+            <h3 class="text-2xl font-bold text-text-black dark:text-text-white">
+                {{ __('Welcome Back!') }}
+            </h3>
             <form method="dialog">
-                <button class="text-gray-500 hover:text-gray-700 transition duration-200">&times;</button>
+                <button class="btn btn-ghost btn-circle">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
             </form>
         </div>
 
-        <div class="grid gap-4 md:grid-cols-1 text-center">
-            {{-- USER --}}
-            <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
-                <h4 class="text-lg font-semibold text-indigo-700 mb-2">User Access</h4>
-                @auth('web')
-                    <a href="{{ route('user.profile') }}"
-                        class="btn btn-primary w-full bg-amber-600 hover:bg-amber-700 text-white">Go to Dashboard</a>
-                @else
-                    <a href="{{ route('login') }}" class="btn w-full bg-indigo-600 hover:bg-indigo-700 text-white">Login</a>
-                    <a href="{{ route('register') }}"
-                        class="btn w-full mt-2 bg-emerald-600 hover:bg-emerald-700 text-white">Register</a>
-                @endauth
+        <div class="divider m-0 mx-5"></div>
+
+        <!-- Content -->
+        <div class="grid gap-6 grid-cols-1 md:grid-cols-2 p-6">
+            <!-- User Option -->
+            <div class="group">
+                <a href="{{ route('login') }}"
+                    class="w-full h-full p-6 rounded-lg border border-border-black/10 dark:border-border-white/10 shadow-sm bg-bg-secondary/50 dark:bg-bg-dark-tertiary/50 transition-all duration-300 flex flex-col items-center justify-center group-hover:shadow-md">
+                    <div
+                        class="mb-4 p-3 rounded-full bg-bg-primary/10 dark:bg-bg-dark group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="user-check"
+                            class="w-10 h-10 text-text-primary dark:text-text-light group-hover:text-text-tertiary transition-all duration-300 ease-linear"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold text-text-primary dark:text-text-light mb-2">
+                        {{ __('Continue as Customer') }}
+                    </h4>
+                    <p class="text-text-primary/70 dark:text-text-light/70 text-sm text-center">
+                        {{ __('Access your personal account and dashboard') }}
+                    </p>
+                </a>
             </div>
 
-            {{-- ADMIN --}}
-            <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
-                <h4 class="text-lg font-semibold text-rose-600 mb-2">Admin Access</h4>
-                @auth('admin')
-                    <a href="{{ route('admin.dashboard') }}"
-                        class="btn w-full bg-rose-600 hover:bg-rose-700 text-white">Admin Dashboard</a>
-                @else
-                    <a href="{{ route('admin.login') }}"
-                        class="btn w-full bg-purple-600 hover:bg-purple-700 text-white">Admin Login</a>
-                @endauth
+            <!-- Admin Option -->
+            <div class="group">
+                <a href="{{ route('admin.login') }}"
+                    class="w-full h-full p-6 rounded-lg border border-border-black/10 dark:border-border-white/10 shadow-sm bg-bg-secondary dark:bg-bg-dark-tertiary transition-all duration-300 flex flex-col items-center justify-center group-hover:shadow-md">
+                    <div
+                        class="mb-4 p-3 rounded-full bg-bg-primary/10 dark:bg-bg-dark group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="user-cog"
+                            class="w-10 h-10 text-text-primary dark:text-text-light group-hover:text-text-tertiary transition-all duration-300 ease-linear"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold text-text-primary dark:text-text-light mb-2">
+                        {{ __('Continue as Admin') }}
+                    </h4>
+                    <p class="text-text-primary/70 dark:text-text-light/70 text-sm text-center">
+                        {{ __('Access the admin panel and tools') }}
+                    </p>
+                </a>
             </div>
         </div>
+
     </div>
 </dialog>
