@@ -78,6 +78,9 @@
     border: 1px solid #ccc;
     min-height: 80vh;
 }
+.site_settings .btn-success{
+    background-color: #1572e8 !important;
+}
 
 .site_settings .tab button {
     width: 100%;
@@ -247,9 +250,8 @@
 .product_tabs .btn_item,
 .profile_tabs .btn_item
  {
-    background: linear-gradient(to right, #1f0036, #37006d);
+    background: #48abf7;
     color: white;
-    border: 1px solid #444;
     border-radius: 10px;
     font-size: 18px;
     font-weight: 500;
@@ -259,7 +261,7 @@
 .product_tabs .btn_item:hover,
 .profile_tabs .btn_item:hover
 {
-    background: linear-gradient(to right, #37006d, #1f0036);
+    background: #1572e8;
     opacity: 0.9;
     cursor: pointer;
 }
@@ -267,14 +269,14 @@
 .product_tabs .active.btn_item,
 .profile_tabs .active.btn_item
 {
-    background: linear-gradient(to right, #0972C1, #37006d);
+    background: #1572e8;
 }
 
 /*=============================================================
                 Auction Running List CSS
  =============================================================*/
 .bg-wiz_orange {
-    background-color: orange;
+    background-color: rgb(26, 25, 24);
 }
 
 .text-wiz_red {
@@ -325,11 +327,13 @@
 }
 
 .profile_management .card-header {
-    background: linear-gradient(to right, #1f0036, #37006d) !important;
+    background: #48abf7;
     color: #ffffff;
     border-bottom: 1px solid #2a2a2a;
     border-radius: 10px 10px 0 0 !important;
 }
+
+
 
 
 /* Header CSS  */
