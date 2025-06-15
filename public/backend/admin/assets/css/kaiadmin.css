@@ -5910,7 +5910,7 @@ label.error {
     transition: all .5s; }
 
   .topbar_open .navbar-header {
-    transform: translate3d(0, 70px, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
     background: #fff; }
     .topbar_open .navbar-header .navbar-nav > .nav-item .nav-link i {
       font-size: 16px; }

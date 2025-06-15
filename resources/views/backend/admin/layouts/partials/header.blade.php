@@ -22,7 +22,7 @@
     </div>
     <!-- Navbar Header -->
     <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom py-0 px-3"
-        data-background-color="blue">
+        data-background-color="light-blue">
         <div class="container-fluid">
             <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
                 <li class="nav-item topbar-user dropdown hidden-caret dropdown-hover">
