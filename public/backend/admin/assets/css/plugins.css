@@ -3545,8 +3545,8 @@ temporary rendered events).
     background: #1a2035 !important;
     border-color: #1a2035 !important; }
   .fc-event.fc-primary .fc-content:before {
-    background: #1572E8 !important;
-    border-color: #1572E8 !important; }
+    background: #1572e8 !important;
+    border-color: #1572e8 !important; }
   .fc-event.fc-secondary .fc-content:before {
     background: #6861CE !important;
     border-color: #6861CE !important; }
@@ -3571,8 +3571,8 @@ temporary rendered events).
     background: #1a2035 !important;
     border-color: #1a2035 !important; }
   .fc-event.fc-primary-solid {
-    background: #1572E8 !important;
-    border-color: #1572E8 !important; }
+    background: #1572e8 !important;
+    border-color: #1572e8 !important; }
   .fc-event.fc-secondary-solid {
     background: #6861CE !important;
     border-color: #6861CE !important; }
@@ -3592,7 +3592,7 @@ temporary rendered events).
 .fc-list-item.fc-black .fc-event-dot, .fc-list-item.fc-black-solid .fc-event-dot {
   background: #1a2035 !important; }
 .fc-list-item.fc-primary .fc-event-dot, .fc-list-item.fc-primary-solid .fc-event-dot {
-  background: #1572E8 !important; }
+  background: #1572e8 !important; }
 .fc-list-item.fc-secondary .fc-event-dot, .fc-list-item.fc-secondary-solid .fc-event-dot {
   background: #6861CE !important; }
 .fc-list-item.fc-info .fc-event-dot, .fc-list-item.fc-info-solid .fc-event-dot {
@@ -4623,10 +4623,10 @@ div.table-responsive > div.dataTables_wrapper > div.row {
     padding: 6px 0;
     font-size: 16px;
     font-weight: 800;
-    color: #1572E8; }
+    color: #1572e8; }
     .bootstrap-datetimepicker-widget a[data-action]:active {
       box-shadow: none;
-      color: #1572E8; }
+      color: #1572e8; }
   .bootstrap-datetimepicker-widget .timepicker-hour, .bootstrap-datetimepicker-widget .timepicker-minute, .bootstrap-datetimepicker-widget .timepicker-second {
     width: 54px;
     font-weight: bold;
@@ -4827,17 +4827,17 @@ div.table-responsive > div.dataTables_wrapper > div.row {
           display: inline-block;
           border: solid transparent;
           border-width: 0 0 7px 7px;
-          border-bottom-color: #1572E8;
+          border-bottom-color: #1572e8;
           border-top-color: rgba(0, 0, 0, 0.2);
           position: absolute;
           bottom: 4px;
           right: 4px; }
       .bootstrap-datetimepicker-widget table td.active {
-        background-color: #1572E8;
+        background-color: #1572e8;
         color: #fff;
         text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); }
         .bootstrap-datetimepicker-widget table td.active:hover {
-          background-color: #1572E8;
+          background-color: #1572e8;
           color: #fff;
           text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); }
         .bootstrap-datetimepicker-widget table td.active.today:before {
@@ -4859,10 +4859,10 @@ div.table-responsive > div.dataTables_wrapper > div.row {
         cursor: pointer;
         border-radius: 4px; }
         .bootstrap-datetimepicker-widget table td span:hover {
-          color: #1572E8;
+          color: #1572e8;
           background: #eee; }
         .bootstrap-datetimepicker-widget table td span.active {
-          background-color: #1572E8;
+          background-color: #1572e8;
           color: #fff;
           text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); }
         .bootstrap-datetimepicker-widget table td span.old {
@@ -5378,7 +5378,7 @@ div.table-responsive > div.dataTables_wrapper > div.row {
       background-color: #f5f5f5;
       color: #262626; }
   .select2-container--bootstrap .select2-results__option--highlighted[aria-selected] {
-    background-color: #1572E8;
+    background-color: #1572e8;
     color: #ffffff; }
   .select2-container--bootstrap .select2-results__option .select2-results__option {
     padding: 6px 12px; }
@@ -5717,8 +5717,8 @@ div.table-responsive > div.dataTables_wrapper > div.row {
   color: #ffffff !important; }
 
 .select2-primary .select2-selection__choice {
-  background: #1572E8 !important;
-  border-color: #1572E8 !important;
+  background: #1572e8 !important;
+  border-color: #1572e8 !important;
   color: #ffffff !important; }
 
 .select2-secondary .select2-selection__choice {

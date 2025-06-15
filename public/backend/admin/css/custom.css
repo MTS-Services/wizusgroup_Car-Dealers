@@ -2,6 +2,33 @@
     --primary-color: #6861ce;
 }
 
+/* .sidebar[data-background-color=dark] {
+    background-color: rgba(242 249 255 / 1) !important;
+    background: rgba(242 249 255 / 1) !important;
+}
+
+.logo-header[data-background-color="dark"]
+{
+    background-color: rgba(242 249 255 / 1) !important;
+    background: rgba(242 249 255 / 1) !important;
+}
+.logo-header, .logo-header .logo{
+    color: #000;
+}
+.logo-header, .logo-header .logo .title_{
+    color: #000 !important;
+}
+.sidebar[data-background-color=dark] .nav>.nav-item a {
+    color: #000 !important;
+}
+.sidebar[data-background-color=dark] .nav>.nav-item.active>a p {
+    color: #000 !important;
+}
+
+.sidebar[data-background-color=dark] .nav>.nav-item a:hover {
+    color: rgb(66 42 213 / 1) !important;
+} */
+
 
 /*=============================================================
                 Datatable CSS
@@ -318,5 +345,8 @@
     display: none;
     transition: 0.4s;
     position: absolute;
+}
+.main-header{
+    background-color: transparent;
 }
 
