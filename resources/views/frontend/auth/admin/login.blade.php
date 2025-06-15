@@ -56,7 +56,7 @@
 
                 <!-- Right Side: Image -->
                 <div class="w-1/2 hidden xl:block">
-                    <img src="{{ asset('/frontend/images/5464026.jpg') }}" alt="Register Image"
+                    <img src="{{ asset('/frontend/images/addminstrator.jpg') }}" alt="Register Image"
                         class="w-full h-full object-cover" />
                 </div>
             </div>

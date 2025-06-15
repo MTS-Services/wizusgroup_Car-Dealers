@@ -52,12 +52,39 @@
                         data-lucide="heart"></i></a> --}}
                 <a href="javaScript:void(0)"
                     class="hover:text-text-secondary transition-all duration-300 ease-linear openCartSidebar"><i
-                        data-lucide="shopping-basket"></i></a><sup id="cart-count" class="-ml-2 font-semibold">0</sup>
+                        data-lucide="shopping-basket"></i></a><sup id="cart-count"
+                    class="-ml-2 font-semibold">{{ __('0') }}</sup>
                 {{-- Cart Sidebar --}}
                 @include('frontend.includes.cart_sidebar')
-                <a href="javaScript:void(0)" onclick="my_modal_1.showModal()"
-                    class="hover:text-text-secondary transition-all duration-300 ease-linear"><i
-                        data-lucide="user"></i></a>
+                @if(auth()->guard('web')->check() || auth()->guard('admin')->check())
+                    <div class="dropdown dropdown-end">
+                        <buttopn tabindex="0" role="button"
+                            class="hover:text-text-secondary transition-all duration-300 ease-linear"><i
+                                data-lucide="user-round-cog"></i></buttopn>
+                        <ul tabindex="0"
+                            class="mt-9 dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                            <li><a href="@auth('web') {{ route('user.profile') }} @else {{ route('admin.dashboard') }} @endauth "
+                                    class=""><i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                                    {{ __('Dashboard') }}</a></li>
+                            <li><a href="@auth('web')
+                            {{ route('user.profile', ['slug' => 'profile']) }} @else {{ route('admin.profile') }} @endauth"
+                                    class=""> <i data-lucide="user-round-pen"
+                                        class="w-4 h-4"></i>{{ __('Profile') }}</a></li>
+                            <div class="divider m-0"></div>
+                            <li><a href="javaScript:void(0)" onclick="document.getElementById('logout-form').submit()"
+                                    class=""> <i data-lucide="log-out" class="w-4 h-4"></i>{{ __('Logout') }}</a>
+                            </li>
+                            <form action="@auth('web') {{ route('logout') }} @else {{ route('admin.logout') }} @endauth"
+                                id="logout-form" method="POST">
+                                @csrf
+                            </form>
+                        </ul>
+                    </div>
+                @else
+                    <a href="javaScript:void(0)" onclick="my_modal_1.showModal()"
+                        class="hover:text-text-secondary transition-all duration-300 ease-linear"><i
+                            data-lucide="user-round"></i></a>
+                @endauth
                 <span class="hidden tablet:flex"><x-frontend.theme /></span>
                 <button
                     class="openSidebar text-2xl tablet:hidden hover:text-text-secondary transition-all duration-300 ease-linear"
