@@ -19,6 +19,7 @@ class CartManager {
 
             // UI Selectors - can be customized for different layouts
             selectors: {
+                cartCount: config.selectors?.cartCount || '#cart-count',
                 sidebar: config.selectors?.sidebar || '.cartSidebar',
                 closeSidebar: config.selectors?.closeSidebar || '.closeCartSidebar',
                 itemsContainer: config.selectors?.itemsContainer || '#cart-items-container',
@@ -164,7 +165,7 @@ class CartManager {
             if (status === 'success') {
                 // Update local cart data
                 this.updateLocalCartData(cart_item, 'add');
-
+                this.updateCartCount(this.getCartCount() + 1);
                 this.addCartItemToUI(cart_item);
                 this.showNotification(message, 'success');
                 this.openSidebar();
@@ -265,7 +266,7 @@ class CartManager {
             if (status === 'success') {
                 // Update local cart data
                 this.removeFromLocalCartData(removed_item_id);
-
+                this.updateCartCount(this.getCartCount() - 1);
                 this.removeCartItemFromUI(removed_item_id);
                 this.updateCartTotal(cart_total);
                 this.showNotification(message, 'success');
@@ -293,6 +294,7 @@ class CartManager {
             this.cartData.total = cart_total || 0;
 
             this.renderAllCartItems(this.cartData.items);
+            this.updateCartCount(this.cartData.items.length);
             this.updateCartTotal(this.cartData.total);
 
             this.log('Cart items loaded successfully', this.cartData);
@@ -362,6 +364,22 @@ class CartManager {
         }
 
         this.reinitializeIcons();
+    }
+
+    updateCartCount(count) {
+        const $cartCount = $(this.config.selectors.cartCount);
+        console.log($cartCount);
+        if ($cartCount.length) {
+            $cartCount.text(count);
+        }
+    }
+
+    getCartCount() {
+        const $cartCount = $(this.config.selectors.cartCount);
+        if ($cartCount.text()) {
+            return parseInt($cartCount.text());
+        }
+        return 0;
     }
 
     /**

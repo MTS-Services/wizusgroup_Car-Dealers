@@ -52,7 +52,7 @@
                         data-lucide="heart"></i></a> --}}
                 <a href="javaScript:void(0)"
                     class="hover:text-text-secondary transition-all duration-300 ease-linear openCartSidebar"><i
-                        data-lucide="shopping-basket"></i></a>
+                        data-lucide="shopping-basket"></i></a><sup id="cart-count" class="-ml-2 font-semibold">0</sup>
                 {{-- Cart Sidebar --}}
                 @include('frontend.includes.cart_sidebar')
                 <a href="javaScript:void(0)" onclick="my_modal_1.showModal()"

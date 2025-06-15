@@ -33,7 +33,8 @@
                     <input type="checkbox" value="1" name="terms" class="checkbox checkbox-xs checkbox-accent">
                     <span class="label text-sm">
                         <span>{{ __('I agree with') }}</span>
-                        <a href="{{ route('frontend.terms') }}" class="underline text-text-gray hover:text-bg-primary transition-colors">
+                        <a href="{{ route('frontend.terms') }}"
+                            class="underline text-text-gray hover:text-bg-primary transition-colors">
                             {{ __('terms and conditions') }}
                         </a>
                     </span>
@@ -43,7 +44,7 @@
                 <div class="flex items-center justify-between gap-3 pb-6 mt-4">
                     <x-frontend.primary-button bg="true" type="submit" button="true">{{ __('Checkout') }}
                     </x-frontend.primary-button>
-                    <x-frontend.primary-button href="{{ route('frontend.cart') }}" >{{ __('View Cart') }}
+                    <x-frontend.primary-button href="{{ route('frontend.cart') }}">{{ __('View Cart') }}
                     </x-frontend.primary-button>
                 </div>
             </div>
@@ -66,7 +67,8 @@
                 closeSidebar: '.closeCartSidebar',
                 itemsContainer: '#cart-items-container',
                 emptyMessage: '#cart-empty-message',
-                totalDisplay: '.cart-total'
+                totalDisplay: '.cart-total',
+                cartCount: '#cart-count',
             },
             // debug: true // Enable for development
         });

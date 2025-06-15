@@ -93,7 +93,8 @@
                                     </label>
                                     <x-frontend.input-error :datas="['errors' => $errors, 'field' => 'terms']" />
                                 </div>
-                                <x-frontend.primary-button type="submit" button="true" class="w-52">{{ __('Checkout') }}
+                                <x-frontend.primary-button type="submit" button="true"
+                                    class="w-52 px-3">{{ __('Checkout') }}
                                 </x-frontend.primary-button>
                             </div>
                         </form>
@@ -118,7 +119,8 @@
                 selectors: {
                     tableBody: '#cart-table-body',
                     emptyMessage: '#cart-empty-message',
-                    totalDisplay: '.cart-total'
+                    totalDisplay: '.cart-total',
+                    cartCount: '#cart-count',
                 }
             });
         })
