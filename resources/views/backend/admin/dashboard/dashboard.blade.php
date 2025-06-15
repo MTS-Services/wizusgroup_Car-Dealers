@@ -168,13 +168,9 @@
                 <div class="card-header">
                     <div class="card-head-row d-flex align-items-center justify-content-between">
                         <div class="card-title">{{ __('Sales Report') }}</div>
-                        <<<<<<< HEAD <div class="card-title">
-                            {{ __('Today Sales: $') }}{{ number_format($today_sales, 2) }}
+                        {{ __('Today Sales: $') }}{{ number_format($today_sales, 2) }}
                     </div>
-                    =======
-                    <div class="card-title">{{ __('Today Sales: $') }}{{ number_format($today_sales, 2) }}
-                        {{ __('USD') }}</div>
-                    >>>>>>> 55fa228b1d31287e8738f544eba5c71a5014fd18
+                    <div class="card-title">{{ __('Today Sales: $') }}{{ number_format($today_sales, 2) }}</div>
                 </div>
             </div>
             <div class="card-body">
