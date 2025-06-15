@@ -84,5 +84,127 @@
             </div>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col">
+            <div class="card card-round">
+                <div class="card-header">
+                    <div class="card-head-row d-flex align-items-center justify-content-between">
+                        <div class="card-title">{{ __('Sales Report') }}</div>
+                        <div class="card-title">{{ __('Today Sales: $') }}{{ number_format($today_sales, 2) }}</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container" style="min-height: 375px;">
+                        <canvas id="statisticsChart"></canvas>
+                    </div>
+                    <div id="myChartLegend"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+@push('js_links')
+    <!-- Chart JS -->
+    <script src="{{ asset('backend/admin/assets/js/plugin/chart.js/chart.min.js') }}"></script>
+@endpush
+@push('js')
+    <script>
+        $(document).ready(function() {
+            var ctx = document.getElementById('statisticsChart').getContext('2d');
+
+            var statisticsChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
+                        "Dec"
+                    ],
+                    datasets: [{
+                        label: "Sales",
+                        borderColor: '#177dff',
+                        pointBackgroundColor: 'rgba(23, 125, 255, 0.6)',
+                        pointRadius: 0,
+                        backgroundColor: 'rgba(23, 125, 255, 0.4)',
+                        legendColor: '#177dff',
+                        fill: true,
+                        borderWidth: 2,
+                        data: {!! $sales_chart_data !!},
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                let value = tooltipItem.yLabel
+                                    .toLocaleString(); // formatted with commas
+                                return 'Sales: $' + value;
+                            }
+                        },
+                        bodySpacing: 4,
+                        mode: "nearest",
+                        intersect: 0,
+                        position: "nearest",
+                        xPadding: 10,
+                        yPadding: 10,
+                        caretPadding: 10
+                    },
+                    layout: {
+                        padding: {
+                            left: 5,
+                            right: 5,
+                            top: 15,
+                            bottom: 15
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                fontStyle: "500",
+                                beginAtZero: false,
+                                maxTicksLimit: 5,
+                                padding: 10
+                            },
+                            gridLines: {
+                                drawTicks: false,
+                                display: false
+                            }
+                        }],
+                        xAxes: [{
+                            gridLines: {
+                                zeroLineColor: "transparent"
+                            },
+                            ticks: {
+                                padding: 10,
+                                fontStyle: "500"
+                            }
+                        }]
+                    },
+                    legendCallback: function(chart) {
+                        var text = [];
+                        text.push('<ul class="' + chart.id + '-legend html-legend">');
+                        for (var i = 0; i < chart.data.datasets.length; i++) {
+                            text.push('<li><span style="background-color:' + chart.data.datasets[i]
+                                .legendColor +
+                                '"></span>');
+                            if (chart.data.datasets[i].label) {
+                                text.push(chart.data.datasets[i].label);
+                            }
+                            text.push('</li>');
+                        }
+                        text.push('</ul>');
+                        return text.join('');
+                    }
+                }
+            });
+
+            var myLegendContainer = document.getElementById("myChartLegend");
+
+            // generate HTML legend
+            myLegendContainer.innerHTML = statisticsChart.generateLegend();
+        })
+    </script>
+@endpush
