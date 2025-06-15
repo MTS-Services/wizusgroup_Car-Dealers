@@ -56,8 +56,7 @@
                     class="-ml-2 font-semibold">{{ __('0') }}</sup>
                 {{-- Cart Sidebar --}}
                 @include('frontend.includes.cart_sidebar')
-                @auth
-
+                @if(auth()->guard('web')->check() || auth()->guard('admin')->check())
                     <div class="dropdown dropdown-end">
                         <buttopn tabindex="0" role="button"
                             class="hover:text-text-secondary transition-all duration-300 ease-linear"><i

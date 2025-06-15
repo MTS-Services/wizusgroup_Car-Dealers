@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Order;
-use DB;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Session;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -19,6 +19,10 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        if (Auth::guard('admin')->check()) {
+            Auth::guard('admin')->logout();
+        }
+
         if (session()->has('cart_session_id')) {
             $sessionId = Session::getId();
             $cart = Cart::where('session_id', session()->get('cart_session_id'))->first();
@@ -40,7 +44,6 @@ class LoginController extends Controller
             });
             session()->put('cart_session_id', $sessionId);
             App::setLocale($user->locale);
-
         }
     }
 

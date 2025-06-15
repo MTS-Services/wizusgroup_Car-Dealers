@@ -15,7 +15,7 @@ use Illuminate\Validation\ValidationException;
 class LoginController extends Controller
 {
 
-   use AuthenticatesUsers;
+    use AuthenticatesUsers;
 
     /**
      * Where to redirect after login.
@@ -111,7 +111,11 @@ class LoginController extends Controller
 
             // Redirect to admin verification notice page
             return redirect()->route('admin.verification.notice')
-                 ->with('resent', true);
+                ->with('resent', true);
+        }
+
+        if (Auth::guard('web')->check()) {
+            Auth::guard('web')->logout();
         }
 
         return $this->authenticated($request, $admin)
