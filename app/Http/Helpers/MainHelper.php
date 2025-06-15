@@ -222,3 +222,17 @@ function settings($key)
         return $setting->value;
     }
 }
+
+function maskEmailSmart($email)
+{
+    $parts = explode('@', $email);
+    $username = $parts[0];
+    $domain = $parts[1];
+
+    $firstPart = substr($username, 0, 2);
+    $lastPart = substr($username, -1);
+    $maskLength = strlen($username) - 3;
+    $maskedPart = str_repeat('*', $maskLength);
+
+    return "{$firstPart}{$maskedPart}{$lastPart}@{$domain}";
+}

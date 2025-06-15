@@ -24,8 +24,20 @@ class VerificationController extends Controller
     public function show(Request $request)
     {
         return $request->user()->hasVerifiedEmail()
-                        ? redirect($this->redirectPath())
-                        : view('frontend.auth.user.verify');
+            ? redirect($this->redirectPath())
+            : view('frontend.auth.user.verify');
+    }
+
+    public function resend(Request $request)
+    {
+        if ($request->user()->hasVerifiedEmail()) {
+            return redirect($this->redirectPath());
+        }
+
+        $request->user()->sendEmailVerificationNotification();
+
+        session()->flash('success', 'A fresh verification link has been sent successfully to your email address.');
+        return back();
     }
 
     /**
