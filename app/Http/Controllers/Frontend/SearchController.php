@@ -36,6 +36,7 @@ class SearchController extends Controller
         $products = $products->select('id', 'name', 'slug', 'price')
             ->orderBy('name', 'asc')
             ->with('primaryImage')
+            ->limit(10)
             ->get();
 
         $formattedProducts = $products->map(function ($product) {
