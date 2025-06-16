@@ -48,7 +48,7 @@ class SearchController extends Controller
                     : 'https://placehold.co/600x400?text=No+Image',
                 'price' => $product->price,
                 'category' => $product->category ? $product->category->name : 'Uncategorized',
-                'url' => route('frontend.products.show', $product->slug),
+                'url' => route('frontend.product.details', $product->slug),
             ];
         });
 

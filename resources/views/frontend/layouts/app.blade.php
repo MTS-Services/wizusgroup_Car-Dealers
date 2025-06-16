@@ -50,9 +50,9 @@
                 showAlert('warning', '{{ session('warning') }}');
             @endif
 
-            // session.remove('success');
-            // session.remove('error');
-            // session.remove('warning');
+            session.remove('success');
+            session.remove('error');
+            session.remove('warning');
         });
     </script>
 
@@ -185,9 +185,6 @@
 
     {{-- Side Bar --}}
     <script src="{{ asset('frontend/js/sidebar.js') }}"></script>
-
-    <script src="{{ asset('frontend/js/toggleSearchForm.js') }}"></script>
-
 
     {{-- Hide or Show Swiper Navigation Buttons Controller --}}
     <script>

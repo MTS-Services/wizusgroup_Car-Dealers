@@ -97,8 +97,8 @@ Route::group(['as' => 'frontend.'], function () {
     // Product Search
     Route::post('/products/search', [SearchController::class, 'search'])->name('products.search');
     // Assuming you have a route for showing individual products:
-    Route::get('/products/{product:slug}', function (\App\Models\Product $product) {
-        // return view for product details, e.g.,
-        // return view('frontend.products.show', compact('product'));
-    })->name('products.show'); // This route name is used in your frontend
+    // Route::get('/products/{product:slug}', function (\App\Models\Product $product) {
+    //     // return view for product details, e.g.,
+    //     // return view('frontend.products.show', compact('product'));
+    // })->name('products.show'); // This route name is used in your frontend
 });
