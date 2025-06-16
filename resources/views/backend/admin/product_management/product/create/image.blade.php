@@ -11,7 +11,7 @@
                     </h4>
                     <x-backend.admin.button :datas="[
                         'routeName' => 'pm.product.relation',
-                        'params' => ['product' => encrypt($product->id)],
+                        'params' => ['product' => encrypt($product->id),'product_type' => request('product_type')],
                         'label' => 'Back',
                         'permissions' => ['product-create'],
                     ]" />

@@ -8,7 +8,9 @@
                     <h4 class="cart-title">{{ __('Edit Product') }}</h4>
                     <x-backend.admin.button :datas="[
                         'routeName' => 'pm.product.index',
+                        'params' => ['product_type' => $product->product_type],
                         'label' => 'Back',
+                        'params' => ['product_type' => request('product_type')],
                         'permissions' => ['Product-list'],
                     ]" />
                 </div>

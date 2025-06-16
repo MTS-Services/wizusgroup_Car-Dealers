@@ -85,8 +85,8 @@ class ProductController extends Controller
                 ->editColumn('created_at', function ($product) {
                     return $product->created_at_formatted;
                 })
-                ->editColumn('action', function ($product) {
-                    $menuItems = $this->menuItems($product);
+                ->editColumn('action', function ($product) use($product_type) {
+                    $menuItems = $this->menuItems($product, $product_type);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
                 ->rawColumns(['status', 'is_featured', 'created_by', 'created_at', 'action'])
@@ -96,36 +96,36 @@ class ProductController extends Controller
     }
 
 
-    protected function menuItems($model): array
+    protected function menuItems($model, $product_type): array
     {
         return [
             [
                 'routeName' => 'pm.product.show',
-                'params' => [encrypt($model->id)],
+                'params' => ['product' => encrypt($model->id), 'product_type' => $product_type],
                 'label' => 'Details',
                 'permissions' => ['product-details']
             ],
             [
                 'routeName' => 'pm.product.edit',
-                'params' => [encrypt($model->id)],
+                'params' => ['product' => encrypt($model->id), 'product_type' => $product_type],
                 'label' => 'Edit',
                 'permissions' => ['product-edit']
             ],
             [
                 'routeName' => 'pm.product.status',
-                'params' => [encrypt($model->id)],
+                'params' => ['product' => encrypt($model->id), 'product_type' => $product_type],
                 'label' => $model->status_btn_label,
                 'permissions' => ['product-status']
             ],
             [
                 'routeName' => 'pm.product.feature',
-                'params' => [encrypt($model->id)],
+                'params' => ['product' => encrypt($model->id), 'product_type' => $product_type],
                 'label' => $model->featured_btn_label,
                 'permissions' => ['product-feature']
             ],
             [
                 'routeName' => 'pm.product.destroy',
-                'params' => [encrypt($model->id)],
+                'params' => [encrypt($model->id), 'product_type' => $product_type],
                 'label' => 'Delete',
                 'delete' => true,
                 'permissions' => ['product-delete']
@@ -169,28 +169,28 @@ class ProductController extends Controller
                     // The date when the product was deleted is shown
                     return $category->deleted_at_formatted;
                 })
-                ->editColumn('action', function ($category) {
-                    $menuItems = $this->trashedMenuItems($category);
+                ->editColumn('action', function ($category) use($product_type) {
+                    $menuItems = $this->trashedMenuItems($category, $product_type);
                     return view('components.backend.admin.action-buttons', compact('menuItems'))->render();
                 })
                 ->rawColumns(['status', 'is_featured', 'deleted_by', 'deleted_at', 'action'])
                 ->make(true);
         }
-        return view('backend.admin.product_management.product.recycle-bin');
+        return view('backend.admin.product_management.product.recycle-bin', compact('product_type'));
     }
 
-    protected function trashedMenuItems($model): array
+    protected function trashedMenuItems($model, $product_type): array
     {
         return [
             [
                 'routeName' => 'pm.product.restore',
-                'params' => [encrypt($model->id)],
+                'params' => ['product' => encrypt($model->id), 'product_type' => $product_type],
                 'label' => 'Restore',
                 'permissions' => ['product-restore']
             ],
             [
                 'routeName' => 'pm.product.permanent-delete',
-                'params' => [encrypt($model->id)],
+                'params' => [encrypt($model->id), 'product_type' => $product_type],
                 'label' => 'Permanent Delete',
                 'p-delete' => true,
                 'permissions' => ['product-permanent-delete']
@@ -217,7 +217,7 @@ class ProductController extends Controller
             $validated = $request->validated();
             $product = $this->productService->basicInfoCreate($validated);
             session()->flash('success', 'Product basic information added successfully!');
-            return redirect()->route('pm.product.relation', encrypt($product->id));
+            return redirect()->route('pm.product.relation', ['product'=>encrypt($product->id),'product_type' => request('product_type')]);
         } catch (\Throwable $e) {
             session()->flash('error', 'Product basic information create failed!');
             throw $e;
@@ -240,7 +240,7 @@ class ProductController extends Controller
             $validated = $request->validated();
             $this->productService->relationCreateOrUpdate($product, $validated);
             session()->flash('success', 'Product relations added successfully!');
-            return redirect()->route('pm.product.image', $pid);
+            return redirect()->route('pm.product.image',['product'=>$pid,'product_type' => request('product_type')]);
         } catch (\Throwable $e) {
             session()->flash('error', 'Product relations added failed!');
             throw $e;
@@ -261,7 +261,7 @@ class ProductController extends Controller
             $validated = $request->validated();
             $this->productService->imageCreate($product, $validated);
             session()->flash('success', 'Product images added successfully!');
-            return redirect()->route('pm.product.info', $pid);
+            return redirect()->route('pm.product.info',['product'=>$pid,'product_type' => request('product_type')]);
         } catch (\Throwable $e) {
             session()->flash('error', 'Product images added failed!');
             throw $e;
@@ -289,7 +289,7 @@ class ProductController extends Controller
         $product_id = $info_remark->product_id;
         $info_remark->forceDelete();
         session()->flash('success', 'Product information deleted successfully!');
-        return redirect()->route('pm.product.info', encrypt($product_id));
+        return redirect()->route('pm.product.info', ['product'=>encrypt($product_id),'product_type' => request('product_type')]);
     }
     public function infoStore(ProductInfoRequest $request, string $pid): RedirectResponse
     {
@@ -299,7 +299,7 @@ class ProductController extends Controller
             $file = $request->validated('file') && $request->hasFile('file') ? $request->file('file') : null;
             $this->productService->infoCreate($product, $validated, $file);
             session()->flash('success', 'Product information added successfully!');
-            return redirect()->route('pm.product.info', $pid);
+            return redirect()->route('pm.product.info', ['product'=>$pid,'product_type' => request('product_type')]);
             ;
         } catch (\Throwable $e) {
             session()->flash('error', 'Product information added failed!');
@@ -315,7 +315,7 @@ class ProductController extends Controller
             return response()->download(Storage::disk('public')->path($info->file), basename($info->file));
         } else {
             session()->flash('error', 'File not found!');
-            return redirect()->route('pm.product.index');
+            return redirect()->route('pm.product.index', ['product_type' => 2]);
         }
     }
     public function entryComplete(string $pid): RedirectResponse
@@ -324,10 +324,10 @@ class ProductController extends Controller
             $completed = $this->productService->getProductEntryComplete($pid);
             if ($completed) {
                 session()->flash('success', 'Product entry finished successfully!');
-                return redirect()->route('pm.product.index');
+                return redirect()->route('pm.product.index', ['product_type' => request('product_type')]);
             } else {
                 session()->flash('error', value: 'Product entry completed failed!');
-                return redirect()->route('pm.product.info', $pid);
+                return redirect()->route('pm.product.info', ['product'=>$pid,'product_type' => request('product_type')]);
             }
         } catch (\Throwable $e) {
             session()->flash('error', 'Product entry completed failed!' . $e->getMessage());
@@ -380,7 +380,7 @@ class ProductController extends Controller
             session()->flash('error', 'Product status update failed!');
             throw $e;
         }
-        return redirect()->route('pm.product.index');
+        return redirect()->route('pm.product.index', ['product_type' => request('product_type')]);
     }
 
     public function feature($id): RedirectResponse
@@ -392,7 +392,7 @@ class ProductController extends Controller
             session()->flash('error', 'Product feature update failed!');
             throw $e;
         }
-        return redirect()->route('pm.product.index');
+        return redirect()->route('pm.product.index', ['product_type' => request('product_type')]);
     }
 
     // public function backorder(string $id): RedirectResponse
@@ -422,7 +422,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request,  string $id)
     {
         try {
             $this->productService->delete($id);
@@ -431,7 +431,7 @@ class ProductController extends Controller
             session()->flash('error', 'Product delete failed!');
             throw $e;
         }
-        return redirect()->route('pm.product.index');
+        return redirect()->route('pm.product.index', ['product_type' => $request->product_type]);
     }
 
     public function restore(string $id): RedirectResponse
@@ -444,10 +444,10 @@ class ProductController extends Controller
             session()->flash('error', 'Product restore failed!');
             throw $e;
         }
-        return redirect()->route('pm.product.recycle-bin');
+        return redirect()->route('pm.product.recycle-bin', ['product_type' => request('product_type')]);
     }
 
-    public function permanentDelete(string $id): RedirectResponse
+    public function permanentDelete(Request $request, string $id): RedirectResponse
     {
         try {
             $product = $this->productService->getDeletedProduct($id);
@@ -457,6 +457,6 @@ class ProductController extends Controller
             session()->flash('error', 'Product permanent delete failed!');
             throw $e;
         }
-        return redirect()->route('pm.product.recycle-bin');
+        return redirect()->route('pm.product.recycle-bin', ['product_type' => $request->product_type]);
     }
 }

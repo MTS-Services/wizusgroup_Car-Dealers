@@ -10,7 +10,7 @@
                     </h4>
                     <x-backend.admin.button :datas="[
                         'routeName' => 'pm.product.image',
-                        'params' => ['product' => $product_id],
+                        'params' => ['product' => $product_id, 'product_type' => request('product_type')],
                         'label' => 'Back',
                         'permissions' => ['product-create'],
                     ]" />
@@ -53,7 +53,7 @@
                         </div>
                         <div class="col-12 form-group float-end">
                             <div class="form-group float-end">
-                                <a href="{{ route('pm.product.entry_complete', $product_id) }}"
+                                <a href="{{ route('pm.product.entry_complete', ['product' => $product_id, 'product_type' => request('product_type')]) }}"
                                     class="btn btn-secondary">{{ __('Finish') }}</a>
                             </div>
                         </div>
