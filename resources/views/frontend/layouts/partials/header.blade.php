@@ -48,8 +48,9 @@
                 <span class="hidden tablet:flex">
                     <x-frontend.language />
                 </span>
-                {{-- <a href="#" class="hover:text-text-secondary transition-all duration-300 ease-linear"><i
-                        data-lucide="heart"></i></a> --}}
+                
+                <x-frontend.search />
+
                 <a href="javaScript:void(0)"
                     class="hover:text-text-secondary transition-all duration-300 ease-linear openCartSidebar"><i
                         data-lucide="shopping-basket"></i></a><sup id="cart-count"

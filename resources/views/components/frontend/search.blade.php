@@ -1,24 +1,105 @@
-<div class="relative search-container">
-    <button class="text-2xl toggle-search-btn " type="button">
-        <i data-lucide="search"
-            class="relative top-1 text-text-primary dark:text-text-white hover:text-text-accent dark:hover:text-text-accent transition-all duration-300 ease-linear"></i>
+<div class="search-container relative z-50">
+    <button class="hover:text-text-secondary transition-all duration-300 ease-linear" type="button"
+        aria-label="Open search" title="Search products">
+        <i data-lucide="search" class="w-5 h-5"></i>
     </button>
-    <form action="{{ route('frontend.home') }}"
-        class="searchForm absolute top-1/2 right-[110%] transform -translate-y-1/2 transition-all duration-300 ease-in-out scale-95 opacity-0 pointer-events-none max-w-[500px] min-w-64 lg:min-w-96 z-50">
-        <div class="join w-full">
-            <div class="w-full">
-                <label class="input input-search">
-                    <svg class="h-[1em] opacity-50 stroke-current" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24">
-                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.3-4.3"></path>
-                        </g>
-                    </svg>
-                    <input type="search" required placeholder="Search" />
-                </label>
+
+    <dialog class="modal" id="search-modal">
+        <div class="modal-box bg-base-100 border border-base-300 shadow-2xl max-w-4xl max-h-[90vh] p-0 overflow-hidden">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-6 top-6 z-10">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </form>
+
+            <div class="bg-base-200 p-6 border-b border-base-300">
+                <h3 class="text-2xl font-bold mb-2">{{ __('Search Products') }}</h3>
+                <p class="text-base-content/70 text-sm">
+                    {{ __('Find products and categories instantly') }}
+                </p>
             </div>
-            <button class="btn-search join-item" type="submit">{{ __('Search') }}</button>
+
+            <div class="p-6">
+                <form id="search-form" class="mb-6">
+                    <div class="join w-full">
+                        <div class="input join-item w-2/3">
+                            <i data-lucide="search" class="w-5 h-5"></i>
+
+                            <input type="search" name="q" placeholder="Search for products..."
+                                class="search-input" autocomplete="off" aria-label="Search products" />
+                        </div>
+
+                        <select name="category" class="select category-select join-item w-1/3">
+                            <option value="all" selected>All Categories</option>
+                            @foreach (App\Models\Category::with('childrens')->where('parent_id', null)->get() as $category)
+                                <option value="{{ $category->slug }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </form>
+
+                <div class="overflow-y-auto max-h-[50vh] custom-scrollbar search-suggestions">
+
+                    <div class="text-center py-12">
+
+                        <div class="mb-6 mx-auto w-16 h-16 text-base-content/30">
+                            <i data-lucide="search" class="w-full h-full"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">
+                            {{ __('Start Your Search') }}
+                        </h3>
+                        <p class="text-base-content/70">
+                            {{ __('Type in the search box above to find products') }}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </form>
+
+        <form method="dialog" class="modal-backdrop">
+            <button>{{ __('close') }}</button>
+        </form>
+    </dialog>
 </div>
+
+<style>
+    /* Custom scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: rgba(var(--base-content-rgb), 0.05);
+        border-radius: 10px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: hsl(var(--p));
+        border-radius: 10px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: hsl(var(--pf));
+    }
+
+    /* Animations */
+    @keyframes shimmer {
+        0% {
+            background-position: -200% 0;
+        }
+
+        100% {
+            background-position: 200% 0;
+        }
+    }
+
+    .loading-skeleton {
+        background: linear-gradient(90deg, rgba(var(--base-content-rgb), 0.1) 25%,
+                rgba(var(--base-content-rgb), 0.2) 50%,
+                rgba(var(--base-content-rgb), 0.1) 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+    }
+</style>
+
+@include('frontend.includes.search-js')

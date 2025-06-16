@@ -186,10 +186,6 @@
     {{-- Side Bar --}}
     <script src="{{ asset('frontend/js/sidebar.js') }}"></script>
 
-    {{-- Toggle search form --}}
-    <script src="{{ asset('frontend/js/toggleSearchForm.js') }}"></script>
-
-
     {{-- Hide or Show Swiper Navigation Buttons Controller --}}
     <script>
         function hideControlsIfNotEnoughSlides(swiperEl, swiperInstance, getSlidesPerView = 1) {
