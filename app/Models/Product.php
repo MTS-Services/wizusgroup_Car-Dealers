@@ -351,6 +351,10 @@ class Product extends BaseModel
     {
         return $query->where('product_type', self::PRODUCT_TYPE_PARTS);
     }
+    public function scopeWithoutParts($query): mixed
+    {
+        return $query->where('product_type', '!=', self::PRODUCT_TYPE_PARTS);
+    }
     public function scopeNormal($query): mixed
     {
         return $query->where('product_type', self::PRODUCT_TYPE_NORMAL);

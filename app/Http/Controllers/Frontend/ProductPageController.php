@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\ProductFilterRequest;
-use App\Models\Brand;
 use App\Models\Category;
-use App\Models\Model;
 use App\Models\Product;
 use App\Services\Admin\ProductManagement\BrandService;
 use App\Services\Admin\ProductManagement\CategoryService;
@@ -56,7 +54,7 @@ class ProductPageController extends Controller
     }
     public function products(Request $request, $category_slug = false): View
     {
-        $query = Product::with(['category', 'company', 'brand', 'model', 'primaryImage', 'subCategory'])->active();
+        $query = Product::with(['category', 'company', 'brand', 'model', 'primaryImage', 'subCategory'])->active()->withoutParts();
 
         if ($category_slug) {
             $query->whereHas('category', function ($query) use ($category_slug) {
