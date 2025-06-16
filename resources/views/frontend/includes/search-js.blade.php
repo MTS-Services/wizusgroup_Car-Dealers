@@ -48,6 +48,17 @@
             resetToDefaultState();
         });
 
+                // Category select change handling
+        $categorySelect.on('change', function() {
+            const query = $searchInput.val().trim();
+            if (query.length > 1 || $(this).val() !== 'all') { // Trigger search if there's a query or category changes
+                showLoadingState();
+                performSearchRequest();
+            } else {
+                resetToDefaultState();
+            }
+        });
+
         // Show loading state
         function showLoadingState() {
             $searchSuggestionsContainer.html(`
