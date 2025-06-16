@@ -17,7 +17,7 @@
                     <p class="btn_item w-100 py-2 m-0" data-bs-target="images">{{ __('Images Gallery') }}</p>
                     <p class="btn_item w-100 py-2 m-0" data-bs-target="informations">{{ __('Informations') }}</p>
                     <div class="ms-5">
-                        <a href="{{ route('pm.product.index') }}" class="btn_item p-2">{{ __('Back') }}</a>
+                        <a href="{{ route('pm.product.index', ['product_type' => $product->product_type]) }}" class="btn_item p-2">{{ __('Back') }}</a>
                     </div>
                 </div>
             </div>
