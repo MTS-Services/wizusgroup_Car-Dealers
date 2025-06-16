@@ -9,7 +9,8 @@
                         {{ __('Create Product') }}
                     </h4>
                     <x-backend.admin.button :datas="[
-                        'routeName' => 'pm.product.index', ['product_type' => App\Models\Product::PRODUCT_TYPE_NORMAL],
+                        'routeName' => 'pm.product.index',
+                        'params' => ['product_type' => $product_type ?? ''],
                         'label' => 'Back',
                         'permissions' => ['product-list'],
                     ]" />

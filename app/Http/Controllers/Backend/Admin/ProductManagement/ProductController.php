@@ -113,7 +113,7 @@ class ProductController extends Controller
             ],
             [
                 'routeName' => 'pm.product.status',
-                'params' => ['product'=>encrypt($model->id), "slug" => "" ], 
+                'params' => [encrypt($model->id)],
                 'label' => $model->status_btn_label,
                 'permissions' => ['product-status']
             ],
@@ -176,7 +176,7 @@ class ProductController extends Controller
                 ->rawColumns(['status', 'is_featured', 'deleted_by', 'deleted_at', 'action'])
                 ->make(true);
         }
-        return view('backend.admin.product_management.product.recycle-bin');
+        return view('backend.admin.product_management.product.recycle-bin', compact('product_type'));
     }
 
     protected function trashedMenuItems($model): array
@@ -441,9 +441,7 @@ class ProductController extends Controller
         }
         $product = $this->productService->getProduct($id);
         $product_type = $product->getProductTypes()[$product->product_type];
-        return redirect()->route('pm.product.index', [
-            'product_type' => $product_type
-        ]);
+        return redirect()->route('pm.product.index');
     }
 
     public function restore(string $id): RedirectResponse
@@ -472,9 +470,6 @@ class ProductController extends Controller
             session()->flash('error', 'Product permanent delete failed!');
             throw $e;
         }
-        $product_type = $this->productService->getProduct($id)['product_type'];
-        return redirect()->route('pm.product.recycale-bin', [
-            'product_type' => $product_type
-        ]);
+        return redirect()->route('pm.product.recycale-bin');
     }
 }
