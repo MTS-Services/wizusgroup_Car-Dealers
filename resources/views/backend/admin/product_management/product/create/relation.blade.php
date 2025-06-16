@@ -10,7 +10,7 @@
                     </h4>
                     <x-backend.admin.button :datas="[
                         'routeName' => $product->updated_by ? 'pm.product.edit' : 'pm.product.create',
-                        'params' => $product->updated_by ? ['product' => encrypt($product->id)] : [],
+                        'params' => $product->updated_by ? ['product' => encrypt($product->id), 'product_type' => request('product_type')] : ['product_type' => request('product_type')],
                         'label' => 'Back',
                         'permissions' => $product->updated_by ? ['product-update'] : ['product-create'],
                     ]" />

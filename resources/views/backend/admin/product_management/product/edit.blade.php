@@ -9,6 +9,7 @@
                     <x-backend.admin.button :datas="[
                         'routeName' => 'pm.product.index',
                         'label' => 'Back',
+                        'params' => ['product_type' => request('product_type')],
                         'permissions' => ['Product-list'],
                     ]" />
                 </div>
