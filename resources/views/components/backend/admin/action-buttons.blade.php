@@ -49,6 +49,7 @@
                     $div_id = 'delete-form-' . $menuItem['params'][0];
                     $pDelete = true;
                 }
+
             @endphp
             @if ($check)
                 <li>

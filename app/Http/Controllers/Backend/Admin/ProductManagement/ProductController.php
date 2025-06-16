@@ -125,7 +125,7 @@ class ProductController extends Controller
             ],
             [
                 'routeName' => 'pm.product.destroy',
-                'params' => [encrypt($model->id)],
+                'params' => [encrypt($model->id), 'product_type' => $product_type],
                 'label' => 'Delete',
                 'delete' => true,
                 'permissions' => ['product-delete']
@@ -190,7 +190,7 @@ class ProductController extends Controller
             ],
             [
                 'routeName' => 'pm.product.permanent-delete',
-                'params' => ['product' => encrypt($model->id), 'product_type' => $product_type],
+                'params' => [encrypt($model->id), 'product_type' => $product_type],
                 'label' => 'Permanent Delete',
                 'p-delete' => true,
                 'permissions' => ['product-permanent-delete']
@@ -422,7 +422,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request,  string $id)
     {
         try {
             $this->productService->delete($id);
@@ -431,7 +431,7 @@ class ProductController extends Controller
             session()->flash('error', 'Product delete failed!');
             throw $e;
         }
-        return redirect()->route('pm.product.index', ['product_type' => 2]);
+        return redirect()->route('pm.product.index', ['product_type' => $request->product_type]);
     }
 
     public function restore(string $id): RedirectResponse
@@ -447,7 +447,7 @@ class ProductController extends Controller
         return redirect()->route('pm.product.recycle-bin', ['product_type' => request('product_type')]);
     }
 
-    public function permanentDelete(string $id): RedirectResponse
+    public function permanentDelete(Request $request, string $id): RedirectResponse
     {
         try {
             $product = $this->productService->getDeletedProduct($id);
@@ -457,6 +457,6 @@ class ProductController extends Controller
             session()->flash('error', 'Product permanent delete failed!');
             throw $e;
         }
-        return redirect()->route('pm.product.recycle-bin', ['product_type' => request('product_type')]);
+        return redirect()->route('pm.product.recycle-bin', ['product_type' => $request->product_type]);
     }
 }
