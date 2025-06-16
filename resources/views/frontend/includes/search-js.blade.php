@@ -1,8 +1,7 @@
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
-    $(document).ready(function() {
+    document.addEventListener('DOMContentLoaded', function() {
         // Elements
-        const searchModal = $('#search-modal')[0]; // Get the DOM element for showModal/close
+        const searchModal = $('#search-modal')[0];
         const $searchToggleBtn = $('.search-container button');
         const $searchInput = $('.search-input');
         const $clearSearchBtn = $('.clear-search-btn');
@@ -22,7 +21,7 @@
             resetToDefaultState();
         });
 
-        // Search input handling (on-change based)
+        // Search input handling
         $searchInput.on('input', function() {
             const query = $(this).val().trim();
 
@@ -47,17 +46,6 @@
             $searchInput.focus();
             $clearSearchBtn.addClass('hidden');
             resetToDefaultState();
-        });
-
-        // Category select change handling
-        $categorySelect.on('change', function() {
-            const query = $searchInput.val().trim();
-            if (query.length > 1 || $(this).val() !== 'all') { // Trigger search if there's a query or category changes
-                showLoadingState();
-                performSearchRequest();
-            } else {
-                resetToDefaultState();
-            }
         });
 
         // Show loading state
@@ -91,13 +79,13 @@
                         Start Your Search
                     </h3>
                     <p class="text-base-content/70">
-                        Type in the search box above to find products, brands, and categories
+                        Type in the search box above to find products
                     </p>
                 </div>
             `);
         }
 
-        // Perform search
+        // Perform search with Axios
         async function performSearchRequest() {
             const query = $searchInput.val().trim();
             const category = $categorySelect.val();
@@ -108,18 +96,13 @@
             }
 
             try {
-                // Using $.ajax for POST request with jQuery
-                const response = await $.ajax({
-                    url: '{{ route('frontend.products.search') }}',
-                    type: 'POST',
-                    data: {
-                        q: query,
-                        category: category,
-                        _token: '{{ csrf_token() }}' // Add CSRF token for Laravel
-                    }
+                // Using Axios for POST request
+                const response = await axios.post('{{ route('frontend.products.search') }}', {
+                    q: query,
+                    category: category,
                 });
 
-                renderSuggestions(response, query);
+                renderSuggestions(response.data, query);
             } catch (error) {
                 console.error('Search error:', error);
                 showErrorState();
@@ -164,17 +147,21 @@
             `;
 
             suggestions.forEach((item) => {
+                // Remove extra spaces from item names
+                const cleanName = item.name.replace(/\s+/g, ' ').trim();
+                
                 resultsHTML += `
                     <a href="${item.url}" class="card card-side bg-base-200 hover:bg-base-300 transition-colors duration-300">
                         <figure class="p-4">
                             <div class="avatar">
                                 <div class="w-16 h-16 rounded-full object-cover">
-                                    <img src="${item.image}" alt="${item.name}" loading="lazy" />
+                                    <img src="${item.image}" alt="${cleanName}" loading="lazy" />
                                 </div>
                             </div>
                         </figure>
                         <div class="card-body">
-                            <h3 class="card-title">${highlightSearchTerm(item.name, query)}</h3>
+                            <h3 class="card-title">${highlightSearchTerm(cleanName, query)}</h3>
+                            <div class="badge badge-outline">${item.category}</div>
                             ${item.price ? `<p class="text-success font-bold">${item.price}</p>` : ''}
                         </div>
                     </a>
@@ -185,11 +172,18 @@
             $searchSuggestionsContainer.html(resultsHTML);
         }
 
-        // Highlight search term
+        // Highlight search term without spaces
         function highlightSearchTerm(text, term) {
-            if (!term || term.length < 1) return text;
-            const regex = new RegExp(`(${term})`, 'gi');
-            return text.replace(regex, '<span class="bg-warning/50">$&</span>'); // Use $& to insert the matched substring
+            if (!term || term.trim().length < 1) return text;      
+            const cleanTerm = term.replace(/\s+/g, ' ').trim(); 
+            const regex = new RegExp(`(${cleanTerm.split(' ').map(word => 
+                escapeRegExp(word)).join('|')})`, 'gi');            
+            return text.replace(regex, '<span class="text-text-tertiary/50">$1</span>');
+        }
+
+        // Escape regex special characters
+        function escapeRegExp(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         }
 
         // Show error state

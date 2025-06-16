@@ -18,7 +18,7 @@ class SearchController extends Controller
         if ($query) {
             $products->where(function ($q) use ($query) {
                 $q->where('name', 'like', '%' . $query . '%')
-                    ->orWhere('description', 'like', '%' . $query . '%');
+                    ->orWhere('slug', 'like', '%' . $query . '%');
             });
         }
 
@@ -48,6 +48,7 @@ class SearchController extends Controller
                     : 'https://placehold.co/600x400?text=No+Image',
                 'price' => $product->price,
                 'category' => $product->category ? $product->category->name : 'Uncategorized',
+                'brand' => $product->brand ? $product->brand->name : 'Uncategorized',
                 'url' => route('frontend.product.details', $product->slug),
             ];
         });

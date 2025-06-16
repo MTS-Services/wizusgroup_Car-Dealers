@@ -1,12 +1,11 @@
 <div class="search-container relative z-50">
-    <button class="hover:text-text-secondary transition-all duration-300 ease-linear"
-        type="button" aria-label="Open search" title="Search products">
+    <button class="hover:text-text-secondary transition-all duration-300 ease-linear" type="button"
+        aria-label="Open search" title="Search products">
         <i data-lucide="search" class="w-5 h-5"></i>
     </button>
 
     <dialog class="modal" id="search-modal">
-        <div
-            class="modal-box bg-base-100 border border-base-300 shadow-2xl max-w-4xl max-h-[90vh] p-0 overflow-hidden">
+        <div class="modal-box bg-base-100 border border-base-300 shadow-2xl max-w-4xl max-h-[90vh] p-0 overflow-hidden">
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-6 top-6 z-10">
                     <i data-lucide="x" class="w-5 h-5"></i>
@@ -22,22 +21,20 @@
 
             <div class="p-6">
                 <form id="search-form" class="mb-6">
-                    <div class="flex flex-col md:flex-row gap-4">
-                        <div class="relative flex-grow input">
+                    <div class="join w-full">
+                        <div class="input join-item w-2/3">
                             <i data-lucide="search" class="w-5 h-5"></i>
 
                             <input type="search" name="q" placeholder="Search for products..."
                                 class="search-input" autocomplete="off" aria-label="Search products" />
                         </div>
 
-                        <div class="relative">
-                            <select name="category" class="select category-select">
-                                <option value="all" selected>All Categories</option>
-                                @foreach (App\Models\Category::with('childrens')->where('parent_id', null)->get() as $category)
-                                    <option value="{{ $category->slug }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        <select name="category" class="select category-select join-item w-1/3">
+                            <option value="all" selected>All Categories</option>
+                            @foreach (App\Models\Category::with('childrens')->where('parent_id', null)->get() as $category)
+                                <option value="{{ $category->slug }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </form>
 
