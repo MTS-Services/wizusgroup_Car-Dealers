@@ -113,7 +113,7 @@ class ProductController extends Controller
             ],
             [
                 'routeName' => 'pm.product.status',
-                'params' => [encrypt($model->id)],
+                'params' => ['product'=>encrypt($model->id), "slug" => "" ], 
                 'label' => $model->status_btn_label,
                 'permissions' => ['product-status']
             ],
@@ -299,8 +299,7 @@ class ProductController extends Controller
             $file = $request->validated('file') && $request->hasFile('file') ? $request->file('file') : null;
             $this->productService->infoCreate($product, $validated, $file);
             session()->flash('success', 'Product information added successfully!');
-            return redirect()->route('pm.product.info', $pid);
-            ;
+            return redirect()->route('pm.product.info', $pid);;
         } catch (\Throwable $e) {
             session()->flash('error', 'Product information added failed!');
             throw $e;
@@ -315,7 +314,10 @@ class ProductController extends Controller
             return response()->download(Storage::disk('public')->path($info->file), basename($info->file));
         } else {
             session()->flash('error', 'File not found!');
-            return redirect()->route('pm.product.index');
+            $product_type = $this->productService->getProduct($id)['product_type'];
+            return redirect()->route('pm.product.index', [
+                'product_type' => $product_type
+            ]);
         }
     }
     public function entryComplete(string $pid): RedirectResponse
@@ -380,7 +382,10 @@ class ProductController extends Controller
             session()->flash('error', 'Product status update failed!');
             throw $e;
         }
-        return redirect()->route('pm.product.index');
+        $product_type = $this->productService->getProduct($id)['product_type'];
+        return redirect()->route('pm.product.index', [
+            'product_type' => $product_type
+        ]);
     }
 
     public function feature($id): RedirectResponse
@@ -392,7 +397,10 @@ class ProductController extends Controller
             session()->flash('error', 'Product feature update failed!');
             throw $e;
         }
-        return redirect()->route('pm.product.index');
+        $product_type = $this->productService->getProduct($id)['product_type'];
+        return redirect()->route('pm.product.index', [
+            'product_type' => $product_type
+        ]);
     }
 
     // public function backorder(string $id): RedirectResponse
@@ -431,7 +439,11 @@ class ProductController extends Controller
             session()->flash('error', 'Product delete failed!');
             throw $e;
         }
-        return redirect()->route('pm.product.index');
+        $product = $this->productService->getProduct($id);
+        $product_type = $product->getProductTypes()[$product->product_type];
+        return redirect()->route('pm.product.index', [
+            'product_type' => $product_type
+        ]);
     }
 
     public function restore(string $id): RedirectResponse
@@ -444,7 +456,10 @@ class ProductController extends Controller
             session()->flash('error', 'Product restore failed!');
             throw $e;
         }
-        return redirect()->route('pm.product.recycle-bin');
+        $product_type = $this->productService->getProduct($id)['product_type'];
+        return redirect()->route('pm.product.recycle-bin', [
+            'product_type' => $product_type
+        ]);
     }
 
     public function permanentDelete(string $id): RedirectResponse
@@ -457,6 +472,9 @@ class ProductController extends Controller
             session()->flash('error', 'Product permanent delete failed!');
             throw $e;
         }
-        return redirect()->route('pm.product.recycle-bin');
+        $product_type = $this->productService->getProduct($id)['product_type'];
+        return redirect()->route('pm.product.recycale-bin', [
+            'product_type' => $product_type
+        ]);
     }
 }

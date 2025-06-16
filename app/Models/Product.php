@@ -375,7 +375,7 @@ class Product extends BaseModel
 
     public function getProductTypeLabelAttribute(): string
     {
-        return self::getProductTypes()[$this->product_type] ?? 'Unknown';
+        return self::getProductTypes()[$this->product_type] ?? 'out of stock';
     }
 
     public function scopeInStock(Builder $query): Builder
