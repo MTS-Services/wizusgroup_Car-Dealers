@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\GroupShippingPageController;
 use App\Http\Controllers\Frontend\PartsAccessoriesPageController;
 use App\Http\Controllers\Frontend\RegionPageController;
+use App\Http\Controllers\Frontend\SearchController;
 
 Route::group(['as' => 'frontend.'], function () {
     // Home Page
@@ -90,9 +91,14 @@ Route::group(['as' => 'frontend.'], function () {
         Route::get('container-order/{orderNumber}', 'containerOrder')->name('container-order')->middleware('auth:web');
         Route::get('order/join-container/{orderNumber}/{containerSlug}', 'joinContainer')->name('order.join-container')->middleware('auth:web');
         Route::get('order/container-request/{orderNumber}', 'containerRequest')->name('order.request-container')->middleware('auth:web');
-
-
     });
 
 
+    // Product Search
+    Route::post('/products/search', [SearchController::class, 'search'])->name('products.search');
+    // Assuming you have a route for showing individual products:
+    Route::get('/products/{product:slug}', function (\App\Models\Product $product) {
+        // return view for product details, e.g.,
+        // return view('frontend.products.show', compact('product'));
+    })->name('products.show'); // This route name is used in your frontend
 });
