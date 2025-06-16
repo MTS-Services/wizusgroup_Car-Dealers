@@ -176,7 +176,7 @@ class ProductController extends Controller
                 ->rawColumns(['status', 'is_featured', 'deleted_by', 'deleted_at', 'action'])
                 ->make(true);
         }
-        return view('backend.admin.product_management.product.recycle-bin');
+        return view('backend.admin.product_management.product.recycle-bin', compact('product_type'));
     }
 
     protected function trashedMenuItems($model, $product_type): array

@@ -351,6 +351,10 @@ class Product extends BaseModel
     {
         return $query->where('product_type', self::PRODUCT_TYPE_PARTS);
     }
+    public function scopeWithoutParts($query): mixed
+    {
+        return $query->whereNot('product_type', self::PRODUCT_TYPE_PARTS);
+    }
     public function scopeNormal($query): mixed
     {
         return $query->where('product_type', self::PRODUCT_TYPE_NORMAL);
@@ -371,7 +375,7 @@ class Product extends BaseModel
 
     public function getProductTypeLabelAttribute(): string
     {
-        return self::getProductTypes()[$this->product_type] ?? 'Unknown';
+        return self::getProductTypes()[$this->product_type] ?? 'out of stock';
     }
 
     public function scopeInStock(Builder $query): Builder
