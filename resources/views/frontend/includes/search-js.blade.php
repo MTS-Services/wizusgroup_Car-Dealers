@@ -28,12 +28,12 @@
             if (query.length > 0) {
                 $clearSearchBtn.removeClass('hidden');
 
-                if (query.length > 1) {
+                // if (query.length > 1) {
                     showLoadingState();
                     performSearchRequest();
-                } else {
-                    resetToDefaultState();
-                }
+                // } else {
+                //     resetToDefaultState();
+                // }
             } else {
                 $clearSearchBtn.addClass('hidden');
                 resetToDefaultState();
@@ -48,10 +48,10 @@
             resetToDefaultState();
         });
 
-                // Category select change handling
+        // Category select change handling
         $categorySelect.on('change', function() {
             const query = $searchInput.val().trim();
-            if (query.length > 1 || $(this).val() !== 'all') { // Trigger search if there's a query or category changes
+            if (query.length >= 1 || $(this).val() !== 'all') { // Trigger search if there's a query or category changes
                 showLoadingState();
                 performSearchRequest();
             } else {
@@ -101,7 +101,14 @@
             const query = $searchInput.val().trim();
             const category = $categorySelect.val();
 
+            // console.log('Query:', query, 'Query Length:', query.length, 'Category:', category);
+
             if (query.length < 1 && category === 'all') {
+                resetToDefaultState();
+                return;
+            }
+
+            if (query.length < 1 && category !== 'all') {
                 resetToDefaultState();
                 return;
             }
@@ -162,7 +169,7 @@
                 const cleanName = item.name.replace(/\s+/g, ' ').trim();
                 
                 resultsHTML += `
-                    <a href="${item.url}" class="card card-side bg-base-200 hover:bg-base-300 transition-colors duration-300">
+                    <a href="${item.url}" class="card card-side bg-base-200 hover:bg-base-300 transition-colors duration-300 flex items-center justify-start">
                         <figure class="p-4">
                             <div class="avatar">
                                 <div class="w-16 h-16 rounded-full object-cover">
@@ -171,9 +178,9 @@
                             </div>
                         </figure>
                         <div class="card-body">
-                            <h3 class="card-title">${highlightSearchTerm(cleanName, query)}</h3>
+                            <h3 class="card-title">${cleanName}</h3>
                             <div class="badge badge-outline">${item.category}</div>
-                            ${item.price ? `<p class="text-success font-bold">${item.price}</p>` : ''}
+                            ${item.price ? `<p class="text-success font-bold">$${item.price}</p>` : ''}
                         </div>
                     </a>
                 `;
@@ -184,13 +191,13 @@
         }
 
         // Highlight search term without spaces
-        function highlightSearchTerm(text, term) {
-            if (!term || term.trim().length < 1) return text;      
-            const cleanTerm = term.replace(/\s+/g, ' ').trim(); 
-            const regex = new RegExp(`(${cleanTerm.split(' ').map(word => 
-                escapeRegExp(word)).join('|')})`, 'gi');            
-            return text.replace(regex, '<span class="text-text-tertiary/50">$1</span>');
-        }
+        // function highlightSearchTerm(text, term) {
+        //     if (!term || term.trim().length < 1) return text;      
+        //     const cleanTerm = term.replace(/\s+/g, ' ').trim(); 
+        //     const regex = new RegExp(`(${cleanTerm.split(' ').map(word => 
+        //         escapeRegExp(word)).join('|')})`, 'gi');            
+        //     return text.replace(regex, '<span class="text-text-tertiary/50">$1</span>');
+        // }
 
         // Escape regex special characters
         function escapeRegExp(string) {
