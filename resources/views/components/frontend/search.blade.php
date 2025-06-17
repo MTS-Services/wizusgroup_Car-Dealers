@@ -1,11 +1,11 @@
 <div class="search-container relative z-50">
-    <button class="hover:text-text-secondary transition-all duration-300 ease-linear" type="button"
+    <button class="hover:text-text-secondary transition-all duration-300 ease-linear mt-1.5" type="button"
         aria-label="Open search" title="Search products">
-        <i data-lucide="search" class="w-5 h-5"></i>
+        <i data-lucide="search" class="w-6 h-6"></i>
     </button>
 
     <dialog class="modal" id="search-modal">
-        <div class="modal-box bg-base-100 border border-base-300 shadow-2xl max-w-4xl max-h-[90vh] p-0 overflow-hidden">
+        <div class="modal-box bg-base-100 border border-base-300 shadow-2xl max-w-4xl min-h-[90vh] max-h-[90vh] p-0 overflow-hidden">
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-6 top-6 z-10">
                     <i data-lucide="x" class="w-5 h-5"></i>
