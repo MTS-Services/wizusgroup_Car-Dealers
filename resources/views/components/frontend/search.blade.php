@@ -5,7 +5,7 @@
     </button>
 
     <dialog class="modal" id="search-modal">
-        <div class="modal-box bg-base-100 border border-base-300 shadow-2xl max-w-4xl min-h-[90vh] max-h-[90vh] p-0 overflow-hidden">
+        <div class="modal-box bg-base-100 border border-base-300 shadow-2xl max-w-4xl min-h-[74vh] max-h-[74vh] p-0 overflow-hidden">
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-6 top-6 z-10">
                     <i data-lucide="x" class="w-5 h-5"></i>
