@@ -2,145 +2,131 @@
 @section('title', 'About')
 @section('content')
 
-    {{--  Hero Section --}}
-    <section class="relative h-[300px] xl:h-[500px] flex items-center">
+    <!-- Hero Section -->
+    <section class="relative h-[200px] xl:h-[300px] flex items-center">
         <div class="absolute inset-0 z-0">
             <img src="{{ asset('frontend/images/about/industrial-container-cargo-freight-ship-habor-logistic-import-export.jpg') }}"
                 alt="Industrial machinery" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-bg-black bg-opacity-40"></div>
         </div>
         <div class="container mx-auto px-6 z-10 relative">
-            <h1 class="text-text-white text-4xl md:text-5xl xl:text-6xl font-bold leading-tight max-w-2xl">
-                {{ __("Connecting Africa to Japan & China's Best Machines") }}
-            </h1>
+            <div class="animate-fade-in-up">
+                <h1
+                    class="text-text-white text-4xl md:text-5xl xl:text-6xl font-bold leading-tight max-w-2xl tracking-tight">
+                    {{ __('About Wiz Global') }}
+                </h1>
+            </div>
         </div>
     </section>
 
-    {{--  Our Story Section --}}
-    <section class="py-10 xl:py-15 bg-bg-white dark:bg-bg-dark-secondary">
-        <div class="container mx-auto px-6">
-            <h2 class="text-2xl md:text-3xl xl:text-4xl font-bold mb-8 text-text-dark dark:text-text-white">
-                {{ __('Our Story') }}</h2>
-            <p class="text-sm md:text-base xl:text-lg text-text-gray dark:text-text-light-secondary max-w-4xl">
-                {{ __("Founded to bridge the gap between Africa's growing industrial needs and Asia's leading machinery markets, Wiz afrik has established itself as a trusted partner for African entrepreneurs. Our mission is to make it easier for businesses in Africa to access high-quality, affordable used equipment from Japan and China.") }}
-            </p>
+    <!-- Company Description -->
+    <section class="py-10 xl:py-15 bg-bg-white dark:bg-bg-dark-secondary relative overflow-hidden">
+        <!-- Subtle background pattern -->
+        <div class="absolute inset-0 opacity-5 dark:opacity-10">
+            <div class="absolute inset-0"
+                style="background-image: radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0); background-size: 32px 32px;">
+            </div>
         </div>
-    </section>
 
-    {{--  What We Offer Section --}}
-    <section class="py-10 xl:py-15 bg-bg-gray dark:bg-bg-dark-tertiary">
-        <div class="container mx-auto px-6">
-            <h2 class="text-2xl md:text-3xl xl:text-4xl font-bold mb-6 xl:mb-12 text-text-dark dark:text-text-white">
-                {{ __('What We Offer') }}</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {{--  Service 1 --}}
-                <div class="flex flex-col items-center text-center border-2 dark:border-border-dark p-7 rounded-xl ">
-                    <div class="w-24 h-24 mb-6 text-text-orange">
-                        <img src="{{ asset('frontend/images/about/tractor (1).png') }}" alt="">
-                    </div>
-                    <h3 class="text-lg xl:text-xl font-semibold mb-2">
-                        {{ __('Access to Japanese and Chinese Used Machines') }}</h3>
-                    <p class="text-muted-text">
-                        {{ __('We provide you with direct access to a wide selection of high-quality, pre-owned machines from trusted suppliers in Japan and China.') }}
-                    </p>
-                </div>
-
-                {{--  Service 2 --}}
-                <div class="flex flex-col items-center text-center border-2 dark:border-border-dark p-7 rounded-xl">
-                    <div class="relative w-24 h-24 mb-6 text-text-orange dark:shadow-lg">
-                        <!-- Overlay -->
-                        {{-- <div class="absolute inset-0 bg-white/30 dark:bg-white/30 rounded"></div> --}}
-                        <!-- Image -->
-                        <img src="{{ asset('frontend/images/about/storage.png') }}" alt=""
-                            class="w-full h-full object-cover rounded">
-                    </div>
-
-                    <h3 class="text-lg xl:text-xl font-semibold mb-2">{{ __('Storage Services') }}</h3>
-                    <p class="text-muted-text">
-                        {{ __('Need time before shipping or consolidating purchases? We offer secure, short- and long-term storage options in Japan and China.') }}
-                    </p>
-                </div>
-
-                {{--  Service 3 --}}
-                <div class="flex flex-col items-center text-center border-2 dark:border-border-dark p-7 rounded-xl">
-                    <div class="w-24 h-24 mb-6 text-text-orange">
-                        <img src="{{ asset('frontend/images/about/groupshipping.png') }}" alt="">
-                    </div>
-                    <h3 class="text-lg xl:text-xl font-semibold mb-2">{{ __('Group Shipping Containers') }}</h3>
-                    <p class="text-muted-text">
-                        {{ __('Cut costs and save space with our container consolidation service. We combine multiple machines into one shipment for better value.') }}
-                    </p>
-                </div>
-
-                {{--  Service 4 --}}
-                <div class="flex flex-col items-center text-center border-2 dark:border-border-dark p-7 rounded-xl">
-                    <div class="w-24 h-24 mb-6 text-text-orange">
-                        <img src="{{ asset('frontend/images/about/search.png') }}" alt="">
-                    </div>
-                    <h3 class="text-lg xl:text-xl font-semibold mb-2">{{ __('Inspection of Machines Before Shipping') }}
-                    </h3>
-                    <p class="text-muted-text">
-                        {{ __("We conduct detailed inspections of every machine before it's shipped, giving you peace of mind and reducing post-delivery surprises.") }}
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="space-y-8">
+                    <div class="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
+                    <p
+                        class="text-sm md:text-base xl:text-lg text-text-gray dark:text-text-light-secondary leading-relaxed">
+                        {!! __(
+                            "WizGlobalMachineries is a Japan-based export company connecting the world with Japan's best machinery and vehicles. <br><br> We specialize in used cars, agricultural and construction machinery, motorcycles, spare parts, and accessories. Every product is inspected before export and shipped with full documentation.",
+                        ) !!}
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    {{--  Our Advantages Section --}}
-    <section class="py-10 xl:py-15 bg-white dark:bg-bg-dark-secondary">
-        <div class="container mx-auto px-6">
-            <h2 class="text-2xl md:text-3xl xl:text-4xl font-bold mb-6 xl:mb-12 text-text-dark dark:text-text-white">
-                {{ __('Our Advantages') }}</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <ul class="space-y-4">
-                    <li class="flex items-center">
-                        <span class="bg-bg-orange mr-2 h-2 w-2 rounded-full"></span>
-                        <span
-                            class="text-sm md:text-base xl:text-lg">{{ __('Real videos of machines before shipment') }}</span>
-                    </li>
-                    <li class="flex items-center">
-                        <span class="bg-bg-orange mr-2 h-2 w-2 rounded-full"></span>
-                        <span class="text-sm md:text-base xl:text-lg">{{ __('Safe payment methods') }}</span>
-                    </li>
-                </ul>
-
-                <ul class="space-y-4">
-                    <li class="flex items-center">
-                        <span class="bg-bg-orange mr-2 h-2 w-2 rounded-full"></span>
-                        <span class="text-sm md:text-base xl:text-lg">{{ __('Safe payment methods') }}</span>
-                    </li>
-                    <li class="flex items-center">
-                        <span class="bg-bg-orange mr-2 h-2 w-2 rounded-full"></span>
-                        <span
-                            class="text-sm md:text-base xl:text-lg">{{ __('Trust and transparency in all transactions') }}</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    {{--  Our Locations Section --}}
+    <!-- Mission & Vision -->
     <section class="py-10 xl:py-15 bg-bg-gray dark:bg-bg-dark-tertiary">
         <div class="container mx-auto px-6">
+            <div class="max-w-6xl mx-auto">
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Mission -->
+                <div class="mb-16 xl:mb-20">
+                    <div class="group hover:transform hover:scale-[1.02] transition-all duration-300">
+                        <div
+                            class="bg-bg-white dark:bg-bg-dark-secondary rounded-2xl p-8 xl:p-12 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 dark:border-gray-800">
+                            <div class="flex flex-col lg:flex-row lg:items-center lg:space-x-12">
+                                <div class="lg:w-1/3 mb-6 lg:mb-0">
+                                    <div class="flex items-center space-x-4 mb-4">
+                                        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                                            <div class="w-6 h-6 bg-primary rounded-full"></div>
+                                        </div>
+                                        <div class="w-20 h-1 bg-primary rounded-full"></div>
+                                    </div>
+                                    <h2
+                                        class="text-2xl md:text-3xl xl:text-4xl font-bold text-text-dark dark:text-text-white">
+                                        {{ __('Our Mission') }}
+                                    </h2>
+                                </div>
+                                <div class="lg:w-2/3">
+                                    <p
+                                        class="text-sm md:text-base xl:text-lg text-text-gray dark:text-text-light-secondary leading-relaxed">
+                                        {{ __('To provide accessible and affordable machinery and automotive solutions to individuals, businesses, and communities in developing and emerging regions.') }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vision -->
                 <div>
-                    <h2
-                        class="text-2xl md:text-3xl xl:text-4xl font-bold mb-6 xl:mb-12 text-text-dark dark:text-text-white">
-                        {{ __('Our Locations') }}</h2>
-                    <p class="text-sm md:text-base xl:text-lg text-text-gray dark:text-text-light-secondary mb-6">
-                        {{ __('With offices and warehouses strategically located in Japan and China, Wiz afrik ensures efficient sourcing and logistics operations for all our clients across Africa.') }}
-                    </p>
+                    <div class="group hover:transform hover:scale-[1.02] transition-all duration-300">
+                        <div
+                            class="bg-bg-white dark:bg-bg-dark-secondary rounded-2xl p-8 xl:p-12 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 dark:border-gray-800">
+                            <div class="flex flex-col lg:flex-row lg:items-center lg:space-x-12">
+                                <div class="lg:w-1/3 mb-6 lg:mb-0">
+                                    <div class="flex items-center space-x-4 mb-4">
+                                        <div
+                                            class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center">
+                                            <div class="w-6 h-6 bg-secondary rounded-full"></div>
+                                        </div>
+                                        <div class="w-20 h-1 bg-secondary rounded-full"></div>
+                                    </div>
+                                    <h2
+                                        class="text-2xl md:text-3xl xl:text-4xl font-bold text-text-dark dark:text-text-white">
+                                        {{ __('Our Vision') }}
+                                    </h2>
+                                </div>
+                                <div class="lg:w-2/3">
+                                    <p
+                                        class="text-sm md:text-base xl:text-lg text-text-gray dark:text-text-light-secondary leading-relaxed">
+                                        {{ __('To be the most trusted source for machinery and vehicle exports from Japan to the world, especially Africa.') }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img src="{{ asset('frontend/images/about/location.jpg') }}" alt="Our warehouse location"
-                        class="w-full h-auto">
-                </div>
             </div>
         </div>
     </section>
+
+    <style>
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fade-in-up 0.6s ease-out;
+        }
+    </style>
+
 @endsection

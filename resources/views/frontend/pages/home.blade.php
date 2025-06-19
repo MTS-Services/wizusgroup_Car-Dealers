@@ -21,7 +21,10 @@
 
                         <div class="absolute bg-transparent inset-0 z-10">
                             <div class="container flex items-center justify-center h-full flex-col gap-5">
-                                <div class="max-w-[700px] text-center">
+                                <div class="max-w-[7
+
+
+                                00px] text-center">
                                     <h1
                                         class="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold pb-3 text-text-white dark:text-text-white">
                                         {{ $banner->title }}
