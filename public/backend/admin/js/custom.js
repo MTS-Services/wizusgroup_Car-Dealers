@@ -2,13 +2,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
 
-    //Select 2
-    $("select.form-control:not(.no-select)").select2(
-        {
-            tags: true,
-            tokenSeparators: [',']
-        }
-    );
+
 
 
     // Slug Generate
@@ -27,5 +21,13 @@ document.addEventListener('DOMContentLoaded', function () {
             $(this).find('i').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
         }
     });
+
+      //Select 2
+    $("select.form-control:not(.no-select)").select2(
+        {
+            tags: true,
+            tokenSeparators: [',']
+        }
+    );
 
 });
