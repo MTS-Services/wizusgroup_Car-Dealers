@@ -71,12 +71,12 @@
                         <div class="flex items-center gap-4 mb-10 text-sm lg:text-base text-center lg:text-left mt-2">
                             <div class="w-1/2">
                                 <a class="btn-primary rounded-md w-full py-2 px-0 hover:bg-bg-tertiary"
-                                    href="https://wa.me/{{ settings('whatsapp') ?? '+8801888888888' }}?text="
-                                    target="_blank">{{ __('WhatsApp Us') }}</a>
+                                    href="https://wa.me/+8{{ settings('whatsapp') ?? '+8801888888888' }}?text="
+                                    target="_blank">+8{{ __('WhatsApp Us') }}</a>
                             </div>
                             <div class="w-1/2">
                                 <a class="btn-primary rounded-md w-full py-2 px-0 hover:bg-bg-tertiary"
-                                    href="tel:{{ settings('phone') ?? '+8801888888888' }}">{{ settings('phone') ?? '+8801888888888' }}</a>
+                                    href="tel:+8{{ settings('phone') ?? '+8801888888888' }}">+8{{ settings('phone') ?? '+8801888888888' }}</a>
                             </div>
                         </div>
                         <p class="pb-2 text-base lg:me-40 text-text-primary dark:text-text-white font-semibold capitalize">

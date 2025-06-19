@@ -48,8 +48,8 @@ class SiteSettingRequest extends FormRequest
 
             // These fields are from contact-information-setting.blade.php but are NOT office_infos
             'email'           => 'sometimes|required|email',
-            'phone'           => 'sometimes|required',
-            'whatsapp'        => 'sometimes|required',
+            'phone'           => 'sometimes|required|numeric',
+            'whatsapp'        => 'sometimes|required|numeric',
             'address'         => 'sometimes|required|string',
             'sort_description' => 'sometimes|required|string',
             'description'     => 'sometimes|required|string',
