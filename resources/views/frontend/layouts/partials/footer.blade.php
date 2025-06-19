@@ -156,8 +156,7 @@
                                         </span>
                                     </div>
                                     <a href="tel:{{ settings('phone') ?? '+8801581088986' }}" target="_blank"
-                                        class="w-auto break-all text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-300 ease-linear">
-                                        {{ settings('phone') ?? '+8801581088986' }}
+                                        class="w-auto break-all text-wrap text-text-primary dark:text-text-light hover:text-text-tertiary dark:hover:text-text-tertiary transition-all duration-300 ease-linear">{{ __('+8') }}{{ settings('phone') ?? '+8801581088986' }}
                                     </a>
                                 </div>
                             </div>

@@ -61,8 +61,8 @@ class SiteSettingRequest extends FormRequest
             // the conditional validation of the entire array block.
             'office_infos.*.country'     => 'nullable|string',
             'office_infos.*.location'    => 'nullable|string',
-            'office_infos.*.phone'       => 'nullable',
-            'office_infos.*.whatsapp'    => 'nullable',
+            'office_infos.*.whatsapp'    => 'nullable|numeric',
+            'office_infos.*.phone'       => 'nullable|numeric',
             'office_infos.*.email'       => 'nullable|email',
         ];
     }

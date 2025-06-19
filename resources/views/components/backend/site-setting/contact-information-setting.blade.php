@@ -25,7 +25,7 @@
                                 <label>{{ __('Phone') }}</label>
                                 <input type="text" name="phone"
                                     class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
-                                    placeholder="{{ __('Phone') }}"
+                                    placeholder="{{ __('+8') }}"
                                     value="{{ $contact_info_settings['phone'] ?? old('phone') }}">
                                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'phone']" />
                             </div>
@@ -35,7 +35,7 @@
                                 <label>{{ __('Whatsapp Number') }}</label>
                                 <input type="text" name="whatsapp"
                                     class="form-control{{ $errors->has('whatsapp') ? ' is-invalid' : '' }}"
-                                    placeholder="{{ __('whatsapp') }}"
+                                    placeholder="{{ __('+8') }}"
                                     value="{{ $contact_info_settings['whatsapp'] ?? old('whatsapp') }}">
                                 <x-feed-back-alert :datas="['errors' => $errors, 'field' => 'whatsapp']" />
                             </div>
@@ -114,7 +114,7 @@
                                                                     <label for="phone_0"
                                                                         class="form-label">{{ __('Phone') }} </label>
                                                                     <input type="text" name="office_infos[0][phone]"
-                                                                        id="phone_0" placeholder="Enter phone"
+                                                                        id="phone_0" placeholder="+8"
                                                                         class="form-control"
                                                                         value="{{ $office_info['phone'] ?? '' }}">
                                                                     {{-- IMPORTANT CHANGE HERE --}}
@@ -131,7 +131,7 @@
                                                                     </label>
                                                                     <input type="text"
                                                                         name="office_infos[0][whatsapp]" id="whatsapp_0"
-                                                                        placeholder="Enter whatsapp"
+                                                                        placeholder="+8"
                                                                         class="form-control"
                                                                         value="{{ $office_info['whatsapp'] ?? '' }}">
                                                                     {{-- IMPORTANT CHANGE HERE --}}

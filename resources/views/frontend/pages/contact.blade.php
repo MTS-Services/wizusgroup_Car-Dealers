@@ -72,7 +72,7 @@
                             <div class="w-1/2">
                                 <a class="btn-primary rounded-md w-full py-2 px-0 hover:bg-bg-tertiary"
                                     href="https://wa.me/+8{{ settings('whatsapp') ?? '+8801888888888' }}?text="
-                                    target="_blank">+8{{ __('WhatsApp Us') }}</a>
+                                    target="_blank">{{ __('WhatsApp Us') }}</a>
                             </div>
                             <div class="w-1/2">
                                 <a class="btn-primary rounded-md w-full py-2 px-0 hover:bg-bg-tertiary"
@@ -115,7 +115,7 @@
                                         <p class="mb-2">
                                             <strong><i class="inline" data-lucide="phone"></i></strong>
                                             <a class="text-text-primary dark:text-text-white"
-                                                href="#">{{ $office_info['phone'] }}</a>
+                                                href="#">{{ __('+8') }}{{ $office_info['phone'] }}</a>
                                         </p>
                                     @endif
                                 </div>
