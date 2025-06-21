@@ -7,9 +7,9 @@
             <img src="{{ storage_url($product->primaryImage->first()?->image) }}"
                 alt="{{ $product->primaryImage->first()?->alt ?? $product->name }}"
                 class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-            <p class="absolute top-4 left-4 px-2 py-1 rounded-md text-xs lg:text-sm font-semibold text-text-danger dark:text-text-white bg-white/60 dark:bg-bg-dark-tertiary/70 backdrop-blur-sm shadow-sm">
+            <p class="absolute top-4 left-4 px-2 py-1 rounded-md text-xs lg:text-sm font-semibold text-black dark:text-text-white bg-white/60 dark:bg-bg-dark-tertiary/70 backdrop-blur-sm shadow-sm">
     {{ __('Stock:') }}
-    <span class="font-normal text-text-wiz_orange">{{ $product->quantity }}</span>
+    <span class="font-normal text-text-black">{{ $product->quantity }}</span>
 </p>
 
 
