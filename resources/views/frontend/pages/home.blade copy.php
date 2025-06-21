@@ -9,233 +9,83 @@
 @endpush
 
 @section('content')
-    
+    {{-- ===================== banner Section Start ===================== --}}
+    <section class=" max-h-[50vh] lg:max-h-[70vh] md:max-h-[60vh] h-[calc(100vh-80px)] xs:h-[calc(100vh-60px)] relative">
+        <div class="swiper banner h-full">
+            <div class="swiper-wrapper h-full">
+                @foreach ($banners as $banner)
+                    <div
+                        class="swiper-slide h-full relative after:content-[''] after:w-full after:h-full after:absolute after:top-0 after:left-0 after:bg-bg-dark/35">
+                        <img class="w-full h-full object-cover bg-center" src="{{ storage_url($banner->image) }}"
+                            alt="{{ $banner->name }}">
+
+                        <div class="absolute bg-transparent inset-0 z-10">
+                            <div class="container flex items-center justify-center h-full flex-col gap-5">
+                                <div class="max-w-[7
+
+
+                                00px] text-center">
+                                    <h1
+                                        class="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold pb-3 text-text-white dark:text-text-white">
+                                        {{ $banner->title }}
+                                    </h1>
+                                    <p
+                                        class="text-base xs:text-sm sm:text-lg md:text-xl text-text-light-secondary dark:text-text-white">
+                                        {{ $banner->subtitle }}
+                                    </p>
+                                </div>
+                                @if (isset($not_used))
+                                    {{-- <form action="" class="w-full">
+                                        <div class="join w-full justify-center">
+                                            <input type="search" class="input input-search" placeholder="Search here..." />
+                                            <button class="btn-search">Search</button>
+                                        </div>
+                                    </form> --}}
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    {{-- ===================== banner Section End ===================== --}}
     {{-- ===================== Category Section Start ===================== --}}
 
-    <section class="bg-bg-light-secondary  dark:bg-bg-dark-secondary py-10">
-        <div class="w-full">
-            <!-- Categories Section -->
-            <div class="">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
-                        <!-- Category Cards -->
-                        <!-- Row 1 -->
+    <section class="2xl:pb-10 2xl:pt-6 xl:pb-16 xl:pt-4 lg:pb-12 lg:pt-4 md:pb-10  pb-8 pt-4 dark:bg-bg-dark-tertiary">
+        <div class="container">
+            <div class="relative">
+                <div class="swiper categories static">
+                    <div class="swiper-wrapper pt-4 sm:pt-5">
+                        @foreach ($categories as $category)
+                            <div class="swiper-slide px-2">
+                                <a href="{{ route('frontend.products', $category->slug) }}">
+                                    <div class="text-center ">
+                                        <img class="w-full h-36 rounded-xl object-cover mx-auto"
+                                            src="{{ $category->modified_image }}" alt="{{ $category?->name }}">
+                                        <p class="py-2">{{ __($category?->name) }} </p>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <!-- Controls (Hidden on small screens) -->
+                    <div class="hidden md:block">
+                        <div class="swiper-pagination z-10 !-bottom-6 lg:!-bottom-5"></div>
+
                         <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rnonended-lg shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="relative flex items-center gap-3">
-                                <div class="text-text-tertiary font-bold text-lg mb-1 group-hover:text-white">ALL</div>
-                                <!-- Divider -->
-                                <div
-                                    class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                                </div>
-                                <div class="text-gray-500 text-sm group-hover:text-white">ALL(1406)</div>
-                            </div>
+                            class="swiper-button swiper-button-prev absolute top-1/2 transform -translate-y-1/2 -left-4 sm:-left-6 2xl:-left-9">
+                            <i data-lucide="chevron-left" class="w-5 h-5 dark:text-text-white"></i>
                         </div>
-
                         <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <!-- Icon -->
-                            <div class="text-text-tertiary text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-truck"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <!-- Text -->
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">TRUCKS(77)</div>
-                            </div>
-                        </div>
-
-                        <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-tractor"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">FARM MACHINERY(0)</div>
-                            </div>
-                        </div>
-
-                        <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-boxes"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">FORKLIFT(264)</div>
-                            </div>
-                        </div>
-
-                        <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-hammer"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">Salvage Cars Tender</div>
-                            </div>
-                        </div>
-
-                        <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-calculator"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">Delivery Fee Calculation</div>
-                            </div>
-                        </div>
-
-                        <!-- Row 2 -->
-                        <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-car"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">PASSENGER CARS(1018)</div>
-                            </div>
-                        </div>
-
-                        <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-bus"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">BUS(6)</div>
-                            </div>
-                        </div>
-
-                        <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-
-                            <!-- Icon Wrapper -->
-                            <div class="flex items-center">
-                                <div class="text-text-tertiary text-2xl group-hover:text-white transition-colors">
-                                    <i class="fas fa-tools"></i>
-                                </div>
-                            </div>
-
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-4 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-
-                            <!-- Text Wrapper -->
-                            <div class="flex flex-col justify-center">
-                                <div class="font-medium text-sm group-hover:text-white">HEAVY MACHINERY(47)</div>
-                            </div>
-                        </div>
-
-
-                        <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-clipboard-list"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">Other(62)</div>
-                            </div>
-                        </div>
-
-                        <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-recycle"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">Second-hand Items</div>
-                            </div>
-                        </div>
-
-                        <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-cogs"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">AUTO PARTS</div>
-                            </div>
+                            class="swiper-button swiper-button-next absolute top-1/2 transform -translate-y-1/2 -right-4 sm:-right-6 2xl:-right-9">
+                            <i data-lucide="chevron-right" class="w-5 h-5 dark:text-text-white"></i>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 
     {{-- ===================== Category Section End ===================== --}}
