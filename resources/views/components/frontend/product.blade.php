@@ -2,11 +2,14 @@
     data-product="1">
 
     <a href="{{ route('frontend.product.details', $product->slug) }}">
-        <div class="h-60 w-full overflow-hidden">
+        <div class="h-60 w-full overflow-hidden relative">
             {{-- transition: transform 0.7s ease; --}}
             <img src="{{ storage_url($product->primaryImage->first()?->image) }}"
                 alt="{{ $product->primaryImage->first()?->alt ?? $product->name }}"
                 class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
+            <p class="text-xs lg:text-sm  text-text-danger bg-bg-light backdrop-blur-sm dark:bg-bg-dark-tertiary p-1 font-semibold dark:text-text-white absolute top-4 left-4">
+                {{ __('Stock: ') }}<span class="font-normal text-text-wiz_orange">{{ $product->quantity }}</span></p>
+
         </div>
         <div class="p-4 bg-bg-light dark:bg-bg-dark-tertiary flex flex-col flex-1 justify-between">
             <h3
@@ -18,9 +21,9 @@
                     <p class="text-base lg:text-lg xl:text-xl font-bold text-text-danger">
                         ${{ number_format($product->price, 2) }}</p>
                     {{-- quantity --}}
-                    <p class="text-sm lg:text-base xl:text-lg text-text-danger font-semibold dark:text-text-white">
+                    {{-- <p class="text-sm lg:text-base xl:text-lg text-text-danger font-semibold dark:text-text-white">
                         {{ __('Stock: ') }}<span
-                            class="font-normal text-text-wiz_orange">{{ $product->quantity }}</span></p>
+                            class="font-normal text-text-wiz_orange">{{ $product->quantity }}</span></p> --}}
                 </div>
                 <p class="text-text-primary dark:text-text-white mt-2">{{ $product->brand?->name }}</p>
                 <div class="flex items-center text-text-primary dark:text-text-white mt-2 text-sm">

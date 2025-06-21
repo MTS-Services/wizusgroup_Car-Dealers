@@ -1,7 +1,7 @@
 <section>
     <!-- Header -->
     <header
-        class="bg-bg-light dark:bg-bg-dark-secondary px-4 py-4 sm:py-6 border-b border-gray-200 dark:border-bg-dark-secondary">
+        class="bg-bg-light dark:bg-bg-dark-secondary px-4 py-4 sm:py-6 border-b border-gray-200 dark:border-bg-dark-secondary ">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row flex-wrap items-center justify-between gap-3 sm:gap-4">
 
             <!-- Left Side (Logo + Info) -->
