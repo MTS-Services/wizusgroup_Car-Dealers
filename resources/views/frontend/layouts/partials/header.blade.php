@@ -13,13 +13,19 @@
                  class="w-24 sm:w-28 h-auto">
           </a>
           <!-- Mobile menu toggle (visible on xs and lg+) -->
-          <button id="mobile-menu-toggle" class="lg:hidden text-gray-700 dark:text-white focus:outline-none text-2xl">
-            ☰
-          </button>
+          <div class="flex items-center gap-3 lg:hidden">
+            <!-- Mobile search icon (visible only on mobile) -->
+            <button id="mobile-search-toggle" class="text-gray-700 dark:text-white focus:outline-none text-xl">
+              <i class="fas fa-search"></i>
+            </button>
+            <button id="mobile-menu-toggle" class="text-gray-700 dark:text-white focus:outline-none text-2xl">
+              ☰
+            </button>
+          </div>
         </div>
 
-        <!-- Info: Time & Search -->
-        <div class="flex flex-col gap-2 w-full lg:w-auto">
+        <!-- Info: Time & Search - Hidden on mobile -->
+        <div class="hidden md:flex flex-col gap-2 w-full lg:w-auto">
           <!-- Japan Time -->
           <div class="flex items-center text-gray-700 dark:text-white text-sm tablet:text-base">
             <i class="fas fa-clock mr-2 text-gray-500 dark:text-gray-300"></i>
@@ -38,7 +44,7 @@
       </div>
 
       <!-- Right Side (Buttons + Lang/Theme) -->
-      <div class="flex flex-col xs:flex-row items-center gap-2 w-full xs:w-auto justify-end">
+      <div class="hidden md:flex flex-col xs:flex-row items-center gap-2 w-full xs:w-auto justify-end">
         <div class="flex flex-row gap-2 w-full xs:w-auto">
           <a href="{{ route('register') }}" class="bg-bg-wiz_orange w-full xs:w-44 text-center text-white py-2 text-xs sm:text-sm font-medium hover:bg-bg-wiz_orange/80 transition-colors rounded">
             Member Registration
@@ -48,9 +54,6 @@
           </a>
         </div>
         <div class="flex flex-row items-center gap-2 w-full xs:w-auto justify-between xs:justify-end">
-          <span class="xs:hidden flex items-center text-gray-700 dark:text-white text-sm">
-            <i class="fas fa-globe mr-2"></i> Language
-          </span>
           <span class="hidden sm:flex">
             <x-frontend.language />
           </span>
@@ -59,10 +62,28 @@
           </div>
         </div>
       </div>
+
+      <!-- Mobile Login Button (visible only on mobile) -->
+      <div class="md:hidden w-full flex justify-end">
+        <a href="{{ route('login') }}" class="bg-bg-black text-center w-full xs:w-40 text-white px-4 sm:px-6 py-2 text-xs sm:text-sm hover:bg-bg-dark-tertiary/90 transition-colors rounded">
+          Login
+        </a>
+      </div>
+    </div>
+
+    <!-- Mobile Search Bar (hidden by default) -->
+    <div id="mobile-search-bar" class="hidden md:hidden mt-3">
+      <div class="flex w-full">
+        <input type="text" placeholder="Search Keyword"
+          class="px-3 py-2 w-full text-sm bg-white dark:bg-bg-dark border border-gray-300 dark:border-gray-600 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+        <button class="bg-bg-primary text-white px-3 py-2 rounded-r hover:bg-bg-primary/80 transition-colors">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- Navigation Bar - Visible on medium and small screens -->
+  <!-- Navigation Bar - Visible on medium and large screens -->
   <nav class="hidden lg:block bg-bg-primary dark:bg-bg-dark-tertiary text-white shadow-md">
     <div class="max-w-7xl mx-auto px-4">
       <div class="flex tablet:justify-between items-center ">
@@ -91,8 +112,8 @@
     </div>
   </nav>
 
-  <!-- Mobile Menu Items - Visible when toggled on small and large screens -->
-  <div id="mobile-menu" class="hidden bg-bg-primary dark:bg-bg-dark-tertiary text-white px-4">
+  <!-- Mobile Menu Items - Visible when toggled on small screens -->
+  <div id="mobile-menu" class="hidden lg:hidden bg-bg-primary dark:bg-bg-dark-tertiary text-white px-4">
     <a href="{{ url('/') }}" class="block py-3 border-b border-white/10 text-sm">Home ▼</a>
     <a href="{{ route('frontend.about') }}" class="block py-3 border-b border-white/10 text-sm">About Us ▼</a>
     <a href="{{ route('frontend.group_shipping') }}" class="block py-3 border-b border-white/10 text-sm">Group Shipping ▼</a>
@@ -103,15 +124,27 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Mobile menu toggle
       const toggleBtn = document.getElementById('mobile-menu-toggle');
       const mobileMenu = document.getElementById('mobile-menu');
 
       if (toggleBtn && mobileMenu) {
         toggleBtn.addEventListener('click', () => {
           mobileMenu.classList.toggle('hidden');
-          // Toggle aria-expanded attribute for accessibility
           const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
           toggleBtn.setAttribute('aria-expanded', !isExpanded);
+        });
+      }
+
+      // Mobile search toggle
+      const searchToggle = document.getElementById('mobile-search-toggle');
+      const searchBar = document.getElementById('mobile-search-bar');
+
+      if (searchToggle && searchBar) {
+        searchToggle.addEventListener('click', () => {
+          searchBar.classList.toggle('hidden');
+          const isExpanded = searchToggle.getAttribute('aria-expanded') === 'true';
+          searchToggle.setAttribute('aria-expanded', !isExpanded);
         });
       }
     });

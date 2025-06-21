@@ -12,232 +12,227 @@
     
     {{-- ===================== Category Section Start ===================== --}}
 
-    <section class="bg-bg-light-secondary  dark:bg-bg-dark-secondary py-10">
-        <div class="w-full">
-            <!-- Categories Section -->
-            <div class="">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
-                        <!-- Category Cards -->
-                        <!-- Row 1 -->
+   <section class="bg-bg-light-secondary dark:bg-bg-dark-secondary py-6 sm:py-10">
+    <div class="w-full">
+        <!-- Categories Section -->
+        <div class="">
+            <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+                    <!-- Category Cards -->
+                    <!-- Row 1 -->
+                    <div
+                        class="group relative bg-bg-light-secondary dark:bg-bg-dark p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
                         <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rnonended-lg shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="relative flex items-center gap-3">
-                                <div class="text-text-tertiary font-bold text-lg mb-1 group-hover:text-white">ALL</div>
-                                <!-- Divider -->
-                                <div
-                                    class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                                </div>
-                                <div class="text-gray-500 text-sm group-hover:text-white">ALL(1406)</div>
-                            </div>
+                            class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
                         </div>
-
-                        <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <!-- Icon -->
-                            <div class="text-text-tertiary text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-truck"></i>
-                            </div>
+                        <div class="relative flex items-center gap-2 sm:gap-3">
+                            <div class="text-text-tertiary font-bold text-sm sm:text-lg mb-1 group-hover:text-white">ALL</div>
                             <!-- Divider -->
                             <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
+                                class="border-l h-6 sm:h-10 mx-2 sm:mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
                             </div>
-                            <!-- Text -->
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">TRUCKS(77)</div>
+                            <div class="text-gray-500 text-xs sm:text-sm group-hover:text-white">ALL(1406)</div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="group relative bg-bg-light-secondary dark:bg-bg-dark p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
+                        <div
+                            class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
+                        </div>
+                        <!-- Icon -->
+                        <div class="text-text-tertiary text-xl sm:text-2xl group-hover:text-white transition-colors">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <!-- Divider -->
+                        <div
+                            class="border-l h-6 sm:h-10 mx-2 sm:mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
+                        </div>
+                        <!-- Text -->
+                        <div>
+                            <div class="font-medium text-xs sm:text-sm group-hover:text-white">TRUCKS(77)</div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="group relative bg-bg-light-secondary dark:bg-bg-dark p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
+                        <div
+                            class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
+                        </div>
+                        <div class="text-text-tertiary text-xl sm:text-2xl group-hover:text-white transition-colors">
+                            <i class="fas fa-tractor"></i>
+                        </div>
+                        <!-- Divider -->
+                        <div
+                            class="border-l h-6 sm:h-10 mx-2 sm:mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
+                        </div>
+                        <div>
+                            <div class="font-medium text-xs sm:text-sm group-hover:text-white">FARM(0)</div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="group relative bg-bg-light-secondary dark:bg-bg-dark p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
+                        <div
+                            class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
+                        </div>
+                        <div class="text-text-tertiary text-xl sm:text-2xl group-hover:text-white transition-colors">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <!-- Divider -->
+                        <div
+                            class="border-l h-6 sm:h-10 mx-2 sm:mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
+                        </div>
+                        <div>
+                            <div class="font-medium text-xs sm:text-sm group-hover:text-white">FORKLIFT(264)</div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="group relative bg-bg-light-secondary dark:bg-bg-dark p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
+                        <div
+                            class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
+                        </div>
+                        <div class="text-text-tertiary text-xl sm:text-2xl group-hover:text-white transition-colors">
+                            <i class="fas fa-hammer"></i>
+                        </div>
+                        <!-- Divider -->
+                        <div
+                            class="border-l h-6 sm:h-10 mx-2 sm:mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
+                        </div>
+                        <div>
+                            <div class="font-medium text-xs sm:text-sm group-hover:text-white">SALVAGE</div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="group relative bg-bg-light-secondary dark:bg-bg-dark p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
+                        <div
+                            class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
+                        </div>
+                        <div class="text-text-tertiary text-xl sm:text-2xl group-hover:text-white transition-colors">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <!-- Divider -->
+                        <div
+                            class="border-l h-6 sm:h-10 mx-2 sm:mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
+                        </div>
+                        <div>
+                            <div class="font-medium text-xs sm:text-sm group-hover:text-white">DELIVERY FEE</div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div
+                        class="group relative bg-bg-light-secondary dark:bg-bg-dark p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
+                        <div
+                            class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
+                        </div>
+                        <div class="text-text-tertiary text-xl sm:text-2xl group-hover:text-white transition-colors">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <!-- Divider -->
+                        <div
+                            class="border-l h-6 sm:h-10 mx-2 sm:mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
+                        </div>
+                        <div>
+                            <div class="font-medium text-xs sm:text-sm group-hover:text-white">CARS(1018)</div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="group relative bg-bg-light-secondary dark:bg-bg-dark p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
+                        <div
+                            class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
+                        </div>
+                        <div class="text-text-tertiary text-xl sm:text-2xl group-hover:text-white transition-colors">
+                            <i class="fas fa-bus"></i>
+                        </div>
+                        <!-- Divider -->
+                        <div
+                            class="border-l h-6 sm:h-10 mx-2 sm:mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
+                        </div>
+                        <div>
+                            <div class="font-medium text-xs sm:text-sm group-hover:text-white">BUS(6)</div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="group relative bg-bg-light-secondary dark:bg-bg-dark p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
+                        <div
+                            class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
+                        </div>
+                        <!-- Icon Wrapper -->
+                        <div class="flex items-center">
+                            <div class="text-text-tertiary text-xl sm:text-2xl group-hover:text-white transition-colors">
+                                <i class="fas fa-tools"></i>
                             </div>
                         </div>
-
+                        <!-- Divider -->
                         <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-tractor"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">FARM MACHINERY(0)</div>
-                            </div>
+                            class="border-l h-6 sm:h-10 mx-2 sm:mx-4 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
                         </div>
-
-                        <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-boxes"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">FORKLIFT(264)</div>
-                            </div>
+                        <!-- Text Wrapper -->
+                        <div class="flex flex-col justify-center">
+                            <div class="font-medium text-xs sm:text-sm group-hover:text-white">MACHINERY(47)</div>
                         </div>
+                    </div>
 
+                    <div
+                        class="group relative bg-bg-light-secondary dark:bg-bg-dark p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
                         <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-hammer"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">Salvage Cars Tender</div>
-                            </div>
+                            class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
                         </div>
-
-                        <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-calculator"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">Delivery Fee Calculation</div>
-                            </div>
+                        <div class="text-text-tertiary text-xl sm:text-2xl group-hover:text-white transition-colors">
+                            <i class="fas fa-clipboard-list"></i>
                         </div>
-
-                        <!-- Row 2 -->
+                        <!-- Divider -->
                         <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-car"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">PASSENGER CARS(1018)</div>
-                            </div>
+                            class="border-l h-6 sm:h-10 mx-2 sm:mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
                         </div>
-
-                        <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-bus"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">BUS(6)</div>
-                            </div>
+                        <div>
+                            <div class="font-medium text-xs sm:text-sm group-hover:text-white">Other(62)</div>
                         </div>
+                    </div>
 
+                    <div
+                        class="group relative bg-bg-light-secondary dark:bg-bg-dark p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
                         <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-
-                            <!-- Icon Wrapper -->
-                            <div class="flex items-center">
-                                <div class="text-text-tertiary text-2xl group-hover:text-white transition-colors">
-                                    <i class="fas fa-tools"></i>
-                                </div>
-                            </div>
-
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-4 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-
-                            <!-- Text Wrapper -->
-                            <div class="flex flex-col justify-center">
-                                <div class="font-medium text-sm group-hover:text-white">HEAVY MACHINERY(47)</div>
-                            </div>
+                            class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
                         </div>
-
-
-                        <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-clipboard-list"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">Other(62)</div>
-                            </div>
+                        <div class="text-text-tertiary text-xl sm:text-2xl group-hover:text-white transition-colors">
+                            <i class="fas fa-recycle"></i>
                         </div>
-
+                        <!-- Divider -->
                         <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-recycle"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">Second-hand Items</div>
-                            </div>
+                            class="border-l h-6 sm:h-10 mx-2 sm:mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
                         </div>
+                        <div>
+                            <div class="font-medium text-xs sm:text-sm group-hover:text-white">USED ITEMS</div>
+                        </div>
+                    </div>
 
+                    <div
+                        class="group relative bg-bg-light-secondary dark:bg-bg-dark p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
                         <div
-                            class="group relative bg-bg-light-secondary dark:bg-bg-dark p-4 rounded-none shadow-sm hover:shadow-lg hover:bg-bg-primary cursor-pointer flex items-center transition-all duration-300 transform hover:-translate-y-1 border dark:border-border-dark-secondary dark:shadow-lg hover:border-blue-100">
-                            <div
-                                class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
-                            </div>
-                            <div class="text-text-tertiary  text-2xl group-hover:text-white transition-colors">
-                                <i class="fas fa-cogs"></i>
-                            </div>
-                            <!-- Divider -->
-                            <div
-                                class="border-l h-10 mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
-                            </div>
-                            <div>
-                                <div class="font-medium text-sm group-hover:text-white">AUTO PARTS</div>
-                            </div>
+                            class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300">
+                        </div>
+                        <div class="text-text-tertiary text-xl sm:text-2xl group-hover:text-white transition-colors">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <!-- Divider -->
+                        <div
+                            class="border-l h-6 sm:h-10 mx-2 sm:mx-3 border-gray-300 dark:border-border-dark-tertiary group-hover:border-white">
+                        </div>
+                        <div>
+                            <div class="font-medium text-xs sm:text-sm group-hover:text-white">AUTO PARTS</div>
                         </div>
                     </div>
                 </div>
             </div>
-    </section>
-
+        </div>
+    </div>
+</section>
     {{-- ===================== Category Section End ===================== --}}
 
     {{-- ===================== Featured Section Start ===================== --}}
@@ -394,84 +389,7 @@
 @push('js')
     <script type="module">
         import Swiper from '/frontend/js/swiper.min.js';
-        // const bannerEl = document.querySelector('.banner');
-        // const bannerSwiper = new Swiper(bannerEl, {
-        //     slidesPerView: 1,
-        //     loop: true,
-        //     autoplay: {
-        //         delay: 5000,
-        //         disableOnInteraction: true,
-        //     },
-        //     spaceBetween: 20,
-        //     on: {
-        //         init: function() {
-        //             hideControlsIfNotEnoughSlides(bannerEl, this, 1);
-        //         }
-        //     }
-        // });
-
-        // // On hover stop autoplay
-        // bannerEl.addEventListener('mouseenter', () => {
-        //     bannerSwiper.autoplay.stop();
-        // })
-        // bannerEl.addEventListener('mouseleave', () => {
-        //     bannerSwiper.autoplay.start();
-        // })
-
-        // // CATEGORY SWIPER
-        // const categorySwiperEl = document.querySelector('.categories');
-        // const categorySwiper = new Swiper(categorySwiperEl, {
-        //     loop: true,
-        //     slidesPerView: 6,
-        //     spaceBetween: 20,
-        //     autoplay: {
-        //         delay: 3000,
-        //         disableOnInteraction: false,
-        //     },
-        //     pagination: {
-        //         el: '.swiper-pagination',
-        //         clickable: true,
-        //     },
-        //     navigation: {
-        //         nextEl: '.swiper-button-next',
-        //         prevEl: '.swiper-button-prev',
-        //     },
-        //     breakpoints: {
-        //         0: {
-        //             slidesPerView: 2
-        //         },
-        //         450: {
-        //             slidesPerView: 2
-        //         },
-        //         768: {
-        //             slidesPerView: 3
-        //         },
-        //         1024: {
-        //             slidesPerView: 4
-        //         },
-        //         1280: {
-        //             slidesPerView: 5
-        //         },
-        //         1536: {
-        //             slidesPerView: 6
-        //         },
-        //     },
-        //     on: {
-        //         init: function() {
-        //             hideControlsIfNotEnoughSlides(categorySwiperEl, this, () => this.params.slidesPerView);
-        //         }
-        //     }
-
-        // });
-
-        // // On hover stop autoplay
-        // categorySwiperEl.addEventListener('mouseenter', () => {
-        //     categorySwiper.autoplay.stop();
-        // });
-
-        // categorySwiperEl.addEventListener('mouseleave', () => {
-        //     categorySwiper.autoplay.start();
-        // });
+      
         // Testimonial SWIPER
         const testimonialSwiperEl = document.querySelector('.testimonials');
         const testimonialSwiper = new Swiper(testimonialSwiperEl, {
