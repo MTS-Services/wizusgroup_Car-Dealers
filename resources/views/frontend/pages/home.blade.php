@@ -394,84 +394,84 @@
 @push('js')
     <script type="module">
         import Swiper from '/frontend/js/swiper.min.js';
-        const bannerEl = document.querySelector('.banner');
-        const bannerSwiper = new Swiper(bannerEl, {
-            slidesPerView: 1,
-            loop: true,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: true,
-            },
-            spaceBetween: 20,
-            on: {
-                init: function() {
-                    hideControlsIfNotEnoughSlides(bannerEl, this, 1);
-                }
-            }
-        });
+        // const bannerEl = document.querySelector('.banner');
+        // const bannerSwiper = new Swiper(bannerEl, {
+        //     slidesPerView: 1,
+        //     loop: true,
+        //     autoplay: {
+        //         delay: 5000,
+        //         disableOnInteraction: true,
+        //     },
+        //     spaceBetween: 20,
+        //     on: {
+        //         init: function() {
+        //             hideControlsIfNotEnoughSlides(bannerEl, this, 1);
+        //         }
+        //     }
+        // });
 
-        // On hover stop autoplay
-        bannerEl.addEventListener('mouseenter', () => {
-            bannerSwiper.autoplay.stop();
-        })
-        bannerEl.addEventListener('mouseleave', () => {
-            bannerSwiper.autoplay.start();
-        })
+        // // On hover stop autoplay
+        // bannerEl.addEventListener('mouseenter', () => {
+        //     bannerSwiper.autoplay.stop();
+        // })
+        // bannerEl.addEventListener('mouseleave', () => {
+        //     bannerSwiper.autoplay.start();
+        // })
 
-        // CATEGORY SWIPER
-        const categorySwiperEl = document.querySelector('.categories');
-        const categorySwiper = new Swiper(categorySwiperEl, {
-            loop: true,
-            slidesPerView: 6,
-            spaceBetween: 20,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                0: {
-                    slidesPerView: 2
-                },
-                450: {
-                    slidesPerView: 2
-                },
-                768: {
-                    slidesPerView: 3
-                },
-                1024: {
-                    slidesPerView: 4
-                },
-                1280: {
-                    slidesPerView: 5
-                },
-                1536: {
-                    slidesPerView: 6
-                },
-            },
-            on: {
-                init: function() {
-                    hideControlsIfNotEnoughSlides(categorySwiperEl, this, () => this.params.slidesPerView);
-                }
-            }
+        // // CATEGORY SWIPER
+        // const categorySwiperEl = document.querySelector('.categories');
+        // const categorySwiper = new Swiper(categorySwiperEl, {
+        //     loop: true,
+        //     slidesPerView: 6,
+        //     spaceBetween: 20,
+        //     autoplay: {
+        //         delay: 3000,
+        //         disableOnInteraction: false,
+        //     },
+        //     pagination: {
+        //         el: '.swiper-pagination',
+        //         clickable: true,
+        //     },
+        //     navigation: {
+        //         nextEl: '.swiper-button-next',
+        //         prevEl: '.swiper-button-prev',
+        //     },
+        //     breakpoints: {
+        //         0: {
+        //             slidesPerView: 2
+        //         },
+        //         450: {
+        //             slidesPerView: 2
+        //         },
+        //         768: {
+        //             slidesPerView: 3
+        //         },
+        //         1024: {
+        //             slidesPerView: 4
+        //         },
+        //         1280: {
+        //             slidesPerView: 5
+        //         },
+        //         1536: {
+        //             slidesPerView: 6
+        //         },
+        //     },
+        //     on: {
+        //         init: function() {
+        //             hideControlsIfNotEnoughSlides(categorySwiperEl, this, () => this.params.slidesPerView);
+        //         }
+        //     }
 
-        });
+        // });
 
-        // On hover stop autoplay
-        categorySwiperEl.addEventListener('mouseenter', () => {
-            categorySwiper.autoplay.stop();
-        });
+        // // On hover stop autoplay
+        // categorySwiperEl.addEventListener('mouseenter', () => {
+        //     categorySwiper.autoplay.stop();
+        // });
 
-        categorySwiperEl.addEventListener('mouseleave', () => {
-            categorySwiper.autoplay.start();
-        });
+        // categorySwiperEl.addEventListener('mouseleave', () => {
+        //     categorySwiper.autoplay.start();
+        // });
         // Testimonial SWIPER
         const testimonialSwiperEl = document.querySelector('.testimonials');
         const testimonialSwiper = new Swiper(testimonialSwiperEl, {

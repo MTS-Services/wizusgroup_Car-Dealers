@@ -545,14 +545,14 @@
                                         </a>
                                     </li>
                                 @endcan
-                                @can('product-list')
+                                {{-- @can('product-list')
                                     <li class="@if ($page_slug == 'product' && isset($product_type) && $product_type == App\Models\Product::PRODUCT_TYPE_DROPSHIPPING) ) active @endif">
                                         <a
                                             href="{{ route('pm.product.index', ['product_type' => App\Models\Product::PRODUCT_TYPE_DROPSHIPPING]) }}">
                                             <span class="sub-item">{{ __('Dropshipping Product') }}</span>
                                         </a>
                                     </li>
-                                @endcan
+                                @endcan --}}
                                 @can('product-list')
                                     <li class="@if ($page_slug == 'product' && isset($product_type) && $product_type == 'out-of-stock') ) active @endif">
                                         <a href="{{ route('pm.product.index', ['product_type' => 'out-of-stock']) }}">
