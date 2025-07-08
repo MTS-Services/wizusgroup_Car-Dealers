@@ -26,8 +26,7 @@ return new class extends Migration
             $table->string('father_name')->nullable()->index();
             $table->string('mother_name')->nullable()->index();
             $table->string('nationality')->nullable()->index();
-            $table->longText('bio')->nullable()->index();
-
+              $table->text('bio')->nullable();
             $table->string('phone_2')->unique()->nullable();
             $table->string('fax')->nullable()->index();
             $table->tinyInteger('language')->default(PersonalInformation::LANGUAGE_ENGLISH)->index();
