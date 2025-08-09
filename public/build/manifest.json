@@ -1,14 +1,14 @@
 {
-  "_select2-1j4jC1BT.js": {
-    "file": "assets/select2-1j4jC1BT.js",
+  "_select2-BLNuvPku.css": {
+    "file": "assets/select2-BLNuvPku.css",
+    "src": "_select2-BLNuvPku.css"
+  },
+  "_select2-CISgpUSh.js": {
+    "file": "assets/select2-CISgpUSh.js",
     "name": "select2",
     "css": [
-      "assets/select2-DJczedLG.css"
+      "assets/select2-BLNuvPku.css"
     ]
-  },
-  "_select2-DJczedLG.css": {
-    "file": "assets/select2-DJczedLG.css",
-    "src": "_select2-DJczedLG.css"
   },
   "resources/css/app.css": {
     "file": "assets/app-l0sNRNKZ.js",
@@ -17,33 +17,33 @@
     "isEntry": true
   },
   "resources/css/frontend.css": {
-    "file": "assets/frontend-CJi9qUVL.css",
+    "file": "assets/frontend-BrQC8f27.css",
     "src": "resources/css/frontend.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-B8YQZFvG.js",
+    "file": "assets/app-Dqsi6df5.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "imports": [
-      "_select2-1j4jC1BT.js"
+      "_select2-CISgpUSh.js"
     ],
     "css": [
       "assets/app-D5PoROEI.css"
     ]
   },
   "resources/js/frontend/frontend.js": {
-    "file": "assets/frontend-E6SGeqMM.js",
+    "file": "assets/frontend-8SYs5Okr.js",
     "name": "frontend",
     "src": "resources/js/frontend/frontend.js",
     "isEntry": true,
     "imports": [
-      "_select2-1j4jC1BT.js"
+      "_select2-CISgpUSh.js"
     ]
   },
   "resources/sass/app.scss": {
-    "file": "assets/app-B_jciIra.css",
+    "file": "assets/app-BWTeyCKQ.css",
     "src": "resources/sass/app.scss",
     "isEntry": true
   }

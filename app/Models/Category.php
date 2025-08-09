@@ -318,6 +318,8 @@ class Category extends BaseModel
             'id',
             'product_id'
         );
+
+        
     }
     public function companies(): HasManyThrough
     {
