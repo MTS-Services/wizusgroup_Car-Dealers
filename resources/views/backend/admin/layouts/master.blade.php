@@ -40,6 +40,8 @@
     <link rel="stylesheet" href="{{ asset('backend/admin/assets/css/kaiadmin.min.css') }}" />
     {{-- Custom CSS   --}}
     <link rel="stylesheet" href="{{ asset('backend/admin/css/custom.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     @stack('css')
 
     <!-- Scripts -->
@@ -90,6 +92,7 @@
 <script src="{{ asset('backend/admin/assets/js/core/jquery-3.7.1.min.js') }}"></script>
 <!-- Kaiadmin JS -->
 <script src="{{ asset('backend/admin/assets/js/kaiadmin.min.js') }}"></script>
+
 @stack('js_links')
 <script src="{{ asset('backend/admin/js/functions.js') }}"></script>
 <script src="{{ asset('backend/admin/js/custom.js') }}"></script>
