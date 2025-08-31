@@ -1,4 +1,3 @@
-
 @extends('backend.admin.layouts.master', ['page_slug' => 'product'])
 @section('title', 'Set Product Images')
 @section('content')
@@ -56,20 +55,6 @@
 
             file_upload(["#image"],['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg'], existingFiles);
             file_upload(["#images"],['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg'], existingMultiFiles, true);
-
-            // const existingFiles = {
-            //     "#image": "{{ $product?->primaryImage?->first()?->modified_image }}",
-            //     "#images": @json($product->nonPrimayImages->map(fn ($img) => $img->modified_image)->toArray()),
-            // };
-            // console.log(existingFiles);
-
-
-            // const multipleConfig = {
-            //     "#image": false,
-            //     "#images": true
-            // };
-
-            // file_upload(["#image", "#images"], ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg'], existingFiles, multipleConfig);
         });
     </script>
 @endpush
